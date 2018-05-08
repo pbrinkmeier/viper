@@ -1,0 +1,124 @@
+\documentclass[parskip=full,11pt,twoside]{scrartcl}
+\usepackage[utf8]{inputenc}
+
+\title{Viper: VIsual Prolog Execution Runtime}
+\author{Paul Brinkmeier, Luke Brocke, Christian Oder, Aaron Maier, Jannik Koch}
+
+% section numbers in margins:
+\renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
+
+% header & footer
+\usepackage{scrlayer-scrpage}
+\lofoot{\today}
+\refoot{\today}
+\pagestyle{scrheadings}
+
+\usepackage{amsmath} % for $\text{}$
+
+\usepackage[sfdefault,light]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[yyyymmdd]{datetime} % must be after babel
+\renewcommand{\dateseparator}{-} % ISO8601 date format
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\crefname{figure}{Abb}{Abb}
+\usepackage[section]{placeins}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\hypersetup{
+	pdftitle={Pflichtenheft},
+	bookmarks=true,
+}
+\usepackage{csquotes}
+
+\newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+
+\usepackage{pflichtenheft}
+
+\begin{document}
+\maketitle
+
+\section{Einleitung}
+
+Einleitende Worte.
+
+\pagebreak
+\section{Kriterien}
+% Diese Section sollte kurz und knapp "für Manager" sein
+% und auf eine Seite passen.
+
+\subsection{Muss}
+
+\criterium{Interpretation eines Prolog-Programms mit begrenztem Umfang}{crt:interpretation}
+
+Das Programm kann eine Teilmenge der Prologsprache interpretieren.
+
+\subsection{Kann}
+
+\criteriumOptional{Export von Visualisierungsbäumen als Bilddatei}{crt:export}
+
+Das Programm kann einen Visualisierungsbaum als Bilddatei im PNG-Format exportieren.
+
+\subsection{Abgrenzung}
+
+\criteriumNot{Nicht-Kriterium}{crt:aexample}
+
+Die Software hat kein Verständnis für den Cut-Befehl (\enquote{!})
+
+\pagebreak
+%%%%%%%%%%%%%%
+\section{Produkteinsatz}
+
+Das Produkt soll als Prolog-Lerntool zu betreiben sein.
+
+\section{Produktumgebung}
+
+Das Programm soll als graphischer Visualizer auf einem Desktop betrieben werden.
+
+Es stehen mindestens 2 AMD64 Kerne mit insgesamt 2GB shared RAM zur Verfügung.
+
+%%%%%%%%%%%
+\section{Funktionale Anforderungen}
+
+\functionality{Interpreter}{fnc:interpreter}
+\fulfills{crt:interpretation}
+
+Um Prolog zu interpretieren wird ein selbstgeschriebener Interpreter genutzt.
+
+%%%%%%%%%%%
+\section{Nicht-Funktionale Anforderungen}
+
+\nonFunctionality{Modernes Design}{nfc:design}
+
+Das Design soll modern und seriös wirken.
+
+%%%%%%%%%%%
+\section{Tests}
+
+\test{Interpretierung von Hello World}{tst:helloworld}
+\tests{fnc:interpreter}
+
+\teststep{Nutzer \enquote{Max Mustermann} hat ein Standard Hello-World Programm in den Editor eingegeben.}
+{Max klickt auf die Run-Schaltfläche des Hauptfensters.}
+{Das Programm gibt die Ausgabe \enquote{Hello World} zurück.}
+
+%%%%%%%%%%%%%
+\pagebreak
+\appendix
+
+\section{Seitenentwürfe}
+
+\begin{figure}[hb]
+\fbox{\includegraphics[width=\textwidth]{image/example.png}}
+\caption{\label{fig:editor}
+Editor Hauptfenster
+}
+\end{figure}
+
+\section{Glossar}
+
+\textbf{Nutzer}:
+Eine Person, welche den Dienst nutzt.
+
+\end{document}
