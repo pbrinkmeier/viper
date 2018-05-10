@@ -62,21 +62,44 @@ Das Programm kann einen Visualisierungsbaum als Bilddatei im PNG-Format exportie
 
 \subsection{Abgrenzung}
 
-\criteriumNot{Nicht-Kriterium}{crt:aexample}
+\criteriumNot{Voller Sprachsupport}{crt:fullsupport}
 
-Die Software hat kein Verständnis für den Cut-Befehl (\enquote{!})
+Die Software hat kein Verständnis für Prolog-Sprachfeatures außerhalb der vorgestellten Prolog-Teilmenge.
+
+\criteriumNot{Andere Programmiersprachen}{crt:otherlanguages}
+
+Die Entwicklungsumgebung beschränkt sich auf die Prolog-Sprache und bietet keine offiziell Unterstützung für Prolog-Dialekte oder andere Programmiersprachen jeglicher Art.
+
+\criteriumNot{Nutzung in einer Kommandozeile}{crt:cli}
+
+Das Produkt beschränkt sich auf eine graphische Darstellung über GUI-Elemente. Eine Interaktion über die Konsole ist nicht unterstützt.
+
 
 \pagebreak
 %%%%%%%%%%%%%%
 \section{Produkteinsatz}
 
-Das Produkt soll als Prolog-Lerntool zu betreiben sein.
+Das Produkt soll als graphisches Prolog-Lerntool betrieben werden.
+
+Die Zielgruppe des Lerntools sind Studierende und Enthusiasten.
+
+Das Produkt soll sich auf eine Teilmenge der Prolog-Sprache beschränken, diese jedoch voll unterstützen.
+
+Das Produkt soll für die Teilmenge der Sprache eine integrierte Entwicklungsumgebung darstellen.
+
+Neben einer Entwicklungsumgebung für die unterstützte Teilmenge von Prolog stehen Visualisierungs-Features zum Verständnis der Sprachumsetzung zur Verfügung.
 
 \section{Produktumgebung}
 
-Das Programm soll als graphischer Visualizer auf einem Desktop betrieben werden.
+Das Programm soll als graphische Applikation auf einem Desktop-System betrieben werden.
 
-Es stehen mindestens 2 AMD64 Kerne mit insgesamt 2GB shared RAM zur Verfügung.
+Es stehen mindestens 2 AMD64/x86 Kerne mit insgesamt 2GB shared RAM zur Verfügung.
+
+Unterstützte Betriebssysteme sind Windows ab Version 7 und aufwärts, Mac OSX 10.9 aufwärts sowie Ubuntu Linux 16.04.
+
+Eine Maus sowie eine Tastatur sind als Eingabegeräte angeschlossen und funktionsfähig.
+
+Eine Installation des Java Runtime Environments Version 8 aufwärts ist auf dem System vorhanden.
 
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
