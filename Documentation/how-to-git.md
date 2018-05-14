@@ -1,29 +1,30 @@
-A small guide on how to use Git
-===============================
+# A small guide on how to use Git
 
 Although nobody is _forced_ to use these conventions, we agreed on a few basic
 rules on how to use git and some of its features.
 
-Commits
--------
-  - **English** language
+## Commits
 
-  - Use the **imperative** form ("add", "fix", ...)
+- **English** language
 
-  - Title (first **74** characters) are a short description, more text can follow
-    after two line breaks
+- Use the **imperative** form ("add", "fix", ...)
 
-  - First word of title is **capitalized**
+- Title (first **74** characters) are a short description, more text can follow after two line breaks
 
-  - Title does **not** end with a **dot**
+- First word of title is **capitalized**
 
-  Example for a **GOOD** commit message: **Add builtin predicate print()**
+- Prefix your commit message with a short change topic, e.g. "spec:"
 
-  Example for a **GOOD** commit description: *This commit adds the builtin Prolog print() predicate that is used for debugging clauses*
+- Title does **not** end with a **dot**
 
-Branches and merging
---------------------
-  - **NOBODY** merges into master without the other members being present and/or in
-    complete agreement
+Example for a **GOOD** commit message: **spec: Add non-criteria draft**
 
-  - Branches are created on a **per-feature** basis, **not per member**. If multiple people are working on the same feature, they can **further split up the feature branch** and **merge together later**
+Example for a **GOOD** commit description: *This commit adds the builtin Prolog print() predicate that is used for debugging clauses*
+
+## Branches and merging
+
+- When updating your local branch to import changes made in master, use **rebase** to prevent merge commits
+
+- **NOBODY** merges into master without the other members being present and/or in complete agreement. When merging, use the `--no-ff` flag to explicitly force a merge commit.
+
+- Branches are created on a **per-feature** basis, **not per member**. If multiple people are working on the same feature, they can **further split up the feature branch** and **merge together later**
