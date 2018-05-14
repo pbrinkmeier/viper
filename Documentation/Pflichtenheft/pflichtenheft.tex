@@ -107,10 +107,72 @@ Eine Installation des Java Runtime Environments Version 8 aufwärts ist auf dem 
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
 
-\functionality{Interpreter}{fnc:interpreter}
-\fulfills{crt:interpretation}
+\functionality{Importieren einer oder mehrerer Prolog Quellcode Datei(en)}{fnc:open}
+\fulfills{crt:open}
 
-Um Prolog zu interpretieren wird ein selbstgeschriebener Interpreter genutzt.
+Zu Verwendung des Prolog Interpreters muss eine Datei mit Fakten geladen oder im Editor selbst erstellt werden. Werden mehrere Dateien geöffnet, so werden diese automatisch in verschiedenen Tabs organisiert.
+
+\functionality{Automatische Vervollständigung von Eingaben im Editor}{fnc:autocompletion}
+\fulfills{crt:autocompletion}
+
+Das Schreiben von Programmen wird durch die automatische Vervollständigung vereinfacht. Vorgeschlagen werden z.B. bisher definierte Fakten und bekannte Namen.
+
+\functionality{Konfigurieren der Formatierung des Quellcodes.}{fnc:formatter}
+\fulfills{crt:formatter}
+
+In einem Einstellungs-Dialog kann die Formatierung des Quellcodes den Präferenzen des Benutzern angepasst werden. Dazu gehören beispielsweise die Einrückungstiefe von neuen Zeilen oder die Verwendung von Tabs statt Leerzeichen zur Einrückung.
+
+\functionality{Verändern und speichern von Änderungen an einer Prolog Datei.}{fnc:save}
+\fulfills{crt:save}
+
+Die Software kann Änderungen an den geöffneten Dateien zurück auf die Festplatte schreiben, damit die entstehende oder überschriebene Datei in anderen Weisen weiterverwendet werden kann.
+
+\functionality{Interpretieren einer im Editor geöffneten Prolog Datei durch einen eigenen Interpreter}{fnc:interpreter}
+\fulfills{crt:interpreter}
+
+Die aktuell geöffnete Datei kann mittels einem eigenen Interpreter ausgeführt werden. Der Parser erkennt dabei syntaktische Fehler und prangert diese an.
+
+\functionality{Eingabe von Prolog-Abfragen in der Konsole mit entsprechender Antwort des Interpreters}{fnc:ask}
+\fulfills{crt:ask}
+
+Bei erfolgreicher Interpretation einer Datei ohne Fehler stellt die Konsole die Möglichkeit zur Abfrage von beispielsweise Fakten nach Prolog-Syntax bereit.
+
+\functionality{Visualisieren der letzten Prolog-Abfrage mittels eines Graphen}{fnc:slider}
+\fulfills{crt:slider}
+
+Die letzte Abfrage, die durch die Konsole eingegeben wurde, wird in einem seperaten Fenster grafisch aufbereitet, um beim Verständnis von Prolog und speziell der Interpretation von Programmen zu unterstützen.
+
+\functionality{Auswahl des anzuzeigenden Interpretations-Schritts für den Graphen.}{fnc:debugger}
+\fulfills{crt:debugger}
+
+Der gewünschte Interpretations-Schritt kann durch eine Leiste über alle möglichen Schritte ausgewählt werden, wodurch sich der angezeigte Graph aktualisiert.
+
+\functionality{Vergrößern, Verkleinern und Bewegen des visualisierten Graphen durch Bewegungen mit der Maus}{fnc:zoom}
+\fulfills{crt:zoom}
+
+Über die Verwendung des Mausrads lässt sich der angezeigte Ausschnitt des Graphen vergrößern und verkleinern. Durch drücken und halten der linken Maustaste lässt sich der angezeigte Ausschnitt auch bewegen.
+
+\functionality{Exportieren des im Editor geöffneten Prolog Quellcodes als LaTeX Code}{fnc:latexexport}
+\fulfills{crt:latexexport}
+
+Der aktuell geöffnete Prolog Code lässt sich durch ein Dialogfenster als \LaTeX\ Code exportieren.
+
+\functionality{Exportieren der angezeigten Visualisierung in einem beliebigen Schritt als Grafik und LaTeX Code}{fnc:imageexport}
+\fulfills{crt:imageexport}
+
+Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild exportieren, wahlweise zzgl. mit \LaTeX\ Code für die direkte Einbindung.
+
+\functionality{Syntax-Highlighting im Editor mittels verschiedener Farben und Schrifteffekte}{fnc:syntaxhighlighting}
+\fulfills{crt:syntaxhighlighting}
+
+\functionality{Einstellen von Farbe der grafischen Oberfläche}{fnc:themes}
+\fulfills{crt:themes}
+
+\functionality{Setzen von Break-Points für den Debugger}{fnc:breakpoints}
+\fulfills{crt:breakpoints}
+
+\functionality{Debuggen des Prolog Programmes durch Limitierung der interpretierten Fakten.}{fnc:debugger}
+\fulfills{crt:debugger}
 
 %%%%%%%%%%%
 \section{Nicht-Funktionale Anforderungen}
