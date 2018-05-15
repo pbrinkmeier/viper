@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="401.45841"
-     inkscape:cy="414.94692"
+     inkscape:zoom="1.4"
+     inkscape:cx="559.53954"
+     inkscape:cy="121.11876"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -49,10 +49,12 @@
        id="guide3723"
        inkscape:locked="false" />
     <sodipodi:guide
-       position="210.15476,40.443454"
+       position="210,129.64584"
        orientation="1,0"
        id="guide3725"
-       inkscape:locked="false" />
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,0,255)" />
     <sodipodi:guide
        position="58.208335,148.16667"
        orientation="0,1"
@@ -66,14 +68,14 @@
        dotted="true"
        spacingy="0.13229167" />
     <sodipodi:guide
-       position="100.54167,58.208335"
-       orientation="1,0"
-       id="guide4649"
-       inkscape:locked="false" />
-    <sodipodi:guide
        position="-2.6458334,115.09375"
        orientation="0,1"
        id="guide5057"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="10.583333,0"
+       orientation="0,1"
+       id="guide944"
        inkscape:locked="false" />
   </sodipodi:namedview>
   <metadata
@@ -84,7 +86,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -96,12 +98,6 @@
     <g
        id="g4567"
        transform="translate(0,7.9377401)">
-      <path
-         id="rect3733"
-         transform="matrix(0.26458333,0,0,0.26458333,0,149)"
-         d="M 0,-0.63085938 V 29.369141 H 794.28516 V -0.63085938 Z"
-         style="fill:none;stroke:#000000;stroke-width:1.00157475;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         inkscape:connector-curvature="0" />
       <text
          transform="scale(1.1513122,0.86857413)"
          id="text4543"
@@ -127,14 +123,7 @@
              x="10"
              y="39.370056"
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start" /></flowRegion><flowPara
-           id="flowPara4587">File Edit Run Help</flowPara></flowRoot>      <rect
-         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.22949678;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4589"
-         width="210.15475"
-         height="7.9375038"
-         x="0"
-         y="156.77058" />
-      <g
+           id="flowPara4587">File Edit Run Help</flowPara></flowRoot>      <g
          id="g4600">
         <g
            id="g4613"
@@ -184,12 +173,17 @@
            id="path4647"
            inkscape:connector-curvature="0" />
       </g>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.26448587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 0,156.77059 H 210"
+         id="path936"
+         inkscape:connector-curvature="0" />
     </g>
     <rect
-       style="fill:#cbcbcb;fill-opacity:1;stroke:#000000;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#cbcbcb;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect4569"
-       width="210.15475"
-       height="7.9374857"
+       width="210"
+       height="7.9374862"
        x="0"
        y="148.83334" />
     <ellipse
@@ -217,28 +211,6 @@
        cx="194.46875"
        cy="152.80208"
        r="1.3229166" />
-    <rect
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26222503;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4651"
-       width="100.54166"
-       height="124.35417"
-       x="0"
-       y="172.64583" />
-    <rect
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4653"
-       width="109.61309"
-       height="124.35416"
-       x="100.54166"
-       y="172.64583" />
-    <rect
-       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2331509;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4655"
-       width="5.291667"
-       height="116.41668"
-       x="0"
-       y="180.58333"
-       ry="0.015926152" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot4657"
@@ -309,14 +281,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1"
          id="flowPara4725">28</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1"
-         id="flowPara4727">29</flowPara></flowRoot>    <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4729"
-       width="100.54167"
-       height="7.9374962"
-       x="0"
-       y="172.64583" />
-    <g
+         id="flowPara4727">29</flowPara></flowRoot>    <g
        id="g4832">
       <g
          id="g4756">
@@ -431,14 +396,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1"
          id="flowPara5533">    requires(A, C), requires(C, B).</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1"
-         id="flowPara5509" /></flowRoot>    <rect
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect5535"
-       width="109.61309"
-       height="34.395832"
-       x="100.54166"
-       y="262.60416" />
-    <flowRoot
+         id="flowPara5509" /></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot4657-4-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
@@ -462,5 +420,37 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1"
          id="flowPara5734">Req = gbi .</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1"
-         id="flowPara5736" /></flowRoot>  </g>
+         id="flowPara5736" /></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 0,156.77083 H 210.15476"
+       id="path934"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 0,180.58333 210,0"
+       id="path938"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 0,172.64583 210,0"
+       id="path940"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 5.2916669,180.58333 V 297"
+       id="path942"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 100.54167,297 V 180.58333"
+       id="path946"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 100.54167,262.60417 H 210"
+       id="path948"
+       inkscape:connector-curvature="0" />
+  </g>
 </svg>
