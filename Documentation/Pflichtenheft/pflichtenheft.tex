@@ -116,72 +116,76 @@ Außer den oben gennanten werden keinerlei Daten gespeichert.
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
 
-\functionality{Importieren einer oder mehrerer Prolog Quellcode Datei(en)}{fnc:open}
+\functionality{Erstellen eines neuen Editor-Puffers}{fnc:new}
+\fulfills{crt:new}
+
+Die Software stellt einen Editor bereit, in dem ein leerer Puffer angelegt werden kann. Sollte der Puffer zuvor bereits ungesicherten Inhalt besitzen, so wird der Nutzer aufgefordert, diesen zu speichern. Der alte Puffer wird daraufhin verworfen und ein leerer Puffer geladen.
+
+\functionality{Öffnen einer Prolog Quellcode-Datei}{fnc:open}
 \fulfills{crt:open}
 
-Zu Verwendung des Prolog Interpreters muss eine Datei mit Fakten geladen oder im Editor selbst erstellt werden. Werden mehrere Dateien geöffnet, so werden diese automatisch in verschiedenen Tabs organisiert.
+Die Software ist in der Lage, Prolog-Quelltext-Dateien zu öffnen. Der Datei-Inhalt wird dabei in den Puffer des Editors geladen und angezeigt. Analog zur Erstellung eines neuen Puffers wird, falls nötig, zur Speicherung ungesicherter Inhalte aufgefordert und der alte Puffer daraufhin verworfen.
 
-\functionality{Automatische Vervollständigung von Eingaben im Editor}{fnc:autocompletion}
-\fulfills{crt:autocompletion}
+\functionality{Öffnen einer zuletzt verwendeten Prolog Quellcode-Datei}{fnc:recentfiles}
+\fulfills{crt:recentfiles}
 
-Das Schreiben von Programmen wird durch die automatische Vervollständigung vereinfacht. Vorgeschlagen werden z.B. bisher definierte Fakten und bekannte Namen.
+Die Software bietet ein Kontextmenü für den Schnellzugriff auf bis zu fünf der zuletzt verwendeten Dateien an. Diese können über dieses Menü einzeln analog zu F2 in das Editor-Fenster geladen werden. Sollten kürzlich verwendete Dateien verschoben oder gelöscht werden, so werden diese in besagtem Kontext-Menü nicht angezeigt.
 
-\functionality{Konfigurieren der Formatierung des Quellcodes.}{fnc:formatter}
-\fulfills{crt:formatter}
-
-In einem Einstellungs-Dialog kann die Formatierung des Quellcodes den Präferenzen des Benutzern angepasst werden. Dazu gehören beispielsweise die Einrückungstiefe von neuen Zeilen oder die Verwendung von Tabs statt Leerzeichen zur Einrückung.
-
-\functionality{Verändern und Speichern von Änderungen an einer Prolog Datei.}{fnc:save}
+\functionality{Verändern des Editor-Puffers}{fnc:editor}
 \fulfills{crt:save}
 
-Die Software kann Änderungen an den geöffneten Dateien zurück auf die Festplatte schreiben, damit die entstehende oder überschriebene Datei in anderen Weisen weiterverwendet werden kann.
+Der Puffer-Inhalt des Editors kann bearbeitet werden. Dies verändert ausschließlich den Editor-Puffer.
 
-\functionality{Interpretieren einer im Editor geöffneten Prolog Datei durch einen eigenen Interpreter}{fnc:interpreter}
+\functionality{Speichern des Editor-Inhalts}{fnc:save}
+\fulfills{crt:save}
+
+Die Software kann den Inhalt des Editor-Puffers auf die Festplatte schreiben. Wurde der Editor-Puffer bisher noch nicht gespeichert, so kann dieser über einen Auswahldialog in eine neue Datei gespeichert werden. Entspricht der Editor-Inhalt einer bereits existierenden, geöffneten Datei, so wird der Inhalt dieser Datei überschrieben.
+
+\functionality{Parsen einer im Editor geöffneten Prolog Datei}{fnc:parser}
+\fulfills{crt:parser}
+
+Der Inhalt einer geöffneten Datei kann durch einen Parser verarbeitet werden. Dies geschieht über eine Run-Schaltfläche im Editor. Wird der Parser über diese Schaltfläche gestartet, werden die Fenster der Konsole und der Visualisierung geleert. Ungesicherte Editor-Puffer müssen vor der Verarbeitung mit dem Parser gespeichert werden.
+
+\functionality{Fehlerausgabe beim Parsen einer inkorrekten Prolog Datei}{fnc:errorcheck}
+\fulfills{crt:errorcheck}
+
+Der Parser erkennt Fehler innerhalb einer geöffneten Prolog-Datei bei der Verarbeitung. Fehlermeldungen werden über das verfügbare Konsolen-Fenster ausgegeben.
+
+\functionality{Eingabe von Prolog-Abfragen in die Konsole}{fnc:shell}
+\fulfills{crt:shell}
+
+Bei erfolgreicher Verarbeitung einer fehlerfreien Datei durch den Parser erlaubt die angezeigte Konsole die Eingabe von Abfragen. Sollten erneut Änderungen an der geladenen Prolog-Datei stattfinden und gespeichert werden, so wird die Eingabe in die Konsole sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
+
+\functionality{Interpretation von Prolog-Abfragen in der Konsole}{fnc:interpreter}
 \fulfills{crt:interpreter}
 
-Die aktuell geöffnete Datei kann mittels einem eigenen Interpreter ausgeführt werden. Der Parser erkennt dabei syntaktische Fehler und prangert diese an.
+Abfragen, welche in der Konsole eingegeben wurden, werden nach einer Bestätigung mit der Enter-Taste schrittweise interpretiert. Ausgaben des Interpreters werden in der Konsole angezeigt. Nach dem betätigen der Schaltfläche wird ausschließlich der erste Interpretationsschritt durchgeführt. Der Nutzer hat die Möglichkeit, diese Interpretation über eine Schritt-Schaltfläche schrittweise fortzuführen.
 
-\functionality{Eingabe von Prolog-Abfragen in der Konsole mit entsprechender Antwort des Interpreters}{fnc:ask}
-\fulfills{crt:ask}
+% TODO: Visualisierung genauer!
+\functionality{Visualisieren des aktuellen Interpretationsschritts mittels eines Graphen}{fnc:graph}
+\fulfills{crt:graph}
 
-Bei erfolgreicher Interpretation einer Datei ohne Fehler stellt die Konsole die Möglichkeit zur Abfrage von beispielsweise Fakten nach Prolog-Syntax bereit.
+Bei aktiver Interpretation einer Abfrage wird eine Visualisierung für den aktuellen Interpretationsschritt generiert und im Visualisierungs-Fenster angezeigt. Sollte zuvor eine Visualisierung in diesem Fenster angezeigt worden sein, wird diese aus dem Fenster gelöscht.
 
-\functionality{Visualisieren der letzten Prolog-Abfrage mittels eines Graphen}{fnc:slider}
-\fulfills{crt:slider}
-
-Die letzte Abfrage, die durch die Konsole eingegeben wurde, wird in einem seperaten Fenster grafisch aufbereitet, um beim Verständnis von Prolog und speziell der Interpretation von Programmen zu unterstützen.
-
-\functionality{Auswahl des anzuzeigenden Interpretations-Schritts für den Graphen.}{fnc:slider}
-\fulfills{crt:slider}
-
-Der gewünschte Interpretations-Schritt kann durch eine Leiste über alle möglichen Schritte ausgewählt werden, wodurch sich der angezeigte Graph aktualisiert.
-
-\functionality{Debuggen des Prolog Programmes durch Limitierung der interpretierten Fakten.}{fnc:debugger}
-\fulfills{crt:debugger}
-
-\functionality{Vergrößern, Verkleinern und Bewegen des visualisierten Graphen durch Bewegungen mit der Maus}{fnc:zoom}
+\functionality{Vergrößern und Verkleinern des visualisierten Graphen durch Schaltflächen oder das Mausrad}{fnc:zoom}
 \fulfills{crt:zoom}
 
-Über die Verwendung des Mausrads lässt sich der angezeigte Ausschnitt des Graphen vergrößern und verkleinern. Durch drücken und halten der linken Maustaste lässt sich der angezeigte Ausschnitt auch bewegen.
+Über die Verwendung des Mausrads oder der Plus- und Minus-Schaltflächen lässt sich der angezeigte Ausschnitt des Visualisierungs-Graphen vergrößern oder verkleinern.
 
-\functionality{Exportieren des im Editor geöffneten Prolog Quellcodes als LaTeX Code}{fnc:latexexport}
-\fulfills{crt:latexexport}
+\functionality{Navigation des visualisierten Graphen durch Bewegungen mit der Maus}{fnc:zoom}
+\fulfills{crt:zoom}
 
-Der aktuell geöffnete Prolog Code lässt sich durch ein Dialogfenster als \LaTeX\ Code exportieren.
+Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Ausschnitt des Visualisierungs-Graphen bewegen, wodurch der Graph navigiert werden kann.
 
-\functionality{Exportieren der angezeigten Visualisierung in einem beliebigen Schritt als Grafik und LaTeX Code}{fnc:imageexport}
+\functionality{Exportieren der angezeigten Visualisierung in einem beliebigen Schritt als Grafik}{fnc:imageexport}
 \fulfills{crt:imageexport}
 
-Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild exportieren, wahlweise zzgl. mit \LaTeX\ Code für die direkte Einbindung.
+Der aktuell angezeigte Visualisierungs-Graph lässt sich als Bild im PNG- oder SVG-Format exportieren.
 
-\functionality{Syntax-Highlighting im Editor mittels verschiedener Farben und Schrifteffekte}{fnc:syntaxhighlighting}
-\fulfills{crt:syntaxhighlighting}
+\functionality{Formatierung des Quellcodes}{fnc:formatter}
+\fulfills{crt:formatter}
 
-\functionality{Einstellen von Farbe der grafischen Oberfläche}{fnc:themes}
-\fulfills{crt:themes}
-
-\functionality{Setzen von Break-Points für den Debugger}{fnc:breakpoints}
-\fulfills{crt:breakpoints}
+Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche möglich. Die Formatierung ist hierbei vorgegeben und kann nicht verändert werden. Die Formatierung sieht folgendes vor: Jede Regel wird in ihre eigene Zeile gelegt. Hat eine Regel mehrere Teilziele, so wird die Regelzeile nach dem \enquote{:-}-Operator umgebrochen und alle Teilziele werden in eigene Zeilen gelegt, welche mit zwei Leerzeichen eingerückt sind. Bereits gesetzte Leerzeilen werden beibehalten. Fehlende Leerzeichen vor und hinter dem \enquote{:-}-Operator sowie nach Kommata in Parameterlisten werden eingefügt.
 
 \functionality{Wechsel zwischen den Sprachen Deutsch und Englisch als die in der grafischen Oberfläche verwendete Sprache}{fnc:translation}
 \fulfills{crt:translation}
