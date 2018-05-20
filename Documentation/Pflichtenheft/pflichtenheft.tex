@@ -200,15 +200,6 @@ Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild export
 \pagebreak
 \section{Tests}
 
-\test{Formatierung von Quellcode}{tst:formatter}
-\tests{fnc:formatter}
-
-\teststep{Der Nutzer hat einen Quelltext im Editor eingegeben oder aus einer Datei geladen.}
-{Der Nutzer betätigt den Formatieren-Button in der oberen Leiste des Hauptfensters.}
-{Der Quelltext wird automatisch nach fest definierten Regeln formatiert.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Öffnen einer Prolog-Textdatei}{tst:open}
 \tests{fnc:open}
 
@@ -260,6 +251,15 @@ Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild export
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\test{Syntaktische Hervorhebung von Prolog-Stichworten}{tst:syntaxhighlighting}
+\tests{fnc:syntaxhighlighting}
+
+\teststep{Der Nutzer hat ein leeres Editor-Fenster vor sich.}
+{Der Nutzer gibt ein gültiges Prolog Programm im Editor ein.}
+{Der Code wird farblich passend hervorgehoben. Identifier und Variablen werden dabei unterschiedlich zu Zahlen eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \test{Speichern eines im Editor geschrieben Programmes}{tst:save}
 \tests{fnc:save}
 
@@ -273,11 +273,20 @@ Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild export
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\test{Inkorrektes Prolog-Programm}{tst:syntaxcheck}
+\tests{fnc:syntaxcheck}
+
+\teststep{Der Nutzer hat ein inkorrektes Prolog-Programm in den Editor eingetragen.}
+{Der Nutzer betätigt die Parsen-Schaltfläche, um das Programm zu parsen.}
+{Die Ausführung wird abgebrochen und eine verständliche Fehlermeldung wird in der Konsole angezeigt.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \test{Interpretierung vom Familie-Simpson-Beispielprogramm}{tst:simpsons}
 \tests{fnc:interpreter}
 
 \teststep{Das Familie Simpson Beispielprogramm ist im Editorfenster eingegeben oder aus einer Datei geladen worden.}
-{Der Nutzer klickt auf die Parse-Schaltfläche des Hauptfensters.}
+{Der Nutzer klickt auf die Parsen-Schaltfläche des Hauptfensters.}
 {Das Programm wird erfolgreich geparst, es kommt zu keinen Fehlern. Die Konsole erwartet eine Eingabe.}
 
 \teststep{Das Programm wurde geparst und die Konsole erwartet eine Eingabe.}
@@ -289,52 +298,50 @@ Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild export
 \test{Interaktive Nutzung des Interpreters}{tst:ask}
 \tests{fnc:ask}
 
-\teststep{Der Nutzer hat ein fehlerloses Prolog-Programm im Editor eingetragen.}
-{Der Nutzer betätigt den Run-Button des Hauptfensters.}
-{Die Ausgabe des Prolog-Programmes wird im Interpreter-Fenster angezeigt.}
+\teststep{Der Nutzer hat ein fehlerloses Prolog-Programm im Editor eingegeben.}
+{Der Nutzer betätigt den Parsen-Button im Hauptfensters.}
+{In der Konsole wird eine Erfolgsnachricht ausgegeben.}
 
-\teststep{Ein Prolog-Programm wurde im Interpreter ausgeführt. Der Interpreter hat die aktuellen Fakten geladen und eine offene Interpreter-Shell steht bereit.}
-{Der Nutzer gibt eine weitere Anfrage ein und bestätigt die Eingabe.}
-{Der Interpreter gibt die Antwort auf die Anfrage mit Bezug auf die Fakten des bisherigen Prolog-Programmes zurück.}
+\teststep{Die Konsole erwartet eine Abfrage.}
+{Der Nutzer gibt eine Anfrage mit mehreren Antworten ein und bestätigt die Eingabe.}
+{Der Interpreter gibt die erste Antwort auf die Anfrage zurück. Die Abfrage wird mittels eines Graphen visualisiert.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\test{Visualisierung eines Programms}{tst:slider}
-\tests{fnc:slider}
-
-\teststep{Der Nutzer hat ein gültiges Prolog-Programm in den Editor eingetragen.}
-{Der Nutzer betätigt die Visualisierungs-Schaltfläche.}
-{Ein Fenster mit einem interaktiven Visualisierungsbaum öffnet sich.}
-
-\teststep{Der Nutzer hat einen interaktiven Visualisierungsbaum für das Programm geöffnet.}
-{Der Nutzer betätigt die Schließen-Schaltfläche des neuen Fensters.}
-{Das neue Fenster schließt sich. Das Hauptfenster bleibt geöffnet und unverändert.}
-
+\teststep{Die Konsole erwartet die Eingabe \texttt{;} für eine weitere Antwort oder \texttt{.} zum Beenden der Abfrage}
+{Der Nutzer gibt ein Semikolon \texttt{;} ein.}
+{Der Interpreter gibt die zweite Antwort auf die Anfrage zurück. Der bisherige Graph verschwindet, ein neuer Graph visualisiert die Findung der zweiten Antwort}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \test{Bewegung innerhalb eines Visualisierungsbaumes}{tst:zoom}
 \tests{fnc:zoom}
 
-\teststep{Der Nutzer hat ein Programm im Editor eingetragen und das Visualisierungsfenster zu diesem Programm geöffnet.}
-{Der Nutzer bewegt das Mausrad zu sich bzw. nach hinten.}
-{Die Visualisierungsanzeige zoomt heraus.}
+\teststep{Eine Abfrage ist mittels eines Graphen visualisiert.}
+{Der Nutzer bewegt das Mausrad über dem Graphen zu sich bzw. nach hinten.}
+{Aus dem Graphen wird heraus gezoomt, der Graph wird kleiner.}
 
-\teststep{Der Nutzer hat ein Programm im Editor eingetragen und das Visualisierungsfenster zu diesem Programm geöffnet.}
-{Der Nutzer bewegt das Mausrad von sich weg bzw. nach vorne.}
-{Die Visualisierungsanzeige zoomt herein.}
+\teststep{Eine Abfrage ist mittels eines Graphen visualisiert.}
+{Der Nutzer bewegt das Mausrad über dem Graphen von sich weg bzw. nach vorne.}
+{Es wird in den Graphen herein gezoomt, der Graph wird größer.}
 
-\teststep{Der Nutzer hat ein Programm im Editor eingetragen und das Visualisierungsfenster zu diesem Programm geöffnet.}
-{Der Nutzer hält die linke Maustaste gedrückt und bewegt die Maus..}
-{Die Visualisierungsanzeige bewegt sich passend zu der Mausbewegung.}
+\teststep{Eine Abfrage ist mittels eines Graphen visualisiert.}
+{Der Nutzer hält die linke Maustaste gedrückt und bewegt die Maus.}
+{Der Graph bewegt sich passend zu der Mausbewegung.}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\test{Formatierung von Quellcode}{tst:formatter}
+\tests{fnc:formatter}
+
+\teststep{Der Nutzer hat einen Quelltext im Editor eingegeben oder aus einer Datei geladen.}
+{Der Nutzer betätigt den Formatieren-Button in der oberen Leiste des Hauptfensters.}
+{Der Quelltext wird automatisch nach fest definierten Regeln formatiert.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \test{Export als LaTeX für Foliensätze}{tst:latexexport}
 \tests{fnc:latexexport}
 
-\teststep{Ein Programm ist im Editor geöffnet und eine Anfrage als Graph visualisiert.}
+\teststep{Ein Programm ist im Editor geöffnet und ein beliebiger Schritt einer Anfrage als Graph visualisiert.}
 {Der Nutzer wählt über das Datei-Kontextmenü die LaTeX-Exportieren-Funktion aus.}
 {Ein Auswahl-Dialog öffnet sich}
 
@@ -342,27 +349,28 @@ Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild export
 {Der Nutzer wählt eine der beiden Optionen aus. Anschließend betätigt er den Speichern-Knopf.}
 {Ein Datei-Speichern-Dialog öffnet sich.}
 
-\teststep{Ein Datei-Speichern-Dialog mit ist geöffnet.}
+\teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
 {Der Nutzer wählt eine Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt den Speichern-Button.}
-{Die visualisierte Graph wird im ausgewählten Format an den gewählten Ort gespeichert. Die passende \texttt{.svg} bzw. \texttt{.png} Dateieendung wird wenn nötig ergänzt.}
+{Die visualisierte Graph wird im ausgewählten Format an dem gewählten Ort gespeichert. Die passende \texttt{.svg} bzw. \texttt{.png} Dateieendung wird wenn nötig ergänzt.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\test{Syntaktische Hervorhebung von Prolog-Stichworten}{tst:syntaxhighlighting}
-\tests{fnc:syntaxhighlighting}
+\test{KANN: Export als LaTeX (Tikz) für Foliensätze}{tst:latexexporttikz}
+\tests{fnc:latexexport}
 
-\teststep{Der Nutzer hat ein leeres Editor-Fenster vor sich.}
-{Der Nutzer gibt ein gültiges Prolog Programm im Editor ein.}
-{Der Code wird farblich passend hervorgehoben. Identifier und Variablen werden dabei unterschiedlich zu Zahlen eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.}
+\teststep{Ein Programm ist im Editor geöffnet und ein beliebiger Schritt einer Anfrage als Graph visualisiert.}
+{Der Nutzer wählt über das Datei-Kontextmenü die LaTeX-Exportieren-Funktion aus.}
+{Ein Auswahl-Dialog öffnet sich}
+
+\teststep{Ein Dialog mit den Auswahlmöglichkeiten Grafik (\enquote{SVG}, \enquote{PNG}) und Tikz ist geöffnet}
+{Der Nutzer wählt die Tikz Option aus. Anschließend betätigt er den Speichern-Knopf.}
+{Ein Datei-Speichern-Dialog öffnet sich.}
+
+\teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
+{Der Nutzer wählt eine Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt den Speichern-Button.}
+{Der visualisierte Graph wird in Tikz-Syntax als TeX-Datei an dem gewählten Ort gespeichert. Die passende \texttt{.tex} Dateiendung wird wenn nötig ergänzt.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\test{Inkorrektes Prolog-Programm}{tst:syntaxcheck}
-\tests{fnc:syntaxcheck}
-
-\teststep{Der Nutzer hat ein inkorrektes Prolog-Programm in den Editor eingetragen.}
-{Der Nutzer betätigt die Parse-Schaltfläche, um das Programm zu parsen.}
-{Die Ausführung wird abgebrochen und eine verständliche Fehlermeldung wird in der Konsole angezeigt.}
 
 % TODO: Systemtests (komplette Abläufe)
 
