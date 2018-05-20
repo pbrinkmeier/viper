@@ -183,24 +183,26 @@ Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild export
 \functionality{Setzen von Break-Points für den Debugger}{fnc:breakpoints}
 \fulfills{crt:breakpoints}
 
+\functionality{Wechsel zwischen den Sprachen Deutsch und Englisch als die in der grafischen Oberfläche verwendete Sprache}{fnc:translation}
+\fulfills{crt:translation}
+
+\functionality{Dynamisches Skalieren des Hauptfensters mit der Maus}{fnc:resizeable}
+\fulfills{crt:resizeable}
+
 %%%%%%%%%%%
 \section{Nicht-Funktionale Anforderungen}
 
-\nonFunctionality{Die VIPER Software startet auf einem modernen System innerhalb von 3 Sekunden und ist voll einsatzbereit.}{nfc:startup}
+\nonFunctionality{Die VIPER Software startet auf einem modernen System innerhalb von 30 Sekunden und ist voll einsatzbereit.}{nfc:startup}
 
 \nonFunctionality{Ein importiertes oder geschriebnes Prolog Programm ohne Verwendung von Rekursion und im Umfang von maximal 100 Zeilen Code ist innerhalb von maximal 3 Sekunden interpretiert und innerhalb von weiteren 5 Sekunden visualisiert.}{nfc:timelimit}
 
 \nonFunctionality{Das Design wirkt modern und ansprechend.}{nfc:design}
-
-\nonFunctionality{Durch eine englische Übersetzung und die Verwendung von aussagekräftigen Symbolen können auch internationale Studierende ohne ausreichende Deutschkentnisse die Software bedienen.}{nfc:translation}
 
 \nonFunctionality{Die Software lässt sich ohne die manuelle Installation weiterer Software durch das Ausführen einer .jar Datei starten.}{nfc:installation}
 
 \nonFunctionality{Die Software ist ohne Abhängigkeiten kleiner als 50 MiB, mit Abhängigkeiten kleiner als 200 MiB.}{nfc:filesize}
 
 \nonFunctionality{Das Laden einer Prolog Datei mit einer Größe von unter 1 MiB geschieht in unter 5 Sekunden.}{nfc:loadfile}
-
-\nonFunctionality{Das Hauptfenster des Programms lässt sich mit der Maus dynamisch skalieren.}{nfc:resizeable}
 
 \nonFunctionality{Fehlerhafte Prolog-Programme sollen nie zu einem Absturz des Programms führen.}{nfc:crashresistance}
 
