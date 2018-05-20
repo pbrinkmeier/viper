@@ -139,7 +139,7 @@ Der Puffer-Inhalt des Editors kann bearbeitet werden. Dies verändert ausschlie�
 \functionality{Speichern des Editor-Inhalts}{fnc:save}
 \fulfills{crt:save}
 
-Die Software kann den Inhalt des Editor-Puffers auf die Festplatte schreiben. Wurde der Editor-Puffer bisher noch nicht gespeichert, so kann dieser über einen Auswahldialog in eine neue Datei gespeichert werden. Entspricht der Editor-Inhalt einer bereits existierenden, geöffneten Datei, so wird der Inhalt dieser Datei überschrieben.
+Die Software kann den Inhalt des Editor-Puffers auf die Festplatte schreiben. Wurde der Editor-Puffer bisher noch nicht gespeichert, so kann dieser über einen Auswahldialog in eine neue Datei gespeichert werden. Entspricht der Editor-Inhalt einer bereits existierenden, geöffneten Datei, so wird der Inhalt dieser Datei überschrieben. Wurde die Datei seit dem Öffnen anderweitig geändert (bspw. durch einen anderen Text-Editor), verändert dies den Editor-Puffer nicht. Für eine Aktualisierung des Puffer-Inhalts muss die Datei erneut geöffnet werden.
 
 \functionality{Parsen einer im Editor geöffneten Prolog Datei}{fnc:parser}
 \fulfills{crt:parser}
@@ -159,7 +159,7 @@ Bei erfolgreicher Verarbeitung einer fehlerfreien Datei durch den Parser erlaubt
 \functionality{Interpretation von Prolog-Abfragen in der Konsole}{fnc:interpreter}
 \fulfills{crt:interpreter}
 
-Abfragen, welche in der Konsole eingegeben wurden, werden nach einer Bestätigung mit der Enter-Taste schrittweise interpretiert. Ausgaben des Interpreters werden in der Konsole angezeigt. Nach dem betätigen der Schaltfläche wird ausschließlich der erste Interpretationsschritt durchgeführt. Der Nutzer hat die Möglichkeit, diese Interpretation über eine Schritt-Schaltfläche schrittweise fortzuführen.
+Abfragen, welche in der Konsole eingegeben wurden, werden nach einer Bestätigung mit der Enter-Taste schrittweise interpretiert. Ausgaben des Interpreters werden in der Konsole angezeigt. Nach dem Betätigen der Schaltfläche wird ausschließlich der erste Interpretationsschritt durchgeführt. Der Nutzer hat die Möglichkeit, diese Interpretation über eine Schritt-Schaltfläche schrittweise fortzuführen. Fehler bei der Interpretation einer Abfrage werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird abgebrochen.
 
 % TODO: Visualisierung genauer!
 \functionality{Visualisieren des aktuellen Interpretationsschritts mittels eines Graphen}{fnc:graph}
