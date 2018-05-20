@@ -197,67 +197,92 @@ Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild export
 
 \nonFunctionality{Der Prolog Interpreter lässt sich in seiner Funktionalität einfach erweitern, um weitere Sprachfeatures zu unterstützen.}{nfc:extendable}
 
-%%%%%%%%%%%
+\pagebreak
 \section{Tests}
-
-\test{Öffnen und Schließen des Programms}{tst:openandclose}
-\tests{fnc:open}
-
-\teststep{Das Programm befindet sich entpackt auf dem Desktop.}
-{Der Nutzer führt die Programmdatei aus.}
-{Das Programm öffnet sich.}
-
-\teststep{Das Programm wird ausgeführt und ist fokussiert.}
-{Der Nutzer versucht, das Programm über den Schließen-Button zu beenden.}
-{Das Programm beendet sich.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\test{Automatische Vervollständigung einer Eingabe}{tst:autocompletion}
-\tests{fnc:autocompletion}
-
-\teststep{Der Nutzer hat eine unvollstände Eingabe im Editor gemacht.}
-{Der Cursor des Editors befindet sich innerhalb der Eingabe.}
-{Ein Hilfsfenster bietet Optionen zur automatischen Vervollständigung an.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \test{Formatierung von Quellcode}{tst:formatter}
 \tests{fnc:formatter}
 
-\teststep{Der Nutzer hat einen Quelltext im Editor eingegeben.}
+\teststep{Der Nutzer hat einen Quelltext im Editor eingegeben oder aus einer Datei geladen.}
 {Der Nutzer betätigt den Formatieren-Button in der oberen Leiste des Hauptfensters.}
-{Ein Formatierungsdialog öffnet sich.}
-
-\teststep{Der Nutzer hat seine Formatierungs-Präferenzen im Formatierungsdialog eingegeben.}
-{Der Nutzer betätigt den Formatieren-Button des Formatieren-Dialogs.}
-{Der Quelltext wird automatisch im gewählten Stil formatiert.}
+{Der Quelltext wird automatisch nach fest definierten Regeln formatiert.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\test{Öffnen und Speichern einer Prolog-Textdatei}{tst:save}
-\tests{fnc:save}
+\test{Öffnen einer Prolog-Textdatei}{tst:open}
+\tests{fnc:open}
 
-\teststep{Das Programm wird ausgeführt und ist fokussiert.}
+\teststep{Das Programm wird ausgeführt und ist fokussiert. Es ist kein Programm im Editor geöffnet.}
 {Der Nutzer wählt über das Datei-Kontextmenü die Öffnen-Funktion aus.}
 {Ein Datei-Auswahldialog öffnet sich.}
 
 \teststep{Der Nutzer hat eine Datei über das Auswahlfenster ausgewählt.}
 {Der Nutzer betätigt den Öffnen-Button.}
-{Die Datei wird im Editor-Fenster in einem neuen Tab geöffnet.}
-
-\teststep{Der Nutzer hat Änderungen an der Datei durchgeführt.}
-{Der Nutzer betätigt den Speichern-Button.}
-{Die Datei wird mit dem neuen Quelltext überschrieben.}
+{Die Datei wird im Editor-Fenster geöffnet.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\test{Interpretierung von Hello World}{tst:helloworld}
+\test{Öffnen einer Prolog-Textdatei während im Editor bereits ein Programm eingegeben wurde mit Speichern des geschriebenen Programmes}{tst:openanother}
+\tests{fnc:open}
+
+\teststep{Das Programm wird ausgeführt und ist fokussiert. Im Editor wurde ein Programm händisch eingegeben.}
+{Der Nutzer wählt über das Datei-Kontextmenü die Öffnen-Funktion aus.}
+{Ein Datei-Auswahldialog öffnet sich.}
+
+\teststep{Der Nutzer hat eine Datei über das Auswahlfenster ausgewählt.}
+{Der Nutzer betätigt den Öffnen-Button.}
+{Ein Dialogfenster fragt den Nutzer, ob das im Editor eingegebene Programm gespeichert oder verworfen werden soll.}
+
+\teststep{Der Nutzer hat die Wahl das im Editor geschriebene Programm zu speichern oder zu verwerfen.}
+{Der Nutzer betätigt den Speichern-Knopf.}
+{Ein Datei-Speichern-Dialog öffnet sich.}
+
+\teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
+{Der Nutzer wählt einen Speicherort und wählt einen Dateinamen. Anschließend betätigt es den Speichern-Knopf.}
+{Das im Editor geöffnete Programm wird in die gewählte Datei gespeichert. Die zu öffnende Datei wird in den Editor geladen und überschreibt den bisherigen Inhalt.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\test{Öffnen einer Prolog-Textdatei während im Editor bereits ein Programm eingegeben wurde mit Verwurf des geschriebenen Programmes.}{tst:openanother2}
+\tests{fnc:open}
+
+\teststep{Das Programm wird ausgeführt und ist fokussiert. Im Editor wurde ein Programm händisch eingegeben.}
+{Der Nutzer wählt über das Datei-Kontextmenü die Öffnen-Funktion aus.}
+{Ein Datei-Auswahldialog öffnet sich.}
+
+\teststep{Der Nutzer hat eine Datei über das Auswahlfenster ausgewählt.}
+{Der Nutzer betätigt den Öffnen-Button.}
+{Ein Dialogfenster fragt den Nutzer, ob das im Editor eingegebene Programm gespeichert oder verworfen werden soll.}
+
+\teststep{Der Nutzer hat die Wahl das im Editor geschriebene Programm zu speichern oder zu verwerfen.}
+{Der Nutzer betätigt den Verwerfen-Knopf.}
+{Das im Editor geöffnete Programm wird verworfen. Die zu öffnende Datei wird in den Editor geladen und überschreibt den bisherigen Inhalt.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\test{Speichern eines im Editor geschrieben Programmes}{tst:save}
+\tests{fnc:save}
+
+\teststep{Das Programm wird ausgeführt und ist fokussiert. Ein Programm ist im Editor geöffnet.}
+{Der Nutzer wählt über das Datei-Kontextmenü die Speichern-Funktion aus.}
+{Ein Datei-Speichern-Dialog öffnet sich.}
+
+\teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
+{Der Nutzer wählt einen Speicherort und Dateinamen aus. Anschließend bestätigt er den Speichern-Button.}
+{Der Inhalt des Editors wird an den gewählten Ort geschrieben}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\test{Interpretierung vom Familie-Simpson-Beispielprogramm}{tst:simpsons}
 \tests{fnc:interpreter}
 
-\teststep{Ein Standard Hello-World Programm ist in den Editor eingegeben.}
-{Der Nutzer klickt auf die Run-Schaltfläche des Hauptfensters.}
-{Das Programm gibt die Ausgabe \enquote{Hello World} zurück.}
+\teststep{Das Familie Simpson Beispielprogramm ist im Editorfenster eingegeben oder aus einer Datei geladen worden.}
+{Der Nutzer klickt auf die Parse-Schaltfläche des Hauptfensters.}
+{Das Programm wird erfolgreich geparst, es kommt zu keinen Fehlern. Die Konsole erwartet eine Eingabe.}
+
+\teststep{Das Programm wurde geparst und die Konsole erwartet eine Eingabe.}
+{Der Nutzer gibt die Abfrage \texttt{father(X, bart).} in der Konsole ein.}
+{Das Programm wird interpretiert und zeigt das Ergebnis \texttt{X = homer .} an.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -288,15 +313,6 @@ Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild export
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\test{Nutzung von Breakpoints im Debugger}{tst:debugger}
-\tests{fnc:debugger}
-
-\teststep{Der Nutzer hat einen Breakpoint gesetzt.}
-{Der Nutzer betätigt die Debug-Schaltfläche, um das Programm im Debug-Modus auszuführen.}
-{Die Ausführung hält am Breakpoint und bietet einen Interpreter für Eingaben, die bisher etablierte Prolog-Fakten beachten.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Bewegung innerhalb eines Visualisierungsbaumes}{tst:zoom}
 \tests{fnc:zoom}
 
@@ -318,25 +334,17 @@ Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild export
 \test{Export als LaTeX für Foliensätze}{tst:latexexport}
 \tests{fnc:latexexport}
 
-\teststep{Der Nutzer hat ein visualisiertes Programm im Editor eingetragen.}
-{Der Nutzer wählt über das Datei-Kontextmenü die LaTeX-exportieren-Funktion aus.}
-{Ein Export-Dialog öffnet sich.}
+\teststep{Ein Programm ist im Editor geöffnet und eine Anfrage als Graph visualisiert.}
+{Der Nutzer wählt über das Datei-Kontextmenü die LaTeX-Exportieren-Funktion aus.}
+{Ein Auswahl-Dialog öffnet sich}
 
-\teststep{Der Nutzer hat im Export-Dialog den Dateinamen und das Zielverzeichnis ausgewählt. Mindestens eine der Export-Optionen \enquote{Quellcode} oder \enquote{Visualisierung} sind ausgewählt.}
-{Der Nutzer betätigt den Speichern-Button.}
-{Je nach Export-Optionen werden Quellcode und/oder Visualisierung als LaTeX-Datei für Präsentationsfolien exportiert. Die passende \enquote{.tex} Dateieendung wird wenn nötig ergänzt.}
+\teststep{Ein Dialog mit den Auswahlmöglichkeiten \enquote{SVG} und \enquote{PNG} ist geöffnet}
+{Der Nutzer wählt eine der beiden Optionen aus. Anschließend betätigt er den Speichern-Knopf.}
+{Ein Datei-Speichern-Dialog öffnet sich.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\test{Export von Bilddateien}{tst:imageexport}
-\tests{fnc:imageexport}
-
-\teststep{Der Nutzer hat ein visualisiertes Programm im Editor eingetragen.}
-{Der Nutzer wählt über das Datei-Kontextmenü die Bild-exportieren-Funktion aus.}
-{Ein Export-Dialog öffnet sich.}
-
-\teststep{Der Nutzer hat im Export-Dialog das Dateiformat sowie den Dateinamen und das Zielverzeichnis ausgewählt.}
-{Der Nutzer betätigt den Speichern-Button.}
-{Die Visualisierung wird im ausgewählten Dateiformat in dem ausgewählten Zielverzeichnis als Bild abgelegt. Eine passende Dateieendung wird wenn nötig ergänzt.}
+\teststep{Ein Datei-Speichern-Dialog mit ist geöffnet.}
+{Der Nutzer wählt eine Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt den Speichern-Button.}
+{Die visualisierte Graph wird im ausgewählten Format an den gewählten Ort gespeichert. Die passende \texttt{.svg} bzw. \texttt{.png} Dateieendung wird wenn nötig ergänzt.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -344,79 +352,19 @@ Der aktuell angezeigte Graph lässt sich durch ein Dialogfenster als Bild export
 \tests{fnc:syntaxhighlighting}
 
 \teststep{Der Nutzer hat ein leeres Editor-Fenster vor sich.}
-{Der Nutzer gibt ein gültiges Prolog-Keyword im Editor ein.}
-{Das Keyword wird passend farblich und mit Schrifteffekten hervorgehoben.}
+{Der Nutzer gibt ein gültiges Prolog Programm im Editor ein.}
+{Der Code wird farblich passend hervorgehoben. Identifier und Variablen werden dabei unterschiedlich zu Zahlen eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\test{Auswahl eines anderen Themes}{tst:themes}
-\tests{fnc:themes}
-
-\teststep{Der Nutzer hat den Editor im Light-Theme-Modus geöffnet.} 
-{Der Nutzer betätigt die Farbschema-wechseln-Schaltfläche.}
-{Die grafische Oberfläche wechselt zu einem Dark-Theme.}
-
-\teststep{Der Nutzer hat den Editor im Dark-Theme-Modus geöffnet.} 
-{Der Nutzer betätigt die Farbschema-wechseln-Schaltfläche.}
-{Die grafische Oberfläche wechselt zu einem Light-Theme.}
-
-\teststep{Der Nutzer hat das Farbschema der Oberfläche zu seinem bevorzugten Farbschema geändert.} 
-{Der Nutzer startet das Programm neu.}
-{Die grafische Oberfläche erhält dasselbe Farbschema wie vor der letzten Schließung.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\test{Setzen eines Breakpoints}{tst:breakpoints}
-\tests{fnc:breakpoints}
-
-\teststep{Der Nutzer hat ein Prolog-Programm im Editor eingetragen und die Zeile für den gewünschten Breakpoint mit dem Cursor innerhalb des Editors ausgewählt.}
-{Der Nutzer betätigt die Breakpoint-Schaltfläche.}
-{Ein neuer Breakpoint wird gesetzt. Der Nutzer wird visuell im Editor-Fenster durch einen roten Punkt an der linken Seite des Editors darauf hingewiesen.}
-
-\teststep{Der Nutzer hat eine Codezeile im Editor gewählt, auf der ein Breakpoint gesetzt ist.}
-{Der Nutzer betätigt erneut die Breakpoint-Schaltfläche.}
-{Der Breakpoint wird entfernt. Der visuelle Hinweis an der linken Seite des Editors wird ebenfalls entfernt.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% TODO (Jannik): Als Fehlerdialog oder im Interpreter oder beides?
 \test{Inkorrektes Prolog-Programm}{tst:syntaxcheck}
 \tests{fnc:syntaxcheck}
 
 \teststep{Der Nutzer hat ein inkorrektes Prolog-Programm in den Editor eingetragen.}
-{Der Nutzer betätigt die Run-Schaltfläche, um das Programm auszuführen.}
-{Die Ausführung wird abgebrochen und eine verständliche Fehlermeldung wird angezeigt.}
+{Der Nutzer betätigt die Parse-Schaltfläche, um das Programm zu parsen.}
+{Die Ausführung wird abgebrochen und eine verständliche Fehlermeldung wird in der Konsole angezeigt.}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\test{Öffnen von Prolog-Textdateien}{tst:openfiles}
-\tests{fnc:openandsave}
-
-\teststep{Das Programm wird ausgeführt und ist fokussiert.}
-{Der Nutzer wählt über das Datei-Kontextmenü die Öffnen-Funktion aus.}
-{Ein Datei-Auswahldialog öffnet sich.}
-
-\teststep{Der Nutzer hat mindestens eine Datei über das Auswahlfenster ausgewählt.}
-{Der Nutzer betätigt den Öffnen-Button.}
-{Die Datei(en) werden im Editor-Fenster in Tabs geöffnet.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\test{Eine neue Datei erstellen und speichern}{tst:savenewfile}
-\tests{fnc:savenewfile}
-
-\teststep{Das Program wird ausgeführt und ist fokussiert.}
-{Der Nutzer wählt über das Datei-Kontextmenü die Neu-Funktion aus.}
-{Im Editor-Fenster wird eine leere Datei zur Bearbeitung angezeigt.}
-
-\teststep{Der Nutzer hat ein Prolog-Programm im Editor eingetragen.}
-{Der Nutzer wählt über das Datei-Kontextmenü die Speichern-unter-Funktion aus.}
-{Ein Datei-Erstellungsdialog öffnet sich.}
-
-\teststep{Der Nutzer hat die Datei im Erstellungsdialog benannt und das Verzeichnis ausgewählt.}
-{Der Nutzer betätigt den Speichern-Button..}
-{Eine neue Datei mit dem gewählten Dateinamen wird im gewählten Verzeichnis erstellt. Der Inhalt des Editor-Fensters wird in diese Datei geschrieben. Die Dateieindung \enquote{.pl} wird gegebenenfalls ergänzt.}
+% TODO: Systemtests (komplette Abläufe)
 
 %%%%%%%%%%%%%
 \pagebreak
