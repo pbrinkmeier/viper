@@ -26,6 +26,8 @@
 \usepackage[section]{placeins}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{listings}
+\usepackage{courier}
 \hypersetup{
 	pdftitle={Pflichtenheft},
 	bookmarks=true,
@@ -36,12 +38,58 @@
 
 \usepackage{pflichtenheft}
 
+\lstset{language=Prolog}
+\lstset{basicstyle=\ttfamily,breaklines=true}
+
 \begin{document}
 \maketitle
 
 \section{Einleitung}
 
-Einleitende Worte.
+Prolog ist eine logische Programmiersprache die ein deklaratives Programmieren ermöglicht.
+
+Das Grundprinzip von Prolog besteht aus einer Wissensdatenbank, deren Einträge sich Fakten und Regeln nennen.
+
+\begin{lstlisting}
+father(homer, bart).
+father(abe, homer).
+\end{lstlisting}
+
+So gilt, dass Homer der Vater von Bart ist und Abe der Vater von Homer.
+
+Für eine Abfrage erhalten wir also folgende Ergebnisse:
+\begin{lstlisting}
+?- father(homer, bart).
+yes .
+?- father(bart, abe).
+no .
+\end{lstlisting}
+
+Nun ist es möglich, Relationen basierend auf Fakten einzuführen. Setzen wir also Großvater für alle Väter von Vätern indem wir Variablen benutzen.
+\begin{lstlisting}
+grandfather(X, Y) :- father(X, Z), father(Z, Y).
+\end{lstlisting}
+
+Selbiges ist möglich für Abfragen.
+\begin{lstlisting}
+?- father(X, bart).
+X = homer .
+?- father(X, Y).
+X = homer, Y = bart ;
+X = abe, Y = homer .
+?- grandfather(X, Y).
+X = abe, Y = bart .
+\end{lstlisting}
+
+Die Antworten sind alle möglichen Kombinationen aus den Variablen die den Fakten und Relationen entsprechen.
+
+Prolog ist hierbei anders als \enquote{andere} Programmiersprachen, da es sich um eine deklarative Programmiersprache handelt. Die Relationen basieren auf zuvor definierten Fakten.
+
+VIPER, die VIPER Interactive Prolog Education Runtime, ist ein Programm zur Bearbeitung und dem Testen von einfachen Prolog-Programmen. Über die visuelle Schnittstelle ist es dem Nutzer möglich, Prolog zu schreiben, Abfragen zu stellen und diese visualisieren zu lassen.
+
+Dank des automatisch generierten Graphen ist es dem Nutzer hierbei möglich, die Interpretation des Programmes schrittweise anzuzeigen und nachzuvollziehen.
+
+Damit soll dem Nutzer die Funktionsweise von Prolog-Programmen durch die graphische Visualisierung näher gebracht werden und zum verbesserten Verständnis von Prolog beitragen.
 
 \pagebreak
 \section{Kriterien}
