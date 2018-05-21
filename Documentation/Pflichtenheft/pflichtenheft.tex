@@ -52,13 +52,90 @@ Einleitende Worte.
 
 \criterium{Interpretation eines Prolog-Programms mit begrenztem Umfang}{crt:interpretation}
 
+% Verweis auf Glossareintrag
 Das Programm kann eine Teilmenge der Prologsprache interpretieren.
+
+\criterium{Listen}
+
+Das Programm unterstützt die Darstellung von Listen. Die leere Liste wird durch "[]" dargestellt, eine Liste mit Inhalt wird durch "[1,2,3]" dargestellt und intern als Listenkopf und "Restliste" behandelt, das heißt:\newline
+Liste: "[1,2,3]"\newline
+In Prolog: "[1|teilliste1]", teilliste1= "[2|teilliste2]", teilliste2=[3]
+
+\criterium{Visualisierung}
+
+% Verweise auf GUI
+Das Programm kann Abfragen zu einem Prolog-Programm mit Hilfe eines Graphen visualisieren. Dieser hat eine Baumstruktur und beinhaltet für jeden Abarbeitungsschritt einen eigenen Knoten.
+
+\criterium{Einzelschritt-Interpreter}
+
+% Verweis auf GUI und mögliche Anpassung des Buttonnamens
+Das Programm bearbeitet Anfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf Interaktion vom Nutzer (drücken des "Verarbeiten" Buttons) bis es den nächsten Teilschritt bearbeitet.
+
+\criterium{Laden}
+
+Das Programm soll bereits vorhandene Prolog-Programme laden können, damit auf diesen Abfragen durchgeführt und diese visualisiert werden können.
+
+\criterium{Speichern}
+
+Das Programm soll Änderungen am momentan geladenen Prolog-Programm speichern können. Dabei soll geprüft werden ob das Prolog-Programm seit dem Laden schon anderweitig verändert wurde und sollte dies der Fall sein wird eine Warnung ausgegeben.
+
+\criterium{Abbrechen}
+
+% Verweis auf GUI
+Das Abarbeiten eines Teilschritts soll durch einen Knopfdruck abgebrochen werden können, falls dieser z.B. viele Rekusrionen beinhaltet und deswegen eine lange Bearbeitungszeit hat.
 
 \subsection{Kann}
 
+\criteriumOptional{Zurückschreiten}
+
+% Verweis auf GUI
+Das Programm soll es dem Nutzer ermöglichen die letzten 5 Schritte schrittweise zurückzugehen um z.B. Zustandsunterschiede im Graphen besser erklären zu können.
+
+\criteriumOptional{Ausführung bis zur nächsten Ausgabe}
+
+% Verweis auf GUI
+Das Programm soll durch einen extra Knopf bis zur nächsten Ausgabe ausgeführt werden können.
+
+\criteriumOptional{X Ausführungen}
+
+% Verweis auf GUI
+Das Programm soll durch einen extra Knopf X Schritte auf einmal ausführen.
+
+\criteriumOptional{Cut}
+
+Das Programm soll die "Cut"-Funktionalität unterstützen, mit der der Nutzer dem Programm, durch das Hinzufügen eines "!" am Ende einer oder mehrerer Regeln bzw. Ziele, verbieten kann bei der Abarbeitung auf diese Regel(-n)/Ziele zurückzuspringen.
+
+\criteriumOptional{Arithmetik}
+
+Das Programm soll grundlegende Arithmetik unterstützen. Da Terme in Prolog nur für sich selber stehen können Abfragen wie "4 = 1 + 3" nicht bearbeitet werden. Daher wird das Programm um einen Term "is" erweitert welcher solche arithmetischen Abfragen ermöglicht.
+
+\criteriumOptional{Standardbibliothek}
+
+Das Programm soll eine kleine Standardbibliothek mit nützlichen, vordefinierten, Regeln unterstützen die standardmäßig beim Starten des Programms mit eingebunden wird.
+
+\criteriumOptional{Standardbibliothek deaktivieren}
+
+Das Programm soll es dem Nutzer ermöglichen die eingebundene Standardbibliothek deaktivieren zu können.
+
+\criteriumOptional{Export von Visualisierungsbäumen als LaTeX-Code}
+
+Das Programm kann einen Visualisierungsbaum als LaTeX-Code exportieren, damit dieser vereinfacht in Dokumente eingebunden werden kann.
+
 \criteriumOptional{Export von Visualisierungsbäumen als Bilddatei}{crt:export}
 
-Das Programm kann einen Visualisierungsbaum als Bilddatei im PNG-Format exportieren.
+Das Programm kann einen Visualisierungsbaum als Bilddatei im SVG/PNG-Format exportieren.
+
+\criteriumOptional{Syntaxhighlighting}
+
+Das Programm soll das farbliche hervorheben bestimmter Regeln und ihres/ihrer korrepsondieren Knoten in der Visualisierung unterstützen.
+
+\criteriumOptional{"Pretty-Printing" von Listen}
+
+Das Programm soll Listen bei der Ausgabe einheitlich auf "[x,y,z]" formatieren.
+
+\criteriumOptional{Touch-Bedienung}
+
+Das Programm soll Berührungsgesten wie z.B. das Zoomen durch zwei Finger unterstützen.
 
 \subsection{Abgrenzung}
 
