@@ -177,10 +177,41 @@ Bei aktiver Interpretation einer Abfrage wird eine Visualisierung für den aktue
 
 Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Ausschnitt des Visualisierungs-Graphen bewegen, wodurch der Graph navigiert werden kann.
 
+\functionality{Zurückschreiten während der Interpretation}{fnc:stepback}
+\fulfills{crt:stepback}
+
+Eine Rückschritt-Schaltfläche erlaubt bei Betätigung den letzten Schritt rückgängig zu machen. Im Falle des ersten Schrittes hat das Betätigen dieser Schaltfläche keinen Effekt.
+
+\functionality{Ausführung der Interpretation bis zur nächsten Ausgabe}{fnc:continue}
+\fulfills{crt:continue}
+
+Eine Fortsetzen-Schaltfläche erlaubt bei Betätigung, die Ausführung bis zur nächsten Ausgabe fortzuführen.
+
+\functionality{Ausführung einer gegebenen Anzahl Schritte während der Interpretation}{fnc:multistep}
+\fulfills{crt:multistep}
+
+% TODO: Gibt es eine Schrittzahl ab der Weiterlaufen keinen Effekt mehr hat? Was passiert ab da?
+Eine Mehrfachschritt-Schaltfläche öffnet bei Betätigung einen Eingabe-Dialog zur Spezifikation einer Schrittzahl. Nach der Eingabe einer gültigen, ganzen Zahl größer Null wird die spezifizierte Anzahl an Schritten ausgeführt.
+
+\functionality{Abbrechen einer Interpretation}{fnc:cancel}
+\fulfills{crt:cancel}
+
+Im Falle einer Interpretation die mehrere Schritte hintereinander ausführt (Mehrfachschritt oder Fortsetzen bis zur nächsten Ausgabe), kann die laufende Interpretation über eine Abbrechen-Schaltfläche frühzeitig beendet werden.
+
 \functionality{Exportieren der angezeigten Visualisierung in einem beliebigen Schritt als Grafik}{fnc:imageexport}
 \fulfills{crt:imageexport}
 
 Der aktuell angezeigte Visualisierungs-Graph lässt sich als Bild im PNG- oder SVG-Format exportieren.
+
+\functionality{Exportieren der angezeigten Visualisierung in einem beliebigen Schritt als LaTex-Dokument}{fnc:latexexport}
+\fulfills{crt:latexexport}
+
+Der aktuell angezeigte Visualisierungs-Graph lässt sich als LaTex-Dokument exportieren.
+
+\functionality{Deaktivierung der Standardbibliothek}{fnc:disablelib}
+\fulfills{crt:disablelib}
+
+Die automatisch eingebundene Standardbibliothek kann über eine Schaltfläche deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Funktore werden nun nicht mehr berücksichtigt.
 
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
 \fulfills{crt:formatter}
