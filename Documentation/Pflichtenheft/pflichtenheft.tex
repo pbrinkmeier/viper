@@ -50,39 +50,52 @@ Einleitende Worte.
 
 \subsection{Muss}
 
+\criterium{Öffnen}{crt:open}
+
+Das Programm soll bereits vorhandene Prolog-Programme öffnen können, damit auf diesen Abfragen durchgeführt und diese visualisiert werden können.
+
+\criterium{Speichern}{crt:save}
+
+Das Programm soll Änderungen am momentan geladenen Prolog-Programm speichern können. Dabei soll geprüft werden ob das Prolog-Programm seit dem Laden schon anderweitig verändert wurde und sollte dies der Fall sein wird eine Warnung ausgegeben.
+
 \criterium{Interpretation eines Prolog-Programms mit begrenztem Umfang}{crt:interpretation}
 
 % Verweis auf Glossareintrag
-Das Programm kann eine Teilmenge der Prologsprache interpretieren.
+Das Programm kann eine Teilmenge der Prologsprache interpretieren:
 
-\criterium{Listen}{crt:lists}
+Es gibt IDs, Variablen und Zahlen die wie folgt notiert werden:
 
-Das Programm unterstützt die Darstellung von Listen. Die leere Liste wird durch \enquote{[]} dargestellt, eine Liste mit Inhalt wird durch \enquote{[1,2,3]} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\newline
-Liste: \enquote{[1,2,3]}\newline
-In Prolog: \enquote{[1|teilliste1]}, teilliste1= \enquote{[2|teilliste2]}, teilliste2=[3]
+id := [a-z][a-zA-Z0-9]*\newline
+var := [A-Z][a-zA-Z0-9]*\newline
+num := [0-9]*
 
-\criterium{Visualisierung}{crt:visualization}
+Es gibt Terme welche sich aus obigem zusammensetzen:
 
-% Verweise auf GUI
-Das Programm kann Abfragen zu einem Prolog-Programm mit Hilfe eines Graphen visualisieren. Dieser hat eine Baumstruktur und beinhaltet für jeden Abarbeitungsschritt einen eigenen Knoten.
+Term := Funktor | var | num\newline
+Funktor := id | id( Term\{, Term\}* )
+
+Und zusätzlich gibt es Regeln und Ziele welche sich wie folgt zusammensetzen:
+
+Regel := Funktor . | Funktor :- Ziel \{, Ziel\}* .\newline
+Ziel := Funktor | Term = Term
+
+Anmerkung: Eine Regel die nur aus einem Funktor ohne Ziel besteht wird Fakt genannt.
 
 \criterium{Einzelschritt-Interpreter}{crt:interpreter}
 
 % Verweis auf GUI und mögliche Anpassung des Buttonnamens
 Das Programm bearbeitet Anfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf Interaktion vom Nutzer (drücken des "Verarbeiten" Buttons) bis es den nächsten Teilschritt bearbeitet.
 
-\criterium{Laden}{crt:open}
+\criterium{Visualisierung}{crt:visualization}
 
-Das Programm soll bereits vorhandene Prolog-Programme laden können, damit auf diesen Abfragen durchgeführt und diese visualisiert werden können.
+% Verweise auf GUI
+Das Programm kann Abfragen zu einem Prolog-Programm mit Hilfe eines Graphen visualisieren. Dieser hat eine Baumstruktur und beinhaltet für jeden Abarbeitungsschritt einen eigenen Knoten.
 
-\criterium{Speichern}{crt:save}
+\criterium{Listen}{crt:lists}
 
-Das Programm soll Änderungen am momentan geladenen Prolog-Programm speichern können. Dabei soll geprüft werden ob das Prolog-Programm seit dem Laden schon anderweitig verändert wurde und sollte dies der Fall sein wird eine Warnung ausgegeben.
-
-\criterium{Abbrechen}{crt:cancel}
-
-% Verweis auf GUI
-Das Abarbeiten eines Teilschritts soll durch einen Knopfdruck abgebrochen werden können, falls dieser z.B. viele Rekursionen beinhaltet und deswegen eine lange Bearbeitungszeit hat.
+Das Programm unterstützt die Darstellung von Listen. Die leere Liste wird durch \enquote{[]} dargestellt, eine Liste mit Inhalt wird durch \enquote{[1,2,3]} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\newline
+Liste: \enquote{[1,2,3]}\newline
+In Prolog: \enquote{[1|teilliste1]}, teilliste1= \enquote{[2|teilliste2]}, teilliste2=[3]
 
 \subsection{Kann}
 
@@ -100,6 +113,11 @@ Das Programm soll durch einen extra Knopf bis zur nächsten Ausgabe ausgeführt 
 
 % Verweis auf GUI
 Das Programm soll durch einen extra Knopf X Schritte auf einmal ausführen.
+
+\criterium{Abbrechen}{crt:cancel}
+
+% Verweis auf GUI
+Das Abarbeiten eines Teilschritts soll durch einen Knopfdruck abgebrochen werden können, falls dieser z.B. viele Rekursionen beinhaltet und deswegen eine lange Bearbeitungszeit hat.
 
 \criteriumOptional{Cut}{crt:cut}
 
@@ -127,15 +145,11 @@ Das Programm kann einen Visualisierungsbaum als Bilddatei im SVG/PNG-Format expo
 
 \criteriumOptional{Syntaxhighlighting}{crt:syntaxhighlighting}
 
-Das Programm soll das farbliche hervorheben bestimmter Regeln und ihres/ihrer korrepsondieren Knoten in der Visualisierung unterstützen.
+Das Programm soll das farbliche hervorheben bestimmter Regeln und ihres/ihrer korrepsondieren Knoten in der Visualisierung unterstützen. Der Code wird dabei farblich passend hervorgehoben. Identifier und Variablen werden dabei unterschiedlich zu Zahlen eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.
 
 \criteriumOptional{"Pretty-Printing" von Listen}{crt:prettyprinting}
 
-Das Programm soll Listen bei der Ausgabe einheitlich auf "[x,y,z]" formatieren.
-
-\criteriumOptional{Touch-Bedienung}{crt:touch}
-
-Das Programm soll Berührungsgesten wie z.B. das Zoomen durch zwei Finger unterstützen.
+Das Programm soll Listen bei der Ausgabe einheitlich auf \enquote{[x,y,z]} formatieren.
 
 \subsection{Abgrenzung}
 
