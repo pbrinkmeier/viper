@@ -6,6 +6,10 @@ GUI_OUTPUT_DIR = ./build/gui
 GUI_INPUT_FILES := $(wildcard $(GUI_INPUT_DIR)/*.svg)
 GUI_OUTPUT_FILES := $(patsubst $(GUI_INPUT_DIR)/%.svg,$(GUI_OUTPUT_DIR)/%.png,$(GUI_INPUT_FILES))
 
+# Prevents make from automatically the generated PNGs after every build
+# It usually does, because they are "intermediate files"
+.PRECIOUS: $(GUI_OUTPUT_FILES)
+
 default: $(NAME).pdf
 
 all: $(NAME).pdf

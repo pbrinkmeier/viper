@@ -565,27 +565,42 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 
 \section{GUI-Entwürfe}
 
-\begin{figure}[hb]
-\fbox{\includegraphics[width=\textwidth]{build/gui/main_view_initial.png}}
-\caption{\label{fig:editor}
-    Hauptfenster umittelbar nach dem Starten des Programms
-}
-\end{figure}
+\subsection{Programmstart}
 
-Das Hauptfenster besteht aus der Fensterleiste (A), der Menüleiste (1), dem Editor (2), der Konsole (3), dem Eingabefeld (4) und der Visualisierungsbox (5).
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+    \includegraphics[width=\linewidth]{build/gui/main_view_initial.png}}
+\captionof{figure}{Hauptfenster unmittelbar nach dem Starten des Programms}
+\end{minipage}
+
+Das Hauptfenster besteht aus der Fensterleiste (A), der Menüleiste (1), dem Editor (2), der Visualisierungsbox (3), der Konsole (4) und dem Eingabefeld (5).
 Dabei ist die Fensterleiste kein Bestandteil des eigentlichen Programms; sie ist von der graphischen Oberfläche des Betriebssystems vorgegeben.
+Das Eingabefeld ist noch deaktiviert (angedeutet durch die graue Färbung), da noch kein Prolog-Programm geparst wurde.
 
-\begin{figure}[hb]
-\fbox{\includegraphics[width=\textwidth]{build/gui/main_view_filemenu.png}}
-\caption{\label{fig:editor}
-    Hauptfenster mit ausgewähltem \enquote{Datei}-Menü
-}
-\end{figure}
+\subsection{\enquote{Datei}-Menü}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+    \includegraphics[width=\linewidth]{build/gui/main_view_filemenu.png}}
+\captionof{figure}{Hauptfenster mit ausgewähltem \enquote{Datei}-Menü}
+\end{minipage}
 
 Das \enquote{Datei}-Menü (1) hat die Einträge \enquote{Öffnen}, \enquote{Speichern}, \enquote{Speichern als...}, \enquote{Zuletzt verwendet} und \enquote{Beenden}.
 \enquote{Öffnen} und \enquote{Speichern} führen die jeweiligen Funktionen aus; während \enquote{Speichern} nur bei neu angelegten Prolog-Programmen einen Auswahldialog anzeigt, zeigt \enquote{Speichern als...} immer einen Auswahldialog an.
 \enquote{Beenden} beendet das Programm.
 \enquote{Zuletzt verwendet} enthält eine Liste von bis zu fünf zuletzt verwendeten Programmen (2).
+
+\subsection{Geöffnete Datei}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+    \includegraphics[width=\linewidth]{build/gui/main_view_opened.png}}
+\captionof{figure}{Hauptfenster nach dem Öffnen des Beispielprogramms}
+\end{minipage}
+
+Nach dem Öffnen des Beispielprogramms wird deren Inhalt im Editor angezeigt.
+Die Konsole gibt eine entsprechende Meldung aus.
+Das Eingabefeld bleibt weiterhin deaktiviert.
 
 \section{Glossar}
 
