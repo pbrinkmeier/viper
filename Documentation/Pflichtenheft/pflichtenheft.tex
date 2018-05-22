@@ -690,16 +690,36 @@ Unabhängig davon, ob es per se keine Lösungen gibt oder schon Lösungen gefund
     \captionof{figure}{Die Schaltfläche \enquote{vorheriger Schritt}}
 \end{minipage}
 
-Die Schaltfläche \enquote{Vorheriger Schritt} (1) erlaubt es dem Nutzer, den Zustand vor dem aktuellen Schritt zu betrachten.
-Die Schaltfläche kann so lange betätigt werden, bis der Nutzer beim ersten Schritt angelangt ist.
-Ist der Nutzer beim ersten Schritt angelangt, wird die Schaltfläche deaktiviert.
-
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
 \includegraphics[width=\linewidth]{build/gui/main_view_previous_step_disabled.png}
 }
-    \captionof{figure}{Interpreter beim ersten Schritt; die Schaltfläche \enquote{Vorheriger Schritt} ist deaktiviert}
+\captionof{figure}{Interpreter beim ersten Schritt; die Schaltfläche \enquote{Vorheriger Schritt} ist deaktiviert}
 \end{minipage}
+
+Die Schaltfläche \enquote{Vorheriger Schritt} (1) erlaubt es dem Nutzer, den Zustand vor dem aktuellen Schritt zu betrachten.
+Die Schaltfläche kann so lange betätigt werden, bis der Nutzer beim ersten Schritt angelangt ist.
+Ist der Nutzer beim ersten Schritt angelangt, wird die Schaltfläche deaktiviert.
+
+\subsection{Ausführung bis zur nächsten Lösung}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_next_solution.png}
+}
+\captionof{figure}{Die Schaltfläche \enquote{Nächste Lösung}}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_abort.png}
+}
+\captionof{figure}{Die Schaltfläche \enquote{Abbrechen}}
+\end{minipage}
+
+Die Schaltfläche \enquote{Nächste Lösung} (1) lässt den Interpreter automatisch Schritte ausführen, bis eine Lösung gefunden wurde oder keine Unifikation der Abfrage mehr möglich ist.
+Betätigt der Nutzer die Schaltfläche, wird sie hervorgehoben und ihr Text in \enquote{Abbrechen} geändert.
+Betätigt der Nutzer die Schaltfläche erneut, wird der Interpreter unterbrochen und der letzte vollständig berechnete Schritt angezeigt.
 
 \subsection{Visualisierung}
 
