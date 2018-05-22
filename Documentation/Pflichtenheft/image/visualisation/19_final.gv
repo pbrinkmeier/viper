@@ -1,5 +1,5 @@
 digraph VIPER_visualization_root {
     node [fontname = "Fira Mono"];
 
-    root [label = <grandfather(X, Y)<br />No more rules to check!>, color = red];
+    root [label = <grandfather(X, Y)<br />Nicht erfüllbar!>, color = red];
 }

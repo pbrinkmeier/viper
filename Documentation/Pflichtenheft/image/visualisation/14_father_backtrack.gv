@@ -21,7 +21,7 @@ digraph VIPER_visualization_root {
     ];
     subgoal2_success_father [
         color = red,
-        label = <father(homer, Y)<br />No more rules to check!>
+        label = <father(homer, Y)<br />Nicht erfüllbar!>
     ];
 
     // this ensures that subgoal1 is always left of subgoal2

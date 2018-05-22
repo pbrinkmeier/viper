@@ -25,7 +25,7 @@ digraph VIPER_visualization_root {
     mother_fail [
         shape = record,
         color = red,
-        label = <{father<sub>2</sub>(homer, bart)|Unification failed: mother ≠ father}>
+        label = <{father<sub>2</sub>(homer, bart)|Unifikation fehlgeschlagen: mother ≠ father}>
     ];
 
     // this ensures that subgoal1 is always left of subgoal2

@@ -10,7 +10,7 @@ digraph VIPER_visualization_root {
         label = <{grandfather<sub>1</sub>(X<sub>1</sub>, X<sub>2</sub>)|X = X<sub>1</sub>, Y = X<sub>2</sub>}>
     ];
     subgoal1 [label = <father(X, X<sub>3</sub>)>];
-    subgoal2 [label = <parent(bart, Y)<br /> No more rules to check!>, color = red];
+    subgoal2 [label = <parent(bart, Y)<br />Nicht erfüllbar!>, color = red];
     subgoal1_success [
         shape = record,
         label = <{father<sub>2</sub>(homer, bart)|X = homer, X<sub>3</sub> = bart}>
