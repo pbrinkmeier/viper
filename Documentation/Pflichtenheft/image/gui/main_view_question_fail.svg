@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.2 2405546, 2018-03-11"
-   sodipodi:docname="main_view_parse_fail.svg">
+   sodipodi:docname="main_view_question_fail.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,19 +25,20 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="459.11452"
-     inkscape:cy="89.542031"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="411.9067"
+     inkscape:cy="263.76538"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="679"
+     inkscape:window-width="1362"
      inkscape:window-height="717"
-     inkscape:window-x="683"
+     inkscape:window-x="0"
      inkscape:window-y="24"
-     inkscape:window-maximized="0">
+     inkscape:window-maximized="0"
+     inkscape:snap-global="true">
     <sodipodi:guide
        position="0,76.72917"
        orientation="1,0"
@@ -94,7 +95,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -256,21 +257,21 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
          id="flowPara3801">father(homer, lisa).</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
-         id="flowPara3803">mother(marge, bart .</flowPara><flowPara
+         id="flowPara3803">mother(marge, bart).</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
-         id="flowPara3805" /><flowPara
+         id="flowPara3805"></flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
          id="flowPara3807">grandfather(X, Y) :-</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
          id="flowPara3809">    father(X, Z), parent(Z, Y).</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
-         id="flowPara3811" /><flowPara
+         id="flowPara3811"></flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
          id="flowPara3813">parent(X, Y) :-</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
          id="flowPara3815">    mother(X, Y).</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
-         id="flowPara3817" /><flowPara
+         id="flowPara3817"></flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
          id="flowPara3819">parent(X, Y) :-</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
@@ -284,8 +285,8 @@
          id="flowRegion4659-2-3"
          style="line-height:1"><rect
            id="rect4661-9-6"
-           width="407.92404"
-           height="126.11369"
+           width="404.92105"
+           height="98.108742"
            x="0"
            y="89.370041"
            style="line-height:1" /></flowRegion><flowPara
@@ -294,7 +295,11 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1"
          id="flowPara4368">Datei /home/pse/simpsons.pl wurde geöffnet.</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#ff0000"
-         id="flowPara4389">Parser-Fehler in Zeile 4: erwartete &quot;,&quot; oder &quot;)&quot; statt &quot;.&quot;</flowPara></flowRoot>    <path
+         id="flowPara4412"><flowSpan
+           style="fill:#00ff00"
+           id="flowSpan4416">Parsen erfolgreich.</flowSpan></flowPara><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#ff0000"
+         id="flowPara4606">Fehlerhafte Abfrage: erwartete &quot;identifier&quot; statt &quot;)&quot; nach &quot;grandfather(&quot;</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 9.2604168,147.51039 H 219.41518"
        id="path934"
@@ -350,17 +355,31 @@
            style="line-height:1" /></flowRegion><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1"
          id="flowPara5736-5-2" /></flowRoot>    <path
-       style="opacity:1;fill:#b4b4b4;fill-opacity:1;stroke:#5a5a5a;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#151515;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 116.41696,282.44792 v 3.83646 l 101.86484,0.13229 0,-3.96875 z"
        id="rect1306"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#272727;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1324"
        width="209.94688"
        height="148.16667"
        x="9.260416"
        y="139.57291" />
-  </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4657-4-9-3-31"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,117.01316,258.41573)"><flowRegion
+         id="flowRegion4659-2-3-6-4"
+         style="line-height:1"><rect
+           id="rect4661-9-6-7-9"
+           width="407.92404"
+           height="126.11369"
+           x="0"
+           y="89.370041"
+           style="line-height:1" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000;fill-opacity:1"
+         id="flowPara5736-5-20">grandfather().</flowPara></flowRoot>  </g>
 </svg>
