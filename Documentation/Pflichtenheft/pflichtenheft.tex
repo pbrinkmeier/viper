@@ -557,7 +557,150 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% TODO: Systemtests (komplette Abläufe)
+\section{Systemtests}
+
+\test{Erstellung, Bearbeitung, Speichern und Parsen des simpsons.pl-Programms}{tst:sys1}
+\tests{fnc:new}
+\tests{fnc:editor}
+\tests{fnc:formatter}
+\tests{fnc:save}
+\tests{fnc:parser}
+\tests{fnc:errorcheck}
+
+\teststep{Der Nutzer hat das Programm soeben geöffnet.}
+{Der Nutzer wählt über die Menü-Leiste die Neu-Funktion aus.}
+{Eine leeres Prolog-Programm wird im Editor angelegt.}
+
+\teststep{Der Nutzer hat nun ein leeres Editor-Fenster vor sich.}
+{Der Nutzer gibt das unformatierte simpsons.pl-Programm wie im Anhang beschrieben ein.}
+{Der Editor ändert den Inhalt des Prolog-Programms entsprechend der Eingabe.}
+
+\teststep{Das unformatierte simpsons.pl-Programm ist im Editor eingetragen.}
+{Der Nutzer betätigt die Formatieren-Schaltfläche.}
+{Das simpsons.pl-Programm wird formatiert und entspricht nun dem formatierten simpsons.pl-Programm im Anhang.}
+
+\teststep{Das formatierte simpsons.pl-Programm ist im Editor eingetragen.}
+{Der Nutzer wählt über die Menü-Leiste die Speichern-Funktion aus.}
+{Ein Speichern-Dialog öffnet sich.}
+
+\teststep{Der Nutzer hat über den Speichern-Dialog ein Verzeichnis sowie einen Dateinamen eingetragen.}
+{Der Nutzer betätigt die Speichern-Schaltfläche.}
+{Das Prolog-Programm wird im gewählten Verzeichnis gespeichert.}
+
+\teststep{Das formatierte simpsons.pl-Programm ist im Editor eingetragen und gespeichert.}
+{Der Nutzer betätigt die Parser-Schaltfläche.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
+
+\teststep{Das formatierte simpsons.pl-Programm ist im Editor eingetragen, gespeichert und durch den Parser verarbeitet worden.}
+{Der Nutzer fokussiert durch einen Mausklick das Editor-Fenster und fügt vor die erste Zeile das Wort \enquote{Fehler} gefolgt von einem Umbruch ein.}
+{Der Eingabebereich der Konsole wird gesperrt.}
+
+\teststep{Das unformatierte simpsons.pl-Programm ist im Editor eingetragen und gespeichert worden. Das Wort \enquote{Fehler} wurde vor die ursprüngliche erste Zeile eingetragen.}
+{Der Nutzer betätigt die Parser-Schaltfläche.}
+{Der Eingabebereich der Konsole bleibt weiterhin gesperrt. Der Parser gibt über den Ausgabebreich der Konsole eine Syntax-Fehlermeldung aus.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\test{Öffnen eines Prolog-Programms, Parsen, Eingabe einer Abfrage und Interpretation}{tst:sys2}
+\tests{fnc:open}
+\tests{fnc:parser}
+\tests{fnc:shell}
+\tests{fnc:interpreter}
+\tests{fnc:graph}
+
+\teststep{Der Nutzer hat das Programm soeben geöffnet.}
+{Der Nutzer wählt über die Menü-Leiste die Öffnen-Funktion aus.}
+{Ein Öffnen-Dialog öffnet sich.}
+
+\teststep{Der Nutzer hat ein Prolog-Programm ausgewählt, welches das formatierte simpsons.pl-Programm aus dem Anhang enthält.}
+{Der Nutzer betätigt die Öffnen-Schaltfläche.}
+{Der Editor enthält nun die formatierte simpsons.pl-Programmdatei analog zum Anhang.}
+
+\teststep{Der Editor enthält die formatierte simpsons.pl-Programmdatei analog zum Anhang.}
+{Der Nutzer betätigt die Parser-Schaltfläche.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
+
+\teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
+{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{? mother(marge, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
+
+\teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+{Der Nutzer betätigt die Schritt-Schaltfläche.}
+{Eine Lösung wurde gefunden. Es wird \enquote{yes.} ausgegeben.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\test{Öffnen eines zuletzt verwendeten Prolog-Programms, Parsen und Interpretieren einer Abfrage, Ausführung bis zur nächsten Ausgabe und Abbruch}{tst:sys3}
+\tests{fnc:recentfiles}
+\tests{fnc:parser}
+\tests{fnc:shell}
+\tests{fnc:interpreter}
+\tests{fnc:graph}
+\tests{fnc:continue}
+\tests{fnc:cancel}
+
+\teststep{Der Nutzer hat das Programm nach dem Speichern des simpsons.pl-Programms im Anhang neu gestartet.}
+{Der Nutzer wählt das simpsons.pl-Programm über die Menüleiste unter \enquote{Kürzlich geöffnete Dateien} aus.}
+{Das simpsons.pl-Programm wird im Editor geöffnet.}
+
+\teststep{Der Editor enthält die formatierte simpsons.pl-Programmdatei analog zum Anhang.}
+{Der Nutzer betätigt die Parser-Schaltfläche.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
+
+\teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
+{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{? mother(X, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
+
+\teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+{Der Nutzer betätigt die Fortführen-Schaltfläche.}
+{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \enquote{X = marge} ausgegeben. Der Graph entspricht nun dem Graphen bei der Findung der ersten Lösung.}
+
+\teststep{Der Interpreter hat eine erste Lösung gefunden. Der Graph ist aktualisiert worden.}
+{Der Nutzer betätigt die Fortführen-Schaltfläche erneut.}
+{Der Interpreter wird bis zur Findung einer weiteren Lösung fortgeführt.}
+
+\teststep{Der Interpreter versucht, eine weitere Lösung für die Abfrage zu finden.}
+{Der Nutzer betätigt die Abbrechen-Schaltfläche.}
+{Die Interpretation wird abgebrochen.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\test{Interpretieren einer Abfrage, Ausführung bis zur nächsten Ausgabe, Navigation der Visualisierung, Zurückschreiten und Export}{tst:sys4}
+\tests{fnc:interpreter}
+\tests{fnc:graph}
+\tests{fnc:continue}
+\tests{fnc:move}
+\tests{fnc:zoom}
+\tests{fnc:imageexport}
+\tests{fnc:latexexport}
+
+\teststep{Der Nutzer hat das formatierte simpsons.pl-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \enquote{? mother(X, lisa).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+{Der Nutzer betätigt die Fortführen-Schaltfläche.}
+{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \enquote{X = marge} ausgegeben. Der Graph entspricht nun dem Graphen bei der Findung der ersten Lösung.}
+
+\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \enquote{X = marge} gefunden wurde.}
+{Der Nutzer hält innerhalb der Visualisierung die linke Maustaste gedrückt und bewegt die Maus nach links.}
+{Der gezeigte Ausschnitt der Visualisierung bewegt sich nach links.}
+
+\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \enquote{X = marge} gefunden wurde. Die Visualisierung wurde nach links verschoben.}
+{Der Nutzer betätigt die \enquote{+}-Schaltfläche.}
+{Es wird in den gezeigten Ausschnitt der Visualisierung hineingezoomt.}
+
+\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \enquote{X = marge} gefunden wurde. Es wurde in die nach links verschobene Visualisierung hineingezoomt.}
+{Der Nutzer wählt über die Menü-Leiste die Option \enquote{Bild exportieren} aus.}
+{Ein Export-Dialog öffnet sich.}
+
+\teststep{Der Nutzer hat über die Auswahl des Export-Dialogs zwischen dem Format PNG und SVG ausgewählt. Weiter wurde ein Verzeichnis ausgewählt.}
+{Der Nutzer betätigt die Export-Schaltfläche.}
+{Die gesamte Visualisierung wird im ausgewählten Format exportiert.}
+
+\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \enquote{X = marge} gefunden wurde. Es wurde in die nach links verschobene Visualisierung hineingezoomt. Die Visualisierung wurde bereits als Bild-Datei exporiert.}
+{Der Nutzer wählt über die Menü-Leiste die Option \enquote{LaTeX exportieren} aus.}
+{Ein Export-Dialog öffnet sich.}
+
+\teststep{Der Nutzer hat das Zielverzeichnis über die Auswahl des Export-Dialogs ausgewählt.}
+{Der Nutzer betätigt die Export-Schaltfläche.}
+{Die gesamte Visualisierung wird als LaTeX-Quellcode exportiert.}
 
 %%%%%%%%%%%%%
 \pagebreak
