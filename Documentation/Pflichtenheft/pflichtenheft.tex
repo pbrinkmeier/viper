@@ -115,7 +115,7 @@ Das Programm soll bereits vorhandene Prolog-Programme öffnen können, damit auf
 
 \criterium{Speichern}{crt:save}
 
-Das Programm soll Änderungen am momentan geöffnetem Prolog-Programm speichern können. Wurde die Datei seit dem Öffnen anderweitig verändert so wird sie überschrieben.
+Das Programm soll Änderungen am momentan geöffnetem Prolog-Programm speichern können. Wurde die Datei seit dem Öffnen anderweitig verändert, so wird sie überschrieben.
 
 \criterium{Interpretation eines Prolog-Programms mit begrenztem Umfang}{crt:interpretation}
 
@@ -134,26 +134,26 @@ Es gibt Terme welche sich aus obigem zusammensetzen:
 
 \begin{lstlisting}
 Term := Funktor | var | num
-Funktor := id | id( Term\{, Term\}* )
+Funktor := id | id( Term{, Term}* )
 \end{lstlisting}
 
 Und zusätzlich gibt es Regeln und Ziele welche sich wie folgt zusammensetzen:
 
 \begin{lstlisting}
-Regel := Funktor . | Funktor :- Ziel \{, Ziel\}* .
+Regel := Funktor . | Funktor :- Ziel {, Ziel}* .
 Ziel := Funktor | Term = Term
 \end{lstlisting}
 
 Eine Regel die nur aus einem Funktor ohne Ziel besteht wird Fakt genannt.
 
-Das Programm unterstützt die Darstellung von Listen. Die leere Liste wird durch \enquote{[]} dargestellt, eine Liste mit Inhalt wird durch \enquote{[1,2,3]} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\newline
-Liste: \enquote{[1,2,3]}\newline
-In Prolog: \enquote{[1|teilliste1]}, teilliste1= \enquote{[2|teilliste2]}, teilliste2=[3]
+Das Programm unterstützt die Darstellung von Listen. Die leere Liste wird durch \enquote{\texttt{[]}} dargestellt, eine Liste mit Inhalt wird durch \enquote{\texttt{[1,2,3]}} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\newline
+Liste: \texttt{[1,2,3]}\newline
+In Prolog: \texttt{[1|teilliste1]}, \texttt{teilliste1=[2|teilliste2]}, \texttt{teilliste2=[3]}.
 
 \criterium{Einzelschritt-Interpreter}{crt:interpreter}
 
 % Verweis auf GUI und mögliche Anpassung des Schaltflächennamen
-Das Programm bearbeitet Anfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf Interaktion vom Nutzer (drücken der Verarbeiten-Schaltfläche) bis es den nächsten Teilschritt bearbeitet.
+Das Programm bearbeitet Anfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf Interaktion vom Nutzer (drücken der Verarbeiten-Schaltfläche), bis es den nächsten Teilschritt bearbeitet.
 
 \criterium{Visualisierung}{crt:visualization}
 
@@ -165,7 +165,7 @@ Das Programm kann Abfragen zu einem Prolog-Programm mit Hilfe eines Graphen visu
 \criteriumOptional{Zurückschreiten}{crt:stepback}
 
 % Verweis auf GUI
-Das Programm soll es dem Nutzer ermöglichen beliebig viele Schritte schrittweise zurückzugehen.
+Das Programm soll es dem Nutzer ermöglichen, beliebig viele Schritte schrittweise zurückzugehen.
 
 \criteriumOptional{Ausführung bis zur nächsten Ausgabe}{crt:continueto}
 
@@ -175,19 +175,19 @@ Die Interpretation soll durch eine zusätzliche Schaltfläche bis zur nächsten 
 \criteriumOptional{Abbrechen}{crt:cancel}
 
 % Verweis auf GUI
-Das automatische Abarbeiten mehrerer Schritte soll durch das betätigen einer Schaltfläche abgebrochen werden können.
+Das automatische Abarbeiten mehrerer Schritte soll durch das Betätigen einer Schaltfläche abgebrochen werden können.
 
 \criteriumOptional{Cut}{crt:cut}
 
-Das Programm soll die \enquote{Cut}-Funktionalität unterstützen. Mit dieser kann der Nutzer dem Interpreter durch das hinzufügen eines \enquote{!} als Teilziel verbieten zu einer bestimmten Stelle zurück zu springen.
+Das Programm soll die \enquote{Cut}-Funktionalität unterstützen. Mit dieser kann der Nutzer dem Interpreter durch das hinzufügen eines \enquote{\texttt{!}} als Teilziel verbieten zu einer bestimmten Stelle zurück zu springen.
 
 \criteriumOptional{Arithmetik}{crt:maths}
 
-Das Programm soll grundlegende Arithmetik unterstützen. Da Terme in Prolog nur für sich selber stehen, können Abfragen wie \enquote{4 = 1 + 3} nicht bearbeitet werden. Daher wird der Interpreter um ein Rechenoperator \enquote{is} erweitert welches solche arithmetischen Abfragen ermöglicht.
+Das Programm soll grundlegende Arithmetik unterstützen. Da Terme in Prolog nur für sich selber stehen, können Abfragen wie \enquote{$4 = 1 + 3$} nicht bearbeitet werden. Daher wird der Interpreter um ein Rechenoperator \enquote{\texttt{is}} erweitert, welcher solche arithmetischen Abfragen ermöglicht.
 
 \criteriumOptional{Standardbibliothek}{crt:standardlib}
 
-Das Programm soll eine Standardbibliothek in Form eines Prolog-Programms mit nützlichen, vordefinierten, Regeln unterstützen die standardmäßig beim Starten des Programms mit eingebunden wird.
+Das Programm soll eine Standardbibliothek in Form eines Prolog-Programms mit nützlichen, vordefinierten Regeln unterstützen, die standardmäßig beim Starten des Programms mit eingebunden wird.
 
 \criteriumOptional{Standardbibliothek deaktivieren}{crt:disablelib}
 
@@ -207,7 +207,7 @@ Das Programm soll das farbliche Hervorheben bestimmter Regeln und ihres/ihrer ko
 
 \criteriumOptional{\enquote{Pretty-Printing} von Listen}{crt:prettyprinting}
 
-Das Programm soll Listen bei der Ausgabe einheitlich auf \enquote{[x,y,z]} formatieren.
+Das Programm soll Listen bei der Ausgabe einheitlich auf \enquote{\texttt{[x,y,z]}} formatieren.
 
 \subsection{Abgrenzung}
 
@@ -221,7 +221,7 @@ Das Programm beschränkt sich auf die Prolog-Sprache und bietet keine offizielle
 
 \criteriumNot{Nutzung in einer Kommandozeile}{crt:cli}
 
-Das Programm beschränkt sich auf eine graphische Darstellung über GUI-Elemente. Eine Interaktion über die Konsole ist nicht unterstützt.
+Das Programm beschränkt sich auf eine graphische Darstellung über GUI-Elemente. Eine Interaktion über die Konsole wird nicht unterstützt.
 
 \criteriumNot{Professionelle Anwendung}{crt:professionaluse}
 
@@ -283,7 +283,7 @@ Das Programm bietet einen Schnellzugriff auf bis zu fünf der zuletzt verwendete
 \functionality{Bearbeiten eines Prolog-Programms}{fnc:editor}
 \fulfills{crt:save}
 
-Das Prolog-Programm kann im Editor bearbeitet werden. Die Änderungen werden erst bei speichern zurückgeschrieben.
+Das Prolog-Programm kann im Editor bearbeitet werden. Die Änderungen werden erst beim Speichern zurückgeschrieben.
 
 \functionality{Speichern des Editor-Inhalts}{fnc:save}
 \fulfills{crt:save}
@@ -323,7 +323,7 @@ Bei aktiver Interpretation einer Abfrage wird eine Visualisierung für den aktue
 \functionality{Navigation des Visualisierung durch Bewegungen mit der Maus}{fnc:move}
 \fulfills{crt:zoom}
 
-Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Ausschnitt des Graphen bewegen, wodurch in diesen navigiert werden kann.
+Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Ausschnitt des Graphen bewegen, wodurch in diesem navigiert werden kann.
 
 \functionality{Zurückschreiten während der Interpretation}{fnc:stepback}
 \fulfills{crt:stepback}
@@ -359,7 +359,7 @@ Die automatisch eingebundene Standardbibliothek kann über eine Schaltfläche de
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
 \fulfills{crt:formatter}
 
-Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche möglich. Die Formatierung ist hierbei vorgegeben und kann nicht verändert werden. Die Formatierung sieht folgendes vor: Jede Regel wird in ihre eigene Zeile gelegt. Hat eine Regel mehrere Teilziele, so wird die Regelzeile nach dem \enquote{:-}-Operator umgebrochen und alle Teilziele werden in eigene Zeilen gelegt, welche mit zwei Leerzeichen eingerückt sind. Bereits gesetzte Leerzeilen werden beibehalten. Fehlende Leerzeichen vor und hinter dem \enquote{:-}-Operator sowie nach Kommata in Parameterlisten werden eingefügt.
+Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche möglich. Die Formatierung ist hierbei vorgegeben und kann nicht verändert werden. Die Formatierung sieht folgendes vor: Jede Regel wird in ihre eigene Zeile gelegt. Hat eine Regel mehrere Teilziele, so wird die Regelzeile nach dem \enquote{\texttt{:-}}-Operator umgebrochen und alle Teilziele werden in eigene Zeilen gelegt, welche mit zwei Leerzeichen eingerückt sind. Bereits gesetzte Leerzeilen werden beibehalten. Fehlende Leerzeichen vor und hinter dem \enquote{\texttt{:-}}-Operator sowie nach Kommata in Parameterlisten werden eingefügt.
 
 \functionality{Wechsel der verwendeten Sprache}{fnc:translation}
 \fulfills{crt:translation}
@@ -376,7 +376,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \nonFunctionality{Das Programm startet auf einem modernen System innerhalb von 30 Sekunden und ist voll einsatzbereit.}{nfc:startup}
 
-\nonFunctionality{Ein importiertes oder geschriebnes Prolog Programm ohne Verwendung von Rekursion und im Umfang von maximal 100 Zeilen Code ist innerhalb von maximal 3 Sekunden interpretiert und innerhalb von weiteren 5 Sekunden visualisiert.}{nfc:timelimit}
+\nonFunctionality{Ein importiertes oder geschriebenes Prolog Programm ohne Verwendung von Rekursion und im Umfang von maximal 100 Zeilen Code ist innerhalb von maximal 3 Sekunden interpretiert und innerhalb von weiteren 5 Sekunden visualisiert.}{nfc:timelimit}
 
 \nonFunctionality{Das Design wirkt modern und ansprechend.}{nfc:design}
 
