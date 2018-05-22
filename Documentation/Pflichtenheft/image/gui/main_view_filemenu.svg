@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.2 2405546, 2018-03-11"
-   sodipodi:docname="main_view_initial.svg">
+   sodipodi:docname="main_view_filemenu.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,17 +25,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="463.91678"
-     inkscape:cy="68.664191"
+     inkscape:zoom="1.979899"
+     inkscape:cx="167.56846"
+     inkscape:cy="510.88106"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer3"
      showgrid="true"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="679"
+     inkscape:window-width="1362"
      inkscape:window-height="717"
-     inkscape:window-x="683"
+     inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="0">
     <sodipodi:guide
@@ -99,44 +99,34 @@
     </rdf:RDF>
   </metadata>
   <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="bg">
+    <rect
+       style="opacity:1;fill:#b4b4b4;fill-opacity:1;stroke:none;stroke-width:0.26001763;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2724"
+       width="12.736446"
+       height="7.9375"
+       x="9.260417"
+       y="17.070406" />
+    <rect
+       style="opacity:1;fill:#b4b4b4;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2728"
+       width="26.458424"
+       height="6.6145854"
+       x="9.260417"
+       y="42.205826" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 9.2604171,52.789161 V 38.237077"
+       id="path2733"
+       inkscape:connector-curvature="0" />
+  </g>
+  <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-130.44)">
-    <g
-       id="g4567"
-       transform="translate(9.2604168,-1.3226938)">
-      <text
-         transform="scale(1.1513122,0.86857413)"
-         id="text4543"
-         y="177.75096"
-         x="1.8919364"
-         style="font-style:normal;font-weight:normal;font-size:9.14951801px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22873795"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333359px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.22873795"
-           y="185.84615"
-           x="1.8919364"
-           id="tspan4541"
-           sodipodi:role="line" /></text>
-      <flowRoot
-         xml:space="preserve"
-         id="flowRoot4581"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-         transform="matrix(0.26458333,0,0,0.26458333,-0.66145833,140.02283)"><flowRegion
-           id="flowRegion4583"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"><rect
-             id="rect4585"
-             width="380"
-             height="80"
-             x="10"
-             y="39.370056"
-             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start" /></flowRegion><flowPara
-           id="flowPara4587">Datei Parsen Formatieren Über</flowPara></flowRoot>      <path
-         style="fill:none;stroke:#000000;stroke-width:0.26448587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         d="M 0,156.77059 H 210"
-         id="path936"
-         inkscape:connector-curvature="0" />
-    </g>
     <rect
        style="fill:#b4b4b4;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect4569"
@@ -290,7 +280,7 @@
        xml:space="preserve"
        id="flowRoot4657-4-9-3"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
-       transform="matrix(0.26458333,0,0,0.26458333,110.96554,258.32124)"><flowRegion
+       transform="matrix(0.26458333,0,0,0.26458333,110.96554,258.45488)"><flowRegion
          id="flowRegion4659-2-3-6"
          style="line-height:1"><rect
            id="rect4661-9-6-7"
@@ -332,31 +322,56 @@
        height="148.16667"
        x="9.260416"
        y="139.57291" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2083"
+       width="39.687622"
+       height="27.781256"
+       x="9.260417"
+       y="155.44791" />
     <g
-       id="g1362">
-      <ellipse
-         ry="2.6458323"
-         rx="2.6458333"
-         cy="143.54166"
-         cx="13.323661"
-         id="path4573"
-         style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       id="g4567"
+       transform="translate(9.2604168,-1.3226938)">
+      <text
+         transform="scale(1.1513122,0.86857413)"
+         id="text4543"
+         y="177.75096"
+         x="1.8919364"
+         style="font-style:normal;font-weight:normal;font-size:9.14951801px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22873795"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333359px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.22873795"
+           y="185.84615"
+           x="1.8919364"
+           id="tspan4541"
+           sodipodi:role="line" /></text>
       <flowRoot
-         transform="matrix(0.26458333,0,0,0.26458333,-6.4255952,129.35332)"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;"
-         id="flowRoot1349"
-         xml:space="preserve"><flowRegion
-           style="fill:#ffffff;fill-opacity:1;"
-           id="flowRegion1351"><rect
-             style="fill:#ffffff;fill-opacity:1;"
-             y="44.518112"
-             x="70.000175"
-             height="25"
-             width="25.000063"
-             id="rect1353" /></flowRegion><flowPara
-           id="flowPara1355">A</flowPara></flowRoot>    </g>
+         xml:space="preserve"
+         id="flowRoot4581"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+         transform="matrix(0.26458333,0,0,0.26458333,-0.66145833,140.02283)"><flowRegion
+           id="flowRegion4583"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"><rect
+             id="rect4585"
+             width="380"
+             height="80"
+             x="10"
+             y="39.370056"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start" /></flowRegion><flowPara
+           id="flowPara4587">Datei Parsen Formatieren Über</flowPara></flowRoot>      <path
+         style="fill:none;stroke:#000000;stroke-width:0.26448587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 0,156.77059 H 210"
+         id="path936"
+         inkscape:connector-curvature="0" />
+    </g>
+    <rect
+       style="opacity:1;fill:#b4b4b4;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2730"
+       width="39.687599"
+       height="5.2916665"
+       x="9.2604399"
+       y="172.64583" />
     <g
-       transform="translate(-0.09450059,7.9374988)"
+       transform="translate(31.521303,15.807844)"
        id="g1362-1">
       <ellipse
          ry="2.6458323"
@@ -379,8 +394,69 @@
              width="25.000063"
              id="rect1353-9" /></flowRegion><flowPara
            id="flowPara1355-3">1</flowPara></flowRoot>    </g>
-    <g
-       transform="translate(-0.14174762,15.874999)"
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="fg">
+    <path
+       transform="translate(0,-130.44)"
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 9.2604398,183.22916 -2.27e-5,-11.90625 v 0"
+       id="path2736"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4581-4"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,7.6539283,15.819656)"><flowRegion
+         id="flowRegion4583-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"><rect
+           id="rect4585-8"
+           width="226.07243"
+           height="125.35721"
+           x="10"
+           y="39.370056"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start" /></flowRegion><flowPara
+         id="flowPara4587-4">Öffnen</flowPara><flowPara
+         id="flowPara2710">Speichern</flowPara><flowPara
+         id="flowPara2712">Speichern als...</flowPara><flowPara
+         id="flowPara2718">Zuletzt verwendet</flowPara><flowPara
+         id="flowPara2716">Beenden</flowPara></flowRoot>    <path
+       transform="translate(0,-130.44)"
+       style="fill:#000000;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="m 46.302199,173.96874 v 2.64584 l 1.322919,-1.32292 -1.322919,-1.32292"
+       id="path2722"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 48.94804,48.820411 v -9.260417 0"
+       id="path2747"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2752"
+       width="38.364681"
+       height="15.875002"
+       x="48.94804"
+       y="42.205826" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4581-4-2"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,46.916205,32.303136)"><flowRegion
+         id="flowRegion4583-7-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"><rect
+           id="rect4585-8-6"
+           width="226.07243"
+           height="125.35721"
+           x="10"
+           y="39.370056"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start" /></flowRegion><flowPara
+         id="flowPara2716-7">simpsons.pl</flowPara><flowPara
+         id="flowPara2804">modulhandbuch.pl</flowPara><flowPara
+         id="flowPara2806">mathe.pl</flowPara></flowRoot>    <g
+       transform="translate(70.120073,-97.526908)"
        id="g1362-1-6">
       <ellipse
          ry="2.6458323"
@@ -403,79 +479,5 @@
              width="25.000063"
              id="rect1353-9-6" /></flowRegion><flowPara
            id="flowPara1355-3-1">2</flowPara></flowRoot>    </g>
-    <g
-       transform="translate(202.32087,15.878933)"
-       id="g1362-1-8"
-       inkscape:transform-center-x="0.33408691"
-       inkscape:transform-center-y="-6.9936118e-06">
-      <ellipse
-         ry="2.6458323"
-         rx="2.6458333"
-         cy="143.54166"
-         cx="13.323661"
-         id="path4573-2-7"
-         style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <flowRoot
-         transform="matrix(0.26458333,0,0,0.26458333,-6.1583257,129.35332)"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none"
-         id="flowRoot1349-7-9"
-         xml:space="preserve"><flowRegion
-           style="fill:#ffffff;fill-opacity:1"
-           id="flowRegion1351-0-20"><rect
-             style="fill:#ffffff;fill-opacity:1"
-             y="44.518112"
-             x="70.000175"
-             height="25"
-             width="25.000063"
-             id="rect1353-9-2" /></flowRegion><flowPara
-           id="flowPara1355-3-3">3</flowPara></flowRoot>    </g>
-    <g
-       transform="translate(202.2459,113.62074)"
-       id="g1362-1-7">
-      <ellipse
-         ry="2.6458323"
-         rx="2.6458333"
-         cy="143.54166"
-         cx="13.323661"
-         id="path4573-2-5"
-         style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <flowRoot
-         transform="matrix(0.26458333,0,0,0.26458333,-6.4255952,129.35332)"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none"
-         id="flowRoot1349-7-92"
-         xml:space="preserve"><flowRegion
-           style="fill:#ffffff;fill-opacity:1"
-           id="flowRegion1351-0-28"><rect
-             style="fill:#ffffff;fill-opacity:1"
-             y="44.518112"
-             x="70.000175"
-             height="25"
-             width="25.000063"
-             id="rect1353-9-9" /></flowRegion><flowPara
-           id="flowPara1355-3-7">4</flowPara></flowRoot>    </g>
-    <g
-       transform="translate(202.34227,140.89086)"
-       id="g1362-1-3">
-      <ellipse
-         ry="2.6458323"
-         rx="2.6458333"
-         cy="143.54166"
-         cx="13.323661"
-         id="path4573-2-6"
-         style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <flowRoot
-         transform="matrix(0.26458333,0,0,0.26458333,-6.2251431,129.2865)"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none"
-         id="flowRoot1349-7-1"
-         xml:space="preserve"><flowRegion
-           style="fill:#ffffff;fill-opacity:1"
-           id="flowRegion1351-0-29"><rect
-             style="fill:#ffffff;fill-opacity:1"
-             y="44.518112"
-             x="70.000175"
-             height="25"
-             width="25.000063"
-             id="rect1353-9-3" /></flowRegion><flowPara
-           id="flowPara1355-3-19">5</flowPara></flowRoot>    </g>
   </g>
 </svg>
