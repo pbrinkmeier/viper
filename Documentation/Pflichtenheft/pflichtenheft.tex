@@ -602,6 +602,32 @@ Nach dem Öffnen des Beispielprogramms wird deren Inhalt im Editor angezeigt.
 Die Konsole gibt eine entsprechende Meldung aus.
 Das Eingabefeld bleibt weiterhin deaktiviert.
 
+\subsection{Parsen fehlgeschlagen}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+    \includegraphics[width=\linewidth]{build/gui/main_view_parse_fail.png}
+}
+\captionof{figure}{Hauptfenster nach Klick auf \enquote{Parsen}, mit inkorrektem Prolog-Programm}
+\end{minipage}
+
+Klickt der Nutzer auf \enquote{Parsen}, versucht der Parser das Prolog-Programm im Editor zu verarbeiten.
+Stößt er dabei auf Fehler, wird eine Fehlermeldung in der Konsole angezeigt.
+Das Eingabefeld bleibt weiterhin deaktiviert.
+
+\subsection{Parsen erfolgreich}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+    \includegraphics[width=\linewidth]{build/gui/main_view_parse_success.png}
+}
+    \captionof{figure}{Hauptfenster nach Klick auf \enquote{Parsen}, mit korrektem Prolog-Programm}
+\end{minipage}
+
+Klickt der Nutzer auf \enquote{Parsen}, versucht der Parser das Prolog-Programm im Editor zu verarbeiten.
+Gibt es keine Fehlermeldungen, so wird eine entsprechende Meldung in der Konsole angezeigt.
+Das Eingabefeld wird aktiviert; der Nutzer kann jetzt Abfragen eingeben.
+
 \section{Glossar}
 
 \textbf{Nutzer}:
