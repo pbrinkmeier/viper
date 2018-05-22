@@ -577,4 +577,41 @@ Hauptfenster
 \textbf{Nutzer}:
 Eine Person, welche den Dienst nutzt.
 
+\section{Anhang}
+
+\subsection{Formatiertes simpsons.pl Beispielprogramm}
+
+\begin{lstlisting}
+father(abe, homer).
+father(homer, bart).
+father(homer, lisa).
+father(homer, maggie).
+
+mother(marge, bart).
+mother(marge, lisa).
+mother(marge, maggie).
+
+parent(X, Y) :- father(X, Y).
+parent(X, Y) :- mother(X, Y).
+
+grandparent(X, Y) :-
+  parent(X, Z),
+  parent(Z, Y).
+\end{lstlisting}
+
+\subsection{Unformatiertes simpsons.pl Beispielprogramm}
+
+\begin{lstlisting}
+father(abe, homer). father(homer, bart).
+father(homer, lisa). father(homer, maggie).
+
+mother(marge, bart). mother(marge, lisa).
+mother(marge, maggie).
+
+parent(X, Y) :- father(X, Y).
+parent(X, Y) :- mother(X, Y).
+
+grandparent(X, Y) :- parent(X, Z), parent(Z, Y).
+\end{lstlisting}
+
 \end{document}
