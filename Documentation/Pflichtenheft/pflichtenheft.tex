@@ -42,6 +42,7 @@
 
 \begin{document}
 \maketitle
+\newpage
 
 \section{Einleitung}
 
@@ -109,6 +110,10 @@ Damit soll dem Nutzer die Funktionsweise von Prolog-Programmen durch die graphis
 
 \subsection{Muss}
 
+\criterium{Erstellen}{crt:new}
+
+Das Programm soll in der Lage dazu sein, neue Prolog-Programme anzulegen.
+
 \criterium{Öffnen}{crt:open}
 
 Das Programm soll bereits vorhandene Prolog-Programme öffnen können, damit auf diesen Abfragen durchgeführt und diese visualisiert werden können.
@@ -117,10 +122,10 @@ Das Programm soll bereits vorhandene Prolog-Programme öffnen können, damit auf
 
 Das Programm soll Änderungen am momentan geöffnetem Prolog-Programm speichern können. Wurde die Datei seit dem Öffnen anderweitig verändert, so wird sie überschrieben.
 
-\criterium{Interpretation eines Prolog-Programms mit begrenztem Umfang}{crt:interpretation}
+\criterium{Parsen eines Prolog-Programms mit begrenztem Umfang}{crt:parser}
 
 % Verweis auf Glossareintrag
-Das Programm kann eine Teilmenge der Sprache Prolog interpretieren:
+Das Programm kann eine Teilmenge der Sprache Prolog durch einen Parser verarbeiten:
 
 Es gibt IDs, Variablen und Zahlen die wie folgt notiert werden:
 
@@ -167,7 +172,7 @@ Das Programm kann Abfragen zu einem Prolog-Programm mit Hilfe eines Graphen visu
 % Verweis auf GUI
 Das Programm soll es dem Nutzer ermöglichen, beliebig viele Schritte schrittweise zurückzugehen.
 
-\criteriumOptional{Ausführung bis zur nächsten Ausgabe}{crt:continueto}
+\criteriumOptional{Ausführung bis zur nächsten Ausgabe}{crt:continue}
 
 % Verweis auf GUI
 Die Interpretation soll durch eine zusätzliche Schaltfläche bis zur nächsten Ausgabe ausgeführt werden können.
@@ -193,21 +198,25 @@ Das Programm soll eine Standardbibliothek in Form eines Prolog-Programms mit nü
 
 Das Programm soll es dem Nutzer ermöglichen, die eingebundene Standardbibliothek deaktivieren zu können.
 
-\criteriumOptional{Export von Visualisierungsbäumen als LaTeX-Code}{crt:latex}
+\criteriumOptional{Export von Visualisierungsbäumen als LaTeX-Code}{crt:latexexport}
 
 Das Programm kann einen Visualisierungsbaum als LaTeX-Code exportieren, damit dieser vereinfacht in Dokumente eingebunden werden kann.
 
-\criteriumOptional{Export von Visualisierungsbäumen als Bilddatei}{crt:export}
+\criteriumOptional{Export von Visualisierungsbäumen als Bilddatei}{crt:imageexport}
 
 Das Programm kann einen Visualisierungsbaum als Bilddatei im SVG- oder PNG-Format exportieren.
 
-\criteriumOptional{Syntaxhighlighting}{crt:syntaxhighlighting}
+\criteriumOptional{Syntax-Highlighting}{crt:syntaxhighlighting}
 
 Das Programm soll das farbliche Hervorheben bestimmter Regeln und ihres/ihrer korrespondieren Knoten in der Visualisierung unterstützen. Der Code wird dabei farblich passend hervorgehoben. Identifier und Variablen werden unterschiedlich zu Zahlen eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.
 
 \criteriumOptional{\enquote{Pretty-Printing} von Listen}{crt:prettyprinting}
 
 Das Programm soll Listen bei der Ausgabe einheitlich auf \enquote{\texttt{[x,y,z]}} formatieren.
+
+\criteriumOptional{Formatierung von Quelltext}{crt:formatting}
+
+Das Programm soll Quelltext in ein vorgeschriebenes Format bringen können.
 
 \subsection{Abgrenzung}
 
@@ -253,15 +262,11 @@ Eine Maus sowie eine Tastatur sind als Eingabegeräte angeschlossen und funktion
 
 Eine Installation des Java Runtime Environments Version 8 aufwärts ist auf dem System vorhanden.
 
-\newpage
-
 %%%%%%%%%%%
 \section{Produktdaten}
 
 \textbf{Zuletzt geöffnete Dateien} \\
-Die Pfade der fünf zuletzt geöffneten Dateien werden für einen Eintrag in der Menüleiste gespeichert.
-
-Außer den oben genannten werden keinerlei Daten gespeichert.
+Die Pfade der fünf zuletzt geöffneten Dateien werden für einen Eintrag in der Menüleiste gespeichert. Außer den oben genannten werden keinerlei Daten gespeichert.
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
 
@@ -276,12 +281,13 @@ Das Programm stellt einen Editor bereit, in dem ein leeres Prolog-Programm angel
 Das Programm ist in der Lage, Prolog-Programmdateien zu öffnen. Der Datei-Inhalt wird dabei in den Editor geladen und angezeigt. Analog wird zur Erstellung eines neuen Prolog-Programms, falls nötig, zur Speicherung ungesicherter Inhalte aufgefordert und das alte Prolog-Programm daraufhin verworfen.
 
 \functionality{Öffnen eines zuletzt verwendeten Prolog-Programms}{fnc:recentfiles}
-\fulfills{crt:recentfiles}
+\fulfills{crt:open}
 
 Das Programm bietet einen Schnellzugriff auf bis zu fünf der zuletzt verwendeten Dateien an. Diese können analog zu F2 geöffnet werden.
 
 \functionality{Bearbeiten eines Prolog-Programms}{fnc:editor}
 \fulfills{crt:save}
+\fulfills{crt:syntaxhighlighting}
 
 Das Prolog-Programm kann im Editor bearbeitet werden. Die Änderungen werden erst beim Speichern zurückgeschrieben.
 
@@ -292,36 +298,41 @@ Das Programm kann den Inhalt des Editors auf die Festplatte schreiben. Wurde das
 
 \functionality{Parsen eines Prolog-Programms}{fnc:parser}
 \fulfills{crt:parser}
+\fulfills{crt:standardlib}
 
 Das geöffnete Prolog-Programm kann durch einen Parser verarbeitet werden. Wird der Parser gestartet, werden die Fenster der Konsole und der Visualisierung geleert.
 
 \functionality{Fehlerausgabe beim Parsen eines inkorrekten Prolog-Programms}{fnc:errorcheck}
-\fulfills{crt:errorcheck}
+\fulfills{crt:parser}
 
 Der Parser erkennt Fehler innerhalb des geöffneten Prolog-Programms bei der Verarbeitung. Fehlermeldungen werden über das verfügbare Konsolen-Fenster ausgegeben.
 
 \functionality{Eingabe von Prolog-Abfragen in die Konsole}{fnc:shell}
-\fulfills{crt:shell}
+\fulfills{crt:interpreter}
 
 Bei erfolgreicher Verarbeitung einer fehlerfreien Datei durch den Parser erlaubt die angezeigte Konsole die Eingabe von Abfragen. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird die Eingabe in die Konsole sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
 
 \functionality{Interpretation von Prolog-Abfragen in der Konsole}{fnc:interpreter}
 \fulfills{crt:interpreter}
+\fulfills{crt:cut}
+\fulfills{crt:maths}
+\fulfills{crt:standardlib}
+\fulfills{crt:prettyprinting}
 
-Abfragen, welche in der Konsole eingegeben wurden, werden nach einer Bestätigung mit der Eingabe-Taste schrittweise interpretiert. Ausgaben des Interpreters werden in der Konsole angezeigt. Nach dem Betätigen der Schaltfläche wird ausschließlich der erste Interpretationsschritt durchgeführt. Der Nutzer hat die Möglichkeit, diese Interpretation über eine Schritt-Schaltfläche schrittweise fortzuführen. Fehler bei der Interpretation einer Abfrage werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird abgebrochen. Syntaktische Fehler bei Abfragen werden über das Konsolenfenster ausgegeben und die weitere Verarbeitung wird unterbrochen.
+Abfragen, welche in der Konsole eingegeben wurden, werden nach einer Bestätigung mit der Eingabe-Taste schrittweise interpretiert. Ausgaben des Interpreters werden in der Konsole angezeigt. Nach dem Betätigen der Schaltfläche wird ausschließlich der erste Interpretationsschritt durchgeführt. Der Nutzer hat die Möglichkeit, diese Interpretation über eine Schritt-Schaltfläche schrittweise fortzuführen. Fehler bei der Interpretation einer Abfrage werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird abgebrochen. Syntaktische Fehler bei Abfragen werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird unterbrochen.
 
-\functionality{Visualisierung des aktuellen Interpretationsschrittes mittels eines Graphen}{fnc:graph}
-\fulfills{crt:graph}
+\functionality{Visualisierung des aktuellen Interpretationsschrittes mittels eines Graphen}{fnc:visualization}
+\fulfills{crt:visualization}
 
 Bei aktiver Interpretation einer Abfrage wird eine Visualisierung für den aktuellen Interpretationsschritt generiert und im Visualisierungs-Fenster angezeigt. Sollte zuvor eine Visualisierung in diesem Fenster angezeigt worden sein, wird diese aus dem Fenster gelöscht.
 
 \functionality{Vergrößern und Verkleinern der Visualisierung durch Schaltflächen oder das Mausrad}{fnc:zoom}
-\fulfills{crt:zoom}
+\fulfills{crt:visualization}
 
 Über die Verwendung des Mausrads oder der Plus- und Minus-Schaltflächen lässt sich der angezeigte Ausschnitt des Visualisierungs-Graphen vergrößern oder verkleinern.
 
-\functionality{Navigation des Visualisierung durch Bewegungen mit der Maus}{fnc:move}
-\fulfills{crt:zoom}
+\functionality{Navigation der Visualisierung durch Bewegungen mit der Maus}{fnc:move}
+\fulfills{crt:visualization}
 
 Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Ausschnitt des Graphen bewegen, wodurch in diesem navigiert werden kann.
 
@@ -357,7 +368,7 @@ Die automatisch eingebundene Standardbibliothek kann über eine Schaltfläche de
 
 %TODO: Richtlinien als Liste?
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
-\fulfills{crt:formatter}
+\fulfills{crt:formatting}
 
 Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche möglich. Die Formatierung ist hierbei vorgegeben und kann nicht verändert werden. Die Formatierung sieht folgendes vor: Jede Regel wird in ihre eigene Zeile gelegt. Hat eine Regel mehrere Teilziele, so wird die Regelzeile nach dem \enquote{\texttt{:-}}-Operator umgebrochen und alle Teilziele werden in eigene Zeilen gelegt, welche mit zwei Leerzeichen eingerückt sind. Bereits gesetzte Leerzeilen werden beibehalten. Fehlende Leerzeichen vor und hinter dem \enquote{\texttt{:-}}-Operator sowie nach Kommata in Parameterlisten werden eingefügt.
 
@@ -372,6 +383,7 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werden.
 
 %%%%%%%%%%%
+\newpage
 \section{Nicht-Funktionale Anforderungen}
 
 \nonFunctionality{Das Programm startet auf einem modernen System innerhalb von 30 Sekunden und ist voll einsatzbereit.}{nfc:startup}
@@ -445,7 +457,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \test{Syntaktische Hervorhebung von Prolog-Stichworten}{tst:syntaxhighlighting}
-\tests{fnc:syntaxhighlighting}
+\tests{fnc:editor}
 
 \teststep{Der Nutzer hat ein leeres Editor-Fenster vor sich.}
 {Der Nutzer gibt ein gültiges Prolog-Programm im Editor ein.}
@@ -466,8 +478,8 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\test{Inkorrektes Prolog-Programm}{tst:syntaxcheck}
-\tests{fnc:syntaxcheck}
+\test{Inkorrektes Prolog-Programm}{tst:errorcheck}
+\tests{fnc:errorcheck}
 
 \teststep{Der Nutzer hat ein inkorrektes Prolog-Programm in den Editor eingetragen.}
 {Der Nutzer betätigt die Parsen-Schaltfläche, um das Prolog-Programm zu parsen.}
@@ -489,7 +501,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \test{Interaktive Nutzung des Interpreters}{tst:ask}
-\tests{fnc:ask}
+\tests{fnc:interpreter}
 
 \teststep{Der Nutzer hat ein fehlerloses Prolog-Programm im Editor eingegeben.}
 {Der Nutzer betätigt die Parsen-Schaltfläche im Hauptfenster.}
@@ -570,6 +582,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
 \section{Systemtests}
 
 \test{Erstellung, Bearbeitung, Speichern und Parsen des simpsons.pl-Programms}{tst:sys1}
@@ -619,7 +632,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \tests{fnc:parser}
 \tests{fnc:shell}
 \tests{fnc:interpreter}
-\tests{fnc:graph}
+\tests{fnc:visualization}
 
 \teststep{Der Nutzer hat das Programm soeben geöffnet.}
 {Der Nutzer wählt über die Menü-Leiste die Öffnen-Funktion aus.}
@@ -648,7 +661,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \tests{fnc:parser}
 \tests{fnc:shell}
 \tests{fnc:interpreter}
-\tests{fnc:graph}
+\tests{fnc:visualization}
 \tests{fnc:continue}
 \tests{fnc:cancel}
 
@@ -680,8 +693,9 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \test{Interpretieren einer Abfrage, Ausführung bis zur nächsten Ausgabe, Navigation der Visualisierung, Zurückschreiten und Export}{tst:sys4}
 \tests{fnc:interpreter}
-\tests{fnc:graph}
+\tests{fnc:visualization}
 \tests{fnc:continue}
+\tests{fnc:stepback}
 \tests{fnc:move}
 \tests{fnc:zoom}
 \tests{fnc:imageexport}
@@ -832,6 +846,7 @@ Fenster zur Meldung einer Nachricht (Warnungs- oder Fehler-Dialog) oder Anfrage 
 \textbf{Formatierung}:
 Vorgegebener Stil bzgl. der Setzung von Leerzeichen und Umbrüchen. Zu unterscheiden von Syntax, da Formatierung keinen Einfluss auf die Validität des Programms hat.
 
+\newpage
 \section{Anhang}
 
 \subsection{Formatiertes simpsons.pl Beispielprogramm}
