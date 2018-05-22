@@ -742,6 +742,8 @@ Prolog-Quelltext in Form von Dateien auf einem Speichermedium. Dies ist zu unter
 \textbf{Fakt}:
 Aussage, welche als wahr angenommen wird.
 
+Im Kontext von Prolog: eine Regel ohne Teilziele.
+
 \textbf{Regel}:
 Vorgeschriebene Folgerungen. Regeln können bspw. festsetzen, dass aus dem Fakt, dass jemand ein Elternteil ist, folgt, dass dieser Elternteil entweder Mutter oder Vater sein muss.
 
@@ -767,7 +769,7 @@ Voreingestellte Prädikate, welche automatisch bei der Verarbeitung durch den Pa
 Ziel, welches ausgewertet werden soll. Das Ergebnis der Auswertung kann eine Menge an Lösungen oder eine Ja-Nein-Antwort sein.
 
 \textbf{Parser}:
-Auswertungsmechanismus für Prolog-Programme, der diese in ein für die Weiterverarbeitung geeignetes Format bringt und auf Fehler prüft.
+Auswertungsmechanismus für Prolog-Programme, der diese in ein für die Weiterverarbeitung geeignetes Format bringt und auf syntaktische Fehler prüft.
 
 \textbf{Interpreter}:
 Ausführungsmechanismus für Abfragen. Nachdem sowohl das zugrunde liegende Prolog-Programm als auch die Abfrage durch den Parser verarbeitet wurden, findet eine Auswertung der genannten Abfrage statt. Diese Auswertung wird schrittweise abgearbeitet und ist durch das Programm verfolgbar.
@@ -782,7 +784,7 @@ Ergebnis der bisher durchgeführten Schritte.
 Schritte zwischen zwei Zuständen.
 
 \textbf{Rekursion}:
-Vorgang, bei dem ein Prädikat sich zur eigenen Auswertung selbst aufruft.
+Eine Regel wird rekursiv genannt, wenn sie selbst eines ihrer Teilziele ist.
 
 \textbf{Arithmetik}:
 Auswertung mathematischer Operationen (bspw. Summen, Differenzen etc.).
@@ -792,7 +794,7 @@ Auswertung mathematischer Operationen (bspw. Summen, Differenzen etc.).
 Lesen eines ausgewählten Prolog-Programms von einem verbundenen Speichermedium in das Programm. Dies entspricht der Übertragung des Textes aus der gewählten Datei in den Editor.
 
 \textbf{Speichern}:
-Schreiben einer Prolog-Programmdatei in ein Zielverzeichnis auf einem verbundenen Speichermedium. Es werden ausschließlich Prolog-Programm gespeichert, andere Schreibvorgänge auf Speichermedien fallen unter den Begriff Export.
+Schreiben einer Prolog-Programmdatei in ein Zielverzeichnis auf einem verbundenen Speichermedium. Es werden ausschließlich Prolog-Programme gespeichert, andere Schreibvorgänge auf Speichermedien fallen unter den Begriff Export.
 
 \textbf{Export}:
 Schreiben von Bild-Dateien oder LaTeX-Quellcode in ein Zielverzeichnis auf einem verbundenen Speichermedium. Das Schreiben von Prolog-Programmen auf ein Speichermedium wird nicht als Export, sondern als Speichern bezeichnet.
@@ -800,8 +802,11 @@ Schreiben von Bild-Dateien oder LaTeX-Quellcode in ein Zielverzeichnis auf einem
 \textbf{Editor}:
 Element der graphischen Oberfläche, welches Eingabe und Bearbeitung von angezeigtem Text ermöglicht.
 
-\textbf{Konsole}
-Element der graphischen Oberfläche. Die Konsole besteht aus zwei Teilen, einem Ausgabefenster und einer Eingabezeile. Das Ausgabefenster ist nur lesbar und dient der Ausgabe von Ergebnissen einer Abfrage sowie Fehlermeldungen. Das Eingabefenster ermöglicht hingegen die Eingabe von Abfragen.
+\textbf{Konsole}:
+Element der graphischen Oberfläche. Die Konsole ist nur lesbar und dient der Ausgabe von Ergebnissen einer Abfrage sowie anderen Meldungen. 
+
+\textbf{Eingabefeld}:
+Element der graphischen Oberfläche. Das Eingabefeld dient zur Eingabe von Abfragen. Es ist nur dann aktiviert, wenn ein gültiges Prolog-Programm eingegeben und geparst wurde.
 
 \textbf{Graph}:
 Struktur bestehend aus Knoten und Kanten.
@@ -816,7 +821,7 @@ Vergrößerung oder Verkleinerung eines Bildausschnitts.
 Eine Syntax entspricht einem Regelsystem, welches valide Zeichenkombinationen festlegt. Die Prolog-Syntax ist fest definiert und beschreibt den Aufbau valider Prolog-Programme. Syntax-Highlighting entspricht einer visuellen Unterstützung durch Schrifteffekte und -farben, um die Syntax ersichtlicher zu machen (Einfärbung von zusammengehörigen Klammern etc.).
 
 \textbf{GUI / GUI-Element}:
-Das GUI entspricht der graphischen Benutzeroberfläche (graphical user interface). Das GUI ist zusammengesetzt aus diversen GUI-Elementen innerhalb eines Fensters (bspw. der Editor).
+Das GUI entspricht der graphischen Benutzeroberfläche (graphical user interface). Das GUI ist zusammengesetzt aus diversen GUI-Elementen innerhalb eines Fensters (bspw. dem Editor).
 
 \textbf{Menüleiste}:
 Element der graphischen Oberfläche. Bietet über Text-Menüs Zugriff auf Funktionen wie Speichern und Öffnen.
@@ -835,33 +840,30 @@ Vorgegebener Stil bzgl. der Setzung von Leerzeichen und Umbrüchen. Zu untersche
 father(abe, homer).
 father(homer, bart).
 father(homer, lisa).
-father(homer, maggie).
-
 mother(marge, bart).
-mother(marge, lisa).
-mother(marge, maggie).
 
-parent(X, Y) :- father(X, Y).
-parent(X, Y) :- mother(X, Y).
+grandfather(X, Y) :-
+  father(X, Z), parent(Z, Y).
 
-grandparent(X, Y) :-
-  parent(X, Z),
-  parent(Z, Y).
+parent(X, Y) :-
+  mother(X, Y).
+
+parent(X, Y) :-
+  father(X, Y).
 \end{lstlisting}
 
 \subsection{Unformatiertes simpsons.pl Beispielprogramm}
 
 \begin{lstlisting}
 father(abe, homer). father(homer, bart).
-father(homer, lisa). father(homer, maggie).
+father(homer, lisa). mother(marge, bart).
 
-mother(marge, bart). mother(marge, lisa).
-mother(marge, maggie).
+grandfather(X, Y) :-
+father(X, Z), parent(Z, Y).
 
-parent(X, Y) :- father(X, Y).
 parent(X, Y) :- mother(X, Y).
 
-grandparent(X, Y) :- parent(X, Z), parent(Z, Y).
+parent(X, Y) :- father(X, Y).
 \end{lstlisting}
 
 \end{document}
