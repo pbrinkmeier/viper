@@ -717,7 +717,101 @@ Hauptfenster
 
 \section{Glossar}
 
-\textbf{Nutzer}:
-Eine Person, welche den Dienst nutzt.
+\subsection{Allgemein}
+
+\textbf{Programm}:
+Das vorgestellte VIPER-Programm. Dies ist zu unterscheiden von Prolog-Programmen.
+
+\textbf{Prolog-Programm}:
+Prolog-Quelltext in Form von Dateien auf einem Speichermedium. Dies ist zu unterscheiden von dem Programm im Sinne des VIPER-Programms.
+
+\subsection{Prolog-interne Begriffe}
+\textbf{Fakt}:
+Aussage, welche als wahr angenommen wird.
+
+\textbf{Regel}:
+Vorgeschriebene Folgerungen. Regeln können bspw. festsetzen, dass aus dem Fakt, dass jemand ein Elternteil ist, folgt, dass dieser Elternteil entweder Mutter oder Vater sein muss.
+
+\textbf{Identifier}:
+Wort, beginnend mit einem Kleinbuchstaben und fortsetzend mit Groß- und Kleinbuchstaben sowie Zahlen.
+
+\textbf{Variable}:
+Platzhalter. Erlaubt das allgemeine Beschreiben von Regeln. Können für einen beliebigen Term stehen.
+
+\textbf{Funktor}:
+Sammelbegriff für Identifier, welche für sich allein stehen oder eine Liste an Termen auswerten.
+
+\textbf{Ziel}:
+Sammelbegriff für Funktoren, Vergleiche von Termen über den \enquote{=}-Operator, Arithmetik oder den \enquote{Cut}-Operator.
+
+\textbf{Term}:
+Sammelbegriff für Funktoren, Variablen oder Zahlen.
+
+\textbf{Standardbibliothek}:
+Voreingestellte Prädikate, welche automatisch bei der Verarbeitung durch den Parser angefügt werden können.
+
+\textbf{Abfrage}:
+Ziel, welches ausgewertet werden soll. Das Ergebnis der Auswertung kann eine Menge an Lösungen oder eine Ja-Nein-Antwort sein.
+
+\textbf{Parser}:
+Auswertungsmechanismus für Prolog-Programme, der diese in ein für die Weiterverarbeitung geeignetes Format bringt und auf Fehler prüft.
+
+\textbf{Interpreter}:
+Ausführungsmechanismus für Abfragen. Nachdem sowohl das zugrunde liegende Prolog-Programm als auch die Abfrage durch den Parser verarbeitet wurden, findet eine Auswertung der genannten Abfrage statt. Diese Auswertung wird schrittweise abgearbeitet und ist durch das Programm verfolgbar.
+
+\textbf{Schritt}:
+Nächste Operation, die zur Auswertung einer Abfrage nötig ist.
+
+\textbf{Zustand}:
+Ergebnis der bisher durchgeführten Schritte.
+
+\textbf{Zustandsunterschied}:
+Schritte zwischen zwei Zuständen.
+
+\textbf{Rekursion}:
+Vorgang, bei dem ein Prädikat sich zur eigenen Auswertung selbst aufruft.
+
+\textbf{Arithmetik}:
+Auswertung mathematischer Operationen (bspw. Summen, Differenzen etc.).
+
+\subsection{Begriffe der Bedienoberfläche}
+\textbf{Öffnen}:
+Lesen eines ausgewählten Prolog-Programms von einem verbundenen Speichermedium in das Programm. Dies entspricht der Übertragung des Textes aus der gewählten Datei in den Editor.
+
+\textbf{Speichern}:
+Schreiben einer Prolog-Programmdatei in ein Zielverzeichnis auf einem verbundenen Speichermedium. Es werden ausschließlich Prolog-Programm gespeichert, andere Schreibvorgänge auf Speichermedien fallen unter den Begriff Export.
+
+\textbf{Export}:
+Schreiben von Bild-Dateien oder LaTeX-Quellcode in ein Zielverzeichnis auf einem verbundenen Speichermedium. Das Schreiben von Prolog-Programmen auf ein Speichermedium wird nicht als Export, sondern als Speichern bezeichnet.
+
+\textbf{Editor}:
+Element der graphischen Oberfläche, welches Eingabe und Bearbeitung von angezeigtem Text ermöglicht.
+
+\textbf{Konsole}
+Element der graphischen Oberfläche. Die Konsole besteht aus zwei Teilen, einem Ausgabefenster und einer Eingabezeile. Das Ausgabefenster ist nur lesbar und dient der Ausgabe von Ergebnissen einer Abfrage sowie Fehlermeldungen. Das Eingabefenster ermöglicht hingegen die Eingabe von Abfragen.
+
+\textbf{Graph}:
+Struktur bestehend aus Knoten und Kanten.
+
+\textbf{Visualisierung}:
+Navigierbarer Graph, welcher den Ablauf der Interpretation einer Abfrage im Kontext eines gegebenen Prolog-Programms aufzeigt.
+
+\textbf{Zoom}:
+Vergrößerung oder Verkleinerung eines Bildausschnitts.
+
+\textbf{Syntax / Syntax-Highlighting}:
+Eine Syntax entspricht einem Regelsystem, welches valide Zeichenkombinationen festlegt. Die Prolog-Syntax ist fest definiert und beschreibt den Aufbau valider Prolog-Programme. Syntax-Highlighting entspricht einer visuellen Unterstützung durch Schrifteffekte und -farben, um die Syntax ersichtlicher zu machen (Einfärbung von zusammengehörigen Klammern etc.).
+
+\textbf{GUI / GUI-Element}:
+Das GUI entspricht der graphischen Benutzeroberfläche (graphical user interface). Das GUI ist zusammengesetzt aus diversen GUI-Elementen innerhalb eines Fensters (bspw. der Editor).
+
+\textbf{Menüleiste}:
+Element der graphischen Oberfläche. Bietet über Text-Menüs Zugriff auf Funktionen wie Speichern und Öffnen.
+
+\textbf{Dialog}:
+Fenster zur Meldung einer Nachricht (Warnungs- oder Fehler-Dialog) oder Anfrage (bspw. Bestätigungs-Dialog).
+
+\textbf{Formatierung}:
+Vorgegebener Stil bzgl. der Setzung von Leerzeichen und Umbrüchen. Zu unterscheiden von Syntax, da Formatierung keinen Einfluss auf die Validität des Programms hat.
 
 \end{document}
