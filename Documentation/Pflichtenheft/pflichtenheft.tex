@@ -655,6 +655,32 @@ Eine Leiste mit Schaltflächen, die zur Steuerung der Visualisierung dienen, wir
 Die Schaltfäche \enquote{Nächster Schritt} (4) bewirkt die Ausführung und Visualisierung des nächsten Schrittes.
 Die Schaltfläche \enquote{Größer} und \enquote{Kleiner} (5) dienen zum Zoomen in der Visualisierung.
 
+\subsection{Lösung gefunden}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_solution_found.png}
+}
+\captionof{figure}{Eine Lösung wurde gefunden}
+\end{minipage}
+
+Wurde ein Lösung für die Abfrage gefunden (1), wird eine Meldung in der Konsole angezeigt (2).
+
+\subsection{Keine weiteren Lösungen}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_no_more_solutions.png}
+}
+\captionof{figure}{Es gibt keine weiteren Lösungen mehr}
+\end{minipage}
+
+Gibt es keine weiteren Lösungen mehr, wird eine Meldung (1) in der Konsole angezeigt und die Schaltfläche \enquote{Nächster Schritt} wird deaktiviert (2).
+
+Dieser Fall tritt ein, wenn der Interpreter einen Rückschritt vom eingegeben Ziel auszuführen versucht.
+In diesem Fall gibt es keine Fakten mehr, die mit dem Ziel unifizierbar sind.
+Unabhängig davon, ob es per se keine Lösungen gibt oder schon Lösungen gefunden wurden, wird die Meldung \enquote{Keine weiteren Lösungen.} angezeigt.
+
 \subsection{Visualisierung}
 
 Um die Beispiele besser darzustellen, wurden sie hier ohne die graphische Oberfläche des Programms eingefügt.
@@ -686,7 +712,7 @@ Diese schlägt fehl.
 Die Visualisierung stellt zu unifizierende Ziele als Runde Knoten dar.
 Unifikationen werden in  Rechtecken dargestellt, die in zwei weitere rechtecke aufgeteilt sind.
 Dabei enthält jede Unifikation im oberen Rechteck den Fakt, mit dem unifiziert werden soll.
-Fehlgeschlagene Unifikationen enthalten im unteren Rechteck den Satz "Unifikation fehlgeschlagen:" und den Grund des Fehlschlages.
+Fehlgeschlagene Unifikationen enthalten im unteren Rechteck den Satz \enquote{Unifikation fehlgeschlagen:} und den Grund des Fehlschlages.
 Außerdem sind sie rot eingefärbt.
 
 \subsubsection{Erfolgreiche Unifikation und Teilziele}
