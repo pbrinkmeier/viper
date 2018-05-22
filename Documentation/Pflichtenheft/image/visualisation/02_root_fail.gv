@@ -1,0 +1,8 @@
+digraph VIPER_visualization_root {
+    node [fontname = "Fira Mono"];
+
+    root [label = "grandfather(X, Y)"];
+    root_fail [shape = record, label = <{father<sub>1</sub>(abe, homer)|Unification failed: grandfather ≠ father}>, color = red];
+
+    root -> root_fail [color = red];
+}

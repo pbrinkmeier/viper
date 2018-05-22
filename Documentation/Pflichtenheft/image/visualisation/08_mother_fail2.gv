@@ -1,0 +1,44 @@
+digraph VIPER_visualization_root {
+    node [fontname = "Fira Mono"];
+
+    root [label = "grandfather(X, Y)"];
+    root_success [
+        // enables having multiple boxes inside a node
+        shape = record,
+        // using < and > instead of quotes for delimiting a label makes it possible to use (a subset of) HTML in it
+        // { A | B } makes A and B be in two separate boxes stacked on top of each other
+        label = <{grandfather<sub>1</sub>(X<sub>1</sub>, X<sub>2</sub>)|X = X<sub>1</sub>, Y = X<sub>2</sub>}>
+    ];
+    subgoal1 [label = <father(X, X<sub>3</sub>)>];
+    subgoal2 [label = <parent(homer, Y)>];
+    subgoal1_success [
+        shape = record,
+        label = <{father<sub>1</sub>(abe, homer)|X = abe, X<sub>3</sub> = homer}>
+    ];
+    subgoal2_success [
+        shape = record,
+        label = <{parent<sub>1</sub>(X<sub>4</sub>, X<sub>5</sub>)|homer = X<sub>4</sub>, Y = X<sub>5</sub>}>
+    ];
+    subgoal2_success_mother [
+        label = <mother(homer, Y)>
+    ];
+    mother_fail [
+        shape = record,
+        color = red,
+        label = <{mother<sub>1</sub>(marge, bart)|Unification failed: homer ≠ marge}>
+    ];
+
+    // this ensures that subgoal1 is always left of subgoal2
+    // and that they are always on the same level
+    // try commenting the rank = same line and see what happens
+    {rank = same; subgoal1; subgoal2}
+    subgoal1 -> subgoal2 [style = invis];
+
+    root -> root_success;
+    root_success -> subgoal1 [style = dashed];
+    root_success -> subgoal2 [style = dashed];
+    subgoal1 -> subgoal1_success;
+    subgoal2 -> subgoal2_success;
+    subgoal2_success -> subgoal2_success_mother [style = dashed];
+    subgoal2_success_mother -> mother_fail [color = red];
+}
