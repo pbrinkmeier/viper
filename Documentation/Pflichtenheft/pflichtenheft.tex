@@ -644,7 +644,7 @@ Stößt er dabei auf Fehler, wird eine Fehlermeldung in der Konsole angezeigt (2
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
-    \includegraphics[width=\linewidth]{build/gui/main_view_visualisation_root.png}
+\includegraphics[width=\linewidth]{build/gui/main_view_visualisation_root.png}
 }
 \captionof{figure}{Hauptfenster nach Eingabe einer Abfrage}
 \end{minipage}
@@ -654,6 +654,94 @@ Treten dabei keine Fehler auf, wird eine Meldung in der Konsole angezeigt (2) un
 Eine Leiste mit Schaltflächen, die zur Steuerung der Visualisierung dienen, wird angezeigt.
 Die Schaltfäche \enquote{Nächster Schritt} (4) bewirkt die Ausführung und Visualisierung des nächsten Schrittes.
 Die Schaltfläche \enquote{Größer} und \enquote{Kleiner} (5) dienen zum Zoomen in der Visualisierung.
+
+\subsection{Visualisierung}
+
+Um die Beispiele besser darzustellen, wurden sie hier ohne die graphische Oberfläche des Programms eingefügt.
+Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im Beispielprogramm.
+
+\subsubsection{Wurzel}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/01_root.png}
+}
+\captionof{figure}{Wurzel des Visualisierungsbaumes}
+\end{minipage}
+
+Die Wurzel des Visualisierungsbaumes stellt die eingegebene Abfrage dar.
+
+\subsubsection{Fehlgeschlagene Unifikation}
+
+Im nächsten Schritt versucht der Interpreter die Unifikation von \texttt{grandfather(X, Y)} mit dem Fakt \texttt{father(abe, homer)}.
+Diese schlägt fehl.
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/02_root_fail.png}
+}
+\captionof{figure}{Eine fehlgeschlagene Unifikation}
+\end{minipage}
+
+Die Visualisierung stellt zu unifizierende Ziele als Runde Knoten dar.
+Unifikationen werden in  Rechtecken dargestellt, die in zwei weitere rechtecke aufgeteilt sind.
+Dabei enthält jede Unifikation im oberen Rechteck den Fakt, mit dem unifiziert werden soll.
+Fehlgeschlagene Unifikationen enthalten im unteren Rechteck den Satz "Unifikation fehlgeschlagen:" und den Grund des Fehlschlages.
+Außerdem sind sie rot eingefärbt.
+
+\subsubsection{Erfolgreiche Unifikation und Teilziele}
+
+In den weiteren Schritten schlagen die Unifikationen von \texttt{grandfather(X, Y)} mit \texttt{father(homer, bart)}, \texttt{father(homer, lisa)} und \texttt{mother(marge, bart)} fehl.
+Die Unifikation mit der Regel \texttt{grandfather(X, Y)} ist erfolgreich.
+Dabei werden die Variablennamen durch neue, eindeutige Namen ersetzt um Konflikte zu vermeiden.
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/03_root_success.png}
+}
+\captionof{figure}{Eine erfolgreiche Unifikation mit Einfügung der Teilziele}
+\end{minipage}
+
+Erfolgreiche Unifikationen enthalten im unteren Rechteck die resultierenden Substitutionen.
+Außerdem sind sie grün eingefärbt.
+
+War eine Unifikation mit einer Regel erfolgreich, so werden ihre Teilziele als neue Ziele, also runde Knoten, zum Graphen hinzugefügt.
+Die Substitutionen werden in den Teilzielen angewendet und hervorgehoben.
+Die Unifikation und ihre Teilziele werden durch gestrichelte Kanten verbunden.
+Dadurch werden im Baum die Fälle \enquote{Ziel wurde unifiziert mit} und \enquote{Ziel ist Teilziel von Regel} unterschieden.
+
+\subsubsection{Erfolgreiche Unifikation mit rückwirkender Substitution}
+
+Im nächsten Schritt steigt der Interpreter in die Teilziele ab und versucht, von links nach rechts diese mit einem Fakt zu unifizieren.
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/04_subgoal_father_success.png}
+}
+\captionof{figure}{Eine erfolgreiche Unifikation mit mit rückwirkender Substitution}
+\end{minipage}
+
+In diesem Beispiel ist der gefundene Fakt keine Regel, hat also keine Teilziele.
+Trotzdem müssen die Substitutionen in der restlichen Teilzielen angewendet werden.
+Die angewendeten Substitutionen werden dabei in den betreffenden Zielen hervorgehoben.
+
+\subsubsection{Backtracking}
+
+Hier wurden einige Schritte übersprungen.
+Das zweite Teilziel wurde mit der ersten Definition von \texttt{parent(X, Y)} unifiziert.
+Diese hat als Teilziel \texttt{mother(X, Y)}.
+Mit der Belegung \texttt{X = homer} gibt es dafür aber keine Lösung.
+Der Interpreter muss also nach einer alternativen Definition von \texttt{parent} suchen und dazu zurückspringen (\enquote{Backtracking}).
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/09_mother_backtrack.png}
+}
+\captionof{figure}{Rücksprung nachdem ein Ziel nicht erfüllbar ist}
+\end{minipage}
+
+Ein Rücksprung wird durch eine aus Punkten bestehende, rot eingefärbte Karte dargestellt.
+Das nicht erfüllbare Teilziel wird ebenfalls rot eingefärbt und mit dem Text \enquote{Nicht erfüllbar!} ergänzt.
 
 \section{Glossar}
 
