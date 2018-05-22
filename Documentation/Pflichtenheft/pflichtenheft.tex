@@ -719,14 +719,251 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \pagebreak
 \appendix
 
-\section{Seitenentwürfe}
+\section{GUI-Entwürfe}
 
-\begin{figure}[hb]
-\fbox{\includegraphics[width=\textwidth]{image/main_view.png}}
-\caption{\label{fig:editor}
-Hauptfenster
+\subsection{Programmstart}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+    \includegraphics[width=\linewidth]{build/gui/main_view_initial.png}}
+\captionof{figure}{Hauptfenster unmittelbar nach dem Starten des Programms}
+\end{minipage}
+
+Das Hauptfenster besteht aus der Fensterleiste (A), der Menüleiste (1), dem Editor (2), der Visualisierungsbox (3), der Konsole (4) und dem Eingabefeld (5).
+Dabei ist die Fensterleiste kein Bestandteil des eigentlichen Programms; sie ist von der graphischen Oberfläche des Betriebssystems vorgegeben.
+Das Eingabefeld ist noch deaktiviert (angedeutet durch die graue Färbung), da noch kein Prolog-Programm geparst wurde.
+
+\subsection{\enquote{Datei}-Menü}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+    \includegraphics[width=\linewidth]{build/gui/main_view_filemenu.png}}
+\captionof{figure}{Hauptfenster mit ausgewähltem \enquote{Datei}-Menü}
+\end{minipage}
+
+Das \enquote{Datei}-Menü (1) hat die Einträge \enquote{Öffnen}, \enquote{Speichern}, \enquote{Speichern als...}, \enquote{Zuletzt verwendet} und \enquote{Beenden}.
+\enquote{Öffnen} und \enquote{Speichern} führen die jeweiligen Funktionen aus; während \enquote{Speichern} nur bei neu angelegten Prolog-Programmen einen Auswahldialog anzeigt, zeigt \enquote{Speichern als...} immer einen Auswahldialog an.
+\enquote{Beenden} beendet das Programm.
+\enquote{Zuletzt verwendet} enthält eine Liste von bis zu fünf zuletzt verwendeten Programmen (2).
+
+\subsection{Geöffnete Datei}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+    \includegraphics[width=\linewidth]{build/gui/main_view_opened.png}}
+\captionof{figure}{Hauptfenster nach dem Öffnen des Beispielprogramms}
+\end{minipage}
+
+Nach dem Öffnen des Beispielprogramms wird dessen Inhalt im Editor angezeigt (1).
+Die Konsole gibt eine entsprechende Meldung aus (2).
+Das Eingabefeld bleibt weiterhin deaktiviert (3).
+
+\subsection{Parsen fehlgeschlagen}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+    \includegraphics[width=\linewidth]{build/gui/main_view_parse_fail.png}
 }
-\end{figure}
+\captionof{figure}{Hauptfenster nach Klick auf \enquote{Parsen}, mit inkorrektem Prolog-Programm}
+\end{minipage}
+
+Klickt der Nutzer auf \enquote{Parsen} (1), versucht der Parser das Prolog-Programm im Editor zu verarbeiten.
+Stößt er dabei auf Fehler, wird eine Fehlermeldung in der Konsole angezeigt (2).
+Das Eingabefeld bleibt weiterhin deaktiviert (3).
+
+\subsection{Parsen erfolgreich}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_parse_success.png}
+}
+\captionof{figure}{Hauptfenster nach Klick auf \enquote{Parsen}, mit korrektem Prolog-Programm}
+\end{minipage}
+
+Klickt der Nutzer auf \enquote{Parsen} (1), versucht der Parser das Prolog-Programm im Editor zu verarbeiten.
+Treten dabei keine Fehler auf, wird eine entsprechende Meldung in der Konsole angezeigt (2).
+Das Eingabefeld wird aktiviert; der Nutzer kann jetzt Abfragen eingeben (3).
+
+\subsection{Fehlerhafte Abfrage}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_question_fail.png}
+}
+\captionof{figure}{Hauptfenster nach fehlerhafter Abfrage im Eingabefeld}
+\end{minipage}
+
+Gibt der Nutzer eine Abfrage im Eingabefeld ein (1), versucht der Parser, diese Eingabe zu einem einzelnen Ziel zu verarbeiten.
+Stößt er dabei auf Fehler, wird eine Fehlermeldung in der Konsole angezeigt (2).
+
+\subsection{Erfolgreiche Abfrage}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_visualisation_root.png}
+}
+\captionof{figure}{Hauptfenster nach Eingabe einer Abfrage}
+\end{minipage}
+
+Gibt der Nutzer eine Abfrage (1) im Eingabefeld ein, versucht der Parser, diese Eingabe zu einem einzelnen Ziel zu verarbeiten.
+Treten dabei keine Fehler auf, wird eine Meldung in der Konsole angezeigt (2) und die Visualisierung der Abarbeitung dieser Abfrage gestartet (3).
+Eine Leiste mit Schaltflächen, die zur Steuerung der Visualisierung dienen, wird angezeigt.
+Die Schaltfäche \enquote{Nächster Schritt} (4) bewirkt die Ausführung und Visualisierung des nächsten Schrittes.
+Die Schaltflächen \enquote{Größer} und \enquote{Kleiner} (5) dienen zum Zoomen in der Visualisierung.
+
+\subsection{Lösung gefunden}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_solution_found.png}
+}
+\captionof{figure}{Eine Lösung wurde gefunden}
+\end{minipage}
+
+Wurde ein Lösung für die Abfrage gefunden (1), wird eine Meldung in der Konsole angezeigt (2).
+
+\subsection{Keine weiteren Lösungen}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_no_more_solutions.png}
+}
+\captionof{figure}{Es gibt keine weiteren Lösungen mehr}
+\end{minipage}
+
+Gibt es keine weiteren Lösungen mehr, wird eine Meldung (1) in der Konsole angezeigt und die Schaltfläche \enquote{Nächster Schritt} wird deaktiviert (2).
+
+Dieser Fall tritt ein, wenn der Interpreter einen Rückschritt vom eingegeben Ziel auszuführen versucht.
+In diesem Fall gibt es keine Fakten mehr, die mit dem Ziel unifizierbar sind.
+Unabhängig davon, ob es per se keine Lösungen gibt oder schon Lösungen gefunden wurden, wird die Meldung \enquote{Keine weiteren Lösungen.} angezeigt.
+
+\subsection{Schaltfläche \enquote{Vorheriger Schritt}}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_previous_step.png}
+}
+    \captionof{figure}{Die Schaltfläche \enquote{vorheriger Schritt}}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_previous_step_disabled.png}
+}
+\captionof{figure}{Interpreter beim ersten Schritt; die Schaltfläche \enquote{Vorheriger Schritt} ist deaktiviert}
+\end{minipage}
+
+Die Schaltfläche \enquote{Vorheriger Schritt} (1) erlaubt es dem Nutzer, den Zustand vor dem aktuellen Schritt zu betrachten.
+Die Schaltfläche kann so lange betätigt werden, bis der Nutzer beim ersten Schritt angelangt ist.
+Ist der Nutzer beim ersten Schritt angelangt, wird die Schaltfläche deaktiviert.
+
+\subsection{Ausführung bis zur nächsten Lösung}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_next_solution.png}
+}
+\captionof{figure}{Die Schaltfläche \enquote{Nächste Lösung}}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_abort.png}
+}
+\captionof{figure}{Die Schaltfläche \enquote{Abbrechen}}
+\end{minipage}
+
+Die Schaltfläche \enquote{Nächste Lösung} (1) lässt den Interpreter automatisch Schritte ausführen, bis eine Lösung gefunden wurde oder keine Unifikation der Abfrage mehr möglich ist.
+Betätigt der Nutzer die Schaltfläche, wird sie hervorgehoben und ihr Text in \enquote{Abbrechen} geändert.
+Betätigt der Nutzer die Schaltfläche erneut, wird der Interpreter unterbrochen und der letzte vollständig berechnete Schritt angezeigt.
+
+\subsection{Visualisierung}
+
+Um die Beispiele besser darzustellen, wurden sie hier ohne die graphische Oberfläche des Programms eingefügt.
+Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im Beispielprogramm.
+
+\subsubsection{Wurzel}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/01_root.png}
+}
+\captionof{figure}{Wurzel des Visualisierungsbaumes}
+\end{minipage}
+
+Die Wurzel des Visualisierungsbaumes stellt die eingegebene Abfrage dar.
+
+\subsubsection{Fehlgeschlagene Unifikation}
+
+Im nächsten Schritt versucht der Interpreter die Unifikation von \texttt{grandfather(X, Y)} mit dem Fakt \texttt{father(abe, homer)}.
+Diese schlägt fehl.
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/02_root_fail.png}
+}
+\captionof{figure}{Eine fehlgeschlagene Unifikation}
+\end{minipage}
+
+Die Visualisierung stellt zu unifizierende Ziele als Runde Knoten dar.
+Unifikationen werden in  Rechtecken dargestellt, die in zwei weitere rechtecke aufgeteilt sind.
+Dabei enthält jede Unifikation im oberen Rechteck den Fakt, mit dem unifiziert werden soll.
+Fehlgeschlagene Unifikationen enthalten im unteren Rechteck den Satz \enquote{Unifikation fehlgeschlagen:} und den Grund des Fehlschlags.
+Außerdem sind sie rot eingefärbt.
+
+\subsubsection{Erfolgreiche Unifikation und Teilziele}
+
+In den weiteren Schritten schlagen die Unifikationen von \texttt{grandfather(X, Y)} mit \texttt{father(homer, bart)}, \texttt{father(homer, lisa)} und \texttt{mother(marge, bart)} fehl.
+Die Unifikation mit der Regel \texttt{grandfather(X, Y)} ist erfolgreich.
+Dabei werden die Variablennamen durch neue, eindeutige Namen ersetzt um Konflikte zu vermeiden.
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/03_root_success.png}
+}
+\captionof{figure}{Eine erfolgreiche Unifikation mit Einfügung der Teilziele}
+\end{minipage}
+
+Erfolgreiche Unifikationen enthalten im unteren Rechteck die resultierenden Substitutionen.
+Außerdem sind sie grün eingefärbt.
+
+War eine Unifikation mit einer Regel erfolgreich, so werden ihre Teilziele als neue Ziele, also runde Knoten, zum Graphen hinzugefügt.
+Die Substitutionen werden in den Teilzielen angewendet und hervorgehoben.
+Die Unifikation und ihre Teilziele werden durch gestrichelte Kanten verbunden.
+Dadurch werden im Baum die Fälle \enquote{Ziel wurde unifiziert mit} und \enquote{Ziel ist Teilziel von Regel} unterschieden.
+
+\subsubsection{Erfolgreiche Unifikation mit rückwirkender Substitution}
+
+Im nächsten Schritt steigt der Interpreter in die Teilziele ab und versucht, von links nach rechts diese zu unifizieren.
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/04_subgoal_father_success.png}
+}
+\captionof{figure}{Eine erfolgreiche Unifikation mit mit rückwirkender Substitution}
+\end{minipage}
+
+In diesem Beispiel hat der gefundene Fakt keine Teilziele.
+Trotzdem müssen die Substitutionen in der restlichen Teilzielen angewendet werden.
+Die angewendeten Substitutionen werden dabei in den betreffenden Zielen hervorgehoben.
+
+\subsubsection{Backtracking}
+
+Hier wurden einige Schritte übersprungen.
+Das zweite Teilziel wurde mit der ersten Definition von \texttt{parent(X, Y)} unifiziert.
+Diese hat als Teilziel \texttt{mother(X, Y)}.
+Mit der Belegung \texttt{X = homer} gibt es dafür aber keine Lösung.
+Der Interpreter muss also nach einer alternativen Definition von \texttt{parent} suchen und dazu zurückspringen (\enquote{Backtracking}).
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/09_mother_backtrack.png}
+}
+\captionof{figure}{Rücksprung nachdem ein Ziel nicht erfüllbar ist}
+\end{minipage}
+
+Ein Rücksprung wird durch eine aus Punkten bestehende, rot eingefärbte Kante dargestellt.
+Das nicht erfüllbare Teilziel wird ebenfalls rot eingefärbt und mit dem Text \enquote{Nicht erfüllbar!} ergänzt.
 
 \section{Glossar}
 

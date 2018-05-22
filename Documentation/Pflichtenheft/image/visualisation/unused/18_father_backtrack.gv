@@ -1,0 +1,29 @@
+digraph VIPER_visualization_root {
+    node [fontname = "Fira Mono"];
+
+    root [label = "grandfather(X, Y)"];
+    root_success [
+        // enables having multiple boxes inside a node
+        shape = record,
+        // using < and > instead of quotes for delimiting a label makes it possible to use (a subset of) HTML in it
+        // { A | B } makes A and B be in two separate boxes stacked on top of each other
+        label = <{grandfather<sub>1</sub>(X<sub>1</sub>, X<sub>2</sub>)|X = X<sub>1</sub>, Y = X<sub>2</sub>}>
+    ];
+    subgoal1 [label = <father(X, X<sub>3</sub>)<br />Nicht erfüllbar!>, color = red];
+    subgoal2 [label = <parent(X<sub>3</sub>, Y)>];
+
+    // this ensures that subgoal1 is always left of subgoal2
+    // and that they are always on the same level
+    // try commenting the rank = same line and see what happens
+    {rank = same; subgoal1; subgoal2}
+    subgoal1 -> subgoal2 [style=invis];
+
+    root -> root_success;
+    root_success -> subgoal1 [style=dashed];
+    root_success -> subgoal2 [style=dashed];
+    subgoal1 -> root [
+        color = red,
+        style = dotted,
+        constraint = false
+    ];
+}
