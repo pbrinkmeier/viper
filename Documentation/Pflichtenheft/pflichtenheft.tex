@@ -51,11 +51,11 @@ Prolog ist eine logische Programmiersprache die ein deklaratives Programmieren e
 Das Grundprinzip von Prolog operiert auf einer Wissensdatenbank, deren Einträge sich Fakten und Regeln nennen.
 
 \begin{lstlisting}
-father(homer, bart).
 father(abe, homer).
+father(homer, bart).
 \end{lstlisting}
 
-So gilt, dass Homer der Vater von Bart ist und Abe der Vater von Homer.
+So gilt, dass Abe der Vater von Homer und Homer der Vater von Bart ist.
 
 Dabei existiert keine Semantik.
 
@@ -75,7 +75,7 @@ yes .
 no .
 \end{lstlisting}
 
-Nun ist es möglich Relationen, basierend auf Fakten, einzuführen. Setzen wir also Großvater für alle Väter von Vätern indem wir Variablen benutzen. Diese beginnen mit Großbuchstaben, Funktoren und Atome mit Kleinbuchstaben.
+Nun ist es möglich Relationen, basierend auf Fakten, einzuführen. Definieren wir also Großvater als alle Väter von Vätern, indem wir Variablen als Platzhalter verwenden. Diese beginnen mit Großbuchstaben, Funktoren und Atome mit Kleinbuchstaben.
 
 \begin{lstlisting}
 grandfather(X, Y) :- father(X, Z), father(Z, Y).
@@ -647,7 +647,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{? mother(marge, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{mother(marge, lisa).} ein und bestätigt mit der Eingabe-Taste.}
 {Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
@@ -674,7 +674,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{? mother(X, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{mother(X, lisa).} ein und bestätigt mit der Eingabe-Taste.}
 {Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
@@ -701,7 +701,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \tests{fnc:imageexport}
 \tests{fnc:latexexport}
 
-\teststep{Der Nutzer hat das formatierte simpsons.pl-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \enquote{? mother(X, lisa).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+\teststep{Der Nutzer hat das formatierte simpsons.pl-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \enquote{mother(X, lisa).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Fortführen-Schaltfläche.}
 {Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \enquote{X = marge} ausgegeben. Der Graph entspricht nun dem Graphen bei der Findung der ersten Lösung.}
 
