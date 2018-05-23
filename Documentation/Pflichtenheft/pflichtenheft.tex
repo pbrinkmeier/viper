@@ -51,11 +51,11 @@ Prolog ist eine logische Programmiersprache die ein deklaratives Programmieren e
 Das Grundprinzip von Prolog operiert auf einer Wissensdatenbank, deren Einträge sich Fakten und Regeln nennen.
 
 \begin{lstlisting}
-father(homer, bart).
 father(abe, homer).
+father(homer, bart).
 \end{lstlisting}
 
-So gilt, dass Homer der Vater von Bart ist und Abe der Vater von Homer.
+So gilt, dass Abe der Vater von Homer und Homer der Vater von Bart ist.
 
 Dabei existiert keine Semantik.
 
@@ -75,7 +75,7 @@ yes .
 no .
 \end{lstlisting}
 
-Nun ist es möglich Relationen, basierend auf Fakten, einzuführen. Setzen wir also Großvater für alle Väter von Vätern indem wir Variablen benutzen. Diese beginnen mit Großbuchstaben, Funktoren und Atome mit Kleinbuchstaben.
+Nun ist es möglich Relationen, basierend auf Fakten, einzuführen. Definieren wir also Großvater als alle Väter von Vätern, indem wir Variablen als Platzhalter verwenden. Diese beginnen mit Großbuchstaben, Funktoren und Atome mit Kleinbuchstaben.
 
 \begin{lstlisting}
 grandfather(X, Y) :- father(X, Z), father(Z, Y).
@@ -364,7 +364,7 @@ Die aktuell angezeigte Visualisierung lässt sich als Bild im PNG- oder SVG-Form
 \functionality{Deaktivierung der Standardbibliothek}{fnc:disablelib}
 \fulfills{crt:disablelib}
 
-Die automatisch eingebundene Standardbibliothek kann über eine Schaltfläche deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Prädikate werden nun nicht mehr berücksichtigt.
+Die automatisch eingebundene Standardbibliothek kann über eine Schaltfläche deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden nun nicht mehr berücksichtigt.
 
 %TODO: Richtlinien als Liste?
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
@@ -647,7 +647,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{? mother(marge, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{mother(marge, lisa).} ein und bestätigt mit der Eingabe-Taste.}
 {Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
@@ -674,7 +674,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{? mother(X, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{mother(X, lisa).} ein und bestätigt mit der Eingabe-Taste.}
 {Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
@@ -701,7 +701,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \tests{fnc:imageexport}
 \tests{fnc:latexexport}
 
-\teststep{Der Nutzer hat das formatierte simpsons.pl-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \enquote{? mother(X, lisa).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+\teststep{Der Nutzer hat das formatierte simpsons.pl-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \enquote{mother(X, lisa).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Fortführen-Schaltfläche.}
 {Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \enquote{X = marge} ausgegeben. Der Graph entspricht nun dem Graphen bei der Findung der ersten Lösung.}
 
@@ -744,8 +744,8 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \end{minipage}
 
 Das Hauptfenster besteht aus der Fensterleiste (A), der Menüleiste (1), dem Editor (2), der Visualisierungsbox (3), der Konsole (4) und dem Eingabefeld (5).
-Dabei ist die Fensterleiste kein Bestandteil des eigentlichen Programms; sie ist von der graphischen Oberfläche des Betriebssystems vorgegeben.
-Das Eingabefeld ist noch deaktiviert (angedeutet durch die graue Färbung), da noch kein Prolog-Programm geparst wurde.
+Dabei ist die Fensterleiste kein Bestandteil des Programms; sie ist von der graphischen Oberfläche des Betriebssystems vorgegeben.
+Das Eingabefeld ist deaktiviert (angedeutet durch die graue Färbung), da noch kein Prolog-Programm geparst wurde.
 
 \subsection{\enquote{Datei}-Menü}
 
@@ -755,8 +755,9 @@ Das Eingabefeld ist noch deaktiviert (angedeutet durch die graue Färbung), da n
 \captionof{figure}{Hauptfenster mit ausgewähltem \enquote{Datei}-Menü}
 \end{minipage}
 
-Das \enquote{Datei}-Menü (1) hat die Einträge \enquote{Öffnen}, \enquote{Speichern}, \enquote{Speichern als...}, \enquote{Zuletzt verwendet} und \enquote{Beenden}.
-\enquote{Öffnen} und \enquote{Speichern} führen die jeweiligen Funktionen aus; während \enquote{Speichern} nur bei neu angelegten Prolog-Programmen einen Auswahldialog anzeigt, zeigt \enquote{Speichern als...} immer einen Auswahldialog an.
+Das \enquote{Datei}-Menü (1) hat die Einträge \enquote{Neu}, \enquote{Öffnen}, \enquote{Speichern}, \enquote{Speichern als...}, \enquote{Zuletzt verwendet} und \enquote{Beenden}.
+\enquote{Neu}, \enquote{Öffnen} und \enquote{Speichern} führen die jeweiligen Funktionen aus.
+Während \enquote{Speichern} nur bei neu angelegten Prolog-Programmen einen Auswahldialog anzeigt, zeigt \enquote{Speichern als...} immer einen Auswahldialog an.
 \enquote{Beenden} beendet das Programm.
 \enquote{Zuletzt verwendet} enthält eine Liste von bis zu fünf zuletzt verwendeten Programmen (2).
 
@@ -920,7 +921,7 @@ Diese schlägt fehl.
 \end{minipage}
 
 Die Visualisierung stellt zu unifizierende Ziele als Runde Knoten dar.
-Unifikationen werden in  Rechtecken dargestellt, die in zwei weitere rechtecke aufgeteilt sind.
+Unifikationen werden in  Rechtecken dargestellt, die in zwei weitere Rechtecke aufgeteilt sind.
 Dabei enthält jede Unifikation im oberen Rechteck den Fakt, mit dem unifiziert werden soll.
 Fehlgeschlagene Unifikationen enthalten im unteren Rechteck den Satz \enquote{Unifikation fehlgeschlagen:} und den Grund des Fehlschlags.
 Außerdem sind sie rot eingefärbt.
@@ -1008,13 +1009,13 @@ Platzhalter. Erlaubt das allgemeine Beschreiben von Regeln. Können für einen b
 Sammelbegriff für Identifier, welche für sich allein stehen oder eine Liste an Termen auswerten.
 
 \textbf{Ziel}:
-Sammelbegriff für Funktoren, Vergleiche von Termen über den \enquote{=}-Operator, Arithmetik oder den \enquote{Cut}-Operator.
+Sammelbegriff für Funktoren, Vergleiche von Termen über den \enquote{\texttt{=}}-Operator, Arithmetik oder den \enquote{Cut}-Operator (\texttt{!}).
 
 \textbf{Term}:
 Sammelbegriff für Funktoren, Variablen oder Zahlen.
 
 \textbf{Standardbibliothek}:
-Voreingestellte Prädikate, welche automatisch bei der Verarbeitung durch den Parser angefügt werden können.
+Voreingestellte Regeln, welche automatisch bei der Verarbeitung durch den Parser angefügt werden können.
 
 \textbf{Abfrage}:
 Ziel, welches ausgewertet werden soll. Das Ergebnis der Auswertung kann eine Menge an Lösungen oder eine Ja-Nein-Antwort sein.
