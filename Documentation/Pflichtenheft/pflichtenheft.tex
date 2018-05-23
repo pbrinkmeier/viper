@@ -110,24 +110,23 @@ Damit soll dem Nutzer die Funktionsweise von Prolog-Programmen durch die graphis
 
 \subsection{Muss}
 
-\criterium{Erstellen}{crt:new}
+\criterium{Erstellen eines Prolog-Programms}{crt:create}
 
-Das Programm soll in der Lage dazu sein, neue Prolog-Programme anzulegen.
+Das Programm soll es dem Nutzer ermöglichen eigene Prolog-Programme in den Editor zu schreiben. Dabei wird der Editor geleert sobald ein neues Prolog-Programm erstellt wird.
 
-\criterium{Öffnen}{crt:open}
-
-Das Programm soll bereits vorhandene Prolog-Programme öffnen können, damit auf diesen Abfragen durchgeführt und diese visualisiert werden können.
-
-\criterium{Speichern}{crt:save}
+\criterium{Öffnen eines Prolog-Programms}{crt:open}
 
 Das Programm soll Änderungen am momentan geöffnetem Prolog-Programm speichern können. Wurde die Datei seit dem Öffnen anderweitig verändert, so wird sie überschrieben.
 
+\criterium{Speichern eines Prolog-Programms}{crt:save}
+
+Das Programm soll Änderungen am momentan geladenen Prolog-Programm speichern können. Wurde die Datei in der Zwischenzeit schon anderweitig verändert, werden diese Änderungen überschrieben.
+
 \criterium{Parsen eines Prolog-Programms mit begrenztem Umfang}{crt:parser}
 
-% Verweis auf Glossareintrag
-Das Programm kann eine Teilmenge der Sprache Prolog durch einen Parser verarbeiten:
+Das Programm kann eine Teilmenge der Prologsprache interpretieren:
 
-Es gibt IDs, Variablen und Zahlen die wie folgt notiert werden:
+Es gibt Identifier, Variablen und Zahlen die wie folgt notiert werden:
 
 \begin{lstlisting}
 id := [a-z][a-zA-Z0-9]*
@@ -152,12 +151,10 @@ Ziel := Funktor | Term = Term
 Eine Regel die nur aus einem Funktor ohne Ziel besteht wird Fakt genannt.
 
 Das Programm unterstützt die Darstellung von Listen. Die leere Liste wird durch \enquote{\texttt{[]}} dargestellt, eine Liste mit Inhalt wird durch \enquote{\texttt{[1,2,3]}} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\newline
-Liste: \texttt{[1,2,3]}\newline
-In Prolog: \texttt{[1|teilliste1]}, \texttt{teilliste1=[2|teilliste2]}, \texttt{teilliste2=[3]}.
+Liste: \texttt{[1,2,3]} = \texttt{[1 | [ 2 | [ 3 | [] ]]]}
 
 \criterium{Einzelschritt-Interpreter}{crt:interpreter}
 
-% Verweis auf GUI und mögliche Anpassung des Schaltflächennamen
 Das Programm bearbeitet Anfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf Interaktion vom Nutzer (drücken der Verarbeiten-Schaltfläche), bis es den nächsten Teilschritt bearbeitet.
 
 \criterium{Visualisierung}{crt:visualization}
