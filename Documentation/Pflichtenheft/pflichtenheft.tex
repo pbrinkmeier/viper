@@ -110,90 +110,59 @@ Damit soll dem Nutzer die Funktionsweise von Prolog-Programmen durch die graphis
 
 \subsection{Muss}
 
-\criterium{Erstellen eines Prolog-Programms}{crt:create}
+\criterium{Erstellen eines neuen Prolog-Programms}{crt:create}
 
-Das Programm soll es dem Nutzer ermöglichen eigene Prolog-Programme in den Editor zu schreiben. Dabei wird der Editor geleert sobald ein neues Prolog-Programm erstellt wird.
+Das Programm soll in der Lage sein einen leeren Editor für neue Prolog-Programme bereitzustellen. Der Inhalt des Editors wird dabei gelöscht.
 
 \criterium{Öffnen eines Prolog-Programms}{crt:open}
 
-Das Programm soll Änderungen am momentan geöffnetem Prolog-Programm speichern können. Wurde die Datei seit dem Öffnen anderweitig verändert, so wird sie überschrieben.
+Das Programm soll bereits vorhandene Prolog-Programme öffnen können.
 
 \criterium{Speichern eines Prolog-Programms}{crt:save}
 
-Das Programm soll Änderungen am momentan geladenen Prolog-Programm speichern können. Wurde die Datei in der Zwischenzeit schon anderweitig verändert, werden diese Änderungen überschrieben.
+Das Programm soll Änderungen am momentan geladenen Prolog-Programm speichern können. Der Inhalt der Datei wird dabei überschrieben.
 
 \criterium{Parsen eines Prolog-Programms mit begrenztem Umfang}{crt:parser}
 
-Das Programm kann eine Teilmenge der Prologsprache interpretieren:
+Das Programm kann eine Teilmenge der Sprache Prolog durch einen Parser verarbeiten.
 
-Es gibt Identifier, Variablen und Zahlen die wie folgt notiert werden:
+\criterium{Einzelschritt-Interpretation von Abfragen}{crt:interpreter}
 
-\begin{lstlisting}
-id := [a-z][a-zA-Z0-9]*
-var := [A-Z][a-zA-Z0-9]*
-num := [0-9]*
-\end{lstlisting}
+Das Programm bearbeitet Abfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf Interaktion vom Nutzer (drücken der Verarbeiten-Schaltfläche), bis es den nächsten Teilschritt bearbeitet.
 
-Es gibt Terme welche sich aus obigem zusammensetzen:
+\criterium{Visualisierung als Graph}{crt:visualization}
 
-\begin{lstlisting}
-Term := Funktor | var | num
-Funktor := id | id( Term{, Term}* )
-\end{lstlisting}
-
-Und zusätzlich gibt es Regeln und Ziele welche sich wie folgt zusammensetzen:
-
-\begin{lstlisting}
-Regel := Funktor . | Funktor :- Ziel {, Ziel}* .
-Ziel := Funktor | Term = Term
-\end{lstlisting}
-
-Eine Regel die nur aus einem Funktor ohne Ziel besteht wird Fakt genannt.
-
-Das Programm unterstützt die Darstellung von Listen. Die leere Liste wird durch \enquote{\texttt{[]}} dargestellt, eine Liste mit Inhalt wird durch \enquote{\texttt{[1,2,3]}} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\newline
-Liste: \texttt{[1,2,3]} = \texttt{[1 | [ 2 | [ 3 | [] ]]]}
-
-\criterium{Einzelschritt-Interpreter}{crt:interpreter}
-
-Das Programm bearbeitet Anfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf Interaktion vom Nutzer (drücken der Verarbeiten-Schaltfläche), bis es den nächsten Teilschritt bearbeitet.
-
-\criterium{Visualisierung}{crt:visualization}
-
-% Verweise auf GUI
-Das Programm kann Abfragen zu einem Prolog-Programm mit Hilfe eines Graphen visualisieren. Dieser hat eine Baumstruktur und beinhaltet für jeden Abarbeitungsschritt einen eigenen Knoten.
+Das Programm kann die Abarbeitung einzelner Anfragen zu einem Prolog-Programm durch einen Graphen visualisieren.
 
 \subsection{Kann}
 
 \criteriumOptional{Zurückschreiten}{crt:stepback}
 
-% Verweis auf GUI
 Das Programm soll es dem Nutzer ermöglichen, beliebig viele Schritte schrittweise zurückzugehen.
 
-\criteriumOptional{Ausführung bis zur nächsten Ausgabe}{crt:continue}
+\criteriumOptional{Ausführung bis zur nächsten Lösung}{crt:continue}
 
-% Verweis auf GUI
-Die Interpretation soll durch eine zusätzliche Schaltfläche bis zur nächsten Ausgabe ausgeführt werden können.
+Die Interpretation soll durch eine zusätzliche Schaltfläche bis zur nächsten Lösung ausgeführt werden können.
 
 \criteriumOptional{Abbrechen}{crt:cancel}
 
-% Verweis auf GUI
-Das automatische Abarbeiten mehrerer Schritte soll durch das Betätigen einer Schaltfläche abgebrochen werden können.
+Das automatische Abarbeiten mehrerer Schritte soll durch das Betätigen einer Schaltfläche abgebrochen werden können. Hierbei wird der aktuelle Abarbeitungsschritt fertig berechnet und anschließend wird der Interpreter gestoppt.
 
 \criteriumOptional{Cut}{crt:cut}
 
-Das Programm soll die \enquote{Cut}-Funktionalität unterstützen. Mit dieser kann der Nutzer dem Interpreter durch das hinzufügen eines \enquote{\texttt{!}} als Teilziel verbieten zu einer bestimmten Stelle zurück zu springen.
+Das Programm soll die \enquote{Cut}-Funktionalität unterstützen.
 
 \criteriumOptional{Arithmetik}{crt:maths}
 
-Das Programm soll grundlegende Arithmetik unterstützen. Da Terme in Prolog nur für sich selber stehen, können Abfragen wie \enquote{$4 = 1 + 3$} nicht bearbeitet werden. Daher wird der Interpreter um ein Rechenoperator \enquote{\texttt{is}} erweitert, welcher solche arithmetischen Abfragen ermöglicht.
+Das Programm soll grundlegende Arithmetik unterstützen.
 
 \criteriumOptional{Standardbibliothek}{crt:standardlib}
 
-Das Programm soll eine Standardbibliothek in Form eines Prolog-Programms mit nützlichen, vordefinierten Regeln unterstützen, die standardmäßig beim Starten des Programms mit eingebunden wird.
+Das Programm soll eine Standardbibliothek mit nützlichen, vordefinierten Regeln unterstützen, die standardmäßig beim Starten des Programms mit eingebunden wird. Bereits implementierte Regeln, die vom Nutzer nochmals implementiert werden, werden als zusätzliche Regeln zu den bereits vorhandenen hinzugefügt nachdem eine Warnung ausgegeben wurde.
 
-\criteriumOptional{Standardbibliothek deaktivieren}{crt:disablelib}
+\criteriumOptional{Standardbibliothek deaktivieren und aktivieren}{crt:disablelib}
 
-Das Programm soll es dem Nutzer ermöglichen, die eingebundene Standardbibliothek deaktivieren zu können.
+Das Programm soll es dem Nutzer ermöglichen, die eingebundene Standardbibliothek deaktivieren und wieder aktivieren zu können.
 
 \criteriumOptional{Export von Visualisierungsbäumen als LaTeX-Code}{crt:latexexport}
 
@@ -203,9 +172,9 @@ Das Programm kann einen Visualisierungsbaum als LaTeX-Code exportieren, damit di
 
 Das Programm kann einen Visualisierungsbaum als Bilddatei im SVG- oder PNG-Format exportieren.
 
-\criteriumOptional{Syntax-Highlighting}{crt:syntaxhighlighting}
+\criteriumOptional{Syntax-Highlighting im Editor}{crt:syntaxhighlighting}
 
-Das Programm soll das farbliche Hervorheben bestimmter Regeln und ihres/ihrer korrespondieren Knoten in der Visualisierung unterstützen. Der Code wird dabei farblich passend hervorgehoben. Identifier und Variablen werden unterschiedlich zu Zahlen eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.
+Der Code soll farblich passend hervorgehoben werden. Identifier und Variablen werden unterschiedlich zu Zahlen eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.
 
 \criteriumOptional{\enquote{Pretty-Printing} von Listen}{crt:prettyprinting}
 
@@ -232,6 +201,10 @@ Das Programm beschränkt sich auf eine graphische Darstellung über GUI-Elemente
 \criteriumNot{Professionelle Anwendung}{crt:professionaluse}
 
 Das Programm ist nicht für professionelle Anwendungszwecke ausgelegt.
+
+\criteriumNot{Parser}{crt:parser}
+
+Der Parser ist gegeben und wird nicht selbst implementiert.
 
 \pagebreak
 %%%%%%%%%%%%%%
@@ -987,6 +960,32 @@ Das vorgestellte VIPER-Programm. Dies ist zu unterscheiden von Prolog-Programmen
 \textbf{Prolog-Programm}:
 Prolog-Quelltext in Form von Dateien auf einem Speichermedium. Dies ist zu unterscheiden von dem Programm im Sinne des VIPER-Programms.
 
+\textbf{Prolog-Teilsprache}:
+Es gibt Identifier, Variablen und Zahlen die wie folgt notiert werden:
+
+\begin{lstlisting}
+id := [a-z][a-zA-Z0-9]*
+var := [A-Z][a-zA-Z0-9]*
+num := [0-9]+
+\end{lstlisting}
+
+Es gibt Terme welche sich aus obigem zusammensetzen:
+
+\begin{lstlisting}
+Term := Funktor | var | num
+Funktor := id | id( Term{, Term}* )
+\end{lstlisting}
+
+Und zusätzlich gibt es Regeln und Ziele welche sich wie folgt zusammensetzen:
+
+\begin{lstlisting}
+Regel := Funktor . | Funktor :- Ziel {, Ziel}* .
+Ziel := Funktor | Term = Term
+\end{lstlisting}
+
+Das Programm unterstützt das Parsen von Listen. Die leere Liste wird durch \enquote{\texttt{[]}} dargestellt, eine Liste mit Inhalt wird durch \enquote{\texttt{[1,2,3]}} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\newline
+Liste: \texttt{[1,2,3]} = \texttt{[1|[2|[3|[]]]]}
+
 \subsection{Prolog-interne Begriffe}
 \textbf{Fakt}:
 Aussage, welche als wahr angenommen wird.
@@ -1035,8 +1034,11 @@ Schritte zwischen zwei Zuständen.
 \textbf{Rekursion}:
 Eine Regel wird rekursiv genannt, wenn sie selbst eines ihrer Teilziele ist.
 
+\textbf{Cut}:
+%TODO
+
 \textbf{Arithmetik}:
-Auswertung mathematischer Operationen (bspw. Summen, Differenzen etc.).
+%TODO
 
 \subsection{Begriffe der Bedienoberfläche}
 \textbf{Öffnen}:
