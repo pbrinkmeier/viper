@@ -1,7 +1,7 @@
 \documentclass[parskip=full,11pt,twoside]{scrartcl}
 \usepackage[utf8]{inputenc}
 
-\title{VIPER: Viper Interactive Prolog Education Runtime}
+\title{VIPER: Viper Interactive Prolog Education Runtime\\\vspace*{1cm}Pflichtenheft}
 \author{Paul Brinkmeier, Lukas Brocke, Christian Oder, Aaron Maier, Jannik Koch}
 
 % section numbers in margins:
@@ -48,7 +48,7 @@
 
 Prolog ist eine logische Programmiersprache die ein deklaratives Programmieren ermöglicht.
 
-Das Grundprinzip von Prolog operiert auf einer Wissensdatenbank, deren Einträge sich Fakten und Regeln nennen.
+Prolog operiert auf einer Wissensdatenbank, deren Einträge sich Fakten und Regeln nennen. Ein Beispiel:
 
 \begin{lstlisting}
 father(abe, homer).
@@ -56,15 +56,6 @@ father(homer, bart).
 \end{lstlisting}
 
 So gilt, dass Abe der Vater von Homer und Homer der Vater von Bart ist.
-
-Dabei existiert keine Semantik.
-
-\begin{lstlisting}
-x(y, z).
-a(b, c).
-\end{lstlisting}
-
-Ist eine ebenso legitime Definition.
 
 Für eine Abfrage erhalten wir folgende Lösungen:
 
@@ -75,10 +66,10 @@ yes .
 no .
 \end{lstlisting}
 
-Nun ist es möglich Relationen, basierend auf Fakten, einzuführen. Definieren wir also Großvater als alle Väter von Vätern, indem wir Variablen als Platzhalter verwenden. Diese beginnen mit Großbuchstaben, Funktoren und Atome mit Kleinbuchstaben.
+Nun ist es möglich, auf Fakten basierende Regeln einzuführen. Definieren wir also Großväter väterlicherseits als alle Väter von Vätern, indem wir Variablen als Platzhalter verwenden. Diese beginnen mit Großbuchstaben, Funktoren und Atome mit Kleinbuchstaben.
 
 \begin{lstlisting}
-grandfather(X, Y) :- father(X, Z), father(Z, Y).
+paternalGrandfather(X, Y) :- father(X, Z), father(Z, Y).
 \end{lstlisting}
 
 Selbiges ist möglich für Abfragen.
@@ -89,19 +80,21 @@ X = homer .
 ?- father(X, Y).
 X = homer, Y = bart ;
 X = abe, Y = homer .
-?- grandfather(X, Y).
+?- paternalGrandfather(X, Y).
 X = abe, Y = bart .
 \end{lstlisting}
 
-Die Antworten sind alle möglichen Kombinationen aus den Variablen, die den Fakten und Relationen entsprechen.
+Die Antworten sind alle möglichen Kombinationen aus den Variablen, die den Fakten und Regeln entsprechen.
 
-Prolog ist hierbei anders als \enquote{andere} Programmiersprachen, da es sich um eine deklarative Programmiersprache handelt. Die Relationen basieren auf zuvor definierten Fakten.
+Prolog ist hierbei anders als \enquote{andere} Programmiersprachen, da es sich um eine deklarative Programmiersprache handelt. Imperative Programmiersprachen (bspw. die Programmiersprache C) erledigen sequentiell eine vorgeschriebene Reihenfolge von Befehlen. Damit steht der Prozess des Lösens im Vordergrund. Deklarative Programmiersprachen wie Prolog beschreiben ein Problem und ermitteln den Lösungsweg automatisch. Im Vordergrund steht hier hingegen die Problembeschreibung.
 
-VIPER, die VIPER Interactive Prolog Education Runtime, ist ein Programm zur Bearbeitung und dem Testen von einfachen Prolog-Programmen. Über die visuelle Schnittstelle ist es dem Nutzer möglich, Prolog zu schreiben, Abfragen zu stellen und diese visualisieren zu lassen.
+Zur Lösung eines Problems nutzt Prolog das Konzept der Unifikation. Dies beschreibt die Suche nach einer passenden Substitution für die vorhandenen Variablen, die alle gestellten Term-Gleichungen erfüllt. Dazu werden verschiedene Belegungen getestet, welche unter Umständen keine gültige Lösung sind. Im Falle ungültiger Lösungen wird zu einem vorherigen Stand zurück gelaufen (\enquote{backtracking}) und die nächste Belegung getestet.
 
-Dank des automatisch generierten Graphen ist es dem Nutzer hierbei möglich, die Interpretation des Programmes schrittweise anzuzeigen und nachzuvollziehen.
+VIPER, die VIPER Interactive Prolog Education Runtime, ist ein Programm zur Bearbeitung und dem Testen von einfachen Prolog-Programmen. Über die visuelle Schnittstelle ist es dem Nutzer möglich, Prolog zu schreiben, Abfragen zu stellen und die Abarbeitung dieser visualisieren zu lassen.
 
-Damit soll dem Nutzer die Funktionsweise von Prolog-Programmen durch die graphische Visualisierung näher gebracht und zum verbesserten Verständnis von Prolog beigetragen werden.
+Die Visualisierung für einzelne Schritte der Interpretation ist hierbei als gerichteter Graph realisiert. Der genannte Graph entspricht einem Baum mit \enquote{Rückwärts-Kanten}, die das Backtracking veranschaulichen.
+
+Unter Zuhilfenahme der Visualisierung soll der Nutzer die Interpretation eines Prolog-Programms schrittweise nachvollziehen können. Dies soll dem Nutzer die Funktionsweise von Prolog-Programmen näher bringen und das Verständnis für die Eigenschaften der Sprache stärken.
 
 \pagebreak
 \section{Kriterien}
