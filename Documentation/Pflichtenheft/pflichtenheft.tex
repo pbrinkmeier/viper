@@ -1006,10 +1006,10 @@ Wort, beginnend mit einem Kleinbuchstaben und fortsetzend mit Groß- und Kleinbu
 Platzhalter. Erlaubt das allgemeine Beschreiben von Regeln. Können für einen beliebigen Term stehen.
 
 \textbf{Funktor}:
-Sammelbegriff für Identifier, welche für sich allein stehen oder eine Liste an Termen auswerten.
+Sammelbegriff für einen einzelnen Identifier und Identifier in Kombination mit einer beliebigen Anzahl Termen, welche in Klammern hinter dem Identifier stehen.
 
 \textbf{Ziel}:
-Sammelbegriff für Funktoren, Vergleiche von Termen über den \enquote{\texttt{=}}-Operator, Arithmetik oder den \enquote{Cut}-Operator (\texttt{!}).
+Lösbarer Teil einer Regel, welcher einem Funktor, einem Unifikationsziel, Arithmetik oder dem \enquote{Cut}-Operator entsprechen kann.
 
 \textbf{Term}:
 Sammelbegriff für Funktoren, Variablen oder Zahlen.
@@ -1018,16 +1018,16 @@ Sammelbegriff für Funktoren, Variablen oder Zahlen.
 Voreingestellte Regeln, welche automatisch bei der Verarbeitung durch den Parser angefügt werden können.
 
 \textbf{Abfrage}:
-Ziel, welches ausgewertet werden soll. Das Ergebnis der Auswertung kann eine Menge an Lösungen oder eine Ja-Nein-Antwort sein.
+Ziel, für das alle möglichen Lösungen gefunden werden sollen. Die Lösung kann eine Menge an Belegungen für Variablen oder eine Ja-Nein-Antwort sein.
 
 \textbf{Parser}:
-Auswertungsmechanismus für Prolog-Programme, der diese in ein für die Weiterverarbeitung geeignetes Format bringt und auf syntaktische Fehler prüft.
+Umwandlungsmechanismus für Prolog-Programme, der diese in ein für die Weiterverarbeitung geeignetes Format bringt und auf syntaktische Fehler prüft.
 
 \textbf{Interpreter}:
-Ausführungsmechanismus für Abfragen. Nachdem sowohl das zugrunde liegende Prolog-Programm als auch die Abfrage durch den Parser verarbeitet wurden, findet eine Auswertung der genannten Abfrage statt. Diese Auswertung wird schrittweise abgearbeitet und ist durch das Programm verfolgbar.
+Ausführungsmechanismus für Abfragen. Nachdem sowohl das zugrunde liegende Prolog-Programm als auch die Abfrage durch den Parser verarbeitet wurden, findet eine schrittweise Interpretation der genannten Abfrage statt.
 
 \textbf{Schritt}:
-Nächste Operation, die zur Auswertung einer Abfrage nötig ist.
+Nächste Operation, die zur Interpretation einer Abfrage nötig ist.
 
 \textbf{Zustand}:
 Ergebnis der bisher durchgeführten Schritte.
@@ -1035,11 +1035,8 @@ Ergebnis der bisher durchgeführten Schritte.
 \textbf{Zustandsunterschied}:
 Schritte zwischen zwei Zuständen.
 
-\textbf{Rekursion}:
-Eine Regel wird rekursiv genannt, wenn sie selbst eines ihrer Teilziele ist.
-
 \textbf{Arithmetik}:
-Auswertung mathematischer Operationen (bspw. Summen, Differenzen etc.).
+Berechnung mathematischer Operationen (bspw. Summen, Differenzen, Vergleiche etc.).
 
 \subsection{Begriffe der Bedienoberfläche}
 \textbf{Öffnen}:
@@ -1066,11 +1063,14 @@ Struktur bestehend aus Knoten und Kanten.
 \textbf{Visualisierung}:
 Navigierbarer Graph, welcher den Ablauf der Interpretation einer Abfrage im Kontext eines gegebenen Prolog-Programms aufzeigt.
 
+\textbf{Rückschreiten / Backtracking}:
+Zurücksetzen des aktuellen Interpretationsschritts auf den vorigen Schritt.
+
 \textbf{Zoom}:
 Vergrößerung oder Verkleinerung eines Bildausschnitts.
 
-\textbf{Syntax / Syntax-Highlighting}:
-Eine Syntax entspricht einem Regelsystem, welches valide Zeichenkombinationen festlegt. Die Prolog-Syntax ist fest definiert und beschreibt den Aufbau valider Prolog-Programme. Syntax-Highlighting entspricht einer visuellen Unterstützung durch Schrifteffekte und -farben, um die Syntax ersichtlicher zu machen (Einfärbung von zusammengehörigen Klammern etc.).
+\textbf{Syntax-Highlighting}:
+Visuelle Markierung verschiedener Elemente eines Programm-Textes durch Schrifteffekte und -farben (bspw. Einfärbung von zusammengehörigen Klammern).
 
 \textbf{GUI / GUI-Element}:
 Das GUI entspricht der graphischen Benutzeroberfläche (graphical user interface). Das GUI ist zusammengesetzt aus diversen GUI-Elementen innerhalb eines Fensters (bspw. dem Editor).
