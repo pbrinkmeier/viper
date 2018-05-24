@@ -1,7 +1,8 @@
 \documentclass[parskip=full,11pt,twoside]{scrartcl}
 \usepackage[utf8]{inputenc}
 
-\title{VIPER: Viper Interactive Prolog Education Runtime\\\vspace*{1cm}Pflichtenheft}
+\title{VIPER: Viper Interactive Prolog Education Runtime}
+\subtitle{Pflichtenheft}
 \author{Paul Brinkmeier, Lukas Brocke, Christian Oder, Aaron Maier, Jannik Koch}
 
 % section numbers in margins:
@@ -88,11 +89,11 @@ Die Antworten sind alle möglichen Kombinationen aus den Variablen, die den Fakt
 
 Prolog ist hierbei anders als \enquote{andere} Programmiersprachen, da es sich um eine deklarative Programmiersprache handelt. Imperative Programmiersprachen (bspw. die Programmiersprache C) erledigen sequentiell eine vorgeschriebene Reihenfolge von Befehlen. Damit steht der Prozess des Lösens im Vordergrund. Deklarative Programmiersprachen wie Prolog beschreiben ein Problem und ermitteln den Lösungsweg automatisch. Im Vordergrund steht hier hingegen die Problembeschreibung.
 
-Zur Lösung eines Problems nutzt Prolog das Konzept der Unifikation. Dies beschreibt die Suche nach einer passenden Substitution für die vorhandenen Variablen, die alle gestellten Term-Gleichungen erfüllt. Dazu werden verschiedene Belegungen getestet, welche unter Umständen keine gültige Lösung sind. Im Falle ungültiger Lösungen wird zu einem vorherigen Stand zurück gelaufen (\enquote{backtracking}) und die nächste Belegung getestet.
+Zur Lösung eines Problems nutzt Prolog das Konzept der Unifikation. Dazu werden verschiedene Belegungen getestet, welche unter Umständen keine gültige Lösung sind. Im Falle ungültiger Lösungen wird die letzte Entscheidung zur Belegung rückgängig gemacht (\enquote{Backtracking}) und die nächste Belegung getestet.
 
 VIPER, die VIPER Interactive Prolog Education Runtime, ist ein Programm zur Bearbeitung und dem Testen von einfachen Prolog-Programmen. Über die visuelle Schnittstelle ist es dem Nutzer möglich, Prolog zu schreiben, Abfragen zu stellen und die Abarbeitung dieser visualisieren zu lassen.
 
-Die Visualisierung für einzelne Schritte der Interpretation ist hierbei als gerichteter Graph realisiert. Der genannte Graph entspricht einem Baum mit \enquote{Rückwärts-Kanten}, die das Backtracking veranschaulichen.
+Die Visualisierung für einzelne Schritte der Interpretation ist hierbei als gerichteter Graph realisiert. Der genannte Graph entspricht einem Baum mit \enquote{Rückwärts-Kanten} (da einzelne Schritte visualisiert werden, gibt es jeweils höchstens eine Rückwärts-Kante pro Visualisierung-Schritt), die das Backtracking veranschaulichen.
 
 Unter Zuhilfenahme der Visualisierung soll der Nutzer die Interpretation eines Prolog-Programms schrittweise nachvollziehen können. Dies soll dem Nutzer die Funktionsweise von Prolog-Programmen näher bringen und das Verständnis für die Eigenschaften der Sprache stärken.
 
