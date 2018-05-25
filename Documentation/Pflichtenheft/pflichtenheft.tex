@@ -364,7 +364,7 @@ Die aktuell angezeigte Visualisierung lässt sich als Bild im PNG- oder SVG-Form
 \functionality{Deaktivierung der Standardbibliothek}{fnc:disablelib}
 \fulfills{crt:disablelib}
 
-Die automatisch eingebundene Standardbibliothek kann über eine Schaltfläche deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden nun nicht mehr berücksichtigt.
+Die automatisch eingebundene Standardbibliothek kann über eine Schaltfläche deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden bis zur erneuten Aktivierung nicht mehr berücksichtigt.
 
 %TODO: Richtlinien als Liste?
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
@@ -593,17 +593,17 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \tests{fnc:parser}
 \tests{fnc:errorcheck}
 
-\teststep{Der Nutzer hat das Programm soeben geöffnet.}
+\teststep{Der Nutzer hat das Programm geöffnet.}
 {Der Nutzer wählt über die Menü-Leiste die Neu-Funktion aus.}
 {Eine leeres Prolog-Programm wird im Editor angelegt.}
 
-\teststep{Der Nutzer hat nun ein leeres Editor-Fenster vor sich.}
+\teststep{Der Nutzer hat ein leeres Editor-Fenster vor sich.}
 {Der Nutzer gibt das unformatierte \texttt{simpsons.pl}-Programm wie im Anhang beschrieben ein.}
 {Der Editor ändert den Inhalt des Prolog-Programms entsprechend der Eingabe.}
 
 \teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
 {Der Nutzer betätigt die Formatieren-Schaltfläche.}
-{Das \texttt{simpsons.pl}-Programm wird formatiert und entspricht nun dem formatierten \texttt{simpsons.pl}-Programm im Anhang.}
+{Das \texttt{simpsons.pl}-Programm wird formatiert und entspricht dem formatierten \texttt{simpsons.pl}-Programm im Anhang.}
 
 \teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
 {Der Nutzer wählt über die Menü-Leiste die Speichern-Funktion aus.}
@@ -634,13 +634,13 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \tests{fnc:interpreter}
 \tests{fnc:visualization}
 
-\teststep{Der Nutzer hat das Programm soeben geöffnet.}
+\teststep{Der Nutzer hat das Programm geöffnet.}
 {Der Nutzer wählt über die Menü-Leiste die Öffnen-Funktion aus.}
 {Ein Öffnen-Dialog öffnet sich.}
 
 \teststep{Der Nutzer hat ein Prolog-Programm ausgewählt, welches das formatierte \texttt{simpsons.pl}-Programm aus dem Anhang enthält.}
 {Der Nutzer betätigt die Öffnen-Schaltfläche.}
-{Der Editor enthält nun die formatierte \texttt{simpsons.pl}-Programmdatei analog zum Anhang.}
+{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei analog zum Anhang.}
 
 \teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei analog zum Anhang.}
 {Der Nutzer betätigt die Parser-Schaltfläche.}
@@ -679,7 +679,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Fortführen-Schaltfläche.}
-{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Der Graph entspricht nun dem Graphen bei der Findung der ersten Lösung.}
+{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Der Graph entspricht dem Graphen bei der Findung der ersten Lösung.}
 
 \teststep{Der Interpreter hat eine erste Lösung gefunden. Der Graph ist aktualisiert worden.}
 {Der Nutzer betätigt die Fortführen-Schaltfläche erneut.}
@@ -703,7 +703,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \teststep{Der Nutzer hat das formatierte \texttt{simpsons.pl}-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \texttt{mother(X, lisa).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Fortführen-Schaltfläche.}
-{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Der Graph entspricht nun dem Graphen bei der Findung der ersten Lösung.}
+{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Der Graph entspricht dem Graphen bei der Findung der ersten Lösung.}
 
 \teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde.}
 {Der Nutzer hält innerhalb der Visualisierung die linke Maustaste gedrückt und bewegt die Maus nach links.}
@@ -717,7 +717,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 {Der Nutzer wählt über die Menü-Leiste die Option \enquote{Bild exportieren} aus.}
 {Ein Export-Dialog öffnet sich.}
 
-\teststep{Der Nutzer hat über die Auswahl des Export-Dialogs zwischen dem Format PNG und SVG ausgewählt. Weiter wurde ein Verzeichnis ausgewählt.}
+\teststep{Der Nutzer hat über die Auswahl des Export-Dialogs zwischen dem Format PNG und SVG ausgewählt. Ein Verzeichnis wurde ausgewählt.}
 {Der Nutzer betätigt die Export-Schaltfläche.}
 {Die gesamte Visualisierung wird im ausgewählten Format exportiert.}
 
