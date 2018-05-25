@@ -310,7 +310,7 @@ Der Parser erkennt Fehler innerhalb des geöffneten Prolog-Programms bei der Ver
 \functionality{Eingabe von Prolog-Abfragen in das Eingabefeld}{fnc:shell}
 \fulfills{crt:interpreter}
 
-Bei erfolgreicher Verarbeitung einer fehlerfreien Datei durch den Parser erlaubt das Programm die Eingabe von Abfragen in das Eingabefeld. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird das Eingabefeld sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
+Bei erfolgreicher Verarbeitung einer korrekten Datei durch den Parser erlaubt das Programm die Eingabe von Abfragen in das Eingabefeld. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird das Eingabefeld sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
 
 \functionality{Interpretation von Prolog-Abfragen}{fnc:interpreter}
 \fulfills{crt:interpreter}
@@ -398,7 +398,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \nonFunctionality{Das Öffnen einer Prolog-Programmdatei mit einer Größe von unter 1 MiB geschieht in unter 5 Sekunden.}{nfc:loadfile}
 
-\nonFunctionality{Fehlerhafte Prolog-Programme sollen nie zu einem Absturz des Programms führen.}{nfc:crashresistance}
+\nonFunctionality{Inkorrekte Prolog-Programme sollen nie zu einem Absturz des Programms führen.}{nfc:crashresistance}
 
 \nonFunctionality{Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, um weitere Sprachfeatures zu unterstützen.}{nfc:extendable}
 
@@ -503,7 +503,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \test{Interaktive Nutzung des Interpreters}{tst:ask}
 \tests{fnc:interpreter}
 
-\teststep{Der Nutzer hat ein fehlerloses Prolog-Programm im Editor eingegeben.}
+\teststep{Der Nutzer hat ein korrektes Prolog-Programm im Editor eingegeben.}
 {Der Nutzer betätigt die Parsen-Schaltfläche im Hauptfenster.}
 {In der Konsole wird eine Erfolgsnachricht ausgegeben.}
 
@@ -644,7 +644,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
 {Der Nutzer gibt im Eingabefeld \texttt{mother(marge, lisa).} ein und bestätigt mit der Eingabe-Taste.}
-{Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
+{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Schritt-Schaltfläche.}
@@ -671,7 +671,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
 {Der Nutzer gibt im Eingabefeld \texttt{mother(X, lisa).} ein und bestätigt mit der Eingabe-Taste.}
-{Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
+{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Fortführen-Schaltfläche.}
@@ -795,13 +795,13 @@ Klickt der Nutzer auf \enquote{Parsen} (1), versucht der Parser das Prolog-Progr
 Treten dabei keine Fehler auf, wird eine entsprechende Meldung in der Konsole angezeigt (2).
 Das Eingabefeld wird aktiviert; der Nutzer kann jetzt Abfragen eingeben (3).
 
-\subsection{Fehlerhafte Abfrage}
+\subsection{Inkorrekte Abfrage}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
 \includegraphics[width=\linewidth]{build/gui/main_view_question_fail.png}
 }
-\captionof{figure}{Hauptfenster nach fehlerhafter Abfrage im Eingabefeld}
+\captionof{figure}{Hauptfenster nach inkorrekter Abfrage im Eingabefeld}
 \end{minipage}
 
 Gibt der Nutzer eine Abfrage im Eingabefeld ein (1), versucht der Parser, diese Eingabe zu einem einzelnen Ziel zu verarbeiten.
