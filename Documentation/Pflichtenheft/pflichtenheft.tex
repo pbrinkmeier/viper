@@ -307,19 +307,19 @@ Das geöffnete Prolog-Programm kann durch einen Parser verarbeitet werden. Wird 
 
 Der Parser erkennt Fehler innerhalb des geöffneten Prolog-Programms bei der Verarbeitung. Fehlermeldungen werden über das verfügbare Konsolen-Fenster ausgegeben.
 
-\functionality{Eingabe von Prolog-Abfragen in die Konsole}{fnc:shell}
+\functionality{Eingabe von Prolog-Abfragen in das Eingabefeld}{fnc:shell}
 \fulfills{crt:interpreter}
 
-Bei erfolgreicher Verarbeitung einer fehlerfreien Datei durch den Parser erlaubt die angezeigte Konsole die Eingabe von Abfragen. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird die Eingabe in die Konsole sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
+Bei erfolgreicher Verarbeitung einer fehlerfreien Datei durch den Parser erlaubt das Programm die Eingabe von Abfragen in das Eingabefeld. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird das Eingabefeld sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
 
-\functionality{Interpretation von Prolog-Abfragen in der Konsole}{fnc:interpreter}
+\functionality{Interpretation von Prolog-Abfragen}{fnc:interpreter}
 \fulfills{crt:interpreter}
 \fulfills{crt:cut}
 \fulfills{crt:maths}
 \fulfills{crt:standardlib}
 \fulfills{crt:prettyprinting}
 
-Abfragen, welche in der Konsole eingegeben wurden, werden nach einer Bestätigung mit der Eingabe-Taste schrittweise interpretiert. Ausgaben des Interpreters werden in der Konsole angezeigt. Nach dem Betätigen der Schaltfläche wird ausschließlich der erste Interpretationsschritt durchgeführt. Der Nutzer hat die Möglichkeit, diese Interpretation über eine Schritt-Schaltfläche schrittweise fortzuführen. Fehler bei der Interpretation einer Abfrage werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird abgebrochen. Syntaktische Fehler bei Abfragen werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird unterbrochen.
+Abfragen, welche im Eingabefeld eingegeben wurden, werden nach einer Bestätigung mit der Eingabe-Taste schrittweise interpretiert. Ausgaben des Interpreters werden in der Konsole angezeigt. Nach dem Betätigen der Eingabe-Taste wird ausschließlich der erste Interpretationsschritt durchgeführt. Der Nutzer hat die Möglichkeit, diese Interpretation über eine Schritt-Schaltfläche schrittweise fortzuführen. Fehler bei der Interpretation einer Abfrage werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird abgebrochen. Syntaktische Fehler bei Abfragen werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird unterbrochen.
 
 \functionality{Visualisierung des aktuellen Interpretationsschrittes mittels eines Graphen}{fnc:visualization}
 \fulfills{crt:visualization}
@@ -492,10 +492,10 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \teststep{Das Beispielprogramm ist im Editorfenster eingegeben oder aus einer Datei geöffnet worden.}
 {Der Nutzer klickt auf die Parsen-Schaltfläche des Hauptfensters.}
-{Das Prolog-Programm wird erfolgreich geparst, es kommt zu keinen Fehlern. Die Konsole erwartet eine Eingabe.}
+{Das Prolog-Programm wird erfolgreich geparst, es kommt zu keinen Fehlern. In das Eingabefeld kann eine Abfrage eingegeben werden.}
 
-\teststep{Das Prolog-Programm wurde geparst und die Konsole erwartet eine Eingabe.}
-{Der Nutzer gibt die Abfrage \texttt{father(X, bart).} in der Konsole ein.}
+\teststep{Das Prolog-Programm wurde geparst. In das Eingabefeld kann eine Abfrage eingegeben werden.}
+{Der Nutzer gibt die Abfrage \texttt{father(X, bart).} in das Eingabefeld ein.}
 {Das Prolog-Programm wird interpretiert und die Wurzel des Visualisierungsbaums wird angezeigt.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -507,13 +507,13 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 {Der Nutzer betätigt die Parsen-Schaltfläche im Hauptfenster.}
 {In der Konsole wird eine Erfolgsnachricht ausgegeben.}
 
-\teststep{Die Konsole erwartet eine Eingabe.}
-{Der Nutzer gibt eine Anfrage mit mehreren Antworten ein und bestätigt die Eingabe.}
+\teststep{Das Eingabefeld erwartet eine Abfrage.}
+{Der Nutzer gibt eine Anfrage mit mehreren Lösungen ein und bestätigt die Eingabe.}
 {Die Abfrage wird mittels eines Graphen visualisiert.}
 
 \teststep{Die Wurzel des Graphen wird angezeigt.}
-{Der Nutzer betätigt die Schritt-Schaltfläche bis eine Antwort gefunden wurde.}
-{Zwischenschritte werden visualisiert. In der Konsole erscheint die Antwort.}
+{Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wurde.}
+{Zwischenschritte werden visualisiert. In der Konsole erscheint die Lösung.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -615,15 +615,15 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert.}
 {Der Nutzer betätigt die Parser-Schaltfläche.}
-{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
 
 \teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen, gespeichert und durch den Parser verarbeitet worden.}
 {Der Nutzer fokussiert durch einen Mausklick das Editor-Fenster und fügt vor die erste Zeile das Wort \enquote{Fehler} gefolgt von einem Umbruch ein.}
-{Der Eingabebereich der Konsole wird gesperrt.}
+{Das Eingabefeld wird gesperrt.}
 
 \teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert worden. Das Wort \enquote{Fehler} wurde vor die ursprüngliche erste Zeile eingetragen.}
 {Der Nutzer betätigt die Parser-Schaltfläche.}
-{Der Eingabebereich der Konsole bleibt weiterhin gesperrt. Der Parser gibt über den Ausgabebreich der Konsole eine Syntax-Fehlermeldung aus.}
+{Das Eingabefeld bleibt weiterhin gesperrt. Der Parser gibt über die Konsole eine Syntax-Fehlermeldung aus.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -644,10 +644,10 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei analog zum Anhang.}
 {Der Nutzer betätigt die Parser-Schaltfläche.}
-{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt in der Eingabezeile der Konsole \texttt{mother(marge, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt im Eingabefeld \texttt{mother(marge, lisa).} ein und bestätigt mit der Eingabe-Taste.}
 {Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
@@ -671,10 +671,10 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei analog zum Anhang.}
 {Der Nutzer betätigt die Parser-Schaltfläche.}
-{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt in der Eingabezeile der Konsole \texttt{mother(X, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt im Eingabefeld \texttt{mother(X, lisa).} ein und bestätigt mit der Eingabe-Taste.}
 {Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
