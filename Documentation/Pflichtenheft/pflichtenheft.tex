@@ -735,7 +735,11 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \section{GUI-Entwürfe}
 
-\subsection{Programmstart}
+\subsection{Musskriterien}
+
+Die folgenden Entwürfe beinhalten alle Musskriterien.
+
+\subsubsection{Programmstart}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -747,7 +751,7 @@ Das Hauptfenster besteht aus der Fensterleiste (A), der Menüleiste (1), dem Edi
 Dabei ist die Fensterleiste kein Bestandteil des Programms; sie ist von der graphischen Oberfläche des Betriebssystems vorgegeben.
 Das Eingabefeld ist deaktiviert (angedeutet durch die graue Färbung), da noch kein Prolog-Programm geparst wurde.
 
-\subsection{\enquote{Datei}-Menü}
+\subsubsection{\enquote{Datei}-Menü}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -761,7 +765,7 @@ Während \enquote{Speichern} nur bei neu angelegten Prolog-Programmen einen Ausw
 \enquote{Beenden} beendet das Programm.
 \enquote{Zuletzt verwendet} enthält eine Liste von bis zu fünf zuletzt verwendeten Programmen (2).
 
-\subsection{Geöffnete Datei}
+\subsubsection{Geöffnete Datei}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -773,7 +777,7 @@ Nach dem Öffnen des Beispielprogramms wird dessen Inhalt im Editor angezeigt (1
 Die Konsole gibt eine entsprechende Meldung aus (2).
 Das Eingabefeld bleibt weiterhin deaktiviert (3).
 
-\subsection{Parsen fehlgeschlagen}
+\subsubsection{Parsen fehlgeschlagen}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -786,7 +790,7 @@ Klickt der Nutzer auf \enquote{Parsen} (1), versucht der Parser das Prolog-Progr
 Stößt er dabei auf Fehler, wird eine Fehlermeldung in der Konsole angezeigt (2).
 Das Eingabefeld bleibt weiterhin deaktiviert (3).
 
-\subsection{Parsen erfolgreich}
+\subsubsection{Parsen erfolgreich}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -799,7 +803,7 @@ Klickt der Nutzer auf \enquote{Parsen} (1), versucht der Parser das Prolog-Progr
 Treten dabei keine Fehler auf, wird eine entsprechende Meldung in der Konsole angezeigt (2).
 Das Eingabefeld wird aktiviert; der Nutzer kann jetzt Abfragen eingeben (3).
 
-\subsection{Fehlerhafte Abfrage}
+\subsubsection{Fehlerhafte Abfrage}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -811,7 +815,7 @@ Das Eingabefeld wird aktiviert; der Nutzer kann jetzt Abfragen eingeben (3).
 Gibt der Nutzer eine Abfrage im Eingabefeld ein (1), versucht der Parser, diese Eingabe zu einem einzelnen Ziel zu verarbeiten.
 Stößt er dabei auf Fehler, wird eine Fehlermeldung in der Konsole angezeigt (2).
 
-\subsection{Erfolgreiche Abfrage}
+\subsubsection{Erfolgreiche Abfrage}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -826,7 +830,7 @@ Eine Leiste mit Schaltflächen, die zur Steuerung der Visualisierung dienen, wir
 Die Schaltfäche \enquote{Nächster Schritt} (4) bewirkt die Ausführung und Visualisierung des nächsten Schrittes.
 Die Schaltflächen \enquote{Größer} und \enquote{Kleiner} (5) dienen zum Zoomen in der Visualisierung.
 
-\subsection{Lösung gefunden}
+\subsubsection{Lösung gefunden}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -837,7 +841,7 @@ Die Schaltflächen \enquote{Größer} und \enquote{Kleiner} (5) dienen zum Zoome
 
 Wurde ein Lösung für die Abfrage gefunden (1), wird eine Meldung in der Konsole angezeigt (2).
 
-\subsection{Keine weiteren Lösungen}
+\subsubsection{Keine weiteren Lösungen}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -856,7 +860,11 @@ In diesem Entwurf ist außerdem der Scrollbalken gezeigt (3).
 Dieser wird neben der Konsole eingeblendet, wenn der angezeigt Text nicht mehr hineinpasst.
 Dies gilt auch für den Editor.
 
-\subsection{Schaltfläche \enquote{Vorheriger Schritt}}
+\subsection{Kannkriterien}
+
+Jeder der folgenden Entwürfe beinhaltet \emph{ein} Kannkriterium.
+
+\subsubsection{Schaltfläche \enquote{Vorheriger Schritt}}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -876,7 +884,7 @@ Die Schaltfläche \enquote{Vorheriger Schritt} (1) erlaubt es dem Nutzer, den Zu
 Die Schaltfläche kann so lange betätigt werden, bis der Nutzer beim ersten Schritt angelangt ist.
 Ist der Nutzer beim ersten Schritt angelangt, wird die Schaltfläche deaktiviert.
 
-\subsection{Ausführung bis zur nächsten Lösung}
+\subsubsection{Ausführung bis zur nächsten Lösung}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -898,7 +906,7 @@ Betätigt der Nutzer die Schaltfläche erneut, wird der Interpreter unterbrochen
 
 \subsection{Visualisierung}
 
-Um die Beispiele besser darzustellen, wurden sie hier ohne die graphische Oberfläche des Programms eingefügt.
+Um die Visualisierungsbeispiele besser darzustellen zu können, wurden sie hier ohne die graphische Oberfläche des Programms eingefügt.
 Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im Beispielprogramm.
 
 \subsubsection{Wurzel}
