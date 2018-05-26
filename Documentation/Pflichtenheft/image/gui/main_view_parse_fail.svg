@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="659.11452"
-     inkscape:cy="203.82775"
+     inkscape:zoom="3.959798"
+     inkscape:cx="151.3948"
+     inkscape:cy="538.31652"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -37,14 +37,18 @@
      inkscape:window-height="717"
      inkscape:window-x="0"
      inkscape:window-y="24"
-     inkscape:window-maximized="0">
+     inkscape:window-maximized="0"
+     inkscape:snap-global="true"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-grids="false">
     <sodipodi:guide
        position="0,76.72917"
        orientation="1,0"
        id="guide3723"
        inkscape:locked="false" />
     <sodipodi:guide
-       position="3.9687501,157.42709"
+       position="-38.486811,157.15448"
        orientation="0,1"
        id="guide3727"
        inkscape:locked="false" />
@@ -99,6 +103,18 @@
     </rdf:RDF>
   </metadata>
   <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="newone">
+    <rect
+       style="opacity:1;fill:#b4b4b4;fill-opacity:1;stroke:none;stroke-width:0.3323454;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect2724"
+       width="20.807602"
+       height="7.9375"
+       x="21.859926"
+       y="17.07041" />
+  </g>
+  <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
@@ -131,7 +147,7 @@
              x="10"
              y="39.370056"
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start" /></flowRegion><flowPara
-           id="flowPara4587">Datei Parsen Formatieren Über</flowPara></flowRoot>      <path
+           id="flowPara4587">Datei Programm</flowPara></flowRoot>      <path
          style="fill:none;stroke:#000000;stroke-width:0.26448587px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          d="M 0,156.77059 H 210"
          id="path936"
@@ -412,8 +428,34 @@
              width="25.000063"
              id="rect1353-9-6" /></flowRegion><flowPara
            id="flowPara1355-3-1">2</flowPara></flowRoot>    </g>
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#151515;stroke-width:0.26499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7506"
+       width="20.774195"
+       height="5.2916718"
+       x="21.859926"
+       y="155.44791" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4581-4"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,19.737973,145.44354)"><flowRegion
+         id="flowRegion4583-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"><rect
+           id="rect4585-8"
+           width="226.07243"
+           height="125.35721"
+           x="10"
+           y="39.370056"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Fira Sans';-inkscape-font-specification:'Fira Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start" /></flowRegion><flowPara
+         id="flowPara2716">Parsen</flowPara></flowRoot>  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="top">
     <g
-       transform="translate(15.96962,3.7797616)"
+       style=""
+       transform="translate(28.264017,-113.69767)"
        id="g1362-1">
       <ellipse
          ry="2.6458323"
