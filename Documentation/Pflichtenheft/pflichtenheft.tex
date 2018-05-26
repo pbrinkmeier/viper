@@ -332,7 +332,7 @@ Bei aktiver Interpretation einer Abfrage wird eine Visualisierung für den aktue
 
 Gab es eine erfolgreiche Unifikation, so wird diese mit den entsprechenden Substitutionen angezeigt.
 
-\funtionality{Visualisierung einer fehlgeschlagenen Unifikation}{fnc:unificationfail}
+\functionality{Visualisierung einer fehlgeschlagenen Unifikation}{fnc:unificationfail}
 \fulfills{crt:visualization}
 
 Fehlgeschlagene Unifikationen werden nur visualisiert, wenn die Funktorköpfe identisch sind. Da die Unifikation bei unterschiedlichen Funktorköpfen automatisch fehlschlägt, werden diese übersprungen und nicht visualisiert.
@@ -377,7 +377,7 @@ Die aktuell angezeigte Visualisierung lässt sich als LaTeX-Dokument exportieren
 
 Die aktuell angezeigte Visualisierung lässt sich als Bild im PNG- oder SVG-Format exportieren.
 
-\functionality{Deaktivierung der Standardbibliothek}{fnc:disablelib}
+\functionality{Deaktivierung und Aktivierung der Standardbibliothek}{fnc:disablelib}
 \fulfills{crt:disablelib}
 
 Die automatisch eingebundene Standardbibliothek kann über eine Schaltfläche deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden nun nicht mehr berücksichtigt.
@@ -513,6 +513,8 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 
 \test{Interaktive Nutzung des Interpreters}{tst:ask}
 \tests{fnc:interpreter}
+\tests{fnc:interpreterforward}
+\tests{fnc:interpreteroutput}
 
 \teststep{Der Nutzer hat ein korrektes Prolog-Programm im Editor eingegeben.}
 {Der Nutzer betätigt die Parsen-Schaltfläche im Hauptfenster.}
