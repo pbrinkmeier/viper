@@ -386,21 +386,37 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \newpage
 \section{Nicht-Funktionale Anforderungen}
 
-\nonFunctionality{Das Programm startet auf einem modernen System innerhalb von 30 Sekunden und ist voll einsatzbereit.}{nfc:startup}
+\nonFunctionality{Programmstart}{nfc:startup}
 
-\nonFunctionality{Ein importiertes oder geschriebenes Prolog-Programm im Umfang von maximal 100 Zeilen Code ist innerhalb von maximal 3 Sekunden geparst und einzelne Schritte werden innerhalb von 5 Sekunden visualisiert.}{nfc:timelimit}
+Das Programm startet auf einem modernen System innerhalb von 30 Sekunden und ist voll einsatzbereit.
 
-\nonFunctionality{Das Design wirkt modern und ansprechend.}{nfc:design}
+\nonFunctionality{Geschwindigkeit beim Parsen und Visualisieren}{nfc:timelimit}
 
-\nonFunctionality{Das Programm lässt sich ohne die manuelle Installation weiterer Programme durch das Ausführen einer .jar Datei starten.}{nfc:installation}
+Ein importiertes oder geschriebenes Prolog-Programm im Umfang von maximal 100 Zeilen Code ist innerhalb von maximal 3 Sekunden geparst und einzelne Schritte werden innerhalb von 5 Sekunden visualisiert.
 
-\nonFunctionality{Das Programm ist ohne Abhängigkeiten kleiner als 50 MiB, mit Abhängigkeiten kleiner als 200 MiB.}{nfc:filesize}
+\nonFunctionality{Design}{nfc:design}
 
-\nonFunctionality{Das Öffnen einer Prolog-Programmdatei mit einer Größe von unter 1 MiB geschieht in unter 5 Sekunden.}{nfc:loadfile}
+Das Design wirkt modern und ansprechend.
 
-\nonFunctionality{Fehlerhafte Prolog-Programme sollen nie zu einem Absturz des Programms führen.}{nfc:crashresistance}
+\nonFunctionality{Ausführbarkeit}{nfc:installation}
 
-\nonFunctionality{Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, um weitere Sprachfeatures zu unterstützen.}{nfc:extendable}
+Das Programm lässt sich ohne die manuelle Installation weiterer Programme durch das Ausführen einer .jar Datei starten.
+
+\nonFunctionality{Programmgröße}{nfc:filesize}
+
+Das Programm ist ohne Abhängigkeiten kleiner als 50 MiB, mit Abhängigkeiten kleiner als 200 MiB.
+
+\nonFunctionality{Geschwindigkeit beim Öffnen eines Programms}{nfc:loadfile}
+
+Das Öffnen einer Prolog-Programmdatei mit einer Größe von unter 1 MiB geschieht in unter 5 Sekunden.
+
+\nonFunctionality{Robustheit}{nfc:crashresistance}
+
+Fehlerhafte Prolog-Programme sollen nie zu einem Absturz des Programms führen.
+
+\nonFunctionality{Erweiterbarkeit}{nfc:extendable}
+
+Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, um weitere Sprachfeatures zu unterstützen.
 
 \pagebreak
 \section{Tests}
