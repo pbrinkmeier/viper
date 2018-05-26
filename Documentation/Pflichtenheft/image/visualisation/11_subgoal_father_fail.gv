@@ -7,17 +7,17 @@ digraph VIPER_visualization_root {
         shape = record,
         // using < and > instead of quotes for delimiting a label makes it possible to use (a subset of) HTML in it
         // { A | B } makes A and B be in two separate boxes stacked on top of each other
-        label = <{grandfather<sub>1</sub>(X<sub>1</sub>, X<sub>2</sub>)|X = X<sub>1</sub>, Y = X<sub>2</sub>}>
+        label = <{grandfather<sub>1</sub>(X<sub>1</sub>, Y<sub>1</sub>)|X<sub>1</sub> = X, Y<sub>1</sub> = Y}>
     ];
-    subgoal1 [label = <father(X, X<sub>3</sub>)>];
+    subgoal1 [label = <father(X, Z<sub>1</sub>)>];
     subgoal2 [label = <parent(homer, Y)>];
     subgoal1_success [
         shape = record,
-        label = <{father<sub>1</sub>(abe, homer)|X = abe, X<sub>3</sub> = homer}>
+        label = <{father<sub>1</sub>(abe, homer)|X = abe, Z<sub>1</sub> = homer}>
     ];
     subgoal2_success [
         shape = record,
-        label = <{parent<sub>2</sub>(X<sub>6</sub>, X<sub>7</sub>)|homer = X<sub>6</sub>, Y = X<sub>7</sub>}>
+        label = <{parent<sub>2</sub>(X<sub>3</sub>, Y<sub>3</sub>)|X<sub>3</sub> = homer, Y<sub>3</sub> = Y}>
     ];
     subgoal2_success_father [
         label = <father(homer, Y)>
