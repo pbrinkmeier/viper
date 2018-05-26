@@ -255,7 +255,7 @@ Die Pfade der fünf zuletzt geöffneten Dateien werden für einen Eintrag in der
 \functionality{Erstellen eines neuen Prolog-Programms}{fnc:new}
 \fulfills{crt:create}
 
-Das Programm stellt einen Editor bereit, in dem ein leeres Prolog-Programm angelegt werden kann. Sollte der Editor zuvor bereits ungesicherten Inhalt besitzen, so wird der Nutzer aufgefordert, diesen zu speichern. Der alte Inhalt wird daraufhin verworfen und ein neues Prolog-Programm angelegt.
+Das Programm stellt einen Editor bereit, in dem ein leeres Prolog-Programm angelegt werden kann. Sollte der Editor zuvor bereits ungesicherten Inhalt besitzen, so wird der Nutzer aufgefordert, diesen zu speichern. Hierbei kann entweder die alte Datei überschrieben oder eine neue Datei angelegt werden. Der alte Inhalt wird daraufhin verworfen und ein neues Prolog-Programm angelegt.
 
 \functionality{Öffnen eines Prolog-Programms}{fnc:open}
 \fulfills{crt:open}
@@ -273,10 +273,15 @@ Das Programm bietet einen Schnellzugriff auf bis zu fünf der zuletzt verwendete
 
 Das Prolog-Programm kann im Editor bearbeitet werden. Die Änderungen werden erst beim Speichern zurückgeschrieben.
 
+\functionality{Speichern als}{fnc:saveas}
+\fulfills{crt:save}
+
+Ist der Dateiname noch nicht durch das Öffnen eines bereits vorhandenen Prolog-Programms oder durch vorheriges Speichern bekannt, so kann über einen Auswahldialog eine neue Datei angelegt werden.
+
 \functionality{Speichern des Editor-Inhalts}{fnc:save}
 \fulfills{crt:save}
 
-Das Programm kann den Inhalt des Editors auf die Festplatte schreiben. Wurde das Prolog-Programm bisher noch nicht gespeichert, so kann über einen Auswahldialog eine neue Datei angelegt werden. Der Inhalt der Datei wird ohne weitere Überprüfung überschrieben.
+Das Programm kann den Inhalt des Editor speichern. Ist der Dateiname bekannt wird der Inhalt der Datei überschrieben. Sollte dies nicht der Fall sein wird die \enquote{Speichern als...} Funktion ausgeführt.
 
 \functionality{Parsen eines Prolog-Programms}{fnc:parser}
 \fulfills{crt:parser}
@@ -289,24 +294,53 @@ Das geöffnete Prolog-Programm kann durch einen Parser verarbeitet werden. Wird 
 
 Der Parser erkennt Fehler innerhalb des geöffneten Prolog-Programms bei der Verarbeitung. Fehlermeldungen werden über das verfügbare Konsolen-Fenster ausgegeben.
 
-\functionality{Eingabe von Prolog-Abfragen in die Konsole}{fnc:shell}
+\functionality{Eingabe von Prolog-Abfragen in das Eingabefeld}{fnc:shell}
 \fulfills{crt:request}
 
-Bei erfolgreicher Verarbeitung einer fehlerfreien Datei durch den Parser erlaubt die angezeigte Konsole die Eingabe von Abfragen. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird die Eingabe in die Konsole sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
+Bei erfolgreicher Verarbeitung einer korrekten Datei durch den Parser erlaubt die angezeigte Konsole die Eingabe von Abfragen. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird die Eingabe in die Konsole sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
 
-\functionality{Interpretation von Prolog-Abfragen in der Konsole}{fnc:interpreter}
+\functionality{Syntaktische Fehler in der Abfrage}{fnc:inputerror}
+\fulfills{crt:request}
+
+Syntaktische Fehler in der Abfrage werden in der Konsole ausgegeben.
+
+\functionality{Interpretation von Prolog-Abfragen}{fnc:interpreter}
 \fulfills{crt:interpreter}
 \fulfills{crt:cut}
 \fulfills{crt:maths}
-\fulfills{crt:standardlib}
+
+Abfragen, welche in der Konsole eingegeben wurden, werden nach einer Bestätigung mit der Eingabe-Taste schrittweise interpretiert.
+
+\functionality{Weiterschreiten in der Interpretation}{fnc:interpreterforward}
+\fulfills{crt:interpreter}
+
+Nachdem die Interpretation gestartet wurde, wird durch das Betätigen der \enquote{Nächster Schritt}-Schaltfläche der nächsten Interpretationsschritt durchgeführt.
+
+\functionality{Ausgaben des Interpreters}{fnc:interpreteroutput}
+\fulfills{crt:answer}
 \fulfills{crt:prettyprinting}
 
-Abfragen, welche in der Konsole eingegeben wurden, werden nach einer Bestätigung mit der Eingabe-Taste schrittweise interpretiert. Ausgaben des Interpreters werden in der Konsole angezeigt. Nach dem Betätigen der Schaltfläche wird ausschließlich der erste Interpretationsschritt durchgeführt. Der Nutzer hat die Möglichkeit, diese Interpretation über eine Schritt-Schaltfläche schrittweise fortzuführen. Fehler bei der Interpretation einer Abfrage werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird abgebrochen. Syntaktische Fehler bei Abfragen werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird unterbrochen.
+Der Interpreter gibt Lösungen zu einer Abfrage in der Konsole aus. Gibt es keine weitere Lösung mehr, so wird eine entsprechende Meldung ausgegeben.
 
 \functionality{Visualisierung des aktuellen Interpretationsschrittes mittels eines Graphen}{fnc:visualization}
 \fulfills{crt:visualization}
 
 Bei aktiver Interpretation einer Abfrage wird eine Visualisierung für den aktuellen Interpretationsschritt generiert und im Visualisierungs-Fenster angezeigt. Sollte zuvor eine Visualisierung in diesem Fenster angezeigt worden sein, wird diese aus dem Fenster gelöscht.
+
+\functionality{Visualisierung einer erfolgreichen Unifikation}{fnc:unificationsuccess}
+\fulfills{crt:visualization}
+
+Gab es eine erfolgreiche Unifikation, so wird diese mit den entsprechenden Substitutionen angezeigt.
+
+\funtionality{Visualisierung einer fehlgeschlagenen Unifikation}{fnc:unificationfail}
+\fulfills{crt:visualization}
+
+Fehlgeschlagene Unifikationen werden nur visualisiert, wenn die Funktorköpfe identisch sind. Da die Unifikation bei unterschiedlichen Funktorköpfen automatisch fehlschlägt, werden diese übersprungen und nicht visualisiert.
+
+\functionality{Visualisierung von Backtracking}{fnc:backtracking}
+\fulfills{crt:visualization}
+
+Wenn es keine weiteren Ergebnisse in einer Substitution mehr gibt, so wird zu einer vorherigen Regel zurückgesprungen. Dieser Backtrackingschritt wird entsprechend in der Visualisierung angezeigt.
 
 \functionality{Vergrößern und Verkleinern der Visualisierung durch Schaltflächen oder das Mausrad}{fnc:zoom}
 \fulfills{crt:visualization}
@@ -321,17 +355,17 @@ Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Aussch
 \functionality{Zurückschreiten während der Interpretation}{fnc:stepback}
 \fulfills{crt:stepback}
 
-Eine Rückschritt-Schaltfläche erlaubt bei Betätigung den jeweils vorhergehenden Schritt rückgängig zu machen. Im Falle des ersten Schrittes hat das Betätigen dieser Schaltfläche keinen Effekt.
+Eine Rückschritt-Schaltfläche erlaubt bei Betätigung den jeweils vorhergehenden Schritt rückgängig zu machen. Im Falle des ersten Schrittes ist diese Schaltfläche deaktiviert.
 
-\functionality{Ausführung der Interpretation bis zur nächsten Ausgabe}{fnc:continue}
+\functionality{Ausführung der Interpretation bis zur nächsten Lösung}{fnc:continue}
 \fulfills{crt:continue}
 
-Eine Fortsetzen-Schaltfläche erlaubt bei Betätigung die Ausführung bis zur nächsten Ausgabe fortzuführen.
+Eine Fortsetzen-Schaltfläche erlaubt bei Betätigung die Ausführung bis zur nächsten Lösung fortzuführen.
 
 \functionality{Abbrechen einer Interpretation}{fnc:cancel}
 \fulfills{crt:continue}
 
-Im Falle einer Interpretation die mehrere Schritte hintereinander ausführt (Fortsetzen bis zur nächsten Ausgabe), kann die laufende Interpretation über eine Abbrechen-Schaltfläche frühzeitig beendet werden.
+Im Falle einer Interpretation die mehrere Schritte hintereinander ausführt (Fortsetzen bis zur nächsten Lösung), kann die laufende Interpretation über eine Abbrechen-Schaltfläche frühzeitig beendet werden. Hierbei wird der aktuelle Interpretationsschritt noch durchgeführt und anschließend wird die Interpretation beendet.
 
 \functionality{Exportieren der angezeigten Visualisierung in einem beliebigen Schritt als LaTeX-Dokument}{fnc:latexexport}
 \fulfills{crt:latexexport}
@@ -358,11 +392,6 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 \fulfills{crt:translation}
 
 Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden.
-
-\functionality{Dynamisches Skalieren des Hauptfensters mit der Maus}{fnc:resizeable}
-\fulfills{crt:resizeable}
-
-Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werden.
 
 %%%%%%%%%%%
 \newpage
@@ -485,7 +514,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \test{Interaktive Nutzung des Interpreters}{tst:ask}
 \tests{fnc:interpreter}
 
-\teststep{Der Nutzer hat ein fehlerloses Prolog-Programm im Editor eingegeben.}
+\teststep{Der Nutzer hat ein korrektes Prolog-Programm im Editor eingegeben.}
 {Der Nutzer betätigt die Parsen-Schaltfläche im Hauptfenster.}
 {In der Konsole wird eine Erfolgsnachricht ausgegeben.}
 
