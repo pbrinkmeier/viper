@@ -753,7 +753,11 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 \section{GUI-Entwürfe}
 
-\subsection{Programmstart}
+\subsection{Musskriterien}
+
+Die folgenden Entwürfe beinhalten alle Musskriterien.
+
+\subsubsection{Programmstart}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -765,7 +769,7 @@ Das Hauptfenster besteht aus der Fensterleiste (A), der Menüleiste (1), dem Edi
 Dabei ist die Fensterleiste kein Bestandteil des Programms; sie ist von der graphischen Oberfläche des Betriebssystems vorgegeben.
 Das Eingabefeld ist deaktiviert (angedeutet durch die graue Färbung), da noch kein Prolog-Programm geparst wurde.
 
-\subsection{\enquote{Datei}-Menü}
+\subsubsection{\enquote{Datei}-Menü}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -779,7 +783,7 @@ Während \enquote{Speichern} nur bei neu angelegten Prolog-Programmen einen Ausw
 \enquote{Beenden} beendet das Programm.
 \enquote{Zuletzt verwendet} enthält eine Liste von bis zu fünf zuletzt verwendeten Programmen (2).
 
-\subsection{Geöffnete Datei}
+\subsubsection{Geöffnete Datei}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -791,7 +795,7 @@ Nach dem Öffnen des Beispielprogramms wird dessen Inhalt im Editor angezeigt (1
 Die Konsole gibt eine entsprechende Meldung aus (2).
 Das Eingabefeld bleibt weiterhin deaktiviert (3).
 
-\subsection{Parsen fehlgeschlagen}
+\subsubsection{Parsen fehlgeschlagen}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -800,11 +804,11 @@ Das Eingabefeld bleibt weiterhin deaktiviert (3).
 \captionof{figure}{Hauptfenster nach Klick auf \enquote{Parsen}, mit inkorrektem Prolog-Programm}
 \end{minipage}
 
-Klickt der Nutzer auf \enquote{Parsen} (1), versucht der Parser das Prolog-Programm im Editor zu verarbeiten.
+Klickt der Nutzer auf \enquote{Parsen} im \enquote{Programm}-Menü (1), versucht der Parser das Prolog-Programm im Editor zu verarbeiten.
 Stößt er dabei auf Fehler, wird eine Fehlermeldung in der Konsole angezeigt (2).
 Das Eingabefeld bleibt weiterhin deaktiviert (3).
 
-\subsection{Parsen erfolgreich}
+\subsubsection{Parsen erfolgreich}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -829,7 +833,7 @@ Das Eingabefeld wird aktiviert; der Nutzer kann jetzt Abfragen eingeben (3).
 Gibt der Nutzer eine Abfrage im Eingabefeld ein (1), versucht der Parser, diese Eingabe zu einem einzelnen Ziel zu verarbeiten.
 Stößt er dabei auf Fehler, wird eine Fehlermeldung in der Konsole angezeigt (2).
 
-\subsection{Erfolgreiche Abfrage}
+\subsubsection{Erfolgreiche Abfrage}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -842,9 +846,9 @@ Gibt der Nutzer eine Abfrage (1) im Eingabefeld ein, versucht der Parser, diese 
 Treten dabei keine Fehler auf, wird eine Meldung in der Konsole angezeigt (2) und die Visualisierung der Abarbeitung dieser Abfrage gestartet (3).
 Eine Leiste mit Schaltflächen, die zur Steuerung der Visualisierung dienen, wird angezeigt.
 Die Schaltfäche \enquote{Nächster Schritt} (4) bewirkt die Ausführung und Visualisierung des nächsten Schrittes.
-Die Schaltflächen \enquote{Größer} und \enquote{Kleiner} (5) dienen zum Zoomen in der Visualisierung.
+Die Schaltflächen \enquote{+} und \enquote{-} (5) dienen zum Zoomen in der Visualisierung.
 
-\subsection{Lösung gefunden}
+\subsubsection{Lösung gefunden}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -855,7 +859,7 @@ Die Schaltflächen \enquote{Größer} und \enquote{Kleiner} (5) dienen zum Zoome
 
 Wurde ein Lösung für die Abfrage gefunden (1), wird eine Meldung in der Konsole angezeigt (2).
 
-\subsection{Keine weiteren Lösungen}
+\subsubsection{Keine weiteren Lösungen}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -870,7 +874,15 @@ Dieser Fall tritt ein, wenn der Interpreter einen Rückschritt vom eingegeben Zi
 In diesem Fall gibt es keine Fakten mehr, die mit dem Ziel unifizierbar sind.
 Unabhängig davon, ob es per se keine Lösungen gibt oder schon Lösungen gefunden wurden, wird die Meldung \enquote{Keine weiteren Lösungen.} angezeigt.
 
-\subsection{Schaltfläche \enquote{Vorheriger Schritt}}
+In diesem Entwurf ist außerdem der Scrollbalken gezeigt (3).
+Dieser wird neben der Konsole eingeblendet, wenn der angezeigt Text nicht mehr hineinpasst.
+Dies gilt auch für den Editor.
+
+\subsection{Kannkriterien}
+
+Jeder der folgenden Entwürfe beinhaltet \emph{ein} Kannkriterium.
+
+\subsubsection{Schaltfläche \enquote{Vorheriger Schritt}}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -890,7 +902,7 @@ Die Schaltfläche \enquote{Vorheriger Schritt} (1) erlaubt es dem Nutzer, den Zu
 Die Schaltfläche kann so lange betätigt werden, bis der Nutzer beim ersten Schritt angelangt ist.
 Ist der Nutzer beim ersten Schritt angelangt, wird die Schaltfläche deaktiviert.
 
-\subsection{Ausführung bis zur nächsten Lösung}
+\subsubsection{Ausführung bis zur nächsten Lösung}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -908,11 +920,38 @@ Ist der Nutzer beim ersten Schritt angelangt, wird die Schaltfläche deaktiviert
 
 Die Schaltfläche \enquote{Nächste Lösung} (1) lässt den Interpreter automatisch Schritte ausführen, bis eine Lösung gefunden wurde oder keine Unifikation der Abfrage mehr möglich ist.
 Betätigt der Nutzer die Schaltfläche, wird sie hervorgehoben und ihr Text in \enquote{Abbrechen} geändert.
-Betätigt der Nutzer die Schaltfläche erneut, wird der Interpreter unterbrochen und der letzte vollständig berechnete Schritt angezeigt.
+Betätigt der Nutzer die Schaltfläche erneut, wird der Interpreter nach der aktuellen Berechnung unterbrochen und der resultierende Zustand wird visualisiert.
+
+\subsubsection{Export der Visualisierung}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_exportmenu.png}
+}
+\captionof{figure}{Die Schaltflächen \enquote{Exportieren...}}
+\end{minipage}
+
+Die Schaltflächen \enquote{Exportieren als Bild} und \enquote{Exportieren als TikZ} erlauben dem Nutzer das Exportieren des Visualisierungsgraphen in verschiedenen Formaten (1).
+\enquote{Exportieren als Bild} lässt den Nutzer zwischen dem Export als SVG- oder PNG-Graphik wählen.
+\enquote{Exportieren als TikZ} lässt den Nutzer eine TeX-Datei mit einer Umsetzung des Graphen als TikZ-Graphik erstellen.
+
+\subsubsection{Formatierung eines Prolog-Programms}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_format_button.png}
+}
+\captionof{figure}{Programm nach dem Betätigen der \enquote{Formatieren}-Schaltflfäche}
+\end{minipage}
+
+Wenn der Nutzer die Schaltfläche \enquote{Formatieren} betätigt, versucht das Programm, das Prolog-Programm im Editor nach den vorgegegeben Regeln zu formatieren.
+Ist dies erfolgreich, wird eine Meldung auf der Konsole ausgegeben (2) und der Inhalt des Editors mit dem formatierten Prolog-Programm überschrieben (3).
+
+Schlägt die Formatierung fehl, wird eine Fehlermeldung auf der Konsole ausgegeben.
 
 \subsection{Visualisierung}
 
-Um die Beispiele besser darzustellen, wurden sie hier ohne die graphische Oberfläche des Programms eingefügt.
+Um die Visualisierungsbeispiele besser darzustellen zu können, wurden sie hier ohne die graphische Oberfläche des Programms eingefügt.
 Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im Beispielprogramm.
 
 \subsubsection{Wurzel}
@@ -946,9 +985,10 @@ Außerdem sind sie rot eingefärbt.
 
 \subsubsection{Erfolgreiche Unifikation und Teilziele}
 
-In den weiteren Schritten schlagen die Unifikationen von \texttt{grandfather(X, Y)} mit \texttt{father(homer, bart)}, \texttt{father(homer, lisa)} und \texttt{mother(marge, bart)} fehl.
-Die Unifikation mit der Regel \texttt{grandfather(X, Y)} ist erfolgreich.
+Die erste Regel mit zu \texttt{grandfather(X, Y)} passendem Funktornamen ist auch die einzige, in Zeile 6.
+Die Unifikation mit dieser Regel ist erfolgreich.
 Dabei werden die Variablennamen durch neue, eindeutige Namen ersetzt um Konflikte zu vermeiden.
+Der neue Name einer Variable setzt sich zusammen aus dem ursprünglichen Namen und der laufenden Nummer der erfolgreichen Unifikation, beginnend bei eins.
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -957,6 +997,9 @@ Dabei werden die Variablennamen durch neue, eindeutige Namen ersetzt um Konflikt
 \captionof{figure}{Eine erfolgreiche Unifikation mit Einfügung der Teilziele}
 \end{minipage}
 
+Die Visualisierung stellt zu unifizierende Ziele als Runde Knoten dar.
+Unifikationen werden in  Rechtecken dargestellt, die in zwei weitere Rechtecke aufgeteilt sind.
+Dabei enthält jede Unifikation im oberen Rechteck den Fakt, mit dem unifiziert werden soll.
 Erfolgreiche Unifikationen enthalten im unteren Rechteck die resultierenden Substitutionen.
 Außerdem sind sie grün eingefärbt.
 
@@ -965,7 +1008,7 @@ Die Substitutionen werden in den Teilzielen angewendet und hervorgehoben.
 Die Unifikation und ihre Teilziele werden durch gestrichelte Kanten verbunden.
 Dadurch werden im Baum die Fälle \enquote{Ziel wurde unifiziert mit} und \enquote{Ziel ist Teilziel von Regel} unterschieden.
 
-\subsubsection{Erfolgreiche Unifikation mit rückwirkender Substitution}
+\subsubsection{Erfolgreiche Unifikation mit Substution in weiteren Teilzielen}
 
 Im nächsten Schritt steigt der Interpreter in die Teilziele ab und versucht, von links nach rechts diese zu unifizieren.
 
@@ -973,7 +1016,7 @@ Im nächsten Schritt steigt der Interpreter in die Teilziele ab und versucht, vo
 \makebox[\linewidth]{
 \includegraphics[width=\linewidth]{build/visualisation/04_subgoal_father_success.png}
 }
-\captionof{figure}{Eine erfolgreiche Unifikation mit mit rückwirkender Substitution}
+\captionof{figure}{Eine erfolgreiche Unifikation Substitution im nächsten Teilziel}
 \end{minipage}
 
 In diesem Beispiel hat der gefundene Fakt keine Teilziele.
@@ -997,6 +1040,23 @@ Der Interpreter muss also nach einer alternativen Definition von \texttt{parent}
 
 Ein Rücksprung wird durch eine aus Punkten bestehende, rot eingefärbte Kante dargestellt.
 Das nicht erfüllbare Teilziel wird ebenfalls rot eingefärbt und mit dem Text \enquote{Nicht erfüllbar!} ergänzt.
+
+\subsubsection{Fehlgeschlagene Unifikation}
+
+Nach dem Rücksprung findet der Interpreter die zweite \texttt{parent(X, Y)}-Regel, die das Teilziel \texttt{father(X, Y)} hat.
+Mit den bisherigen Lösungen ist das neue Ziel \texttt{father(homer, Y)}.
+Der Interpreter versucht, mit \texttt{father(abe, homer)} zu unifizieren, da der Funktorname übereinstimmt.
+Diese Unifikation schlägt fehl.
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/11_subgoal_father_fail.png}
+}
+\captionof{figure}{Eine fehlgeschlagene Unifikation}
+\end{minipage}
+
+Fehlgeschlagene Unifikationen enthalten im unteren Rechteck den Satz \enquote{Unifikation fehlgeschlagen:} und den Grund des Fehlschlags.
+Außerdem sind sie rot eingefärbt.
 
 \section{Glossar}
 
