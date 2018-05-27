@@ -1087,24 +1087,6 @@ Vorgegebener Stil bzgl. der Setzung von Leerzeichen und Umbrüchen. Zu untersche
 \newpage
 \section{Anhang}
 
-\subsection{Formatiertes simpsons.pl Beispielprogramm}
-
-\begin{lstlisting}
-father(abe, homer).
-father(homer, bart).
-father(homer, lisa).
-mother(marge, bart).
-
-grandfather(X, Y) :-
-  father(X, Z), parent(Z, Y).
-
-parent(X, Y) :-
-  mother(X, Y).
-
-parent(X, Y) :-
-  father(X, Y).
-\end{lstlisting}
-
 \subsection{Unformatiertes simpsons.pl Beispielprogramm}
 
 \begin{lstlisting}
@@ -1117,6 +1099,25 @@ father(X, Z), parent(Z, Y).
 parent(X, Y) :- mother(X, Y).
 
 parent(X, Y) :- father(X, Y).
+\end{lstlisting}
+
+\subsection{Formatiertes simpsons.pl Beispielprogramm}
+
+\begin{lstlisting}
+father(abe, homer).
+father(homer, bart).
+father(homer, lisa).
+mother(marge, bart).
+
+grandfather(X, Y) :-
+  father(X, Z),
+  parent(Z, Y).
+
+parent(X, Y) :-
+  mother(X, Y).
+
+parent(X, Y) :-
+  father(X, Y).
 \end{lstlisting}
 
 \end{document}
