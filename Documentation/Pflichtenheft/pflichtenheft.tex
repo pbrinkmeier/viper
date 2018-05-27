@@ -169,13 +169,13 @@ Das Programm soll eine Standardbibliothek mit nützlichen, vordefinierten Regeln
 
 Das Programm soll es dem Nutzer ermöglichen, die eingebundene Standardbibliothek deaktivieren und wieder aktivieren zu können.
 
-\criteriumOptional{Export von Visualisierungsbäumen als LaTeX-Code}{crt:latexexport}
+\criteriumOptional{Export von generierten Graphen als LaTeX-Code}{crt:latexexport}
 
-Das Programm kann einen Visualisierungsbaum als LaTeX-Code exportieren, damit dieser vereinfacht in Dokumente eingebunden werden kann.
+Das Programm kann einen generierten Graphen als LaTeX-Code exportieren, damit dieser vereinfacht in Dokumente eingebunden werden kann.
 
-\criteriumOptional{Export von Visualisierungsbäumen als Bilddatei}{crt:imageexport}
+\criteriumOptional{Export von generierten Graphen als Bilddatei}{crt:imageexport}
 
-Das Programm kann einen Visualisierungsbaum als Bilddatei im SVG- oder PNG-Format exportieren.
+Das Programm kann einen generierten Graphen als Bilddatei im SVG- oder PNG-Format exportieren.
 
 \criteriumOptional{\enquote{Pretty-Printing} von Listen}{crt:prettyprinting}
 
@@ -491,7 +491,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 \teststep{Das Prolog-Programm wurde geparst. In das Eingabefeld kann eine Abfrage eingegeben werden.}
 {Der Nutzer gibt die Abfrage \texttt{father(X, bart).} in das Eingabefeld ein.}
-{Das Prolog-Programm wird interpretiert und die Wurzel des Visualisierungsbaums wird angezeigt.}
+{Das Prolog-Programm wird interpretiert und die Wurzel des generierten Graphen wird angezeigt.}
 
 \test{Interaktive Nutzung des Interpreters}{tst:ask}
 \tests{fnc:interpreter}
@@ -510,7 +510,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wurde.}
 {Zwischenschritte werden visualisiert. In der Konsole erscheint die erste Lösung \texttt{X = bart .}}
 
-\test{Zoomen innerhalb eines Visualisierungsbaumes}{tst:zoom}
+\test{Zoomen innerhalb eines generierten Graphen}{tst:zoom}
 \tests{fnc:zoom}
 
 \teststep{Eine Abfrage ist mittels eines Graphen visualisiert.}
@@ -521,7 +521,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer bewegt das Mausrad über dem Graphen von sich weg bzw. nach vorne.}
 {Es wird in den Graphen herein gezoomt, der Graph wird größer.}
 
-\test{Bewegung innerhalb eines Visualisierungsbaumes}{tst:move}
+\test{Bewegung innerhalb eines generierten Graphen}{tst:move}
 \tests{fnc:move}
 
 \teststep{Eine Abfrage ist mittels eines Graphen visualisiert.}
@@ -927,10 +927,10 @@ Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im Beispielprogramm.
 \makebox[\linewidth]{
 \includegraphics[width=0.7\linewidth]{build/visualisation/01_root.png}
 }
-\captionof{figure}{Wurzel des Visualisierungsbaumes}
+\captionof{figure}{Wurzel des generierten Graphen}
 \end{minipage}
 
-Die Wurzel des Visualisierungsbaumes stellt die eingegebene Abfrage dar.
+Die Wurzel des generierten Graphen stellt die eingegebene Abfrage dar.
 
 \subsubsection{Erfolgreiche Unifikation und Teilziele}
 
@@ -955,7 +955,7 @@ Außerdem sind sie grün eingefärbt.
 War eine Unifikation mit einer Regel erfolgreich, so werden ihre Teilziele als neue Ziele, also runde Knoten, zum Graphen hinzugefügt.
 Die Substitutionen werden in den Teilzielen angewendet und hervorgehoben.
 Die Unifikation und ihre Teilziele werden durch gestrichelte Kanten verbunden.
-Dadurch werden im Baum die Fälle \enquote{Ziel wurde unifiziert mit} und \enquote{Ziel ist Teilziel von Regel} unterschieden.
+Dadurch werden im Graph die Fälle \enquote{Ziel wurde unifiziert mit} und \enquote{Ziel ist Teilziel von Regel} unterschieden.
 
 \subsubsection{Erfolgreiche Unifikation mit Substution in weiteren Teilzielen}
 
