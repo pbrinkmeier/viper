@@ -104,93 +104,67 @@ Unter Zuhilfenahme der Visualisierung soll der Nutzer die Interpretation eines P
 
 \subsection{Muss}
 
-\criterium{Erstellen}{crt:new}
+\criterium{Erstellen eines neuen Prolog-Programms}{crt:create}
 
-Das Programm soll in der Lage dazu sein, neue Prolog-Programme anzulegen.
+Das Programm stellt einen leeren Editor für neue Prolog-Programme bereit. Der Inhalt des Editors wird dabei gelöscht.
 
-\criterium{Öffnen}{crt:open}
+\criterium{Öffnen eines Prolog-Programms}{crt:open}
 
-Das Programm soll bereits vorhandene Prolog-Programme öffnen können, damit auf diesen Abfragen durchgeführt und diese visualisiert werden können.
+Das Programm kann bereits vorhandene Prolog-Programme öffnen.
 
-\criterium{Speichern}{crt:save}
+\criterium{Bearbeiten eines Prolog-Programms}{crt:edit}
 
-Das Programm soll Änderungen am momentan geöffnetem Prolog-Programm speichern können. Wurde die Datei seit dem Öffnen anderweitig verändert, so wird sie überschrieben.
+Das Programm erlaubt es dem Nutzer Änderungen an einem geöffneten Prolog-Programm durchzuführen. Dabei wird die aktuelle Interpretation gestoppt und die Visualisierung gelöscht.
 
-\criterium{Parsen eines Prolog-Programms mit begrenztem Umfang}{crt:parser}
+\criterium{Speichern eines Prolog-Programms}{crt:save}
 
-% Verweis auf Glossareintrag
-Das Programm kann eine Teilmenge der Sprache Prolog durch einen Parser verarbeiten:
+Das Programm kann Änderungen am momentan geladenen Prolog-Programm speichern. Der Inhalt der Datei wird dabei überschrieben.
 
-Es gibt IDs, Variablen und Zahlen die wie folgt notiert werden:
+\criterium{Parsen eines Prolog-Programms mit begrenztem Sprachumfang}{crt:parser}
 
-\begin{lstlisting}
-id := [a-z][a-zA-Z0-9]*
-var := [A-Z][a-zA-Z0-9]*
-num := [0-9]*
-\end{lstlisting}
+Das Programm kann eine Teilmenge der Sprache Prolog durch einen Parser verarbeiten.
 
-Es gibt Terme welche sich aus obigem zusammensetzen:
+\criterium{Eingabe von Abfragen}{crt:request}
 
-\begin{lstlisting}
-Term := Funktor | var | num
-Funktor := id | id( Term{, Term}* )
-\end{lstlisting}
+Das Programm erlaubt es dem Nutzer Abfragen in das Eingabefeld einzugeben. Dabei wird die aktuelle Interpretation abgebrochen und die Visualisierung gelöscht.
 
-Und zusätzlich gibt es Regeln und Ziele welche sich wie folgt zusammensetzen:
+\criterium{Einzelschritt-Interpretation von Abfragen}{crt:interpreter}
 
-\begin{lstlisting}
-Regel := Funktor . | Funktor :- Ziel {, Ziel}* .
-Ziel := Funktor | Term = Term
-\end{lstlisting}
+Das Programm bearbeitet Abfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf eine Interaktion vom Nutzer (Klicken der \enquote{Nächster Schritt}-Schaltfläche), bis es den nächsten Teilschritt bearbeitet.
 
-Eine Regel die nur aus einem Funktor ohne Ziel besteht wird Fakt genannt.
+\criterium{Visualisierung als Graph}{crt:visualization}
 
-Das Programm unterstützt die Darstellung von Listen. Die leere Liste wird durch \enquote{\texttt{[]}} dargestellt, eine Liste mit Inhalt wird durch \enquote{\texttt{[1,2,3]}} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\newline
-Liste: \texttt{[1,2,3]}\newline
-In Prolog: \texttt{[1|teilliste1]}, \texttt{teilliste1=[2|teilliste2]}, \texttt{teilliste2=[3]}.
+Das Programm kann die Abarbeitung einer Abfrage zu einem Prolog-Programm durch einen Graphen visualisieren.
 
-\criterium{Einzelschritt-Interpreter}{crt:interpreter}
+\criterium{Ausgabe von Lösungen zu einer Abfrage}{crt:answer}
 
-% Verweis auf GUI und mögliche Anpassung des Schaltflächennamen
-Das Programm bearbeitet Anfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf Interaktion vom Nutzer (drücken der Verarbeiten-Schaltfläche), bis es den nächsten Teilschritt bearbeitet.
-
-\criterium{Visualisierung}{crt:visualization}
-
-% Verweise auf GUI
-Das Programm kann Abfragen zu einem Prolog-Programm mit Hilfe eines Graphen visualisieren. Dieser hat eine Baumstruktur und beinhaltet für jeden Abarbeitungsschritt einen eigenen Knoten.
+Das Programm kann Lösungen zu einer Abfrage in der Konsole ausgeben. Dabei wird bei einer Abfrage ohne Variablen \enquote{yes} oder \enquote{no} ausgegeben. Beinhaltet die Abfrage Variablen, so werden mögliche Variablenbelegungen ausgegeben. Gibt es keine Lösung, so wird eine entsprechende Meldung ausgegeben.
 
 \subsection{Kann}
 
 \criteriumOptional{Zurückschreiten}{crt:stepback}
 
-% Verweis auf GUI
 Das Programm soll es dem Nutzer ermöglichen, beliebig viele Schritte schrittweise zurückzugehen.
 
-\criteriumOptional{Ausführung bis zur nächsten Ausgabe}{crt:continue}
+\criteriumOptional{Ausführung bis zur nächsten Lösung}{crt:continue}
 
-% Verweis auf GUI
-Die Interpretation soll durch eine zusätzliche Schaltfläche bis zur nächsten Ausgabe ausgeführt werden können.
-
-\criteriumOptional{Abbrechen}{crt:cancel}
-
-% Verweis auf GUI
-Das automatische Abarbeiten mehrerer Schritte soll durch das Betätigen einer Schaltfläche abgebrochen werden können.
+Die Interpretation soll durch eine zusätzliche Schaltfläche bis zur nächsten Lösung ausgeführt werden können. Diese Aktion kann durch das Betätigen der \enquote{Abbrechen}-Schaltfläche abgebrochen werden. Dabei wird der aktuelle Interpretationsschritt fertig berechnet und anschließend wird die Interpretation beendet.
 
 \criteriumOptional{Cut}{crt:cut}
 
-Das Programm soll die \enquote{Cut}-Funktionalität unterstützen. Mit dieser kann der Nutzer dem Interpreter durch das hinzufügen eines \enquote{\texttt{!}} als Teilziel verbieten zu einer bestimmten Stelle zurück zu springen.
+Das Programm soll die \enquote{Cut}-Funktionalität unterstützen.
 
 \criteriumOptional{Arithmetik}{crt:maths}
 
-Das Programm soll grundlegende Arithmetik unterstützen. Da Terme in Prolog nur für sich selber stehen, können Abfragen wie \enquote{$4 = 1 + 3$} nicht bearbeitet werden. Daher wird der Interpreter um ein Rechenoperator \enquote{\texttt{is}} erweitert, welcher solche arithmetischen Abfragen ermöglicht.
+Das Programm soll grundlegende Arithmetik unterstützen.
 
 \criteriumOptional{Standardbibliothek}{crt:standardlib}
 
-Das Programm soll eine Standardbibliothek in Form eines Prolog-Programms mit nützlichen, vordefinierten Regeln unterstützen, die standardmäßig beim Starten des Programms mit eingebunden wird.
+Das Programm soll eine Standardbibliothek mit nützlichen, vordefinierten Regeln unterstützen, die standardmäßig beim Starten des Programms mit eingebunden wird. Bereits implementierte Regeln, die vom Nutzer nochmals implementiert werden, werden als zusätzliche Regeln zu den bereits vorhandenen hinzugefügt nachdem eine Warnung ausgegeben wurde.
 
-\criteriumOptional{Standardbibliothek deaktivieren}{crt:disablelib}
+\criteriumOptional{Standardbibliothek deaktivieren und aktivieren}{crt:disablelib}
 
-Das Programm soll es dem Nutzer ermöglichen, die eingebundene Standardbibliothek deaktivieren zu können.
+Das Programm soll es dem Nutzer ermöglichen, die eingebundene Standardbibliothek deaktivieren und wieder aktivieren zu können.
 
 \criteriumOptional{Export von Visualisierungsbäumen als LaTeX-Code}{crt:latexexport}
 
@@ -200,9 +174,9 @@ Das Programm kann einen Visualisierungsbaum als LaTeX-Code exportieren, damit di
 
 Das Programm kann einen Visualisierungsbaum als Bilddatei im SVG- oder PNG-Format exportieren.
 
-\criteriumOptional{Syntax-Highlighting}{crt:syntaxhighlighting}
+\criteriumOptional{Syntax-Highlighting im Editor}{crt:syntaxhighlighting}
 
-Das Programm soll das farbliche Hervorheben bestimmter Regeln und ihres/ihrer korrespondieren Knoten in der Visualisierung unterstützen. Der Code wird dabei farblich passend hervorgehoben. Identifier und Variablen werden unterschiedlich zu Zahlen eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.
+Der Code soll farblich passend hervorgehoben werden. Identifier und Variablen werden unterschiedlich zu Zahlen eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.
 
 \criteriumOptional{\enquote{Pretty-Printing} von Listen}{crt:prettyprinting}
 
@@ -210,13 +184,17 @@ Das Programm soll Listen bei der Ausgabe einheitlich auf \enquote{\texttt{[x,y,z
 
 \criteriumOptional{Formatierung von Quelltext}{crt:formatting}
 
-Das Programm soll Quelltext in ein vorgeschriebenes Format bringen können.
+Das Programm soll Quelltext durch das Betätigen der \enquote{Formatieren}-Schaltfläche in ein vorgeschriebenes Format bringen können.
+
+\criteriumOptional{Wechseln der Sprache zwischen Deutsch und Englisch}{crt:translation}
+
+Die Programmoberfläche soll die Sprachen Deutsch und Englisch unterstützen.
 
 \subsection{Abgrenzung}
 
 \criteriumNot{Voller Sprachsupport}{crt:fullsupport}
 
-Das Programm hat kein Verständnis für Prolog-Sprachfeatures außerhalb der vorgestellten Prolog-Teilmenge.
+Das Programm unterstützt keine Prolog-Sprachfeatures außerhalb der vorgestellten Prolog-Teilmenge.
 
 \criteriumNot{Andere Programmiersprachen}{crt:otherlanguages}
 
@@ -229,6 +207,10 @@ Das Programm beschränkt sich auf eine graphische Darstellung über GUI-Elemente
 \criteriumNot{Professionelle Anwendung}{crt:professionaluse}
 
 Das Programm ist nicht für professionelle Anwendungszwecke ausgelegt.
+
+\criteriumNot{Parser}{crt:parser}
+
+Der Parser ist gegeben und wird nicht selbst implementiert.
 
 \pagebreak
 %%%%%%%%%%%%%%
@@ -265,9 +247,9 @@ Die Pfade der fünf zuletzt geöffneten Dateien werden für einen Eintrag in der
 \section{Funktionale Anforderungen}
 
 \functionality{Erstellen eines neuen Prolog-Programms}{fnc:new}
-\fulfills{crt:new}
+\fulfills{crt:create}
 
-Das Programm stellt einen Editor bereit, in dem ein leeres Prolog-Programm angelegt werden kann. Sollte der Editor zuvor bereits ungesicherten Inhalt besitzen, so wird der Nutzer aufgefordert, diesen zu speichern. Der alte Inhalt wird daraufhin verworfen und ein neues Prolog-Programm angelegt.
+Das Programm stellt einen Editor bereit, in dem ein leeres Prolog-Programm angelegt werden kann. Sollte der Editor zuvor bereits ungesicherten Inhalt besitzen, so wird der Nutzer aufgefordert, diesen zu speichern. Hierbei kann entweder die alte Datei überschrieben oder eine neue Datei angelegt werden. Der alte Inhalt wird daraufhin verworfen und ein neues Prolog-Programm angelegt.
 
 \functionality{Öffnen eines Prolog-Programms}{fnc:open}
 \fulfills{crt:open}
@@ -280,15 +262,19 @@ Das Programm ist in der Lage, Prolog-Programmdateien zu öffnen. Der Datei-Inhal
 Das Programm bietet einen Schnellzugriff auf bis zu fünf der zuletzt verwendeten Dateien an. Diese können analog zu F2 geöffnet werden.
 
 \functionality{Bearbeiten eines Prolog-Programms}{fnc:editor}
-\fulfills{crt:save}
-\fulfills{crt:syntaxhighlighting}
+\fulfills{crt:edit}
 
 Das Prolog-Programm kann im Editor bearbeitet werden. Die Änderungen werden erst beim Speichern zurückgeschrieben.
+
+\functionality{Speichern als}{fnc:saveas}
+\fulfills{crt:save}
+
+Ist der Dateiname noch nicht durch das Öffnen eines bereits vorhandenen Prolog-Programms oder durch vorheriges Speichern bekannt, so kann über einen Auswahldialog eine neue Datei angelegt werden.
 
 \functionality{Speichern des Editor-Inhalts}{fnc:save}
 \fulfills{crt:save}
 
-Das Programm kann den Inhalt des Editors auf die Festplatte schreiben. Wurde das Prolog-Programm bisher noch nicht gespeichert, so kann über einen Auswahldialog eine neue Datei angelegt werden. Der Inhalt der Datei wird ohne weitere Überprüfung überschrieben.
+Das Programm kann den Inhalt des Editors speichern. Ist der Dateiname bekannt wird der Inhalt der Datei überschrieben. Sollte dies nicht der Fall sein wird die \enquote{Speichern als...} Funktion ausgeführt.
 
 \functionality{Parsen eines Prolog-Programms}{fnc:parser}
 \fulfills{crt:parser}
@@ -301,24 +287,53 @@ Das geöffnete Prolog-Programm kann durch einen Parser verarbeitet werden. Wird 
 
 Der Parser erkennt Fehler innerhalb des geöffneten Prolog-Programms bei der Verarbeitung. Fehlermeldungen werden über das verfügbare Konsolen-Fenster ausgegeben.
 
-\functionality{Eingabe von Prolog-Abfragen in die Konsole}{fnc:shell}
-\fulfills{crt:interpreter}
+\functionality{Eingabe von Prolog-Abfragen in das Eingabefeld}{fnc:shell}
+\fulfills{crt:request}
 
-Bei erfolgreicher Verarbeitung einer fehlerfreien Datei durch den Parser erlaubt die angezeigte Konsole die Eingabe von Abfragen. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird die Eingabe in die Konsole sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
+Bei erfolgreicher Verarbeitung einer korrekten Datei durch den Parser erlaubt das Eingabefeld die Eingabe von Abfragen. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird das Eingabefeld deaktiviert sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
 
-\functionality{Interpretation von Prolog-Abfragen in der Konsole}{fnc:interpreter}
+\functionality{Syntaktische Fehler in der Abfrage}{fnc:inputerror}
+\fulfills{crt:request}
+
+Syntaktische Fehler in der Abfrage werden in der Konsole ausgegeben.
+
+\functionality{Interpretation von Prolog-Abfragen}{fnc:interpreter}
 \fulfills{crt:interpreter}
 \fulfills{crt:cut}
 \fulfills{crt:maths}
-\fulfills{crt:standardlib}
+
+Abfragen, welche im Eingabefeld eingegeben wurden, werden nach einer Bestätigung mit der Eingabe-Taste schrittweise interpretiert.
+
+\functionality{Weiterschreiten in der Interpretation}{fnc:interpreterforward}
+\fulfills{crt:interpreter}
+
+Nachdem die Interpretation gestartet wurde, wird durch das Betätigen der \enquote{Nächster Schritt}-Schaltfläche der nächsten Interpretationsschritt durchgeführt.
+
+\functionality{Ausgaben des Interpreters}{fnc:interpreteroutput}
+\fulfills{crt:answer}
 \fulfills{crt:prettyprinting}
 
-Abfragen, welche in der Konsole eingegeben wurden, werden nach einer Bestätigung mit der Eingabe-Taste schrittweise interpretiert. Ausgaben des Interpreters werden in der Konsole angezeigt. Nach dem Betätigen der Schaltfläche wird ausschließlich der erste Interpretationsschritt durchgeführt. Der Nutzer hat die Möglichkeit, diese Interpretation über eine Schritt-Schaltfläche schrittweise fortzuführen. Fehler bei der Interpretation einer Abfrage werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird abgebrochen. Syntaktische Fehler bei Abfragen werden über das Konsolen-Fenster ausgegeben und die weitere Verarbeitung wird unterbrochen.
+Der Interpreter gibt Lösungen zu einer Abfrage in der Konsole aus. Gibt es keine weitere Lösung mehr, so wird eine entsprechende Meldung ausgegeben.
 
 \functionality{Visualisierung des aktuellen Interpretationsschrittes mittels eines Graphen}{fnc:visualization}
 \fulfills{crt:visualization}
 
 Bei aktiver Interpretation einer Abfrage wird eine Visualisierung für den aktuellen Interpretationsschritt generiert und im Visualisierungs-Fenster angezeigt. Sollte zuvor eine Visualisierung in diesem Fenster angezeigt worden sein, wird diese aus dem Fenster gelöscht.
+
+\functionality{Visualisierung einer erfolgreichen Unifikation}{fnc:unificationsuccess}
+\fulfills{crt:visualization}
+
+Gab es eine erfolgreiche Unifikation, so wird diese mit den entsprechenden Substitutionen angezeigt.
+
+\functionality{Visualisierung einer fehlgeschlagenen Unifikation}{fnc:unificationfail}
+\fulfills{crt:visualization}
+
+Fehlgeschlagene Unifikationen werden nur visualisiert, wenn die Funktorköpfe identisch sind. Da die Unifikation bei unterschiedlichen Funktorköpfen automatisch fehlschlägt, werden diese übersprungen und nicht visualisiert.
+
+\functionality{Visualisierung von Backtracking}{fnc:backtracking}
+\fulfills{crt:visualization}
+
+Wenn für ein Teilziel keine Unifikation mehr möglich ist, so wird zum vorherigen Teilziel, oder, im Falle des ersten Teilziels, zur übergeordneten Regel zurückgesprungen. Dieser Backtrackingschritt wird entsprechend in der Visualisierung angezeigt.
 
 \functionality{Vergrößern und Verkleinern der Visualisierung durch Schaltflächen oder das Mausrad}{fnc:zoom}
 \fulfills{crt:visualization}
@@ -333,17 +348,17 @@ Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Aussch
 \functionality{Zurückschreiten während der Interpretation}{fnc:stepback}
 \fulfills{crt:stepback}
 
-Eine Rückschritt-Schaltfläche erlaubt bei Betätigung den jeweils vorhergehenden Schritt rückgängig zu machen. Im Falle des ersten Schrittes hat das Betätigen dieser Schaltfläche keinen Effekt.
+Eine Rückschritt-Schaltfläche erlaubt bei Betätigung den jeweils vorhergehenden Schritt rückgängig zu machen. Im Falle des ersten Schrittes ist diese Schaltfläche deaktiviert.
 
-\functionality{Ausführung der Interpretation bis zur nächsten Ausgabe}{fnc:continue}
+\functionality{Ausführung der Interpretation bis zur nächsten Lösung}{fnc:continue}
 \fulfills{crt:continue}
 
-Eine Fortsetzen-Schaltfläche erlaubt bei Betätigung die Ausführung bis zur nächsten Ausgabe fortzuführen.
+Eine Fortsetzen-Schaltfläche erlaubt bei Betätigung die Ausführung bis zur nächsten Lösung fortzuführen.
 
 \functionality{Abbrechen einer Interpretation}{fnc:cancel}
-\fulfills{crt:cancel}
+\fulfills{crt:continue}
 
-Im Falle einer Interpretation die mehrere Schritte hintereinander ausführt (Fortsetzen bis zur nächsten Ausgabe), kann die laufende Interpretation über eine Abbrechen-Schaltfläche frühzeitig beendet werden.
+Im Falle einer Interpretation die mehrere Schritte hintereinander ausführt (Fortsetzen bis zur nächsten Lösung), kann die laufende Interpretation über eine Abbrechen-Schaltfläche frühzeitig beendet werden. Hierbei wird der aktuelle Interpretationsschritt noch durchgeführt und anschließend wird die Interpretation beendet.
 
 \functionality{Exportieren der angezeigten Visualisierung in einem beliebigen Schritt als LaTeX-Dokument}{fnc:latexexport}
 \fulfills{crt:latexexport}
@@ -355,10 +370,10 @@ Die aktuell angezeigte Visualisierung lässt sich als LaTeX-Dokument exportieren
 
 Die aktuell angezeigte Visualisierung lässt sich als Bild im PNG- oder SVG-Format exportieren.
 
-\functionality{Deaktivierung der Standardbibliothek}{fnc:disablelib}
+\functionality{Deaktivierung und Aktivierung der Standardbibliothek}{fnc:disablelib}
 \fulfills{crt:disablelib}
 
-Die automatisch eingebundene Standardbibliothek kann über eine Schaltfläche deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden nun nicht mehr berücksichtigt.
+Die automatische Einbindung der Standardbibliothek kann über eine Schaltfläche aktiviert und deaktiviert werden.
 
 %TODO: Richtlinien als Liste?
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
@@ -370,11 +385,6 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 \fulfills{crt:translation}
 
 Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden.
-
-\functionality{Dynamisches Skalieren des Hauptfensters mit der Maus}{fnc:resizeable}
-\fulfills{crt:resizeable}
-
-Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werden.
 
 %%%%%%%%%%%
 \newpage
@@ -496,13 +506,15 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \test{Interaktive Nutzung des Interpreters}{tst:ask}
 \tests{fnc:interpreter}
+\tests{fnc:interpreterforward}
+\tests{fnc:interpreteroutput}
 
-\teststep{Der Nutzer hat ein fehlerloses Prolog-Programm im Editor eingegeben.}
+\teststep{Der Nutzer hat ein korrektes Prolog-Programm im Editor eingegeben.}
 {Der Nutzer betätigt die Parsen-Schaltfläche im Hauptfenster.}
 {In der Konsole wird eine Erfolgsnachricht ausgegeben.}
 
 \teststep{Die Konsole erwartet eine Eingabe.}
-{Der Nutzer gibt eine Anfrage mit mehreren Antworten ein und bestätigt die Eingabe.}
+{Der Nutzer gibt eine Abfrage mit mehreren Antworten ein und bestätigt die Eingabe.}
 {Die Abfrage wird mittels eines Graphen visualisiert.}
 
 \teststep{Die Wurzel des Graphen wird angezeigt.}
@@ -545,7 +557,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \test{Export als Bilddatei für Foliensätze}{tst:latexexport}
 \tests{fnc:latexexport}
 
-\teststep{Ein Prolog-Programm ist im Editor geöffnet und ein beliebiger Schritt einer Anfrage als Graph visualisiert.}
+\teststep{Ein Prolog-Programm ist im Editor geöffnet und ein beliebiger Schritt einer Abfrage als Graph visualisiert.}
 {Der Nutzer wählt über die Menüleiste die Exportieren-Funktion aus.}
 {Ein Auswahl-Dialog öffnet sich.}
 
@@ -562,7 +574,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \test{Export als LaTeX für Foliensätze}{tst:latexexporttikz}
 \tests{fnc:latexexport}
 
-\teststep{Ein Prolog-Programm ist im Editor geöffnet und ein beliebiger Schritt einer Anfrage als Graph visualisiert.}
+\teststep{Ein Prolog-Programm ist im Editor geöffnet und ein beliebiger Schritt einer Abfrage als Graph visualisiert.}
 {Der Nutzer wählt über die Menüleiste die Exportieren-Funktion aus.}
 {Ein Auswahl-Dialog öffnet sich.}
 
@@ -984,12 +996,49 @@ Das vorgestellte VIPER-Programm. Dies ist zu unterscheiden von Prolog-Programmen
 \textbf{Prolog-Programm}:
 Prolog-Quelltext in Form von Dateien auf einem Speichermedium. Dies ist zu unterscheiden von dem Programm im Sinne des VIPER-Programms.
 
+\textbf{Prolog-Teilsprache}:
+%TODO überarbeiten
+Es gibt Identifier, Variablen und Zahlen die wie folgt notiert werden:
+
+\begin{lstlisting}
+id := [a-z][a-zA-Z0-9]*
+var := [A-Z][a-zA-Z0-9]*
+num := [0-9]+
+\end{lstlisting}
+
+Es gibt Terme welche sich aus obigem zusammensetzen:
+
+\begin{lstlisting}
+Term := Funktor | var | num
+Funktor := id | id( Term{, Term}* )
+\end{lstlisting}
+
+Und zusätzlich gibt es Regeln und Ziele welche sich wie folgt zusammensetzen:
+
+\begin{lstlisting}
+Regel := Funktor . | Funktor :- Ziel {, Ziel}* .
+Ziel := Funktor | Term = Term
+\end{lstlisting}
+
+Außerdem unterstützt das Programm Listen.
+
 \subsection{Prolog-interne Begriffe}
 \textbf{Abfrage}:
 Ziel, für das alle möglichen Lösungen gefunden werden sollen. Die Lösung kann eine Menge an Belegungen für Variablen oder eine Ja-Nein-Antwort sein.
 
 \textbf{Arithmetik}:
-Berechnung mathematischer Operationen (bspw. Summen, Differenzen, Vergleiche etc.).
+Grundlegende Arithmetik beinhaltet natürliche Zahlen inklusive der 0. Des weiteren werden folgende Operatoren unterstützt:\\
+\texttt{+, -, *, <, =<, >, >=, =\=, =:=}\\
+\\
+Da Termgleichheit in Prolog keine Arithmetik unterstützt, können Abfragen wie\\
+\enquote{$4 = 1 + 3$}\\
+nicht ausgewertet werden. Deshalb wird zusätzlicher der \texttt{is}-Operator unterstützt. Dieser evaluiert zuerst die rechte Seite arithmetisch und unifiziert diese anschließend mit der Linken.
+
+\textbf{Backtracking / Rückschreiten}:
+Aufheben der letzten Wahl bei der Suche nach einer passenden Variablenbelegung.
+
+\textbf{Cut}:
+Wird durch \enquote{\texttt{!}} dargestellt. Teilziel einer Regel, bei dem die erste Unifikation immer erfolgreich ist. Alle weiteren Unifikationen beim Backtracking schlagen fehl. Außerdem werden alle nachfolgenden Regeln mit dem selben Kopf verworfen.
 
 \textbf{Fakt}:
 Aussage, welche als wahr angenommen wird. Im Kontext von Prolog: eine Regel ohne Teilziele.
@@ -997,11 +1046,20 @@ Aussage, welche als wahr angenommen wird. Im Kontext von Prolog: eine Regel ohne
 \textbf{Funktor}:
 Sammelbegriff für einen einzelnen Identifier und Identifier in Kombination mit einer beliebigen Anzahl Termen, welche in Klammern hinter dem Identifier stehen.
 
+\textbf{Gleichheit}:
+Terme sind genau dann gleich, wenn die linke und rechte Seite eines Terms identisch sind oder wenn Variablen in den Termen so belegt werden können, dass beide Seiten identisch sind.
+
 \textbf{Identifier}:
 Wort, beginnend mit einem Kleinbuchstaben und fortsetzend mit Groß- und Kleinbuchstaben sowie Zahlen.
 
 \textbf{Interpreter}:
 Ausführungsmechanismus für Abfragen. Nachdem sowohl das zugrunde liegende Prolog-Programm als auch die Abfrage durch den Parser verarbeitet wurden, findet eine schrittweise Interpretation der genannten Abfrage statt.
+
+\textbf{Listen}:
+Die leere Liste wird durch \enquote{\texttt{[]}} dargestellt. Eine Liste mit Inhalt wird durch \enquote{\texttt{[1,2,3]}} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\\
+\texttt{[1,2,3]} =\\
+\texttt{[1|Teilliste1], Teilliste1=[2|Teilliste2], Teilliste2=[3|[]]} =\\
+\texttt{[1|[2|[3|[]]]]}
 
 \textbf{Parser}:
 Umwandlungsmechanismus für Prolog-Programme, der diese in ein für die Weiterverarbeitung geeignetes Format bringt und auf syntaktische Fehler prüft.
@@ -1018,7 +1076,7 @@ Voreingestellte Regeln, welche automatisch bei der Verarbeitung durch den Parser
 \textbf{Term}:
 Sammelbegriff für Funktoren, Variablen oder Zahlen.
 
-\textbf{Unifikation}
+\textbf{Unifikation}:
 Zwei Terme sind genau dann unifizierbar, wenn sie gleich sind oder Variablen enthalten, die so belegt werden können dass die Terme gleich sind.
 
 \textbf{Variable}:
@@ -1063,9 +1121,6 @@ Element der graphischen Oberfläche. Bietet über Text-Menüs Zugriff auf Funkti
 
 \textbf{Öffnen}:
 Lesen eines ausgewählten Prolog-Programms von einem verbundenen Speichermedium in das Programm. Dies entspricht der Übertragung des Textes aus der gewählten Datei in den Editor.
-
-\textbf{Rückschreiten / Backtracking}:
-Aufheben der letzten Wahl bei der Suche nach einer passenden Variablenbelegung.
 
 \textbf{Speichern}:
 Schreiben einer Prolog-Programmdatei in ein Zielverzeichnis auf einem verbundenen Speichermedium. Es werden ausschließlich Prolog-Programme gespeichert, andere Schreibvorgänge auf Speichermedien fallen unter den Begriff Export.
