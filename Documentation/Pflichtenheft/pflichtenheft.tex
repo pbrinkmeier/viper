@@ -373,7 +373,7 @@ Die aktuell angezeigte Visualisierung lässt sich als Bild im PNG- oder SVG-Form
 \functionality{Deaktivierung und Aktivierung der Standardbibliothek}{fnc:disablelib}
 \fulfills{crt:disablelib}
 
-Die automatische Einbindung der Standardbibliothek kann über eine Schaltfläche aktiviert und deaktiviert werden.
+Die automatische Einbindung der Standardbibliothek kann über eine Schaltfläche aktiviert und deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden bis zur erneuten Aktivierung nicht mehr berücksichtigt.
 
 %TODO: Richtlinien als Liste?
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
@@ -402,7 +402,7 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 
 \nonFunctionality{Das Öffnen einer Prolog-Programmdatei mit einer Größe von unter 1 MiB geschieht in unter 5 Sekunden.}{nfc:loadfile}
 
-\nonFunctionality{Fehlerhafte Prolog-Programme sollen nie zu einem Absturz des Programms führen.}{nfc:crashresistance}
+\nonFunctionality{Inkorrekte Prolog-Programme sollen nie zu einem Absturz des Programms führen.}{nfc:crashresistance}
 
 \nonFunctionality{Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, um weitere Sprachfeatures zu unterstützen.}{nfc:extendable}
 
@@ -464,7 +464,7 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 \tests{fnc:editor}
 
 \teststep{Der Nutzer hat ein leeres Editor-Fenster vor sich.}
-{Der Nutzer gibt ein gültiges Prolog-Programm im Editor ein.}
+{Der Nutzer gibt das \texttt{simpsons-pl}-Programm im Editor ein.}
 {Der Code wird farblich passend hervorgehoben. Identifier, Variablen und Zahlen werden dabei unterschiedlich eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -485,21 +485,21 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 \test{Inkorrektes Prolog-Programm}{tst:errorcheck}
 \tests{fnc:errorcheck}
 
-\teststep{Der Nutzer hat ein inkorrektes Prolog-Programm in den Editor eingetragen.}
+\teststep{Der Nutzer hat das inkorrektes Prolog-Programm \texttt{father.} in den Editor eingetragen.}
 {Der Nutzer betätigt die Parsen-Schaltfläche, um das Prolog-Programm zu parsen.}
-{Die Ausführung wird abgebrochen und eine verständliche Fehlermeldung wird in der Konsole angezeigt.}
+{Die Ausführung wird abgebrochen. Eine verständliche Fehlermeldung (``Syntax-Fehler in Zeile 1'') wird in der Konsole angezeigt.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\test{Interpretierung vom Beispielprogramm}{tst:simpsons}
+\test{Interpretierung vom simpsons.pl-Programm}{tst:simpsons}
 \tests{fnc:interpreter}
 
-\teststep{Das Beispielprogramm ist im Editorfenster eingegeben oder aus einer Datei geöffnet worden.}
+\teststep{Das \texttt{simpsons.pl}-Programm ist im Editorfenster eingegeben oder aus einer Datei geöffnet worden.}
 {Der Nutzer klickt auf die Parsen-Schaltfläche des Hauptfensters.}
-{Das Prolog-Programm wird erfolgreich geparst, es kommt zu keinen Fehlern. Die Konsole erwartet eine Eingabe.}
+{Das Prolog-Programm wird erfolgreich geparst, es kommt zu keinen Fehlern. In das Eingabefeld kann eine Abfrage eingegeben werden.}
 
-\teststep{Das Prolog-Programm wurde geparst und die Konsole erwartet eine Eingabe.}
-{Der Nutzer gibt die Abfrage \texttt{father(X, bart).} in der Konsole ein.}
+\teststep{Das Prolog-Programm wurde geparst. In das Eingabefeld kann eine Abfrage eingegeben werden.}
+{Der Nutzer gibt die Abfrage \texttt{father(X, bart).} in das Eingabefeld ein.}
 {Das Prolog-Programm wird interpretiert und die Wurzel des Visualisierungsbaums wird angezeigt.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -509,17 +509,17 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 \tests{fnc:interpreterforward}
 \tests{fnc:interpreteroutput}
 
-\teststep{Der Nutzer hat ein korrektes Prolog-Programm im Editor eingegeben.}
+\teststep{Der Nutzer hat das korrekte Prolog-Programm \texttt{father(homer, bart). father(homer, lisa).} im Editor eingegeben.}
 {Der Nutzer betätigt die Parsen-Schaltfläche im Hauptfenster.}
 {In der Konsole wird eine Erfolgsnachricht ausgegeben.}
 
-\teststep{Die Konsole erwartet eine Eingabe.}
-{Der Nutzer gibt eine Abfrage mit mehreren Antworten ein und bestätigt die Eingabe.}
+\teststep{Das Eingabefeld erwartet eine Abfrage.}
+{Der Nutzer gibt die Anfrage \texttt{father(homer, X).} ein und bestätigt die Eingabe.}
 {Die Abfrage wird mittels eines Graphen visualisiert.}
 
 \teststep{Die Wurzel des Graphen wird angezeigt.}
-{Der Nutzer betätigt die Schritt-Schaltfläche bis eine Antwort gefunden wurde.}
-{Zwischenschritte werden visualisiert. In der Konsole erscheint die Antwort.}
+{Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wurde.}
+{Zwischenschritte werden visualisiert. In der Konsole erscheint die erste Lösung \texttt{X = bart .}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -548,9 +548,9 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 \test{Formatierung von Quellcode}{tst:formatter}
 \tests{fnc:formatter}
 
-\teststep{Der Nutzer hat das Beispielprogramm ohne Leerzeichen und Einrückungen im Editor eingegeben oder aus einer Datei geöffnet.}
+\teststep{Der Nutzer hat das unformatierte \texttt{simpsons.pl}-Programm im Editor eingegeben oder aus einer Datei geöffnet.}
 {Der Nutzer betätigt die Formatieren-Schaltfläche in der Menüleiste.}
-{Das Prolog-Programm wird automatisch wie im Anhang formatiert.}
+{Das Prolog-Programm wird automatisch formatiert. Der Editor zeigt nun das formatierte \texttt{simpsons.pl}-Programm an.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -599,19 +599,15 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 \tests{fnc:parser}
 \tests{fnc:errorcheck}
 
-\teststep{Der Nutzer hat das Programm soeben geöffnet.}
-{Der Nutzer wählt über die Menü-Leiste die Neu-Funktion aus.}
-{Eine leeres Prolog-Programm wird im Editor angelegt.}
+\teststep{Der Nutzer hat ein leeres Editor-Fenster vor sich.}
+{Der Nutzer gibt das unformatierte \texttt{simpsons.pl}-Programm wie im Anhang beschrieben ein.}
+{Der Inhalt des Editors wird entsprechend der Eingabe geändert.}
 
-\teststep{Der Nutzer hat nun ein leeres Editor-Fenster vor sich.}
-{Der Nutzer gibt das unformatierte simpsons.pl-Programm wie im Anhang beschrieben ein.}
-{Der Editor ändert den Inhalt des Prolog-Programms entsprechend der Eingabe.}
-
-\teststep{Das unformatierte simpsons.pl-Programm ist im Editor eingetragen.}
+\teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
 {Der Nutzer betätigt die Formatieren-Schaltfläche.}
-{Das simpsons.pl-Programm wird formatiert und entspricht nun dem formatierten simpsons.pl-Programm im Anhang.}
+{Das \texttt{simpsons.pl}-Programm wird formatiert und entspricht dem formatierten \texttt{simpsons.pl}-Programm im Anhang.}
 
-\teststep{Das formatierte simpsons.pl-Programm ist im Editor eingetragen.}
+\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
 {Der Nutzer wählt über die Menü-Leiste die Speichern-Funktion aus.}
 {Ein Speichern-Dialog öffnet sich.}
 
@@ -619,17 +615,17 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 {Der Nutzer betätigt die Speichern-Schaltfläche.}
 {Das Prolog-Programm wird im gewählten Verzeichnis gespeichert.}
 
-\teststep{Das formatierte simpsons.pl-Programm ist im Editor eingetragen und gespeichert.}
-{Der Nutzer betätigt die Parser-Schaltfläche.}
-{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
+\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert.}
+{Der Nutzer betätigt die Parsen-Schaltfläche.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
 
-\teststep{Das formatierte simpsons.pl-Programm ist im Editor eingetragen, gespeichert und durch den Parser verarbeitet worden.}
+\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen, gespeichert und durch den Parser verarbeitet worden.}
 {Der Nutzer fokussiert durch einen Mausklick das Editor-Fenster und fügt vor die erste Zeile das Wort \enquote{Fehler} gefolgt von einem Umbruch ein.}
-{Der Eingabebereich der Konsole wird gesperrt.}
+{Das Eingabefeld wird gesperrt.}
 
-\teststep{Das unformatierte simpsons.pl-Programm ist im Editor eingetragen und gespeichert worden. Das Wort \enquote{Fehler} wurde vor die ursprüngliche erste Zeile eingetragen.}
-{Der Nutzer betätigt die Parser-Schaltfläche.}
-{Der Eingabebereich der Konsole bleibt weiterhin gesperrt. Der Parser gibt über den Ausgabebreich der Konsole eine Syntax-Fehlermeldung aus.}
+\teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert worden. Das Wort \enquote{Fehler} wurde vor die ursprüngliche erste Zeile eingetragen.}
+{Der Nutzer betätigt die Parsen-Schaltfläche.}
+{Das Eingabefeld bleibt weiterhin gesperrt. Der Parser gibt über die Konsole eine Syntax-Fehlermeldung aus.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -640,25 +636,25 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 \tests{fnc:interpreter}
 \tests{fnc:visualization}
 
-\teststep{Der Nutzer hat das Programm soeben geöffnet.}
+\teststep{Der Nutzer hat das Programm geöffnet.}
 {Der Nutzer wählt über die Menü-Leiste die Öffnen-Funktion aus.}
-{Ein Öffnen-Dialog öffnet sich.}
+{Ein Öffnen-Dialog erscheint.}
 
-\teststep{Der Nutzer hat ein Prolog-Programm ausgewählt, welches das formatierte simpsons.pl-Programm aus dem Anhang enthält.}
+\teststep{Der Nutzer hat ein Prolog-Programm ausgewählt, welches das formatierte \texttt{simpsons.pl}-Programm enthält.}
 {Der Nutzer betätigt die Öffnen-Schaltfläche.}
-{Der Editor enthält nun die formatierte simpsons.pl-Programmdatei analog zum Anhang.}
+{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei.}
 
-\teststep{Der Editor enthält die formatierte simpsons.pl-Programmdatei analog zum Anhang.}
-{Der Nutzer betätigt die Parser-Schaltfläche.}
-{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
+\teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei.}
+{Der Nutzer betätigt die Parsen-Schaltfläche.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{mother(marge, lisa).} ein und bestätigt mit der Eingabe-Taste.}
-{Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
+{Der Nutzer gibt im Eingabefeld \texttt{mother(marge, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
-{Der Nutzer betätigt die Schritt-Schaltfläche.}
-{Eine Lösung wurde gefunden. Es wird \enquote{yes.} ausgegeben.}
+{Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wird.}
+{Eine Lösung wurde gefunden. Es wird \texttt{yes.} in der Konsole ausgegeben.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -671,21 +667,21 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 \tests{fnc:continue}
 \tests{fnc:cancel}
 
-\teststep{Der Nutzer hat das Programm nach dem Speichern des simpsons.pl-Programms im Anhang neu gestartet.}
-{Der Nutzer wählt das simpsons.pl-Programm über die Menüleiste unter \enquote{Kürzlich geöffnete Dateien} aus.}
-{Das simpsons.pl-Programm wird im Editor geöffnet.}
+\teststep{Der Nutzer hat das Programm nach dem Speichern des \texttt{simpsons.pl}-Programms im Anhang neu gestartet.}
+{Der Nutzer wählt das \texttt{simpsons.pl}-Programm über die Menüleiste unter \enquote{Kürzlich geöffnete Dateien} aus.}
+{Das \texttt{simpsons.pl}-Programm wird im Editor geöffnet.}
 
-\teststep{Der Editor enthält die formatierte simpsons.pl-Programmdatei analog zum Anhang.}
-{Der Nutzer betätigt die Parser-Schaltfläche.}
-{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Der Eingabebereich der Konsole wird freigegeben und fokussiert.}
+\teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei analog zum Anhang.}
+{Der Nutzer betätigt die Parsen-Schaltfläche.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt in der Eingabezeile der Konsole \enquote{mother(X, lisa).} ein und bestätigt mit der Eingabe-Taste.}
-{Der Parser verarbeitet die Abfrage fehlerfrei. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
+{Der Nutzer gibt im Eingabefeld \texttt{mother(X, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Fortführen-Schaltfläche.}
-{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \enquote{X = marge} ausgegeben. Der Graph entspricht nun dem Graphen bei der Findung der ersten Lösung.}
+{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Der Graph entspricht dem Graphen bei der Findung der ersten Lösung.}
 
 \teststep{Der Interpreter hat eine erste Lösung gefunden. Der Graph ist aktualisiert worden.}
 {Der Nutzer betätigt die Fortführen-Schaltfläche erneut.}
@@ -707,27 +703,27 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 \tests{fnc:imageexport}
 \tests{fnc:latexexport}
 
-\teststep{Der Nutzer hat das formatierte simpsons.pl-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \enquote{mother(X, lisa).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+\teststep{Der Nutzer hat das formatierte \texttt{simpsons.pl}-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \texttt{mother(X, lisa).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Fortführen-Schaltfläche.}
-{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \enquote{X = marge} ausgegeben. Der Graph entspricht nun dem Graphen bei der Findung der ersten Lösung.}
+{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Der Graph entspricht dem Graphen bei der Findung der ersten Lösung.}
 
-\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \enquote{X = marge} gefunden wurde.}
+\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde.}
 {Der Nutzer hält innerhalb der Visualisierung die linke Maustaste gedrückt und bewegt die Maus nach links.}
 {Der gezeigte Ausschnitt der Visualisierung bewegt sich nach links.}
 
-\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \enquote{X = marge} gefunden wurde. Die Visualisierung wurde nach links verschoben.}
+\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde. Die Visualisierung wurde nach links verschoben.}
 {Der Nutzer betätigt die \enquote{+}-Schaltfläche.}
 {Es wird in den gezeigten Ausschnitt der Visualisierung hineingezoomt.}
 
-\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \enquote{X = marge} gefunden wurde. Es wurde in die nach links verschobene Visualisierung hineingezoomt.}
+\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde. Es wurde in die nach links verschobene Visualisierung hineingezoomt.}
 {Der Nutzer wählt über die Menü-Leiste die Option \enquote{Bild exportieren} aus.}
 {Ein Export-Dialog öffnet sich.}
 
-\teststep{Der Nutzer hat über die Auswahl des Export-Dialogs zwischen dem Format PNG und SVG ausgewählt. Weiter wurde ein Verzeichnis ausgewählt.}
+\teststep{Der Nutzer hat über die Auswahl des Export-Dialogs zwischen dem Format PNG und SVG ausgewählt. Ein Verzeichnis wurde ausgewählt.}
 {Der Nutzer betätigt die Export-Schaltfläche.}
 {Die gesamte Visualisierung wird im ausgewählten Format exportiert.}
 
-\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \enquote{X = marge} gefunden wurde. Es wurde in die nach links verschobene Visualisierung hineingezoomt. Die Visualisierung wurde bereits als Bild-Datei exporiert.}
+\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde. Es wurde in die nach links verschobene Visualisierung hineingezoomt. Die Visualisierung wurde bereits als Bild-Datei exporiert.}
 {Der Nutzer wählt über die Menü-Leiste die Option \enquote{LaTeX exportieren} aus.}
 {Ein Export-Dialog öffnet sich.}
 
@@ -805,13 +801,13 @@ Klickt der Nutzer auf \enquote{Parsen} (1), versucht der Parser das Prolog-Progr
 Treten dabei keine Fehler auf, wird eine entsprechende Meldung in der Konsole angezeigt (2).
 Das Eingabefeld wird aktiviert; der Nutzer kann jetzt Abfragen eingeben (3).
 
-\subsection{Fehlerhafte Abfrage}
+\subsection{Inkorrekte Abfrage}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
 \includegraphics[width=\linewidth]{build/gui/main_view_question_fail.png}
 }
-\captionof{figure}{Hauptfenster nach fehlerhafter Abfrage im Eingabefeld}
+\captionof{figure}{Hauptfenster nach inkorrekter Abfrage im Eingabefeld}
 \end{minipage}
 
 Gibt der Nutzer eine Abfrage im Eingabefeld ein (1), versucht der Parser, diese Eingabe zu einem einzelnen Ziel zu verarbeiten.
@@ -1151,7 +1147,7 @@ parent(X, Y) :- mother(X, Y).
 parent(X, Y) :- father(X, Y).
 \end{lstlisting}
 
-\subsection{Formatiertes simpsons.pl Beispielprogramm}
+\subsection{Formatiertes \texttt{simpsons.pl} Beispielprogramm}
 
 \begin{lstlisting}
 father(abe, homer).
