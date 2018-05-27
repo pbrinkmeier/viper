@@ -179,10 +179,6 @@ Das Programm kann einen Visualisierungsbaum als LaTeX-Code exportieren, damit di
 
 Das Programm kann einen Visualisierungsbaum als Bilddatei im SVG- oder PNG-Format exportieren.
 
-\criteriumOptional{Syntax-Highlighting im Editor}{crt:syntaxhighlighting}
-
-Der Code soll farblich passend hervorgehoben werden. Identifier und Variablen werden unterschiedlich zu Zahlen eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.
-
 \criteriumOptional{\enquote{Pretty-Printing} von Listen}{crt:prettyprinting}
 
 Das Programm soll Listen bei der Ausgabe einheitlich auf \enquote{\texttt{[x,y,z]}} formatieren.
@@ -477,15 +473,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \teststep{Der Nutzer hat die Wahl, das im Editor geschriebene Prolog-Programm zu speichern oder zu verwerfen.}
 {Der Nutzer betätigt die Verwerfen-Schaltfläche.}
 {Das im Editor geöffnete Prolog-Programm wird verworfen. Die zu öffnende Datei wird in dem Editor geöffnet und überschreibt den bisherigen Inhalt.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\test{Syntaktische Hervorhebung von Prolog-Stichworten}{tst:syntaxhighlighting}
-\tests{fnc:editor}
-
-\teststep{Der Nutzer hat ein leeres Editor-Fenster vor sich.}
-{Der Nutzer gibt das \texttt{simpsons-pl}-Programm im Editor ein.}
-{Der Code wird farblich passend hervorgehoben. Identifier, Variablen und Zahlen werden dabei unterschiedlich eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1195,9 +1182,6 @@ Lesen eines ausgewählten Prolog-Programms von einem verbundenen Speichermedium 
 
 \textbf{Speichern}:
 Schreiben einer Prolog-Programmdatei in ein Zielverzeichnis auf einem verbundenen Speichermedium. Es werden ausschließlich Prolog-Programme gespeichert, andere Schreibvorgänge auf Speichermedien fallen unter den Begriff Export.
-
-\textbf{Syntax-Highlighting}:
-Visuelle Markierung verschiedener Elemente eines Programm-Textes durch Schrifteffekte und -farben (bspw. Einfärbung von zusammengehörigen Klammern).
 
 \textbf{Visualisierung}:
 Navigierbarer Graph, welcher den Ablauf der Interpretation einer Abfrage im Kontext eines gegebenen Prolog-Programms aufzeigt.
