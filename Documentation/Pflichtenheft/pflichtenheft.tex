@@ -104,8 +104,6 @@ Die Visualisierung für einzelne Schritte der Interpretation ist hierbei als ger
 Unter Zuhilfenahme der Visualisierung soll der Nutzer die Interpretation eines Prolog-Programms schrittweise nachvollziehen können. Dies soll dem Nutzer die Funktionsweise von Prolog-Programmen näher bringen und das Verständnis für die Eigenschaften der Sprache stärken.
 
 \section{Kriterien}
-% Diese Section sollte kurz und knapp "für Manager" sein
-% und auf eine Seite passen.
 
 \subsection{Muss}
 
@@ -213,7 +211,6 @@ Das Programm ist nicht für professionelle Anwendungszwecke ausgelegt.
 
 Der Parser ist gegeben und wird nicht selbst implementiert.
 
-%%%%%%%%%%%%%%
 \section{Produkteinsatz}
 
 Das Programm soll als graphisches Prolog-Lerntool betrieben werden.
@@ -238,14 +235,13 @@ Eine Maus sowie eine Tastatur sind als Eingabegeräte angeschlossen und funktion
 
 Eine Installation des Java Runtime Environments Version 8 aufwärts ist auf dem System vorhanden.
 
-%%%%%%%%%%%
 \section{Produktdaten}
 
 \textbf{Zuletzt geöffnete Dateien} \\
 Die Pfade der fünf zuletzt geöffneten Dateien werden für einen Eintrag in der Menüleiste gespeichert.
 
 Außer den oben genannten werden keinerlei Daten gespeichert.
-%%%%%%%%%%%
+
 \section{Funktionale Anforderungen}
 
 \functionality{Erstellen eines neuen Prolog-Programms}{fnc:new}
@@ -377,7 +373,6 @@ Die aktuell angezeigte Visualisierung lässt sich als Bild im PNG- oder SVG-Form
 
 Die automatische Einbindung der Standardbibliothek kann über eine Schaltfläche aktiviert und deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden bis zur erneuten Aktivierung nicht mehr berücksichtigt.
 
-%TODO: Richtlinien als Liste?
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
 \fulfills{crt:formatting}
 
@@ -388,7 +383,6 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 
 Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden.
 
-%%%%%%%%%%%
 \section{Nicht-Funktionale Anforderungen}
 
 \nonFunctionality{Programmstart}{nfc:startup}
@@ -436,8 +430,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt die Öffnen-Schaltfläche.}
 {Die Datei wird im Editor-Fenster geöffnet.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Öffnen einer Prolog-Programmdatei während im Editor bereits ein Programm eingegeben wurde mit Speichern des geschriebenen Programmes}{tst:openanother}
 \tests{fnc:open}
 
@@ -457,8 +449,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer wählt einen Speicherort und wählt einen Dateinamen. Anschließend betätigt er die Speichern-Schaltfläche.}
 {Das im Editor geöffnete Prolog-Programm wird in die gewählte Datei gespeichert. Die zu öffnende Datei wird in den Editor geladen und überschreibt den bisherigen Inhalt.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Öffnen einer Prolog-Programmdatei während im Editor bereits ein Prolog-Programm eingegeben wurde mit Verwerfen des geschriebenen Prolog-Programmes}{tst:openanother2}
 \tests{fnc:open}
 
@@ -474,8 +464,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt die Verwerfen-Schaltfläche.}
 {Das im Editor geöffnete Prolog-Programm wird verworfen. Die zu öffnende Datei wird in dem Editor geöffnet und überschreibt den bisherigen Inhalt.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Speichern eines im Editor geschrieben Prolog-Programmes}{tst:save}
 \tests{fnc:save}
 
@@ -487,16 +475,12 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer wählt einen Speicherort und Dateinamen aus. Anschließend betätigt er die Speichern-Schaltfläche.}
 {Der Inhalt des Editors wird an den gewählten Ort geschrieben.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Inkorrektes Prolog-Programm}{tst:errorcheck}
 \tests{fnc:errorcheck}
 
 \teststep{Der Nutzer hat das inkorrektes Prolog-Programm \texttt{father.} in den Editor eingetragen.}
 {Der Nutzer betätigt die Parsen-Schaltfläche, um das Prolog-Programm zu parsen.}
 {Die Ausführung wird abgebrochen. Eine verständliche Fehlermeldung (``Syntax-Fehler in Zeile 1'') wird in der Konsole angezeigt.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \test{Interpretierung vom simpsons.pl-Programm}{tst:simpsons}
 \tests{fnc:interpreter}
@@ -508,8 +492,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \teststep{Das Prolog-Programm wurde geparst. In das Eingabefeld kann eine Abfrage eingegeben werden.}
 {Der Nutzer gibt die Abfrage \texttt{father(X, bart).} in das Eingabefeld ein.}
 {Das Prolog-Programm wird interpretiert und die Wurzel des Visualisierungsbaums wird angezeigt.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \test{Interaktive Nutzung des Interpreters}{tst:ask}
 \tests{fnc:interpreter}
@@ -528,8 +510,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wurde.}
 {Zwischenschritte werden visualisiert. In der Konsole erscheint die erste Lösung \texttt{X = bart .}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Zoomen innerhalb eines Visualisierungsbaumes}{tst:zoom}
 \tests{fnc:zoom}
 
@@ -541,8 +521,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer bewegt das Mausrad über dem Graphen von sich weg bzw. nach vorne.}
 {Es wird in den Graphen herein gezoomt, der Graph wird größer.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Bewegung innerhalb eines Visualisierungsbaumes}{tst:move}
 \tests{fnc:move}
 
@@ -550,16 +528,12 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer hält die linke Maustaste gedrückt und bewegt die Maus.}
 {Der Graph bewegt sich passend zu der Mausbewegung.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Formatierung von Quellcode}{tst:formatter}
 \tests{fnc:formatter}
 
 \teststep{Der Nutzer hat das unformatierte \texttt{simpsons.pl}-Programm im Editor eingegeben oder aus einer Datei geöffnet.}
 {Der Nutzer betätigt die Formatieren-Schaltfläche in der Menüleiste.}
 {Das Prolog-Programm wird automatisch formatiert. Der Editor zeigt nun das formatierte \texttt{simpsons.pl}-Programm an.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \test{Export als Bilddatei für Foliensätze}{tst:latexexport}
 \tests{fnc:latexexport}
@@ -576,8 +550,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer wählt einen Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt er die Speichern-Schaltfläche.}
 {Die Visualisierung wird im ausgewählten Format an dem gewählten Ort gespeichert. Die passende \texttt{.svg} bzw. \texttt{.png} Dateieendung wird wenn nötig ergänzt.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Export als LaTeX für Foliensätze}{tst:latexexporttikz}
 \tests{fnc:latexexport}
 
@@ -592,8 +564,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
 {Der Nutzer wählt einen Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt er die Speichern-Schaltfläche.}
 {Die Visualisierung wird als TeX-Datei an dem gewählten Ort gespeichert. Die passende \texttt{.tex} Dateiendung wird wenn nötig ergänzt.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Systemtests}
 
@@ -633,8 +603,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt die Parsen-Schaltfläche.}
 {Das Eingabefeld bleibt weiterhin gesperrt. Der Parser gibt über die Konsole eine Syntax-Fehlermeldung aus.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Öffnen eines Prolog-Programms, Parsen, Eingabe einer Abfrage und Interpretation}{tst:sys2}
 \tests{fnc:open}
 \tests{fnc:parser}
@@ -661,8 +629,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wird.}
 {Eine Lösung wurde gefunden. Es wird \texttt{yes.} in der Konsole ausgegeben.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \test{Öffnen eines zuletzt verwendeten Prolog-Programms, Parsen und Interpretieren einer Abfrage, Ausführung bis zur nächsten Ausgabe und Abbruch}{tst:sys3}
 \tests{fnc:recentfiles}
@@ -696,8 +662,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \teststep{Der Interpreter versucht, eine weitere Lösung für die Abfrage zu finden.}
 {Der Nutzer betätigt die Abbrechen-Schaltfläche.}
 {Die Interpretation wird abgebrochen.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \test{Interpretieren einer Abfrage, Ausführung bis zur nächsten Ausgabe, Navigation der Visualisierung, Zurückschreiten und Export}{tst:sys4}
 \tests{fnc:interpreter}
@@ -737,7 +701,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt die Export-Schaltfläche.}
 {Die gesamte Visualisierung wird als LaTeX-Quellcode exportiert.}
 
-%%%%%%%%%%%%%
 \appendix
 
 \section{GUI-Entwürfe}
@@ -1055,7 +1018,6 @@ Das vorgestellte VIPER-Programm. Dies ist zu unterscheiden von Prolog-Programmen
 Prolog-Quelltext in Form von Dateien auf einem Speichermedium. Dies ist zu unterscheiden von dem Programm im Sinne des VIPER-Programms.
 
 \textbf{Prolog-Teilsprache}:
-%TODO überarbeiten
 Es gibt Identifier, Variablen und Zahlen die wie folgt notiert werden:
 
 \begin{lstlisting}
