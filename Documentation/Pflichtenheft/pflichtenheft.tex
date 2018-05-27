@@ -31,8 +31,8 @@
 \usepackage{courier}
 \hypersetup{
 	pdftitle={Pflichtenheft},
-	bookmarks=true,
 }
+
 \usepackage{csquotes}
 
 \newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
@@ -41,9 +41,15 @@
 
 \lstset{basicstyle=\ttfamily,breaklines=true}
 
+% Don't strech across whole page
+\raggedbottom
+
+% Start new page with each section
+\usepackage{sectsty}
+\sectionfont{\clearpage}
+
 \begin{document}
 \maketitle
-\newpage
 
 \section{Einleitung}
 
@@ -97,7 +103,6 @@ Die Visualisierung für einzelne Schritte der Interpretation ist hierbei als ger
 
 Unter Zuhilfenahme der Visualisierung soll der Nutzer die Interpretation eines Prolog-Programms schrittweise nachvollziehen können. Dies soll dem Nutzer die Funktionsweise von Prolog-Programmen näher bringen und das Verständnis für die Eigenschaften der Sprache stärken.
 
-\pagebreak
 \section{Kriterien}
 % Diese Section sollte kurz und knapp "für Manager" sein
 % und auf eine Seite passen.
@@ -212,7 +217,6 @@ Das Programm ist nicht für professionelle Anwendungszwecke ausgelegt.
 
 Der Parser ist gegeben und wird nicht selbst implementiert.
 
-\pagebreak
 %%%%%%%%%%%%%%
 \section{Produkteinsatz}
 
@@ -242,7 +246,9 @@ Eine Installation des Java Runtime Environments Version 8 aufwärts ist auf dem 
 \section{Produktdaten}
 
 \textbf{Zuletzt geöffnete Dateien} \\
-Die Pfade der fünf zuletzt geöffneten Dateien werden für einen Eintrag in der Menüleiste gespeichert. Außer den oben genannten werden keinerlei Daten gespeichert.
+Die Pfade der fünf zuletzt geöffneten Dateien werden für einen Eintrag in der Menüleiste gespeichert.
+
+Außer den oben genannten werden keinerlei Daten gespeichert.
 %%%%%%%%%%%
 \section{Funktionale Anforderungen}
 
@@ -387,7 +393,6 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden.
 
 %%%%%%%%%%%
-\newpage
 \section{Nicht-Funktionale Anforderungen}
 
 \nonFunctionality{Programmstart}{nfc:startup}
@@ -422,7 +427,6 @@ Fehlerhafte Prolog-Programme sollen nie zu einem Absturz des Programms führen.
 
 Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, um weitere Sprachfeatures zu unterstützen.
 
-\pagebreak
 \section{Tests}
 
 \test{Öffnen einer Prolog-Programmdatei}{tst:open}
@@ -604,7 +608,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
 \section{Systemtests}
 
 \test{Erstellung, Bearbeitung, Speichern und Parsen des simpsons.pl-Programms}{tst:sys1}
@@ -748,7 +751,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Die gesamte Visualisierung wird als LaTeX-Quellcode exportiert.}
 
 %%%%%%%%%%%%%
-\pagebreak
 \appendix
 
 \section{GUI-Entwürfe}
