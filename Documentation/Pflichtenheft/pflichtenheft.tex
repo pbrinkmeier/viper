@@ -460,7 +460,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \tests{fnc:editor}
 
 \teststep{Der Nutzer hat ein leeres Editor-Fenster vor sich.}
-{Der Nutzer gibt ein gültiges Prolog-Programm im Editor ein.}
+{Der Nutzer gibt das \texttt{simpsons-pl}-Programm im Editor ein.}
 {Der Code wird farblich passend hervorgehoben. Identifier, Variablen und Zahlen werden dabei unterschiedlich eingefärbt. Ebenfalls unterscheiden sich die Farben von umschließenden Klammern. Die Operatoren \texttt{=}, \texttt{:-}, \texttt{is} und \texttt{!} sind farblich von allem anderen unterscheidbar.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -481,16 +481,16 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \test{Inkorrektes Prolog-Programm}{tst:errorcheck}
 \tests{fnc:errorcheck}
 
-\teststep{Der Nutzer hat ein inkorrektes Prolog-Programm in den Editor eingetragen.}
+\teststep{Der Nutzer hat das inkorrektes Prolog-Programm \texttt{father.} in den Editor eingetragen.}
 {Der Nutzer betätigt die Parsen-Schaltfläche, um das Prolog-Programm zu parsen.}
-{Die Ausführung wird abgebrochen und eine verständliche Fehlermeldung wird in der Konsole angezeigt.}
+{Die Ausführung wird abgebrochen. Eine verständliche Fehlermeldung (``Syntax-Fehler in Zeile 1'') wird in der Konsole angezeigt.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\test{Interpretierung vom Beispielprogramm}{tst:simpsons}
+\test{Interpretierung vom simpsons.pl-Programm}{tst:simpsons}
 \tests{fnc:interpreter}
 
-\teststep{Das Beispielprogramm ist im Editorfenster eingegeben oder aus einer Datei geöffnet worden.}
+\teststep{Das \texttt{simpsons.pl}-Programm ist im Editorfenster eingegeben oder aus einer Datei geöffnet worden.}
 {Der Nutzer klickt auf die Parsen-Schaltfläche des Hauptfensters.}
 {Das Prolog-Programm wird erfolgreich geparst, es kommt zu keinen Fehlern. In das Eingabefeld kann eine Abfrage eingegeben werden.}
 
@@ -503,17 +503,17 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \test{Interaktive Nutzung des Interpreters}{tst:ask}
 \tests{fnc:interpreter}
 
-\teststep{Der Nutzer hat ein korrektes Prolog-Programm im Editor eingegeben.}
+\teststep{Der Nutzer hat das korrekte Prolog-Programm \texttt{father(homer, bart). father(homer, lisa).} im Editor eingegeben.}
 {Der Nutzer betätigt die Parsen-Schaltfläche im Hauptfenster.}
 {In der Konsole wird eine Erfolgsnachricht ausgegeben.}
 
 \teststep{Das Eingabefeld erwartet eine Abfrage.}
-{Der Nutzer gibt eine Anfrage mit mehreren Lösungen ein und bestätigt die Eingabe.}
+{Der Nutzer gibt die Anfrage \texttt{father(homer, X).} ein und bestätigt die Eingabe.}
 {Die Abfrage wird mittels eines Graphen visualisiert.}
 
 \teststep{Die Wurzel des Graphen wird angezeigt.}
 {Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wurde.}
-{Zwischenschritte werden visualisiert. In der Konsole erscheint die Lösung.}
+{Zwischenschritte werden visualisiert. In der Konsole erscheint die erste Lösung \texttt{X = bart .}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -542,9 +542,9 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 \test{Formatierung von Quellcode}{tst:formatter}
 \tests{fnc:formatter}
 
-\teststep{Der Nutzer hat das Beispielprogramm ohne Leerzeichen und Einrückungen im Editor eingegeben oder aus einer Datei geöffnet.}
+\teststep{Der Nutzer hat das unformatierte \texttt{simpsons.pl}-Programm im Editor eingegeben oder aus einer Datei geöffnet.}
 {Der Nutzer betätigt die Formatieren-Schaltfläche in der Menüleiste.}
-{Das Prolog-Programm wird automatisch wie im Anhang formatiert.}
+{Das Prolog-Programm wird automatisch formatiert. Der Editor zeigt nun das formatierte \texttt{simpsons.pl}-Programm an.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -634,11 +634,11 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 {Der Nutzer wählt über die Menü-Leiste die Öffnen-Funktion aus.}
 {Ein Öffnen-Dialog erscheint.}
 
-\teststep{Der Nutzer hat ein Prolog-Programm ausgewählt, welches das formatierte \texttt{simpsons.pl}-Programm aus dem Anhang enthält.}
+\teststep{Der Nutzer hat ein Prolog-Programm ausgewählt, welches das formatierte \texttt{simpsons.pl}-Programm enthält.}
 {Der Nutzer betätigt die Öffnen-Schaltfläche.}
-{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei analog zum Anhang.}
+{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei.}
 
-\teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei analog zum Anhang.}
+\teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei.}
 {Der Nutzer betätigt die Parsen-Schaltfläche.}
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
 
@@ -648,7 +648,7 @@ Das Hauptfenster des Programms kann mit der Maus in der Größe verändert werde
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wird.}
-{Eine Lösung wurde gefunden. Es wird \texttt{yes.} in der Konsolein der Konsole ausgegeben.}
+{Eine Lösung wurde gefunden. Es wird \texttt{yes.} in der Konsole ausgegeben.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1054,7 +1054,7 @@ Element der graphischen Oberfläche, welches Eingabe und Bearbeitung von angezei
 Element der graphischen Oberfläche. Die Konsole ist nur lesbar und dient der Ausgabe von Ergebnissen einer Abfrage sowie anderen Meldungen. 
 
 \textbf{Eingabefeld}:
-Element der graphischen Oberfläche. Das Eingabefeld dient zur Eingabe von Abfragen. Es ist nur dann aktiviert, wenn ein gültiges Prolog-Programm eingegeben und geparst wurde.
+Element der graphischen Oberfläche. Das Eingabefeld dient zur Eingabe von Abfragen. Es ist nur dann aktiviert, wenn ein korrektes Prolog-Programm eingegeben und geparst wurde.
 
 \textbf{Graph}:
 Struktur bestehend aus Knoten und Kanten.
