@@ -132,15 +132,15 @@ Das Programm kann eine \hyperref[prolog-language]{Teilmenge} der Sprache Prolog 
 
 \criterium{Eingabe von Abfragen}{crt:request}
 
-Das Programm erlaubt es dem Nutzer Abfragen in der Konsole einzugeben. Dabei wird die aktuelle Interpretation abgebrochen und die Visualisierung gelöscht.
+Das Programm erlaubt es dem Nutzer Abfragen im Eingabefeld einzugeben. Dabei wird die aktuelle Interpretation abgebrochen und die Visualisierung gelöscht.
 
 \criterium{Einzelschritt-Interpretation von Abfragen}{crt:interpreter}
 
-Das Programm bearbeitet Abfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf Interaktion vom Nutzer (drücken der \enquote{Nächster Schritt}-Schaltfläche), bis es den nächsten Teilschritt bearbeitet.
+Das Programm bearbeitet Abfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf eine Interaktion vom Nutzer (Klicken der \enquote{Nächster Schritt}-Schaltfläche), bis es den nächsten Teilschritt bearbeitet.
 
 \criterium{Visualisierung als Graph}{crt:visualization}
 
-Das Programm kann die Abarbeitung einzelner Abfragen zu einem Prolog-Programm durch einen Graphen visualisieren.
+Das Programm kann die Abarbeitung einer Abfrage zu einem Prolog-Programm durch einen Graphen visualisieren.
 
 \criterium{Ausgabe von Lösungen zu einer Abfrage}{crt:answer}
 
@@ -194,7 +194,7 @@ Das Programm soll Quelltext durch das Betätigen der \enquote{Formatieren}-Schal
 
 \criterium{Wechseln der Sprache zwischen Deutsch und Englisch}{crt:translation}
 
-Das Programm soll den Sprachwechsel der Menüsprache zwischen \enquote{Deutsch} und \enquote{Englisch} unterstützen.
+Die Programmobefläche soll die Sprachen Deutsch und Englisch unterstützen.
 
 \subsection{Abgrenzung}
 
@@ -281,7 +281,7 @@ Ist der Dateiname noch nicht durch das Öffnen eines bereits vorhandenen Prolog-
 \functionality{Speichern des Editor-Inhalts}{fnc:save}
 \fulfills{crt:save}
 
-Das Programm kann den Inhalt des Editor speichern. Ist der Dateiname bekannt wird der Inhalt der Datei überschrieben. Sollte dies nicht der Fall sein wird die \enquote{Speichern als...} Funktion ausgeführt.
+Das Programm kann den Inhalt des Editors speichern. Ist der Dateiname bekannt wird der Inhalt der Datei überschrieben. Sollte dies nicht der Fall sein wird die \enquote{Speichern als...} Funktion ausgeführt.
 
 \functionality{Parsen eines Prolog-Programms}{fnc:parser}
 \fulfills{crt:parser}
@@ -297,7 +297,7 @@ Der Parser erkennt Fehler innerhalb des geöffneten Prolog-Programms bei der Ver
 \functionality{Eingabe von Prolog-Abfragen in das Eingabefeld}{fnc:shell}
 \fulfills{crt:request}
 
-Bei erfolgreicher Verarbeitung einer korrekten Datei durch den Parser erlaubt die angezeigte Konsole die Eingabe von Abfragen. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird die Eingabe in die Konsole sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
+Bei erfolgreicher Verarbeitung einer korrekten Datei durch den Parser erlaubt das Eingabefeld die Eingabe von Abfragen. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird das Eingabefeld deaktiviert sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
 
 \functionality{Syntaktische Fehler in der Abfrage}{fnc:inputerror}
 \fulfills{crt:request}
@@ -309,7 +309,7 @@ Syntaktische Fehler in der Abfrage werden in der Konsole ausgegeben.
 \fulfills{crt:cut}
 \fulfills{crt:maths}
 
-Abfragen, welche in der Konsole eingegeben wurden, werden nach einer Bestätigung mit der Eingabe-Taste schrittweise interpretiert.
+Abfragen, welche im Eingabefeld eingegeben wurden, werden nach einer Bestätigung mit der Eingabe-Taste schrittweise interpretiert.
 
 \functionality{Weiterschreiten in der Interpretation}{fnc:interpreterforward}
 \fulfills{crt:interpreter}
@@ -340,7 +340,7 @@ Fehlgeschlagene Unifikationen werden nur visualisiert, wenn die Funktorköpfe id
 \functionality{Visualisierung von Backtracking}{fnc:backtracking}
 \fulfills{crt:visualization}
 
-Wenn es keine weiteren Ergebnisse in einer Substitution mehr gibt, so wird zu einer vorherigen Regel zurückgesprungen. Dieser Backtrackingschritt wird entsprechend in der Visualisierung angezeigt.
+Wenn für ein Teilziel keine Unifikation mehr möglich ist, so wird zum vorherigen Teilziel, oder, im Falle des ersten Teilziels, zur übergeordneten Regel zurückgesprungen. Dieser Backtrackingschritt wird entsprechend in der Visualisierung angezeigt.
 
 \functionality{Vergrößern und Verkleinern der Visualisierung durch Schaltflächen oder das Mausrad}{fnc:zoom}
 \fulfills{crt:visualization}
@@ -380,7 +380,7 @@ Die aktuell angezeigte Visualisierung lässt sich als Bild im PNG- oder SVG-Form
 \functionality{Deaktivierung und Aktivierung der Standardbibliothek}{fnc:disablelib}
 \fulfills{crt:disablelib}
 
-Die automatisch eingebundene Standardbibliothek kann über eine Schaltfläche deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden nun nicht mehr berücksichtigt.
+Die automatische Einbindung der Standardbibliothek kann über eine Schaltfläche aktiviert und deaktiviert werden.
 
 %TODO: Richtlinien als Liste?
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
