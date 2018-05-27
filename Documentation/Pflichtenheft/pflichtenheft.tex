@@ -522,6 +522,12 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer gibt die Abfrage \texttt{father(X, bart).} in das Eingabefeld ein.}
 {Das Prolog-Programm wird interpretiert und die Wurzel des Visualisierungsbaums wird angezeigt.}
 
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+    \includegraphics[width=0.7\linewidth]{build/visualisation/test_father_root.png}}
+\captionof{figure}{Wurzel der Anfrage \texttt{father(X, bart)}}
+\end{minipage}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \test{Interaktive Nutzung des Interpreters}{tst:ask}
@@ -577,7 +583,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \test{Export als Bilddatei für Foliensätze}{tst:latexexport}
 \tests{fnc:latexexport}
 
-\teststep{Ein Prolog-Programm ist im Editor geöffnet und ein beliebiger Schritt einer Abfrage als Graph visualisiert.}
+\teststep{Das Beispielprogramm ist im Editor geöffnet und der unten gezeigte Zustand wurde erreicht und visualisiert.}
 {Der Nutzer wählt über die Menüleiste die Exportieren-Funktion aus.}
 {Ein Auswahl-Dialog öffnet sich.}
 
@@ -594,7 +600,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \test{Export als LaTeX für Foliensätze}{tst:latexexporttikz}
 \tests{fnc:latexexport}
 
-\teststep{Ein Prolog-Programm ist im Editor geöffnet und ein beliebiger Schritt einer Abfrage als Graph visualisiert.}
+\teststep{Das Beispielprogramm ist im Editor geöffnet und der unten gezeigte Zustand wurde erreicht und visualisiert.}
 {Der Nutzer wählt über die Menüleiste die Exportieren-Funktion aus.}
 {Ein Auswahl-Dialog öffnet sich.}
 
@@ -605,6 +611,13 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
 {Der Nutzer wählt einen Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt er die Speichern-Schaltfläche.}
 {Die Visualisierung wird als TeX-Datei an dem gewählten Ort gespeichert. Die passende \texttt{.tex} Dateiendung wird wenn nötig ergänzt.}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/12_first_solution.png}
+}
+\captionof{figure}{Die zu exportierende Visualisierung}
+\end{minipage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
