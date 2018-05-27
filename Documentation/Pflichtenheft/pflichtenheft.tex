@@ -937,7 +937,7 @@ Die Schaltflächen \enquote{Exportieren als Bild} und \enquote{Exportieren als T
 \enquote{Exportieren als Bild} lässt den Nutzer zwischen dem Export als SVG- oder PNG-Graphik wählen.
 \enquote{Exportieren als TikZ} lässt den Nutzer eine TeX-Datei mit einer Umsetzung des Graphen als TikZ-Graphik erstellen.
 
-\subsubsection{Formatierung eines Prolog-Programms}
+\subsubsection{Formatieren eines Prolog-Programms}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -951,9 +951,20 @@ Ist dies erfolgreich, wird eine Meldung auf der Konsole ausgegeben (2) und der I
 
 Schlägt die Formatierung fehl, wird eine Fehlermeldung auf der Konsole ausgegeben.
 
-\subsection{Visualisierung}
+\subsubsection{Schnellzugriffsleiste}
 
-Um die Visualisierungsbeispiele besser darzustellen zu können, wurden sie hier ohne die graphische Oberfläche des Programms eingefügt.
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/gui/main_view_buttonbar.png}
+}
+\captionof{figure}{Position der Schnellzugriffsleiste}
+\end{minipage}
+
+Die Schnellzugriffleiste bietet dem Nutzer die wichtigsten Funktionen an einem Ort.
+Diese werden durch Schaltflächen mit Symbolen repräsentiert.
+Die Symbole stehen für das Erstellen, Öffnen und Speichern von Dateien (1), Parsen und Formatieren von Prolog-Programmen (2) und \enquote{Ausführung eines Einzelschritts} sowie \enquote{Ausführung bis zur nächsten Lösung} (3).
+Die Schaltflächen sind dabei nur aktiv, wenn auch ihre Gegenstücke an anderen Stellen in der GUI aktiv sind.
+Im gezeigten Zustand sind die Schrittschaltflächen inaktiv, da kein prolog-Programm erfolgreich geparst wurde.
 Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im Beispielprogramm.
 
 \subsubsection{Wurzel}
@@ -966,24 +977,6 @@ Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im Beispielprogramm.
 \end{minipage}
 
 Die Wurzel des Visualisierungsbaumes stellt die eingegebene Abfrage dar.
-
-\subsubsection{Fehlgeschlagene Unifikation}
-
-Im nächsten Schritt versucht der Interpreter die Unifikation von \texttt{grandfather(X, Y)} mit dem Fakt \texttt{father(abe, homer)}.
-Diese schlägt fehl.
-
-\begin{minipage}{\linewidth}
-\makebox[\linewidth]{
-\includegraphics[width=\linewidth]{build/visualisation/02_root_fail.png}
-}
-\captionof{figure}{Eine fehlgeschlagene Unifikation}
-\end{minipage}
-
-Die Visualisierung stellt zu unifizierende Ziele als Runde Knoten dar.
-Unifikationen werden in  Rechtecken dargestellt, die in zwei weitere Rechtecke aufgeteilt sind.
-Dabei enthält jede Unifikation im oberen Rechteck den Fakt, mit dem unifiziert werden soll.
-Fehlgeschlagene Unifikationen enthalten im unteren Rechteck den Satz \enquote{Unifikation fehlgeschlagen:} und den Grund des Fehlschlags.
-Außerdem sind sie rot eingefärbt.
 
 \subsubsection{Erfolgreiche Unifikation und Teilziele}
 
