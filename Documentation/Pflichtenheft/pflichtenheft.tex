@@ -195,9 +195,9 @@ Das Programm soll Quelltext durch das Betätigen der \enquote{Formatieren}-Schal
 
 Die Programmoberfläche soll die Sprachen Deutsch und Englisch unterstützen.
 
-\criteriumOptional{Buttonleiste}{crt:buttons}
+\criteriumOptional{Schnellzugriffsleiste}{crt:buttons}
 
-Das Programm soll eine Leiste mit Buttons unter der Menüleiste besitzen.
+Das Programm soll eine Leiste mit Schaltflächen unter der Menüleiste besitzen.
 
 \subsection{Abgrenzung}
 
@@ -403,7 +403,7 @@ Eine automatische Formatierung von Prolog-Quellcode ist über die Menüleiste m�
 
 Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden.
 
-\functionality{Buttonleiste}{fnc:buttons}
+\functionality{Schnellzugriffsleiste}{fnc:buttons}
 \fulfills{crt:buttons}
 
 Die Leiste soll den Schnellzugriff auf wichtige Funktionen, wie z.B. das Parsen eines Prolog-Programms oder das Formatieren von Quellcode, über zusätzliche Schaltflächen ermöglichen.
@@ -766,7 +766,51 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt die Export-Schaltfläche.}
 {Die gesamte Visualisierung wird als LaTeX-Quellcode exportiert.}
 
-%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\test{Schnellzugriffsleiste}{tst:sys_buttonbar}
+\tests{fnc:buttons}
+
+\teststep{Der Nutzer hat das formatierte \texttt{simpsons.pl}-Programm im Editor eingetragen.}
+{Der Nutzer betätigt die Erstellen-Schaltfläche der Schnellzugriffsleiste.}
+{Der Inhalt des Editors ist leer.}
+
+\teststep{Der Inhalt des Editors ist leer.}
+{Der Nutzer betätigt die Öffnen-Schaltfläche der Schnellzugriffsleiste.}
+{Ein Öffnen-Dialog erscheint.}
+
+\teststep{Der Nutzer hat über den Öffnen-Dialog eine Datei ausgewählt, welche das unformatierte \texttt{simpsons.pl}-Programm enthält.}
+{Der Nutzer betätigt die Öffnen-Schaltfläche des Öffnen-Dialogs.}
+{Der Editor enthält das unformatierte \texttt{simpsons.pl}-Programm.}
+
+\teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
+{Der Nutzer betätigt die Formatieren-Schaltfläche der Schnellzugriffsleiste.}
+{Der Editor enthält das formatierte \texttt{simpsons.pl}-Programm.}
+
+\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
+{Der Nutzer betätigt die Speichern-Schaltfläche der Schnellzugriffsleiste.}
+{Ein Speichern-Dialog öffnet sich}
+
+\teststep{Der Nutzer hat über den Speichern-Dialog ein Verzeichnis und einen Dateinamen eingetragen.}
+{Der Nutzer betätigt die Speichern-Schaltfläche des Dialogs.}
+{Das Prolog-Programm wird im gewählten Verzeichnis gespeichert.}
+
+\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert.}
+{Der Nutzer betätigt die Parsen-Schaltfläche der Schnellzugriffsleiste.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokusiert.}
+
+\teststep{Das Prolog-Programm wurde erfolgreich geparst.}
+{Der Nutzer gibt im Eingabefeld \texttt{father(homer, X).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
+
+\teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+{Der Nutzer betätigt die Nächster Schritt-Schaltfläche der Schnellzugriffsleiste.}
+{Die Interpretation wird um einen Schritt fortgeführt. Die Visualierung befindet sich im Zustand des nächsten Schrittes.}
+
+\teststep{Die Visualisierung befindet sich im Zustand des zweiten Schrittes.}
+{Der Nutzer betätigt die Nächste Lösung-Schaltfläche der Schnellzugriffsleiste.}
+{Die Interpretation wird bis zur nächsten Lösung fortgeführt. Es wird \texttt{X = bart} ausgegeben. Der Graph entspricht dem Graphen bei der Findung der ersten Lösung.}
+
 \appendix
 
 \section{GUI-Entwürfe}
