@@ -1068,7 +1068,6 @@ Das vorgestellte VIPER-Programm. Dies ist zu unterscheiden von Prolog-Programmen
 Prolog-Quelltext in Form von Dateien auf einem Speichermedium. Dies ist zu unterscheiden von dem Programm im Sinne des VIPER-Programms.
 
 \textbf{Prolog-Teilsprache}:
-%TODO überarbeiten
 Es gibt Identifier, Variablen und Zahlen die wie folgt notiert werden:
 
 \begin{lstlisting}
@@ -1121,31 +1120,29 @@ Sammelbegriff für einen einzelnen Identifier und Identifier in Kombination mit 
 Terme sind genau dann gleich, wenn die linke und rechte Seite eines Terms identisch sind oder wenn Variablen in den Termen so belegt werden können, dass beide Seiten identisch sind.
 
 \textbf{Identifier}:
-Wort, beginnend mit einem Kleinbuchstaben und fortsetzend mit Groß- und Kleinbuchstaben sowie Zahlen.
+Wort, beginnend mit einem Kleinbuchstaben. Kann mit Kleinbuchstaben, Großbuchstaben und Zahlen fortgesetzt werden.
 
 \textbf{Interpreter}:
 Ausführungsmechanismus für Abfragen. Nachdem sowohl das zugrunde liegende Prolog-Programm als auch die Abfrage durch den Parser verarbeitet wurden, findet eine schrittweise Interpretation der genannten Abfrage statt.
 
 \textbf{Listen}:
 Die leere Liste wird durch \enquote{\texttt{[]}} dargestellt. Eine Liste mit Inhalt wird durch \enquote{\texttt{[1,2,3]}} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\\
-\texttt{[1,2,3]} =\\
-\texttt{[1|Teilliste1], Teilliste1=[2|Teilliste2], Teilliste2=[3|[]]} =\\
-\texttt{[1|[2|[3|[]]]]}
+\texttt{[1, 2, 3]} = \texttt{[1 | [2 | [3 | []]]]}
 
 \textbf{Parser}:
 Umwandlungsmechanismus für Prolog-Programme, der diese in ein für die Weiterverarbeitung geeignetes Format bringt und auf syntaktische Fehler prüft.
 
 \textbf{Regel}:
-Vorgeschriebene Folgerungen. Regeln können bspw. festsetzen, dass aus dem Fakt, dass jemand ein Elternteil ist, folgt, dass dieser Elternteil entweder Mutter oder Vater sein muss.
+Vorgeschriebene Folgerungen. So kann man z.B. festlegen, dass man nur der Großvater einer Person ist, wenn man der Vater eines Elternteils der Person ist.
 
 \textbf{Schritt}:
 Nächste Operation, die zur Interpretation einer Abfrage nötig ist.
 
 \textbf{Standardbibliothek}:
-Voreingestellte Regeln, welche automatisch bei der Verarbeitung durch den Parser angefügt werden können.
+Vorgegebene Fakten und Regeln, welche automatisch bei der Verarbeitung durch den Parser angefügt werden können.
 
 \textbf{Term}:
-Sammelbegriff für Funktoren, Variablen oder Zahlen.
+Sammelbegriff für Funktoren, Variablen und Zahlen.
 
 \textbf{Unifikation}:
 Zwei Terme sind genau dann unifizierbar, wenn sie gleich sind oder Variablen enthalten, die so belegt werden können dass die Terme gleich sind.
@@ -1182,10 +1179,10 @@ Vorgegebener Stil bzgl. der Setzung von Leerzeichen und Umbrüchen. Zu untersche
 Struktur bestehend aus Knoten und Kanten.
 
 \textbf{GUI / GUI-Element}:
-Das GUI entspricht der graphischen Benutzeroberfläche (graphical user interface). Das GUI ist zusammengesetzt aus diversen GUI-Elementen innerhalb eines Fensters (bspw. dem Editor).
+Die GUI entspricht der graphischen Benutzeroberfläche (graphical user interface). Das GUI ist zusammengesetzt aus diversen GUI-Elementen innerhalb eines Fensters (bspw. dem Editor).
 
 \textbf{Konsole}:
-Element der graphischen Oberfläche. Die Konsole ist nur lesbar und dient der Ausgabe von Ergebnissen einer Abfrage sowie anderen Meldungen. 
+Element der graphischen Oberfläche. Die Konsole ist nur lesbar und dient der Ausgabe von Lösungen einer Abfrage sowie anderen Meldungen. 
 
 \textbf{Menüleiste}:
 Element der graphischen Oberfläche. Bietet über Text-Menüs Zugriff auf Funktionen wie Speichern und Öffnen.
@@ -1195,9 +1192,6 @@ Lesen eines ausgewählten Prolog-Programms von einem verbundenen Speichermedium 
 
 \textbf{Speichern}:
 Schreiben einer Prolog-Programmdatei in ein Zielverzeichnis auf einem verbundenen Speichermedium. Es werden ausschließlich Prolog-Programme gespeichert, andere Schreibvorgänge auf Speichermedien fallen unter den Begriff Export.
-
-\textbf{Syntax-Highlighting}:
-Visuelle Markierung verschiedener Elemente eines Programm-Textes durch Schrifteffekte und -farben (bspw. Einfärbung von zusammengehörigen Klammern).
 
 \textbf{Visualisierung}:
 Navigierbarer Graph, welcher den Ablauf der Interpretation einer Abfrage im Kontext eines gegebenen Prolog-Programms aufzeigt.
