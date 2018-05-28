@@ -27,16 +27,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8001429"
-     inkscape:cx="53.876904"
-     inkscape:cy="509.28381"
+     inkscape:cx="547.95883"
+     inkscape:cy="137.87419"
      inkscape:document-units="mm"
-     inkscape:current-layer="g4567"
+     inkscape:current-layer="layer1"
      showgrid="true"
      showguides="false"
      inkscape:guide-bbox="true"
-     inkscape:window-width="679"
+     inkscape:window-width="1362"
      inkscape:window-height="717"
-     inkscape:window-x="683"
+     inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="0"
      inkscape:snap-global="true"
@@ -325,9 +325,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#00ff00"
          id="flowPara4606">Starte Visualisierung.</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000"
-         id="flowPara10846">Lösung gefunden:</flowPara><flowPara
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#000000"
-         id="flowPara10848">    X = abe, Y = bart</flowPara></flowRoot>    <path
+         id="flowPara10848">X = abe, Y = bart</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 9.2604168,147.51039 H 219.41518"
        id="path934"

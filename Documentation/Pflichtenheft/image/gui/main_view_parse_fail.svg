@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="151.3948"
-     inkscape:cy="538.31652"
+     inkscape:cx="635.43534"
+     inkscape:cy="134.2555"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -39,9 +39,9 @@
      inkscape:window-y="24"
      inkscape:window-maximized="0"
      inkscape:snap-global="true"
-     inkscape:snap-bbox="true"
+     inkscape:snap-bbox="false"
      inkscape:bbox-nodes="true"
-     inkscape:snap-grids="false">
+     inkscape:snap-grids="true">
     <sodipodi:guide
        position="0,76.72917"
        orientation="1,0"
@@ -310,7 +310,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1"
          id="flowPara4368">Datei /home/pse/simpsons.pl wurde geöffnet.</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.00000095px;line-height:1;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono';opacity:1;fill:#ff0000"
-         id="flowPara4389">Parser-Fehler in Zeile 4: erwartete &quot;,&quot; oder &quot;)&quot; statt &quot;.&quot;</flowPara></flowRoot>    <path
+         id="flowPara4389">Parser-Fehler in Zeile 4: erwartete &quot;,&quot; oder &quot;)&quot; statt &quot;.&quot; nach &quot;mother(marge, bart &quot;</flowPara></flowRoot>    <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 9.2604168,147.51039 H 219.41518"
        id="path934"
@@ -405,7 +405,7 @@
              id="rect1353-9-2" /></flowRegion><flowPara
            id="flowPara1355-3-3">3</flowPara></flowRoot>    </g>
     <g
-       transform="translate(109.66063,125.67708)"
+       transform="translate(158.10323,126.07798)"
        id="g1362-1-6">
       <ellipse
          ry="2.6458323"
