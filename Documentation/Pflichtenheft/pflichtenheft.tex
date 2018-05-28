@@ -104,7 +104,7 @@ Unter Zuhilfenahme der Visualisierung soll der Nutzer die Interpretation eines P
 
 \criterium{Erstellen eines neuen Prolog-Programms}{crt:create}
 
-Das Programm kann ein leeres Prolog-Programm anlegen. Der Inhalt des Editor wird dabei gelöscht.
+Der Inhalt des Editor kann gelöscht werden um ein neues Prolog-Programm anzulegen.
 
 \criterium{Öffnen eines Prolog-Programms}{crt:open}
 
@@ -120,8 +120,7 @@ Das Programm kann Änderungen am momentan geladenen Prolog-Programm speichern. D
 
 \criterium{Parsen eines Prolog-Programms mit begrenztem Sprachumfang}{crt:parser}
 
-% TODO Teilmenge spezifizieren
-Das Programm kann eine Teilmenge der Sprache Prolog durch einen Parser verarbeiten.
+Das Programm kann eine Teilmenge der Sprache Prolog durch einen Parser verarbeiten. Diese unterstützt als Terme Funktoren, Variablen und Zahlen. Regeln werden mit beliebig vielen Teilzielen unterstützt und als Ziele ausschließlich Funktoren.
 
 \criterium{Eingabe von Abfragen}{crt:request}
 
@@ -137,7 +136,11 @@ Das Programm kann den aktuellen Zustand der Abarbeitung einer Abfrage zu einem P
 
 \criterium{Ausgabe von Lösungen zu einer Abfrage}{crt:answer}
 
-Das Programm kann Lösungen zu einer Abfrage in der Konsole ausgeben. Dabei wird bei einer Abfrage ohne Variablen \enquote{\texttt{yes}} oder \enquote{\texttt{no .}} ausgegeben. Beinhaltet die Abfrage Variablen, so werden mögliche Variablenbelegungen ausgegeben. Bei frei belegbaren Variablen wird \enquote{\texttt{<any>}} ausgegeben. Gibt es keine (weitere) Lösung, so wird \enquote{\texttt{no .}} ausgegeben.
+Das Programm kann Lösungen zu einer Abfrage in der Konsole ausgeben. Dabei wird bei einer Abfrage ohne Variablen \enquote{\texttt{ja}} oder \enquote{\texttt{nein .}} ausgegeben. Beinhaltet die Abfrage Variablen, so werden mögliche Variablenbelegungen ausgegeben. Bei frei belegbaren Variablen wird \enquote{\texttt{<beliebig>}} ausgegeben. Gibt es keine (weitere) Lösung, so wird \enquote{\texttt{nein .}} ausgegeben.
+
+\criterium{Navigation in der Visualisierung}{crt:navigation}
+
+Das Programm ermöglicht es dem Nutzer das Bewegen des angezeigten Ausschnitts der Visualisierung und das Zoomen.
 
 \subsection{Kann}
 
@@ -254,8 +257,7 @@ Der Status der Standardbibliothek (\enquote{Aktiviert}/\enquote{Deaktiviert}) wi
 \functionality{Erstellen eines neuen Prolog-Programms}{fnc:new}
 \fulfills{crt:create}
 
-%TODO Verweiß auf speichern
-Das Programm stellt einen leeren Editor bereit, in dem ein neues Prolog-Programm angelegt werden kann. Sollte der Editor zuvor bereits ungesicherten Inhalt besitzen, so wird der Nutzer aufgefordert, diesen zu speichern. Hierbei kann entweder die alte Datei überschrieben oder eine neue Datei angelegt werden. Der alte Editor-Inhalt, der Konsolen-Inhalt und die Visualisierung werden daraufhin verworfen. 
+Das Programm stellt eine Schaltfläche zum Leeren des Editors bereit. Sollte beim Betätigen dieser Schaltfäche der Inhalt des Editors ungesichert sein, so wird der Nutzer aufgefordert, diesen zu speichern. Hierbei kann entweder die alte Datei überschrieben oder eine neue Datei angelegt werden. Der alte Editor-Inhalt, der Konsolen-Inhalt und die Visualisierung werden daraufhin verworfen.
 
 \functionality{Öffnen eines Prolog-Programms}{fnc:open}
 \fulfills{crt:open}
@@ -270,17 +272,17 @@ Das Programm bietet einen Schnellzugriff auf bis zu fünf der zuletzt verwendete
 \functionality{Bearbeiten eines Prolog-Programms}{fnc:editor}
 \fulfills{crt:edit}
 
-Das Prolog-Programm kann im Editor bearbeitet werden. Die Änderungen werden erst beim Speichern zurückgeschrieben.
+Das Prolog-Programm kann im Editor bearbeitet werden. Die Änderungen werden erst beim Speichern zurückgeschrieben. Sollten nach dem Parsen erneut Änderungen an dem geöffneten Prolog-Programm durchgeführt werden, so wird das Eingabefeld sowie jegliche Interaktion mit der Visualisierung gesperrt, bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
 
 \functionality{Speichern als}{fnc:saveas}
 \fulfills{crt:save}
 
-Beim Betätigen der \enquote{Speichern als} so kann über einen Auswahl-Dialog eine neue Datei angelegt werden.
+Beim Betätigen der \enquote{Speichern als}-Schaltfläche in der Menüleiste kann über einen Auswahl-Dialog eine Datei ausgewählt oder eine neue Datei angelegt werden. Anschließend wird der Inhalt des Editors an den gewählten Ort gespeichert.
 
 \functionality{Speichern des Editor-Inhalts}{fnc:save}
 \fulfills{crt:save}
 
-Das Programm kann den Inhalt des Editors speichern. Ist der Dateiname bekannt wird der Inhalt der Datei überschrieben. Sollte dies nicht der Fall sein wird die \enquote{Speichern als...} Funktion ausgeführt.
+Das Programm kann den Inhalt des Editors speichern. Ist der Dateiname bekannt, wird der Inhalt der Datei überschrieben. Sollte dies nicht der Fall sein, wird die \enquote{Speichern als...} Funktion ausgeführt.
 
 \functionality{Parsen eines Prolog-Programms}{fnc:parser}
 \fulfills{crt:parser}
@@ -296,7 +298,7 @@ Der Parser erkennt Fehler innerhalb des geöffneten Prolog-Programms bei der Ver
 \functionality{Eingabe von Prolog-Abfragen in das Eingabefeld}{fnc:shell}
 \fulfills{crt:request}
 
-Bei erfolgreicher Verarbeitung einer korrekten Datei durch den Parser erlaubt das Eingabefeld die Eingabe von Abfragen. Eine korrekte Abfrage entspricht einem einzelnen Ziel. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird das Eingabefeld sowie jegliche Interaktion mit der Visualisierung gesperrt, bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
+Bei erfolgreicher Verarbeitung einer korrekten Datei durch den Parser erlaubt das Eingabefeld die Eingabe von Abfragen. Eine korrekte Abfrage entspricht einem einzelnen Ziel.
 
 \functionality{Syntaktische Fehler in der Abfrage}{fnc:inputerror}
 \fulfills{crt:request}
@@ -341,12 +343,12 @@ Fehlgeschlagene Unifikationen werden visualisiert, jedoch nur, wenn die Funktork
 Ein Backtrackingschritt wird entsprechend visualisiert.
 
 \functionality{Vergrößern und Verkleinern der Visualisierung durch Schaltflächen oder das Mausrad}{fnc:zoom}
-\fulfills{crt:visualization}
+\fulfills{crt:navigation}
 
-Über die Verwendung des Mausrads oder der Plus- und Minus-Schaltflächen lässt sich der angezeigte Ausschnitt der Visualisierung vergrößern oder verkleinern.
+Über die Verwendung des Mausrads oder der Plus- und Minus-Schaltflächen lässt sich die Visualisierung vergrößern oder verkleinern.
 
-\functionality{Navigation der Visualisierung durch Bewegungen mit der Maus}{fnc:move}
-\fulfills{crt:visualization}
+\functionality{Ändern des Ausschnitts der Visualisierung durch Bewegungen mit der Maus}{fnc:move}
+\fulfills{crt:navigation}
 
 Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Ausschnitt der Visualisierung bewegen.
 
@@ -389,7 +391,7 @@ Die aktuell angezeigte Visualisierung lässt sich als Bild im PNG- oder SVG-Form
 \functionality{Deaktivierung und Aktivierung der Standardbibliothek}{fnc:disablelib}
 \fulfills{crt:disablelib}
 
-Die Einbindung der Standardbibliothek kann über die Menüleiste aktiviert und deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden bis zur erneuten Aktivierung nicht mehr berücksichtigt.
+Die Einbindung der Standardbibliothek kann über die Menüleiste deaktiviert und wieder aktiviert werden. Nach einer De- oder Aktivierung wird eine möglicherweise laufende Abfrage abgebrochen und die Konsole sowie das Visualisierungs-Fenster geleert. Das Prolog-Programm muss über die Parsen-Schaltfläche neu geparst werden.
 
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
 \fulfills{crt:formatting}
@@ -399,7 +401,7 @@ Eine automatische Formatierung von korrektem Prolog-Quellcode ist über die Men�
 \functionality{Wechsel der verwendeten Sprache}{fnc:translation}
 \fulfills{crt:translation}
 
-Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden. Die gewählte Sprache bleibt nach einem Neustart des Programms erhalten.
+Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden. Dabei die Visualisierung in der entsprechenden Sprache neu generiert. Der Inhalt der Konsole wird geleert. Die Meldung \enquote{Die Sprache wurde gewechselt} wird in der entsprechenden Sprache in der Konsole ausgegeben. Die gewählte Sprache bleibt nach einem Neustart des Programms erhalten.
 
 \functionality{Schnellzugriffsleiste}{fnc:buttons}
 \fulfills{crt:buttons}
