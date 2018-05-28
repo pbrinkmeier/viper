@@ -390,7 +390,7 @@ Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche
 \functionality{Wechsel der verwendeten Sprache}{fnc:translation}
 \fulfills{crt:translation}
 
-Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden.
+Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden. Die gewählte Sprache bleibt nach einem Neustart des Programms erhalten.
 
 %%%%%%%%%%%
 \section{Nicht-Funktionale Anforderungen}
@@ -638,6 +638,21 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Die Visualisierung wird im ausgewählten Format an dem gewählten Ort gespeichert. Die passende \texttt{.svg} bzw. \texttt{.png} Dateieendung wird wenn nötig ergänzt.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\test{Wechsel der GUI-Sprache}{tst:language}
+\tests{fnc:translation}
+
+\teststep{Das Programm ist geöffnet und auf die Sprache Deutsch eingestellt.}
+{Der Nutzer wählt in der Menüleiste die Sprache \enquote{Englisch} aus.}
+{Die Sprache aller GUI-Elemente ändert sich auf die Sprache Englisch. Der Inhalt der Konsole wird gelöscht, alle zukünftigen Ausgaben bis zu einem erneuten Sprachwechsel erscheinen in Englisch.}
+
+\teststep{Das Programm ist geöffnet und auf die Sprache Englisch eingestellt.}
+{Der Nutzer beendet das Programm und startet es erneut.}
+{Das Programm ist geöffnet, die GUI Sprache ist immernoch auf Englisch eingestellt.}
+
+\teststep{Die Sprache der GUI ist auf Englisch eingestellt.}
+{Der Nutzer wählt in der Menüleiste die Sprache \enquote{Deutsch} aus.}
+{Die Sprache aller GUI-Elemente ändert sich auf die Sprache Deutsch. Der Inhalt der Konsole wird gelöscht, alle zukünftigen Ausgaben bis zu einem erneuten Sprachwechsel erscheinen in Deutsch.}
 
 \section{Systemtests}
 
