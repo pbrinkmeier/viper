@@ -189,6 +189,10 @@ Das Programm soll Quelltext durch das Betätigen der \enquote{Formatieren}-Schal
 
 Die Programmoberfläche soll die Sprachen Deutsch und Englisch unterstützen.
 
+\criteriumOptional{Schnellzugriffsleiste}{crt:buttons}
+
+Das Programm soll eine Leiste mit Schaltflächen unter der Menüleiste besitzen.
+
 \subsection{Abgrenzung}
 
 \criteriumNot{Voller Sprachsupport}{crt:fullsupport}
@@ -207,7 +211,7 @@ Das Programm beschränkt sich auf eine graphische Darstellung über GUI-Elemente
 
 Das Programm ist nicht für professionelle Anwendungszwecke ausgelegt.
 
-\criteriumNot{Parser}{crt:parser}
+\criteriumNot{Parser}{crt:parsernot}
 
 Der Parser ist gegeben und wird nicht selbst implementiert.
 
@@ -253,7 +257,7 @@ Außer den oben genannten werden keinerlei Daten gespeichert.
 \functionality{Erstellen eines neuen Prolog-Programms}{fnc:new}
 \fulfills{crt:create}
 
-Das Programm stellt einen Editor bereit, in dem ein leeres Prolog-Programm angelegt werden kann. Sollte der Editor zuvor bereits ungesicherten Inhalt besitzen, so wird der Nutzer aufgefordert, diesen zu speichern. Hierbei kann entweder die alte Datei überschrieben oder eine neue Datei angelegt werden. Der alte Inhalt wird daraufhin verworfen und ein neues Prolog-Programm angelegt.
+Das Programm stellt einen leeren Editor bereit, in dem ein neues Prolog-Programm angelegt werden kann. Sollte der Editor zuvor bereits ungesicherten Inhalt besitzen, so wird der Nutzer aufgefordert, diesen zu speichern. Hierbei kann entweder die alte Datei überschrieben oder eine neue Datei angelegt werden. Der alte Editor-Inhalt, der Konsolen-Inhalt und die Visualisierung werden daraufhin verworfen. 
 
 \functionality{Öffnen eines Prolog-Programms}{fnc:open}
 \fulfills{crt:open}
@@ -289,7 +293,7 @@ Das geöffnete Prolog-Programm kann durch einen Parser verarbeitet werden. Wird 
 \functionality{Fehlerausgabe beim Parsen eines inkorrekten Prolog-Programms}{fnc:errorcheck}
 \fulfills{crt:parser}
 
-Der Parser erkennt Fehler innerhalb des geöffneten Prolog-Programms bei der Verarbeitung. Fehlermeldungen werden über das verfügbare Konsolen-Fenster ausgegeben.
+Der Parser erkennt Fehler innerhalb des geöffneten Prolog-Programms bei der Verarbeitung. Fehlermeldungen werden über die Konsole ausgegeben.
 
 \functionality{Eingabe von Prolog-Abfragen in das Eingabefeld}{fnc:shell}
 \fulfills{crt:request}
@@ -303,8 +307,6 @@ Syntaktische Fehler in der Abfrage werden in der Konsole ausgegeben.
 
 \functionality{Interpretation von Prolog-Abfragen}{fnc:interpreter}
 \fulfills{crt:interpreter}
-\fulfills{crt:cut}
-\fulfills{crt:maths}
 
 Abfragen, welche im Eingabefeld eingegeben wurden, werden nach einer Bestätigung mit der Eingabe-Taste schrittweise interpretiert.
 
@@ -322,7 +324,7 @@ Der Interpreter gibt Lösungen zu einer Abfrage in der Konsole aus. Gibt es kein
 \functionality{Visualisierung des aktuellen Interpretationsschrittes mittels eines Graphen}{fnc:visualization}
 \fulfills{crt:visualization}
 
-Bei aktiver Interpretation einer Abfrage wird eine Visualisierung für den aktuellen Interpretationsschritt generiert und im Visualisierungs-Fenster angezeigt. Sollte zuvor eine Visualisierung in diesem Fenster angezeigt worden sein, wird diese aus dem Fenster gelöscht.
+Bei aktiver Interpretation einer Abfrage wird ein Graph für den aktuellen Interpretationsschritt generiert und im Visualisierungs-Fenster angezeigt. Sollte bereits ein Graph angezeigt werden wird dieser verworfen und durch den neuen ersetzt.
 
 \functionality{Visualisierung einer erfolgreichen Unifikation}{fnc:unificationsuccess}
 \fulfills{crt:visualization}
@@ -332,12 +334,12 @@ Gab es eine erfolgreiche Unifikation, so wird diese mit den entsprechenden Subst
 \functionality{Visualisierung einer fehlgeschlagenen Unifikation}{fnc:unificationfail}
 \fulfills{crt:visualization}
 
-Fehlgeschlagene Unifikationen werden nur visualisiert, wenn die Funktorköpfe identisch sind. Da die Unifikation bei unterschiedlichen Funktorköpfen automatisch fehlschlägt, werden diese übersprungen und nicht visualisiert.
+Fehlgeschlagene Unifikationen werden nur visualisiert, wenn die Funktorköpfe identisch sind. Der Grund, warum die Unifikation fehlgeschlagen ist, wird zusätzlich in einer Meldung ausgegeben. Da die Unifikation bei unterschiedlichen Funktorköpfen automatisch fehlschlägt, werden diese übersprungen und nicht visualisiert.
 
 \functionality{Visualisierung von Backtracking}{fnc:backtracking}
 \fulfills{crt:visualization}
 
-Wenn für ein Teilziel keine Unifikation mehr möglich ist, so wird zum vorherigen Teilziel, oder, im Falle des ersten Teilziels, zur übergeordneten Regel zurückgesprungen. Dieser Backtrackingschritt wird entsprechend in der Visualisierung angezeigt.
+Wenn für ein Teilziel keine Unifikation mehr möglich ist, so wird zum vorherigen Teilziel oder, im Falle des ersten Teilziels, zur übergeordneten Regel zurückgesprungen. Dieser Backtrackingschritt wird entsprechend in der Visualisierung angezeigt.
 
 \functionality{Vergrößern und Verkleinern der Visualisierung durch Schaltflächen oder das Mausrad}{fnc:zoom}
 \fulfills{crt:visualization}
@@ -347,22 +349,32 @@ Wenn für ein Teilziel keine Unifikation mehr möglich ist, so wird zum vorherig
 \functionality{Navigation der Visualisierung durch Bewegungen mit der Maus}{fnc:move}
 \fulfills{crt:visualization}
 
-Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Ausschnitt des Graphen bewegen, wodurch in diesem navigiert werden kann.
+Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Ausschnitt des Graphen bewegen.
 
 \functionality{Zurückschreiten während der Interpretation}{fnc:stepback}
 \fulfills{crt:stepback}
 
-Eine Rückschritt-Schaltfläche erlaubt bei Betätigung den jeweils aktuellen Schritt rückgängig zu machen. Im Falle des ersten Schrittes ist diese Schaltfläche deaktiviert.
+Die Schaltfläche \enquote{Vorheriger Schritt} macht bei Betätigung den aktuellen Schritt rückgängig. Im Falle des ersten Schrittes ist diese Schaltfläche deaktiviert.
 
 \functionality{Ausführung der Interpretation bis zur nächsten Lösung}{fnc:continue}
 \fulfills{crt:continue}
 
-Eine Fortsetzen-Schaltfläche erlaubt bei Betätigung die Ausführung bis zur nächsten Lösung fortzuführen.
+Die \enquote{Nächste Lösung}-Schaltfläche erlaubt bei Betätigung die Ausführung bis zur nächsten Lösung fortzuführen.
 
 \functionality{Abbrechen einer Interpretation}{fnc:cancel}
 \fulfills{crt:continue}
 
-Im Falle einer Interpretation die mehrere Schritte hintereinander ausführt (Fortsetzen bis zur nächsten Lösung), kann die laufende Interpretation über eine Abbrechen-Schaltfläche frühzeitig beendet werden. Hierbei wird der aktuelle Interpretationsschritt noch durchgeführt und anschließend wird die Interpretation beendet.
+Im Falle einer Interpretation, die mehrere Schritte hintereinander ausführt (Fortsetzen bis zur nächsten Lösung), kann die laufende Interpretation über eine Abbrechen-Schaltfläche frühzeitig beendet werden. Hierbei wird der aktuelle Interpretationsschritt noch durchgeführt und anschließend wird die Interpretation beendet.
+
+\functionality{Cut}{fnc:cut}
+\fulfills{crt:cut}
+
+Die Cut-Funktionalität soll durch das Hinzufügen eines \enquote{\texttt{!}} als Teilziel einer Regel unterstützt werden.
+
+\functionality{Arithmetik}{fnc:maths}
+\fulfills{crt:maths}
+
+Das Programm soll grundlegende Arithmetik unterstützen.
 
 \functionality{Exportieren der angezeigten Visualisierung in einem beliebigen Schritt als LaTeX-Dokument}{fnc:latexexport}
 \fulfills{crt:latexexport}
@@ -377,17 +389,22 @@ Die aktuell angezeigte Visualisierung lässt sich als Bild im PNG- oder SVG-Form
 \functionality{Deaktivierung und Aktivierung der Standardbibliothek}{fnc:disablelib}
 \fulfills{crt:disablelib}
 
-Die automatische Einbindung der Standardbibliothek kann über eine Schaltfläche aktiviert und deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden bis zur erneuten Aktivierung nicht mehr berücksichtigt.
+Die Einbindung der Standardbibliothek kann über die Menüleiste aktiviert und deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden bis zur erneuten Aktivierung nicht mehr berücksichtigt.
 
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
 \fulfills{crt:formatting}
 
-Eine automatische Formatierung von Prolog-Quellcode ist über eine Schaltfläche möglich. Die Formatierung ist hierbei vorgegeben und kann nicht verändert werden. Die Formatierung sieht folgendes vor: Jede Regel wird in ihre eigene Zeile gelegt. Hat eine Regel mehrere Teilziele, so wird die Regelzeile nach dem \enquote{\texttt{:-}}-Operator umgebrochen und alle Teilziele werden in eigene Zeilen gelegt, welche mit zwei Leerzeichen eingerückt sind. Bereits gesetzte Leerzeilen werden beibehalten. Fehlende Leerzeichen vor und hinter dem \enquote{\texttt{:-}}-Operator sowie nach Kommata in Parameterlisten werden eingefügt.
+Eine automatische Formatierung von Prolog-Quellcode ist über die Menüleiste möglich. Die Formatierung ist hierbei vorgegeben und kann nicht verändert werden. Schlägt die Formatierung fehl, so wird eine Fehlermeldung ausgegeben.
 
 \functionality{Wechsel der verwendeten Sprache}{fnc:translation}
 \fulfills{crt:translation}
 
 Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden.
+
+\functionality{Schnellzugriffsleiste}{fnc:buttons}
+\fulfills{crt:buttons}
+
+Die Leiste soll den Schnellzugriff auf wichtige Funktionen, wie z.B. das Parsen eines Prolog-Programms oder das Formatieren von Quellcode, über zusätzliche Schaltflächen ermöglichen.
 
 \section{Nicht-Funktionale Anforderungen}
 
@@ -551,8 +568,8 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt die Formatieren-Schaltfläche in der Menüleiste.}
 {Das Prolog-Programm wird automatisch formatiert. Der Editor zeigt nun das formatierte \texttt{simpsons.pl}-Programm an.}
 
-\test{Export als Bilddatei für Foliensätze}{tst:latexexport}
-\tests{fnc:latexexport}
+\test{Export als Bilddatei für Foliensätze}{tst:imageexport}
+\tests{fnc:imageexport}
 
 \teststep{Das Beispielprogramm ist im Editor geöffnet und der unten gezeigte Zustand wurde erreicht und visualisiert.}
 {Der Nutzer wählt über die Menüleiste die Exportieren-Funktion aus.}
@@ -723,6 +740,49 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \teststep{Der Nutzer hat das Zielverzeichnis über die Auswahl des Export-Dialogs ausgewählt.}
 {Der Nutzer betätigt die Export-Schaltfläche.}
 {Die gesamte Visualisierung wird als LaTeX-Quellcode exportiert.}
+
+\test{Schnellzugriffsleiste}{tst:sys_buttonbar}
+\tests{fnc:buttons}
+
+\teststep{Der Nutzer hat das formatierte \texttt{simpsons.pl}-Programm im Editor eingetragen.}
+{Der Nutzer betätigt die Erstellen-Schaltfläche der Schnellzugriffsleiste.}
+{Der Inhalt des Editors ist leer.}
+
+\teststep{Der Inhalt des Editors ist leer.}
+{Der Nutzer betätigt die Öffnen-Schaltfläche der Schnellzugriffsleiste.}
+{Ein Öffnen-Dialog erscheint.}
+
+\teststep{Der Nutzer hat über den Öffnen-Dialog eine Datei ausgewählt, welche das unformatierte \texttt{simpsons.pl}-Programm enthält.}
+{Der Nutzer betätigt die Öffnen-Schaltfläche des Öffnen-Dialogs.}
+{Der Editor enthält das unformatierte \texttt{simpsons.pl}-Programm.}
+
+\teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
+{Der Nutzer betätigt die Formatieren-Schaltfläche der Schnellzugriffsleiste.}
+{Der Editor enthält das formatierte \texttt{simpsons.pl}-Programm.}
+
+\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
+{Der Nutzer betätigt die Speichern-Schaltfläche der Schnellzugriffsleiste.}
+{Ein Speichern-Dialog öffnet sich}
+
+\teststep{Der Nutzer hat über den Speichern-Dialog ein Verzeichnis und einen Dateinamen eingetragen.}
+{Der Nutzer betätigt die Speichern-Schaltfläche des Dialogs.}
+{Das Prolog-Programm wird im gewählten Verzeichnis gespeichert.}
+
+\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert.}
+{Der Nutzer betätigt die Parsen-Schaltfläche der Schnellzugriffsleiste.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokusiert.}
+
+\teststep{Das Prolog-Programm wurde erfolgreich geparst.}
+{Der Nutzer gibt im Eingabefeld \texttt{father(homer, X).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
+
+\teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+{Der Nutzer betätigt die Nächster Schritt-Schaltfläche der Schnellzugriffsleiste.}
+{Die Interpretation wird um einen Schritt fortgeführt. Die Visualierung befindet sich im Zustand des nächsten Schrittes.}
+
+\teststep{Die Visualisierung befindet sich im Zustand des zweiten Schrittes.}
+{Der Nutzer betätigt die Nächste Lösung-Schaltfläche der Schnellzugriffsleiste.}
+{Die Interpretation wird bis zur nächsten Lösung fortgeführt. Es wird \texttt{X = bart} ausgegeben. Der Graph entspricht dem Graphen bei der Findung der ersten Lösung.}
 
 \appendix
 
@@ -1049,6 +1109,9 @@ Außerdem sind sie rot eingefärbt.
 \section{Glossar}
 
 \subsection{Allgemein}
+
+\textbf{Format}:
+Jede Regel wird in ihre eigene Zeile gelegt. Hat eine Regel mehrere Teilziele, so wird die Regelzeile nach dem \enquote{\texttt{:-}}-Operator umgebrochen und alle Teilziele werden in eigene Zeilen gelegt, welche mit zwei Leerzeichen eingerückt sind. Bereits gesetzte Leerzeilen werden beibehalten. Fehlende Leerzeichen vor und hinter dem \enquote{\texttt{:-}}-Operator sowie nach Kommata in Parameterlisten werden eingefügt.
 
 \textbf{Programm}:
 Das vorgestellte VIPER-Programm. Dies ist zu unterscheiden von Prolog-Programmen.
