@@ -639,6 +639,34 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\test{Visualierung fehlgeschlagener Unifikation}{tst:unificationfail}
+\tests{fnc:unificationfail}
+
+\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben und die Wurzel des Visualisierungsgraphen wird angezeigt.}
+{Der Nutzer betätigt die Schaltfläche \enquote{Nächster Schritt}.}
+{Eine fehlgeschlagene Unifikation mit \texttt{father(abe, homer)} entsprechend der gezeigten Graphik wird angezeigt.}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=0.7\linewidth]{build/visualisation/tst_unification_fail.png}
+}
+\captionof{figure}{Zustand nach einem Schritt: fehlgeschlagene Unifikation}
+\end{minipage}
+
+\test{Visualierung erfolgreicher Unifikation}{tst:unificationsuccess}
+\tests{fnc:unificationsuccess}
+
+\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben und die Wurzel des Visualisierungsgraphen wird angezeigt.}
+{Der Nutzer betätigt die Schaltfläche \enquote{Nächster Schritt} zwei mal.}
+{Eine erfolgreiche Unifikation mit \texttt{father(homer, bart)} entsprechend der gezeigten Graphik wird angezeigt.}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=0.7\linewidth]{build/visualisation/tst_unification_success.png}
+}
+\captionof{figure}{Zustand nach zwei Schritten: erfolgreiche Unifikation}
+\end{minipage}
+
 \section{Systemtests}
 
 \test{Erstellung, Bearbeitung, Speichern und Parsen des simpsons.pl-Programms}{tst:sys1}

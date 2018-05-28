@@ -1,0 +1,8 @@
+digraph VIPER_visualization_root {
+    node [fontname = "Fira Mono"];
+
+    root [label = "father(homer, X)"];
+    root_fail [shape = record, label = <{father<sub>2</sub>(homer, bart)|X = bart}>, color = green];
+
+    root -> root_fail [color = green];
+}
