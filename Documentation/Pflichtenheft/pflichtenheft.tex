@@ -665,37 +665,27 @@ max(X, Y, Y).
 {Der Nutzer betätigt die Formatieren-Schaltfläche in der Menüleiste.}
 {Das Prolog-Programm wird automatisch formatiert. Der Editor zeigt nun das formatierte \texttt{simpsons.pl}-Programm an.}
 
-\test{Export als LaTeX für Foliensätze}{tst:latexexporttikz}
-\tests{fnc:latexexport}
-
-\teststep{Das Beispielprogramm ist im Editor geöffnet und der unten gezeigte Zustand wurde erreicht und visualisiert.}
-{Der Nutzer wählt über die Menüleiste die Exportieren-Funktion aus.}
-{Ein Auswahl-Dialog öffnet sich.}
-
-\teststep{Ein Dialog mit den Auswahlmöglichkeiten Grafik (\enquote{SVG}, \enquote{PNG}) und LaTeX ist geöffnet.}
-{Der Nutzer wählt die LaTeX Option aus. Anschließend betätigt er die Speichern-Schaltfläche.}
-{Ein Datei-Speichern-Dialog öffnet sich.}
-
-\teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
-{Der Nutzer wählt einen Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt er die Speichern-Schaltfläche.}
-{Die Visualisierung wird als TeX-Datei an dem gewählten Ort gespeichert. Die passende \texttt{.tex} Dateiendung wird wenn nötig ergänzt.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Export als Bilddatei}{tst:latexexport}
 \tests{fnc:imageexport}
 
-\teststep{Das Beispielprogramm ist im Editor geöffnet und der unten gezeigte Zustand wurde erreicht und visualisiert.}
-{Der Nutzer wählt über die Menüleiste die Exportieren-Funktion aus.}
-{Ein Auswahl-Dialog öffnet sich.}
-
-\teststep{Ein Dialog mit den Auswahlmöglichkeiten \enquote{SVG} und \enquote{PNG} ist geöffnet}
-{Der Nutzer wählt eine der beiden Optionen aus. Anschließend betätigt er die Speichern-Schaltfläche in der Menüleiste.}
+\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und der unten gezeigte Zustand wurde erreicht und visualisiert.}
+{Der Nutzer wählt über die Menüleiste die Exportieren-als-Bild-Funktion aus.}
 {Ein Datei-Speichern-Dialog öffnet sich.}
 
 \teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
-{Der Nutzer wählt einen Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt er die Speichern-Schaltfläche.}
-{Die Visualisierung wird im ausgewählten Format an dem gewählten Ort gespeichert. Die passende \texttt{.svg} bzw. \texttt{.png} Dateieendung wird wenn nötig ergänzt.}
+{Der Nutzer wählt einen Dateinamen, ein Zielverzeichnis und den Dateityp PNG aus. Anschließend betätigt er die Speichern-Schaltfläche.}
+{Die Visualisierung wird als PNG-Datei im Zielverzeichnis gespeichert. Die Dateiendung \texttt{.png} wird wenn nötig ergänzt.}
+
+\test{Export als LaTeX für Foliensätze}{tst:latexexporttikz}
+\tests{fnc:latexexport}
+
+\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und der unten gezeigte Zustand wurde erreicht und visualisiert.}
+{Der Nutzer wählt über die Menüleiste die Exportieren-als-TikZ-Funktion aus.}
+{Ein Datei-Speichern-Dialog öffnet sich.}
+
+\teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
+{Der Nutzer wählt einen Dateinamen und ein Zielverzeichnis aus. Anschließend betätigt er die Speichern-Schaltfläche.}
+{Die Visualisierung wird als TikZ-Datei im Zielverzeichnis gespeichert. Die Dateiendung \texttt{.tikz} wird wenn nötig ergänzt.}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -732,7 +722,7 @@ max(X, Y, Y).
 \captionof{figure}{Zustand nach zwei Schritten: erfolgreiche Unifikation}
 \end{minipage}
 
-\test{Visualierung von Backtracking}{tst:backtracking}
+\test{Visualisierung von Backtracking}{tst:backtracking}
 \tests{fnc:backtracking}
 
 \teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
@@ -791,12 +781,12 @@ max(X, Y, Y).
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben.}
 
 \teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen, gespeichert und durch den Parser verarbeitet worden.}
-{Der Nutzer fokussiert durch einen Mausklick das Editor-Fenster und fügt vor die erste Zeile das Wort \enquote{Fehler}, gefolgt von einem Umbruch ein.}
+{Der Nutzer fokussiert durch einen Mausklick das Editor-Fenster und fügt vor die erste Zeile das Wort \enquote{Fehler(}, gefolgt von einem Umbruch ein.}
 {Das Eingabefeld wird gesperrt.}
 
-\teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert worden. Das Wort \enquote{Fehler} wurde vor die ursprüngliche erste Zeile eingetragen.}
+\teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert worden. Das Wort \enquote{Fehler(} wurde vor die ursprüngliche erste Zeile eingetragen.}
 {Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
-{Das Eingabefeld bleibt weiterhin gesperrt. Der Parser gibt über die Konsole eine Syntax-Fehlermeldung aus.}
+{Das Eingabefeld bleibt weiterhin gesperrt. Der Parser gibt über die Konsole die folgende Fehlermeldung aus: \texttt{Parser-Fehler in Zeile 1. Erwartete \enquote{)} oder Identifier oder Variable statt \enquote{EOF} nach \enquote{Fehler(}}}
 
 \test{Öffnen eines Prolog-Programms, Parsen, Eingabe einer Abfrage und Interpretation}{tst:sys2}
 \tests{fnc:open}
@@ -897,6 +887,14 @@ max(X, Y, Y).
 {Die gesamte Visualisierung wird als LaTeX-Quellcode gespeichert.}
 
 \test{Schnellzugriffsleiste}{tst:sys_buttonbar}
+\tests{fnc:new}
+\tests{fnc:open}
+\tests{fnc:formatter}
+\tests{fnc:save}
+\tests{fnc:parser}
+\tests{fnc:interpreter}
+\tests{fnc:visualization}
+\tests{fnc:continue}
 \tests{fnc:buttons}
 
 \teststep{Der Nutzer hat das formatierte \texttt{simpsons.pl}-Programm im Editor eingetragen.}
@@ -936,7 +934,7 @@ max(X, Y, Y).
 {Die Interpretation wird um einen Schritt fortgeführt. Die Visualierung befindet sich im Zustand des nächsten Schrittes.}
 
 \teststep{Die Visualisierung befindet sich im Zustand des zweiten Schrittes.}
-{Der Nutzer betätigt die Nächste Lösung-Schaltfläche der Schnellzugriffsleiste.}
+{Der Nutzer betätigt die Nächste-Lösung-Schaltfläche der Schnellzugriffsleiste.}
 {Die Interpretation wird bis zur nächsten Lösung fortgeführt. Es wird \texttt{X = bart} ausgegeben. Die Visualisierung entspricht der Visualisierung bei der Findung der ersten Lösung.}
 
 \appendix
