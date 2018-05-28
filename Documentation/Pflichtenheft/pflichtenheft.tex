@@ -455,32 +455,30 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer wählt über die Menüleiste die Öffnen-Funktion aus.}
 {Ein Datei-Auswahl-Dialog öffnet sich.}
 
-\teststep{Der Nutzer hat eine Datei über den Auswahl-Dialog ausgewählt.}
-{Der Nutzer betätigt die Öffnen-Schaltfläche.}
-{Die Datei wird im Editor-Fenster geöffnet.}
+\teststep{Der Nutzer hat eine Datei über den Datei-Auswahl-Dialog ausgewählt.}
+{Der Nutzer betätigt die Öffnen-Schaltfläche des Datei-Auswahl-Dialogs.}
+{Der Datei-Auswahl-Dialog schließt sich. Die Datei wird im Editor-Fenster geöffnet.}
 
-%TODO Kürz mich
-\test{Öffnen einer Prolog-Programmdatei während im Editor bereits ein Programm eingegeben wurde mit Speichern des geschriebenen Programmes}{tst:openanother}
+\test{Öffnen einer Prolog-Programmdatei und Speichern von vorhandenem Editor-Inhalt}{tst:openanother}
 \tests{fnc:open}
 
 \teststep{Das Programm wird ausgeführt und ist fokussiert. Im Editor wurde ein Prolog-Programm von Hand eingegeben.}
 {Der Nutzer wählt über die Menüleiste die Öffnen-Funktion aus.}
-{Ein Datei-Auswahl-Dialog öffnet sich.}
-
-\teststep{Der Nutzer hat eine Datei über den Auswahl-Dialog ausgewählt.}
-{Der Nutzer betätigt die Öffnen-Schaltfläche.}
-{Ein Öffnen-Dialog fragt den Nutzer, ob das im Editor eingegebene Prolog-Programm gespeichert oder verworfen werden soll.}
+{Ein Info-Dialog öffnet sich. Und fragt den Nutzer, ob das im Editor eingegebene Prolog-Programm gespeichert oder verworfen werden soll.}
 
 \teststep{Der Nutzer hat die Wahl das im Editor geschriebene Prolog-Programm zu speichern oder zu verwerfen.}
-{Der Nutzer betätigt die Speichern-Schaltfläche.}
-{Ein Datei-Speichern-Dialog öffnet sich.}
+{Der Nutzer betätigt die Speichern-Schaltfläche des Info-Dialogs.}
+{Der Info-Dialog schließt sich und ein Datei-Speichern-Dialog öffnet sich.}
 
 \teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
-{Der Nutzer wählt einen Speicherort und wählt einen Dateinamen. Anschließend betätigt er die Speichern-Schaltfläche.}
-{Das im Editor geöffnete Prolog-Programm wird in die gewählte Datei gespeichert. Die zu öffnende Datei wird in den Editor geladen und überschreibt den bisherigen Inhalt.}
+{Der Nutzer wählt einen Speicherort und wählt einen Dateinamen. Anschließend betätigt er die Speichern-Schaltfläche des Datei-Speichern-Dialogs.}
+{Der Datei-Speichern-Dialog schließt sich. Ein Datei-Auswahl-Dialog öffnet sich.}
 
-%TODO Kürz mich
-\test{Öffnen einer Prolog-Programmdatei während im Editor bereits ein Prolog-Programm eingegeben wurde mit Verwerfen des geschriebenen Prolog-Programmes}{tst:openanother2}
+\teststep{Der Nutzer hat eine Datei über den Datei-Auswahl-Dialog ausgewählt.}
+{Der Nutzer betätigt die Öffnen-Schaltfläche des Datei-Auswahl-Dialogs.}
+{Der Datei-Auswahl-Dialog schließt sich.Das im Editor geöffnete Prolog-Programm wird in die gewählte Datei gespeichert. Die zu öffnende Datei wird in den Editor geladen und überschreibt den bisherigen Inhalt.}
+
+\test{Öffnen einer Prolog-Programmdatei und Verwerfen von vorhandenem Editor-Inhalt}{tst:openanother2}
 \tests{fnc:open}
 
 \teststep{Das Programm wird ausgeführt. Im Editor wurde ein Prolog-Programm von Hand eingegeben.}
@@ -488,12 +486,12 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Ein Datei-Auswahl-Dialog öffnet sich.}
 
 \teststep{Der Nutzer hat eine Datei über den Auswahl-Dialog ausgewählt.}
-{Der Nutzer betätigt die Öffnen-Schaltfläche.}
-{Ein Öffnen-Dialog fragt den Nutzer, ob das im Editor eingegebene Prolog-Programm gespeichert oder verworfen werden soll.}
+{Der Nutzer betätigt die Öffnen-Schaltfläche des Auswahl-Dialogs.}
+{Der Datei-Auswahl-Dialog schließt sich. Ein Öffnen-Dialog öffnet sich und fragt den Nutzer, ob das im Editor eingegebene Prolog-Programm gespeichert oder verworfen werden soll.}
 
 \teststep{Der Nutzer hat die Wahl, das im Editor geschriebene Prolog-Programm zu speichern oder zu verwerfen.}
-{Der Nutzer betätigt die Verwerfen-Schaltfläche.}
-{Das im Editor geöffnete Prolog-Programm wird verworfen. Die zu öffnende Datei wird in dem Editor geöffnet und überschreibt den bisherigen Inhalt.}
+{Der Nutzer betätigt die Verwerfen-Schaltfläche des Öffnen-Dialogs.}
+{Der Öffnen-Dialog schließt sich. Das im Editor geöffnete Prolog-Programm wird verworfen. Die zu öffnende Datei wird in dem Editor geöffnet und überschreibt den bisherigen Inhalt.}
 
 \test{Speichern eines im Editor geschrieben Prolog-Programmes}{tst:saveas}
 \tests{fnc:saveas}
@@ -649,7 +647,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \captionof{figure}{Die zu exportierende Visualisierung}
 \end{minipage}
 
-\test{Visualierung fehlgeschlagener Unifikation}{tst:unificationfail}
+\test{Visualisierung fehlgeschlagener Unifikation}{tst:unificationfail}
 \tests{fnc:unificationfail}
 
 \teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
@@ -663,7 +661,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \captionof{figure}{Zustand nach einem Schritt: fehlgeschlagene Unifikation}
 \end{minipage}
 
-\test{Visualierung erfolgreicher Unifikation}{tst:unificationsuccess}
+\test{Visualisierung erfolgreicher Unifikation}{tst:unificationsuccess}
 \tests{fnc:unificationsuccess}
 
 \teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
