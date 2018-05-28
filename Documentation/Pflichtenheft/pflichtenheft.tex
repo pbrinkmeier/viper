@@ -1259,6 +1259,97 @@ Diese Unifikation schlägt fehl.
 Fehlgeschlagene Unifikationen enthalten im unteren Rechteck den Satz \enquote{Unifikation fehlgeschlagen:} und den Grund des Fehlschlags.
 Außerdem sind sie rot eingefärbt.
 
+\subsubsection{Unifikationsziel \enquote{=}}
+
+Das Unifikationziel \enquote{=} wird ähnlich der Unifikation von Funktorzielen durch ein Rechteck dargestellt, welches in drei weitere Rechtecke aufgeteilt wird.
+Das obere Rechteck enthält den Text \enquote{Unifikation}.
+Das mittlere Rechteck enthält zu unifizierenden Terme.
+Das untere Rechteck enthält bei erfolgreicher Unifikation die resultierenden Substitutionen und bei fehlgeschlagener Unifikation die Nachricht \enquote{Unifikation fehlgeschlagen:} und den Grund des Fehlschlages.
+Das Rechteck ist bei erfolgreicher Unifikation grün und bei fehlgeschlagener Unifikation rot eingefärbt.
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=0.7\linewidth]{build/visualisation/30_unification_success.png}
+}
+\captionof{figure}{Erfolgreiches Unifikationsziel}
+\end{minipage}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=0.7\linewidth]{build/visualisation/31_unification_fail.png}
+}
+\captionof{figure}{Fehlgeschlagenes Unifikationsziel}
+\end{minipage}
+
+\subsection{Visualisierung der Kannkriterien}
+
+\subsubsection{Auswertung arithmetischer Terme}
+
+Der Operator \texttt{is} wertet einen arithmetischen Term auf seiner rechten Seite aus und unifiziert das Ergebnis mit der linken Seite.
+Wenn auf der rechten Seite eine unbelegte Variable vorkommt, wird in einem rot gefärbten Rechteck die Nachricht \enquote{Unbelegte Variable:} mit dem Namen der Variable gezeigt.
+In diesem Fall schlägt das Ziel fehl.
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=0.7\linewidth]{build/visualisation/optional_is.png}
+}
+\captionof{figure}{Erfolgreiche Unifikation und Fehlschlag von \texttt{is}}
+\end{minipage}
+
+\subsubsection{Arithmetische Vergleiche}
+
+Das Ergebnis eines arithmetischen Vergleiches wird in einem kleinen Rechteck dargestellt.
+Ist die repräsentierte Aussage wahr, enthält das Rechteck ein Häckchen und ist grün eingefärbt.
+Ist sie nicht wahr, enthält das Rechteck ein Kreuz und ist rot eingefärbt.
+Kommt auf einer Seite des Vergleichsoperators eine unbelegte Variable vor, wird in einem rot gefärbten Rechteck die Nachricht \enquote{Unbelegte Variable:} mit dem Namen der Variable gezeigt.
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/optional_comparison.png}
+}
+\captionof{figure}{Mögliche Ergebnisse arithmetischer Vergleiche}
+\end{minipage}
+
+\subsubsection{Cut}
+
+Wenn ein Cut-Ziel erfüllt wird, wird in einem grün gefärbten Rechteck ein Häkchen und die Nachricht \enquote{Backtracking zu diesem Teilziel lässt X fehlschlagen.} angezeigt.
+Hierbei steht X für das übergeordnete Ziel, das fehlschlägt.
+
+Das Programm zu den folgenden Grafiken ist:
+
+\begin{lstlisting}
+magic(X, Z) :-
+  magic_number(Y),
+  max(X, Y, Z).
+
+max(X, Y, X) :-
+  X > Y, !.
+max(X, Y, Y).
+
+magic_number(42).
+magic_number(100).
+\end{lstlisting}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/optional_cut.png}
+}
+\captionof{figure}{Ersterfüllung des Cut}
+\end{minipage}
+
+Im nächsten Schritt versucht der Interpreter, das Cut-Ziel neu zu erfüllen.
+Dadurch schlägt das Ziel \texttt{max(50, 42, A)} fehl.
+Dies wird so dargestellt, als hätte das Ziel keine Lösungen.
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=\linewidth]{build/visualisation/optional_cut_backtrack.png}
+}
+\captionof{figure}{Fehlschlagen der übergeordneten Regel}
+\end{minipage}
+
+Der Interpreter sucht nach einer neuen Unifikation für \texttt{magic\_number} und kann anschließend das Teilziel \texttt{max} wieder besuchen.
+
 \section{Glossar}
 
 \subsection{Allgemein}
