@@ -73,7 +73,7 @@ yes
 no .
 \end{lstlisting}
 
-Nun ist es möglich, auf Fakten basierende Regeln einzuführen. Definieren wir also Großväter väterlicherseits als alle Väter von Vätern, indem wir Variablen als Platzhalter verwenden. Diese beginnen mit Großbuchstaben, Funktoren und Atome mit Kleinbuchstaben.
+Nun ist es möglich, auf Fakten oder anderen Regeln basierende Regeln einzuführen. Definieren wir also Großväter väterlicherseits als alle Väter von Vätern, indem wir Variablen als Platzhalter verwenden. Diese beginnen mit Großbuchstaben, Funktoren und Atome mit Kleinbuchstaben.
 
 \begin{lstlisting}
 paternalGrandfather(X, Y) :- father(X, Z), father(Z, Y).
@@ -83,19 +83,14 @@ Selbiges ist möglich für Abfragen.
 
 \begin{lstlisting}
 ?- father(X, bart).
-X = homer .
-?- father(X, Y).
-X = homer, Y = bart ;
-X = abe, Y = homer .
+X = homer
 ?- paternalGrandfather(X, Y).
-X = abe, Y = bart .
+X = abe, Y = bart
 \end{lstlisting}
 
 Die Antworten sind alle möglichen Kombinationen aus den Variablen, die den Fakten und Regeln entsprechen.
 
-Prolog ist hierbei anders als \enquote{andere} Programmiersprachen, da es sich um eine deklarative Programmiersprache handelt. Imperative Programmiersprachen (bspw. die Programmiersprache C) erledigen sequentiell eine vorgeschriebene Reihenfolge von Befehlen. Damit steht der Prozess des Lösens im Vordergrund. Deklarative Programmiersprachen wie Prolog beschreiben ein Problem und ermitteln den Lösungsweg automatisch. Im Vordergrund steht hier hingegen die Problembeschreibung.
-
-Zur Lösung eines Problems nutzt Prolog das Konzept der Unifikation. Dazu werden verschiedene Belegungen getestet, welche unter Umständen keine Lösung sind. Im Falle inkorrekter Belegungen wird die letzte Entscheidung zur Belegung rückgängig gemacht (\enquote{Backtracking}) und die nächste Belegung getestet.
+Prolog ist hierbei anders als \enquote{andere} Programmiersprachen, da es sich um eine deklarative Programmiersprache handelt. Bei der Programmierung in Prolog steht die Beschreibung eines Problems im Vordergrund. Der Prolog-Interpreter wendet einen festen Algorithmus an, um durch Unifikation Lösungen zu finden.
 
 VIPER, die VIPER Interactive Prolog Education Runtime, ist ein Programm zur Bearbeitung und dem Testen von einfachen Prolog-Programmen. Über die visuelle Schnittstelle ist es dem Nutzer möglich, Prolog zu schreiben, Abfragen zu stellen und die Abarbeitung dieser visualisieren zu lassen.
 
