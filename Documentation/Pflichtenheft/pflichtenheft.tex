@@ -983,7 +983,7 @@ Wurde ein Lösung für die Abfrage gefunden (1), wird eine Meldung in der Konsol
 
 Gibt es keine weiteren Lösungen mehr, wird eine Meldung (1) in der Konsole angezeigt und die Schaltfläche \enquote{Nächster Schritt} wird gesperrt (2).
 
-Dieser Fall tritt ein, wenn der Interpreter einen Rückschritt vom eingegeben Ziel auszuführen versucht.
+Dieser Fall tritt ein, wenn der Interpreter einen Backtrack vom eingegeben Ziel auszuführen versucht.
 In diesem Fall gibt es keine Fakten mehr, die mit dem Ziel unifizierbar sind.
 Unabhängig davon, ob es per se keine Lösungen gibt oder schon Lösungen gefunden wurden, wird die Meldung \enquote{Keine weiteren Lösungen.} in der Konsole angezeigt.
 
@@ -1095,8 +1095,8 @@ Der Eintrag \enquote{Sprache} (2) lässt den Nutzer die Sprache der GUI ändern.
 
 \subsection{Visualisierung}
 
-Um die Visualisierungsbeispiele besser darzustellen zu können, wurden sie hier ohne die grafische Oberfläche des Programms eingefügt.
-Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im Beispielprogramm.
+Um die Visualisierungsbeispiele besser darstellen zu können, wurden sie hier ohne die grafische Oberfläche des Programms eingefügt.
+Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im \texttt{simpsons.pl}-Programm.
 
 \subsubsection{Wurzel}
 
@@ -1125,7 +1125,7 @@ Der neue Name einer Variable setzt sich zusammen aus dem ursprünglichen Namen u
 
 Die Visualisierung stellt zu unifizierende Ziele als Runde Knoten dar.
 Unifikationen werden in  Rechtecken dargestellt, die in zwei weitere Rechtecke aufgeteilt sind.
-Dabei enthält jede Unifikation im oberen Rechteck den Fakt, mit dem unifiziert werden soll.
+Dabei enthält jede Unifikation im oberen Rechteck den Regelkopf, mit dem unifiziert werden soll.
 Erfolgreiche Unifikationen enthalten im unteren Rechteck die resultierenden Substitutionen.
 Außerdem sind sie grün eingefärbt.
 
@@ -1134,7 +1134,7 @@ Die Substitutionen werden in den Teilzielen angewendet und hervorgehoben.
 Die Unifikation und ihre Teilziele werden durch gestrichelte Kanten verbunden.
 Dadurch werden in der Visualisierung die Fälle \enquote{Ziel wurde unifiziert mit} und \enquote{Ziel ist Teilziel von Regel} unterschieden.
 
-\subsubsection{Erfolgreiche Unifikation mit Substution in weiteren Teilzielen}
+\subsubsection{Erfolgreiche Unifikation mit Substitution in weiteren Teilzielen}
 
 Im nächsten Schritt steigt der Interpreter in die Teilziele ab und versucht, von links nach rechts diese zu unifizieren.
 
@@ -1161,15 +1161,15 @@ Der Interpreter muss also nach einer alternativen Definition von \texttt{parent}
 \makebox[\linewidth]{
 \includegraphics[width=\linewidth]{build/visualisation/09_mother_backtrack.png}
 }
-\captionof{figure}{Rücksprung nachdem ein Ziel nicht erfüllbar ist}
+\captionof{figure}{Backtrack nachdem ein Ziel nicht erfüllbar ist}
 \end{minipage}
 
-Ein Rücksprung wird durch eine aus Punkten bestehende, rot eingefärbte Kante dargestellt.
+Ein Backtrack wird durch eine aus Punkten bestehende, rot eingefärbte Kante dargestellt.
 Das nicht erfüllbare Teilziel wird ebenfalls rot eingefärbt und mit dem Text \enquote{Nicht erfüllbar!} ergänzt.
 
 \subsubsection{Fehlgeschlagene Unifikation}
 
-Nach dem Rücksprung findet der Interpreter die zweite \texttt{parent(X, Y)}-Regel, die das Teilziel \texttt{father(X, Y)} hat.
+Nach dem Backtrack findet der Interpreter die zweite \texttt{parent(X, Y)}-Regel, die das Teilziel \texttt{father(X, Y)} hat.
 Mit den bisherigen Lösungen ist das neue Ziel \texttt{father(homer, Y)}.
 Der Interpreter versucht, mit \texttt{father(abe, homer)} zu unifizieren, da der Funktorname übereinstimmt.
 Diese Unifikation schlägt fehl.
