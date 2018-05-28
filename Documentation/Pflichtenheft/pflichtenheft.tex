@@ -1205,12 +1205,7 @@ Unterstützt werden Identifier, Variablen, nicht-negative ganze Zahlen inklusive
 Ziel, für das alle möglichen Lösungen gefunden werden sollen. Die Lösung kann eine Menge an Belegungen für Variablen oder eine Ja-Nein-Antwort sein.
 
 \textbf{Arithmetik}:
-Grundlegende Arithmetik beinhaltet natürliche Zahlen inklusive der 0. Unterstützt werden die Arithmetikoperationen:\\
-\texttt{+, -, *, <, =<, >, >=, =\textbackslash=, =:=}\\
-\\
-Für Abfragen wie\\
-\enquote{$4 = 1 + 3$}\\
-wird der \texttt{is}-Operator unterstützt. Dieser evaluiert zuerst die rechte Seite arithmetisch und unifiziert diese anschließend mit der Linken.
+Die unterstützte Arithmetik erkennt natürliche Zahlen inklusive der 0. Unterstützte Operationen sind Addition, Subtraktion und Multiplikation (\texttt{+, -, *}) sowie grundlegende Vergleichsoperationen (\texttt{<, =<, >, >=}) inklusive Ungleichheit (\texttt{=\textbackslash=}) und arithmetische Gleichheit (\texttt{=:=}).\\\\Für Abfragen wie \enquote{$4 = 1 + 3$} wird der \texttt{is}-Operator unterstützt. Dieser evaluiert zuerst die rechte Seite arithmetisch und unifiziert diese anschließend mit der Linken.
 
 \textbf{Backtracking}:
 %TODO GUI Beheben
@@ -1226,47 +1221,46 @@ Wird ein Cut im Kontext einer Abfrage im Zuge des Backtrackings erneut besucht, 
 Aussage, welche als wahr angenommen wird. Im Kontext von Prolog: eine Regel ohne Teilziele.
 
 \textbf{Funktor}:
-Term, der beliebig viele Teil-Terme besitzt. Form: Identifier | Identifier ( Term{, Term}*)
+Term, der beliebig viele Teil-Terme besitzt.\\Form:\ \texttt{Identifier | Identifier ( Term\{, Term\}*)}
 
 \textbf{Gleichheit}:
 Terme sind genau dann gleich, wenn die linke und rechte Seite eines Terms komplett identisch sind und keine Variablen enthalten.
 
 \textbf{Identifier}:
-Grundbaustein. Form: [a-z][a-zA-Z0-9]*
+Grundbaustein.\\Form:\ \texttt{[a-z][a-zA-Z0-9]*}
 
 \textbf{Interpreter}:
 Ausführungsmechanismus für Abfragen. Nachdem sowohl das zugrunde liegende Prolog-Programm als auch die Abfrage durch den Parser verarbeitet wurden, findet eine schrittweise Interpretation der genannten Abfrage statt.
 
 \textbf{Listen}:
-Die leere Liste wird durch \enquote{\texttt{[]}} dargestellt. Eine Liste mit Inhalt wird durch \enquote{\texttt{[1, 2, 3]}} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\\
-\texttt{[1, 2, 3]} = \texttt{[1 | [2 | [3 | []]]]}
+Die leere Liste wird durch \enquote{\texttt{[]}} dargestellt. Eine Liste mit Inhalt wird bspw. in der Form \enquote{\texttt{[1, 2, 3]}} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt.\\Das heißt:\ \texttt{[1, 2, 3]} = \texttt{[1 | [2 | [3 | []]]]}
 
 \textbf{Parser}:
 Umwandlungsmechanismus für Prolog-Programme, der diese in ein für die Weiterverarbeitung geeignetes Format bringt und auf syntaktische Fehler prüft.
 
 \textbf{Regel}:
-Vorgeschriebene Folgerungen. So kann man z.B. festlegen, dass man nur der Großvater einer Person ist, wenn man der Vater eines Elternteils der Person ist. Form: Funktor. | Funktor :- Ziel{, Ziel}*.
+Vorgeschriebene Folgerungen. So kann man z.B. festlegen, dass man nur der Großvater einer Person ist, wenn man der Vater eines Elternteils der Person ist.\\Form:\ \texttt{Funktor. | Funktor :- Ziel\{, Ziel\}*.}
 
 \textbf{Schritt}:
 Nächste Operation, die zur Interpretation einer Abfrage nötig ist.
 
 \textbf{Standardbibliothek}:
-Vorgegebene Fakten und Regeln, welche automatisch beim Parsen angefügt werden können.
+Vorgegebene Fakten und Regeln, welche automatisch beim Parsen angefügt werden können. Enthält unter anderem die Regeln \texttt{length} und \texttt{append} für Listen.
 
 \textbf{Substitution}
 Ersetzung einer Variable durch einen Term.
 
 \textbf{Term}:
-Grundbaustein eines Prolog-Programms. Form: Functor | Variable | Zahl
+Grundbaustein eines Prolog-Programms.\\Form:\  \texttt{Functor | Variable | Zahl}
 
 \textbf{Unifikation}:
 Zwei Terme sind genau dann unifizierbar, wenn sie gleich sind oder Substitutionen gefunden werden können, sodass die Terme gleich sind. Diese Substitutionen sind das Ergebnis der Unifikation.
 
 \textbf{Variable}:
-Platzhalter. Erlaubt das allgemeine Beschreiben von Regeln. Können für einen beliebigen Term stehen. Form: [A-Z][a-zA-Z0-9]*
+Platzhalter. Erlaubt das allgemeine Beschreiben von Regeln. Können für einen beliebigen Term stehen.\\Form:\  \texttt{[A-Z][a-zA-Z0-9]*}
 
 \textbf{Ziel}:
-Zu lösender Teil einer Regel, welcher einem Funktor, einem Unifikationsziel, Arithmetik oder dem \enquote{Cut}-Operator entsprechen kann. Form: Funktor | Term = Term | Term is Term | !
+Zu lösender Teil einer Regel, welcher einem Funktor, einem Unifikationsziel, Arithmetik oder dem \enquote{Cut}-Operator entsprechen kann.\\Form:\ \texttt{Funktor | Term = Term | Term is Term | !}
 
 \textbf{Zustand}:
 Ergebnis der bisher durchgeführten Schritte.
