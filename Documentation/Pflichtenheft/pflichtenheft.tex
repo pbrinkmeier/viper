@@ -213,7 +213,7 @@ Das Programm beschränkt sich auf eine graphische Darstellung über GUI-Elemente
 
 Das Programm ist nicht für professionelle Anwendungszwecke ausgelegt.
 
-\criteriumNot{Parser}{crt:parser}
+\criteriumNot{Parser}{crt:externalparser}
 
 Der Parser ist gegeben und wird nicht selbst implementiert.
 
@@ -542,6 +542,22 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Zwischenschritte werden visualisiert. In der Konsole erscheint die erste Lösung \texttt{X = bart .}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% TODO
+\test{Aktivieren der Standardbibliothek}{tst:disablelib}
+\tests{fnc:disablelib}
+
+\teststep{Der Nutzer hat das Prolog-Programm \texttt{cons(1, cons(2, 3))} im Editor eingegeben. Die Standardbibliothek ist nicht aktiviert.}
+{Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
+{Eine Fehlermeldung wird angezeigt.}
+
+\teststep{Das Parsen des Prolog-Programms war nicht erfolgreich. Eine Fehlermeldung wird in der Konsole angezeigt.}
+{Der Nutzer setzt den Haken bei der \enquote{Standardbibliothek laden}-Schaltfläche in der Menüleiste.}
+{Die Standardbibliothek ist nun aktiviert.}
+
+\teststep{Die Standardbibliothek ist aktiviert.}
+{Der Nutzer betätigt erneut die Parsen-Schaltfläche in der Menüleiste.}
+{Das Prolog-Programm wird erfolgreich geparst. Das Eingabefeld erwartet eine Eingabe.}
 
 \test{Zoomen innerhalb eines Visualisierungsbaumes}{tst:zoom}
 \tests{fnc:zoom}
