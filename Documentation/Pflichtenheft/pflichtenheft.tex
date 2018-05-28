@@ -605,23 +605,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\test{Export als Bilddatei für Foliensätze}{tst:latexexport}
-\tests{fnc:latexexport}
-
-\teststep{Ein Prolog-Programm ist im Editor geöffnet und ein beliebiger Schritt einer Abfrage als Graph visualisiert.}
-{Der Nutzer wählt über die Menüleiste die Exportieren-Funktion aus.}
-{Ein Auswahl-Dialog öffnet sich.}
-
-\teststep{Ein Dialog mit den Auswahlmöglichkeiten \enquote{SVG} und \enquote{PNG} ist geöffnet}
-{Der Nutzer wählt eine der beiden Optionen aus. Anschließend betätigt er die Speichern-Schaltfläche in der Menüleiste.}
-{Ein Datei-Speichern-Dialog öffnet sich.}
-
-\teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
-{Der Nutzer wählt einen Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt er die Speichern-Schaltfläche.}
-{Die Visualisierung wird im ausgewählten Format an dem gewählten Ort gespeichert. Die passende \texttt{.svg} bzw. \texttt{.png} Dateieendung wird wenn nötig ergänzt.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \test{Export als LaTeX für Foliensätze}{tst:latexexporttikz}
 \tests{fnc:latexexport}
 
@@ -636,6 +619,23 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
 {Der Nutzer wählt einen Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt er die Speichern-Schaltfläche.}
 {Die Visualisierung wird als TeX-Datei an dem gewählten Ort gespeichert. Die passende \texttt{.tex} Dateiendung wird wenn nötig ergänzt.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\test{Export als Bilddatei für Foliensätze}{tst:latexexport}
+\tests{fnc:imageexport}
+
+\teststep{Ein Prolog-Programm ist im Editor geöffnet und ein beliebiger Schritt einer Abfrage als Graph visualisiert.}
+{Der Nutzer wählt über die Menüleiste die Exportieren-Funktion aus.}
+{Ein Auswahl-Dialog öffnet sich.}
+
+\teststep{Ein Dialog mit den Auswahlmöglichkeiten \enquote{SVG} und \enquote{PNG} ist geöffnet}
+{Der Nutzer wählt eine der beiden Optionen aus. Anschließend betätigt er die Speichern-Schaltfläche in der Menüleiste.}
+{Ein Datei-Speichern-Dialog öffnet sich.}
+
+\teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
+{Der Nutzer wählt einen Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt er die Speichern-Schaltfläche.}
+{Die Visualisierung wird im ausgewählten Format an dem gewählten Ort gespeichert. Die passende \texttt{.svg} bzw. \texttt{.png} Dateieendung wird wenn nötig ergänzt.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
