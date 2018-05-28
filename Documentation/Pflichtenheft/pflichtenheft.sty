@@ -35,7 +35,7 @@
 % document macros
 \newcommand\criterium[2]{
   \stepcounter{criterium}
-  \par\textbf{#1}\rdflabel{#2}
+  \par\textbf{#1}\phantomsection\rdflabel{#2}
   \marginid{\PrefixMussKriterium\arabic{criterium}}
   \AddPropertyEx{pfl:crtname}{#1}
   \AddPropertyEx{pfl:crtid}{\PrefixMussKriterium\arabic{criterium}}
@@ -46,7 +46,7 @@
 
 \newcommand\criteriumOptional[2]{
   \stepcounter{criteriumOpt}
-  \par\textbf{#1}\rdflabel{#2}
+  \par\textbf{#1}\phantomsection\rdflabel{#2}
   \marginid{\PrefixKannKriterium\arabic{criteriumOpt}}
   \AddPropertyEx{pfl:crtname}{#1}
   \AddPropertyEx{pfl:crtid}{\PrefixKannKriterium\arabic{criteriumOpt}}
@@ -57,7 +57,7 @@
 
 \newcommand\criteriumNot[2]{
   \stepcounter{criteriumNot}
-  \par\textbf{#1}\rdflabel{#2}
+  \par\textbf{#1}\phantomsection\rdflabel{#2}
   \marginid{\PrefixAbgrenzungsKriterium\arabic{criteriumNot}}
   \AddPropertyEx{pfl:crtname}{#1}
   \AddPropertyEx{pfl:crtid}{\PrefixAbgrenzungsKriterium\arabic{criteriumNot}}
@@ -65,7 +65,7 @@
 
 \newcommand\functionality[2]{
   \stepcounter{functionality}
-  \par\textbf{#1}\rdflabel{#2}
+  \par\textbf{#1}\phantomsection\rdflabel{#2}
   \marginid{\PrefixFunktional\arabic{functionality}}
   \AddPropertyEx{pfl:fncname}{#1}
   \AddPropertyEx{pfl:fncid}{\PrefixFunktional\arabic{functionality}}
@@ -77,7 +77,7 @@
 
 \newcommand\nonFunctionality[2]{
   \stepcounter{nonfunctionality}
-  \par\textbf{#1}\rdflabel{#2}
+  \par\textbf{#1}\phantomsection\rdflabel{#2}
   \marginid{\PrefixNichtFunktional\arabic{nonfunctionality}}
   \AddPropertyEx{pfl:fncname}{#1}
   \AddPropertyEx{pfl:fncid}{\PrefixNichtFunktional\arabic{nonfunctionality}}
@@ -85,7 +85,7 @@
 
 \newcommand\test[2]{
   \stepcounter{test}
-  \par\textbf{#1}\rdflabel{#2}
+  \par\textbf{#1}\phantomsection\rdflabel{#2}
   \marginid{\PrefixTest\arabic{test}}
   \AddPropertyEx{pfl:tstname}{#1}
   \AddPropertyEx{pfl:tstid}{\PrefixTest\arabic{test}}
