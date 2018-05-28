@@ -1157,10 +1157,14 @@ Da Termgleichheit in Prolog keine Arithmetik unterstützt, können Abfragen wie\
 nicht ausgewertet werden. Deshalb wird zusätzlicher der \texttt{is}-Operator unterstützt. Dieser evaluiert zuerst die rechte Seite arithmetisch und unifiziert diese anschließend mit der Linken.
 
 \textbf{Backtracking / Rückschreiten}:
-Aufheben der letzten Wahl bei der Suche nach einer passenden Variablenbelegung.
+Ist für ein Ziel keine Unifikation mehr möglich, muss der Interpreter versuchen, vorhergehende Teilziele anders zu unifizieren oder, falls es keine vorhergehenden Teilziele gibt, eine andere Unifikation für die übergeordnete Regel zu finden.
+Diesen Prozess nennt man \enquote{Backtracking}.
 
 \textbf{Cut}:
-Wird durch \enquote{\texttt{!}} dargestellt. Teilziel einer Regel, bei dem die erste Unifikation immer erfolgreich ist. Alle weiteren Unifikationen beim Backtracking schlagen fehl. Außerdem werden alle nachfolgenden Regeln mit dem selben Kopf verworfen.
+Ein Cut, in Prolog-Programmen geschrieben als \texttt{!}, ist ein spezielles Ziel.
+Die erste Unifikation eines Cuts ist immer erfolgreich.
+Wird ein Cut im Kontext einer Abfrage im Zuge des Backtrackings erneut besucht, schlägt die Abfrage fehl.
+Anschaulich könnte man sagen, dass ein Cut alle bisherigen Backtracking-Ziele löscht.
 
 \textbf{Fakt}:
 Aussage, welche als wahr angenommen wird. Im Kontext von Prolog: eine Regel ohne Teilziele.
