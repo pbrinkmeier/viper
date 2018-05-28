@@ -495,15 +495,22 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt die Verwerfen-Schaltfläche.}
 {Das im Editor geöffnete Prolog-Programm wird verworfen. Die zu öffnende Datei wird in dem Editor geöffnet und überschreibt den bisherigen Inhalt.}
 
-\test{Speichern eines im Editor geschrieben Prolog-Programmes}{tst:save}
-\tests{fnc:save}
+\test{Speichern eines im Editor geschrieben Prolog-Programmes}{tst:saveas}
+\tests{fnc:saveas}
 
-\teststep{Das Programm wird ausgeführt. Ein Prolog-Programm ist im Editor von Hand eingegeben.}
-{Der Nutzer wählt über die Menüleiste die Speichern-Funktion aus.}
+\teststep{Das Programm wird ausgeführt. Ein Prolog-Programm ist im Editor von Hand eingegeben worden.}
+{Der Nutzer wählt über die Menüleiste die Speichern-als-Funktion aus.}
 {Ein Datei-Speichern-Dialog öffnet sich.}
 
 \teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
 {Der Nutzer wählt einen Speicherort und Dateinamen aus. Anschließend betätigt er die Speichern-Schaltfläche.}
+{Der Inhalt des Editors wird an den gewählten Ort geschrieben.}
+
+\test{Speichern eines aus einer Datei geöffneten Prolog-Programmes}{tst:save}
+\tests{fnc:save}
+
+\teststep{Das Programm wird ausgeführt. Ein Prolog-Programm ist aus einer Datei geöffnet worden.}
+{Der Nutzer wählt über die Menüleiste die Speichern-Funktion aus.}
 {Der Inhalt des Editors wird an den gewählten Ort geschrieben.}
 
 \test{Inkorrektes Prolog-Programm}{tst:errorcheck}
