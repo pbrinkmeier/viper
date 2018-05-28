@@ -1,0 +1,27 @@
+digraph VIPER_visualization_root {
+    node [fontname = "Fira Mono"];
+
+    root [label = "X is 17 + 25"];
+    root_success [
+        // enables having multiple boxes inside a node
+        shape = record,
+        // using < and > instead of quotes for delimiting a label makes it possible to use (a subset of) HTML in it
+        // { A | B } makes A and B be in two separate boxes stacked on top of each other
+        label = <{<font point-size="8">Unifikation</font>|X = 42|X = 42}>,
+        color = green
+    ];
+
+    root -> root_success [color = green];
+
+    root2 [label = "E is M * C * C"];
+    root2_fail [
+        // enables having multiple boxes inside a node
+        shape = record,
+        // using < and > instead of quotes for delimiting a label makes it possible to use (a subset of) HTML in it
+        // { A | B } makes A and B be in two separate boxes stacked on top of each other
+        label = <Unbelegte Variable: M>,
+        color = red
+    ];
+
+    root2 -> root2_fail [color = red];
+}

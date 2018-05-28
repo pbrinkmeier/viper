@@ -1,0 +1,30 @@
+digraph VIPER_visualization_root {
+    node [fontname = "Fira Mono"];
+
+    root [label = "17 < 42"];
+    root_success [
+        shape = record,
+        label = "✓",
+        color = green
+    ];
+
+    root -> root_success [color = green];
+
+    root2 [label = "17 > 42"];
+    root2_fail [
+        shape = record,
+        label = "✗",
+        color = red
+    ];
+
+    root2 -> root2_fail [color = red];
+
+    root3 [label = "Answer =:= 42"];
+    root3_fail [
+        shape = record,
+        label = <Unbelegte Variable: Answer>,
+        color = red
+    ];
+
+    root3 -> root3_fail [color = red];
+}

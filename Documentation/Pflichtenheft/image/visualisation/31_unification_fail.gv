@@ -1,0 +1,15 @@
+digraph VIPER_visualization_root {
+    node [fontname = "Fira Mono"];
+
+    root [label = "cons(1, cons(2, nil)) = cons(42, Rest)"];
+    root_success [
+        // enables having multiple boxes inside a node
+        shape = record,
+        // using < and > instead of quotes for delimiting a label makes it possible to use (a subset of) HTML in it
+        // { A | B } makes A and B be in two separate boxes stacked on top of each other
+        label = <{<font point-size="8">Unifikation</font>|cons(1, cons(2, nil)) = cons(42, Rest)|Unifikation fehlgeschlagen: 1 ≠ 42}>,
+        color = red
+    ];
+
+    root -> root_success [color = red];
+}

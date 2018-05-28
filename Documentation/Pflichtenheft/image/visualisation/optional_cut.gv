@@ -1,0 +1,62 @@
+digraph VIPER_visualization_cut {
+    node [fontname = "Fira Mono"];
+
+    root [label = "magic(50, A)"];
+    root_success [
+        shape = record,
+        label = <{magic<sub>1</sub>(X<sub>1</sub>, Z<sub>1</sub>)|X<sub>1</sub> = 50, Z<sub>1</sub> = A}>
+    ];
+    subgoal1 [label = <magic_number(Y<sub>1</sub>)>];
+    subgoal2 [label = <max(50, 42, A)>];
+
+    magic_number_solution [
+        shape = record,
+        label = <{magic_number<sub>1</sub>(42)|Y<sub>1</sub> = 42}>
+    ];
+
+    max_solution [
+        shape = record,
+        label = <{max<sub>1</sub>(X<sub>2</sub>, Y<sub>2</sub>, X<sub>2</sub>)|X<sub>2</sub> = 50, Y<sub>2</sub> = 42, A = 50}>
+    ];
+
+    max_comparison [
+        label = "50 > 42"
+    ];
+
+    max_cut [
+        label = "!"
+    ];
+
+    comparison_success [
+        shape = record,
+        label = "✓"
+    ];
+
+    cut_success [
+        shape = record,
+        color = green,
+        label = "✓\nBacktracking zu diesem Teilziel\nlässt max(50, 42, A) fehlschlagen"
+    ];
+
+    // this ensures that subgoal1 is always left of subgoal2
+    // and that they are always on the same level
+    // try commenting the rank = same line and see what happens
+    {rank = same; subgoal1; subgoal2}
+    subgoal1 -> subgoal2 [style=invis];
+
+    {rank = same; max_comparison; max_cut}
+    max_comparison -> max_cut [style=invis];
+
+    root -> root_success;
+    root_success -> subgoal1 [style=dashed];
+    root_success -> subgoal2 [style=dashed];
+
+    subgoal1 -> magic_number_solution;
+    subgoal2 -> max_solution;
+
+    max_solution -> max_comparison;
+    max_solution -> max_cut;
+
+    max_comparison -> comparison_success;
+    max_cut -> cut_success [color = green];
+}
