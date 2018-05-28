@@ -564,7 +564,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 \teststep{Der erste Interpretationsschritt ist visualisiert.}
 {Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wurde.}
-{Zwischenschritte werden visualisiert. In der Konsole erscheint die erste Lösung \texttt{X = bart .}}
+{Zwischenschritte werden visualisiert. In der Konsole erscheint die erste Lösung \texttt{X = bart }.}
 
 \test{Ausführen arithmetischer Operationen}{tst:maths}
 \tests{fnc:maths}
@@ -606,39 +606,39 @@ max(X, Y, Y).
 \end{lstlisting}
 
 \teststep{Das Programm wird ausgeführt und ist fokussiert. Das \hyperref[tst:cut_prog]{Prolog-Programm für Cut} ist geöffnet.}
-{Der Nutzer gibt die Abfrage \texttt{max(42, 17, X).} ein}
-{In der Konsole erscheint die Lösung \texttt{X = 42}}
+{Der Nutzer gibt die Abfrage \texttt{max(42, 17, X).} ein.}
+{In der Konsole erscheint die Lösung \texttt{X = 42}.}
 
-% TODO
 \test{Aktivieren der Standardbibliothek}{tst:enablelib}
 \tests{fnc:disablelib}
 
-\teststep{Der Nutzer hat das Prolog-Programm \texttt{cons(1, cons(2, 3))} im Editor eingegeben. Die Standardbibliothek ist nicht aktiviert.}
+\teststep{Das Programm ist geöffnet und fokussiert. Der Editor ist leer. Die Standardbibliothek ist nicht aktiviert.}
 {Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
-{Eine Fehlermeldung wird angezeigt.}
+{Das leere Prolog-Programm wird erfolgreich geparst.}
 
-\teststep{Das Parsen des Prolog-Programms war nicht erfolgreich. Eine Fehlermeldung wird in der Konsole angezeigt.}
+\teststep{Das Parsen des Prolog-Programms war erfolgreich. Das Eingabefeld ist freigeschaltet.}
+{Der Nutzer gibt die Abfrage \texttt{append([1], [2], X).} in das Eingabefeld ein und bestätigt mit der Eingabe-Taste.}
+{Die Abfrage wird interpretiert und die Wurzel des Graphen angezeigt.}
+
+\teststep{Die Wurzel des Graphen wird angezeigt.}
+{Der Nutzer betätigt die \enquote{Nächste Lösung}-Schaltfläche.}
+{In der Visualisierung wird \enquote{Nicht erfüllbar!} angezeigt. Die Konsole zeigt \enquote{\texttt{no .}} an.}
+
+\teststep{Die Visualisierung wird angezeigt.}
 {Der Nutzer setzt den Haken bei der \enquote{Standardbibliothek laden}-Schaltfläche in der Menüleiste.}
-{Die Standardbibliothek ist nun aktiviert.}
+{Die Standardbibliothek ist nun aktiviert. Die Visualisierung und der Inhalt der Konsole werden verworfen.}
 
 \teststep{Die Standardbibliothek ist aktiviert.}
 {Der Nutzer betätigt erneut die Parsen-Schaltfläche in der Menüleiste.}
-{Das Prolog-Programm wird erfolgreich geparst. Das Eingabefeld erwartet eine Eingabe.}
+{Das Prolog-Programm wird erfolgreich geparst.}
 
-\test{Deaktivieren der Standardbibliothek}{tst:disablelib}
-\tests{fnc:disablelib}
+\teststep{Das Parsen des Prolog-Programms war erfolgreich. Das Eingabefeld ist freigeschaltet.}
+{Der Nutzer gibt die Abfrage \texttt{append([1], [2], X).} in das Eingabefeld ein und bestätigt mit der Eingabe-Taste.}
+{Die Abfrage wird interpretiert und die Wurzel des Graphen angezeigt.}
 
-\teststep{Der Nutzer hat das Prolog-Programm \texttt{cons(1, cons(2, 3))} im Editor eingegeben. Die Standardbibliothek ist aktiviert.}
-{Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
-{Das Prolog-Programm wird erfolgreich geparst. Das Eingabefeld erwartet eine Eingabe.}
-
-\teststep{Das Parsen des Prolog-Programms war erfolgreich.}
-{Der Nutzer entfernt den Haken bei der \enquote{Standardbibliothek laden}-Schaltfläche in der Menüleiste.}
-{Die Standardbibliothek ist nun deaktiviert.}
-
-\teststep{Die Standardbibliothek ist deaktiviert.}
-{Der Nutzer betätigt erneut die Parsen-Schaltfläche in der Menüleiste.}
-{Eine Fehlermeldung wird angezeigt.}
+\teststep{Die Wurzel des Graphen wird angezeigt.}
+{Der Nutzer betätigt die \enquote{Nächste Lösung}-Schaltfläche.}
+{Die nächste Lösung wird erfolgreich in der Visualisierung angezeigt. In der Konsole erscheint die Lösung \texttt{X = [1, 2]}.}
 
 \test{Zoomen innerhalb der Visualisierung}{tst:zoom}
 \tests{fnc:zoom}
