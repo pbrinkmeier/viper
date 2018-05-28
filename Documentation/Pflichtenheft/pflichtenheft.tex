@@ -399,7 +399,7 @@ Eine automatische Formatierung von Prolog-Quellcode ist über die Menüleiste m�
 \functionality{Wechsel der verwendeten Sprache}{fnc:translation}
 \fulfills{crt:translation}
 
-Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden.
+Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden. Die gewählte Sprache bleibt nach einem Neustart des Programms erhalten.
 
 \functionality{Schnellzugriffsleiste}{fnc:buttons}
 \fulfills{crt:buttons}
@@ -506,7 +506,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \tests{fnc:errorcheck}
 
 \teststep{Der Nutzer hat das inkorrektes Prolog-Programm \texttt{father.} in den Editor eingetragen.}
-{Der Nutzer betätigt die Parsen-Schaltfläche, um das Prolog-Programm zu parsen.}
+{Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste, um das Prolog-Programm zu parsen.}
 {Die Ausführung wird abgebrochen. Eine verständliche Fehlermeldung (``Syntax-Fehler in Zeile 1'') wird in der Konsole angezeigt.}
 
 \test{Interpretierung vom simpsons.pl-Programm}{tst:simpsons}
@@ -532,7 +532,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \tests{fnc:interpreteroutput}
 
 \teststep{Der Nutzer hat das korrekte Prolog-Programm \texttt{father(homer, bart). father(homer, lisa).} im Editor eingegeben.}
-{Der Nutzer betätigt die Parsen-Schaltfläche im Hauptfenster.}
+{Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
 {In der Konsole wird eine Erfolgsnachricht ausgegeben.}
 
 \teststep{Das Eingabefeld erwartet eine Abfrage.}
@@ -542,6 +542,37 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \teststep{Die Wurzel des Graphen wird angezeigt.}
 {Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wurde.}
 {Zwischenschritte werden visualisiert. In der Konsole erscheint die erste Lösung \texttt{X = bart .}}
+
+% TODO
+\test{Aktivieren der Standardbibliothek}{tst:enablelib}
+\tests{fnc:disablelib}
+
+\teststep{Der Nutzer hat das Prolog-Programm \texttt{cons(1, cons(2, 3))} im Editor eingegeben. Die Standardbibliothek ist nicht aktiviert.}
+{Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
+{Eine Fehlermeldung wird angezeigt.}
+
+\teststep{Das Parsen des Prolog-Programms war nicht erfolgreich. Eine Fehlermeldung wird in der Konsole angezeigt.}
+{Der Nutzer setzt den Haken bei der \enquote{Standardbibliothek laden}-Schaltfläche in der Menüleiste.}
+{Die Standardbibliothek ist nun aktiviert.}
+
+\teststep{Die Standardbibliothek ist aktiviert.}
+{Der Nutzer betätigt erneut die Parsen-Schaltfläche in der Menüleiste.}
+{Das Prolog-Programm wird erfolgreich geparst. Das Eingabefeld erwartet eine Eingabe.}
+
+\test{Deaktivieren der Standardbibliothek}{tst:disablelib}
+\tests{fnc:disablelib}
+
+\teststep{Der Nutzer hat das Prolog-Programm \texttt{cons(1, cons(2, 3))} im Editor eingegeben. Die Standardbibliothek ist aktiviert.}
+{Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
+{Das Prolog-Programm wird erfolgreich geparst. Das Eingabefeld erwartet eine Eingabe.}
+
+\teststep{Das Parsen des Prolog-Programms war erfolgreich.}
+{Der Nutzer entfernt den Haken bei der \enquote{Standardbibliothek laden}-Schaltfläche in der Menüleiste.}
+{Die Standardbibliothek ist nun deaktiviert.}
+
+\teststep{Die Standardbibliothek ist deaktiviert.}
+{Der Nutzer betätigt erneut die Parsen-Schaltfläche in der Menüleiste.}
+{Eine Fehlermeldung wird angezeigt.}
 
 \test{Zoomen innerhalb eines generierten Graphen}{tst:zoom}
 \tests{fnc:zoom}
@@ -568,21 +599,6 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt die Formatieren-Schaltfläche in der Menüleiste.}
 {Das Prolog-Programm wird automatisch formatiert. Der Editor zeigt nun das formatierte \texttt{simpsons.pl}-Programm an.}
 
-\test{Export als Bilddatei für Foliensätze}{tst:imageexport}
-\tests{fnc:imageexport}
-
-\teststep{Das Beispielprogramm ist im Editor geöffnet und der unten gezeigte Zustand wurde erreicht und visualisiert.}
-{Der Nutzer wählt über die Menüleiste die Exportieren-Funktion aus.}
-{Ein Auswahl-Dialog öffnet sich.}
-
-\teststep{Ein Dialog mit den Auswahlmöglichkeiten \enquote{SVG} und \enquote{PNG} ist geöffnet}
-{Der Nutzer wählt eine der beiden Optionen aus. Anschließend betätigt er die Speichern-Schaltfläche.}
-{Ein Datei-Speichern-Dialog öffnet sich.}
-
-\teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
-{Der Nutzer wählt einen Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt er die Speichern-Schaltfläche.}
-{Die Visualisierung wird im ausgewählten Format an dem gewählten Ort gespeichert. Die passende \texttt{.svg} bzw. \texttt{.png} Dateieendung wird, wenn nötig, ergänzt.}
-
 \test{Export als LaTeX für Foliensätze}{tst:latexexporttikz}
 \tests{fnc:latexexport}
 
@@ -591,12 +607,29 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Ein Auswahl-Dialog öffnet sich.}
 
 \teststep{Ein Dialog mit den Auswahlmöglichkeiten Grafik (\enquote{SVG}, \enquote{PNG}) und LaTeX ist geöffnet.}
-{Der Nutzer wählt die LaTeX-Option aus. Anschließend betätigt er die Speichern-Schaltfläche.}
+{Der Nutzer wählt die LaTeX Option aus. Anschließend betätigt er die Speichern-Schaltfläche.}
 {Ein Datei-Speichern-Dialog öffnet sich.}
 
 \teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
 {Der Nutzer wählt einen Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt er die Speichern-Schaltfläche.}
 {Die Visualisierung wird als TeX-Datei an dem gewählten Ort gespeichert. Die passende \texttt{.tex} Dateiendung wird wenn nötig ergänzt.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\test{Export als Bilddatei für Foliensätze}{tst:latexexport}
+\tests{fnc:imageexport}
+
+\teststep{Das Beispielprogramm ist im Editor geöffnet und der unten gezeigte Zustand wurde erreicht und visualisiert.}
+{Der Nutzer wählt über die Menüleiste die Exportieren-Funktion aus.}
+{Ein Auswahl-Dialog öffnet sich.}
+
+\teststep{Ein Dialog mit den Auswahlmöglichkeiten \enquote{SVG} und \enquote{PNG} ist geöffnet}
+{Der Nutzer wählt eine der beiden Optionen aus. Anschließend betätigt er die Speichern-Schaltfläche in der Menüleiste.}
+{Ein Datei-Speichern-Dialog öffnet sich.}
+
+\teststep{Ein Datei-Speichern-Dialog ist geöffnet.}
+{Der Nutzer wählt einen Dateipfad aus und gibt einen Dateinamen ein. Anschließend betätigt er die Speichern-Schaltfläche.}
+{Die Visualisierung wird im ausgewählten Format an dem gewählten Ort gespeichert. Die passende \texttt{.svg} bzw. \texttt{.png} Dateieendung wird wenn nötig ergänzt.}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -604,6 +637,49 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 }
 \captionof{figure}{Die zu exportierende Visualisierung}
 \end{minipage}
+
+\test{Visualierung fehlgeschlagener Unifikation}{tst:unificationfail}
+\tests{fnc:unificationfail}
+
+\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben und die Wurzel des Visualisierungsgraphen wird angezeigt.}
+{Der Nutzer betätigt die Schaltfläche \enquote{Nächster Schritt}.}
+{Eine fehlgeschlagene Unifikation mit \texttt{father(abe, homer)} entsprechend der gezeigten Graphik wird angezeigt.}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=0.7\linewidth]{build/visualisation/tst_unification_fail.png}
+}
+\captionof{figure}{Zustand nach einem Schritt: fehlgeschlagene Unifikation}
+\end{minipage}
+
+\test{Visualierung erfolgreicher Unifikation}{tst:unificationsuccess}
+\tests{fnc:unificationsuccess}
+
+\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben und die Wurzel des Visualisierungsgraphen wird angezeigt.}
+{Der Nutzer betätigt die Schaltfläche \enquote{Nächster Schritt} zwei mal.}
+{Eine erfolgreiche Unifikation mit \texttt{father(homer, bart)} entsprechend der gezeigten Graphik wird angezeigt.}
+
+\begin{minipage}{\linewidth}
+\makebox[\linewidth]{
+\includegraphics[width=0.7\linewidth]{build/visualisation/tst_unification_success.png}
+}
+\captionof{figure}{Zustand nach zwei Schritten: erfolgreiche Unifikation}
+\end{minipage}
+
+\test{Wechsel der GUI-Sprache}{tst:language}
+\tests{fnc:translation}
+
+\teststep{Das Programm ist geöffnet und auf die Sprache Deutsch eingestellt.}
+{Der Nutzer wählt in der Menüleiste die Sprache \enquote{Englisch} aus.}
+{Die Sprache aller GUI-Elemente ändert sich auf die Sprache Englisch. Der Inhalt der Konsole wird gelöscht, alle zukünftigen Ausgaben bis zu einem erneuten Sprachwechsel erscheinen in Englisch.}
+
+\teststep{Das Programm ist geöffnet und auf die Sprache Englisch eingestellt.}
+{Der Nutzer beendet das Programm und startet es erneut.}
+{Das Programm ist geöffnet, die GUI Sprache ist immernoch auf Englisch eingestellt.}
+
+\teststep{Die Sprache der GUI ist auf Englisch eingestellt.}
+{Der Nutzer wählt in der Menüleiste die Sprache \enquote{Deutsch} aus.}
+{Die Sprache aller GUI-Elemente ändert sich auf die Sprache Deutsch. Der Inhalt der Konsole wird gelöscht, alle zukünftigen Ausgaben bis zu einem erneuten Sprachwechsel erscheinen in Deutsch.}
 
 \section{Systemtests}
 
@@ -620,11 +696,11 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Inhalt des Editors wird entsprechend der Eingabe geändert.}
 
 \teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
-{Der Nutzer betätigt die Formatieren-Schaltfläche.}
+{Der Nutzer betätigt die Formatieren-Funktion in der Menüleiste.}
 {Das \texttt{simpsons.pl}-Programm wird formatiert und entspricht dem formatierten \texttt{simpsons.pl}-Programm im Anhang.}
 
 \teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
-{Der Nutzer wählt über die Menü-Leiste die Speichern-Funktion aus.}
+{Der Nutzer wählt über die Menüleiste die Speichern-Funktion aus.}
 {Ein Speichern-Dialog öffnet sich.}
 
 \teststep{Der Nutzer hat über den Speichern-Dialog ein Verzeichnis sowie einen Dateinamen eingetragen.}
@@ -632,15 +708,15 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Das Prolog-Programm wird im gewählten Verzeichnis gespeichert.}
 
 \teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert.}
-{Der Nutzer betätigt die Parsen-Schaltfläche.}
+{Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
 
 \teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen, gespeichert und durch den Parser verarbeitet worden.}
-{Der Nutzer fokussiert durch einen Mausklick das Editor-Fenster und fügt vor die erste Zeile das Wort \enquote{Fehler} gefolgt von einem Umbruch ein.}
+{Der Nutzer fokussiert durch einen Mausklick das Editor-Fenster und fügt vor die erste Zeile das Wort \enquote{Fehler}, gefolgt von einem Umbruch ein.}
 {Das Eingabefeld wird gesperrt.}
 
 \teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert worden. Das Wort \enquote{Fehler} wurde vor die ursprüngliche erste Zeile eingetragen.}
-{Der Nutzer betätigt die Parsen-Schaltfläche.}
+{Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
 {Das Eingabefeld bleibt weiterhin gesperrt. Der Parser gibt über die Konsole eine Syntax-Fehlermeldung aus.}
 
 \test{Öffnen eines Prolog-Programms, Parsen, Eingabe einer Abfrage und Interpretation}{tst:sys2}
@@ -651,19 +727,19 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \tests{fnc:visualization}
 
 \teststep{Der Nutzer hat das Programm geöffnet.}
-{Der Nutzer wählt über die Menü-Leiste die Öffnen-Funktion aus.}
+{Der Nutzer wählt über die Menüleiste die Öffnen-Funktion aus.}
 {Ein Öffnen-Dialog erscheint.}
 
 \teststep{Der Nutzer hat ein Prolog-Programm ausgewählt, welches das formatierte \texttt{simpsons.pl}-Programm enthält.}
-{Der Nutzer betätigt die Öffnen-Schaltfläche.}
+{Der Nutzer betätigt die Öffnen-Schaltfläche in der Menüleiste.}
 {Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei.}
 
 \teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei.}
-{Der Nutzer betätigt die Parsen-Schaltfläche.}
+{Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt im Eingabefeld \texttt{mother(marge, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt im Eingabefeld \texttt{mother(marge, bart).} ein und bestätigt mit der Eingabe-Taste.}
 {Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
@@ -684,26 +760,26 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Das \texttt{simpsons.pl}-Programm wird im Editor geöffnet.}
 
 \teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei analog zum Anhang.}
-{Der Nutzer betätigt die Parsen-Schaltfläche.}
+{Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt im Eingabefeld \texttt{mother(X, lisa).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt im Eingabefeld \texttt{mother(X, bart).} ein und bestätigt mit der Eingabe-Taste.}
 {Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
-{Der Nutzer betätigt die Fortführen-Schaltfläche.}
+{Der Nutzer betätigt die Nächste-Lösung-Schaltfläche.}
 {Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Der Graph entspricht dem Graphen bei der Findung der ersten Lösung.}
 
 \teststep{Der Interpreter hat eine erste Lösung gefunden. Der Graph ist aktualisiert worden.}
-{Der Nutzer betätigt die Fortführen-Schaltfläche erneut.}
+{Der Nutzer betätigt die Nächste-Lösung-Schaltfläche erneut.}
 {Der Interpreter wird bis zur Findung einer weiteren Lösung fortgeführt.}
 
 \teststep{Der Interpreter versucht, eine weitere Lösung für die Abfrage zu finden.}
 {Der Nutzer betätigt die Abbrechen-Schaltfläche.}
 {Die Interpretation wird abgebrochen.}
 
-\test{Interpretieren einer Abfrage, Ausführung bis zur nächsten Ausgabe, Navigation der Visualisierung, Zurückschreiten und Export}{tst:sys4}
+\test{Interpretieren einer Abfrage, Ausführung bis zur nächsten Lösung, Navigation der Visualisierung, Zurückschreiten und Exportieren}{tst:sys4}
 \tests{fnc:interpreter}
 \tests{fnc:visualization}
 \tests{fnc:continue}
@@ -713,8 +789,8 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \tests{fnc:imageexport}
 \tests{fnc:latexexport}
 
-\teststep{Der Nutzer hat das formatierte \texttt{simpsons.pl}-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \texttt{mother(X, lisa).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
-{Der Nutzer betätigt die Fortführen-Schaltfläche.}
+\teststep{Der Nutzer hat das formatierte \texttt{simpsons.pl}-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \texttt{mother(X, bart).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+{Der Nutzer betätigt die Nächster-Schritt-Schaltfläche.}
 {Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Der Graph entspricht dem Graphen bei der Findung der ersten Lösung.}
 
 \teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde.}
@@ -726,20 +802,20 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Es wird in den gezeigten Ausschnitt der Visualisierung hineingezoomt.}
 
 \teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde. Es wurde in die nach links verschobene Visualisierung hineingezoomt.}
-{Der Nutzer wählt über die Menü-Leiste die Option \enquote{Bild exportieren} aus.}
-{Ein Export-Dialog öffnet sich.}
+{Der Nutzer wählt über die Menüleiste die Option \enquote{Exportieren als Bild} aus.}
+{Ein Speichern-Dialog öffnet sich.}
 
-\teststep{Der Nutzer hat über die Auswahl des Export-Dialogs zwischen dem Format PNG und SVG ausgewählt. Ein Verzeichnis wurde ausgewählt.}
-{Der Nutzer betätigt die Export-Schaltfläche.}
-{Die gesamte Visualisierung wird im ausgewählten Format exportiert.}
+\teststep{Der Nutzer hat über die Auswahl des Speichern-Dialogs zwischen dem Format PNG und SVG ausgewählt. Ein Verzeichnis wurde ausgewählt.}
+{Der Nutzer betätigt die Speichern-Schaltfläche.}
+{Die gesamte Visualisierung wird im ausgewählten Format gespeichert.}
 
 \teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde. Es wurde in die nach links verschobene Visualisierung hineingezoomt. Die Visualisierung wurde bereits als Bild-Datei exporiert.}
-{Der Nutzer wählt über die Menü-Leiste die Option \enquote{LaTeX exportieren} aus.}
-{Ein Export-Dialog öffnet sich.}
+{Der Nutzer wählt über die Menüleiste die Option \enquote{Exportieren als TikZ} aus.}
+{Ein Speichern-Dialog öffnet sich.}
 
-\teststep{Der Nutzer hat das Zielverzeichnis über die Auswahl des Export-Dialogs ausgewählt.}
-{Der Nutzer betätigt die Export-Schaltfläche.}
-{Die gesamte Visualisierung wird als LaTeX-Quellcode exportiert.}
+\teststep{Der Nutzer hat das Zielverzeichnis über die Auswahl des Speichern-Dialogs ausgewählt.}
+{Der Nutzer betätigt die Speichern-Schaltfläche.}
+{Die gesamte Visualisierung wird als LaTeX-Quellcode gespeichert.}
 
 \test{Schnellzugriffsleiste}{tst:sys_buttonbar}
 \tests{fnc:buttons}
