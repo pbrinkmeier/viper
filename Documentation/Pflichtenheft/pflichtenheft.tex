@@ -1189,7 +1189,7 @@ Außerdem sind sie rot eingefärbt.
 \subsection{Allgemein}
 
 \textbf{Format}:
-Jede Regel wird in ihre eigene Zeile gelegt. Hat eine Regel mehrere Teilziele, so wird die Regelzeile nach dem \enquote{\texttt{:-}}-Operator umgebrochen und alle Teilziele werden in eigene Zeilen gelegt, welche mit zwei Leerzeichen eingerückt sind. Bereits gesetzte Leerzeilen werden beibehalten. Fehlende Leerzeichen vor und hinter dem \enquote{\texttt{:-}}-Operator sowie nach Kommata in Parameterlisten werden eingefügt.
+Das Format beschreibt die Struktur von Prolog-Quelltext im Editor durch Leerzeichen und Umbrüche. Jede Regel wird in ihre eigene Zeile gelegt. Hat eine Regel mehrere Teilziele, so wird die Regelzeile nach dem \enquote{\texttt{:-}}-Operator umgebrochen und alle Teilziele werden in eigene Zeilen gelegt, welche mit zwei Leerzeichen eingerückt sind. Bereits gesetzte Leerzeilen werden beibehalten. Fehlende Leerzeichen vor und hinter dem \enquote{\texttt{:-}}-Operator sowie nach Kommata in Parameterlisten werden eingefügt.
 
 \textbf{Programm}:
 Das vorgestellte VIPER-Programm. Dies ist zu unterscheiden von Prolog-Programmen.
@@ -1198,41 +1198,19 @@ Das vorgestellte VIPER-Programm. Dies ist zu unterscheiden von Prolog-Programmen
 Prolog-Quelltext in Form von Dateien auf einem Speichermedium. Dies ist zu unterscheiden von dem Programm im Sinne des VIPER-Programms.
 
 \textbf{Prolog-Teilmenge}:
-Es gibt Identifier, Variablen und Zahlen die wie folgt notiert werden:
-
-\begin{lstlisting}
-id := [a-z][a-zA-Z0-9]*
-var := [A-Z][a-zA-Z0-9]*
-num := [0-9]+
-\end{lstlisting}
-
-Es gibt Terme welche sich aus obigem zusammensetzen:
-
-\begin{lstlisting}
-Term := Funktor | var | num
-Funktor := id | id( Term{, Term}* )
-\end{lstlisting}
-
-Und zusätzlich gibt es Regeln und Ziele welche sich wie folgt zusammensetzen:
-
-\begin{lstlisting}
-Regel := Funktor . | Funktor :- Ziel {, Ziel}* .
-Ziel := Funktor | Term = Term
-\end{lstlisting}
-
-Außerdem unterstützt das Programm Listen.
+Unterstützt werden Identifier, Variablen, nicht-negative ganze Zahlen inklusive der 0, Terme, Regeln, Ziele und Listen.
 
 \subsection{Prolog-interne Begriffe}
 \textbf{Abfrage}:
 Ziel, für das alle möglichen Lösungen gefunden werden sollen. Die Lösung kann eine Menge an Belegungen für Variablen oder eine Ja-Nein-Antwort sein.
 
 \textbf{Arithmetik}:
-Grundlegende Arithmetik beinhaltet natürliche Zahlen inklusive der 0. Des weiteren werden folgende Operatoren unterstützt:\\
+Grundlegende Arithmetik beinhaltet natürliche Zahlen inklusive der 0. Unterstützt werden die Arithmetikoperationen:\\
 \texttt{+, -, *, <, =<, >, >=, =\textbackslash=, =:=}\\
 \\
-Da Termgleichheit in Prolog keine Arithmetik unterstützt, können Abfragen wie\\
+Für Abfragen wie\\
 \enquote{$4 = 1 + 3$}\\
-nicht ausgewertet werden. Deshalb wird zusätzlicher der \texttt{is}-Operator unterstützt. Dieser evaluiert zuerst die rechte Seite arithmetisch und unifiziert diese anschließend mit der Linken.
+wird der \texttt{is}-Operator unterstützt. Dieser evaluiert zuerst die rechte Seite arithmetisch und unifiziert diese anschließend mit der Linken.
 
 \textbf{Backtracking}:
 %TODO GUI Beheben
@@ -1242,51 +1220,53 @@ Diesen Prozess nennt man \enquote{Backtracking}.
 \textbf{Cut}:
 Ein Cut, in Prolog-Programmen geschrieben als \texttt{!}, ist ein spezielles Ziel.
 Die erste Unifikation eines Cuts ist immer erfolgreich.
-Wird ein Cut im Kontext einer Abfrage im Zuge des Backtrackings erneut besucht, schlägt die Abfrage fehl.
-Anschaulich könnte man sagen, dass ein Cut alle bisherigen Backtracking-Ziele löscht.
+Wird ein Cut im Kontext einer Abfrage im Zuge des Backtrackings erneut besucht, schlägt die Regel und ihre anderen Definitionen fehl.
 
 \textbf{Fakt}:
 Aussage, welche als wahr angenommen wird. Im Kontext von Prolog: eine Regel ohne Teilziele.
 
 \textbf{Funktor}:
-Sammelbegriff für einen einzelnen Identifier und Identifier in Kombination mit einer beliebigen Anzahl Termen, welche in Klammern hinter dem Identifier stehen.
+Term, der beliebig viele Teil-Terme besitzt. Form: Identifier | Identifier ( Term{, Term}*)
 
 \textbf{Gleichheit}:
-Terme sind genau dann gleich, wenn die linke und rechte Seite eines Terms identisch sind oder wenn Variablen in den Termen so belegt werden können, dass beide Seiten identisch sind.
+Terme sind genau dann gleich, wenn die linke und rechte Seite eines Terms komplett identisch sind und keine Variablen enthalten.
 
 \textbf{Identifier}:
-Wort, beginnend mit einem Kleinbuchstaben. Kann mit Kleinbuchstaben, Großbuchstaben und Zahlen fortgesetzt werden.
+Grundbaustein. Form: [a-z][a-zA-Z0-9]*
 
 \textbf{Interpreter}:
 Ausführungsmechanismus für Abfragen. Nachdem sowohl das zugrunde liegende Prolog-Programm als auch die Abfrage durch den Parser verarbeitet wurden, findet eine schrittweise Interpretation der genannten Abfrage statt.
 
 \textbf{Listen}:
-Die leere Liste wird durch \enquote{\texttt{[]}} dargestellt. Eine Liste mit Inhalt wird durch \enquote{\texttt{[1,2,3]}} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\\
+Die leere Liste wird durch \enquote{\texttt{[]}} dargestellt. Eine Liste mit Inhalt wird durch \enquote{\texttt{[1, 2, 3]}} dargestellt und intern als Listenkopf und \enquote{Restliste} behandelt, das heißt:\\
 \texttt{[1, 2, 3]} = \texttt{[1 | [2 | [3 | []]]]}
 
 \textbf{Parser}:
 Umwandlungsmechanismus für Prolog-Programme, der diese in ein für die Weiterverarbeitung geeignetes Format bringt und auf syntaktische Fehler prüft.
 
 \textbf{Regel}:
-Vorgeschriebene Folgerungen. So kann man z.B. festlegen, dass man nur der Großvater einer Person ist, wenn man der Vater eines Elternteils der Person ist.
+Vorgeschriebene Folgerungen. So kann man z.B. festlegen, dass man nur der Großvater einer Person ist, wenn man der Vater eines Elternteils der Person ist. Form: Funktor. | Funktor :- Ziel{, Ziel}*.
 
 \textbf{Schritt}:
 Nächste Operation, die zur Interpretation einer Abfrage nötig ist.
 
 \textbf{Standardbibliothek}:
-Vorgegebene Fakten und Regeln, welche automatisch bei der Verarbeitung durch den Parser angefügt werden können.
+Vorgegebene Fakten und Regeln, welche automatisch beim Parsen angefügt werden können.
+
+\textbf{Substitution}
+Ersetzung einer Variable durch einen Term.
 
 \textbf{Term}:
-Sammelbegriff für Funktoren, Variablen und Zahlen.
+Grundbaustein eines Prolog-Programms. Form: Functor | Variable | Zahl
 
 \textbf{Unifikation}:
-Zwei Terme sind genau dann unifizierbar, wenn sie gleich sind oder Variablen enthalten, die so belegt werden können, dass die Terme gleich sind.
+Zwei Terme sind genau dann unifizierbar, wenn sie gleich sind oder Substitutionen gefunden werden können, sodass die Terme gleich sind. Diese Substitutionen sind das Ergebnis der Unifikation.
 
 \textbf{Variable}:
-Platzhalter. Erlaubt das allgemeine Beschreiben von Regeln. Können für einen beliebigen Term stehen.
+Platzhalter. Erlaubt das allgemeine Beschreiben von Regeln. Können für einen beliebigen Term stehen. Form: [A-Z][a-zA-Z0-9]*
 
 \textbf{Ziel}:
-Lösbarer Teil einer Regel, welcher einem Funktor, einem Unifikationsziel, Arithmetik oder dem \enquote{Cut}-Operator entsprechen kann.
+Zu lösender Teil einer Regel, welcher einem Funktor, einem Unifikationsziel, Arithmetik oder dem \enquote{Cut}-Operator entsprechen kann. Form: Funktor | Term = Term | Term is Term | !
 
 \textbf{Zustand}:
 Ergebnis der bisher durchgeführten Schritte.
@@ -1332,7 +1312,7 @@ Schreiben einer Prolog-Programmdatei in ein Zielverzeichnis auf einem verbundene
 Navigierbarer Graph, welcher den Ablauf der Interpretation einer Abfrage im Kontext eines gegebenen Prolog-Programms aufzeigt.
 
 \textbf{Zoom}:
-Vergrößerung oder Verkleinerung der angezeigten Ausschnitts der Visualisierung.
+Vergrößerung oder Verkleinerung der Visualisierung.
 
 \newpage
 \section{Anhang}
