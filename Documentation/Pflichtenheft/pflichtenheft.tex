@@ -68,9 +68,9 @@ Für eine Abfrage erhalten wir folgende Lösungen:
 
 \begin{lstlisting}
 ?- father(homer, bart).
-yes
+ja
 ?- father(bart, abe).
-no .
+nein .
 \end{lstlisting}
 
 Nun ist es möglich, auf Fakten oder anderen Regeln basierende Regeln einzuführen. Definieren wir also Großväter väterlicherseits als alle Väter von Vätern, indem wir Variablen als Platzhalter verwenden. Diese beginnen mit Großbuchstaben, Funktoren und Atome mit Kleinbuchstaben.
@@ -126,6 +126,7 @@ Das Programm kann eine Teilmenge der Sprache Prolog durch einen Parser verarbeit
 
 Das Programm erlaubt es dem Nutzer Abfragen in das Eingabefeld einzugeben. Dabei wird die aktuelle Interpretation abgebrochen und die Visualisierung gelöscht.
 
+\newpage
 \criterium{Einzelschritt-Interpretation von Abfragen}{crt:interpreter}
 
 Das Programm bearbeitet Abfragen schrittweise. Nach jedem durchgeführten Teilschritt einer Abfrage wartet das Programm auf eine Interaktion vom Nutzer (Klicken der \enquote{Nächster Schritt}-Schaltfläche), bis es den nächsten Teilschritt bearbeitet.
@@ -158,7 +159,7 @@ Das Programm soll die \enquote{Cut}-Funktionalität unterstützen.
 
 \criteriumOptional{Arithmetik}{crt:maths}
 
-Das Programm soll grundlegende Arithmetik unterstützen. Dies beinhaltet die natürlichen Zahlen inklusive der 0. Des weiteren werden folgende Operatoren unterstützt:
+Das Programm soll grundlegende Arithmetik unterstützen. Dies beinhaltet die natürlichen Zahlen inklusive der 0. Des Weiteren werden \hyperref[glossary]{folgende Operatoren} unterstützt:
 \texttt{+, -, *, <, =<, >, >=, =\textbackslash=, =:=, is}
 
 \criteriumOptional{Standardbibliothek}{crt:standardlib}
@@ -192,14 +193,14 @@ Die Programmoberfläche soll die Sprachen Deutsch und Englisch unterstützen. Du
 \criteriumOptional{Schnellzugriffsleiste}{crt:buttons}
 
 %TODO siehe GUI
-Das Programm soll, wie in den GUI Entwürfen eine Leiste mit Schaltflächen unter der Menüleiste besitzen.
+Das Programm soll, \hyperref[gui:schnellzugriff]{wie in den GUI-Entwürfen}, eine Leiste mit Schaltflächen unter der Menüleiste besitzen.
 
+\newpage
 \subsection{Abgrenzung}
 
 \criteriumNot{Voller Sprachsupport}{crt:fullsupport}
 
-%TODO Verweiß auf Krieterium
-Das Programm unterstützt keine Prolog-Sprachfeatures außerhalb der vorgestellten Prolog-Teilmenge.
+Das Programm unterstützt keine Prolog-Sprachfeatures außerhalb der vorgestellten \hyperref[glossary]{Prolog-Teilmenge}.
 
 \criteriumNot{Andere Programmiersprachen}{crt:otherlanguages}
 
@@ -257,7 +258,7 @@ Der Status der Standardbibliothek (\enquote{Aktiviert}/\enquote{Deaktiviert}) wi
 \functionality{Erstellen eines neuen Prolog-Programms}{fnc:new}
 \fulfills{crt:create}
 
-Das Programm stellt eine Schaltfläche zum Leeren des Editors bereit. Sollte beim Betätigen dieser Schaltfäche der Inhalt des Editors ungesichert sein, so wird der Nutzer aufgefordert, diesen zu speichern. Hierbei kann entweder die alte Datei überschrieben oder eine neue Datei angelegt werden. Der alte Editor-Inhalt, der Konsolen-Inhalt und die Visualisierung werden daraufhin verworfen.
+Das Programm stellt eine Schaltfläche zum Leeren des Editors bereit. Sollte beim Betätigen dieser Schaltfläche der Inhalt des Editors ungesichert sein, so wird der Nutzer aufgefordert, diesen zu \hyperref[fnc:save]{speichern}. Hierbei kann entweder die alte Datei überschrieben oder eine neue Datei angelegt werden. Der alte Editor-Inhalt, der Konsolen-Inhalt und die Visualisierung werden daraufhin verworfen.
 
 \functionality{Öffnen eines Prolog-Programms}{fnc:open}
 \fulfills{crt:open}
@@ -274,11 +275,12 @@ Das Programm bietet einen Schnellzugriff auf bis zu fünf der zuletzt verwendete
 
 Das Prolog-Programm kann im Editor bearbeitet werden. Die Änderungen werden erst beim Speichern zurückgeschrieben. Sollten nach dem Parsen erneut Änderungen an dem geöffneten Prolog-Programm durchgeführt werden, so wird das Eingabefeld sowie jegliche Interaktion mit der Visualisierung gesperrt, bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
 
-\functionality{Speichern als}{fnc:saveas}
+\functionality{Speichern als...}{fnc:saveas}
 \fulfills{crt:save}
 
-Beim Betätigen der \enquote{Speichern als}-Schaltfläche in der Menüleiste kann über einen Auswahl-Dialog eine Datei ausgewählt oder eine neue Datei angelegt werden. Anschließend wird der Inhalt des Editors an den gewählten Ort gespeichert.
+Beim Betätigen der \enquote{Speichern als...}-Schaltfläche in der Menüleiste kann über einen Auswahl-Dialog eine Datei ausgewählt oder eine neue Datei angelegt werden. Anschließend wird der Inhalt des Editors an den gewählten Ort gespeichert.
 
+\newpage
 \functionality{Speichern des Editor-Inhalts}{fnc:save}
 \fulfills{crt:save}
 
@@ -315,6 +317,7 @@ Abfragen, welche im Eingabefeld eingegeben wurden, werden nach einer Bestätigun
 
 Nachdem die Interpretation gestartet wurde, wird durch das Betätigen der \enquote{Nächster Schritt}-Schaltfläche der nächsten Interpretationsschritt durchgeführt.
 
+\newpage
 \functionality{Ausgaben des Interpreters}{fnc:interpreteroutput}
 \fulfills{crt:answer}
 \fulfills{crt:prettyprinting}
@@ -340,7 +343,7 @@ Fehlgeschlagene Unifikationen werden visualisiert, jedoch nur, wenn die Funktork
 \fulfills{crt:visualization}
 
 %TODO Verlinken
-Ein Backtrackingschritt wird entsprechend visualisiert.
+Ein Backtracking-Schritt wird entsprechend visualisiert.
 
 \functionality{Vergrößern und Verkleinern der Visualisierung durch Schaltflächen oder das Mausrad}{fnc:zoom}
 \fulfills{crt:navigation}
@@ -375,8 +378,7 @@ Die Cut-Funktionalität soll unterstützt werden.
 \functionality{Arithmetik}{fnc:maths}
 \fulfills{crt:maths}
 
-%TODO Link K4
-Das Programm soll die in K4 beschriebene, grundlegende, Arithmetik unterstützen.
+Das Programm soll die \hyperref[crt:maths]{in K4 beschriebene}, grundlegende, Arithmetik unterstützen.
 
 \functionality{Exportieren der angezeigten Visualisierung in einem beliebigen Schritt als LaTeX-Dokument}{fnc:latexexport}
 \fulfills{crt:latexexport}
@@ -388,6 +390,7 @@ Die aktuell angezeigte Visualisierung lässt sich als LaTeX-Dokument exportieren
 
 Die aktuell angezeigte Visualisierung lässt sich als Bild im PNG- oder SVG-Format exportieren.
 
+\newpage
 \functionality{Deaktivierung und Aktivierung der Standardbibliothek}{fnc:disablelib}
 \fulfills{crt:disablelib}
 
@@ -521,21 +524,22 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \test{Mehrere Ziele in der Abfrage}{tst:shell}
 \tests{fnc:shell}
 
-\teststep{Das \texttt{simpsons.pl}-Programm ist im Editor-Fenster eingegeben und erfolgreich geparst worden. Das Eingabefeld ist freigegeben.}
+\teststep{Das \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor-Fenster eingegeben und erfolgreich geparst worden. Das Eingabefeld ist freigegeben.}
 {Der Nutzer gibt die Abfrage \texttt{father(homer, X). mother(marge, X).} im Eingabefeld ein.}
 {In der Konsole wird der Fehler \enquote{Nur ein Ziel in der Abfrage erlaubt.} ausgegeben und das Eingabefeld geleert.}
 
 \test{Syntaktischer Fehler in der Abfrage}{tst:inputerror}
 \tests{fnc:inputerror}
 
-\teststep{Das \texttt{simpsons.pl}-Programm ist im Editor-Fenster eingegeben und erfolgreich geparst worden. Das Eingabefeld ist freigegeben.}
+\teststep{Das \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor-Fenster eingegeben und erfolgreich geparst worden. Das Eingabefeld ist freigegeben.}
 {Der Nutzer gibt die Abfrage \texttt{father(} ein.}
 {In der Konsole wird der Fehler \enquote{Syntax-Fehler in Abfrage.} ausgegeben und das Eingabefeld geleert.}
 
+\newpage
 \test{Interpretierung vom simpsons.pl-Programm}{tst:simpsons}
 \tests{fnc:interpreter}
 
-\teststep{Das \texttt{simpsons.pl}-Programm ist im Editor-Fenster eingegeben worden.}
+\teststep{Das \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor-Fenster eingegeben worden.}
 {Der Nutzer betätigt die Parsen-Schaltfläche des Hauptfensters.}
 {Das Prolog-Programm wird erfolgreich geparst, es kommt zu keinen Fehlern. In das Eingabefeld kann eine Abfrage eingegeben werden.}
 
@@ -579,20 +583,20 @@ C = 6 + 1.
 \end{lstlisting}
 
 \teststep{Das Programm wird ausgeführt und ist fokussiert. Das \hyperref[tst:maths_prog]{Prolog-Programm für Arithmetik} ist geöffnet.}
-{Der Nutzer gibt die Abfrage \texttt{A is 4.} ein.}
-{In der Konsole erscheint \texttt{no .}}
+{Der Nutzer gibt die Abfrage \texttt{A is 4.} ein und betätigt die Schaltfläche \enquote{Nächste Lösung}.}
+{In der Konsole erscheint \texttt{nein .}}
 
 \teststep{Das Programm wird ausgeführt und ist fokussiert. Das \hyperref[tst:maths_prog]{Prolog-Programm für Arithmetik} ist geöffnet.}
-{Der Nutzer gibt die Abfrage \texttt{B is 6.} ein.}
-{In der Konsole erscheint \texttt{yes}}
+{Der Nutzer gibt die Abfrage \texttt{B is 6.} ein und betätigt die Schaltfläche \enquote{Nächste Lösung}.}
+{In der Konsole erscheint \texttt{ja}}
 
 \teststep{Das Programm wird ausgeführt und ist fokussiert. Das \hyperref[tst:maths_prog]{Prolog-Programm für Arithmetik} ist geöffnet.}
-{Der Nutzer gibt die Abfrage \texttt{C is 6 + 1.} ein.}
-{In der Konsole erscheint \texttt{no .}}
+{Der Nutzer gibt die Abfrage \texttt{C is 6 + 1.} ein und betätigt die Schaltfläche \enquote{Nächste Lösung}.}
+{In der Konsole erscheint \texttt{nein .}}
 
 \teststep{Das Programm wird ausgeführt und ist fokussiert. Das \hyperref[tst:maths_prog]{Prolog-Programm für Arithmetik} ist geöffnet.}
-{Der Nutzer gibt die Abfrage \texttt{C = 6 + 1.} ein.}
-{In der Konsole erscheint \texttt{yes}}
+{Der Nutzer gibt die Abfrage \texttt{C = 6 + 1.} ein und betätigt die Schaltfläche \enquote{Nächste Lösung}.}
+{In der Konsole erscheint \texttt{ja}}
 
 \test{Cut-Funktionalität}{tst:cut}
 \tests{fnc:cut}
@@ -606,7 +610,7 @@ max(X, Y, Y).
 \end{lstlisting}
 
 \teststep{Das Programm wird ausgeführt und ist fokussiert. Das \hyperref[tst:cut_prog]{Prolog-Programm für Cut} ist geöffnet.}
-{Der Nutzer gibt die Abfrage \texttt{max(42, 17, X).} ein.}
+{Der Nutzer gibt die Abfrage \texttt{max(42, 17, X).} ein und betätigt die Schaltfläche \enquote{Nächste Lösung}.}
 {In der Konsole erscheint die Lösung \texttt{X = 42}.}
 
 \test{Aktivieren der Standardbibliothek}{tst:enablelib}
@@ -617,12 +621,12 @@ max(X, Y, Y).
 {Das leere Prolog-Programm wird erfolgreich geparst.}
 
 \teststep{Das Parsen des Prolog-Programms war erfolgreich. Das Eingabefeld ist freigeschaltet.}
-{Der Nutzer gibt die Abfrage \texttt{append([1], [2], X).} in das Eingabefeld ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt die Abfrage \texttt{append([1], [2], X).} in das Eingabefeld ein und bestätigt die Eingabe.}
 {Die Abfrage wird interpretiert und die Wurzel des Graphen angezeigt.}
 
 \teststep{Die Wurzel des Graphen wird angezeigt.}
 {Der Nutzer betätigt die \enquote{Nächste Lösung}-Schaltfläche.}
-{In der Visualisierung wird \enquote{Nicht erfüllbar!} angezeigt. Die Konsole zeigt \enquote{\texttt{no .}} an.}
+{In der Visualisierung wird \enquote{Nicht erfüllbar!} angezeigt. Die Konsole zeigt \enquote{\texttt{nein .}} an.}
 
 \teststep{Die Visualisierung wird angezeigt.}
 {Der Nutzer setzt den Haken bei der \enquote{Standardbibliothek laden}-Schaltfläche in der Menüleiste.}
@@ -633,7 +637,7 @@ max(X, Y, Y).
 {Das Prolog-Programm wird erfolgreich geparst.}
 
 \teststep{Das Parsen des Prolog-Programms war erfolgreich. Das Eingabefeld ist freigeschaltet.}
-{Der Nutzer gibt die Abfrage \texttt{append([1], [2], X).} in das Eingabefeld ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt die Abfrage \texttt{append([1], [2], X).} in das Eingabefeld ein und bestätigt die Eingabe.}
 {Die Abfrage wird interpretiert und die Wurzel des Graphen angezeigt.}
 
 \teststep{Die Wurzel des Graphen wird angezeigt.}
@@ -661,14 +665,14 @@ max(X, Y, Y).
 \test{Formatierung von Quellcode}{tst:formatter}
 \tests{fnc:formatter}
 
-\teststep{Der Nutzer hat das unformatierte \texttt{simpsons.pl}-Programm im Editor eingegeben oder aus einer Datei geöffnet.}
+\teststep{Der Nutzer hat das unformatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} im Editor eingegeben oder aus einer Datei geöffnet.}
 {Der Nutzer betätigt die Formatieren-Schaltfläche in der Menüleiste.}
-{Das Prolog-Programm wird automatisch formatiert. Der Editor zeigt nun das formatierte \texttt{simpsons.pl}-Programm an.}
+{Das Prolog-Programm wird automatisch formatiert. Der Editor zeigt nun das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} an.}
 
 \test{Export als Bilddatei}{tst:latexexport}
 \tests{fnc:imageexport}
 
-\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und der unten gezeigte Zustand wurde erreicht und visualisiert.}
+\teststep{Das \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingegeben und der unten gezeigte Zustand wurde erreicht und visualisiert.}
 {Der Nutzer wählt über die Menüleiste die Exportieren-als-Bild-Funktion aus.}
 {Ein Datei-Speichern-Dialog öffnet sich.}
 
@@ -679,7 +683,7 @@ max(X, Y, Y).
 \test{Export als LaTeX für Foliensätze}{tst:latexexporttikz}
 \tests{fnc:latexexport}
 
-\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und der unten gezeigte Zustand wurde erreicht und visualisiert.}
+\teststep{Das \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingegeben und der unten gezeigte Zustand wurde erreicht und visualisiert.}
 {Der Nutzer wählt über die Menüleiste die Exportieren-als-TikZ-Funktion aus.}
 {Ein Datei-Speichern-Dialog öffnet sich.}
 
@@ -694,10 +698,11 @@ max(X, Y, Y).
 \captionof{figure}{Die zu exportierende Visualisierung}
 \end{minipage}
 
+\newpage
 \test{Visualisierung fehlgeschlagener Unifikation}{tst:unificationfail}
 \tests{fnc:unificationfail}
 
-\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
+\teststep{Das \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
 {Der Nutzer betätigt die Schaltfläche \enquote{Nächster Schritt}.}
 {Eine fehlgeschlagene Unifikation mit \texttt{father(abe, homer)} wird entsprechend der gezeigten Grafik visualisiert.}
 
@@ -711,7 +716,7 @@ max(X, Y, Y).
 \test{Visualisierung erfolgreicher Unifikation}{tst:unificationsuccess}
 \tests{fnc:unificationsuccess}
 
-\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
+\teststep{Das \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
 {Der Nutzer betätigt die Schaltfläche \enquote{Nächster Schritt} zwei mal.}
 {Eine erfolgreiche Unifikation mit \texttt{father(homer, bart)} wird entsprechend der gezeigten Grafik visualisiert.}
 
@@ -725,7 +730,7 @@ max(X, Y, Y).
 \test{Visualisierung von Backtracking}{tst:backtracking}
 \tests{fnc:backtracking}
 
-\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
+\teststep{Das \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
 {Der Nutzer betätigt die Schaltfläche \enquote{Nächster Schritt}.}
 {Eine fehlgeschlagene Unifikation wird analog zu Abbildung 3 in Test \enquote{Visualisierung fehlgeschlagener Unifikation} visualisiert.}
 
@@ -744,7 +749,7 @@ max(X, Y, Y).
 
 \teststep{Das Programm ist geöffnet und auf die Sprache Englisch eingestellt.}
 {Der Nutzer beendet das Programm und startet es erneut.}
-{Das Programm ist geöffnet, die GUI Sprache ist immernoch auf Englisch eingestellt.}
+{Das Programm ist geöffnet, die GUI Sprache ist immer noch auf Englisch eingestellt.}
 
 \teststep{Die Sprache der GUI ist auf Englisch eingestellt.}
 {Der Nutzer wählt in der Menüleiste die Sprache \enquote{Deutsch} aus.}
@@ -761,14 +766,14 @@ max(X, Y, Y).
 \tests{fnc:errorcheck}
 
 \teststep{Der Nutzer hat ein leeres Editor-Fenster vor sich.}
-{Der Nutzer gibt das unformatierte \texttt{simpsons.pl}-Programm wie im Anhang beschrieben ein.}
+{Der Nutzer gibt das unformatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} wie im Anhang beschrieben ein.}
 {Der Inhalt des Editors wird entsprechend der Eingabe geändert.}
 
-\teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
+\teststep{Das unformatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingetragen.}
 {Der Nutzer betätigt die Formatieren-Funktion in der Menüleiste.}
-{Das \texttt{simpsons.pl}-Programm wird formatiert und entspricht dem formatierten \texttt{simpsons.pl}-Programm im Anhang.}
+{Das \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} wird formatiert und entspricht dem formatierten \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} im Anhang.}
 
-\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
+\teststep{Das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingetragen.}
 {Der Nutzer wählt über die Menüleiste die Speichern-Funktion aus.}
 {Ein Speichern-Dialog öffnet sich.}
 
@@ -776,15 +781,15 @@ max(X, Y, Y).
 {Der Nutzer betätigt die Speichern-Schaltfläche.}
 {Das Prolog-Programm wird im gewählten Verzeichnis gespeichert.}
 
-\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert.}
+\teststep{Das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingetragen und gespeichert.}
 {Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben.}
 
-\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen, gespeichert und durch den Parser verarbeitet worden.}
+\teststep{Das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingetragen, gespeichert und durch den Parser verarbeitet worden.}
 {Der Nutzer fokussiert durch einen Mausklick das Editor-Fenster und fügt vor die erste Zeile das Wort \enquote{Fehler(}, gefolgt von einem Umbruch ein.}
 {Das Eingabefeld wird gesperrt.}
 
-\teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert worden. Das Wort \enquote{Fehler(} wurde vor die ursprüngliche erste Zeile eingetragen.}
+\teststep{Das unformatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingetragen und gespeichert worden. Das Wort \enquote{Fehler(} wurde vor die ursprüngliche erste Zeile eingetragen.}
 {Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
 {Das Eingabefeld bleibt weiterhin gesperrt. Der Parser gibt über die Konsole die folgende Fehlermeldung aus: \texttt{Parser-Fehler in Zeile 1. Erwartete \enquote{)} oder Identifier oder Variable statt \enquote{EOF} nach \enquote{Fehler(}}}
 
@@ -799,22 +804,23 @@ max(X, Y, Y).
 {Der Nutzer wählt über die Menüleiste die Öffnen-Funktion aus.}
 {Ein Öffnen-Dialog erscheint.}
 
-\teststep{Der Nutzer hat ein Prolog-Programm ausgewählt, welches das formatierte \texttt{simpsons.pl}-Programm enthält.}
+\teststep{Der Nutzer hat ein Prolog-Programm ausgewählt, welches das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} enthält.}
 {Der Nutzer betätigt die Öffnen-Schaltfläche in der Menüleiste.}
-{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei.}
+{Der Editor enthält das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm}.}
 
-\teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei.}
+\teststep{Der Editor enthält das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm}.}
 {Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt im Eingabefeld \texttt{mother(marge, bart).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt im Eingabefeld \texttt{mother(marge, bart).} ein und bestätigt die Eingabe.}
 {Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und der erste Interpretationsschritt wird visualisiert.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wird.}
-{Eine Lösung wurde gefunden. Es wird \texttt{yes} in der Konsole ausgegeben.}
+{Eine Lösung wurde gefunden. Es wird \texttt{ja} in der Konsole ausgegeben.}
 
+\newpage
 \test{Öffnen eines zuletzt verwendeten Prolog-Programms, Parsen und Interpretieren einer Abfrage, Ausführung bis zur nächsten Ausgabe und Abbruch}{tst:sys3}
 \tests{fnc:recentfiles}
 \tests{fnc:parser}
@@ -824,16 +830,16 @@ max(X, Y, Y).
 \tests{fnc:continue}
 \tests{fnc:cancel}
 
-\teststep{Der Nutzer hat das Programm nach dem Speichern des \texttt{simpsons.pl}-Programms im Anhang neu gestartet.}
-{Der Nutzer wählt das \texttt{simpsons.pl}-Programm über die Menüleiste unter \enquote{Kürzlich geöffnete Dateien} aus.}
-{Das \texttt{simpsons.pl}-Programm wird im Editor geöffnet.}
+\teststep{Der Nutzer hat das Programm nach dem Speichern des \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programms} im Anhang neu gestartet.}
+{Der Nutzer wählt das \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} über die Menüleiste unter \enquote{Kürzlich geöffnete Dateien} aus.}
+{Das \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} wird im Editor geöffnet.}
 
-\teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei analog zum Anhang.}
+\teststep{Der Editor enthält das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} analog zum Anhang.}
 {Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
-{Der Nutzer gibt im Eingabefeld \texttt{mother(X, bart).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt im Eingabefeld \texttt{mother(X, bart).} ein und bestätigt die Eingabe.}
 {Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und der erste Interpretationsschritt wird visualisiert.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung dieses Schritts wird angezeigt.}
@@ -858,7 +864,7 @@ max(X, Y, Y).
 \tests{fnc:imageexport}
 \tests{fnc:latexexport}
 
-\teststep{Der Nutzer hat das formatierte \texttt{simpsons.pl}-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \texttt{mother(X, bart).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung dieses Schritts wird angezeigt.}
+\teststep{Der Nutzer hat das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \texttt{mother(X, bart).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung dieses Schritts wird angezeigt.}
 {Der Nutzer betätigt die Nächster-Schritt-Schaltfläche.}
 {Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Die Visualisierung entspricht der Visualisierung bei der Findung der ersten Lösung.}
 
@@ -878,7 +884,7 @@ max(X, Y, Y).
 {Der Nutzer betätigt die Speichern-Schaltfläche.}
 {Die gesamte Visualisierung wird im ausgewählten Format gespeichert.}
 
-\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde. Es wurde in die nach links verschobene Visualisierung hineingezoomt. Die Visualisierung wurde bereits als Bild-Datei exporiert.}
+\teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde. Es wurde in die nach links verschobene Visualisierung hineingezoomt. Die Visualisierung wurde bereits als Bild-Datei exportiert.}
 {Der Nutzer wählt über die Menüleiste die Option \enquote{Exportieren als TikZ} aus.}
 {Ein Speichern-Dialog öffnet sich.}
 
@@ -897,7 +903,7 @@ max(X, Y, Y).
 \tests{fnc:continue}
 \tests{fnc:buttons}
 
-\teststep{Der Nutzer hat das formatierte \texttt{simpsons.pl}-Programm im Editor eingetragen.}
+\teststep{Der Nutzer hat das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} im Editor eingetragen.}
 {Der Nutzer betätigt die Erstellen-Schaltfläche der Schnellzugriffsleiste.}
 {Der Inhalt des Editors ist leer.}
 
@@ -905,15 +911,15 @@ max(X, Y, Y).
 {Der Nutzer betätigt die Öffnen-Schaltfläche der Schnellzugriffsleiste.}
 {Ein Öffnen-Dialog erscheint.}
 
-\teststep{Der Nutzer hat über den Öffnen-Dialog eine Datei ausgewählt, welche das unformatierte \texttt{simpsons.pl}-Programm enthält.}
+\teststep{Der Nutzer hat über den Öffnen-Dialog eine Datei ausgewählt, welche das unformatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} enthält.}
 {Der Nutzer betätigt die Öffnen-Schaltfläche des Öffnen-Dialogs.}
-{Der Editor enthält das unformatierte \texttt{simpsons.pl}-Programm.}
+{Der Editor enthält das unformatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm}.}
 
-\teststep{Das unformatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
+\teststep{Das unformatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingetragen.}
 {Der Nutzer betätigt die Formatieren-Schaltfläche der Schnellzugriffsleiste.}
-{Der Editor enthält das formatierte \texttt{simpsons.pl}-Programm.}
+{Der Editor enthält das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm}.}
 
-\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen.}
+\teststep{Das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingetragen.}
 {Der Nutzer betätigt die Speichern-Schaltfläche der Schnellzugriffsleiste.}
 {Ein Speichern-Dialog öffnet sich}
 
@@ -921,17 +927,17 @@ max(X, Y, Y).
 {Der Nutzer betätigt die Speichern-Schaltfläche des Dialogs.}
 {Das Prolog-Programm wird im gewählten Verzeichnis gespeichert.}
 
-\teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert.}
+\teststep{Das formatierte \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm} ist im Editor eingetragen und gespeichert.}
 {Der Nutzer betätigt die Parsen-Schaltfläche der Schnellzugriffsleiste.}
 {Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst.}
-{Der Nutzer gibt im Eingabefeld \texttt{father(homer, X).} ein und bestätigt mit der Eingabe-Taste.}
+{Der Nutzer gibt im Eingabefeld \texttt{father(homer, X).} ein und bestätigt die Eingabe.}
 {Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und der erste Interpretationsschritt wird visualisiert.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung dieses Schritts wird angezeigt.}
-{Der Nutzer betätigt die Nächster Schritt-Schaltfläche der Schnellzugriffsleiste.}
-{Die Interpretation wird um einen Schritt fortgeführt. Die Visualierung befindet sich im Zustand des nächsten Schrittes.}
+{Der Nutzer betätigt die \enquote{Nächster Schritt}-Schaltfläche der Schnellzugriffsleiste.}
+{Die Interpretation wird um einen Schritt fortgeführt. Die Visualisierung befindet sich im Zustand des nächsten Schrittes.}
 
 \teststep{Die Visualisierung befindet sich im Zustand des zweiten Schrittes.}
 {Der Nutzer betätigt die Nächste-Lösung-Schaltfläche der Schnellzugriffsleiste.}
@@ -979,7 +985,7 @@ Während \enquote{Speichern} nur bei neu angelegten Prolog-Programmen einen Ausw
 \captionof{figure}{Hauptfenster nach dem Öffnen des Beispielprogramms}
 \end{minipage}
 
-Nach dem Öffnen des Beispielprogramms wird dessen Inhalt im Editor angezeigt (1).
+Nach dem Öffnen des \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programms} wird dessen Inhalt im Editor angezeigt (1).
 Die Konsole gibt eine entsprechende Meldung aus (2).
 Das Eingabefeld bleibt weiterhin gesperrt (3).
 
@@ -1033,7 +1039,7 @@ Stößt er dabei auf Fehler, wird eine Fehlermeldung in der Konsole angezeigt (2
 Gibt der Nutzer eine Abfrage (1) im Eingabefeld ein, versucht der Parser, diese Eingabe zu einem einzelnen Ziel zu verarbeiten.
 Treten dabei keine Fehler auf, wird eine Meldung in der Konsole angezeigt (2) und die Visualisierung der Abarbeitung dieser Abfrage gestartet (3).
 Eine Leiste mit Schaltflächen, die zur Steuerung der Visualisierung dienen, wird angezeigt.
-Die Schaltfäche \enquote{Nächster Schritt} (4) bewirkt die Ausführung und Visualisierung des nächsten Schrittes.
+Die Schaltfläche \enquote{Nächster Schritt} (4) bewirkt die Ausführung und Visualisierung des nächsten Schrittes.
 Die Schaltflächen \enquote{+} und \enquote{-} (5) dienen zum Zoomen in der Visualisierung.
 
 \subsubsection{Lösung gefunden}
@@ -1132,12 +1138,14 @@ Die Schaltflächen \enquote{Exportieren als Bild} und \enquote{Exportieren als T
 \captionof{figure}{Programm nach dem Betätigen der \enquote{Formatieren}-Schaltflfäche}
 \end{minipage}
 
-Wenn der Nutzer die Schaltfläche \enquote{Formatieren} betätigt, versucht das Programm, das Prolog-Programm im Editor nach den vorgegegeben Regeln zu formatieren.
+Wenn der Nutzer die Schaltfläche \enquote{Formatieren} betätigt, versucht das Programm, das Prolog-Programm im Editor nach den vorgegebenen Regeln zu formatieren.
 Ist dies erfolgreich, wird eine Meldung auf der Konsole ausgegeben (2) und der Inhalt des Editors mit dem formatierten Prolog-Programm überschrieben (3).
 
 Schlägt die Formatierung fehl, wird eine Fehlermeldung auf der Konsole ausgegeben.
 
 \subsubsection{Schnellzugriffsleiste}
+\phantomsection
+\label{gui:schnellzugriff}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -1146,7 +1154,7 @@ Schlägt die Formatierung fehl, wird eine Fehlermeldung auf der Konsole ausgegeb
 \captionof{figure}{Position der Schnellzugriffsleiste}
 \end{minipage}
 
-Die Schnellzugriffleiste bietet dem Nutzer die wichtigsten Funktionen an einem Ort.
+Die Schnellzugriffsleiste bietet dem Nutzer die wichtigsten Funktionen an einem Ort.
 Diese werden durch Schaltflächen mit Symbolen repräsentiert.
 Die Symbole stehen für das Erstellen, Öffnen und Speichern von Dateien (1), Parsen und Formatieren von Prolog-Programmen (2) und \enquote{Ausführung eines Einzelschritts} sowie \enquote{Ausführung bis zur nächsten Lösung} (3).
 Die Schaltflächen sind dabei nur freigegeben, wenn auch ihre Gegenstücke an anderen Stellen in der GUI freigegeben sind.
@@ -1171,7 +1179,7 @@ Der Eintrag \enquote{Sprache} (2) lässt den Nutzer die Sprache der GUI ändern.
 \subsection{Visualisierung}
 
 Um die Visualisierungsbeispiele besser darstellen zu können, wurden sie hier ohne die grafische Oberfläche des Programms eingefügt.
-Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im \texttt{simpsons.pl}-Programm.
+Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im \hyperref[appendix:simpsons]{\texttt{simpsons.pl}-Programm}.
 
 \subsubsection{Wurzel}
 
@@ -1261,9 +1269,9 @@ Außerdem sind sie rot eingefärbt.
 
 \subsubsection{Unifikationsziel \enquote{=}}
 
-Das Unifikationziel \enquote{=} wird ähnlich der Unifikation von Funktorzielen durch ein Rechteck dargestellt, welches in drei weitere Rechtecke aufgeteilt wird.
+Das Unifikationsziel \enquote{=} wird ähnlich der Unifikation von Funktorzielen durch ein Rechteck dargestellt, welches in drei weitere Rechtecke aufgeteilt wird.
 Das obere Rechteck enthält den Text \enquote{Unifikation}.
-Das mittlere Rechteck enthält zu unifizierenden Terme.
+Das mittlere Rechteck enthält zu unifizierende Terme.
 Das untere Rechteck enthält bei erfolgreicher Unifikation die resultierenden Substitutionen und bei fehlgeschlagener Unifikation die Nachricht \enquote{Unifikation fehlgeschlagen:} und den Grund des Fehlschlages.
 Das Rechteck ist bei erfolgreicher Unifikation grün und bei fehlgeschlagener Unifikation rot eingefärbt.
 
@@ -1351,6 +1359,8 @@ Dies wird so dargestellt, als hätte das Ziel keine Lösungen.
 Der Interpreter sucht nach einer neuen Unifikation für \texttt{magic\_number} und kann anschließend das Teilziel \texttt{max} wieder besuchen.
 
 \section{Glossar}
+\phantomsection
+\label{glossary}
 
 \subsection{Allgemein}
 
@@ -1476,6 +1486,8 @@ Vergrößerung oder Verkleinerung der Visualisierung.
 
 \newpage
 \section{Anhang}
+\phantomsection
+\label{appendix:simpsons}
 
 \subsection{Unformatiertes simpsons.pl Beispielprogramm}
 
