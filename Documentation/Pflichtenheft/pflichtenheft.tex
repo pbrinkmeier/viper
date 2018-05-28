@@ -100,7 +100,7 @@ Unter Zuhilfenahme der Visualisierung soll der Nutzer die Interpretation eines P
 
 \section{Kriterien}
 
-\subsection{Muss}
+\subsection{Musskriterien}
 
 \criterium{Erstellen eines neuen Prolog-Programms}{crt:create}
 
@@ -142,7 +142,7 @@ Das Programm kann Lösungen zu einer Abfrage in der Konsole ausgeben. Dabei wird
 
 Das Programm ermöglicht es dem Nutzer das Bewegen des angezeigten Ausschnitts der Visualisierung und das Zoomen.
 
-\subsection{Kann}
+\subsection{Kannkriterien}
 
 \criteriumOptional{Zurückschreiten}{crt:stepback}
 
@@ -150,7 +150,7 @@ Das Programm soll es dem Nutzer ermöglichen, beliebig viele Schritte schrittwei
 
 \criteriumOptional{Ausführung bis zur nächsten Lösung}{crt:continue}
 
-Die Interpretation soll durch eine zusätzliche Schaltfläche bis zur nächsten Lösung ausgeführt werden können. Diese Aktion kann durch das Betätigen der \enquote{Abbrechen}-Schaltfläche abgebrochen werden. Dabei wird der aktuelle Interpretationsschritt fertig berechnet und anschließend wird die Interpretation abgebrochen.
+Die Interpretation soll durch eine zusätzliche Schaltfläche bis zur nächsten Lösung ausgeführt werden können. Diese Aktion kann durch das Betätigen der \enquote{Abbrechen}-Schaltfläche abgebrochen werden. Dabei wird der aktuelle Interpretationsschritt fertig berechnet und anschließend wird die Interpretation unterbrochen.
 
 \criteriumOptional{Cut}{crt:cut}
 
@@ -158,8 +158,8 @@ Das Programm soll die \enquote{Cut}-Funktionalität unterstützen.
 
 \criteriumOptional{Arithmetik}{crt:maths}
 
-% TODO Aus dem glosar definitionend hochziehen
-Das Programm soll grundlegende Arithmetik unterstützen.
+Das Programm soll grundlegende Arithmetik unterstützen. Dies beinhaltet die natürlichen Zahlen inklusive der 0. Des weiteren werden folgende Operatoren unterstützt:
+\texttt{+, -, *, <, =<, >, >=, =\textbackslash=, =:=, is}
 
 \criteriumOptional{Standardbibliothek}{crt:standardlib}
 
@@ -167,7 +167,7 @@ Das Programm soll eine Standardbibliothek mit nützlichen, vordefinierten Regeln
 
 \criteriumOptional{Standardbibliothek deaktivieren und aktivieren}{crt:disablelib}
 
-Das Programm soll es dem Nutzer ermöglichen, die eingebundene Standardbibliothek deaktivieren und wieder aktivieren zu können.
+Das Programm soll es dem Nutzer ermöglichen, die eingebundene Standardbibliothek deaktivieren und wieder aktivieren zu können. Geschieht dies während der Interpretation wird der aktuelle Interpretationsschritt fertig berechnet und anschließend wird die Interpretation abgebrochen. Außerdem werden die Visualisierung und der Inhalt der Konsole verworfen und das Programm muss neu geparst werden.
 
 \criteriumOptional{Export der Visualisierung als LaTeX-Code}{crt:latexexport}
 
@@ -545,7 +545,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
-    \includegraphics[width=0.7\linewidth]{build/visualisation/test_father_root.png}}
+\includegraphics[width=0.7\linewidth]{build/visualisation/test_father_root.png}}
 \captionof{figure}{Wurzel der Abfrage \texttt{father(X, bart)}}
 \end{minipage}
 
@@ -949,7 +949,7 @@ Die folgenden Entwürfe beinhalten alle Musskriterien.
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
-    \includegraphics[width=\linewidth]{build/gui/main_view_initial.png}}
+\includegraphics[width=\linewidth]{build/gui/main_view_initial.png}}
 \captionof{figure}{Hauptfenster unmittelbar nach dem Starten des Programms}
 \end{minipage}
 
@@ -961,7 +961,7 @@ Das Eingabefeld ist gesperrt (angedeutet durch die graue Färbung), da noch kein
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
-    \includegraphics[width=\linewidth]{build/gui/main_view_filemenu.png}}
+\includegraphics[width=\linewidth]{build/gui/main_view_filemenu.png}}
 \captionof{figure}{Hauptfenster mit ausgewähltem \enquote{Datei}-Menü}
 \end{minipage}
 
@@ -975,7 +975,7 @@ Während \enquote{Speichern} nur bei neu angelegten Prolog-Programmen einen Ausw
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
-    \includegraphics[width=\linewidth]{build/gui/main_view_opened.png}}
+\includegraphics[width=\linewidth]{build/gui/main_view_opened.png}}
 \captionof{figure}{Hauptfenster nach dem Öffnen des Beispielprogramms}
 \end{minipage}
 
@@ -987,7 +987,7 @@ Das Eingabefeld bleibt weiterhin gesperrt (3).
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
-    \includegraphics[width=\linewidth]{build/gui/main_view_parse_fail.png}
+\includegraphics[width=\linewidth]{build/gui/main_view_parse_fail.png}
 }
 \captionof{figure}{Hauptfenster nach Klick auf \enquote{Parsen}, mit inkorrektem Prolog-Programm}
 \end{minipage}
@@ -1076,7 +1076,7 @@ Jeder der folgenden Entwürfe beinhaltet \emph{ein} Kannkriterium.
 \makebox[\linewidth]{
 \includegraphics[width=\linewidth]{build/gui/main_view_previous_step.png}
 }
-    \captionof{figure}{Die Schaltfläche \enquote{vorheriger Schritt}}
+\captionof{figure}{Die Schaltfläche \enquote{vorheriger Schritt}}
 \end{minipage}
 
 \begin{minipage}{\linewidth}
