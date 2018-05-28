@@ -254,8 +254,7 @@ Der Status der Standardbibliothek (\enquote{Aktiviert}/\enquote{Deaktiviert}) wi
 \functionality{Erstellen eines neuen Prolog-Programms}{fnc:new}
 \fulfills{crt:create}
 
-%TODO Verweiß auf speichern
-Das Programm stellt einen leeren Editor bereit, in dem ein neues Prolog-Programm angelegt werden kann. Sollte der Editor zuvor bereits ungesicherten Inhalt besitzen, so wird der Nutzer aufgefordert, diesen zu speichern. Hierbei kann entweder die alte Datei überschrieben oder eine neue Datei angelegt werden. Der alte Editor-Inhalt, der Konsolen-Inhalt und die Visualisierung werden daraufhin verworfen. 
+Das Programm stellt eine Schaltfläche zum Leeren des Editors bereit. Sollte beim Betätigen dieser Schaltfäche der Inhalt des Editors ungesichert sein, so wird der Nutzer aufgefordert, diesen zu speichern. Hierbei kann entweder die alte Datei überschrieben oder eine neue Datei angelegt werden. Der alte Editor-Inhalt, der Konsolen-Inhalt und die Visualisierung werden daraufhin verworfen.
 
 \functionality{Öffnen eines Prolog-Programms}{fnc:open}
 \fulfills{crt:open}
@@ -270,17 +269,17 @@ Das Programm bietet einen Schnellzugriff auf bis zu fünf der zuletzt verwendete
 \functionality{Bearbeiten eines Prolog-Programms}{fnc:editor}
 \fulfills{crt:edit}
 
-Das Prolog-Programm kann im Editor bearbeitet werden. Die Änderungen werden erst beim Speichern zurückgeschrieben.
+Das Prolog-Programm kann im Editor bearbeitet werden. Die Änderungen werden erst beim Speichern zurückgeschrieben. Sollten nach dem Parsen erneut Änderungen an dem geöffneten Prolog-Programm durchgeführt werden, so wird das Eingabefeld sowie jegliche Interaktion mit der Visualisierung gesperrt, bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
 
 \functionality{Speichern als}{fnc:saveas}
 \fulfills{crt:save}
 
-Beim Betätigen der \enquote{Speichern als} so kann über einen Auswahl-Dialog eine neue Datei angelegt werden.
+Beim Betätigen der \enquote{Speichern als}-Schaltfläche in der Menüleiste kann über einen Auswahl-Dialog eine Datei ausgewählt oder eine neue Datei angelegt werden. Anschließend wird der Inhalt des Editors an den gewählten Ort gespeichert.
 
 \functionality{Speichern des Editor-Inhalts}{fnc:save}
 \fulfills{crt:save}
 
-Das Programm kann den Inhalt des Editors speichern. Ist der Dateiname bekannt wird der Inhalt der Datei überschrieben. Sollte dies nicht der Fall sein wird die \enquote{Speichern als...} Funktion ausgeführt.
+Das Programm kann den Inhalt des Editors speichern. Ist der Dateiname bekannt, wird der Inhalt der Datei überschrieben. Sollte dies nicht der Fall sein, wird die \enquote{Speichern als...} Funktion ausgeführt.
 
 \functionality{Parsen eines Prolog-Programms}{fnc:parser}
 \fulfills{crt:parser}
@@ -296,7 +295,7 @@ Der Parser erkennt Fehler innerhalb des geöffneten Prolog-Programms bei der Ver
 \functionality{Eingabe von Prolog-Abfragen in das Eingabefeld}{fnc:shell}
 \fulfills{crt:request}
 
-Bei erfolgreicher Verarbeitung einer korrekten Datei durch den Parser erlaubt das Eingabefeld die Eingabe von Abfragen. Eine korrekte Abfrage entspricht einem einzelnen Ziel. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird das Eingabefeld sowie jegliche Interaktion mit der Visualisierung gesperrt, bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
+Bei erfolgreicher Verarbeitung einer korrekten Datei durch den Parser erlaubt das Eingabefeld die Eingabe von Abfragen. Eine korrekte Abfrage entspricht einem einzelnen Ziel.
 
 \functionality{Syntaktische Fehler in der Abfrage}{fnc:inputerror}
 \fulfills{crt:request}
@@ -389,7 +388,7 @@ Die aktuell angezeigte Visualisierung lässt sich als Bild im PNG- oder SVG-Form
 \functionality{Deaktivierung und Aktivierung der Standardbibliothek}{fnc:disablelib}
 \fulfills{crt:disablelib}
 
-Die Einbindung der Standardbibliothek kann über die Menüleiste aktiviert und deaktiviert werden. Von der Standardbibliothek zur Verfügung gestellte Regeln werden bis zur erneuten Aktivierung nicht mehr berücksichtigt.
+Die Einbindung der Standardbibliothek kann über die Menüleiste deaktiviert und wieder aktiviert werden. Nach einer De- oder Aktivierung wird eine möglicherweise laufende Abfrage abgebrochen und die Konsole sowie das Visualisierungs-Fenster geleert. Das Prolog-Programm muss über die Parsen-Schaltfläche neu geparst werden.
 
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
 \fulfills{crt:formatting}
