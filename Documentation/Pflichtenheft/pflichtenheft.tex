@@ -68,7 +68,7 @@ Für eine Abfrage erhalten wir folgende Lösungen:
 
 \begin{lstlisting}
 ?- father(homer, bart).
-yes .
+yes
 ?- father(bart, abe).
 no .
 \end{lstlisting}
@@ -95,7 +95,7 @@ Die Antworten sind alle möglichen Kombinationen aus den Variablen, die den Fakt
 
 Prolog ist hierbei anders als \enquote{andere} Programmiersprachen, da es sich um eine deklarative Programmiersprache handelt. Imperative Programmiersprachen (bspw. die Programmiersprache C) erledigen sequentiell eine vorgeschriebene Reihenfolge von Befehlen. Damit steht der Prozess des Lösens im Vordergrund. Deklarative Programmiersprachen wie Prolog beschreiben ein Problem und ermitteln den Lösungsweg automatisch. Im Vordergrund steht hier hingegen die Problembeschreibung.
 
-Zur Lösung eines Problems nutzt Prolog das Konzept der Unifikation. Dazu werden verschiedene Belegungen getestet, welche unter Umständen keine gültige Lösung sind. Im Falle ungültiger Lösungen wird die letzte Entscheidung zur Belegung rückgängig gemacht (\enquote{Backtracking}) und die nächste Belegung getestet.
+Zur Lösung eines Problems nutzt Prolog das Konzept der Unifikation. Dazu werden verschiedene Belegungen getestet, welche unter Umständen keine Lösung sind. Im Falle inkorrekter Belegungen wird die letzte Entscheidung zur Belegung rückgängig gemacht (\enquote{Backtracking}) und die nächste Belegung getestet.
 
 VIPER, die VIPER Interactive Prolog Education Runtime, ist ein Programm zur Bearbeitung und dem Testen von einfachen Prolog-Programmen. Über die visuelle Schnittstelle ist es dem Nutzer möglich, Prolog zu schreiben, Abfragen zu stellen und die Abarbeitung dieser visualisieren zu lassen.
 
@@ -109,7 +109,7 @@ Unter Zuhilfenahme der Visualisierung soll der Nutzer die Interpretation eines P
 
 \criterium{Erstellen eines neuen Prolog-Programms}{crt:create}
 
-Das Programm stellt einen leeren Editor für neue Prolog-Programme bereit. Der Inhalt des Editors wird dabei gelöscht.
+Das Programm kann ein leeres Prolog-Programm anlegen. Der Inhalt des Editor wird dabei gelöscht.
 
 \criterium{Öffnen eines Prolog-Programms}{crt:open}
 
@@ -125,6 +125,7 @@ Das Programm kann Änderungen am momentan geladenen Prolog-Programm speichern. D
 
 \criterium{Parsen eines Prolog-Programms mit begrenztem Sprachumfang}{crt:parser}
 
+% TODO Teilmenge spezifizieren
 Das Programm kann eine Teilmenge der Sprache Prolog durch einen Parser verarbeiten.
 
 \criterium{Eingabe von Abfragen}{crt:request}
@@ -137,11 +138,11 @@ Das Programm bearbeitet Abfragen schrittweise. Nach jedem durchgeführten Teilsc
 
 \criterium{Visualisierung als Graph}{crt:visualization}
 
-Das Programm kann die Abarbeitung einer Abfrage zu einem Prolog-Programm durch einen Graphen visualisieren.
+Das Programm kann den aktuellen Zustand der Abarbeitung einer Abfrage zu einem Prolog-Programm durch einen Graphen visualisieren.
 
 \criterium{Ausgabe von Lösungen zu einer Abfrage}{crt:answer}
 
-Das Programm kann Lösungen zu einer Abfrage in der Konsole ausgeben. Dabei wird bei einer Abfrage ohne Variablen \enquote{\texttt{yes .}} oder \enquote{\texttt{no .}} ausgegeben. Beinhaltet die Abfrage Variablen, so werden mögliche Variablenbelegungen ausgegeben. Gibt es keine Lösung, so wird eine entsprechende Meldung ausgegeben.
+Das Programm kann Lösungen zu einer Abfrage in der Konsole ausgeben. Dabei wird bei einer Abfrage ohne Variablen \enquote{\texttt{yes}} oder \enquote{\texttt{no .}} ausgegeben. Beinhaltet die Abfrage Variablen, so werden mögliche Variablenbelegungen ausgegeben. Bei frei belegbaren Variablen wird \enquote{\texttt{<any>}} ausgegeben. Gibt es keine (weitere) Lösung, so wird \enquote{\texttt{no .}} ausgegeben.
 
 \subsection{Kann}
 
@@ -151,7 +152,7 @@ Das Programm soll es dem Nutzer ermöglichen, beliebig viele Schritte schrittwei
 
 \criteriumOptional{Ausführung bis zur nächsten Lösung}{crt:continue}
 
-Die Interpretation soll durch eine zusätzliche Schaltfläche bis zur nächsten Lösung ausgeführt werden können. Diese Aktion kann durch das Betätigen der \enquote{Abbrechen}-Schaltfläche abgebrochen werden. Dabei wird der aktuelle Interpretationsschritt fertig berechnet und anschließend wird die Interpretation beendet.
+Die Interpretation soll durch eine zusätzliche Schaltfläche bis zur nächsten Lösung ausgeführt werden können. Diese Aktion kann durch das Betätigen der \enquote{Abbrechen}-Schaltfläche abgebrochen werden. Dabei wird der aktuelle Interpretationsschritt fertig berechnet und anschließend wird die Interpretation abgebrochen.
 
 \criteriumOptional{Cut}{crt:cut}
 
@@ -159,6 +160,7 @@ Das Programm soll die \enquote{Cut}-Funktionalität unterstützen.
 
 \criteriumOptional{Arithmetik}{crt:maths}
 
+% TODO Aus dem glosar definitionend hochziehen
 Das Programm soll grundlegende Arithmetik unterstützen.
 
 \criteriumOptional{Standardbibliothek}{crt:standardlib}
@@ -169,13 +171,13 @@ Das Programm soll eine Standardbibliothek mit nützlichen, vordefinierten Regeln
 
 Das Programm soll es dem Nutzer ermöglichen, die eingebundene Standardbibliothek deaktivieren und wieder aktivieren zu können.
 
-\criteriumOptional{Export von generierten Graphen als LaTeX-Code}{crt:latexexport}
+\criteriumOptional{Export der Visualisierung als LaTeX-Code}{crt:latexexport}
 
-Das Programm kann einen generierten Graphen als LaTeX-Code exportieren, damit dieser vereinfacht in Dokumente eingebunden werden kann.
+Das Programm kann die Visualisierung als LaTeX-Code exportieren, damit dieser vereinfacht in Dokumente eingebunden werden kann.
 
-\criteriumOptional{Export von generierten Graphen als Bilddatei}{crt:imageexport}
+\criteriumOptional{Export der Visualisierung als Bilddatei}{crt:imageexport}
 
-Das Programm kann einen generierten Graphen als Bilddatei im SVG- oder PNG-Format exportieren.
+Das Programm kann die Visualisierung als Bilddatei im SVG- oder PNG-Format exportieren.
 
 \criteriumOptional{\enquote{Pretty-Printing} von Listen}{crt:prettyprinting}
 
@@ -187,16 +189,18 @@ Das Programm soll Quelltext durch das Betätigen der \enquote{Formatieren}-Schal
 
 \criteriumOptional{Wechseln der Sprache zwischen Deutsch und Englisch}{crt:translation}
 
-Die Programmoberfläche soll die Sprachen Deutsch und Englisch unterstützen.
+Die Programmoberfläche soll die Sprachen Deutsch und Englisch unterstützen. Durch eine Schaltfläche ist es möglich, zwischen diesen zu wechseln.
 
 \criteriumOptional{Schnellzugriffsleiste}{crt:buttons}
 
-Das Programm soll eine Leiste mit Schaltflächen unter der Menüleiste besitzen.
+%TODO siehe GUI
+Das Programm soll, wie in den GUI Entwürfen eine Leiste mit Schaltflächen unter der Menüleiste besitzen.
 
 \subsection{Abgrenzung}
 
 \criteriumNot{Voller Sprachsupport}{crt:fullsupport}
 
+%TODO Verweiß auf Krieterium
 Das Programm unterstützt keine Prolog-Sprachfeatures außerhalb der vorgestellten Prolog-Teilmenge.
 
 \criteriumNot{Andere Programmiersprachen}{crt:otherlanguages}
@@ -205,7 +209,7 @@ Das Programm beschränkt sich auf die Prolog-Sprache und bietet keine offizielle
 
 \criteriumNot{Nutzung in einer Kommandozeile}{crt:cli}
 
-Das Programm beschränkt sich auf eine graphische Darstellung über GUI-Elemente. Eine Interaktion über die Kommandozeile wird nicht unterstützt.
+Das Programm beschränkt sich auf eine grafische Darstellung über GUI-Elemente. Eine Interaktion über die Kommandozeile wird nicht unterstützt.
 
 \criteriumNot{Professionelle Anwendung}{crt:professionaluse}
 
@@ -217,7 +221,7 @@ Der Parser ist gegeben und wird nicht selbst implementiert.
 
 \section{Produkteinsatz}
 
-Das Programm soll als graphisches Prolog-Lerntool betrieben werden.
+Das Programm soll als grafisches Prolog-Lerntool betrieben werden.
 
 Die Zielgruppe des Lerntools sind Lehrende, Studierende und Enthusiasten.
 
@@ -229,7 +233,7 @@ Das Programm ermöglicht es mit Hilfe eines eingebauten Editors Prolog-Programme
 
 \section{Produktumgebung}
 
-Das Programm soll als graphische Applikation auf einem Desktop-System betrieben werden.
+Das Programm soll als grafische Applikation auf einem Desktop-System betrieben werden.
 
 Es stehen mindestens 2 AMD64/x86 Kerne mit insgesamt 2GB shared RAM zur Verfügung.
 
@@ -248,15 +252,14 @@ Die Pfade der fünf zuletzt geöffneten Dateien werden für einen Eintrag in der
 Die letzte vom Nutzer ausgewählte GUI-Sprache wird gespeichert, damit diese nach einem Programm-Neustart nicht erneut eingestellt werden muss.
 
 \textbf{Standardbibliothek} \\
-Der Status der Standardbibliothek (``Aktiviert''/``Deaktiviert'') wird gespeichert, damit diese Einstellung nach einem Programm-Neustart erhalten bleibt.
-
-Außer den oben genannten werden keinerlei Daten gespeichert.
+Der Status der Standardbibliothek (\enquote{Aktiviert}/\enquote{Deaktiviert}) wird gespeichert, damit diese Einstellung nach einem Programm-Neustart erhalten bleibt.
 
 \section{Funktionale Anforderungen}
 
 \functionality{Erstellen eines neuen Prolog-Programms}{fnc:new}
 \fulfills{crt:create}
 
+%TODO Verweiß auf speichern
 Das Programm stellt einen leeren Editor bereit, in dem ein neues Prolog-Programm angelegt werden kann. Sollte der Editor zuvor bereits ungesicherten Inhalt besitzen, so wird der Nutzer aufgefordert, diesen zu speichern. Hierbei kann entweder die alte Datei überschrieben oder eine neue Datei angelegt werden. Der alte Editor-Inhalt, der Konsolen-Inhalt und die Visualisierung werden daraufhin verworfen. 
 
 \functionality{Öffnen eines Prolog-Programms}{fnc:open}
@@ -277,7 +280,7 @@ Das Prolog-Programm kann im Editor bearbeitet werden. Die Änderungen werden ers
 \functionality{Speichern als}{fnc:saveas}
 \fulfills{crt:save}
 
-Ist der Dateiname noch nicht durch das Öffnen eines bereits vorhandenen Prolog-Programms oder durch vorheriges Speichern bekannt, so kann über einen Auswahldialog eine neue Datei angelegt werden.
+Beim Betätigen der \enquote{Speichern als} so kann über einen Auswahl-Dialog eine neue Datei angelegt werden.
 
 \functionality{Speichern des Editor-Inhalts}{fnc:save}
 \fulfills{crt:save}
@@ -298,7 +301,7 @@ Der Parser erkennt Fehler innerhalb des geöffneten Prolog-Programms bei der Ver
 \functionality{Eingabe von Prolog-Abfragen in das Eingabefeld}{fnc:shell}
 \fulfills{crt:request}
 
-Bei erfolgreicher Verarbeitung einer korrekten Datei durch den Parser erlaubt das Eingabefeld die Eingabe von Abfragen. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird das Eingabefeld deaktiviert sowie jegliche Interaktion mit der Visualisierung gesperrt bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
+Bei erfolgreicher Verarbeitung einer korrekten Datei durch den Parser erlaubt das Eingabefeld die Eingabe von Abfragen. Eine korrekte Abfrage entspricht einem einzelnen Ziel. Sollten erneut Änderungen an dem geöffneten Prolog-Programm stattfinden, so wird das Eingabefeld sowie jegliche Interaktion mit der Visualisierung gesperrt, bis der veränderte Quelltext erneut vom Parser verarbeitet wurde.
 
 \functionality{Syntaktische Fehler in der Abfrage}{fnc:inputerror}
 \fulfills{crt:request}
@@ -321,7 +324,7 @@ Nachdem die Interpretation gestartet wurde, wird durch das Betätigen der \enquo
 
 Der Interpreter gibt Lösungen zu einer Abfrage in der Konsole aus. Gibt es keine weitere Lösung mehr, so wird eine entsprechende Meldung ausgegeben.
 
-\functionality{Visualisierung des aktuellen Interpretationsschrittes mittels eines Graphen}{fnc:visualization}
+\functionality{Visualisierung des aktuellen Interpretationsschrittes}{fnc:visualization}
 \fulfills{crt:visualization}
 
 Bei aktiver Interpretation einer Abfrage wird ein Graph für den aktuellen Interpretationsschritt generiert und im Visualisierungs-Fenster angezeigt. Sollte bereits ein Graph angezeigt werden wird dieser verworfen und durch den neuen ersetzt.
@@ -329,32 +332,33 @@ Bei aktiver Interpretation einer Abfrage wird ein Graph für den aktuellen Inter
 \functionality{Visualisierung einer erfolgreichen Unifikation}{fnc:unificationsuccess}
 \fulfills{crt:visualization}
 
-Gab es eine erfolgreiche Unifikation, so wird diese mit den entsprechenden Substitutionen angezeigt.
+Gab es eine erfolgreiche Unifikation, so wird diese mit den entsprechenden Substitutionen visualisiert.
 
 \functionality{Visualisierung einer fehlgeschlagenen Unifikation}{fnc:unificationfail}
 \fulfills{crt:visualization}
 
-Fehlgeschlagene Unifikationen werden nur visualisiert, wenn die Funktorköpfe identisch sind. Der Grund, warum die Unifikation fehlgeschlagen ist, wird zusätzlich in einer Meldung ausgegeben. Da die Unifikation bei unterschiedlichen Funktorköpfen automatisch fehlschlägt, werden diese übersprungen und nicht visualisiert.
+Fehlgeschlagene Unifikationen werden visualisiert, jedoch nur, wenn die Funktorköpfe identisch sind. Da die Unifikation bei unterschiedlichen Funktorköpfen automatisch fehlschlägt, werden diese übersprungen und nicht visualisiert.
 
 \functionality{Visualisierung von Backtracking}{fnc:backtracking}
 \fulfills{crt:visualization}
 
-Wenn für ein Teilziel keine Unifikation mehr möglich ist, so wird zum vorherigen Teilziel oder, im Falle des ersten Teilziels, zur übergeordneten Regel zurückgesprungen. Dieser Backtrackingschritt wird entsprechend in der Visualisierung angezeigt.
+%TODO Verlinken
+Ein Backtrackingschritt wird entsprechend visualisiert.
 
 \functionality{Vergrößern und Verkleinern der Visualisierung durch Schaltflächen oder das Mausrad}{fnc:zoom}
 \fulfills{crt:visualization}
 
-Über die Verwendung des Mausrads oder der Plus- und Minus-Schaltflächen lässt sich der angezeigte Ausschnitt des Visualisierungs-Graphen vergrößern oder verkleinern.
+Über die Verwendung des Mausrads oder der Plus- und Minus-Schaltflächen lässt sich der angezeigte Ausschnitt der Visualisierung vergrößern oder verkleinern.
 
 \functionality{Navigation der Visualisierung durch Bewegungen mit der Maus}{fnc:move}
 \fulfills{crt:visualization}
 
-Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Ausschnitt des Graphen bewegen.
+Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Ausschnitt der Visualisierung bewegen.
 
 \functionality{Zurückschreiten während der Interpretation}{fnc:stepback}
 \fulfills{crt:stepback}
 
-Die Schaltfläche \enquote{Vorheriger Schritt} macht bei Betätigung den aktuellen Schritt rückgängig. Im Falle des ersten Schrittes ist diese Schaltfläche deaktiviert.
+Die Schaltfläche \enquote{Vorheriger Schritt} macht bei Betätigung den aktuellen Schritt rückgängig. Im Falle des ersten Schrittes ist diese Schaltfläche gesperrt.
 
 \functionality{Ausführung der Interpretation bis zur nächsten Lösung}{fnc:continue}
 \fulfills{crt:continue}
@@ -369,12 +373,13 @@ Im Falle einer Interpretation, die mehrere Schritte hintereinander ausführt (Fo
 \functionality{Cut}{fnc:cut}
 \fulfills{crt:cut}
 
-Die Cut-Funktionalität soll durch das Hinzufügen eines \enquote{\texttt{!}} als Teilziel einer Regel unterstützt werden.
+Die Cut-Funktionalität soll unterstützt werden.
 
 \functionality{Arithmetik}{fnc:maths}
 \fulfills{crt:maths}
 
-Das Programm soll grundlegende Arithmetik unterstützen.
+%TODO Link K4
+Das Programm soll die in K4 beschriebene, grundlegende, Arithmetik unterstützen.
 
 \functionality{Exportieren der angezeigten Visualisierung in einem beliebigen Schritt als LaTeX-Dokument}{fnc:latexexport}
 \fulfills{crt:latexexport}
@@ -394,7 +399,7 @@ Die Einbindung der Standardbibliothek kann über die Menüleiste aktiviert und d
 \functionality{Formatierung des Quellcodes}{fnc:formatter}
 \fulfills{crt:formatting}
 
-Eine automatische Formatierung von Prolog-Quellcode ist über die Menüleiste möglich. Die Formatierung ist hierbei vorgegeben und kann nicht verändert werden. Schlägt die Formatierung fehl, so wird eine Fehlermeldung ausgegeben.
+Eine automatische Formatierung von korrektem Prolog-Quellcode ist über die Menüleiste möglich. Die Formatierung ist hierbei vorgegeben und kann nicht verändert werden. Schlägt die Formatierung fehl, so wird eine Fehlermeldung ausgegeben.
 
 \functionality{Wechsel der verwendeten Sprache}{fnc:translation}
 \fulfills{crt:translation}
@@ -451,22 +456,23 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 \teststep{Das Programm wird ausgeführt und ist fokussiert. Es ist kein Prolog-Programm im Editor geöffnet.}
 {Der Nutzer wählt über die Menüleiste die Öffnen-Funktion aus.}
-{Ein Datei-Auswahldialog öffnet sich.}
+{Ein Datei-Auswahl-Dialog öffnet sich.}
 
-\teststep{Der Nutzer hat eine Datei über das Auswahlfenster ausgewählt.}
+\teststep{Der Nutzer hat eine Datei über den Auswahl-Dialog ausgewählt.}
 {Der Nutzer betätigt die Öffnen-Schaltfläche.}
 {Die Datei wird im Editor-Fenster geöffnet.}
 
+%TODO Kürz mich
 \test{Öffnen einer Prolog-Programmdatei während im Editor bereits ein Programm eingegeben wurde mit Speichern des geschriebenen Programmes}{tst:openanother}
 \tests{fnc:open}
 
 \teststep{Das Programm wird ausgeführt und ist fokussiert. Im Editor wurde ein Prolog-Programm von Hand eingegeben.}
 {Der Nutzer wählt über die Menüleiste die Öffnen-Funktion aus.}
-{Ein Datei-Auswahldialog öffnet sich.}
+{Ein Datei-Auswahl-Dialog öffnet sich.}
 
-\teststep{Der Nutzer hat eine Datei über das Auswahlfenster ausgewählt.}
+\teststep{Der Nutzer hat eine Datei über den Auswahl-Dialog ausgewählt.}
 {Der Nutzer betätigt die Öffnen-Schaltfläche.}
-{Ein Dialogfenster fragt den Nutzer, ob das im Editor eingegebene Prolog-Programm gespeichert oder verworfen werden soll.}
+{Ein Öffnen-Dialog fragt den Nutzer, ob das im Editor eingegebene Prolog-Programm gespeichert oder verworfen werden soll.}
 
 \teststep{Der Nutzer hat die Wahl das im Editor geschriebene Prolog-Programm zu speichern oder zu verwerfen.}
 {Der Nutzer betätigt die Speichern-Schaltfläche.}
@@ -476,16 +482,17 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer wählt einen Speicherort und wählt einen Dateinamen. Anschließend betätigt er die Speichern-Schaltfläche.}
 {Das im Editor geöffnete Prolog-Programm wird in die gewählte Datei gespeichert. Die zu öffnende Datei wird in den Editor geladen und überschreibt den bisherigen Inhalt.}
 
+%TODO Kürz mich
 \test{Öffnen einer Prolog-Programmdatei während im Editor bereits ein Prolog-Programm eingegeben wurde mit Verwerfen des geschriebenen Prolog-Programmes}{tst:openanother2}
 \tests{fnc:open}
 
-\teststep{Das Programm wird ausgeführt und ist fokussiert. Im Editor wurde ein Prolog-Programm händisch eingegeben.}
+\teststep{Das Programm wird ausgeführt. Im Editor wurde ein Prolog-Programm von Hand eingegeben.}
 {Der Nutzer wählt über die Menüleiste die Öffnen-Funktion aus.}
-{Ein Datei-Auswahldialog öffnet sich.}
+{Ein Datei-Auswahl-Dialog öffnet sich.}
 
-\teststep{Der Nutzer hat eine Datei über das Auswahlfenster ausgewählt.}
+\teststep{Der Nutzer hat eine Datei über den Auswahl-Dialog ausgewählt.}
 {Der Nutzer betätigt die Öffnen-Schaltfläche.}
-{Ein Dialogfenster fragt den Nutzer, ob das im Editor eingegebene Prolog-Programm gespeichert oder verworfen werden soll.}
+{Ein Öffnen-Dialog fragt den Nutzer, ob das im Editor eingegebene Prolog-Programm gespeichert oder verworfen werden soll.}
 
 \teststep{Der Nutzer hat die Wahl, das im Editor geschriebene Prolog-Programm zu speichern oder zu verwerfen.}
 {Der Nutzer betätigt die Verwerfen-Schaltfläche.}
@@ -494,7 +501,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \test{Speichern eines im Editor geschrieben Prolog-Programmes}{tst:save}
 \tests{fnc:save}
 
-\teststep{Das Programm wird ausgeführt und ist fokussiert. Ein Prolog-Programm ist im Editor geöffnet.}
+\teststep{Das Programm wird ausgeführt. Ein Prolog-Programm ist im Editor von Hand eingegeben.}
 {Der Nutzer wählt über die Menüleiste die Speichern-Funktion aus.}
 {Ein Datei-Speichern-Dialog öffnet sich.}
 
@@ -505,14 +512,14 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \test{Inkorrektes Prolog-Programm}{tst:errorcheck}
 \tests{fnc:errorcheck}
 
-\teststep{Der Nutzer hat das inkorrektes Prolog-Programm \texttt{father.} in den Editor eingetragen.}
+\teststep{Der Nutzer hat das Prolog-Programm \texttt{father(} in den Editor eingetragen.}
 {Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste, um das Prolog-Programm zu parsen.}
-{Die Ausführung wird abgebrochen. Eine verständliche Fehlermeldung (``Syntax-Fehler in Zeile 1'') wird in der Konsole angezeigt.}
+{Die Ausführung wird abgebrochen. Eine verständliche Fehlermeldung \enquote{Syntax-Fehler in Zeile 1} wird in der Konsole angezeigt.}
 
 \test{Interpretierung vom simpsons.pl-Programm}{tst:simpsons}
 \tests{fnc:interpreter}
 
-\teststep{Das \texttt{simpsons.pl}-Programm ist im Editorfenster eingegeben oder aus einer Datei geöffnet worden.}
+\teststep{Das \texttt{simpsons.pl}-Programm ist im Editor-Fenster eingegeben worden.}
 {Der Nutzer betätigt die Parsen-Schaltfläche des Hauptfensters.}
 {Das Prolog-Programm wird erfolgreich geparst, es kommt zu keinen Fehlern. In das Eingabefeld kann eine Abfrage eingegeben werden.}
 
@@ -523,7 +530,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
     \includegraphics[width=0.7\linewidth]{build/visualisation/test_father_root.png}}
-\captionof{figure}{Wurzel der Anfrage \texttt{father(X, bart)}}
+\captionof{figure}{Wurzel der Abfrage \texttt{father(X, bart)}}
 \end{minipage}
 
 \test{Interaktive Nutzung des Interpreters}{tst:ask}
@@ -536,10 +543,10 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {In der Konsole wird eine Erfolgsnachricht ausgegeben.}
 
 \teststep{Das Eingabefeld erwartet eine Abfrage.}
-{Der Nutzer gibt die Anfrage \texttt{father(homer, X).} ein und bestätigt die Eingabe.}
-{Die Abfrage wird mittels eines Graphen visualisiert.}
+{Der Nutzer gibt die Abfrage \texttt{father(homer, X).} ein und bestätigt die Eingabe.}
+{Die Interpretation wird gestartet und der erste Interpretationsschritt wird visualisiert.}
 
-\teststep{Die Wurzel des Graphen wird angezeigt.}
+\teststep{Der erste Interpretationsschritt ist visualisiert.}
 {Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wurde.}
 {Zwischenschritte werden visualisiert. In der Konsole erscheint die erste Lösung \texttt{X = bart .}}
 
@@ -574,23 +581,23 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt erneut die Parsen-Schaltfläche in der Menüleiste.}
 {Eine Fehlermeldung wird angezeigt.}
 
-\test{Zoomen innerhalb eines generierten Graphen}{tst:zoom}
+\test{Zoomen innerhalb der Visualisierung}{tst:zoom}
 \tests{fnc:zoom}
 
-\teststep{Eine Abfrage ist mittels eines Graphen visualisiert.}
-{Der Nutzer bewegt das Mausrad über dem Graphen zu sich bzw. nach hinten.}
-{Aus dem Graphen wird heraus gezoomt, der Graph wird kleiner.}
+\teststep{Eine Abfrage ist visualisiert. Der Mauszeiger befindet sich im Visualisierungs-Fenster.}
+{Der Nutzer bewegt das Mausrad zu sich bzw. nach hinten.}
+{Es wird aus der Visualisierung heraus gezoomt.}
 
-\teststep{Eine Abfrage ist mittels eines Graphen visualisiert.}
-{Der Nutzer bewegt das Mausrad über dem Graphen von sich weg bzw. nach vorne.}
-{Es wird in den Graphen herein gezoomt, der Graph wird größer.}
+\teststep{Eine Abfrage ist visualisiert. Der Mauszeiger befindet sich im Visualisierungs-Fenster.}
+{Der Nutzer bewegt das Mausrad von sich weg bzw. nach vorne.}
+{Es wird in die Visualisierung herein gezoomt.}
 
-\test{Bewegung innerhalb eines generierten Graphen}{tst:move}
+\test{Bewegung innerhalb der Visualisierung}{tst:move}
 \tests{fnc:move}
 
-\teststep{Eine Abfrage ist mittels eines Graphen visualisiert.}
+\teststep{Eine Abfrage ist visualisiert. Der Mauszeiger befindet sich im Visualisierungs-Fenster.}
 {Der Nutzer hält die linke Maustaste gedrückt und bewegt die Maus.}
-{Der Graph bewegt sich passend zu der Mausbewegung.}
+{Der angezeigte Ausschnitt bewegt sich passend zu der Mausbewegung.}
 
 \test{Formatierung von Quellcode}{tst:formatter}
 \tests{fnc:formatter}
@@ -616,7 +623,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\test{Export als Bilddatei für Foliensätze}{tst:latexexport}
+\test{Export als Bilddatei}{tst:latexexport}
 \tests{fnc:imageexport}
 
 \teststep{Das Beispielprogramm ist im Editor geöffnet und der unten gezeigte Zustand wurde erreicht und visualisiert.}
@@ -641,9 +648,9 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \test{Visualierung fehlgeschlagener Unifikation}{tst:unificationfail}
 \tests{fnc:unificationfail}
 
-\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben und die Wurzel des Visualisierungsgraphen wird angezeigt.}
+\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
 {Der Nutzer betätigt die Schaltfläche \enquote{Nächster Schritt}.}
-{Eine fehlgeschlagene Unifikation mit \texttt{father(abe, homer)} entsprechend der gezeigten Graphik wird angezeigt.}
+{Eine fehlgeschlagene Unifikation mit \texttt{father(abe, homer)} wird entsprechend der gezeigten Grafik visualisiert.}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -655,9 +662,9 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \test{Visualierung erfolgreicher Unifikation}{tst:unificationsuccess}
 \tests{fnc:unificationsuccess}
 
-\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben und die Wurzel des Visualisierungsgraphen wird angezeigt.}
+\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
 {Der Nutzer betätigt die Schaltfläche \enquote{Nächster Schritt} zwei mal.}
-{Eine erfolgreiche Unifikation mit \texttt{father(homer, bart)} entsprechend der gezeigten Graphik wird angezeigt.}
+{Eine erfolgreiche Unifikation mit \texttt{father(homer, bart)} wird entsprechend der gezeigten Grafik visualisiert.}
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{
@@ -709,7 +716,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 \teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert.}
 {Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
-{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben.}
 
 \teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen, gespeichert und durch den Parser verarbeitet worden.}
 {Der Nutzer fokussiert durch einen Mausklick das Editor-Fenster und fügt vor die erste Zeile das Wort \enquote{Fehler}, gefolgt von einem Umbruch ein.}
@@ -736,15 +743,15 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 \teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei.}
 {Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
-{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
 {Der Nutzer gibt im Eingabefeld \texttt{mother(marge, bart).} ein und bestätigt mit der Eingabe-Taste.}
-{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
+{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und der erste Interpretationsschritt wird visualisiert.}
 
 \teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
 {Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wird.}
-{Eine Lösung wurde gefunden. Es wird \texttt{yes.} in der Konsole ausgegeben.}
+{Eine Lösung wurde gefunden. Es wird \texttt{yes} in der Konsole ausgegeben.}
 
 \test{Öffnen eines zuletzt verwendeten Prolog-Programms, Parsen und Interpretieren einer Abfrage, Ausführung bis zur nächsten Ausgabe und Abbruch}{tst:sys3}
 \tests{fnc:recentfiles}
@@ -761,17 +768,17 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 \teststep{Der Editor enthält die formatierte \texttt{simpsons.pl}-Programmdatei analog zum Anhang.}
 {Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
-{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokussiert.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst. Es wurden keine Fehlermeldungen ausgegeben.}
 {Der Nutzer gibt im Eingabefeld \texttt{mother(X, bart).} ein und bestätigt mit der Eingabe-Taste.}
-{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
+{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und der erste Interpretationsschritt wird visualisiert.}
 
-\teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+\teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung dieses Schritts wird angezeigt.}
 {Der Nutzer betätigt die Nächste-Lösung-Schaltfläche.}
-{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Der Graph entspricht dem Graphen bei der Findung der ersten Lösung.}
+{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Die Visualisierung entspricht der Visualisierung bei der Findung der ersten Lösung.}
 
-\teststep{Der Interpreter hat eine erste Lösung gefunden. Der Graph ist aktualisiert worden.}
+\teststep{Der Interpreter hat eine erste Lösung gefunden. Die Visualisierung ist aktualisiert worden.}
 {Der Nutzer betätigt die Nächste-Lösung-Schaltfläche erneut.}
 {Der Interpreter wird bis zur Findung einer weiteren Lösung fortgeführt.}
 
@@ -789,17 +796,17 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \tests{fnc:imageexport}
 \tests{fnc:latexexport}
 
-\teststep{Der Nutzer hat das formatierte \texttt{simpsons.pl}-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \texttt{mother(X, bart).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+\teststep{Der Nutzer hat das formatierte \texttt{simpsons.pl}-Programm aus dem Anhang im Editor eingetragen, durch den Parser verarbeiten lassen und die Abfrage \texttt{mother(X, bart).} gestellt. Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung dieses Schritts wird angezeigt.}
 {Der Nutzer betätigt die Nächster-Schritt-Schaltfläche.}
-{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Der Graph entspricht dem Graphen bei der Findung der ersten Lösung.}
+{Die Interpretation wird bis zur Findung einer Lösung fortgeführt. Es wird \texttt{X = marge} ausgegeben. Die Visualisierung entspricht der Visualisierung bei der Findung der ersten Lösung.}
 
 \teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde.}
 {Der Nutzer hält innerhalb der Visualisierung die linke Maustaste gedrückt und bewegt die Maus nach links.}
-{Der gezeigte Ausschnitt der Visualisierung bewegt sich nach links.}
+{Der angezeigte Ausschnitt der Visualisierung bewegt sich nach links.}
 
 \teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde. Die Visualisierung wurde nach links verschoben.}
 {Der Nutzer betätigt die \enquote{+}-Schaltfläche.}
-{Es wird in den gezeigten Ausschnitt der Visualisierung hineingezoomt.}
+{Es wird in den angezeigten Ausschnitt der Visualisierung hineingezoomt.}
 
 \teststep{Die Visualisierung entspricht dem Zustand, bei dem die Lösung \texttt{X = marge} gefunden wurde. Es wurde in die nach links verschobene Visualisierung hineingezoomt.}
 {Der Nutzer wählt über die Menüleiste die Option \enquote{Exportieren als Bild} aus.}
@@ -846,19 +853,19 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 
 \teststep{Das formatierte \texttt{simpsons.pl}-Programm ist im Editor eingetragen und gespeichert.}
 {Der Nutzer betätigt die Parsen-Schaltfläche der Schnellzugriffsleiste.}
-{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben und fokusiert.}
+{Das Prolog-Programm wird erfolgreich geparst. Es werden keine Fehlermeldungen ausgegeben. Das Eingabefeld wird freigegeben.}
 
 \teststep{Das Prolog-Programm wurde erfolgreich geparst.}
 {Der Nutzer gibt im Eingabefeld \texttt{father(homer, X).} ein und bestätigt mit der Eingabe-Taste.}
-{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und eine Visualisierung angezeigt.}
+{Der Parser verarbeitet die Abfrage korrekt. Die Interpretation wird gestartet und der erste Interpretationsschritt wird visualisiert.}
 
-\teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung wird angezeigt.}
+\teststep{Der Interpreter ist beim ersten Schritt der Interpretation der gegebenen Abfrage. Eine Visualisierung dieses Schritts wird angezeigt.}
 {Der Nutzer betätigt die Nächster Schritt-Schaltfläche der Schnellzugriffsleiste.}
 {Die Interpretation wird um einen Schritt fortgeführt. Die Visualierung befindet sich im Zustand des nächsten Schrittes.}
 
 \teststep{Die Visualisierung befindet sich im Zustand des zweiten Schrittes.}
 {Der Nutzer betätigt die Nächste Lösung-Schaltfläche der Schnellzugriffsleiste.}
-{Die Interpretation wird bis zur nächsten Lösung fortgeführt. Es wird \texttt{X = bart} ausgegeben. Der Graph entspricht dem Graphen bei der Findung der ersten Lösung.}
+{Die Interpretation wird bis zur nächsten Lösung fortgeführt. Es wird \texttt{X = bart} ausgegeben. Die Visualisierung entspricht der Visualisierung bei der Findung der ersten Lösung.}
 
 \appendix
 
@@ -877,8 +884,8 @@ Die folgenden Entwürfe beinhalten alle Musskriterien.
 \end{minipage}
 
 Das Hauptfenster besteht aus der Fensterleiste (A), der Menüleiste (1), dem Editor (2), der Visualisierungsbox (3), der Konsole (4) und dem Eingabefeld (5).
-Dabei ist die Fensterleiste kein Bestandteil des Programms; sie ist von der graphischen Oberfläche des Betriebssystems vorgegeben.
-Das Eingabefeld ist deaktiviert (angedeutet durch die graue Färbung), da noch kein Prolog-Programm geparst wurde.
+Dabei ist die Fensterleiste kein Bestandteil des Programms; sie ist von der grafischen Oberfläche des Betriebssystems vorgegeben.
+Das Eingabefeld ist gesperrt (angedeutet durch die graue Färbung), da noch kein Prolog-Programm geparst wurde.
 
 \subsubsection{\enquote{Datei}-Menü}
 
@@ -890,7 +897,7 @@ Das Eingabefeld ist deaktiviert (angedeutet durch die graue Färbung), da noch k
 
 Das \enquote{Datei}-Menü (1) hat die Einträge \enquote{Neu}, \enquote{Öffnen}, \enquote{Speichern}, \enquote{Speichern als...}, \enquote{Zuletzt verwendet} und \enquote{Beenden}.
 \enquote{Neu}, \enquote{Öffnen} und \enquote{Speichern} führen die jeweiligen Funktionen aus.
-Während \enquote{Speichern} nur bei neu angelegten Prolog-Programmen einen Auswahldialog anzeigt, zeigt \enquote{Speichern als...} immer einen Auswahldialog an.
+Während \enquote{Speichern} nur bei neu angelegten Prolog-Programmen einen Auswahl-Dialog anzeigt, zeigt \enquote{Speichern als...} immer einen Auswahl-Dialog an.
 \enquote{Beenden} beendet das Programm.
 \enquote{Zuletzt verwendet} enthält eine Liste von bis zu fünf zuletzt verwendeten Programmen (2).
 
@@ -904,7 +911,7 @@ Während \enquote{Speichern} nur bei neu angelegten Prolog-Programmen einen Ausw
 
 Nach dem Öffnen des Beispielprogramms wird dessen Inhalt im Editor angezeigt (1).
 Die Konsole gibt eine entsprechende Meldung aus (2).
-Das Eingabefeld bleibt weiterhin deaktiviert (3).
+Das Eingabefeld bleibt weiterhin gesperrt (3).
 
 \subsubsection{Parsen fehlgeschlagen}
 
@@ -917,7 +924,7 @@ Das Eingabefeld bleibt weiterhin deaktiviert (3).
 
 Klickt der Nutzer auf \enquote{Parsen} im \enquote{Programm}-Menü (1), versucht der Parser das Prolog-Programm im Editor zu verarbeiten.
 Stößt er dabei auf Fehler, wird eine Fehlermeldung in der Konsole angezeigt (2).
-Das Eingabefeld bleibt weiterhin deaktiviert (3).
+Das Eingabefeld bleibt weiterhin gesperrt (3).
 
 \subsubsection{Parsen erfolgreich}
 
@@ -930,7 +937,7 @@ Das Eingabefeld bleibt weiterhin deaktiviert (3).
 
 Klickt der Nutzer auf \enquote{Parsen} (1), versucht der Parser das Prolog-Programm im Editor zu verarbeiten.
 Treten dabei keine Fehler auf, wird eine entsprechende Meldung in der Konsole angezeigt (2).
-Das Eingabefeld wird aktiviert; der Nutzer kann jetzt Abfragen eingeben (3).
+Das Eingabefeld wird freigegeben; der Nutzer kann jetzt Abfragen eingeben (3).
 
 \subsection{Inkorrekte Abfrage}
 
@@ -979,14 +986,14 @@ Wurde ein Lösung für die Abfrage gefunden (1), wird eine Meldung in der Konsol
 \captionof{figure}{Es gibt keine weiteren Lösungen mehr}
 \end{minipage}
 
-Gibt es keine weiteren Lösungen mehr, wird eine Meldung (1) in der Konsole angezeigt und die Schaltfläche \enquote{Nächster Schritt} wird deaktiviert (2).
+Gibt es keine weiteren Lösungen mehr, wird eine Meldung (1) in der Konsole angezeigt und die Schaltfläche \enquote{Nächster Schritt} wird gesperrt (2).
 
 Dieser Fall tritt ein, wenn der Interpreter einen Rückschritt vom eingegeben Ziel auszuführen versucht.
 In diesem Fall gibt es keine Fakten mehr, die mit dem Ziel unifizierbar sind.
-Unabhängig davon, ob es per se keine Lösungen gibt oder schon Lösungen gefunden wurden, wird die Meldung \enquote{Keine weiteren Lösungen.} angezeigt.
+Unabhängig davon, ob es per se keine Lösungen gibt oder schon Lösungen gefunden wurden, wird die Meldung \enquote{Keine weiteren Lösungen.} in der Konsole angezeigt.
 
 In diesem Entwurf ist außerdem der Scrollbalken gezeigt (3).
-Dieser wird neben der Konsole eingeblendet, wenn der angezeigt Text nicht mehr hineinpasst.
+Dieser wird neben der Konsole eingeblendet, wenn der angezeigte Text nicht mehr hineinpasst.
 Dies gilt auch für den Editor.
 
 \subsection{Kannkriterien}
@@ -1006,12 +1013,12 @@ Jeder der folgenden Entwürfe beinhaltet \emph{ein} Kannkriterium.
 \makebox[\linewidth]{
 \includegraphics[width=\linewidth]{build/gui/main_view_previous_step_disabled.png}
 }
-\captionof{figure}{Interpreter beim ersten Schritt; die Schaltfläche \enquote{Vorheriger Schritt} ist deaktiviert}
+\captionof{figure}{Interpreter beim ersten Schritt; die Schaltfläche \enquote{Vorheriger Schritt} ist gesperrt}
 \end{minipage}
 
 Die Schaltfläche \enquote{Vorheriger Schritt} (1) erlaubt es dem Nutzer, den Zustand vor dem aktuellen Schritt zu betrachten.
 Die Schaltfläche kann so lange betätigt werden, bis der Nutzer beim ersten Schritt angelangt ist.
-Ist der Nutzer beim ersten Schritt angelangt, wird die Schaltfläche deaktiviert.
+Ist der Nutzer beim ersten Schritt angelangt, wird die Schaltfläche gesperrt.
 
 \subsubsection{Ausführung bis zur nächsten Lösung}
 
@@ -1042,9 +1049,9 @@ Betätigt der Nutzer die Schaltfläche erneut, wird der Interpreter nach der akt
 \captionof{figure}{Die Schaltflächen \enquote{Exportieren...}}
 \end{minipage}
 
-Die Schaltflächen \enquote{Exportieren als Bild} und \enquote{Exportieren als TikZ} erlauben dem Nutzer das Exportieren des Visualisierungsgraphen in verschiedenen Formaten (1).
-\enquote{Exportieren als Bild} lässt den Nutzer zwischen dem Export als SVG- oder PNG-Graphik wählen.
-\enquote{Exportieren als TikZ} lässt den Nutzer eine TeX-Datei mit einer Umsetzung des Graphen als TikZ-Graphik erstellen.
+Die Schaltflächen \enquote{Exportieren als Bild} und \enquote{Exportieren als TikZ} erlauben dem Nutzer das Exportieren der Visualisierung in verschiedenen Formaten (1).
+\enquote{Exportieren als Bild} lässt den Nutzer zwischen dem Export als SVG- oder PNG-Grafik wählen.
+\enquote{Exportieren als TikZ} lässt den Nutzer eine TeX-Datei mit einer Umsetzung der Visualisierung als TikZ-Grafik erstellen.
 
 \subsubsection{Formatieren eines Prolog-Programms}
 
@@ -1072,8 +1079,8 @@ Schlägt die Formatierung fehl, wird eine Fehlermeldung auf der Konsole ausgegeb
 Die Schnellzugriffleiste bietet dem Nutzer die wichtigsten Funktionen an einem Ort.
 Diese werden durch Schaltflächen mit Symbolen repräsentiert.
 Die Symbole stehen für das Erstellen, Öffnen und Speichern von Dateien (1), Parsen und Formatieren von Prolog-Programmen (2) und \enquote{Ausführung eines Einzelschritts} sowie \enquote{Ausführung bis zur nächsten Lösung} (3).
-Die Schaltflächen sind dabei nur aktiv, wenn auch ihre Gegenstücke an anderen Stellen in der GUI aktiv sind.
-Im gezeigten Zustand sind die Schrittschaltflächen inaktiv, da kein prolog-Programm erfolgreich geparst wurde.
+Die Schaltflächen sind dabei nur freigegeben, wenn auch ihre Gegenstücke an anderen Stellen in der GUI freigegeben sind.
+Im gezeigten Zustand sind die Schrittschaltflächen gesperrt, da kein Prolog-Programm erfolgreich geparst wurde.
 
 \subsubsection{Einstellungen}
 
@@ -1093,7 +1100,7 @@ Der Eintrag \enquote{Sprache} (2) lässt den Nutzer die Sprache der GUI ändern.
 
 \subsection{Visualisierung}
 
-Um die Visualisierungsbeispiele besser darzustellen zu können, wurden sie hier ohne die graphische Oberfläche des Programms eingefügt.
+Um die Visualisierungsbeispiele besser darzustellen zu können, wurden sie hier ohne die grafische Oberfläche des Programms eingefügt.
 Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im Beispielprogramm.
 
 \subsubsection{Wurzel}
@@ -1102,10 +1109,10 @@ Die visualisierte Abfrage ist \texttt{grandfather(X, Y)} im Beispielprogramm.
 \makebox[\linewidth]{
 \includegraphics[width=0.7\linewidth]{build/visualisation/01_root.png}
 }
-\captionof{figure}{Wurzel des generierten Graphen}
+\captionof{figure}{Visualisierung des ersten Interpretationsschritts}
 \end{minipage}
 
-Die Wurzel des generierten Graphen stellt die eingegebene Abfrage dar.
+Die Visualisierung des ersten Interpretationsschritts stellt die eingegebene Abfrage dar.
 
 \subsubsection{Erfolgreiche Unifikation und Teilziele}
 
@@ -1127,10 +1134,10 @@ Dabei enthält jede Unifikation im oberen Rechteck den Fakt, mit dem unifiziert 
 Erfolgreiche Unifikationen enthalten im unteren Rechteck die resultierenden Substitutionen.
 Außerdem sind sie grün eingefärbt.
 
-War eine Unifikation mit einer Regel erfolgreich, so werden ihre Teilziele als neue Ziele, also runde Knoten, zum Graphen hinzugefügt.
+War eine Unifikation mit einer Regel erfolgreich, so werden ihre Teilziele als neue Ziele, also runde Knoten, zur Visualisierung hinzugefügt.
 Die Substitutionen werden in den Teilzielen angewendet und hervorgehoben.
 Die Unifikation und ihre Teilziele werden durch gestrichelte Kanten verbunden.
-Dadurch werden im Graph die Fälle \enquote{Ziel wurde unifiziert mit} und \enquote{Ziel ist Teilziel von Regel} unterschieden.
+Dadurch werden in der Visualisierung die Fälle \enquote{Ziel wurde unifiziert mit} und \enquote{Ziel ist Teilziel von Regel} unterschieden.
 
 \subsubsection{Erfolgreiche Unifikation mit Substution in weiteren Teilzielen}
 
@@ -1226,13 +1233,14 @@ Ziel, für das alle möglichen Lösungen gefunden werden sollen. Die Lösung kan
 
 \textbf{Arithmetik}:
 Grundlegende Arithmetik beinhaltet natürliche Zahlen inklusive der 0. Des weiteren werden folgende Operatoren unterstützt:\\
-\texttt{+, -, *, <, =<, >, >=, =\=, =:=}\\
+\texttt{+, -, *, <, =<, >, >=, =\textbackslash=, =:=}\\
 \\
 Da Termgleichheit in Prolog keine Arithmetik unterstützt, können Abfragen wie\\
 \enquote{$4 = 1 + 3$}\\
 nicht ausgewertet werden. Deshalb wird zusätzlicher der \texttt{is}-Operator unterstützt. Dieser evaluiert zuerst die rechte Seite arithmetisch und unifiziert diese anschließend mit der Linken.
 
-\textbf{Backtracking / Rückschreiten}:
+\textbf{Backtracking}:
+%TODO GUI Beheben
 Ist für ein Ziel keine Unifikation mehr möglich, muss der Interpreter versuchen, vorhergehende Teilziele anders zu unifizieren oder, falls es keine vorhergehenden Teilziele gibt, eine andere Unifikation für die übergeordnete Regel zu finden.
 Diesen Prozess nennt man \enquote{Backtracking}.
 
@@ -1277,7 +1285,7 @@ Vorgegebene Fakten und Regeln, welche automatisch bei der Verarbeitung durch den
 Sammelbegriff für Funktoren, Variablen und Zahlen.
 
 \textbf{Unifikation}:
-Zwei Terme sind genau dann unifizierbar, wenn sie gleich sind oder Variablen enthalten, die so belegt werden können dass die Terme gleich sind.
+Zwei Terme sind genau dann unifizierbar, wenn sie gleich sind oder Variablen enthalten, die so belegt werden können, dass die Terme gleich sind.
 
 \textbf{Variable}:
 Platzhalter. Erlaubt das allgemeine Beschreiben von Regeln. Können für einen beliebigen Term stehen.
@@ -1293,13 +1301,13 @@ Schritte zwischen zwei Zuständen.
 
 \subsection{Begriffe der Bedienoberfläche}
 \textbf{Dialog}:
-Fenster zur Meldung einer Nachricht (Warnungs- oder Fehler-Dialog) oder Anfrage (bspw. Bestätigungs-Dialog).
+Fenster zur Meldung einer Nachricht (Warnungs- oder Fehler-Dialog) oder Abfrage (bspw. Bestätigungs-Dialog).
 
 \textbf{Editor}:
-Element der graphischen Oberfläche, welches Eingabe und Bearbeitung von angezeigtem Text ermöglicht.
+Element der grafischen Oberfläche, welches Eingabe und Bearbeitung von angezeigtem Text ermöglicht.
 
 \textbf{Eingabefeld}:
-Element der graphischen Oberfläche. Das Eingabefeld dient zur Eingabe von Abfragen. Es ist nur dann aktiviert, wenn ein korrektes Prolog-Programm eingegeben und geparst wurde.
+Element der grafischen Oberfläche. Das Eingabefeld dient zur Eingabe von Abfragen. Es ist nur dann freigegeben, wenn ein korrektes Prolog-Programm eingegeben und geparst wurde.
 
 \textbf{Export}:
 Schreiben von Bild-Dateien oder LaTeX-Quellcode in ein Zielverzeichnis auf einem verbundenen Speichermedium. Das Schreiben von Prolog-Programmen auf ein Speichermedium wird nicht als Export, sondern als Speichern bezeichnet.
@@ -1311,13 +1319,13 @@ Vorgegebener Stil bzgl. der Setzung von Leerzeichen und Umbrüchen. Zu untersche
 Struktur bestehend aus Knoten und Kanten.
 
 \textbf{GUI / GUI-Element}:
-Die GUI entspricht der graphischen Benutzeroberfläche (graphical user interface). Das GUI ist zusammengesetzt aus diversen GUI-Elementen innerhalb eines Fensters (bspw. dem Editor).
+Die GUI entspricht der grafischen Benutzeroberfläche (graphical user interface). Das GUI ist zusammengesetzt aus diversen GUI-Elementen innerhalb eines Fensters (bspw. dem Editor).
 
 \textbf{Konsole}:
-Element der graphischen Oberfläche. Die Konsole ist nur lesbar und dient der Ausgabe von Lösungen einer Abfrage sowie anderen Meldungen. 
+Element der grafischen Oberfläche. Die Konsole ist nur lesbar und dient der Ausgabe von Lösungen einer Abfrage sowie anderen Meldungen. 
 
 \textbf{Menüleiste}:
-Element der graphischen Oberfläche. Bietet über Text-Menüs Zugriff auf Funktionen wie Speichern und Öffnen.
+Element der grafischen Oberfläche. Bietet über Text-Menüs Zugriff auf Funktionen wie Speichern und Öffnen.
 
 \textbf{Öffnen}:
 Lesen eines ausgewählten Prolog-Programms von einem verbundenen Speichermedium in das Programm. Dies entspricht der Übertragung des Textes aus der gewählten Datei in den Editor.
@@ -1329,7 +1337,7 @@ Schreiben einer Prolog-Programmdatei in ein Zielverzeichnis auf einem verbundene
 Navigierbarer Graph, welcher den Ablauf der Interpretation einer Abfrage im Kontext eines gegebenen Prolog-Programms aufzeigt.
 
 \textbf{Zoom}:
-Vergrößerung oder Verkleinerung eines Bildausschnitts.
+Vergrößerung oder Verkleinerung der angezeigten Ausschnitts der Visualisierung.
 
 \newpage
 \section{Anhang}
