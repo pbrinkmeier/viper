@@ -518,6 +518,20 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 {Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste, um das Prolog-Programm zu parsen.}
 {Die Ausführung wird abgebrochen. Eine verständliche Fehlermeldung \enquote{Syntax-Fehler in Zeile 1} wird in der Konsole angezeigt.}
 
+\test{Mehrere Ziele in der Abfrage}{tst:shell}
+\tests{fnc:shell}
+
+\teststep{Das \texttt{simpsons.pl}-Programm ist im Editor-Fenster eingegeben und erfolgreich geparst worden. Das Eingabefeld ist freigegeben.}
+{Der Nutzer gibt die Abfrage \texttt{father(homer, X). mother(marge, X).} im Eingabefeld ein.}
+{In der Konsole wird der Fehler \enquote{Nur ein Ziel in der Abfrage erlaubt.} ausgegeben und das Eingabefeld geleert.}
+
+\test{Syntaktischer Fehler in der Abfrage}{tst:inputerror}
+\tests{fnc:inputerror}
+
+\teststep{Das \texttt{simpsons.pl}-Programm ist im Editor-Fenster eingegeben und erfolgreich geparst worden. Das Eingabefeld ist freigegeben.}
+{Der Nutzer gibt die Abfrage \texttt{father(} ein.}
+{In der Konsole wird der Fehler \enquote{Syntax-Fehler in Abfrage.} ausgegeben und das Eingabefeld geleert.}
+
 \test{Interpretierung vom simpsons.pl-Programm}{tst:simpsons}
 \tests{fnc:interpreter}
 
@@ -551,6 +565,49 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \teststep{Der erste Interpretationsschritt ist visualisiert.}
 {Der Nutzer betätigt die Schritt-Schaltfläche bis eine Lösung gefunden wurde.}
 {Zwischenschritte werden visualisiert. In der Konsole erscheint die erste Lösung \texttt{X = bart .}}
+
+\test{Ausführen arithmetischer Operationen}{tst:maths}
+\tests{fnc:maths}
+
+Prolog-Programm für Arithmetik:
+\phantomsection
+\label{tst:maths_prog}
+\begin{lstlisting}
+A is 1 + 3 - 2.
+B is 2 * 3.
+C = 6 + 1.
+\end{lstlisting}
+
+\teststep{Das Programm wird ausgeführt und ist fokussiert. Das \hyperref[tst:maths_prog]{Prolog-Programm für Arithmetik} ist geöffnet.}
+{Der Nutzer gibt die Abfrage \texttt{A is 4.} ein.}
+{In der Konsole erscheint \texttt{no .}}
+
+\teststep{Das Programm wird ausgeführt und ist fokussiert. Das \hyperref[tst:maths_prog]{Prolog-Programm für Arithmetik} ist geöffnet.}
+{Der Nutzer gibt die Abfrage \texttt{B is 6.} ein.}
+{In der Konsole erscheint \texttt{yes}}
+
+\teststep{Das Programm wird ausgeführt und ist fokussiert. Das \hyperref[tst:maths_prog]{Prolog-Programm für Arithmetik} ist geöffnet.}
+{Der Nutzer gibt die Abfrage \texttt{C is 6 + 1.} ein.}
+{In der Konsole erscheint \texttt{no .}}
+
+\teststep{Das Programm wird ausgeführt und ist fokussiert. Das \hyperref[tst:maths_prog]{Prolog-Programm für Arithmetik} ist geöffnet.}
+{Der Nutzer gibt die Abfrage \texttt{C = 6 + 1.} ein.}
+{In der Konsole erscheint \texttt{yes}}
+
+\test{Cut-Funktionalität}{tst:cut}
+\tests{fnc:cut}
+
+Prolog-Programm für Cut:
+\phantomsection
+\label{tst:cut_prog}
+\begin{lstlisting}
+max(X, Y, X) :- X > Y, !.
+max(X, Y, Y).
+\end{lstlisting}
+
+\teststep{Das Programm wird ausgeführt und ist fokussiert. Das \hyperref[tst:cut_prog]{Prolog-Programm für Cut} ist geöffnet.}
+{Der Nutzer gibt die Abfrage \texttt{max(42, 17, X).} ein}
+{In der Konsole erscheint die Lösung \texttt{X = 42}}
 
 % TODO
 \test{Aktivieren der Standardbibliothek}{tst:enablelib}
@@ -674,6 +731,19 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 }
 \captionof{figure}{Zustand nach zwei Schritten: erfolgreiche Unifikation}
 \end{minipage}
+
+\test{Visualierung von Backtracking}{tst:backtracking}
+\tests{fnc:backtracking}
+
+\teststep{Das \texttt{simpsons.pl}-Beispielprogramm ist im Editor eingegeben und durch den Parser verarbeitet worden. Der Nutzer hat die Abfrage \texttt{father(homer, X)} eingegeben. Die Interpretation wird gestartet und die Visualisierung des ersten Interpretationsschritts wird angezeigt.}
+{Der Nutzer betätigt die Schaltfläche \enquote{Nächster Schritt}.}
+{Eine fehlgeschlagene Unifikation wird analog zu Abbildung 3 in Test \enquote{Visualisierung fehlgeschlagener Unifikation} visualisiert.}
+
+%TODO Abbildung Backtracking
+
+\teststep{Die fehlgeschlagene Unifikation wird visualisiert.}
+{Der Nutzer betätigt die Schaltfläche \enquote{Nächster Schritt}.}
+{Das Backtracking zum Testen der nächsten Belegung wird visualisiert.}
 
 \test{Wechsel der GUI-Sprache}{tst:language}
 \tests{fnc:translation}
