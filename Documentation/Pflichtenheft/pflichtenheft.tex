@@ -104,7 +104,7 @@ Unter Zuhilfenahme der Visualisierung soll der Nutzer die Interpretation eines P
 
 \criterium{Erstellen eines neuen Prolog-Programms}{crt:create}
 
-Das Programm kann ein leeres Prolog-Programm anlegen. Der Inhalt des Editor wird dabei gelöscht.
+Der Inhalt des Editor kann gelöscht werden um ein neues Prolog-Programm anzulegen.
 
 \criterium{Öffnen eines Prolog-Programms}{crt:open}
 
@@ -120,8 +120,7 @@ Das Programm kann Änderungen am momentan geladenen Prolog-Programm speichern. D
 
 \criterium{Parsen eines Prolog-Programms mit begrenztem Sprachumfang}{crt:parser}
 
-% TODO Teilmenge spezifizieren
-Das Programm kann eine Teilmenge der Sprache Prolog durch einen Parser verarbeiten.
+Das Programm kann eine Teilmenge der Sprache Prolog durch einen Parser verarbeiten. Diese unterstützt als Terme Funktoren, Variablen und Zahlen. Regeln werden mit beliebig vielen Teilzielen unterstützt und als Ziele ausschließlich Funktoren.
 
 \criterium{Eingabe von Abfragen}{crt:request}
 
@@ -137,7 +136,11 @@ Das Programm kann den aktuellen Zustand der Abarbeitung einer Abfrage zu einem P
 
 \criterium{Ausgabe von Lösungen zu einer Abfrage}{crt:answer}
 
-Das Programm kann Lösungen zu einer Abfrage in der Konsole ausgeben. Dabei wird bei einer Abfrage ohne Variablen \enquote{\texttt{yes}} oder \enquote{\texttt{no .}} ausgegeben. Beinhaltet die Abfrage Variablen, so werden mögliche Variablenbelegungen ausgegeben. Bei frei belegbaren Variablen wird \enquote{\texttt{<any>}} ausgegeben. Gibt es keine (weitere) Lösung, so wird \enquote{\texttt{no .}} ausgegeben.
+Das Programm kann Lösungen zu einer Abfrage in der Konsole ausgeben. Dabei wird bei einer Abfrage ohne Variablen \enquote{\texttt{ja}} oder \enquote{\texttt{nein .}} ausgegeben. Beinhaltet die Abfrage Variablen, so werden mögliche Variablenbelegungen ausgegeben. Bei frei belegbaren Variablen wird \enquote{\texttt{<beliebig>}} ausgegeben. Gibt es keine (weitere) Lösung, so wird \enquote{\texttt{nein .}} ausgegeben.
+
+\criterium{Navigation in der Visualisierung}{crt:navigation}
+
+Das Programm ermöglicht es dem Nutzer das Bewegen des angezeigten Ausschnitts der Visualisierung und das Zoomen.
 
 \subsection{Kann}
 
@@ -340,12 +343,12 @@ Fehlgeschlagene Unifikationen werden visualisiert, jedoch nur, wenn die Funktork
 Ein Backtrackingschritt wird entsprechend visualisiert.
 
 \functionality{Vergrößern und Verkleinern der Visualisierung durch Schaltflächen oder das Mausrad}{fnc:zoom}
-\fulfills{crt:visualization}
+\fulfills{crt:navigation}
 
-Über die Verwendung des Mausrads oder der Plus- und Minus-Schaltflächen lässt sich der angezeigte Ausschnitt der Visualisierung vergrößern oder verkleinern.
+Über die Verwendung des Mausrads oder der Plus- und Minus-Schaltflächen lässt sich die Visualisierung vergrößern oder verkleinern.
 
-\functionality{Navigation der Visualisierung durch Bewegungen mit der Maus}{fnc:move}
-\fulfills{crt:visualization}
+\functionality{Ändern des Ausschnitts der Visualisierung durch Bewegungen mit der Maus}{fnc:move}
+\fulfills{crt:navigation}
 
 Durch Drücken und Halten der linken Maustaste lässt sich der angezeigte Ausschnitt der Visualisierung bewegen.
 
@@ -398,7 +401,7 @@ Eine automatische Formatierung von korrektem Prolog-Quellcode ist über die Men�
 \functionality{Wechsel der verwendeten Sprache}{fnc:translation}
 \fulfills{crt:translation}
 
-Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden. Die gewählte Sprache bleibt nach einem Neustart des Programms erhalten.
+Über die Menüleiste kann die Sprache der GUI-Elemente zwischen Englisch und Deutsch gewechselt werden. Dabei die Visualisierung in der entsprechenden Sprache neu generiert. Der Inhalt der Konsole wird geleert. Die Meldung \enquote{Die Sprache wurde gewechselt} wird in der entsprechenden Sprache in der Konsole ausgegeben. Die gewählte Sprache bleibt nach einem Neustart des Programms erhalten.
 
 \functionality{Schnellzugriffsleiste}{fnc:buttons}
 \fulfills{crt:buttons}
