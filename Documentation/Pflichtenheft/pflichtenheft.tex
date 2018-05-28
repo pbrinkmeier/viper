@@ -544,7 +544,7 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % TODO
-\test{Aktivieren der Standardbibliothek}{tst:disablelib}
+\test{Aktivieren der Standardbibliothek}{tst:enablelib}
 \tests{fnc:disablelib}
 
 \teststep{Der Nutzer hat das Prolog-Programm \texttt{cons(1, cons(2, 3))} im Editor eingegeben. Die Standardbibliothek ist nicht aktiviert.}
@@ -558,6 +558,21 @@ Der Prolog-Interpreter lässt sich in seiner Funktionalität einfach erweitern, 
 \teststep{Die Standardbibliothek ist aktiviert.}
 {Der Nutzer betätigt erneut die Parsen-Schaltfläche in der Menüleiste.}
 {Das Prolog-Programm wird erfolgreich geparst. Das Eingabefeld erwartet eine Eingabe.}
+
+\test{Deaktivieren der Standardbibliothek}{tst:disablelib}
+\tests{fnc:disablelib}
+
+\teststep{Der Nutzer hat das Prolog-Programm \texttt{cons(1, cons(2, 3))} im Editor eingegeben. Die Standardbibliothek ist aktiviert.}
+{Der Nutzer betätigt die Parsen-Schaltfläche in der Menüleiste.}
+{Das Prolog-Programm wird erfolgreich geparst. Das Eingabefeld erwartet eine Eingabe.}
+
+\teststep{Das Parsen des Prolog-Programms war erfolgreich.}
+{Der Nutzer entfernt den Haken bei der \enquote{Standardbibliothek laden}-Schaltfläche in der Menüleiste.}
+{Die Standardbibliothek ist nun deaktiviert.}
+
+\teststep{Die Standardbibliothek ist deaktiviert.}
+{Der Nutzer betätigt erneut die Parsen-Schaltfläche in der Menüleiste.}
+{Eine Fehlermeldung wird angezeigt.}
 
 \test{Zoomen innerhalb eines Visualisierungsbaumes}{tst:zoom}
 \tests{fnc:zoom}
