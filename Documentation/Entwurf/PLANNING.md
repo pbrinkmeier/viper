@@ -1,13 +1,3 @@
-# TODO
-
-- Einleitung mit Anschluss an das Pflichtenheft, Aufteilung in Pakete erklären
-- Detaillierte Modellierung des Pakets: GUI  ("view")
-- Detaillierte Modellierung des Pakets: Input (Listener für GUI-Elemente) ("controller")
-- Detaillierte Modellierung des Pakets: Parser (Dokumentation des gegebenen Quellcodes sowie Spezifizierung auf unsere eigenen Datenstrukturen) ("model")
-- Detaillierte Modellierung des Pakets: Interpreter (TODO: Interpreter-Architektur) ("model")
-- Detaillierte Modellierung des Pakets: Graphgenerierung und interne Darstellung (Datenstruktur für gerichteten Graphen mit Backtracking-Pfeilen) ("model")
-- Sequenzdiagramme für Test-Cases
-
 # Entwurfsmuster (vgl. Gang of Four)
 
 - Interpreter ist eigenes Entwurfsmuster
