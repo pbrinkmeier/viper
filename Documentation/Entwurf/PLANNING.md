@@ -1,8 +1,6 @@
 # Entwurfsmuster (vgl. Gang of Four)
 
-- Interpreter ist eigenes Entwurfsmuster
-- Observer ist implizit durch Java Listener bereits gegeben
-- TODO: Mehr Entwurfsmuster herausarbeiten
+- Observer ist implizit durch Java Listener bereits gegeben, benutze evtl. auch für Sprachumstellung
 
 # Architekturstil
 
@@ -24,7 +22,7 @@
 
 - Inhalt des Konsolen-Ausgabefensters (Java: String)
 
-- Parser (anzupassen: PrologParser) und Lexer (gegeben)
+- Parser (anzupassen: PrologParser) und Lexer (gegeben); Keywords (nicht zwingend Klassen):
   - Token (gegeben)
   - Fakt
   - Regel
@@ -37,7 +35,7 @@
   - Cut
   - Unifikationsziel
   - Arithmetik (arithmetische Operatoren, is)
-  - Standardbibliothek (Java: String, wird einfach an zu parsenden Quellcode angehangen)
+  - Standardbibliothek (Java: String)
 
 - Interpreter
   - Abfrage (Java: String, vom Lexer in Tokens umgewandelt)
@@ -45,10 +43,10 @@
   - gerichteter Graph (Baum)
 
 - Exceptions (extends Exception)
-  - VIOpenFileException  - Fehler beim Öffnen (beschädigte Datei, Dateiformat wird nicht unterstützt)
-  - VISaveFileException  - Fehler beim Speichern (keine Schreibrechte, zu wenig Speicherplatz)
-  - VIParseException     - Fehler beim Parsen von Quellcode (Syntax-Fehler) (entweder ersetzen durch oder wrappen von gegebener ParseException)
-  - VIInterpretException - Fehler beim Parsen von Abfragen (Syntax-Fehler)
+  - OpenFileException  - Fehler beim Öffnen (beschädigte Datei, Dateiformat wird nicht unterstützt)
+  - SaveFileException  - Fehler beim Speichern (keine Schreibrechte, zu wenig Speicherplatz)
+  - ParseException     - Fehler beim Parsen von Quellcode (Syntax-Fehler) (gegeben, darf auch manipuliert werden)
+  - InterpretException - Fehler beim Parsen von Abfragen (Syntax-Fehler)
 
 ## View (GUI)
 
