@@ -53,9 +53,13 @@
 
 VIPER wird nach dem \enquote{Model-View-Controller}-Architekturstil entworfen.
 
-Die \enquote{Model}-Komponente entspricht der internen Darstellung der Daten, welche von der \enquote{View}-Komponente dargestellt werden. Dazu gehören u.a. der Inhalt des Konsolen-Ausgabefensters oder der Inhalt des Editors. Die View-Komponente stellt die grafische Schnittstelle dar. Diese ist mit Java und der GUI-Bibliothek Swing implementiert. Die Model-Komponente funktioniert unabhängig von der View-Komponente. Interaktionen mit der Software durch die View-Komponente werden über die \enquote{Controller}-Komponente verarbeitet. Dadurch entstehende Änderungen nehmen wiederum Einfluss auf die Model-Komponente und damit auf die View-Komponente.
+Die \enquote{Model}-Komponente kapselt interne Datenstrukturen, welche wiederum von der \enquote{View}-Komponente (in diesem Fall einer GUI für Desktop-Anwendungen) graphisch dargestellt werden. Dazu gehören u.a. der Inhalt des Editors oder des Konsolen-Ausgabefensters. Die View-Komponente ist mit Java und der GUI-Bibliothek Swing implementiert. Die Model-Komponente funktioniert unabhängig von der View-Komponente.
 
-Die Pakete orientieren sich an den vom Architekturstil festgelegten Unterteilungen. Dementsprechend werden die Pakete \enquote{edu.kit.ipd.pp.viper.model}, \enquote{edu.kit.ipd.pp.viper.view} und \enquote{edu.kit.ipd.pp.viper.controller} unterschieden. Weiter existieren die Pakete \enquote{edu.kit.ipd.pp.viper.parser} und \enquote{edu.kit.ipd.pp.viper.interpreter} unabhängig von den bisherigen Paketen für die Implementierung des Prolog-Parsers und des Prolog-Interpreters. Außerdem enthält das Paket \enquote{edu.kit.ipd.pp.viper.visualization} die Implementierung der Visualisierung für die View-Komponente auf Basis der Model-Komponente.
+Interaktionen mit der Software durch die View-Komponente werden über die \enquote{Controller}-Komponente verarbeitet. Dadurch entstehende Änderungen, bspw. eine Eingabe in den Editor, nehmen wiederum Einfluss auf die internen Datenstrukturen in der Model-Komponente und damit auf die View-Komponente.
+
+Die Pakete orientieren sich an den vom Architekturstil festgelegten Unterteilungen. Dementsprechend werden die Pakete \enquote{edu.kit.ipd.pp.viper.model}, \enquote{edu.kit.ipd.pp.viper.view} und \enquote{edu.kit.ipd.pp.viper.controller} unterschieden.
+
+Weiter existieren die Pakete \enquote{edu.kit.ipd.pp.viper.parser} und \enquote{edu.kit.ipd.pp.viper.interpreter} unabhängig von den bisherigen Paketen für die Implementierung des Prolog-Parsers und des Prolog-Interpreters. Außerdem enthält das Paket \enquote{edu.kit.ipd.pp.viper.visualization} die Implementierung der Visualisierung für die View-Komponente auf Basis der Model-Komponente.
 
 \section{Klassenbeschreibungen}
 
