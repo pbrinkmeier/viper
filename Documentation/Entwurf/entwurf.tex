@@ -57,9 +57,10 @@ Die \enquote{Model}-Komponente kapselt interne Datenstrukturen, welche wiederum 
 
 Interaktionen mit der Software durch die View-Komponente werden über die \enquote{Controller}-Komponente verarbeitet. Dadurch entstehende Änderungen, bspw. eine Eingabe in den Editor, nehmen wiederum Einfluss auf die internen Datenstrukturen in der Model-Komponente und damit auf die View-Komponente.
 
-Die Pakete orientieren sich an den vom Architekturstil festgelegten Unterteilungen. Dementsprechend werden die Pakete \enquote{edu.kit.ipd.pp.viper.model}, \enquote{edu.kit.ipd.pp.viper.view} und \enquote{edu.kit.ipd.pp.viper.controller} unterschieden.
+Die Pakete orientieren sich an den vom Architekturstil festgelegten Unterteilungen. Dementsprechend wird zwischen drei Paketen unterschieden. Das \enquote{edu.kit.ipd.pp.viper.model}-Paket beinhaltet die Logik des Programms. Das \enquote{edu.kit.ipd.pp.viper.view}-Paket beinhaltet die komplette GUI und das \enquote{edu.kit.ipd.pp.viper.controller}-Paket beinhaltet Schnittstellen für die Kommunikation zwischen den anderen beiden Paketen.
 
-Weiter existieren die Pakete \enquote{edu.kit.ipd.pp.viper.parser} und \enquote{edu.kit.ipd.pp.viper.interpreter} unabhängig von den bisherigen Paketen für die Implementierung des Prolog-Parsers und des Prolog-Interpreters. Außerdem enthält das Paket \enquote{edu.kit.ipd.pp.viper.visualization} die Implementierung der Visualisierung für die View-Komponente auf Basis der Model-Komponente.
+Weiter existieren die Pakete \enquote{edu.kit.ipd.pp.viper.model.parser} und \enquote{edu.kit.ipd.pp.viper.model.interpreter} für die Implementierung des Prolog-Parsers und des Prolog-Interpreters. Diese befinden sich im Model-Paket, da sie lediglich Algorithmen zur Ver- und Abarbeitung von Prolog-Programmen und Abfragen beinhalten.
+Außerdem existiert das Paket \enquote{edu.kit.ipd.pp.viper.view.visualization} zur Implementierung der Visualisierung. Dieses befindet sich im View-Paket, da es einen Teil der GUI beinhaltet. 
 
 \section{Klassenbeschreibungen}
 
