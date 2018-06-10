@@ -29,6 +29,7 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{courier}
+\usepackage{enumitem}
 \hypersetup{
 	pdftitle={Entwurf},
 }
@@ -52,6 +53,167 @@
 \section{Einleitung}
 
 \section{Klassenbeschreibungen}
+
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.view}}
+
+\subsubsection{Klasse \texttt{Button}}
+
+\textbf{\texttt{public Button(String textKey, Command command)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{textKey}: Schlüssel für die Übersetzung des angezeigten Texts
+	\item[-] \texttt{command}: Auszuführender Befehl beim Betätigen der Schaltfläche
+\end{itemize}
+Initialisiert eine neue Schaltfläche für die GUI. Beim Betätigen der Schaltfläche wird der übergebene Befehl \texttt{command} ausgeführt.
+
+\subsubsection{Klasse \texttt{ConsoleInputField}}
+
+\textbf{\texttt{public ConsoleInputField()}}\\
+Initialisiert das Eingabefeld für Prolog-Abfragen.
+
+\textbf{\texttt{public String getText()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Inhalt des Eingabefeldes
+\end{itemize}
+Gibt den aktuellen Inhalt des Eingabefeldes zurück.
+
+\textbf{\texttt{public void clear()}}\\
+Leert das Eingabefeld.
+
+\textbf{\texttt{public void lock()}}\\
+Sperrt das Eingabefeld, sodass keine Eingaben durch den Nutzer möglich sind.
+
+\textbf{\texttt{public void unlock()}}\\
+Gibt das Eingabefeld frei, sodass Eingaben durch den Nutzer möglich sind. Das Eingabefeld wird vor der Freigabe geleert.
+
+\subsubsection{Klasse \texttt{ConsoleOutputArea}}
+
+\textbf{\texttt{public ConsoleOutputArea()}}\\
+Initialisiert die Konsole, welche für textuelle Ausgaben vom Interpreter sowie für Fehlermeldungen verwendet wird.
+
+\textbf{\texttt{public void printLine(String line, Color color)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{line}: Der anzuzeigende Text
+	\item[-] \texttt{color}: Gewünschte Farbe für den gesamten Text
+\end{itemize}
+Gibt eine neue Zeile mit Text \texttt{line} in der Farbe \texttt{color} auf der Konsole aus.
+
+\textbf{\texttt{public void clear()}}\\
+Leert den Inhalt der Konsole.
+
+\subsubsection{Klasse \texttt{ConsolePanel}}
+
+\textbf{\texttt{public ConsolePanel()}}\\
+Initialisiert den GUI-Bereich für die Konsole, sowie das Eingabefeld.
+
+\textbf{\texttt{public void clearAll()}}\\
+Leert sowohl die Konsole, als auch das Eingabefeld.
+
+\textbf{\texttt{public void clearOutputArea()}}\\
+Leert den Inhalt der Konsole.
+
+\textbf{\texttt{public void clearInputField()}}\\
+Leert das Eingabefeld.
+
+\textbf{\texttt{public void lockInput()}}\\
+Deaktiviert das Eingabefeld, sodass keine Eingaben mehr möglich sind.
+
+\textbf{\texttt{public void unlockInput()}}\\
+Aktiviert das Eingabefeld, sodass Eingben möglich sind. Der Inhalt wird bei der Aktivierung geleert.
+
+\subsubsection{Klasse \texttt{EditorPanel}}
+
+\textbf{\texttt{public EditorPanel()}}\\
+Initialisiert den GUI-Bereich für den Editor.
+
+\textbf{\texttt{public String getSourceText()}}\\
+Gibt den aktuellen Inhalt des Editors zurück.
+
+\textbf{\texttt{public void setSourceText(String text)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{text}: Gewünschter Text
+\end{itemize}
+Setzt den Inhalt des Editors. Der vorherige Inhalt wird dabei verworfen.
+
+\subsubsection{Klasse \texttt{LanguageResources}}
+
+\textbf{\texttt{private LanguageManager()}}\\
+Initialisiert die Klasse zur Verwaltung der Übersetzungen.
+
+\textbf{\texttt{public static LanguageManager getInstance()}}\\
+Gibt eine Instanz des \texttt{LanguageManager}s zurück, realisiert also das Einzelstück-Entwurfsmuster.
+
+\textbf{\texttt{public void setLocale(Locale locale)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{locale}: Gewünschte Sprache
+\end{itemize}
+Setzt die gewünschte Sprache auf \texttt{locale}, diese Einstellung wird außerdem im Dateisystem des Betriebssystems gespeichert. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge.\\
+Ist die gewünschte Sprache nicht unterstützt, so wird eine \texttt{UnsupportedLocaleException} geworfen.
+
+\textbf{\texttt{public static String getString(String key)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{key}: Sprach-Schlüssel für angeforderte Übersetzung.
+	\item[-] Returns \texttt{String}: Übersetzung für aktuell gesetzte Sprache.
+\end{itemize}
+Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten Sprache zurück.
+
+\subsubsection{Klasse \texttt{MainWindow}}
+
+\textbf{\texttt{public MainWindow()}}\\
+Initialisiert das Hauptfenster mit allen seinen Bereichen (Panels) und der Menüleiste.
+
+\subsubsection{Klasse \texttt{MenuBar}}
+
+\textbf{\texttt{public MenuBar()}}\\
+Initialisiert die Menüleiste mit allen verfügbaren Einträgen (\texttt{MenuItem}s).
+
+\subsubsection{Klasse \texttt{MenuItem}}
+
+\textbf{\texttt{public MenuItem(String textKey, Command command)}}\\
+Initialisiert ein neues Element in der Menüleiste.
+
+\subsubsection{Klasse \texttt{Observable}}
+
+\textbf{\texttt{public Observable()}}\\
+Erstellt eine neue Instanz. Da die Klasse \texttt{Observable} abstrakt ist, ist dies nur durch eine Unterklasse möglich.
+
+\textbf{\texttt{public void addListener(Observer listener)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{listener}: Neuer Beobachter, der benachrichtigt werden kann.
+\end{itemize}
+Fügt einen neuen Beobachter hinzu, der später mit \texttt{notifyAll} benachrichtigt werden kann.
+
+\textbf{\texttt{public void notifyAll()}}\\
+Benachrichtigt alle vorher durch \texttt{addListener()} hinzugefügte Beobachter.
+
+\subsubsection{Interface \texttt{Observer}}
+
+\textbf{\texttt{public void update()}}\\
+Aktualisiert die Komponente nach einem Sprachwechsel, dies bedeutet i.d.R. die neue richtige Übersetzung über den \texttt{LanguageManager} zu laden.
+
+\subsubsection{Klasse \texttt{ToolBar}}
+
+\textbf{\texttt{public ToolBar()}}\\
+Initialisiert die Werkzeugleiste des Hauptfensters.
+
+\subsubsection{Klasse \texttt{VisualisationPanel}}
+
+\textbf{\texttt{public VisualisationPanel()}}\\
+Initialisiert den GUI Bereich für die Visualisierung.
+
+\subsubsection{Klasse \texttt{VisualisationViewer}}
+
+\textbf{\texttt{public VisualisationViewer()}}\\
+Initialisiert einen Betrachter für SVGs, der den generierten Graphen anzeigen kann. Tasten- und Mausbewegungen für die Navigation werden ebenso unterstützt.
+
+\textbf{\texttt{public void updateGraph(String graph)}}\\
+Initialisiert einen Betrachter für SVGs, der den generierten Graphen anzeigen kann. Tasten- und Mausbewegungen für die Navigation werden ebenso unterstützt.
 
 \section{Ablaufdiagramme}
 
