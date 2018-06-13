@@ -56,20 +56,24 @@
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.view}}
 
-\subsubsection{Klasse \texttt{Button}}
+\subsubsection{Klasse \texttt{Button} erbt von \texttt{javax.swing.JButton}}
+
+Initialisiert eine neues Schaltflächen-Element für die GUI. Beim Betätigen der Schaltfläche wird ein entsprechender Befehl über den Controller ausgeführt.
 
 \textbf{\texttt{public Button(String textKey, Command command)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{textKey}: Schlüssel für die Übersetzung des angezeigten Texts
+	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
 	\item[-] \texttt{command}: Auszuführender Befehl beim Betätigen der Schaltfläche
 \end{itemize}
-Initialisiert eine neue Schaltfläche für die GUI. Beim Betätigen der Schaltfläche wird der übergebene Befehl \texttt{command} ausgeführt.
+Initialisiert die Schaltfläche mit dem auszuführenden Befehl. Weiterhin wird der Tooltip der Schaltfläche durch den übergebenen Schlüssel aus dem LanguageManager geholt und für die Schaltfläche gesetzt.
 
-\subsubsection{Klasse \texttt{ConsoleInputField}}
+\subsubsection{Klasse \texttt{ConsoleInputField} erbt von \texttt{javax.swing.JTextField}}
+
+Eingabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Ausgabefeld für den Nutzer schreibbar und dient der Eingabe von Prolog-Abfragen. Das Eingabefeld ist weiterhin sperrbar, um Eingaben durch den Nutzer zu verhindern, bis es wieder freigegeben wurde.
 
 \textbf{\texttt{public ConsoleInputField()}}\\
-Initialisiert das Eingabefeld für Prolog-Abfragen.
+Initialisiert ein leeres, schreibbares Textfeld mit einer einzelnen Zeile.
 
 \textbf{\texttt{public String getText()}}
 \setlist{nolistsep}
@@ -87,10 +91,12 @@ Sperrt das Eingabefeld, sodass keine Eingaben durch den Nutzer möglich sind.
 \textbf{\texttt{public void unlock()}}\\
 Gibt das Eingabefeld frei, sodass Eingaben durch den Nutzer möglich sind. Das Eingabefeld wird vor der Freigabe geleert.
 
-\subsubsection{Klasse \texttt{ConsoleOutputArea}}
+\subsubsection{Klasse \texttt{ConsoleOutputArea} erbt von \texttt{javax.swing.JTextField}}
+
+Ausgabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Eingabefeld für den Nutzer ausschließlich lesbar und dient der Ausgabe von Informationen über den Stand des Programmes, Fehlermeldungen oder den Ergebnissen von Prolog-Abfragen. Einzelne Zeilen der Ausgabe können zur besseren visuellen Rückmeldung eingefärbt werden. Ausgaben werden am Ende der Zeile umgebrochen. Das Textfeld erlaubt das Scrollen durch alle ausgegebenen Zeilen, sollten diese die Anzahl gleichzeitig anzeigbarer Zeilen überschreiten.
 
 \textbf{\texttt{public ConsoleOutputArea()}}\\
-Initialisiert die Konsole, welche für textuelle Ausgaben vom Interpreter sowie für Fehlermeldungen verwendet wird.
+Initialisiert ein leeres, vom Nutzer nur lesbares Textfeld mit mehreren Zeilen.
 
 \textbf{\texttt{public void printLine(String line, Color color)}}
 \setlist{nolistsep}
@@ -98,35 +104,39 @@ Initialisiert die Konsole, welche für textuelle Ausgaben vom Interpreter sowie 
 	\item[-] \texttt{line}: Der anzuzeigende Text
 	\item[-] \texttt{color}: Gewünschte Farbe für den gesamten Text
 \end{itemize}
-Gibt eine neue Zeile mit Text \texttt{line} in der Farbe \texttt{color} auf der Konsole aus.
+Gibt eine neue Zeile mit Text \texttt{line} in der Farbe \texttt{color} im Textfeld aus. Sollte bereits die unterste Zeile erreicht werden, werden alle Zeilen darüber nach oben geschoben und die neue Zeile unten angefügt.
 
 \textbf{\texttt{public void clear()}}\\
-Leert den Inhalt der Konsole.
+Leert den Inhalt des Textfelds.
 
-\subsubsection{Klasse \texttt{ConsolePanel}}
+\subsubsection{Klasse \texttt{ConsolePanel} erbt von \texttt{javax.swing.JPanel}}
+
+GUI-Panel, welches das Eingabe- und Ausgabefeld umschließt. Dieses Element bildet die Konsole und leitet Befehle an die einzelnen Konsolen-Elemente an diese weiter.
 
 \textbf{\texttt{public ConsolePanel()}}\\
-Initialisiert den GUI-Bereich für die Konsole, sowie das Eingabefeld.
+Initialisiert das Eingabe- und Ausgabefeld.
 
 \textbf{\texttt{public void clearAll()}}\\
-Leert sowohl die Konsole, als auch das Eingabefeld.
+Leert sowohl das Eingabe- als auch das Ausgabefeld.
 
 \textbf{\texttt{public void clearOutputArea()}}\\
-Leert den Inhalt der Konsole.
+Leert ausschließlich den Inhalt des Ausgabefelds.
 
 \textbf{\texttt{public void clearInputField()}}\\
-Leert das Eingabefeld.
+Leert ausschließllich den Inhalt des Eingabefelds.
 
 \textbf{\texttt{public void lockInput()}}\\
-Deaktiviert das Eingabefeld, sodass keine Eingaben mehr möglich sind.
+Sperrt das Eingabefeld, sodass keine Eingaben mehr möglich sind.
 
 \textbf{\texttt{public void unlockInput()}}\\
-Aktiviert das Eingabefeld, sodass Eingben möglich sind. Der Inhalt wird bei der Aktivierung geleert.
+Gibt das Eingabefeld frei, sodass Eingben möglich sind. Der Inhalt wird bei der Freigabe geleert.
 
-\subsubsection{Klasse \texttt{EditorPanel}}
+\subsubsection{Klasse \texttt{EditorPanel} erbt von \texttt{javax.swing.JPanel}}
+
+GUI-Panel, welches das externe Editor-Element \texttt{org.fife.ui.rsyntaxtextarea.RSyntaxTextArea} umschließt. Bietet Schnittstellen zum Setzen und Erhalten des Editor-Inhalts.
 
 \textbf{\texttt{public EditorPanel()}}\\
-Initialisiert den GUI-Bereich für den Editor.
+Initialisiert einen leeren, schreibbaren Editor und konfiguriert ihn für Prolog-Quelltext.
 
 \textbf{\texttt{public String getSourceText()}}\\
 Gibt den aktuellen Inhalt des Editors zurück.
@@ -135,85 +145,114 @@ Gibt den aktuellen Inhalt des Editors zurück.
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{text}: Gewünschter Text
+	\item[-] Returns \texttt{String}: Der aktuelle Editor-Inhalt
 \end{itemize}
 Setzt den Inhalt des Editors. Der vorherige Inhalt wird dabei verworfen.
 
-\subsubsection{Klasse \texttt{LanguageResources}}
+\subsubsection{Klasse \texttt{LanguageManager} erbt von \texttt{Observable}}
+
+Verwaltungsstruktur für Übersetzungen. Die Klasse ist nach dem Singleton-Entwurfsmuster modelliert. Alle Texte der GUI werden über einen eindeutigen Schlüsselwert identifiziert. Der LanguageManager bietet zentrale Übersetzungen für diese Schlüsselwerte in Abhängigkeit der gesetzten Sprache. Unterstützte Sprachen sind Deutsch und Englisch.
 
 \textbf{\texttt{private LanguageManager()}}\\
-Initialisiert die Klasse zur Verwaltung der Übersetzungen.
+Initialisiert die Datenstrukturen der Übersetzungen. Die anfänglich festgelegte Sprache ist Englisch.
 
-\textbf{\texttt{public static LanguageManager getInstance()}}\\
-Gibt eine Instanz des \texttt{LanguageManager}s zurück, realisiert also das Einzelstück-Entwurfsmuster.
+\textbf{\texttt{public static LanguageManager getInstance()}}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{LanguageManager}: Instanz des LanguageManagers
+\end{itemize}
+Gibt eine Instanz des \texttt{LanguageManager}s zurück. Ist noch keine Instanz existent, wird diese über den privaten Konstruktor erstellt. Sobald eine Instanz existiert, wird diese bei weiteren Aufrufen zurückgegeben.
 
 \textbf{\texttt{public void setLocale(Locale locale)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{locale}: Gewünschte Sprache
 \end{itemize}
-Setzt die gewünschte Sprache auf \texttt{locale}, diese Einstellung wird außerdem im Dateisystem des Betriebssystems gespeichert. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge.\\
+Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim Schließen des Programms erhalten. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge.\\
 Ist die gewünschte Sprache nicht unterstützt, so wird eine \texttt{UnsupportedLocaleException} geworfen.
 
-\textbf{\texttt{public static String getString(String key)}}
+\textbf{\texttt{public static String getString(String textKey)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{key}: Sprach-Schlüssel für angeforderte Übersetzung.
-	\item[-] Returns \texttt{String}: Übersetzung für aktuell gesetzte Sprache.
+	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
+	\item[-] Returns \texttt{String}: Übersetzung für aktuell gesetzte Sprache
 \end{itemize}
 Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten Sprache zurück.
 
-\subsubsection{Klasse \texttt{MainWindow}}
+\subsubsection{Klasse \texttt{MainWindow} erbt von \texttt{javax.swing.JFrame}}
+
+Hauptfenster des Programms. Verantwortlich für die Initialisierung aller enthaltenen GUI-Elemente.
 
 \textbf{\texttt{public MainWindow()}}\\
-Initialisiert das Hauptfenster mit allen seinen Bereichen (Panels) und der Menüleiste.
+Initialisiert das Hauptfenster und die enthaltenen GUI-Elemente (ConsolePanel, EditorPanel, VisualizationPanel, MenuBar, ToolBar).
 
-\subsubsection{Klasse \texttt{MenuBar}}
+\subsubsection{Klasse \texttt{MenuBar} erbt von \texttt{javax.swing.JMenuBar}}
+
+Menüleiste des Hauptfensters. Bietet u.a. Funktionen für Dateioperationen (Öffnen, Speichern, Speichern unter...), Programmoperationen (Parsen, Schrittoperationen des Interpreters), Exportoperationen (Visualisierungsexport zu Bildformaten oder TikZ) und Einstellungen (Sprachwahl).
 
 \textbf{\texttt{public MenuBar()}}\\
-Initialisiert die Menüleiste mit allen verfügbaren Einträgen (\texttt{MenuItem}s).
+Initialisiert die Menüleiste mit allen verfügbaren Einträgen und Untermenüs.
 
-\subsubsection{Klasse \texttt{MenuItem}}
+\subsubsection{Klasse \texttt{MenuItem} erbt von \texttt{javax.swing.JMenuItem}}
 
-\textbf{\texttt{public MenuItem(String textKey, Command command)}}\\
-Initialisiert ein neues Element in der Menüleiste.
+Menü-Element der Menüleiste oder eines Untermenüs. Führt beim Betätigen ein Command des Controllers aus.
+
+\textbf{\texttt{public MenuItem(String textKey, Command command)}}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
+	\item[-] \texttt{command}: Auszuführender Befehl beim Betätigen des Menü-Elements
+\end{itemize}
+Initialisiert ein neues Menü-Element. Dieses erhält seinen Menütext von der LanguageManager-Klasse über den Schlüsselwert \texttt{textKey}. Weiter wird beim Betätigen des Menü-Elements \texttt{command} ausgeführt wird.
 
 \subsubsection{Klasse \texttt{Observable}}
 
+Die Observer-Klasse richtet einer erbenden Unterklasse eine Schnittstelle ein, mit der andere Klassen sich bei dieser registrieren können. Bei Ereignissen (bspw. dem Umstellen der Sprache) werden diese registrierten Klassen aufgerufen, wodurch z.B das automatische Aktualisieren der Texte beim Sprachwechsel vereinfacht wird.
+
 \textbf{\texttt{public Observable()}}\\
-Erstellt eine neue Instanz. Da die Klasse \texttt{Observable} abstrakt ist, ist dies nur durch eine Unterklasse möglich.
+Erstellt eine neue Instanz.
 
 \textbf{\texttt{public void addListener(Observer listener)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{listener}: Neuer Beobachter, der benachrichtigt werden kann.
 \end{itemize}
-Fügt einen neuen Beobachter hinzu, der später mit \texttt{notifyAll} benachrichtigt werden kann.
+Registriert einen neuen Beobachter.
 
-\textbf{\texttt{public void notifyAll()}}\\
+\textbf{\texttt{public void notifyListeners()}}\\
 Benachrichtigt alle vorher durch \texttt{addListener()} hinzugefügte Beobachter.
 
 \subsubsection{Interface \texttt{Observer}}
 
-\textbf{\texttt{public void update()}}\\
-Aktualisiert die Komponente nach einem Sprachwechsel, dies bedeutet i.d.R. die neue richtige Übersetzung über den \texttt{LanguageManager} zu laden.
+Schnittstelle für Klassen, die bei einer Spezialisierung der Observable-Klasse registrierbar sein sollen.
 
-\subsubsection{Klasse \texttt{ToolBar}}
+\textbf{\texttt{public void update()}}\\
+Methode, welche durch die Spezialisierung der Observable-Klasse im Falle eines Ereignisses aufgerufen wird.
+
+\subsubsection{Klasse \texttt{ToolBar} erbt von \texttt{javax.swing.JToolBar}}
+
+Werkzeugleiste des Hauptfensters.
 
 \textbf{\texttt{public ToolBar()}}\\
-Initialisiert die Werkzeugleiste des Hauptfensters.
+Initialisiert die Werkzeugleiste und die enthaltenen Schaltflächen.
 
-\subsubsection{Klasse \texttt{VisualisationPanel}}
+\subsubsection{Klasse \texttt{VisualisationPanel} erbt von \texttt{javax.swing.JPanel}}
+
+GUI-Element, welches die Visualisierung umspannt und Schnittstellen für diese bietet.
 
 \textbf{\texttt{public VisualisationPanel()}}\\
-Initialisiert den GUI Bereich für die Visualisierung.
+Initialisiert das GUI-Panel der Visualisierung und den VisualisationViewer.
 
-\subsubsection{Klasse \texttt{VisualisationViewer}}
+\subsubsection{Klasse \texttt{VisualisationViewer} erbt von \texttt{org.apache.batik.swing.JSVGCanvas}}
+
+Visualisierungselement für einen generierten Graphen.
 
 \textbf{\texttt{public VisualisationViewer()}}\\
-Initialisiert einen Betrachter für SVGs, der den generierten Graphen anzeigen kann. Tasten- und Mausbewegungen für die Navigation werden ebenso unterstützt.
+Initialisiert eine leere Visualisierung sowie die Eingabefunktionen der Maus für die Navigation des Graphen.
 
-\textbf{\texttt{public void updateGraph(String graph)}}\\
-Initialisiert einen Betrachter für SVGs, der den generierten Graphen anzeigen kann. Tasten- und Mausbewegungen für die Navigation werden ebenso unterstützt.
+\textbf{\texttt{public void updateGraph(String graph)}}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{graph}: Der anzuzeigende Graph
+\end{itemize}
+Ersetzt den angezeigten Graph durch den im Parameter gegebenen Graph.
 
 \section{Ablaufdiagramme}
 
