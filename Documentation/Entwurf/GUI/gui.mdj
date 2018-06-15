@@ -7173,7 +7173,7 @@
 											"top": 1030,
 											"width": 250.427734375,
 											"height": 13,
-											"text": "+notifyAll(): void",
+											"text": "+notifyListeners(): void",
 											"horizontalAlignment": 0
 										}
 									],
@@ -16481,7 +16481,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFj2qlF6trpHRg="
 									},
-									"name": "notifyAll",
+									"name": "notifyListeners",
 									"parameters": [
 										{
 											"_type": "UMLParameter",
