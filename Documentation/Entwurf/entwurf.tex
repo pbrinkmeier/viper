@@ -70,10 +70,10 @@ Initialisiert die Schaltfläche mit dem auszuführenden Befehl. Weiterhin wird d
 
 \subsubsection{Klasse \texttt{ConsoleInputField} erbt von \texttt{javax.swing.JTextField}}
 
-Eingabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Ausgabefeld für den Nutzer schreibbar und dient der Eingabe von Prolog-Abfragen. Das Eingabefeld ist weiterhin sperrbar, um Eingaben durch den Nutzer zu verhindern, bis es wieder freigegeben wurde.
+Eingabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Ausgabefeld für den Nutzer editierbar und dient der Eingabe von Prolog-Abfragen. Das Eingabefeld ist weiterhin sperrbar, um Eingaben durch den Nutzer zu verhindern, bis es wieder freigegeben wurde.
 
 \textbf{\texttt{public ConsoleInputField()}}\\
-Initialisiert ein leeres, schreibbares Textfeld mit einer einzelnen Zeile.
+Initialisiert ein leeres, editierbares Textfeld mit einer einzelnen Zeile.
 
 \textbf{\texttt{public String getText()}}
 \setlist{nolistsep}
@@ -93,7 +93,7 @@ Gibt das Eingabefeld frei, sodass Eingaben durch den Nutzer möglich sind. Das E
 
 \subsubsection{Klasse \texttt{ConsoleOutputArea} erbt von \texttt{javax.swing.JTextField}}
 
-Ausgabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Eingabefeld für den Nutzer ausschließlich lesbar und dient der Ausgabe von Informationen über den Stand des Programmes, Fehlermeldungen oder den Ergebnissen von Prolog-Abfragen. Einzelne Zeilen der Ausgabe können zur besseren visuellen Rückmeldung eingefärbt werden. Ausgaben werden am Ende der Zeile umgebrochen. Das Textfeld erlaubt das Scrollen durch alle ausgegebenen Zeilen, sollten diese die Anzahl gleichzeitig anzeigbarer Zeilen überschreiten.
+Ausgabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Eingabefeld für den Nutzer ausschließlich lesbar und dient der Ausgabe von Informationen über den Stand des Programmes, Fehlermeldungen oder den Ergebnissen von Prolog-Abfragen. Einzelne Zeilen der Ausgabe können zur besseren visuellen Rückmeldung eingefärbt werden. Ausgaben werden am Ende der Zeile umgebrochen. Das Textfeld erlaubt das Scrollen durch alle ausgegebenen Zeilen, sollten diese die Anzahl gleichzeitig sichtbarer Zeilen überschreiten.
 
 \textbf{\texttt{public ConsoleOutputArea()}}\\
 Initialisiert ein leeres, vom Nutzer nur lesbares Textfeld mit mehreren Zeilen.
@@ -123,20 +123,20 @@ Leert sowohl das Eingabe- als auch das Ausgabefeld.
 Leert ausschließlich den Inhalt des Ausgabefelds.
 
 \textbf{\texttt{public void clearInputField()}}\\
-Leert ausschließllich den Inhalt des Eingabefelds.
+Leert ausschließlich den Inhalt des Eingabefelds.
 
 \textbf{\texttt{public void lockInput()}}\\
 Sperrt das Eingabefeld, sodass keine Eingaben mehr möglich sind.
 
 \textbf{\texttt{public void unlockInput()}}\\
-Gibt das Eingabefeld frei, sodass Eingben möglich sind. Der Inhalt wird bei der Freigabe geleert.
+Gibt das Eingabefeld frei, sodass Eingaben möglich sind. Der Inhalt wird bei der Freigabe geleert.
 
 \subsubsection{Klasse \texttt{EditorPanel} erbt von \texttt{javax.swing.JPanel}}
 
-GUI-Panel, welches das externe Editor-Element \texttt{org.fife.ui.rsyntaxtextarea.RSyntaxTextArea} umschließt. Bietet Schnittstellen zum Setzen und Erhalten des Editor-Inhalts.
+GUI-Panel, welches das externe Editor-Element \texttt{RSyntaxTextArea} umschließt. Bietet Schnittstellen zum Setzen und Erhalten des Editor-Inhalts.
 
 \textbf{\texttt{public EditorPanel()}}\\
-Initialisiert einen leeren, schreibbaren Editor und konfiguriert ihn für Prolog-Quelltext.
+Initialisiert einen leeren, editierbaren Editor und konfiguriert ihn für Prolog-Quelltext.
 
 \textbf{\texttt{public String getSourceText()}}\\
 Gibt den aktuellen Inhalt des Editors zurück.
@@ -165,10 +165,10 @@ Gibt eine Instanz des \texttt{LanguageManager}s zurück. Ist noch keine Instanz 
 \textbf{\texttt{public void setLocale(Locale locale)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
+	\item[-] throws \texttt{UnsupportedLocaleException}
 	\item[-] \texttt{locale}: Gewünschte Sprache
 \end{itemize}
-Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim Schließen des Programms erhalten. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge.\\
-Ist die gewünschte Sprache nicht unterstützt, so wird eine \texttt{UnsupportedLocaleException} geworfen.
+Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim Schließen des Programms erhalten. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge. Ist die gewünschte Sprache nicht unterstützt, so wird eine passende Exception geworfen.
 
 \textbf{\texttt{public static String getString(String textKey)}}
 \setlist{nolistsep}
@@ -183,7 +183,7 @@ Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten 
 Hauptfenster des Programms. Verantwortlich für die Initialisierung aller enthaltenen GUI-Elemente.
 
 \textbf{\texttt{public MainWindow()}}\\
-Initialisiert das Hauptfenster und die enthaltenen GUI-Elemente (ConsolePanel, EditorPanel, VisualizationPanel, MenuBar, ToolBar).
+Initialisiert das Hauptfenster und die enthaltenen GUI-Elemente (ConsolePanel, EditorPanel, VisualisationPanel, MenuBar, ToolBar).
 
 \subsubsection{Klasse \texttt{MenuBar} erbt von \texttt{javax.swing.JMenuBar}}
 
@@ -241,6 +241,9 @@ GUI-Element, welches die Visualisierung umspannt und Schnittstellen für diese b
 \textbf{\texttt{public VisualisationPanel()}}\\
 Initialisiert das GUI-Panel der Visualisierung und den VisualisationViewer.
 
+\textbf{\texttt{public void clearVisualisation()}}\\
+Leert den Inhalt des VisualisationViewers.
+
 \subsubsection{Klasse \texttt{VisualisationViewer} erbt von \texttt{org.apache.batik.swing.JSVGCanvas}}
 
 Visualisierungselement für einen generierten Graphen.
@@ -253,6 +256,18 @@ Initialisiert eine leere Visualisierung sowie die Eingabefunktionen der Maus fü
 	\item[-] \texttt{graph}: Der anzuzeigende Graph
 \end{itemize}
 Ersetzt den angezeigten Graph durch den im Parameter gegebenen Graph.
+
+\textbf{\texttt{public void clear()}}
+Leert den Anzeigebereich der Visualisierung.
+
+\subsubsection{Klasse \texttt{UnsupportedLocaleException} erbt von \texttt{java.lang.Exception}}
+Exception-Klasse für den Versuch, eine nicht-unterstützte Sprache im LanguageManager zu setzen.
+
+\textbf{\texttt{public String getLocalizedMessage()}}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Lokalisierte Fehlermeldung
+\end{itemize}
+Gibt den Fehlertext der Exception als lokalisierten (an die gesetzte Sprache angepassten) String zurück. Die gewählte Sprache des Fehlertexts entspricht der Sprache vor dem versuchten Wechsel, der die Exception ausgelöst hat.
 
 \section{Ablaufdiagramme}
 
