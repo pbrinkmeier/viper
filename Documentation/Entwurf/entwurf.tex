@@ -120,7 +120,7 @@ Initialisiert das Eingabe- und Ausgabefeld.
 Leert sowohl das Eingabe- als auch das Ausgabefeld.
 
 \textbf{\texttt{public void clearOutputArea()}}\\
-Leert ausschließlich den Inhalt des Ausgabefelds.
+Leert den Inhalt des Ausgabefelds.
 
 \textbf{\texttt{public void clearInputField()}}\\
 Leert ausschließlich den Inhalt des Eingabefelds.
@@ -129,14 +129,14 @@ Leert ausschließlich den Inhalt des Eingabefelds.
 Sperrt das Eingabefeld, sodass keine Eingaben mehr möglich sind.
 
 \textbf{\texttt{public void unlockInput()}}\\
-Gibt das Eingabefeld frei, sodass Eingaben möglich sind. Der Inhalt wird bei der Freigabe geleert.
+Gibt das Eingabefeld frei, sodass Eingaben möglich sind. Der Inhalt wird dabei geleert.
 
 \subsubsection{Klasse \texttt{EditorPanel} erbt von \texttt{javax.swing.JPanel}}
 
 GUI-Panel, welches das externe Editor-Element \texttt{RSyntaxTextArea} umschließt. Bietet Schnittstellen zum Setzen und Erhalten des Editor-Inhalts.
 
 \textbf{\texttt{public EditorPanel()}}\\
-Initialisiert einen leeren, editierbaren Editor und konfiguriert ihn für Prolog-Quelltext.
+Initialisiert einen leeren Editor und konfiguriert ihn für Prolog-Quelltext.
 
 \textbf{\texttt{public String getSourceText()}}\\
 Gibt den aktuellen Inhalt des Editors zurück.
