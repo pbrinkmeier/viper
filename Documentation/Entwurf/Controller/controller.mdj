@@ -299,7 +299,7 @@
 											"top": 424,
 											"width": 725.6259765625,
 											"height": 13,
-											"text": "«create»+CommandNew(editor: EditorPanel, console: ConsolePanel, visualisation: VisualisationPanel)",
+											"text": "«create»+CommandNew(console: ConsolePanel, editor: EditorPanel, visualisation: VisualisationPanel)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -1707,7 +1707,7 @@
 											"font": "Arial;13;1",
 											"left": 1557,
 											"top": 463,
-											"width": 725.6259765625,
+											"width": 726.34326171875,
 											"height": 13,
 											"text": "CommandParse"
 										},
@@ -1742,7 +1742,7 @@
 									"font": "Arial;13;0",
 									"left": 1552,
 									"top": 456,
-									"width": 735.6259765625,
+									"width": 736.34326171875,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFjxe3eUAFsTl4="
@@ -1769,7 +1769,7 @@
 									"font": "Arial;13;0",
 									"left": 1552,
 									"top": 481,
-									"width": 735.6259765625,
+									"width": 736.34326171875,
 									"height": 10
 								},
 								{
@@ -1794,16 +1794,16 @@
 											"font": "Arial;13;0",
 											"left": 1557,
 											"top": 496,
-											"width": 725.6259765625,
+											"width": 726.34326171875,
 											"height": 13,
-											"text": "«create»+CommandParse(parser: PrologParser, editor: EditorPanel, console: ConsolePanel, visualisation: VisualisationPanel)",
+											"text": "«create»+CommandParse(console: ConsolePanel, editor: EditorPanel, visualisation: VisualisationPanel, parser: PrologParser)",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 1552,
 									"top": 491,
-									"width": 735.6259765625,
+									"width": 736.34326171875,
 									"height": 23
 								},
 								{
@@ -1844,7 +1844,7 @@
 							"containerChangeable": true,
 							"left": 1552,
 							"top": 456,
-							"width": 735.6259765625,
+							"width": 736.34326171875,
 							"height": 58,
 							"nameCompartment": {
 								"$ref": "AAAAAAFjxe3eUAFrTvY="
@@ -1992,7 +1992,7 @@
 											"top": 568,
 											"width": 725.6259765625,
 											"height": 13,
-											"text": "«create»+CommandPreviousStep(interpreter: Interpreter, console: ConsolePanel, visualisation: VisualisationPanel)",
+											"text": "«create»+CommandPreviousStep(console: ConsolePanel, visualisation: VisualisationPanel, interpreter: Interpreter)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2190,7 +2190,7 @@
 											"top": 640,
 											"width": 725.6259765625,
 											"height": 13,
-											"text": "«create»+CommandContinue(interpreter: Interpreter, console: ConsolePanel, visualisation: VisualisationPanel)",
+											"text": "«create»+CommandContinue(console: ConsolePanel, visualisation: VisualisationPanel, interpreter: Interpreter)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2388,7 +2388,7 @@
 											"top": 712,
 											"width": 725.6259765625,
 											"height": 13,
-											"text": "«create»+CommandToggleLib(parser: PrologParser, console: ConsolePanel, visualisation: VisualisationPanel)",
+											"text": "«create»+CommandToggleLib(console: ConsolePanel, visualisation: VisualisationPanel, parser: PrologParser)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2586,7 +2586,7 @@
 											"top": 784,
 											"width": 725.6259765625,
 											"height": 13,
-											"text": "«create»+CommandSetLang(lang: Locale, console: ConsolePanel, visualisation: VisualisationPanel)",
+											"text": "«create»+CommandSetLang(console: ConsolePanel, visualisation: VisualisationPanel, lang: Locale)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2784,7 +2784,7 @@
 											"top": 856,
 											"width": 725.6259765625,
 											"height": 13,
-											"text": "«create»+CommandExportTikz(visualisation: VisualisationPanel, console: ConsolePanel)",
+											"text": "«create»+CommandExportTikz(console: ConsolePanel, visualisation: VisualisationPanel)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -3197,7 +3197,7 @@
 											"top": 424,
 											"width": 655,
 											"height": 13,
-											"text": "«create»+CommandNew(editor: EditorPanel, console: ConsolePanel, visualisation: VisualisationPanel)",
+											"text": "«create»+CommandNew(console: ConsolePanel, editor: EditorPanel, visualisation: VisualisationPanel)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -3395,7 +3395,7 @@
 											"top": 496,
 											"width": 655,
 											"height": 13,
-											"text": "«create»+CommandSave(editor: EditorPanel, console: ConsolePanel, saveAs: SaveType)",
+											"text": "«create»+CommandSave(console: ConsolePanel, editor: EditorPanel, saveAs: SaveType)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -3593,7 +3593,7 @@
 											"top": 568,
 											"width": 655,
 											"height": 13,
-											"text": "«create»+CommandNextStep(interpreter: Interpreter, console: ConsolePanel, visualisation: VisualisationPanel)",
+											"text": "«create»+CommandNextStep(console: ConsolePanel, visualisation: VisualisationPanel, interpreter: Interpreter)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -4187,7 +4187,7 @@
 											"top": 784,
 											"width": 655,
 											"height": 13,
-											"text": "«create»+CommandFormat(editor: EditorPanel, console: ConsolePanel)",
+											"text": "«create»+CommandFormat(console: ConsolePanel, editor: EditorPanel)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -4385,7 +4385,7 @@
 											"top": 856,
 											"width": 655,
 											"height": 13,
-											"text": "«create»+CommandExportImage(visualisation: VisualisationPanel, console: ConsolePanel, format: ImageFormat)",
+											"text": "«create»+CommandExportImage(console: ConsolePanel, visualisation: VisualisationPanel, format: ImageFormat)",
 											"horizontalAlignment": 0
 										}
 									],
@@ -4627,7 +4627,7 @@
 											"top": 971,
 											"width": 118,
 											"height": 13,
-											"text": "zoomIn",
+											"text": "ZOOM_IN",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4644,7 +4644,7 @@
 											"top": 986,
 											"width": 118,
 											"height": 13,
-											"text": "zoomOut",
+											"text": "ZOOM_OUT",
 											"horizontalAlignment": 0
 										}
 									],
@@ -4856,7 +4856,7 @@
 											"top": 971,
 											"width": 119,
 											"height": 13,
-											"text": "svg",
+											"text": "SVG",
 											"horizontalAlignment": 0
 										},
 										{
@@ -4873,7 +4873,7 @@
 											"top": 986,
 											"width": 119,
 											"height": 13,
-											"text": "png",
+											"text": "PNG",
 											"horizontalAlignment": 0
 										}
 									],
@@ -5094,7 +5094,7 @@
 											"top": 971,
 											"width": 119,
 											"height": 13,
-											"text": "saveNew",
+											"text": "SAVE_NEW",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5111,7 +5111,7 @@
 											"top": 986,
 											"width": 119,
 											"height": 13,
-											"text": "saveAs",
+											"text": "SAVE_AS",
 											"horizontalAlignment": 0
 										}
 									],
@@ -6001,8 +6001,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2mtdY0UonPs="
 											},
-											"name": "editor",
-											"type": "EditorPanel"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6010,8 +6010,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2mtdY0UonPs="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "editor",
+											"type": "EditorPanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6121,8 +6121,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m4420fKZKQ="
 											},
-											"name": "parser",
-											"type": "PrologParser"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6139,8 +6139,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m4420fKZKQ="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "visualisation",
+											"type": "VisualisationPanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6148,8 +6148,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m4420fKZKQ="
 											},
-											"name": "visualisation",
-											"type": "VisualisationPanel"
+											"name": "parser",
+											"type": "PrologParser"
 										}
 									]
 								}
@@ -6193,8 +6193,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m9W/0i0sVk="
 											},
-											"name": "interpreter",
-											"type": "Interpreter"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6202,8 +6202,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m9W/0i0sVk="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "visualisation",
+											"type": "VisualisationPanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6211,8 +6211,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m9W/0i0sVk="
 											},
-											"name": "visualisation",
-											"type": "VisualisationPanel"
+											"name": "interpreter",
+											"type": "Interpreter"
 										}
 									]
 								}
@@ -6256,8 +6256,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m/gM0krPXk="
 											},
-											"name": "interpreter",
-											"type": "Interpreter"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6265,8 +6265,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m/gM0krPXk="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "visualisation",
+											"type": "VisualisationPanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6274,8 +6274,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m/gM0krPXk="
 											},
-											"name": "visualisation",
-											"type": "VisualisationPanel"
+											"name": "interpreter",
+											"type": "Interpreter"
 										}
 									]
 								}
@@ -6319,8 +6319,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2nFy+EqCTG8="
 											},
-											"name": "parser",
-											"type": "PrologParser"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6328,8 +6328,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2nFy+EqCTG8="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "visualisation",
+											"type": "VisualisationPanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6337,8 +6337,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2nFy+EqCTG8="
 											},
-											"name": "visualisation",
-											"type": "VisualisationPanel"
+											"name": "parser",
+											"type": "PrologParser"
 										}
 									]
 								}
@@ -6382,8 +6382,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFjxw0G0yUdPYA="
 											},
-											"name": "lang",
-											"type": "Locale"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6391,8 +6391,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFjxw0G0yUdPYA="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "visualisation",
+											"type": "VisualisationPanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6400,8 +6400,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFjxw0G0yUdPYA="
 											},
-											"name": "visualisation",
-											"type": "VisualisationPanel"
+											"name": "lang",
+											"type": "Locale"
 										}
 									]
 								}
@@ -6445,8 +6445,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2nNzvExkNpY="
 											},
-											"name": "visualisation",
-											"type": "VisualisationPanel"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6454,8 +6454,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2nNzvExkNpY="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "visualisation",
+											"type": "VisualisationPanel"
 										}
 									]
 								}
@@ -6540,8 +6540,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2mwl2EYRuQQ="
 											},
-											"name": "editor",
-											"type": "EditorPanel"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6549,8 +6549,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2mwl2EYRuQQ="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "editor",
+											"type": "EditorPanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6631,8 +6631,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2mz0i0a9oCY="
 											},
-											"name": "editor",
-											"type": "EditorPanel"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6640,8 +6640,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2mz0i0a9oCY="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "editor",
+											"type": "EditorPanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6696,8 +6696,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m7OwkgqtXU="
 											},
-											"name": "interpreter",
-											"type": "Interpreter"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6705,8 +6705,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m7OwkgqtXU="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "visualisation",
+											"type": "VisualisationPanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6714,8 +6714,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2m7OwkgqtXU="
 											},
-											"name": "visualisation",
-											"type": "VisualisationPanel"
+											"name": "interpreter",
+											"type": "Interpreter"
 										}
 									]
 								}
@@ -6886,8 +6886,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2nHp9ktsiiw="
 											},
-											"name": "editor",
-											"type": "EditorPanel"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6895,8 +6895,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2nHp9ktsiiw="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "editor",
+											"type": "EditorPanel"
 										}
 									]
 								}
@@ -6968,8 +6968,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2nLneEv8q78="
 											},
-											"name": "visualisation",
-											"type": "VisualisationPanel"
+											"name": "console",
+											"type": "ConsolePanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -6977,8 +6977,8 @@
 											"_parent": {
 												"$ref": "AAAAAAFj2nLneEv8q78="
 											},
-											"name": "console",
-											"type": "ConsolePanel"
+											"name": "visualisation",
+											"type": "VisualisationPanel"
 										},
 										{
 											"_type": "UMLParameter",
@@ -7009,7 +7009,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFkDrphSW+u5tM="
 									},
-									"name": "zoomIn"
+									"name": "ZOOM_IN"
 								},
 								{
 									"_type": "UMLEnumerationLiteral",
@@ -7017,7 +7017,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFkDrphSW+u5tM="
 									},
-									"name": "zoomOut"
+									"name": "ZOOM_OUT"
 								}
 							]
 						},
@@ -7035,7 +7035,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFkDrwV6nAn5Xc="
 									},
-									"name": "svg"
+									"name": "SVG"
 								},
 								{
 									"_type": "UMLEnumerationLiteral",
@@ -7043,7 +7043,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFkDrwV6nAn5Xc="
 									},
-									"name": "png"
+									"name": "PNG"
 								}
 							]
 						},
@@ -7061,7 +7061,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFkDr20I3CG0Ng="
 									},
-									"name": "saveNew"
+									"name": "SAVE_NEW"
 								},
 								{
 									"_type": "UMLEnumerationLiteral",
@@ -7069,7 +7069,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFkDr20I3CG0Ng="
 									},
-									"name": "saveAs"
+									"name": "SAVE_AS"
 								}
 							]
 						}
