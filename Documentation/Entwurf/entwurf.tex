@@ -257,7 +257,7 @@ Initialisiert eine leere Visualisierung sowie die Eingabefunktionen der Maus fü
 \end{itemize}
 Ersetzt den angezeigten Graph durch den im Parameter gegebenen Graph.
 
-\textbf{\texttt{public void clear()}}
+\textbf{\texttt{public void clear()}}\\
 Leert den Anzeigebereich der Visualisierung.
 
 \subsubsection{Klasse \texttt{UnsupportedLocaleException} erbt von \texttt{java.lang.Exception}}
@@ -268,6 +268,209 @@ Exception-Klasse für den Versuch, eine nicht-unterstützte Sprache im LanguageM
 	\item[-] Returns \texttt{String}: Lokalisierte Fehlermeldung
 \end{itemize}
 Gibt den Fehlertext der Exception als lokalisierten (an die gesetzte Sprache angepassten) String zurück. Die gewählte Sprache des Fehlertexts entspricht der Sprache vor dem versuchten Wechsel, der die Exception ausgelöst hat.
+
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.controller}}
+
+\subsubsection{Klasse \texttt{Command}}
+Abstrakte Kommando-Klasse für die Kapselung von Programm-Abläufen. Entspricht dem Kommando-Entwurfsmuster.
+
+\textbf{\texttt{protected Command()}}\\
+Leerer Konstruktor des Kommandos.
+
+\textbf{\texttt{public abstract void execute()}}\\
+Abstrakte Ausführungs-Methode des Befehls. Wird von Unterklassen entsprechend ihrer Funktionalität implementiert.
+
+\subsubsection{Klasse \texttt{CommandNew} erbt von \texttt{Command}}
+Kommando zum Anlegen einer neuen Datei im Editor. Der Editor, die Konsole sowie die Visualisierung werden hierbei geleert. Sollten zuvor ungespeicherte Änderungen am Editor-Inhalt gemacht worden sein, wird nachgefragt, ob diese gespeichert werden sollen. Ist eine Referenz auf eine gespeicherte Datei im Editor gesetzt, wird diese am Ende der Ausführung gelöscht. Nach dem Ausführen des Neu-Befehls wird entsprechend beim ersten Speichern die Speichern-unter-Funktion ausgeführt.
+
+\textbf{\texttt{public CommandNew(editor: EditorPanel, console: ConsolePanel,\\visualisation: VisualisationPanel)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{editor}: Schnittstelle des Editors
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandOpen} erbt von \texttt{Command}}
+Kommando zum Öffnen einer Datei über einen Öffnen-Dialog. Der Datei-Inhalt wird hierbei in den Editor geladen. Sowohl die Visualisierung als auch die Konsole werden geleert. Bei ungespeicherten Änderungen am Editor-Inhalt vor dem Laden der neuen Datei wird nachgefragt, ob diese gespeichert werden sollen.
+
+\textbf{\texttt{public CommandOpen(editor: EditorPanel, console: ConsolePanel,\\visualisation: VisualisationPanel)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{editor}: Schnittstelle des Editors
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandSave} erbt von \texttt{Command}}
+Kommando zum Speichern des Editor-Inhalts auf einem Speichermedium über einen Speichern-Dialog. Fehler oder ein Hinweis auf das erfolgreiche Speichern werden auf der Konsole ausgegeben. Das Kommando umfasst sowohl die Speichern- als auch die Speichern-unter-Funktionalität und unterscheidet diese über einen Enumerations-Parameter.
+
+\textbf{\texttt{public CommandSave(editor: EditorPanel, console: ConsolePanel,\\saveAs: SaveType)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{editor}: Schnittstelle des Editors
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{saveAs}: Speicher-Typ (Speichern oder Speichern unter...)
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors und der Konsole sowie einem Speicher-Typ, der bei der Ausführung zwischen Speichern und Speichern-unter unterscheidet.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandParse} erbt von \texttt{Command}}
+Kommando zum Parsen des Editor-Inhalts. Der Editor-Inhalt wird hierbei durch das Parser-Objekt verarbeitet, auftretende Fehler werden über die Konsole ausgegeben, die Visualisierung wird geleert.
+
+\textbf{\texttt{public CommandParse(parser: PrologParser, editor: EditorPanel,\\console: ConsolePanel, visualisation: VisualisationPanel)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parser}: Parser für den Programmcode
+	\item[-] \texttt{editor}: Schnittstelle des Editors
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandNextStep} erbt von \texttt{Command}}
+Kommando zum Ausführen eines Interpreter-Schritts. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem aktuellen Stand der Interpretation angepasst.
+
+\textbf{\texttt{public CommandNextStep(interpreter: Interpreter,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{interpreter}: Interpreter, der den Schritt ausführen soll
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandPreviousStep} erbt von \texttt{Command}}
+Kommando zum Rückgängig-machen eines Interpreter-Schritts. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem aktuellen Stand der Interpretation angepasst.
+
+\textbf{\texttt{public CommandPreviousStep(interpreter: Interpreter,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{interpreter}: Interpreter, der den Schritt ausführen soll
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandContinue} erbt von \texttt{Command}}
+Kommando zum Ausführen von Interpreter-Schritten bis zum Finden der nächsten Lösung. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem Stand der Interpretation beim Finden der Lösung angepasst.
+
+\textbf{\texttt{public CommandContinue(interpreter: Interpreter,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{interpreter}: Interpreter, der die Schritte ausführen soll
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandCancel} erbt von \texttt{Command}}
+Kommando zum Abbrechen des Interpreters beim Suchen der nächsten Lösung.
+
+\textbf{\texttt{public CommandCancel(interpreter: Interpreter}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{interpreter}: Interpreter, der die Schritte ausführen soll
+\end{itemize}
+Initialisiert das Kommando mit einer Referenz auf einen Prolog-Interpreter.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandToggleLib} erbt von \texttt{Command}}
+Kommando zum Aktivieren bzw. Deaktivieren der Standardbibliothek im Parser. Hierbei werden sowohl die Konsole als auch die Visualisierung geleert.
+
+\textbf{\texttt{public CommandToggleLib(parser: PrologParser,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parser}: Parser, bei welchem die Standardbibliothek (de)aktiviert werden soll
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Schnittstellen der Konsole sowie der Visualisierung.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandZoom} erbt von \texttt{Command}}
+Kommando zum Zoomen innerhalb der Visualisierung. Dieses Kommando umfasst sowohl das Hinein- als auch das Herauszoomen und unterscheidet diese bei der Ausführung über eine Enumeration.
+
+\textbf{\texttt{public CommandZoom(visualisation: Visualisation,\\direction: ZoomType)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{direction}: Art des Zooms (herein oder heraus)
+\end{itemize}
+Initialisiert das Kommando mit einer Referenz auf die Schnittstelle der Visualisierung sowie einem Zoom-Typ.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandSetLang} erbt von \texttt{Command}}
+Kommando zum Setzen einer anderen Sprache für die grafische Oberfläche. Die Konsole sowie die Visualisierung werden hierbei geleert.
+
+\textbf{\texttt{public CommandSetLang(lang: Locale, console: ConsolePanel,\\visualisation: VisualisationPanel)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lang}: Zu setzende Sprache
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole sowie der zu setzenden Sprache.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandFormat} erbt von \texttt{Command}}
+Kommando zum Formatieren des Editor-Inhalts. Nach erfolgreicher Formatierung wird ein Hinweis über die Konsole ausgegeben.
+
+\textbf{\texttt{public CommandFormat(editor: EditorPanel, console: ConsolePanel)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{editor}: Schnittstelle des Editors
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors und der Konsole.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandExportTikz} erbt von \texttt{Command}}
+Kommando zum Exportieren der Visualisierung als TikZ-Quelltext. Fehler oder Hinweise zum erfolgreichen Export werden in der Konsole ausgegeben.
+
+\textbf{\texttt{public CommandExportTikz(visualisation: VisualisationPanel,\\console: ConsolePanel)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
+
+\subsubsection{Klasse \texttt{CommandExportImage} erbt von \texttt{Command}}
+Kommando zum Exportieren der Visualisierung als Bild-Datei (PNG oder SVG). Der Dateityp wird über eine Enumeration bei der Ausführung unterschieden. Fehler oder Hinweise zum erfolgreichen Export werden in der Konsole ausgegeben.
+
+\textbf{\texttt{public CommandExportImage(visualisation: VisualisationPanel,\\console: ConsolePanel, format: ImageFormat)}}\\
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{format}: Format der Bild-Datei
+\end{itemize}
+Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole sowie dem gewollten Bild-Format.
+
+\textbf{\texttt{public void execute()}}\\
+Führt das beschriebene Kommando aus.
 
 \section{Ablaufdiagramme}
 
