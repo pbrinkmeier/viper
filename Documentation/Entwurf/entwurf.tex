@@ -56,6 +56,10 @@
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.view}}
 
+% TODO?: Weitere Unterteilung Visualisierungs-Paket benötigt womöglich eigene Beschreibung
+
+Repräsentation der View-Komponente im Kontext des Model-View-Controller Architekturstils. Umfasst alle selbst implementierten Komponenten der grafischen Benutzeroberfläche, welche zur Darstellung der Inhalte der Model-Komponente dient. Interaktionen mit der Oberfläche werden über Commands aus dem Controller-Paket auf die internen Datenstrukturen des Model-Pakets angewandt.
+
 \subsubsection{Klasse \texttt{Button} erbt von \texttt{javax.swing.JButton}}
 
 Initialisiert eine neues Schaltflächen-Element für die GUI. Beim Betätigen der Schaltfläche wird ein entsprechender Befehl über den Controller ausgeführt.
@@ -271,6 +275,8 @@ Gibt den Fehlertext der Exception als lokalisierten (an die gesetzte Sprache ang
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.controller}}
 
+Repräsentation der Controller-Komponente in Kontext des Model-View-Controller Architekturstils. Umfasst Kommandos zur Kapselung von Interaktionen zwischen der View-Komponente und der Model-Komponente.
+
 \subsubsection{Klasse \texttt{Command}}
 Abstrakte Kommando-Klasse für die Kapselung von Programm-Abläufen. Entspricht dem Kommando-Entwurfsmuster.
 
@@ -472,7 +478,33 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisier
 \textbf{\texttt{public void execute()}}\\
 Führt das beschriebene Kommando aus.
 
-\section{Ablaufdiagramme}
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model}}
+Repräsentation der Model-Komponente im Kontext des Model-View-Controller Architekturstils. Dies umfasst die internen Datenstrukturen wie beispielsweise den Interpreter, den Parser oder den abstrakten Syntaxbaum. Kommandos aus der Controller-Komponente, welche durch die View-Komponente ausgelöst werden, erzeugen Änderungen in der Model-Komponente wie beispielsweise das Voranschreiten der Interpretation.
+
+% TODO?: Weitere Unterteilung in Pakete für AST, Interpreter und Parser benötigen womöglich eigene Beschreibungen
+
+\section{Sequenzdiagramme}
+
+\subsection{Initialisierung der grafischen Benutzeroberfläche}
+Aufbausequenz der grafischen Oberfläche. Enthält die Initialisierung der Schnellzugriffsleiste und Menüleiste sowie der Panels für die Visualisierung, die Konsole und den Editor mit den zugehörigen Schaltflächen.
+
+\subsection{Öffnen einer Prolog-Datei}
+Ablauf der Öffnen-Sequenz einer Prolog-Datei, welche durch die Interaktion mit der grafischen Oberfläche ausgelöst und über ein Kommando abgewickelt wird. Das Öffnen leert hierbei automatisch auch die Visualisierung sowie die Konsole.
+
+\subsection{Sprachwechsel}
+Ablauf des Sprachwechsels. Hierbei wird die aktuell gewählte Sprache zu einer anderen implementierten Sprache geändert und die grafische Oberfläche entsprechend aktualisiert.
+
+\subsection{Ausführung eines Interpretationsschritts}
+Abwicklung eines einzelnen nicht-trivialen Interpretationsschritts im Kontext eines gegebenen Prolog-Programms.
+
+\subsection{Unifikation}
+% TODO: Dokumentieren sobald das Diagramm existiert
+
+\subsection{Generierung der Visualisierung}
+% TODO: Dokumentieren sobald das Diagramm existiert
+
+\section{Zustandsdiagramm}
+Veranschaulichung der möglichen Zustände und Zustandsübergänge für das Parsen und Interpretieren eines Prolog-Programmes sowie die Ausgabe der Visualisierung.
 
 \appendix
 
