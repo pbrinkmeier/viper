@@ -136,8 +136,6 @@ Generiert aus einem gegebenen Graphen und einem Rasterizer eine Darstellung im g
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.view}}
 
-% TODO?: Weitere Unterteilung Visualisierungs-Paket benötigt womöglich eigene Beschreibung
-
 Repräsentation der View-Komponente im Kontext des Model-View-Controller Architekturstils. Umfasst alle selbst implementierten Komponenten der grafischen Benutzeroberfläche, welche zur Darstellung der Inhalte der Model-Komponente dient. Interaktionen mit der Oberfläche werden über Commands aus dem Controller-Paket auf die internen Datenstrukturen des Model-Pakets angewandt.
 
 \subsubsection{Klasse \texttt{Button} erbt von \texttt{javax.swing.JButton}}
@@ -561,8 +559,6 @@ Führt das beschriebene Kommando aus.
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model}}
 Repräsentation der Model-Komponente im Kontext des Model-View-Controller Architekturstils. Dies umfasst die internen Datenstrukturen wie beispielsweise den Interpreter, den Parser oder den abstrakten Syntaxbaum. Kommandos aus der Controller-Komponente, welche durch die View-Komponente ausgelöst werden, erzeugen Änderungen in der Model-Komponente wie beispielsweise das Voranschreiten der Interpretation.
 
-% TODO?: Weitere Unterteilung in Pakete für AST, Interpreter, Parser und Visualisierung benötigen womöglich eigene Beschreibungen
-
 \section{Sequenzdiagramme}
 
 \subsection{Initialisierung der grafischen Benutzeroberfläche}
@@ -578,10 +574,8 @@ Ablauf des Sprachwechsels. Hierbei wird die aktuell gewählte Sprache zu einer a
 Abwicklung eines einzelnen nicht-trivialen Interpretationsschritts im Kontext eines gegebenen Prolog-Programms.
 
 \subsection{Unifikation}
-% TODO: Dokumentieren sobald das Diagramm existiert
 
 \subsection{Generierung der Visualisierung}
-% TODO: Dokumentieren sobald das Diagramm existiert
 
 \section{Zustandsdiagramm}
 Veranschaulichung der möglichen Zustände und Zustandsübergänge für das Parsen und Interpretieren eines Prolog-Programmes sowie die Ausgabe der Visualisierung.
