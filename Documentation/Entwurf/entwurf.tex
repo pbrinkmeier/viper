@@ -559,6 +559,15 @@ Führt das beschriebene Kommando aus.
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model}}
 Repräsentation der Model-Komponente im Kontext des Model-View-Controller Architekturstils. Dies umfasst die internen Datenstrukturen wie beispielsweise den Interpreter, den Parser oder den abstrakten Syntaxbaum. Kommandos aus der Controller-Komponente, welche durch die View-Komponente ausgelöst werden, erzeugen Änderungen in der Model-Komponente wie beispielsweise das Voranschreiten der Interpretation.
 
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.ast}}
+Enthält Klassen, welche den abstrakten Syntax-Baum (\enquote{abstract syntax tree}) der Prolog-Sprache modellieren. Hierzu gehören u.a. Terme (\texttt{Term}), Variablen (\texttt{Variable}), die Wissensdatenbank (\texttt{KnowledgeBase}) sowie verschiedene Unifikationsziele (\texttt{FunctorGoal}, \texttt{ArithmeticGoal}, \dots).
+
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.parser}}
+Das Parser-Paket enhält mehrere Klassen, welche für die Generierung eines abstrakten Syntax-Baums aus einem gegebenen Prolog-Programm zuständig sind.
+
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.interpreter}}
+Im Interpreter-Paket liegen Klassen, welche eine in Form eines Ziels gegebene Abfrage schrittweise ausführen können. Bei nicht-arithmetischen Abfragen ist dazu eine Wissendatenbank als abstrakter Syntax-Baum notwendig.
+
 \section{Sequenzdiagramme}
 
 \subsection{Initialisierung der grafischen Benutzeroberfläche}
