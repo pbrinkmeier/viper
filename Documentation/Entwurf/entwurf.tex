@@ -54,85 +54,57 @@
 
 \section{Klassenbeschreibungen}
 
-\subsection{Paket \texttt{javax.swing} (Paket aus der Standardbibliothek)}
+\subsection{Paket \texttt{javax.swing}}
 
-Stellt Komponenten für das Erstellen einer GUI bereit.
+Stellt Komponenten für das Erstellen einer GUI bereit. Das Swing-Paket ist Teil der Java-Standardbibliothek.
 
 \subsubsection{Klasse \texttt{JFrame}}
 
-Ein grundlegendes Gerüst, welchem andere Swing-Komponenten hinzugefügt werden können.
-
 \subsubsection{Klasse \texttt{JMenuBar}}
-
-Eine Menüleiste, welche Menüs beinhaltet.
 
 \subsubsection{Klasse \texttt{JMenu}}
 
-Ein Menü, welches man einer Menüleiste hinzufügen kann.
-
 \subsubsection{Klasse \texttt{JMenuItem}}
-
-Ein Menüeintrag, welchen man einem Menü hinzufügen kann.
 
 \subsubsection{Klasse \texttt{JToolBar}}
 
-Eine Schnellzugriffsleiste.
-
 \subsubsection{Klasse \texttt{JButton}}
-
-Ein Schaltfläche die man betätigen kann.
 
 \subsubsection{Klasse \texttt{JPanel}}
 
-Ein generischer Container, dem man andere Swing-Komponenten hinzufügen kann.
-
 \subsubsection{Klasse \texttt{JTextField}}
 
-Ein Textfeld das sowohl für Eingaben, als auch Ausgaben verwendet werden kann.
-
-\subsection{Paket \texttt{java.util} (Paket der Standardbibliothek)}
-
-Eine Sammlung von nützlichen Hilfsklassen.
+\subsection{Paket \texttt{java.util}}
 
 \subsubsection{Klasse \texttt{ListResourceBundle}}
 
-Eine Liste an Resourcen für die aktuelle Sprachumgebung.
-
 \subsubsection{Interface \texttt{Observer}}
-
-Kann von Klassen implementiert werden, wenn diese über Änderungen in anderen Objekten informiert werden wollen.
 
 \subsubsection{Klasse \texttt{Observable}}
 
-Eine abstrakte Klasse die ein observierbares Objekt repräsentiert. Beinhaltet eine Liste mit entsprechenden Beobachtern.
+\subsection{Paket \texttt{org.apache.batik.swing}}
 
-\subsection{Paket \texttt{org.apache.batik.swing} (Externes Paket)}
+Beinhaltet eine gesonderte Leinwand, mit der es möglich ist Bilder im SVG-Format anzuzeigen und zu navigieren. Das Paket stammt aus der Apache Batik Bibliothek, verfügbar unter \url{https://xmlgraphics.apache.org/batik/}.
 
-Beinhaltet eine gesonderte Leinwand, mit der es möglich ist Bilder im SVG-Format anzuzeigen und zu navigieren.
+\subsubsection{Klasse \texttt{JSVGCanvas}}
 
-\subsection{Paket \texttt{org.fife.ui.rsyntaxtextarea} (Externes Paket)}
+\subsection{Paket \texttt{org.fife.ui.rsyntaxtextarea}}
 
-Beinhaltet ein Textfeld, welches zusätzliche Funktionen wie z.B. Code-Faltung (das automatische Umbrechen und Einrücken von Text) unterstützt.
+Beinhaltet ein Textfeld, welches zusätzliche Funktionen wie z.B. Code-Faltung (das automatische Umbrechen und Einrücken von Text) unterstützt. Dieses Paket stammt aus der RSyntaxTextArea Bibliothek, verfügbar unter \url{https://github.com/bobbylight/RSyntaxTextArea}.
 
 \subsubsection{Klasse \texttt{RSyntaxTextArea}}
 
-Das oben genannte Textfeld.
+\subsection{Paket \texttt{guru.nidi.graphviz.model}}
 
-\subsection{Paket \texttt{guru.nidi.graphviz.model} (Externes Paket)}
-
-Beinhaltet alle Bestandteile eines Graphen, sowie komplette Graphen.
+Beinhaltet alle Bestandteile eines Graphen, sowie komplette Graphen. Das Paket stsammt aus der graphviz-java Bibliothek, verfügbar unter \url{https://github.com/nidi3/graphviz-java}.
 
 \subsubsection{Klasse \texttt{Graph}}
 
-Die Repräsentation eines Graphen, mit seinen Eigenschaften (z.B. gerichtet/ungerichtet), sowie dessen Bestandteilen.
+\subsection{Paket \texttt{guru.nidi.graphviz.engine}}
 
-\subsection{Paket \texttt{guru.nidi.graphviz.engine} (Externes Paket)}
-
-Beinhaltet die Generierung verschiedener Darstellungsformate aus der internen Repräsentation eines Graphen. Sowie die Schnittstellen zu verschiedenen Sprachanbindungen anbieten.
+Beinhaltet die Generierung verschiedener Darstellungsformate aus der internen Repräsentation eines Graphen. Sowie die Schnittstellen zu verschiedenen Sprachanbindungen anbieten. Dieses Paket stammt aus der RSyntaxTextArea Bibliothek, verfügbar unter \url{https://github.com/bobbylight/RSyntaxTextArea}.
 
 \subsubsection{Klasse \texttt{Graphviz}}
-
-Generiert aus einem gegebenen Graphen und einem Rasterizer eine Darstellung im gewünschten Format.
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.view}}
 
@@ -478,7 +450,7 @@ Führt das beschriebene Kommando aus.
 \subsubsection{Klasse \texttt{CommandCancel} erbt von \texttt{Command}}
 Kommando zum Abbrechen des Interpreters beim Suchen der nächsten Lösung.
 
-\textbf{\texttt{public CommandCancel(interpreter: Interpreter}}\\
+\textbf{\texttt{public CommandCancel(interpreter: Interpreter)}}\\
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{interpreter}: Interpreter, der die Schritte ausführen soll
 \end{itemize}
