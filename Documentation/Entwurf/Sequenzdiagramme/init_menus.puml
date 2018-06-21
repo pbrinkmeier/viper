@@ -11,11 +11,6 @@ participant "saveButton: Button" as saveButton
 participant "consolePanel: ConsolePanel" as consolePanel
 participant "consoleOutputArea: ConsoleOutputArea" as consoleOutputArea
 participant "consoleInputField: ConsoleInputField" as consoleInputField
-participant "visualisationPanel: VisualisationPanel" as visualisationPanel
-participant "visualisationViewer: VisualisationViewer" as visualisationViewer
-participant "jsvgCanvas: JSVGCanvas" as jsvgCanvas
-participant "editorPanel: EditorPanel" as editorPanel
-participant "rSyntaxArea: RSyntaxArea" as rSyntaxArea
 
 autoactivate on
 
@@ -115,7 +110,9 @@ gui <-- gui
 gui <-- gui 
 
 note left of gui
-    Analog für visualisationPanel und editorPanel
+    Analog für
+     - visualisationPanel (fügt VisualisationViewer, JSVGCanvas und ZoomButtons hinzu)
+     - editorPanel (fügt RSyntaxArea hinzu)
 end note
 
 [<-- gui : init complete
