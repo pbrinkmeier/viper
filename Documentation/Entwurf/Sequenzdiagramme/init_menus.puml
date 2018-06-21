@@ -1,6 +1,6 @@
 @startuml
 
-!include style.iuml
+!include style.puml
 
 participant "gui: MainWindow" as gui
 participant "menuBar: MenuBar" as menuBar

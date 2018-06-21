@@ -1,6 +1,6 @@
-' set namespaceSeparator none
+'set namespaceSeparator none
 skinparam ranksep 50
-' 'skinparam dpi 300
+'skinparam dpi 300
 skinparam monochrome true
 skinparam padding 2
 skinparam classAttributeIconSize 0
@@ -8,3 +8,4 @@ skinparam groupInheritance 3
 skinparam ParticipantPadding 30
 hide circle
 hide footbox
+autoactivate on

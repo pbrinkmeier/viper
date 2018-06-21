@@ -1,0 +1,98 @@
+@startuml
+
+!include style.puml
+
+actor "User" as user
+participant "openMenuItem: MenuItem" as openMenuItem
+participant "commandOpen: CommandOpen" as commandOpen
+participant "openDialog: JFileChooser" as openDialog
+participant "editorPanel: EditorPanel" as editorPanel
+participant "commandSave: CommandSave" as commandSave
+participant "saveDialog: JFileChooser" as saveDialog
+participant "editorPanel: EditorPanel" as editorPanel
+participant "Files" as files << class >>
+participant "consolePanel: ConsolePanel" as consolePanel
+participant "consoleOutputArea: ConsoleOutputArea" as consoleOutputArea
+participant "consoleInputField: ConsoleInputField" as consoleInputField
+participant "visualisationPanel: VisualisationPanel" as visualisationPanel
+participant "visualisationViewer: VisualisationViewer" as visualisationViewer
+
+user -> openMenuItem : ActionPerformed(Event e)
+
+openMenuItem -> commandOpen : execute()
+
+create openDialog
+commandOpen -> openDialog : <<create>> 
+commandOpen <-- openDialog
+
+commandOpen -> openDialog : showOpenDialog(gui)
+commandOpen <-- openDialog : dialogStatus
+
+alt dialogStatus == JFileChooser.APPROVE_OPTION
+    commandOpen -> editorPanel : hasChanged()
+    commandOpen <-- editorPanel : changedStatus
+
+    alt changedStatus == true
+        create commandSave
+        commandOpen -> commandSave : <<create>>
+        
+        create saveDialog
+        commandSave -> saveDialog : <<create>>
+        commandSave <-- saveDialog
+
+        commandSave -> saveDialog : showSaveDialog(gui)
+        commandSave <-- saveDialog : dialogStatus
+        
+        alt dialogStatus == JFileChooser.APPROVE_OPTION
+            commandSave -> saveDialog : getSelectedFile()
+            commandSave <-- saveDialog : filePath
+            
+            commandSave -> editorPanel : getSourceText()
+            commandSave <-- editorPanel : sourceText
+
+            commandSave -> files : write(filePath, sourceText.getBytes())
+            commandSave <-- files 
+            |||
+        end
+    end
+    commandOpen <-- commandSave
+
+    commandOpen -> openDialog : getSelectedFile()
+    commandOpen <-- openDialog : filePath
+
+    commandOpen -> files : readAllBytes(filePath)
+    commandOpen <-- files : fileBytes
+
+    commandOpen -> editorPanel : setSourceText(new String(fileBytes))
+    commandOpen <-- editorPanel
+
+    commandOpen -> editorPanel : setHasChanged(false)
+    commandOpen <-- editorPanel
+
+    commandOpen -> consolePanel : clearAll()
+    
+    consolePanel -> consoleOutputArea : clear()
+    consolePanel <-- consoleOutputArea
+
+    consolePanel -> consoleInputField : clear()
+    consolePanel <-- consoleInputField
+
+    commandOpen <-- consolePanel
+
+    commandOpen -> consolePanel : lockInput()
+    consolePanel -> consoleInputField : lock()
+    consolePanel <-- consoleInputField
+    commandOpen <-- consolePanel
+
+    commandOpen -> visualisationPanel : clearVisualisation
+    visualisationPanel -> visualisationViewer : clear()
+    visualisationPanel <-- visualisationViewer
+    commandOpen <-- visualisationPanel
+    |||
+end 
+
+openMenuItem <-- commandOpen
+
+user <-- openMenuItem
+
+@enduml
