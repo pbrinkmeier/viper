@@ -594,6 +594,36 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisier
 \textbf{\texttt{public void execute()}}\\
 Führt das beschriebene Kommando aus.
 
+\subsubsection{Enum \texttt{ZoomType}}
+
+Repräsentiert die möglichen Modi für Zoom im angezeigten Bildausschnitt der Visualisierung. Wird von CommandZoom verwendet.
+
+\textbf{\texttt{ZoomType.ZOOM\_IN}}\\
+Modus für Vergrößerung des angezeigen Bildausschnitts.
+
+\textbf{\texttt{ZoomType.ZOOM\_OUT}}\\
+Modus für Verkleinerung des angezeigen Bildausschnitts.
+
+\subsubsection{Enum \texttt{ImageFormat}}
+
+Repräsentiert Formate für den Bild-Export der angezeigten Visualisierung.
+
+\textbf{\texttt{ImageFormat.SVG}}\\
+Bildformat SVG (\enquote{Scalable Vector Graphics}) mit der Dateiendung \texttt{.svg}.
+
+\textbf{\texttt{ImageFormat.PNG}}\\
+Bildformat PNG (\enquote{Portable Network Graphics}) mit der Dateiendung \texttt{.png}.
+
+\subsubsection{Enum \texttt{SaveType}}
+
+Gibt an, wie das Speichern eines im Editor eingegebenen Prolog-Programms behandelt werden soll.
+
+\textbf{\texttt{SaveType.SAVE\_NEW}}\\
+Speichert das Prolog-Programm unter bekanntem Namen und Dateipfad ab, die existierende Datei wird dabei überschrieben.
+
+\textbf{\texttt{SaveType.SAVE\_AS}}\\
+Speichert das Prolog-Programm unter einem neuen Namen bzw. Dateipfad, das bedeutet dass der Nutzer über einen Speichern-unter Dialog aufgefordert wird, einen neuen Speicherort auszuwählen.
+
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model}}
 
 Repräsentation der Model-Komponente im Kontext des Model-View-Controller Architekturstils. Dies umfasst die internen Datenstrukturen wie beispielsweise den Interpreter, den Parser oder den abstrakten Syntaxbaum. Kommandos aus der Controller-Komponente, welche durch die View-Komponente ausgelöst werden, erzeugen Änderungen in der Model-Komponente wie beispielsweise das Voranschreiten der Interpretation.
