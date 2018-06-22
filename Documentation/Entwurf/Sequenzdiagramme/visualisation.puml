@@ -6,42 +6,80 @@ actor "User" as user
 participant "nextStepButton: Button" as nextStepButton
 participant "commandNextStep: Command" as commandNextStep
 participant "interpreter: Interpreter" as interpreter
+participant "GraphvizMaker" as GraphvizMaker <<class>>
 participant "file: File" as file
 participant "graphviz: Graphviz" as graphviz 
 participant "visualisationPanel: VisualisationPanel" as visualisationPanel
 participant "visualisationViewer: VisualisationViewer" as visualisationViewer
-participant "jsvgCanvas: JSVGCanvas" as jsvgCanvas
+participant "LanguageManager" as LanguageManager <<class>>
+participant "consolePanel: ConsolePanel" as consolePanel
+participant "consoleOutputArea: ConsoleOutputArea" as consoleOutputArea
 
 user -> nextStepButton : ActionPerformed(Event e)
 
 nextStepButton -> commandNextStep : execute()
 
 commandNextStep -> interpreter : step()
-commandNextStep <-- interpreter : graph
+commandNextStep <-- interpreter : result
 
-create file
-commandNextStep -> file : <<create>>
-commandNextStep <-- file
+alt result == StepResult.SOLUTION_FOUND
+    commandNextStep -> GraphvizMaker : createGraph(interpreter)
+    commandNextStep <-- GraphvizMaker : graph
 
-commandNextStep -> graphviz : fromGraph(graph)
-commandNextStep <-- graphviz
+    create file
+    commandNextStep -> file : <<create>>
+    commandNextStep <-- file
 
-commandNextStep -> graphviz : render(Format.SVG)
-commandNextStep <-- graphviz
+    create graphviz
+    commandNextStep -> graphviz : <<create>>
+    commandNextStep <-- graphviz    
 
-commandNextStep -> graphviz : toFile(file)
-commandNextStep <-- graphviz
+    commandNextStep -> graphviz : fromGraph(graph)
+    commandNextStep <-- graphviz
 
-commandNextStep -> visualisationPanel : updateGraph(file)
+    commandNextStep -> graphviz : render(Format.SVG)
+    commandNextStep <-- graphviz
 
-visualisationPanel -> visualisationViewer : updateGraph(file)
+    commandNextStep -> graphviz : toFile(file)
+    commandNextStep <-- graphviz
 
-visualisationViewer -> jsvgCanvas : setURI(file)
-visualisationViewer <-- jsvgCanvas
+    commandNextStep -> visualisationPanel : updateGraph(file)
 
-visualisationPanel <-- visualisationViewer
+    visualisationPanel -> visualisationViewer : updateGraph(file)
 
-commandNextStep <-- visualisationPanel
+    visualisationViewer -> visualisationViewer : setURI(file)
+    visualisationViewer <-- visualisationViewer
+
+    visualisationPanel <-- visualisationViewer
+
+    commandNextStep <-- visualisationPanel
+    
+    commandNextStep -> interpreter : getSolution()
+    commandNextStep <-- interpreter : solution
+   
+    commandNextStep -> LanguageManager : getMessage("solutionFound");
+    commandNextStep <-- LanguageManager : translation
+ 
+    commandNextStep -> consolePanel : printLine(translation + " " + solution)
+    consolePanel -> consoleOutputArea : printLine(translation + " " + solution)
+    consolePanel <-- consoleOutputArea
+    commandNextStep <-- consolePanel
+    |||
+end 
+
+alt result == StepResult.NO_MORE_SOLUTIONS
+    commandNextStep -> nextStepButton : setEnabled(false)
+    commandNextStep <-- nextStepButton
+
+    commandNextStep -> LanguageManager : getMessage("noMoreSolutions");
+    commandNextStep <-- LanguageManager : translation    
+
+    commandNextStep -> consolePanel : printLine(translation);
+    consolePanel -> consoleOutputArea : printLine(translation)
+    consolePanel <-- consoleOutputArea
+    commandNextStep <-- consolePanel
+    |||
+end
 
 nextStepButton <-- commandNextStep
 

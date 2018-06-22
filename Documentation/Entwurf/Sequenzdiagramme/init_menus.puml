@@ -111,7 +111,7 @@ gui <-- gui
 
 note left of gui
     Analog für
-     - visualisationPanel (fügt VisualisationViewer, JSVGCanvas und ZoomButtons hinzu)
+     - visualisationPanel (fügt VisualisationViewer und ZoomButtons hinzu)
      - editorPanel (fügt RSyntaxArea hinzu)
 end note
 
