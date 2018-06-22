@@ -26,7 +26,7 @@ alt result == StepResult.SOLUTION_FOUND
     commandNextStep -> GraphvizMaker : createGraph(interpreter)
     commandNextStep <-- GraphvizMaker : graph
 
-    commandNextStep -> visualisationPanel : updateGraph(graph)
+    commandNextStep -> visualisationPanel : setFromGraph(graph)
 
     visualisationPanel -> visualisationViewer : setFromGraph(graph)
 
@@ -34,7 +34,7 @@ alt result == StepResult.SOLUTION_FOUND
     visualisationViewer -> graphviz : <<create>>
     visualisationViewer <-- graphviz    
 
-    visualisationViewer -> graphviz : fromGraph(graph)
+    visualisationViewer -> graphviz : setFromGraph(graph)
     visualisationViewer <-- graphviz
 
     visualisationViewer -> graphviz : render(Format.SVG)

@@ -1,0 +1,78 @@
+@startuml
+
+!include style.puml
+
+Actor "User" as user
+participant "englishLanguageMenuItem: MenuItem" as englishLanguage
+participant "commandSetLang: CommandSetLang" as commandSetLang
+participant "LanguageManager" as LanguageManager <<class>>
+participant "languageManagerInstance: LanguageManager" as languageManagerInstance
+participant "nextStepButton: Button" as nextStepButton
+participant "consolePanel: ConsolePanel" as consolePanel
+participant "consoleOutputArea: ConsoleOutputArea" as consoleOutputArea
+participant "visualizationPanel: visualizationPanel" as visualizationPanel
+participant "Interpreter" as Interpreter <<class>>
+participant "interpreterInstance: Interpreter" as interpreterInstance
+participant "GraphvizMaker" as GraphvizMaker <<class>>
+participant "visualizationViewer: visualizationViewer" as visualizationViewer
+
+user -> englishLanguage : click
+
+englishLanguage -> commandSetLang : execute()
+
+commandSetLang -> LanguageManager : getInstance()
+commandSetLang <-- LanguageManager : languageManagerInstance
+
+commandSetLang -> languageManagerInstance : setLocale(this.locale)
+
+languageManagerInstance -> languageManagerInstance : notifyObservers()
+
+note left of LanguageManager
+    Hier am Beispiel vom "Nächster Schritt" Button
+end note
+loop for each Menu-, MenuItem- and Button-Observer
+    languageManagerInstance -> nextStepButton : update()
+    
+    nextStepButton -> LanguageManager : getInstance ()
+    nextStepButton <-- LanguageManager : languageManagerInstance
+
+    nextStepButton -> languageManagerInstance : getString(this.textKey) 
+    nextStepButton <-- languageManagerInstance : translation
+
+    nextStepButton -> nextStepButton : setText(translation)
+    nextStepButton <-- nextStepButton
+
+    languageManagerInstance <-- nextStepButton
+    |||
+end
+
+languageManagerInstance -> consolePanel : update()
+
+consolePanel -> consoleOutputArea : clear()
+consolePanel <-- consoleOutputArea
+
+consolePanel -> LanguageManager : getInstance()
+consolePanel <-- LanguageManager : languageManagerInstance
+
+consolePanel -> languageManagerInstance : getString(languageChanged)
+consolePanel <-- languageManagerInstance : text
+
+consolePanel -> consoleOutputArea : printLine(text, Color.black)
+consolePanel <-- consoleOutputArea
+
+languageManagerInstance <-- consolePanel
+
+languageManagerInstance -> visualizationPanel : update()
+
+visualizationPanel -> Interpreter : getInstance()
+visualizationPanel <-- Interpreter : interpreterInstance
+
+visualizationPanel -> GraphvizMaker : createGraph(interpreterInstance)
+visualizationPanel <-- GraphvizMaker : graph
+
+visualizationPanel -> visualizationViewer : setFromGraph(graph)
+visualizationPanel <-- visualizationViewer
+
+languageManagerInstance <-- visualizationPanel
+
+@enduml
