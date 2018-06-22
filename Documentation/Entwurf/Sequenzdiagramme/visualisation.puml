@@ -15,7 +15,7 @@ participant "LanguageManager" as LanguageManager <<class>>
 participant "consolePanel: ConsolePanel" as consolePanel
 participant "consoleOutputArea: ConsoleOutputArea" as consoleOutputArea
 
-user -> nextStepButton : ActionPerformed(Event e)
+user -> nextStepButton : click
 
 nextStepButton -> commandNextStep : execute()
 

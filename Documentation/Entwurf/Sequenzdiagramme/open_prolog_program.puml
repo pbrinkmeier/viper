@@ -17,7 +17,7 @@ participant "consoleInputField: ConsoleInputField" as consoleInputField
 participant "visualisationPanel: VisualisationPanel" as visualisationPanel
 participant "visualisationViewer: VisualisationViewer" as visualisationViewer
 
-user -> openMenuItem : ActionPerformed(Event e)
+user -> openMenuItem : click
 
 openMenuItem -> commandOpen : execute()
 
