@@ -25,7 +25,7 @@ create openDialog
 commandOpen -> openDialog : <<create>> 
 commandOpen <-- openDialog
 
-commandOpen -> openDialog : showOpenDialog(gui)
+commandOpen -> openDialog : showOpenDialog(null)
 commandOpen <-- openDialog : dialogStatus
 
 alt dialogStatus == JFileChooser.APPROVE_OPTION
@@ -40,7 +40,7 @@ alt dialogStatus == JFileChooser.APPROVE_OPTION
         commandSave -> saveDialog : <<create>>
         commandSave <-- saveDialog
 
-        commandSave -> saveDialog : showSaveDialog(gui)
+        commandSave -> saveDialog : showSaveDialog(null)
         commandSave <-- saveDialog : dialogStatus
         
         alt dialogStatus == JFileChooser.APPROVE_OPTION
