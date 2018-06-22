@@ -1346,7 +1346,7 @@
 											"top": 939,
 											"width": 243.19775390625,
 											"height": 13,
-											"text": "+update(graph: Graph): void",
+											"text": "+setFromGraph(graph: Graph): void",
 											"horizontalAlignment": 0
 										}
 									],
@@ -5917,7 +5917,7 @@
 											"font": "Arial;13;1",
 											"left": 269,
 											"top": 767,
-											"width": 228.10302734375,
+											"width": 235.45361328125,
 											"height": 13,
 											"text": "VisualisationViewer"
 										},
@@ -5952,7 +5952,7 @@
 									"font": "Arial;13;0",
 									"left": 264,
 									"top": 760,
-									"width": 238.10302734375,
+									"width": 245.45361328125,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFj6i6T44N4nYc="
@@ -5979,7 +5979,7 @@
 									"font": "Arial;13;0",
 									"left": 264,
 									"top": 785,
-									"width": 238.10302734375,
+									"width": 245.45361328125,
 									"height": 10
 								},
 								{
@@ -6004,7 +6004,7 @@
 											"font": "Arial;13;0",
 											"left": 269,
 											"top": 800,
-											"width": 228.10302734375,
+											"width": 235.45361328125,
 											"height": 13,
 											"text": "«create»+VisualisationViewer()",
 											"horizontalAlignment": 0
@@ -6021,7 +6021,7 @@
 											"font": "Arial;13;0",
 											"left": 269,
 											"top": 815,
-											"width": 228.10302734375,
+											"width": 235.45361328125,
 											"height": 13,
 											"text": "+clear(): void",
 											"horizontalAlignment": 0
@@ -6038,7 +6038,7 @@
 											"font": "Arial;13;0",
 											"left": 269,
 											"top": 830,
-											"width": 228.10302734375,
+											"width": 235.45361328125,
 											"height": 13,
 											"text": "+setFromGraph(graph: Graph): void",
 											"horizontalAlignment": 0
@@ -6047,7 +6047,7 @@
 									"font": "Arial;13;0",
 									"left": 264,
 									"top": 795,
-									"width": 238.10302734375,
+									"width": 245.45361328125,
 									"height": 53
 								},
 								{
@@ -6087,7 +6087,7 @@
 							"containerChangeable": true,
 							"left": 264,
 							"top": 760,
-							"width": 238.10302734375,
+							"width": 245.45361328125,
 							"height": 88,
 							"nameCompartment": {
 								"$ref": "AAAAAAFj6i6T44N3ApI="
@@ -11847,7 +11847,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 951,
+									"left": 975,
 									"top": 1412,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -11868,7 +11868,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 964,
+									"left": 988,
 									"top": 1415,
 									"height": 13,
 									"alpha": 0.7853981633974483,
@@ -11889,7 +11889,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 923,
+									"left": 947,
 									"top": 1408,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -11998,7 +11998,7 @@
 							"tail": {
 								"$ref": "AAAAAAFjxPTxpmp+SYY="
 							},
-							"points": "936:1393;936:1496;1064:1496;1064:1694;968:1694",
+							"points": "960:1393;960:1496;1064:1496;1064:1694;968:1694",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFj+cMpQTiY0J8="
@@ -17279,7 +17279,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFjxP7QTD1/zqU="
 									},
-									"name": "update",
+									"name": "setFromGraph",
 									"parameters": [
 										{
 											"_type": "UMLParameter",
@@ -17288,7 +17288,9 @@
 												"$ref": "AAAAAAFkDqAs97Bvy9w="
 											},
 											"name": "graph",
-											"type": "Graph"
+											"type": {
+												"$ref": "AAAAAAFkDqUNCvges3s="
+											}
 										},
 										{
 											"_type": "UMLParameter",
