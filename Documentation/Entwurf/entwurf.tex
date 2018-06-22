@@ -129,13 +129,6 @@ Eingabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Ausgabefeld für d
 \textbf{\texttt{public ConsoleInputField()}}\\
 Initialisiert ein leeres, editierbares Textfeld mit einer einzelnen Zeile.
 
-\textbf{\texttt{public String getText()}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{String}: Inhalt des Eingabefeldes
-\end{itemize}
-Gibt den aktuellen Inhalt des Eingabefeldes zurück.
-
 \textbf{\texttt{public void clear()}}\\
 Leert das Eingabefeld.
 
@@ -185,6 +178,21 @@ Sperrt das Eingabefeld, sodass keine Eingaben mehr möglich sind.
 \textbf{\texttt{public void unlockInput()}}\\
 Gibt das Eingabefeld frei, sodass Eingaben möglich sind. Der Inhalt wird dabei geleert.
 
+\textbf{\texttt{public void printLine(String line, Color color)}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{line}: Auszugebender Text
+	\item[-] \texttt{color}: Farbe des Textes
+\end{itemize}
+Gibt eine Zeile mit dem Text \texttt{line} in der Farbe \texttt{color} auf der Konsole aus.
+
+\textbf{\texttt{public String getText()}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Der Text aus dem Eingabefeld
+\end{itemize}
+Gibt den vom Nutzer in das Eingabefeld eingegebenen Text zurück.
+
 \subsubsection{Klasse \texttt{EditorPanel} erbt von \texttt{javax.swing.JPanel}}
 
 GUI-Bereich, welcher das externe Editor-Element \texttt{RSyntaxTextArea} umschließt. Bietet Schnittstellen zum Setzen und Erhalten des Editor-Inhaltes an.
@@ -193,15 +201,32 @@ GUI-Bereich, welcher das externe Editor-Element \texttt{RSyntaxTextArea} umschli
 Initialisiert einen leeren Editor und konfiguriert ihn für Prolog-Quelltext.
 
 \textbf{\texttt{public String getSourceText()}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Der aktuelle Editor-Inhalt
+\end{itemize}
 Gibt den aktuellen Inhalt des Editors zurück.
 
 \textbf{\texttt{public void setSourceText(String text)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{text}: Gewünschter Text
-	\item[-] Returns \texttt{String}: Der aktuelle Editor-Inhalt
+	\item[-] \texttt{text}: Gewünschter neuer Text für den Editor
 \end{itemize}
-Setzt den Inhalt des Editors. Der vorherige Inhalt wird dabei verworfen.
+Setzt den Inhalt des Editors auf den übergebenen String. Der vorherige Inhalt wird dabei verworfen.
+
+\textbf{\texttt{public boolean hasChanged()}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{boolean}: Änderungsstatus des Editors. \texttt{true} falls seit letztem Parser geändert worden, andernfalls \texttt{false}
+\end{itemize}
+Überprüft, ob der Text im Editor seit dem letzen Parser verändert wurde.
+
+\textbf{\texttt{public void setHasChanged(boolean status)}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{status}: Setzt den Änderungsstatus des Editors auf \texttt{true} oder \texttt{false}
+\end{itemize}
+Der Status kann mit \texttt{hasChanged()} abgefragt werden. Ein Setzen auf \texttt{true} hat das Löschen der Konsole sowie der angezeigten Visualisierung zur Folge.
 
 \subsubsection{Klasse \texttt{MainWindow} erbt von \texttt{javax.swing.JFrame}}
 
@@ -210,11 +235,36 @@ Hauptfenster des Programms. Verantwortlich für die Initialisierung aller enthal
 \textbf{\texttt{public MainWindow()}}\\
 Initialisiert das Hauptfenster und die enthaltenen GUI-Elemente (ConsolePanel, EditorPanel, VisualisationPanel, MenuBar, ToolBar).
 
+\textbf{\texttt{public ConsolePanel getConsolePanel()}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ConsolePanel}: Instanz von Klasse für Eingabefeld und Konsole
+\end{itemize}
+Gibt die Instanz der Klasse für den GUI-Bereich zurück, der das Eingabefeld und die Konsole umfasst.
+
+\textbf{\texttt{public VisualisationPanel getVisualisationPanel()}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{VisualisationPanel}: Instanz von Klasse für Visualisierungsbereich
+\end{itemize}
+Gibt die Instanz der Klasse für den GUI-Bereich zurück, der die angezeigte Visualisierung umfasst.
+
+\textbf{\texttt{public EditorPanel getEditorPanel()}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{EditorPanel}: Instanz von Klasse für Editor
+\end{itemize}
+Gibt die Instanz der Klasse für den GUI-Bereich zurück, der den Editor umfasst.
+
 \subsubsection{Klasse \texttt{MenuBar} erbt von \texttt{javax.swing.JMenuBar}}
 
 Menüleiste des Hauptfensters. Bietet u.a. Funktionen für Dateioperationen (Öffnen, Speichern, Speichern unter...), Programmoperationen (Parsen, Schrittoperationen des Interpreters), Exportoperationen (Visualisierungsexport zu Bildformaten oder TikZ) und Einstellungen (Sprachwahl).
 
-\textbf{\texttt{public MenuBar()}}\\
+\textbf{\texttt{public MenuBar(MainWindow gui)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{gui}: Instanz des Hauptfensters
+\end{itemize}
 Initialisiert die Menüleiste mit allen verfügbaren Einträgen und Untermenüs.
 
 \subsubsection{Klasse \texttt{MenuItem} erbt von \texttt{javax.swing.JMenuItem}}
@@ -222,6 +272,7 @@ Initialisiert die Menüleiste mit allen verfügbaren Einträgen und Untermenüs.
 Menü-Element der Menüleiste oder eines Untermenüs. Führt beim Betätigen ein Command des Controllers aus.
 
 \textbf{\texttt{public MenuItem(String textKey, Command command)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
 	\item[-] \texttt{command}: Auszuführender Befehl beim Betätigen des Menü-Elements
@@ -232,7 +283,11 @@ Initialisiert ein neues Menü-Element. Dieses erhält seinen Menütext von der L
 
 Werkzeugleiste des Hauptfensters.
 
-\textbf{\texttt{public ToolBar()}}\\
+\textbf{\texttt{public ToolBar(MainWindow gui)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{gui}: Instanz des Hauptfensters
+\end{itemize}
 Initialisiert die Werkzeugleiste und die enthaltenen Schaltflächen.
 
 \subsubsection{Klasse \texttt{VisualisationPanel} erbt von \texttt{javax.swing.JPanel}}
@@ -245,6 +300,20 @@ Initialisiert den GUI-Bereich der Visualisierung sowie den VisualisationViewer.
 \textbf{\texttt{public void clearVisualisation()}}\\
 Leert den Inhalt des VisualisationViewers.
 
+\textbf{\texttt{public void zoom(Zoom direction)}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{direction}: Richtung der Vergrößerung (hinein oder heraus bewegen)
+\end{itemize}
+Vergrößert oder verkleinert den angezeigen Bildausschnitt des Graphen.
+
+\textbf{\texttt{public void setFromGraph(Graph graph)}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{graph}: Der neue Graph, welcher angezeigt werden soll
+\end{itemize}
+Aktualisiert den angezeigten Graphen.
+
 \subsubsection{Klasse \texttt{VisualisationViewer} erbt von \texttt{org.apache.batik.swing.JSVGCanvas}}
 
 Visualisierungselement für einen generierten Graphen.
@@ -252,7 +321,8 @@ Visualisierungselement für einen generierten Graphen.
 \textbf{\texttt{public VisualisationViewer()}}\\
 Initialisiert eine leere Visualisierung sowie die Eingabefunktionen der Maus für die Navigation des Graphen.
 
-\textbf{\texttt{public void updateGraph(String graph)}}
+\textbf{\texttt{public void setFromGraph(Graph graph)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{graph}: Der anzuzeigende Graph
 \end{itemize}
@@ -260,18 +330,6 @@ Ersetzt den Angezeigten durch den im Parameter gegebenen Graphen.
 
 \textbf{\texttt{public void clear()}}\\
 Leert den Anzeigebereich der Visualisierung.
-
-\subsection{Paket \texttt{edu.kit.ipd.pp.viper.view.visualisation}}
-
-Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustands zuständig sind.
-
-\subsubsection{Klasse \texttt{GraphvizActivationRecordVisitor}}
-
-\textbf{\texttt{public GraphvizActivationRecordVisitor(root: ActivationRecord)}}\\
-
-\subsubsection{Klasse \texttt{LatexActivationRecordVisitor}}
-
-\textbf{\texttt{public LatexActivationRecordVisitor(root: ActivationRecord)}}\\
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.controller}}
 
@@ -285,6 +343,7 @@ Verwaltungsstruktur für Übersetzungen. Die Klasse ist nach dem Singleton-Entwu
 Initialisiert die Datenstrukturen der Übersetzungen. Die anfänglich festgelegte Sprache ist Deutsch.
 
 \textbf{\texttt{public static LanguageManager getInstance()}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{LanguageManager}: Instanz des LanguageManagers
 \end{itemize}
@@ -297,7 +356,7 @@ Gibt eine Instanz des \texttt{LanguageManager}s zurück. Existiert noch keine In
 \end{itemize}
 Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim Schließen des Programms erhalten. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge.
 
-\textbf{\texttt{public static String getString(String textKey)}}
+\textbf{\texttt{public String getString(String textKey)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
@@ -306,6 +365,7 @@ Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim S
 Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten Sprache zurück. Existiert die angeforderte Übersetzung nicht, so wird der Text in Standard-Sprache (Deutsch) zurückgegeben.
 
 \subsubsection{Klasse \texttt{Command}}
+
 Abstrakte Kommando-Klasse für die Kapselung von Programm-Abläufen. Entspricht dem Kommando-Entwurfsmuster.
 
 \textbf{\texttt{protected Command()}}\\
@@ -315,12 +375,14 @@ Leerer Konstruktor des Kommandos.
 Abstrakte Ausführungs-Methode des Befehls. Wird von Unterklassen entsprechend ihrer Funktionalität implementiert.
 
 \subsubsection{Klasse \texttt{CommandNew} erbt von \texttt{Command}}
+
 Kommando zum Anlegen einer neuen Datei im Editor. Der Editor, die Konsole sowie die Visualisierung werden hierbei geleert. Sollten zuvor ungespeicherte Änderungen am Editor-Inhalt gemacht worden sein, wird nachgefragt, ob diese gespeichert werden sollen. Ist eine Referenz auf eine gespeicherte Datei im Editor gesetzt, wird diese am Ende der Ausführung gelöscht. Nach dem Ausführen des Neu-Befehls wird entsprechend beim ersten Speichern die Speichern-unter-Funktion ausgeführt.
 
-\textbf{\texttt{public CommandNew(editor: EditorPanel, console: ConsolePanel,\\visualisation: VisualisationPanel)}}\\
+\textbf{\texttt{public CommandNew(ConsolePanel console, EditorPanel editor,\\VisualisationPanel visualisation)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
@@ -329,12 +391,14 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors, de
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandOpen} erbt von \texttt{Command}}
+
 Kommando zum Öffnen einer Datei über einen Öffnen-Dialog. Der Datei-Inhalt wird hierbei in den Editor geladen. Sowohl die Visualisierung als auch die Konsole werden geleert. Bei ungespeicherten Änderungen am Editor-Inhalt vor dem Laden der neuen Datei wird nachgefragt, ob diese gespeichert werden sollen.
 
-\textbf{\texttt{public CommandOpen(editor: EditorPanel, console: ConsolePanel,\\visualisation: VisualisationPanel)}}\\
+\textbf{\texttt{public CommandOpen(ConsolePanel console, EditorPanel editor,\\VisualisationPanel visualisation)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
@@ -343,12 +407,14 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors, de
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandSave} erbt von \texttt{Command}}
+
 Kommando zum Speichern des Editor-Inhalts auf einem Speichermedium über einen Speichern-Dialog. Fehler oder ein Hinweis auf das erfolgreiche Speichern werden auf der Konsole ausgegeben. Das Kommando umfasst sowohl die Speichern- als auch die Speichern-unter-Funktionalität und unterscheidet diese über einen Enumerations-Parameter.
 
-\textbf{\texttt{public CommandSave(editor: EditorPanel, console: ConsolePanel,\\saveAs: SaveType)}}\\
+\textbf{\texttt{public CommandSave(ConsolePanel console, EditorPanel editor,\\SaveType saveAs)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{saveAs}: Speicher-Typ (Speichern oder Speichern unter...)
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors und der Konsole sowie einem Speicher-Typ, der bei der Ausführung zwischen Speichern und Speichern-unter unterscheidet.
@@ -357,14 +423,16 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors und
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandParse} erbt von \texttt{Command}}
+
 Kommando zum Parsen des Editor-Inhalts. Der Editor-Inhalt wird hierbei durch das Parser-Objekt verarbeitet, auftretende Fehler werden über die Konsole ausgegeben, die Visualisierung wird geleert.
 
-\textbf{\texttt{public CommandParse(parser: PrologParser, editor: EditorPanel,\\console: ConsolePanel, visualisation: VisualisationPanel)}}\\
+\textbf{\texttt{public CommandParse(ConsolePanel console, EditorPanel editor,\\VisualisationPanel visualisation, PrologParser parser)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{parser}: Parser für den Programmcode
-	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{parser}: Parser für den Programmcode
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
 
@@ -372,13 +440,15 @@ Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Sc
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandNextStep} erbt von \texttt{Command}}
+
 Kommando zum Ausführen eines Interpreter-Schritts. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem aktuellen Stand der Interpretation angepasst.
 
-\textbf{\texttt{public CommandNextStep(interpreter: Interpreter,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\textbf{\texttt{public CommandNextStep(ConsolePanel console,\\VisualisationPanel visualisation, Interpreter interpreter)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{interpreter}: Interpreter, der den Schritt ausführen soll
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{interpreter}: Interpreter, der den Schritt ausführen soll
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -386,13 +456,15 @@ Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandPreviousStep} erbt von \texttt{Command}}
+
 Kommando zum Rückgängig-machen eines Interpreter-Schritts. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem aktuellen Stand der Interpretation angepasst.
 
-\textbf{\texttt{public CommandPreviousStep(interpreter: Interpreter,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\textbf{\texttt{public CommandPreviousStep(ConsolePanel console,\\VisualisationPanel visualisation, Interpreter interpreter)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{interpreter}: Interpreter, der den Schritt ausführen soll
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{interpreter}: Interpreter, der den Schritt ausführen soll
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -400,13 +472,15 @@ Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandContinue} erbt von \texttt{Command}}
+
 Kommando zum Ausführen von Interpreter-Schritten bis zum Finden der nächsten Lösung. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem Stand der Interpretation beim Finden der Lösung angepasst.
 
-\textbf{\texttt{public CommandContinue(interpreter: Interpreter,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\textbf{\texttt{public CommandContinue(ConsolePanel console,\\VisualisationPanel visualisation, Interpreter interpreter)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{interpreter}: Interpreter, der die Schritte ausführen soll
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{interpreter}: Interpreter, der die Schritte ausführen soll
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -414,9 +488,11 @@ Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandCancel} erbt von \texttt{Command}}
+
 Kommando zum Abbrechen des Interpreters beim Suchen der nächsten Lösung.
 
-\textbf{\texttt{public CommandCancel(interpreter: Interpreter)}}\\
+\textbf{\texttt{public CommandCancel(Interpreter interpreter)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{interpreter}: Interpreter, der die Schritte ausführen soll
 \end{itemize}
@@ -426,13 +502,15 @@ Initialisiert das Kommando mit einer Referenz auf einen Prolog-Interpreter.
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandToggleLib} erbt von \texttt{Command}}
+
 Kommando zum Aktivieren bzw. Deaktivieren der Standardbibliothek im Parser. Hierbei werden sowohl die Konsole als auch die Visualisierung geleert.
 
-\textbf{\texttt{public CommandToggleLib(parser: PrologParser,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\textbf{\texttt{public CommandToggleLib(ConsolePanel console,\\VisualisationPanel visualisation, PrologParser parser)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{parser}: Parser, bei welchem die Standardbibliothek (de)aktiviert werden soll
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{parser}: Parser, bei welchem die Standardbibliothek (de)aktiviert werden soll
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -440,9 +518,11 @@ Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Sc
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandZoom} erbt von \texttt{Command}}
+
 Kommando zum Zoomen innerhalb der Visualisierung. Dieses Kommando umfasst sowohl das Hinein- als auch das Herauszoomen und unterscheidet diese bei der Ausführung über eine Enumeration.
 
-\textbf{\texttt{public CommandZoom(visualisation: Visualisation,\\direction: ZoomType)}}\\
+\textbf{\texttt{public CommandZoom(VisualisationPanel visualisation,\\ZoomType direction)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{direction}: Art des Zooms (herein oder heraus)
@@ -453,13 +533,15 @@ Initialisiert das Kommando mit einer Referenz auf die Schnittstelle der Visualis
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandSetLang} erbt von \texttt{Command}}
+
 Kommando zum Setzen einer anderen Sprache für die grafische Oberfläche. Die Konsole sowie die Visualisierung werden hierbei geleert.
 
-\textbf{\texttt{public CommandSetLang(lang: Locale, console: ConsolePanel,\\visualisation: VisualisationPanel)}}\\
+\textbf{\texttt{public CommandSetLang(ConsolePanel console,\\VisualisationPanel visualisation, Locale lang)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{lang}: Zu setzende Sprache
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{lang}: Zu setzende Sprache
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole sowie der zu setzenden Sprache.
 
@@ -467,12 +549,14 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisier
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandFormat} erbt von \texttt{Command}}
+
 Kommando zum Formatieren des Editor-Inhalts. Nach erfolgreicher Formatierung wird ein Hinweis über die Konsole ausgegeben.
 
-\textbf{\texttt{public CommandFormat(editor: EditorPanel, console: ConsolePanel)}}\\
+\textbf{\texttt{public CommandFormat(ConsolePanel console, EditorPanel editor)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{editor}: Schnittstelle des Editors
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors und der Konsole.
 
@@ -480,12 +564,14 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors und
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandExportTikz} erbt von \texttt{Command}}
+
 Kommando zum Exportieren der Visualisierung als TikZ-Quelltext. Fehler oder Hinweise zum erfolgreichen Export werden in der Konsole ausgegeben.
 
-\textbf{\texttt{public CommandExportTikz(visualisation: VisualisationPanel,\\console: ConsolePanel)}}\\
+\textbf{\texttt{public CommandExportTikz(ConsolePanel console,\\VisualisationPanel visualisation)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole.
 
@@ -493,12 +579,14 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisier
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandExportImage} erbt von \texttt{Command}}
+
 Kommando zum Exportieren der Visualisierung als Bild-Datei (PNG oder SVG). Der Dateityp wird über eine Enumeration bei der Ausführung unterschieden. Fehler oder Hinweise zum erfolgreichen Export werden in der Konsole ausgegeben.
 
-\textbf{\texttt{public CommandExportImage(visualisation: VisualisationPanel,\\console: ConsolePanel, format: ImageFormat)}}\\
+\textbf{\texttt{public CommandExportImage(ConsolePanel console,\\VisualisationPanel visualisation, ImageFormat format)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{format}: Format der Bild-Datei
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole sowie dem gewollten Bild-Format.
@@ -507,29 +595,59 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisier
 Führt das beschriebene Kommando aus.
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model}}
+
 Repräsentation der Model-Komponente im Kontext des Model-View-Controller Architekturstils. Dies umfasst die internen Datenstrukturen wie beispielsweise den Interpreter, den Parser oder den abstrakten Syntaxbaum. Kommandos aus der Controller-Komponente, welche durch die View-Komponente ausgelöst werden, erzeugen Änderungen in der Model-Komponente wie beispielsweise das Voranschreiten der Interpretation.
 
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.visualisation}}
+
+Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustands zuständig sind.
+
+\subsubsection{Klasse \texttt{GraphvizActivationRecordVisitor}}
+
+\textbf{\texttt{public GraphvizActivationRecordVisitor(root: ActivationRecord)}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
+\end{itemize}
+<++>
+
+\subsubsection{Klasse \texttt{LatexActivationRecordVisitor}}
+
+\textbf{\texttt{public LatexActivationRecordVisitor(root: ActivationRecord)}}\\
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
+\end{itemize}
+<++>
+
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.ast}}
+
 Enthält Klassen, welche den abstrakten Syntax-Baum (\enquote{abstract syntax tree}) der Prolog-Sprache modellieren. Hierzu gehören u.a. Terme (\texttt{Term}), Variablen (\texttt{Variable}), die Wissensdatenbank (\texttt{KnowledgeBase}) sowie verschiedene Unifikationsziele (\texttt{FunctorGoal}, \texttt{ArithmeticGoal}, \dots).
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.parser}}
+
 Das Parser-Paket enhält mehrere Klassen, welche für die Generierung eines abstrakten Syntax-Baums aus einem gegebenen Prolog-Programm zuständig sind.
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.interpreter}}
+
 Im Interpreter-Paket liegen Klassen, welche eine in Form eines Ziels gegebene Abfrage schrittweise ausführen können. Bei nicht-arithmetischen Abfragen ist dazu eine Wissendatenbank als abstrakter Syntax-Baum notwendig.
 
 \section{Sequenzdiagramme}
 
 \subsection{Initialisierung der grafischen Benutzeroberfläche}
+
 Aufbausequenz der grafischen Oberfläche. Enthält die Initialisierung der Schnellzugriffsleiste und Menüleiste sowie der Panels für die Visualisierung, die Konsole und den Editor mit den zugehörigen Schaltflächen.
 
 \subsection{Öffnen einer Prolog-Datei}
+
 Ablauf der Öffnen-Sequenz einer Prolog-Datei, welche durch die Interaktion mit der grafischen Oberfläche ausgelöst und über ein Kommando abgewickelt wird. Das Öffnen leert hierbei automatisch auch die Visualisierung sowie die Konsole.
 
 \subsection{Sprachwechsel}
+
 Ablauf des Sprachwechsels. Hierbei wird die aktuell gewählte Sprache zu einer anderen implementierten Sprache geändert und die grafische Oberfläche entsprechend aktualisiert.
 
 \subsection{Ausführung eines Interpretationsschritts}
+
 Abwicklung eines einzelnen nicht-trivialen Interpretationsschritts im Kontext eines gegebenen Prolog-Programms.
 
 \subsection{Unifikation}
@@ -537,6 +655,7 @@ Abwicklung eines einzelnen nicht-trivialen Interpretationsschritts im Kontext ei
 \subsection{Generierung der Visualisierung}
 
 \section{Zustandsdiagramm}
+
 Veranschaulichung der möglichen Zustände und Zustandsübergänge für das Parsen und Interpretieren eines Prolog-Programmes sowie die Ausgabe der Visualisierung.
 
 \appendix
