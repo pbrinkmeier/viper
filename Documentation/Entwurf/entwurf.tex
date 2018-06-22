@@ -84,25 +84,25 @@ Stellt Komponenten für das Erstellen einer GUI bereit. Das Swing-Paket ist Teil
 
 \subsection{Paket \texttt{org.apache.batik.swing}}
 
-Beinhaltet eine gesonderte Leinwand, mit der es möglich ist Bilder im SVG-Format anzuzeigen und zu navigieren. Das Paket stammt aus der Apache Batik Bibliothek, verfügbar unter \url{https://xmlgraphics.apache.org/batik/}.
+Beinhaltet eine Leinwand mit der es möglich ist, Bilder im SVG-Format anzuzeigen und in diesen zu navigieren. Das Paket stammt aus der Apache Batik Bibliothek, verfügbar unter \url{https://xmlgraphics.apache.org/batik/}.
 
 \subsubsection{Klasse \texttt{JSVGCanvas}}
 
 \subsection{Paket \texttt{org.fife.ui.rsyntaxtextarea}}
 
-Beinhaltet ein Textfeld, welches zusätzliche Funktionen wie z.B. Code-Faltung (das automatische Umbrechen und Einrücken von Text) unterstützt. Dieses Paket stammt aus der RSyntaxTextArea Bibliothek, verfügbar unter \url{https://github.com/bobbylight/RSyntaxTextArea}.
+Beinhaltet ein Textfeld, welches im vgl. zum Textfeld aus dem Swing-Paket zusätzliche Funktionen wie z.B. Code-Faltung (das automatische Umbrechen und Einrücken von Text) unterstützt. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter \url{https://github.com/bobbylight/RSyntaxTextArea}.
 
 \subsubsection{Klasse \texttt{RSyntaxTextArea}}
 
 \subsection{Paket \texttt{guru.nidi.graphviz.model}}
 
-Beinhaltet alle Bestandteile eines Graphen, sowie komplette Graphen. Das Paket stsammt aus der graphviz-java Bibliothek, verfügbar unter \url{https://github.com/nidi3/graphviz-java}.
+Beinhaltet Klassen zur Modellierung eines Graphen, dazu gehören u.a. Knoten und Kanten. Das Paket stammt aus der \texttt{graphviz-java} Bibliothek, verfügbar unter \url{https://github.com/nidi3/graphviz-java}.
 
 \subsubsection{Klasse \texttt{Graph}}
 
 \subsection{Paket \texttt{guru.nidi.graphviz.engine}}
 
-Beinhaltet die Generierung verschiedener Darstellungsformate aus der internen Repräsentation eines Graphen. Sowie die Schnittstellen zu verschiedenen Sprachanbindungen anbieten. Dieses Paket stammt aus der RSyntaxTextArea Bibliothek, verfügbar unter \url{https://github.com/bobbylight/RSyntaxTextArea}.
+Beinhaltet Klassen für die Generierung verschiedener Darstellungsformate aus der internen modellierung eines Graphen. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter \url{https://github.com/bobbylight/RSyntaxTextArea}.
 
 \subsubsection{Klasse \texttt{Graphviz}}
 
@@ -124,7 +124,7 @@ Initialisiert die Schaltfläche mit dem auszuführenden Befehl. Weiterhin wird d
 
 \subsubsection{Klasse \texttt{ConsoleInputField} erbt von \texttt{javax.swing.JTextField}}
 
-Eingabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Ausgabefeld für den Nutzer editierbar und dient der Eingabe von Prolog-Abfragen. Das Eingabefeld ist weiterhin sperrbar, um Eingaben durch den Nutzer zu verhindern, bis es wieder freigegeben wurde.
+Eingabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Ausgabefeld für den Nutzer editierbar und dient der Eingabe von Prolog-Abfragen. Außerdem ist das Eingabefeld sperrbar, um Eingaben durch den Nutzer zu verhindern, bis es wieder freigegeben wurde.
 
 \textbf{\texttt{public ConsoleInputField()}}\\
 Initialisiert ein leeres, editierbares Textfeld mit einer einzelnen Zeile.
@@ -150,7 +150,7 @@ Gibt das Eingabefeld frei, sodass Eingaben durch den Nutzer möglich sind. Das E
 Ausgabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Eingabefeld für den Nutzer ausschließlich lesbar und dient der Ausgabe von Informationen über den Stand des Programmes, Fehlermeldungen oder den Ergebnissen von Prolog-Abfragen. Einzelne Zeilen der Ausgabe können zur besseren visuellen Rückmeldung eingefärbt werden. Ausgaben werden am Ende der Zeile umgebrochen. Das Textfeld erlaubt das Scrollen durch alle ausgegebenen Zeilen, sollten diese die Anzahl gleichzeitig sichtbarer Zeilen überschreiten.
 
 \textbf{\texttt{public ConsoleOutputArea()}}\\
-Initialisiert ein leeres, vom Nutzer nur lesbares Textfeld mit mehreren Zeilen.
+Initialisiert ein leeres, vom Nutzer nur lesbares, Textfeld mit mehreren Zeilen.
 
 \textbf{\texttt{public void printLine(String line, Color color)}}
 \setlist{nolistsep}
@@ -161,23 +161,23 @@ Initialisiert ein leeres, vom Nutzer nur lesbares Textfeld mit mehreren Zeilen.
 Gibt eine neue Zeile mit Text \texttt{line} in der Farbe \texttt{color} im Textfeld aus. Sollte bereits die unterste Zeile erreicht werden, werden alle Zeilen darüber nach oben geschoben und die neue Zeile unten angefügt.
 
 \textbf{\texttt{public void clear()}}\\
-Leert den Inhalt des Textfelds.
+Leert den Inhalt des Textfeldes.
 
 \subsubsection{Klasse \texttt{ConsolePanel} erbt von \texttt{javax.swing.JPanel}}
 
-GUI-Panel, welches das Eingabe- und Ausgabefeld umschließt. Dieses Element bildet die Konsole und leitet Befehle an die einzelnen Konsolen-Elemente an diese weiter.
+GUI-Bereich, welcher das Eingabe- und Ausgabefeld umfasst. Dieses Element bildet die Konsole und leitet Befehle an die einzelnen Konsolen-Elemente weiter.
 
 \textbf{\texttt{public ConsolePanel()}}\\
 Initialisiert das Eingabe- und Ausgabefeld.
 
 \textbf{\texttt{public void clearAll()}}\\
-Leert sowohl das Eingabe- als auch das Ausgabefeld.
+Leert sowohl das Eingabe-, als auch das Ausgabefeld.
 
 \textbf{\texttt{public void clearOutputArea()}}\\
-Leert den Inhalt des Ausgabefelds.
+Leert den Inhalt des Ausgabefeldes.
 
 \textbf{\texttt{public void clearInputField()}}\\
-Leert ausschließlich den Inhalt des Eingabefelds.
+Leert den Inhalt des Eingabefeldes.
 
 \textbf{\texttt{public void lockInput()}}\\
 Sperrt das Eingabefeld, sodass keine Eingaben mehr möglich sind.
@@ -187,7 +187,7 @@ Gibt das Eingabefeld frei, sodass Eingaben möglich sind. Der Inhalt wird dabei 
 
 \subsubsection{Klasse \texttt{EditorPanel} erbt von \texttt{javax.swing.JPanel}}
 
-GUI-Panel, welches das externe Editor-Element \texttt{RSyntaxTextArea} umschließt. Bietet Schnittstellen zum Setzen und Erhalten des Editor-Inhalts.
+GUI-Bereich, welcher das externe Editor-Element \texttt{RSyntaxTextArea} umschließt. Bietet Schnittstellen zum Setzen und Erhalten des Editor-Inhaltes an.
 
 \textbf{\texttt{public EditorPanel()}}\\
 Initialisiert einen leeren Editor und konfiguriert ihn für Prolog-Quelltext.
@@ -208,21 +208,20 @@ Setzt den Inhalt des Editors. Der vorherige Inhalt wird dabei verworfen.
 Verwaltungsstruktur für Übersetzungen. Die Klasse ist nach dem Singleton-Entwurfsmuster modelliert. Alle Texte der GUI werden über einen eindeutigen Schlüsselwert identifiziert. Der LanguageManager bietet zentrale Übersetzungen für diese Schlüsselwerte in Abhängigkeit der gesetzten Sprache. Unterstützte Sprachen sind Deutsch und Englisch.
 
 \textbf{\texttt{private LanguageManager()}}\\
-Initialisiert die Datenstrukturen der Übersetzungen. Die anfänglich festgelegte Sprache ist Englisch.
+Initialisiert die Datenstrukturen der Übersetzungen. Die anfänglich festgelegte Sprache ist Deutsch.
 
 \textbf{\texttt{public static LanguageManager getInstance()}}
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{LanguageManager}: Instanz des LanguageManagers
 \end{itemize}
-Gibt eine Instanz des \texttt{LanguageManager}s zurück. Ist noch keine Instanz existent, wird diese über den privaten Konstruktor erstellt. Sobald eine Instanz existiert, wird diese bei weiteren Aufrufen zurückgegeben.
+Gibt eine Instanz des \texttt{LanguageManager}s zurück. Existiert noch keine Instanz, wird diese zuvor über den privaten Konstruktor erstellt.
 
 \textbf{\texttt{public void setLocale(Locale locale)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] throws \texttt{UnsupportedLocaleException}
 	\item[-] \texttt{locale}: Gewünschte Sprache
 \end{itemize}
-Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim Schließen des Programms erhalten. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge. Ist die gewünschte Sprache nicht unterstützt, so wird eine passende Exception geworfen.
+Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim Schließen des Programms erhalten. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge.
 
 \textbf{\texttt{public static String getString(String textKey)}}
 \setlist{nolistsep}
@@ -230,7 +229,7 @@ Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim S
 	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
 	\item[-] Returns \texttt{String}: Übersetzung für aktuell gesetzte Sprache
 \end{itemize}
-Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten Sprache zurück.
+Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten Sprache zurück. Existiert die angeforderte Übersetzung nicht, so wird der Text in Standard-Sprache (Deutsch) zurückgegeben.
 
 \subsubsection{Klasse \texttt{MainWindow} erbt von \texttt{javax.swing.JFrame}}
 
@@ -255,7 +254,7 @@ Menü-Element der Menüleiste oder eines Untermenüs. Führt beim Betätigen ein
 	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
 	\item[-] \texttt{command}: Auszuführender Befehl beim Betätigen des Menü-Elements
 \end{itemize}
-Initialisiert ein neues Menü-Element. Dieses erhält seinen Menütext von der LanguageManager-Klasse über den Schlüsselwert \texttt{textKey}. Weiter wird beim Betätigen des Menü-Elements \texttt{command} ausgeführt wird.
+Initialisiert ein neues Menü-Element. Dieses erhält seinen Menütext von der LanguageManager-Klasse über den Schlüsselwert \texttt{textKey}. Beim Betätigen des Menü-Elements wird \texttt{command} ausgeführt wird.
 
 \subsubsection{Klasse \texttt{Observable}}
 
@@ -290,10 +289,10 @@ Initialisiert die Werkzeugleiste und die enthaltenen Schaltflächen.
 
 \subsubsection{Klasse \texttt{VisualisationPanel} erbt von \texttt{javax.swing.JPanel}}
 
-GUI-Element, welches die Visualisierung umspannt und Schnittstellen für diese bietet.
+GUI-Element, welches die Visualisierung umfasst und Schnittstellen für diese bietet.
 
 \textbf{\texttt{public VisualisationPanel()}}\\
-Initialisiert das GUI-Panel der Visualisierung und den VisualisationViewer.
+Initialisiert den GUI-Bereich der Visualisierung sowie den VisualisationViewer.
 
 \textbf{\texttt{public void clearVisualisation()}}\\
 Leert den Inhalt des VisualisationViewers.
@@ -309,19 +308,10 @@ Initialisiert eine leere Visualisierung sowie die Eingabefunktionen der Maus fü
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{graph}: Der anzuzeigende Graph
 \end{itemize}
-Ersetzt den angezeigten Graph durch den im Parameter gegebenen Graph.
+Ersetzt den Angezeigten durch den im Parameter gegebenen Graphen.
 
 \textbf{\texttt{public void clear()}}\\
 Leert den Anzeigebereich der Visualisierung.
-
-\subsubsection{Klasse \texttt{UnsupportedLocaleException} erbt von \texttt{java.lang.Exception}}
-Exception-Klasse für den Versuch, eine nicht-unterstützte Sprache im LanguageManager zu setzen.
-
-\textbf{\texttt{public String getLocalizedMessage()}}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{String}: Lokalisierte Fehlermeldung
-\end{itemize}
-Gibt den Fehlertext der Exception als lokalisierten (an die gesetzte Sprache angepassten) String zurück. Die gewählte Sprache des Fehlertexts entspricht der Sprache vor dem versuchten Wechsel, der die Exception ausgelöst hat.
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.view.visualisation}}
 
