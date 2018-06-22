@@ -7,10 +7,10 @@ participant "nextStepButton: Button" as nextStepButton
 participant "commandNextStep: Command" as commandNextStep
 participant "interpreter: Interpreter" as interpreter
 participant "GraphvizMaker" as GraphvizMaker <<class>>
-participant "file: File" as file
-participant "graphviz: Graphviz" as graphviz 
 participant "visualisationPanel: VisualisationPanel" as visualisationPanel
 participant "visualisationViewer: VisualisationViewer" as visualisationViewer
+participant "graphviz: Graphviz" as graphviz 
+participant "file: File" as file
 participant "LanguageManager" as LanguageManager <<class>>
 participant "consolePanel: ConsolePanel" as consolePanel
 participant "consoleOutputArea: ConsoleOutputArea" as consoleOutputArea
@@ -26,26 +26,25 @@ alt result == StepResult.SOLUTION_FOUND
     commandNextStep -> GraphvizMaker : createGraph(interpreter)
     commandNextStep <-- GraphvizMaker : graph
 
-    create file
-    commandNextStep -> file : <<create>>
-    commandNextStep <-- file
+    commandNextStep -> visualisationPanel : updateGraph(graph)
+
+    visualisationPanel -> visualisationViewer : setFromGraph(graph)
 
     create graphviz
-    commandNextStep -> graphviz : <<create>>
-    commandNextStep <-- graphviz    
+    visualisationViewer -> graphviz : <<create>>
+    visualisationViewer <-- graphviz    
 
-    commandNextStep -> graphviz : fromGraph(graph)
-    commandNextStep <-- graphviz
+    visualisationViewer -> graphviz : fromGraph(graph)
+    visualisationViewer <-- graphviz
 
-    commandNextStep -> graphviz : render(Format.SVG)
-    commandNextStep <-- graphviz
+    visualisationViewer -> graphviz : render(Format.SVG)
+    visualisationViewer <-- graphviz
 
-    commandNextStep -> graphviz : toFile(file)
-    commandNextStep <-- graphviz
-
-    commandNextStep -> visualisationPanel : updateGraph(file)
-
-    visualisationPanel -> visualisationViewer : updateGraph(file)
+    create file
+    visualisationViewer -> file : <<create>>
+    visualisationViewer <-- file
+    visualisationViewer -> graphviz : toFile(file)
+    visualisationViewer <-- graphviz
 
     visualisationViewer -> visualisationViewer : setURI(file)
     visualisationViewer <-- visualisationViewer
@@ -57,7 +56,7 @@ alt result == StepResult.SOLUTION_FOUND
     commandNextStep -> interpreter : getSolution()
     commandNextStep <-- interpreter : solution
    
-    commandNextStep -> LanguageManager : getMessage("solutionFound");
+    commandNextStep -> LanguageManager : getString("solutionFound");
     commandNextStep <-- LanguageManager : translation
  
     commandNextStep -> consolePanel : printLine(translation + " " + solution)
@@ -71,7 +70,7 @@ alt result == StepResult.NO_MORE_SOLUTIONS
     commandNextStep -> nextStepButton : setEnabled(false)
     commandNextStep <-- nextStepButton
 
-    commandNextStep -> LanguageManager : getMessage("noMoreSolutions");
+    commandNextStep -> LanguageManager : getString("noMoreSolutions");
     commandNextStep <-- LanguageManager : translation    
 
     commandNextStep -> consolePanel : printLine(translation);
