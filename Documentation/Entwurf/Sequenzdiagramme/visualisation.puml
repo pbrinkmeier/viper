@@ -1,0 +1,50 @@
+@startuml
+
+!include style.puml
+
+actor "User" as user
+participant "nextStepButton: Button" as nextStepButton
+participant "commandNextStep: Command" as commandNextStep
+participant "interpreter: Interpreter" as interpreter
+participant "file: File" as file
+participant "graphviz: Graphviz" as graphviz 
+participant "visualisationPanel: VisualisationPanel" as visualisationPanel
+participant "visualisationViewer: VisualisationViewer" as visualisationViewer
+participant "jsvgCanvas: JSVGCanvas" as jsvgCanvas
+
+user -> nextStepButton : ActionPerformed(Event e)
+
+nextStepButton -> commandNextStep : execute()
+
+commandNextStep -> interpreter : step()
+commandNextStep <-- interpreter : graph
+
+create file
+commandNextStep -> file : <<create>>
+commandNextStep <-- file
+
+commandNextStep -> graphviz : fromGraph(graph)
+commandNextStep <-- graphviz
+
+commandNextStep -> graphviz : render(Format.SVG)
+commandNextStep <-- graphviz
+
+commandNextStep -> graphviz : toFile(file)
+commandNextStep <-- graphviz
+
+commandNextStep -> visualisationPanel : updateGraph(file)
+
+visualisationPanel -> visualisationViewer : updateGraph(file)
+
+visualisationViewer -> jsvgCanvas : setURI(file)
+visualisationViewer <-- jsvgCanvas
+
+visualisationPanel <-- visualisationViewer
+
+commandNextStep <-- visualisationPanel
+
+nextStepButton <-- commandNextStep
+
+user <-- nextStepButton
+
+@enduml
