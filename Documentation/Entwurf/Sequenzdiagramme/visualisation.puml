@@ -5,7 +5,8 @@
 actor "User" as user
 participant "nextStepButton: Button" as nextStepButton
 participant "commandNextStep: Command" as commandNextStep
-participant "interpreter: Interpreter" as interpreter
+participant "InterpreterManager" as InterpreterManager <<class>>
+participant "interpreterInstance: Interpreter" as interpreterInstance
 participant "GraphvizMaker" as GraphvizMaker <<class>>
 participant "visualisationPanel: VisualisationPanel" as visualisationPanel
 participant "visualisationViewer: VisualisationViewer" as visualisationViewer
@@ -19,11 +20,19 @@ user -> nextStepButton : click
 
 nextStepButton -> commandNextStep : execute()
 
-commandNextStep -> interpreter : step()
-commandNextStep <-- interpreter : result
+commandNextStep -> InterpreterManager : step()
+note right of InterpreterManager
+    Wenn nicht neuester interpreter, erhöhe index von currentState um 1;
+    Ansonsten kopiere neuesten interpreter, führe step() aus, füge zur Liste hinzu
+    und erhöhe Index von currentState um 1
+end note
+commandNextStep <-- InterpreterManager : result
 
 alt result == StepResult.SOLUTION_FOUND
-    commandNextStep -> GraphvizMaker : createGraph(interpreter)
+    commandNextStep -> InterpreterManager : getCurrentState()
+    commandNextStep <-- InterpreterManager : interpreterInstance
+
+    commandNextStep -> GraphvizMaker : createGraph(interpreterInstance)
     commandNextStep <-- GraphvizMaker : graph
 
     commandNextStep -> visualisationPanel : setFromGraph(graph)
@@ -34,7 +43,7 @@ alt result == StepResult.SOLUTION_FOUND
     visualisationViewer -> graphviz : <<create>>
     visualisationViewer <-- graphviz    
 
-    visualisationViewer -> graphviz : setFromGraph(graph)
+    visualisationViewer -> graphviz : fromGraph(graph)
     visualisationViewer <-- graphviz
 
     visualisationViewer -> graphviz : render(Format.SVG)
@@ -43,6 +52,7 @@ alt result == StepResult.SOLUTION_FOUND
     create file
     visualisationViewer -> file : <<create>>
     visualisationViewer <-- file
+
     visualisationViewer -> graphviz : toFile(file)
     visualisationViewer <-- graphviz
 
@@ -53,8 +63,8 @@ alt result == StepResult.SOLUTION_FOUND
 
     commandNextStep <-- visualisationPanel
     
-    commandNextStep -> interpreter : getSolution()
-    commandNextStep <-- interpreter : solution
+    commandNextStep -> interpreterInstance : getSolution()
+    commandNextStep <-- interpreterInstance : solution
    
     commandNextStep -> LanguageManager : getString("solutionFound");
     commandNextStep <-- LanguageManager : translation
