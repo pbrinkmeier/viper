@@ -11,7 +11,7 @@ participant "nextStepButton: Button" as nextStepButton
 participant "consolePanel: ConsolePanel" as consolePanel
 participant "consoleOutputArea: ConsoleOutputArea" as consoleOutputArea
 participant "visualizationPanel: visualizationPanel" as visualizationPanel
-participant "Interpreter" as Interpreter <<class>>
+participant "InterpreterManager" as InterpreterManager <<class>>
 participant "interpreterInstance: Interpreter" as interpreterInstance
 participant "GraphvizMaker" as GraphvizMaker <<class>>
 participant "visualizationViewer: visualizationViewer" as visualizationViewer
@@ -64,8 +64,8 @@ languageManagerInstance <-- consolePanel
 
 languageManagerInstance -> visualizationPanel : update()
 
-visualizationPanel -> Interpreter : getInstance()
-visualizationPanel <-- Interpreter : interpreterInstance
+visualizationPanel -> InterpreterManager : getCurrentState()
+visualizationPanel <-- InterpreterManager : interpreterInstance
 
 visualizationPanel -> GraphvizMaker : createGraph(interpreterInstance)
 visualizationPanel <-- GraphvizMaker : graph
@@ -74,5 +74,13 @@ visualizationPanel -> visualizationViewer : setFromGraph(graph)
 visualizationPanel <-- visualizationViewer
 
 languageManagerInstance <-- visualizationPanel
+
+languageManagerInstance <-- languageManagerInstance
+
+commandSetLang <-- languageManagerInstance
+
+englishLanguage <-- commandSetLang
+
+user <-- englishLanguage
 
 @enduml
