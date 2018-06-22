@@ -203,34 +203,6 @@ Gibt den aktuellen Inhalt des Editors zurück.
 \end{itemize}
 Setzt den Inhalt des Editors. Der vorherige Inhalt wird dabei verworfen.
 
-\subsubsection{Klasse \texttt{LanguageManager} erbt von \texttt{Observable}}
-
-Verwaltungsstruktur für Übersetzungen. Die Klasse ist nach dem Singleton-Entwurfsmuster modelliert. Alle Texte der GUI werden über einen eindeutigen Schlüsselwert identifiziert. Der LanguageManager bietet zentrale Übersetzungen für diese Schlüsselwerte in Abhängigkeit der gesetzten Sprache. Unterstützte Sprachen sind Deutsch und Englisch.
-
-\textbf{\texttt{private LanguageManager()}}\\
-Initialisiert die Datenstrukturen der Übersetzungen. Die anfänglich festgelegte Sprache ist Deutsch.
-
-\textbf{\texttt{public static LanguageManager getInstance()}}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{LanguageManager}: Instanz des LanguageManagers
-\end{itemize}
-Gibt eine Instanz des \texttt{LanguageManager}s zurück. Existiert noch keine Instanz, wird diese zuvor über den privaten Konstruktor erstellt.
-
-\textbf{\texttt{public void setLocale(Locale locale)}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] \texttt{locale}: Gewünschte Sprache
-\end{itemize}
-Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim Schließen des Programms erhalten. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge.
-
-\textbf{\texttt{public static String getString(String textKey)}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
-	\item[-] Returns \texttt{String}: Übersetzung für aktuell gesetzte Sprache
-\end{itemize}
-Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten Sprache zurück. Existiert die angeforderte Übersetzung nicht, so wird der Text in Standard-Sprache (Deutsch) zurückgegeben.
-
 \subsubsection{Klasse \texttt{MainWindow} erbt von \texttt{javax.swing.JFrame}}
 
 Hauptfenster des Programms. Verantwortlich für die Initialisierung aller enthaltenen GUI-Elemente.
@@ -255,30 +227,6 @@ Menü-Element der Menüleiste oder eines Untermenüs. Führt beim Betätigen ein
 	\item[-] \texttt{command}: Auszuführender Befehl beim Betätigen des Menü-Elements
 \end{itemize}
 Initialisiert ein neues Menü-Element. Dieses erhält seinen Menütext von der LanguageManager-Klasse über den Schlüsselwert \texttt{textKey}. Beim Betätigen des Menü-Elements wird \texttt{command} ausgeführt wird.
-
-\subsubsection{Klasse \texttt{Observable}}
-
-Die Observer-Klasse richtet einer erbenden Unterklasse eine Schnittstelle ein, mit der andere Klassen sich bei dieser registrieren können. Bei Ereignissen (bspw. dem Umstellen der Sprache) werden diese registrierten Klassen aufgerufen, wodurch z.B das automatische Aktualisieren der Texte beim Sprachwechsel vereinfacht wird.
-
-\textbf{\texttt{public Observable()}}\\
-Erstellt eine neue Instanz.
-
-\textbf{\texttt{public void addListener(Observer listener)}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] \texttt{listener}: Neuer Beobachter, der benachrichtigt werden kann.
-\end{itemize}
-Registriert einen neuen Beobachter.
-
-\textbf{\texttt{public void notifyListeners()}}\\
-Benachrichtigt alle vorher durch \texttt{addListener()} hinzugefügte Beobachter.
-
-\subsubsection{Interface \texttt{Observer}}
-
-Schnittstelle für Klassen, die bei einer Spezialisierung der Observable-Klasse registrierbar sein sollen.
-
-\textbf{\texttt{public void update()}}\\
-Methode, welche durch die Spezialisierung der Observable-Klasse im Falle eines Ereignisses aufgerufen wird.
 
 \subsubsection{Klasse \texttt{ToolBar} erbt von \texttt{javax.swing.JToolBar}}
 
@@ -328,6 +276,34 @@ Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustan
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.controller}}
 
 Repräsentation der Controller-Komponente in Kontext des Model-View-Controller Architekturstils. Umfasst Kommandos zur Kapselung von Interaktionen zwischen der View-Komponente und der Model-Komponente.
+
+\subsubsection{Klasse \texttt{LanguageManager} erbt von \texttt{java.util.Observable}}
+
+Verwaltungsstruktur für Übersetzungen. Die Klasse ist nach dem Singleton-Entwurfsmuster modelliert. Alle Texte der GUI werden über einen eindeutigen Schlüsselwert identifiziert. Der LanguageManager bietet zentrale Übersetzungen für diese Schlüsselwerte in Abhängigkeit der gesetzten Sprache. Unterstützte Sprachen sind Deutsch und Englisch.
+
+\textbf{\texttt{private LanguageManager()}}\\
+Initialisiert die Datenstrukturen der Übersetzungen. Die anfänglich festgelegte Sprache ist Deutsch.
+
+\textbf{\texttt{public static LanguageManager getInstance()}}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{LanguageManager}: Instanz des LanguageManagers
+\end{itemize}
+Gibt eine Instanz des \texttt{LanguageManager}s zurück. Existiert noch keine Instanz, wird diese zuvor über den privaten Konstruktor erstellt.
+
+\textbf{\texttt{public void setLocale(Locale locale)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{locale}: Gewünschte Sprache
+\end{itemize}
+Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim Schließen des Programms erhalten. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge.
+
+\textbf{\texttt{public static String getString(String textKey)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
+	\item[-] Returns \texttt{String}: Übersetzung für aktuell gesetzte Sprache
+\end{itemize}
+Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten Sprache zurück. Existiert die angeforderte Übersetzung nicht, so wird der Text in Standard-Sprache (Deutsch) zurückgegeben.
 
 \subsubsection{Klasse \texttt{Command}}
 Abstrakte Kommando-Klasse für die Kapselung von Programm-Abläufen. Entspricht dem Kommando-Entwurfsmuster.
