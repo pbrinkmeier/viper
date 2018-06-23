@@ -5224,7 +5224,7 @@
 											"top": 947,
 											"width": 119,
 											"height": 13,
-											"text": "SAVE_NEW",
+											"text": "SAVE",
 											"horizontalAlignment": 0
 										},
 										{
@@ -10639,7 +10639,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFkDr20I3CG0Ng="
 									},
-									"name": "SAVE_NEW"
+									"name": "SAVE"
 								},
 								{
 									"_type": "UMLEnumerationLiteral",
