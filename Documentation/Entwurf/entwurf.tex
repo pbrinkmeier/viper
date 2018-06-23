@@ -146,6 +146,36 @@ TODO
 \end{itemize}
 TODO
 
+\subsubsection{Abstrakte Klasse \texttt{TermEvaluationException} erbt von\\\texttt{java.lang.Exception}}
+TODO
+
+\textbf{\texttt{public abstract String getMessage()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: TODO
+\end{itemize}
+TODO
+
+\subsubsection{Klasse \texttt{UnsetVariableException} erbt von\\\texttt{TermEvaluationException}}
+TODO
+
+\textbf{\texttt{public UnsetVariableException(Variable var)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{var}: TODO
+\end{itemize}
+TODO
+
+\subsubsection{Klasse \texttt{UnsupportedTermException} erbt von\\\texttt{TermEvaluationException}}
+TODO
+
+\textbf{\texttt{public UnsupportedTermException(Term term)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{term}: TODO
+\end{itemize}
+TODO
+
 \subsubsection{Klasse \texttt{Number} erbt von \texttt{Term}}
 TODO
 
@@ -874,6 +904,57 @@ TODO
 	\item[-] \texttt{index}: TODO
 \end{itemize}
 TODO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{UnificationResult}}
+TODO
+
+\textbf{\texttt{public UnificationResult()}}\\
+TODO
+
+\textbf{\texttt{public static UnificationResult success(List<Substitution>\\substitutions)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{substitutions}: TODO
+	\item[-] \texttt{UnificationResult}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public static UnificationResult fail(Term lhs,\\Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+	\item[-] \texttt{UnificationResult}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public boolean isSuccess()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{boolean}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public List<Substitution> getSubstitutions()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{List<Substitution>}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public String getErrorMessage()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public String toHtml()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: TODO
+\end{itemize}
+TODO
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Abstrakte Klasse \texttt{ActivationRecord}}
@@ -993,7 +1074,7 @@ TODO
 \end{itemize}
 TODO
 
-\textbf{\texttt{public Optional<String> getArithmeticError()}}
+\textbf{\texttt{public Optional<String> getEvaluationError()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{Optional<String>}: TODO
