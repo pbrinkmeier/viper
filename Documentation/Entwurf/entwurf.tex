@@ -933,10 +933,10 @@ Eine Zahl.
 
 <++>
 
-\section{Klassenbeschreibungen: Bibliotheken}
+\section{Bibliotheken}
 
 \subsection{Paket \texttt{javax.swing}}
-Stellt Komponenten für das Erstellen einer GUI bereit. Das Swing-Paket ist Teil der Java-Standardbibliothek. Genutzte Datenstrukturen:
+Stellt Komponenten für das Erstellen einer GUI bereit. Das Swing-Paket ist Teil der Java-Standardbibliothek.\\\\Genutzte Datenstrukturen:
 
 \begin{multicols}{2}
 \begin{itemize}
@@ -952,7 +952,7 @@ Stellt Komponenten für das Erstellen einer GUI bereit. Das Swing-Paket ist Teil
 \end{multicols}
 
 \subsection{Paket \texttt{java.util}}
-Stellt Hilfs-Datenstrukturen bereit. Das Utilities-Paket ist Teil der Java-Standardbibliothek. Genutzte Datenstrukturen:
+Stellt Hilfs-Datenstrukturen bereit. Das Utilities-Paket ist Teil der Java-Standardbibliothek.\\\\Genutzte Datenstrukturen:
 
 \begin{multicols}{2}
 \begin{itemize}
@@ -964,34 +964,25 @@ Stellt Hilfs-Datenstrukturen bereit. Das Utilities-Paket ist Teil der Java-Stand
 
 \subsection{Paket \texttt{org.apache.batik.swing}}
 
-Beinhaltet eine Leinwand mit der es möglich ist, Bilder im SVG-Format anzuzeigen und in diesen zu navigieren. Das Paket stammt aus der Apache Batik Bibliothek, verfügbar unter:\\ \url{https://xmlgraphics.apache.org/batik/}.
-
-\subsubsection{Klasse \texttt{JSVGCanvas}}
-
-Entspricht einer Swing-Komponente für das Anzeigen von SVGs. Ermöglicht ebenfalls die Navigation innerhalb der Komponente.
+Beinhaltet eine Leinwand mit der es möglich ist, Bilder im SVG-Format anzuzeigen und in diesen zu navigieren. Das Paket stammt aus der Apache Batik Bibliothek, verfügbar unter:\\ \url{https://xmlgraphics.apache.org/batik/}.\\\\Genutzte Datenstrukturen:
+\begin{itemize}
+	\item Klasse: JSVGCanvas
+\end{itemize}
 
 \subsection{Paket \texttt{org.fife.ui.rsyntaxtextarea}}
 
-Beinhaltet ein Textfeld, welches im vgl. zum Textfeld aus dem Swing-Paket zusätzliche Funktionen wie z.B. Code-Faltung (das automatische Umbrechen und Einrücken von Text) unterstützt. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter:  \url{https://github.com/bobbylight/RSyntaxTextArea}.
+Beinhaltet ein Textfeld, welches im vgl. zum Textfeld aus dem Swing-Paket zusätzliche Funktionen wie z.B. Code-Faltung (das automatische Umbrechen und Einrücken von Text) unterstützt. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter:  \url{https://github.com/bobbylight/RSyntaxTextArea}.\\\\Genutzte Datenstrukturen:
+\begin{itemize}
+	\item Klasse: RSyntaxArea
+\end{itemize}
 
-\subsubsection{Klasse \texttt{RSyntaxTextArea}}
-Entspricht einer Swing-Komponente, welche einen Text-Editor darstellt. Neben grundlegenden Funktionen eines Textfelds (Hinzufügen und Löschen von Text, Einfügen aus der Zwischenablage, Markieren von Text) wird automatisches Code-Folding, Suchen und Ersetzen sowie Syntax-Highlighting unterstützt.
+\subsection{Paket \texttt{guru.nidi.graphviz}}
 
-\subsection{Paket \texttt{guru.nidi.graphviz.model}}
-
-Beinhaltet Klassen zur Modellierung eines Graphen, dazu gehören u.a. Knoten und Kanten. Das Paket stammt aus der \texttt{graphviz-java} Bibliothek, verfügbar unter:\\ \url{https://github.com/nidi3/graphviz-java}.
-
-\subsubsection{Klasse \texttt{Graph}}
-
-Datenstruktur für die Konstruktion eines Graphviz-Graphen. Die syntaktische Beschreibung des Graphen orientiert sich an der Graphviz DOT-Sprache, ist jedoch in Java-Syntax umgesetzt.
-
-\subsection{Paket \texttt{guru.nidi.graphviz.engine}}
-
-Beinhaltet Klassen für die Generierung verschiedener Darstellungsformate  aus der internen modellierung eines Graphen.
-
-\subsubsection{Klasse \texttt{Graphviz}}
-
-Entspricht einer Graphviz-Umgebung. Diese kapselt interne Datenstrukturen wie die zu nutzende Engine oder die Maße und Skalierung der Darstellung.
+Beinhaltet Klassen zur Modellierung und grafischen Ausgabe von Graphen. Das Paket stammt aus der \texttt{graphviz-java} Bibliothek, verfügbar unter:\\ \url{https://github.com/nidi3/graphviz-java}.\\\\Genutzte Datenstrukturen:
+\begin{itemize}
+	\item Klasse: Graph
+	\item Klasse: Graphviz
+\end{itemize}
 
 \section{Sequenzdiagramme}
 
