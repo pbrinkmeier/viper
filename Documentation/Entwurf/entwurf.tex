@@ -658,6 +658,78 @@ Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustan
 
 Enthält Klassen, welche den abstrakten Syntax-Baum (\enquote{abstract syntax tree}) der Prolog-Sprache modellieren. Hierzu gehören u.a. Terme (\texttt{Term}), Variablen (\texttt{Variable}), die Wissensdatenbank (\texttt{KnowledgeBase}) sowie verschiedene Unifikationsziele (\texttt{FunctorGoal}, \texttt{ArithmeticGoal}, \dots).
 
+\subsubsection{Klasse \texttt{ArithmeticGoal} erbt von \texttt{Goal}}
+
+<++>
+
+\subsubsection{Interface \texttt{ArithmeticTerm}}
+
+<++>
+
+\subsubsection{Abstrakte Klasse \texttt{BinaryOperation} implementiert \texttt{ArithmeticTerm}}
+
+<++>
+
+\subsubsection{Klasse \texttt{ComparisonGoal} erbt von \texttt{Goal}}
+
+<++>
+
+\subsubsection{Klasse \texttt{CutGoal} erbt von \texttt{Goal}}
+
+<++>
+
+\subsubsection{Klasse \texttt{Functor}}
+
+<++>
+
+\subsubsection{Klasse \texttt{FunctorGoal} erbt von \texttt{Goal}}
+
+<++>
+
+\subsubsection{Abstrakte Klasse \texttt{Goal}}
+
+<++>
+
+\subsubsection{Klasse \texttt{KnowledgeBase}}
+
+<++>
+
+\subsubsection{Klasse \texttt{MultiplicationOperation} erbt von \texttt{BinaryOperation}}
+
+<++>
+
+\subsubsection{Klasse \texttt{Number} implementiert \texttt{ArithmeticTerm}}
+
+<++>
+
+\subsubsection{Klasse \texttt{Rule}}
+
+<++>
+
+\subsubsection{Klasse \texttt{StringTermVisitor}}
+
+<++>
+
+\subsubsection{Klasse \texttt{SubtractionOperation}}
+
+<++>
+
+\subsubsection{Abstrakte Klasse \texttt{Term}}
+
+<++>
+
+\subsubsection{Interface \texttt{TermVisitor<ResultType>}}
+
+<++>
+
+\subsubsection{Klasse \texttt{UnificationGoal} erbt von \texttt{Goal}}
+
+<++>
+
+\subsubsection{Klasse \texttt{Variable} erbt von \texttt{Term}}
+
+<++>
+
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.parser}}
 
 Das Parser-Paket enhält mehrere Klassen, welche für die Generierung eines abstrakten Syntax-Baums aus einem gegebenen Prolog-Programm zuständig sind.
@@ -844,7 +916,73 @@ Eine Zahl.
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.interpreter}}
 
-Im Interpreter-Paket liegen Klassen, welche eine in Form eines Ziels gegebene Abfrage schrittweise ausführen können. Bei nicht-arithmetischen Abfragen ist dazu eine Wissendatenbank als abstrakter Syntax-Baum notwendig.
+\subsubsection{Abstrakte Klasse \texttt{ActivationRecord}}
+
+<++>
+
+\subsubsection{Interface \texttt{ActivationRecordVisitor<ResultType>}}
+
+<++>
+
+\subsubsection{Klasse \texttt{ArithmeticActivationRecord} erbt von \texttt{ActivationRecord}}
+
+<++>
+
+\subsubsection{Klasse \texttt{ComparisonActivationRecord} erbt von \texttt{ActivationRecord}}
+
+<++>
+
+\subsubsection{Klasse \texttt{CutActivationRecord} erbt von \texttt{ActivationRecord}}
+
+<++>
+
+\subsubsection{Klasse \texttt{Environment}}
+
+<++>
+
+\subsubsection{Klasse \texttt{FunctorActivationRecord} erbt von \texttt{ActivationRecord}}
+
+<++>
+
+\subsubsection{Klasse \texttt{FunctorUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
+
+<++>
+
+\subsubsection{Klasse \texttt{Interpreter}}
+
+<++>
+
+\subsubsection{Klasse \texttt{NumberUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
+
+<++>
+
+\subsubsection{Enum \texttt{StepResult}}
+
+<++>
+
+\subsubsection{Klasse \texttt{Substitution}}
+
+<++>
+
+\subsubsection{Klasse \texttt{SubstitutionTermVisitor}}
+
+<++>
+
+\subsubsection{Klasse \texttt{UnificationActivationRecord} erbt von \texttt{ActivationRecord}}
+
+<++>
+
+\subsubsection{Abstrakte Klasse \texttt{UnificationTermVisitor}}
+
+<++>
+
+\subsubsection{Klasse \texttt{UnificationTermVisitorCreator}}
+
+<++>
+
+\subsubsection{Klasse \texttt{VariableUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
+
+<++>
 
 \section{Sequenzdiagramme}
 
