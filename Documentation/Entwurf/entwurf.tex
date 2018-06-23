@@ -55,6 +55,362 @@
 
 \section{Klassenbeschreibungen}
 
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model}}
+
+Repräsentation der Model-Komponente im Kontext des Model-View-Controller Architekturstils. Dies umfasst die internen Datenstrukturen wie beispielsweise den Interpreter, den Parser oder den abstrakten Syntaxbaum. Kommandos aus der Controller-Komponente, welche durch die View-Komponente ausgelöst werden, erzeugen Änderungen in der Model-Komponente wie beispielsweise das Voranschreiten der Interpretation.
+
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.ast}}
+
+Enthält Klassen, welche den abstrakten Syntax-Baum (\enquote{abstract syntax tree}) der Prolog-Sprache modellieren. Hierzu gehören u.a. Terme (\texttt{Term}), Variablen (\texttt{Variable}), die Wissensdatenbank (\texttt{KnowledgeBase}) sowie verschiedene Unifikationsziele (\texttt{FunctorGoal}, \texttt{ArithmeticGoal}, \dots).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{KnowledgeBase}}
+<++>
+
+\subsubsection{Klasse \texttt{Rule}}
+<++>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Abstrakte Klasse \texttt{Term}}
+<++>
+
+\subsubsection{Klasse \texttt{Number} erbt von \texttt{Term}}
+<++>
+
+\subsubsection{Klasse \texttt{Variable} erbt von \texttt{Term}}
+<++>
+
+\subsubsection{Klasse \texttt{Functor} erbt von \texttt{Term}}
+<++>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Abstrakte Klasse \texttt{BinaryOperation} erbt von \texttt{Functor}}
+<++>
+
+\subsubsection{Klasse \texttt{AdditionOperation} erbt von \texttt{BinaryOperation}}
+<++>
+
+\subsubsection{Klasse \texttt{SubtractionOperation} erbt von \texttt{BinaryOperation}}
+<++>
+
+\subsubsection{Klasse \texttt{MultiplicationOperation} erbt von \texttt{BinaryOperation}}
+<++>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Interface \texttt{TermVisitor<ResultType>}}
+<++>
+
+\subsubsection{Interface \texttt{TermTransformationVisitor}}
+<++>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Abstrakte Klasse \texttt{Goal}}
+<++>
+
+\subsubsection{Klasse \texttt{CutGoal} erbt von \texttt{Goal}}
+<++>
+
+\subsubsection{Klasse \texttt{FunctorGoal} erbt von \texttt{Goal}}
+<++>
+
+\subsubsection{Klasse \texttt{ArithmeticGoal} erbt von \texttt{Goal}}
+<++>
+
+\subsubsection{Klasse \texttt{UnificationGoal} erbt von \texttt{Goal}}
+<++>
+
+\subsubsection{Klasse \texttt{ComparisonGoal} erbt von \texttt{Goal}}
+<++>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{LessThanGoal} erbt von \texttt{ComparisonGoal}}
+<++>
+
+\subsubsection{Klasse \texttt{LessThanEqualGoal} erbt von \texttt{ComparisonGoal}}
+<++>
+
+\subsubsection{Klasse \texttt{GreaterThanGoal} erbt von \texttt{ComparisonGoal}}
+<++>
+
+\subsubsection{Klasse \texttt{GreaterThanEqualGoal} erbt von \texttt{ComparisonGoal}}
+<++>
+
+\subsubsection{Klasse \texttt{EqualGoal} erbt von \texttt{ComparisonGoal}}
+<++>
+
+\subsubsection{Klasse \texttt{NotEqualGoal} erbt von \texttt{ComparisonGoal}}
+<++>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.parser}}
+
+Das Parser-Paket enhält mehrere Klassen, welche für die Generierung eines abstrakten Syntax-Baums aus einem gegebenen Prolog-Programm zuständig sind.
+
+\subsubsection{Klasse \texttt{PrologParser}}
+
+Die PrologParser Klasse ist in der Lage, einen gegebenen, korrekten Prolog-Programmcode in eine intere Datenstruktur umzuwandeln. Bei inkorrekten Prolog-Programmen wird eine ParseException geworfen.
+
+\textbf{\texttt{public PrologParser(String program)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{program}: Der zu parsende Prolog-Programmcode
+	\item[-] Throws \texttt{ParseException}: Der gegebene Prolog-Programmcode konnte aufgrund von Syntax-Fehlern nicht geparst werden.
+\end{itemize}
+Erstellt eine neue Instanz des Parsers zu einem gegebenen Prolog-Programmcode.
+
+\textbf{\texttt{public KnowledgeBase parseKnowledgeBase()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{KnowledgeBase}: Die geparste Wissensdatenbank
+\end{itemize}
+Gibt die vom Parser in einen abstrakten Syntax-Baum umgewandelte Wissensdatenbank aus dem geparsten Prolo-Programm zurück.
+
+\textbf{\texttt{public List<Goal> parseGoalList()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{List<Goal>}: Liste von gefundenen Zielen
+\end{itemize}
+Gibt eine Liste von gefundenen Zielen zurück.
+
+\subsubsection{Klasse \texttt{PrologLexer}}
+
+Der Lexer trennt das gegebene Prolog-Programm in sinnvolle Zeichen, d.h. Schlüsselwörtel, Trennzeichen, arithmetische Operatoren, Variablen, Zahlen etc. auf. Diese Teile werden als Token bezeichnet und besitzen je einen Typ (\texttt{TokenType}), sowie Zeilen- und Positionsangabe. Der Lexer beginnt in der ersten Zeile, an der ersten Position des Prolog-Programms und arbeitet sich bis zu letzten Zeile durch.
+
+\textbf{\texttt{public PrologLexer(String program)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{program}: Das aufzuteilende Prolog-Programm
+\end{itemize}
+Erstellt ein neue Instanz vom Lexer zu einem gegebenen Prolog-Programm.
+
+\textbf{\texttt{public Token nextToken()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Token}: Der nächste gefundenen Token. Das Ende des Prolog-Programms wird durch einen Token mit dem Typ \texttt{TokenType.EOF} angegeben
+\end{itemize}
+Gibt den nächsten gefundenen Token des Prolog-Programms zurück.
+
+\subsubsection{Klasse \texttt{PrologException} erbt von \texttt{java.lang.Exception}}
+
+Eine eigene Exception, die vom Parser und Lexer im Falle von Syntax-Fehlern geworfen wird.
+
+\textbf{\texttt{public PrologException(String message)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{message}: Die Fehlernachricht
+\end{itemize}
+Erstellt eine neue Exception mit einer gegebenen Fehlermeldung.
+
+\subsubsection{Klasse \texttt{Token}}
+
+Ein Token stellt ein in Prolog sinnvolles Zeichen dar, d.h. Schlüsselwörter, Trennzeichen, arithmetische Operatoren etc. Identifier, Variablen und Zahlen sind ebenfalls Tokens, auch wenn diese möglicherweise aus mehr als einem Zeichen bestehen.
+
+\textbf{\texttt{public Token(TokenType type, String text, int line, int col)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{type}: Typ dieses Tokens, d.h. ein arithmetische Operator, ein Trennzeichen, eine Klammer, eine Variable etc.
+	\item[-] \texttt{text}: Ein oder mehrere Zeichen aus dem Prolog-Programm, welche dieses Token darstellen
+	\item[-] \texttt{line}: Zeile, in welcher dieses Token gefunden wurde
+	\item[-] \texttt{col}: Position innerhalb einer Zeile, an welcher dieses Token gefunden wurde
+\end{itemize}
+Erstellt ein neues, unveränderliches (\texttt{immutable}) Token mit einem Typ, einem oder mehreren Zeichen (die dieses Token darstellen), sowie einer Positionsangabe.
+
+\textbf{\texttt{public TokenType getType()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{TokenType}: Typ dieses Tokens
+\end{itemize}
+Gibt den Typ dieses Tokens zurück (arithmetischer Operator, Trennzeichen, Klammer, Variable, \dots)
+
+\textbf{\texttt{public String getText()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Ein oder mehrere Zeichen, die dieses Token darstellen
+\end{itemize}
+Gibt das tatsächliche Zeichen oder die tatsächlichen Zeichen aus dem Prolog-Programm zurück, die dieses Token darstellen.
+
+\textbf{\texttt{public int getLine()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: Nummer der Zeile dieses Tokens
+\end{itemize}
+Gibt die Nummer der Zeile zurück, in der dieses Token gefunden wurde.
+
+\textbf{\texttt{public int getCol()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: Position dieses Tokens in der Zeile
+\end{itemize}
+Gibt die Position innerhalb der Zeile zurück, in der dieses Token gefunden wurde.
+
+\textbf{\texttt{public String toString()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Lesbare Darstellung des Tokens
+\end{itemize}
+Gibt eine lesbare Darstellung des Tokens zurück, welche beispielsweise für Fehlermeldungen verwendet werden kann.
+
+\subsubsection{Enum \texttt{TokenType}}
+
+Stellt den Typ eines Tokens dar, d.h. eine arithmetische Operation, ein Trennzeichen, eine Klammer, eine Variable etc.
+
+\textbf{\texttt{TokenType.COLON\_MINUS}}\\
+Operator für zu erfüllende Teilziele (\texttt{:-}).
+
+\textbf{\texttt{TokenType.EQ}}\\
+Das Gleich-Zeichen (\texttt{=}).
+
+\textbf{\texttt{TokenType.LESS}}\\
+Das Kleiner-Zeichen (\texttt{<}).
+
+\textbf{\texttt{TokenType.EQ\_LESS}}\\
+Das Kleiner-Gleich-Zeichen (\texttt{=<}).
+
+\textbf{\texttt{TokenType.GREATER}}\\
+Das Größer-Zeichen (\texttt{<}).
+
+\textbf{\texttt{TokenType.GREATER\_EQ}}\\
+Das Größer-Gleich-Zeichen (\texttt{>=}).
+
+\textbf{\texttt{TokenType.EQ\_COLON\_EQ}}\\
+Das Gleichheit-Zeichen (\texttt{=:=}).
+
+\textbf{\texttt{TokenType.EQ\_BS\_EQ}}\\
+Das Ungleichheit-Zeichen (\texttt{=\=}).
+
+\textbf{\texttt{TokenType.EOF}}\\
+Gibt das Ende des Prolog-Programms an (\enquote{End of file}).
+
+\textbf{\texttt{TokenType.DOT}}\\
+Ein Punkt (\texttt{.}).
+
+\textbf{\texttt{TokenType.COMMA}}\\
+Ein Komman (\texttt{,}).
+
+\textbf{\texttt{TokenType.LP}}\\
+Die öffnende, runde Klammer (\texttt{(}).
+
+\textbf{\texttt{TokenType.RP}}\\
+Die schließende, runde Klammer (\texttt{)}).
+
+\textbf{\texttt{TokenType.LB}}\\
+Die öffnende, eckige Klammer (\texttt{[}).
+
+\textbf{\texttt{TokenType.RB}}\\
+Die schließende, eckige Klammer (\texttt{]}).
+
+\textbf{\texttt{TokenType.BAR}}\\
+Der vertikale Strich (\texttt{|}).
+
+\textbf{\texttt{TokenType.PLUS}}\\
+Das Plus-Zeichen (\texttt{+}).
+
+\textbf{\texttt{TokenType.MINUS}}\\
+Das Minus-Zeichen (\texttt{-}).
+
+\textbf{\texttt{TokenType.STAR}}\\
+Das Sternchen-Zeichen (\texttt{*}).
+
+\textbf{\texttt{TokenType.EXCLAMATION}}\\
+Das Ausrufe-Zeichen (\texttt{!}).
+
+\textbf{\texttt{TokenType.IS}}\\
+Das Schlüsselwort für arithmetische Gleichzeit (\texttt{is}).
+
+\textbf{\texttt{TokenType.VARIABLE}}\\
+Eine Variable (Mindestens ein Großbuchstabe, gefolgt von beliebig vielen weiteren Buchstaben und Zahlen).
+
+\textbf{\texttt{TokenType.IDENTIFIER}}\\
+Ein Identifier (Mindestens ein Kleinbuchstabe, gefolgt von beliebig vielen weiteren Buchstaben und Zahlen).
+
+\textbf{\texttt{TokenType.NUMBER}}\\
+Eine Zahl.
+
+\newpage
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.interpreter}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{Interpreter}}
+<++>
+
+\subsubsection{Enum \texttt{StepResult}}
+<++>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{Environment}}
+<++>
+
+\subsubsection{Klasse \texttt{Substitution}}
+<++>
+
+\subsubsection{Klasse \texttt{SubstitutionApplier} implementiert \texttt{TermTransformationVisitor}}
+<++>
+
+\subsubsection{Klasse \texttt{Indexifier} implementiert \texttt{TermTransformationVisitor}}
+<++>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Abstrakte Klasse \texttt{ActivationRecord}}
+<++>
+
+\subsubsection{Klasse \texttt{ArithmeticActivationRecord} erbt von \texttt{ActivationRecord}}
+<++>
+
+\subsubsection{Klasse \texttt{ComparisonActivationRecord} erbt von \texttt{ActivationRecord}}
+<++>
+
+\subsubsection{Klasse \texttt{CutActivationRecord} erbt von \texttt{ActivationRecord}}
+<++>
+
+\subsubsection{Klasse \texttt{UnificationActivationRecord} erbt von \texttt{ActivationRecord}}
+<++>
+
+\subsubsection{Klasse \texttt{FunctorActivationRecord} erbt von \texttt{ActivationRecord}}
+<++>
+
+\subsubsection{Interface \texttt{ActivationRecordVisitor<ResultType>}}
+<++>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{VariableExtractor} implementiert \texttt{TermVisitor}}
+<++>
+
+\subsubsection{Abstrakte Klasse \texttt{UnificationTermVisitor} implementiert \texttt{TermVisitor}}
+<++>
+
+\subsubsection{Abstrakte Klasse \texttt{FunctorUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
+<++>
+
+\subsubsection{Klasse \texttt{VariableUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
+<++>
+
+\subsubsection{Klasse \texttt{NumberUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
+<++>
+
+\subsubsection{Klasse \texttt{UnificationTermVisitorCreator}}
+<++>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.visualisation}}
+
+Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustands zuständig sind.
+
+\subsubsection{Klasse \texttt{GraphvizActivationRecordVisitor}}
+
+<++>
+
+\textbf{\texttt{public GraphvizActivationRecordVisitor(ActivationRecord root)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
+\end{itemize}
+<++>
+
+\subsubsection{Klasse \texttt{LatexActivationRecordVisitor}}
+
+<++>
+
+\textbf{\texttt{public LatexActivationRecordVisitor(ActivationRecord root)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
+\end{itemize}
+<++>
+
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.view}}
 
 Repräsentation der View-Komponente im Kontext des Model-View-Controller Architekturstils. Umfasst alle selbst implementierten Komponenten der grafischen Benutzeroberfläche, welche zur Darstellung der Inhalte der Model-Komponente dient. Interaktionen mit der Oberfläche werden über Commands aus dem Controller-Paket auf die internen Datenstrukturen des Model-Pakets angewandt.
@@ -280,6 +636,7 @@ Ersetzt den Angezeigten durch den im Parameter gegebenen Graphen.
 \textbf{\texttt{public void clear()}}\\
 Leert den Anzeigebereich der Visualisierung.
 
+\newpage
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.controller}}
 
 Repräsentation der Controller-Komponente in Kontext des Model-View-Controller Architekturstils. Umfasst Kommandos zur Kapselung von Interaktionen zwischen der View-Komponente und der Model-Komponente.
@@ -572,366 +929,6 @@ Speichert das Prolog-Programm unter bekanntem Namen und Dateipfad ab, die existi
 
 \textbf{\texttt{SaveType.SAVE\_AS}}\\
 Speichert das Prolog-Programm unter einem neuen Namen bzw. Dateipfad, das bedeutet dass der Nutzer über einen Speichern-unter Dialog aufgefordert wird, einen neuen Speicherort auszuwählen.
-
-\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model}}
-
-Repräsentation der Model-Komponente im Kontext des Model-View-Controller Architekturstils. Dies umfasst die internen Datenstrukturen wie beispielsweise den Interpreter, den Parser oder den abstrakten Syntaxbaum. Kommandos aus der Controller-Komponente, welche durch die View-Komponente ausgelöst werden, erzeugen Änderungen in der Model-Komponente wie beispielsweise das Voranschreiten der Interpretation.
-
-\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.visualisation}}
-
-Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustands zuständig sind.
-
-\subsubsection{Klasse \texttt{GraphvizActivationRecordVisitor}}
-
-<++>
-
-\textbf{\texttt{public GraphvizActivationRecordVisitor(ActivationRecord root)}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
-\end{itemize}
-<++>
-
-\subsubsection{Klasse \texttt{LatexActivationRecordVisitor}}
-
-<++>
-
-\textbf{\texttt{public LatexActivationRecordVisitor(ActivationRecord root)}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
-\end{itemize}
-<++>
-
-\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.ast}}
-
-Enthält Klassen, welche den abstrakten Syntax-Baum (\enquote{abstract syntax tree}) der Prolog-Sprache modellieren. Hierzu gehören u.a. Terme (\texttt{Term}), Variablen (\texttt{Variable}), die Wissensdatenbank (\texttt{KnowledgeBase}) sowie verschiedene Unifikationsziele (\texttt{FunctorGoal}, \texttt{ArithmeticGoal}, \dots).
-
-\subsubsection{Klasse \texttt{ArithmeticGoal} erbt von \texttt{Goal}}
-
-<++>
-
-\subsubsection{Interface \texttt{ArithmeticTerm}}
-
-<++>
-
-\subsubsection{Abstrakte Klasse \texttt{BinaryOperation} implementiert \texttt{ArithmeticTerm}}
-
-<++>
-
-\subsubsection{Klasse \texttt{ComparisonGoal} erbt von \texttt{Goal}}
-
-<++>
-
-\subsubsection{Klasse \texttt{CutGoal} erbt von \texttt{Goal}}
-
-<++>
-
-\subsubsection{Klasse \texttt{Functor}}
-
-<++>
-
-\subsubsection{Klasse \texttt{FunctorGoal} erbt von \texttt{Goal}}
-
-<++>
-
-\subsubsection{Abstrakte Klasse \texttt{Goal}}
-
-<++>
-
-\subsubsection{Klasse \texttt{KnowledgeBase}}
-
-<++>
-
-\subsubsection{Klasse \texttt{MultiplicationOperation} erbt von \texttt{BinaryOperation}}
-
-<++>
-
-\subsubsection{Klasse \texttt{Number} implementiert \texttt{ArithmeticTerm}}
-
-<++>
-
-\subsubsection{Klasse \texttt{Rule}}
-
-<++>
-
-\subsubsection{Klasse \texttt{StringTermVisitor}}
-
-<++>
-
-\subsubsection{Klasse \texttt{SubtractionOperation}}
-
-<++>
-
-\subsubsection{Abstrakte Klasse \texttt{Term}}
-
-<++>
-
-\subsubsection{Interface \texttt{TermVisitor<ResultType>}}
-
-<++>
-
-\subsubsection{Klasse \texttt{UnificationGoal} erbt von \texttt{Goal}}
-
-<++>
-
-\subsubsection{Klasse \texttt{Variable} erbt von \texttt{Term}}
-
-<++>
-
-\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.parser}}
-
-Das Parser-Paket enhält mehrere Klassen, welche für die Generierung eines abstrakten Syntax-Baums aus einem gegebenen Prolog-Programm zuständig sind.
-
-\subsubsection{Klasse \texttt{PrologParser}}
-
-Die PrologParser Klasse ist in der Lage, einen gegebenen, korrekten Prolog-Programmcode in eine intere Datenstruktur umzuwandeln. Bei inkorrekten Prolog-Programmen wird eine ParseException geworfen.
-
-\textbf{\texttt{public PrologParser(String program)}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] \texttt{program}: Der zu parsende Prolog-Programmcode
-	\item[-] Throws \texttt{ParseException}: Der gegebene Prolog-Programmcode konnte aufgrund von Syntax-Fehlern nicht geparst werden.
-\end{itemize}
-Erstellt eine neue Instanz des Parsers zu einem gegebenen Prolog-Programmcode.
-
-\textbf{\texttt{public KnowledgeBase parseKnowledgeBase()}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{KnowledgeBase}: Die geparste Wissensdatenbank
-\end{itemize}
-Gibt die vom Parser in einen abstrakten Syntax-Baum umgewandelte Wissensdatenbank aus dem geparsten Prolo-Programm zurück.
-
-\textbf{\texttt{public List<Goal> parseGoalList()}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{List<Goal>}: Liste von gefundenen Zielen
-\end{itemize}
-Gibt eine Liste von gefundenen Zielen zurück.
-
-\subsubsection{Klasse \texttt{PrologLexer}}
-
-Der Lexer trennt das gegebene Prolog-Programm in sinnvolle Zeichen, d.h. Schlüsselwörtel, Trennzeichen, arithmetische Operatoren, Variablen, Zahlen etc. auf. Diese Teile werden als Token bezeichnet und besitzen je einen Typ (\texttt{TokenType}), sowie Zeilen- und Positionsangabe. Der Lexer beginnt in der ersten Zeile, an der ersten Position des Prolog-Programms und arbeitet sich bis zu letzten Zeile durch.
-
-\textbf{\texttt{public PrologLexer(String program)}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] \texttt{program}: Das aufzuteilende Prolog-Programm
-\end{itemize}
-Erstellt ein neue Instanz vom Lexer zu einem gegebenen Prolog-Programm.
-
-\textbf{\texttt{public Token nextToken()}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{Token}: Der nächste gefundenen Token. Das Ende des Prolog-Programms wird durch einen Token mit dem Typ \texttt{TokenType.EOF} angegeben
-\end{itemize}
-Gibt den nächsten gefundenen Token des Prolog-Programms zurück.
-
-\subsubsection{Klasse \texttt{PrologException} erbt von \texttt{java.lang.Exception}}
-
-Eine eigene Exception, die vom Parser und Lexer im Falle von Syntax-Fehlern geworfen wird.
-
-\textbf{\texttt{public PrologException(String message)}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] \texttt{message}: Die Fehlernachricht
-\end{itemize}
-Erstellt eine neue Exception mit einer gegebenen Fehlermeldung.
-
-\subsubsection{Klasse \texttt{Token}}
-
-Ein Token stellt ein in Prolog sinnvolles Zeichen dar, d.h. Schlüsselwörter, Trennzeichen, arithmetische Operatoren etc. Identifier, Variablen und Zahlen sind ebenfalls Tokens, auch wenn diese möglicherweise aus mehr als einem Zeichen bestehen.
-
-\textbf{\texttt{public Token(TokenType type, String text, int line, int col)}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] \texttt{type}: Typ dieses Tokens, d.h. ein arithmetische Operator, ein Trennzeichen, eine Klammer, eine Variable etc.
-	\item[-] \texttt{text}: Ein oder mehrere Zeichen aus dem Prolog-Programm, welche dieses Token darstellen
-	\item[-] \texttt{line}: Zeile, in welcher dieses Token gefunden wurde
-	\item[-] \texttt{col}: Position innerhalb einer Zeile, an welcher dieses Token gefunden wurde
-\end{itemize}
-Erstellt ein neues, unveränderliches (\texttt{immutable}) Token mit einem Typ, einem oder mehreren Zeichen (die dieses Token darstellen), sowie einer Positionsangabe.
-
-\textbf{\texttt{public TokenType getType()}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{TokenType}: Typ dieses Tokens
-\end{itemize}
-Gibt den Typ dieses Tokens zurück (arithmetischer Operator, Trennzeichen, Klammer, Variable, \dots)
-
-\textbf{\texttt{public String getText()}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{String}: Ein oder mehrere Zeichen, die dieses Token darstellen
-\end{itemize}
-Gibt das tatsächliche Zeichen oder die tatsächlichen Zeichen aus dem Prolog-Programm zurück, die dieses Token darstellen.
-
-\textbf{\texttt{public int getLine()}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{int}: Nummer der Zeile dieses Tokens
-\end{itemize}
-Gibt die Nummer der Zeile zurück, in der dieses Token gefunden wurde.
-
-\textbf{\texttt{public int getCol()}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{int}: Position dieses Tokens in der Zeile
-\end{itemize}
-Gibt die Position innerhalb der Zeile zurück, in der dieses Token gefunden wurde.
-
-\textbf{\texttt{public String toString()}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{String}: Lesbare Darstellung des Tokens
-\end{itemize}
-Gibt eine lesbare Darstellung des Tokens zurück, welche beispielsweise für Fehlermeldungen verwendet werden kann.
-
-\subsubsection{Enum \texttt{TokenType}}
-
-Stellt den Typ eines Tokens dar, d.h. eine arithmetische Operation, ein Trennzeichen, eine Klammer, eine Variable etc.
-
-\textbf{\texttt{TokenType.COLON\_MINUS}}\\
-Operator für zu erfüllende Teilziele (\texttt{:-}).
-
-\textbf{\texttt{TokenType.EQ}}\\
-Das Gleich-Zeichen (\texttt{=}).
-
-\textbf{\texttt{TokenType.LESS}}\\
-Das Kleiner-Zeichen (\texttt{<}).
-
-\textbf{\texttt{TokenType.EQ\_LESS}}\\
-Das Kleiner-Gleich-Zeichen (\texttt{=<}).
-
-\textbf{\texttt{TokenType.GREATER}}\\
-Das Größer-Zeichen (\texttt{<}).
-
-\textbf{\texttt{TokenType.GREATER\_EQ}}\\
-Das Größer-Gleich-Zeichen (\texttt{>=}).
-
-\textbf{\texttt{TokenType.EQ\_COLON\_EQ}}\\
-Das Gleichheit-Zeichen (\texttt{=:=}).
-
-\textbf{\texttt{TokenType.EQ\_BS\_EQ}}\\
-Das Ungleichheit-Zeichen (\texttt{=\=}).
-
-\textbf{\texttt{TokenType.EOF}}\\
-Gibt das Ende des Prolog-Programms an (\enquote{End of file}).
-
-\textbf{\texttt{TokenType.DOT}}\\
-Ein Punkt (\texttt{.}).
-
-\textbf{\texttt{TokenType.COMMA}}\\
-Ein Komman (\texttt{,}).
-
-\textbf{\texttt{TokenType.LP}}\\
-Die öffnende, runde Klammer (\texttt{(}).
-
-\textbf{\texttt{TokenType.RP}}\\
-Die schließende, runde Klammer (\texttt{)}).
-
-\textbf{\texttt{TokenType.LB}}\\
-Die öffnende, eckige Klammer (\texttt{[}).
-
-\textbf{\texttt{TokenType.RB}}\\
-Die schließende, eckige Klammer (\texttt{]}).
-
-\textbf{\texttt{TokenType.BAR}}\\
-Der vertikale Strich (\texttt{|}).
-
-\textbf{\texttt{TokenType.PLUS}}\\
-Das Plus-Zeichen (\texttt{+}).
-
-\textbf{\texttt{TokenType.MINUS}}\\
-Das Minus-Zeichen (\texttt{-}).
-
-\textbf{\texttt{TokenType.STAR}}\\
-Das Sternchen-Zeichen (\texttt{*}).
-
-\textbf{\texttt{TokenType.EXCLAMATION}}\\
-Das Ausrufe-Zeichen (\texttt{!}).
-
-\textbf{\texttt{TokenType.IS}}\\
-Das Schlüsselwort für arithmetische Gleichzeit (\texttt{is}).
-
-\textbf{\texttt{TokenType.VARIABLE}}\\
-Eine Variable (Mindestens ein Großbuchstabe, gefolgt von beliebig vielen weiteren Buchstaben und Zahlen).
-
-\textbf{\texttt{TokenType.IDENTIFIER}}\\
-Ein Identifier (Mindestens ein Kleinbuchstabe, gefolgt von beliebig vielen weiteren Buchstaben und Zahlen).
-
-\textbf{\texttt{TokenType.NUMBER}}\\
-Eine Zahl.
-
-\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.interpreter}}
-
-\subsubsection{Abstrakte Klasse \texttt{ActivationRecord}}
-
-<++>
-
-\subsubsection{Interface \texttt{ActivationRecordVisitor<ResultType>}}
-
-<++>
-
-\subsubsection{Klasse \texttt{ArithmeticActivationRecord} erbt von \texttt{ActivationRecord}}
-
-<++>
-
-\subsubsection{Klasse \texttt{ComparisonActivationRecord} erbt von \texttt{ActivationRecord}}
-
-<++>
-
-\subsubsection{Klasse \texttt{CutActivationRecord} erbt von \texttt{ActivationRecord}}
-
-<++>
-
-\subsubsection{Klasse \texttt{Environment}}
-
-<++>
-
-\subsubsection{Klasse \texttt{FunctorActivationRecord} erbt von \texttt{ActivationRecord}}
-
-<++>
-
-\subsubsection{Klasse \texttt{FunctorUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
-
-<++>
-
-\subsubsection{Klasse \texttt{Interpreter}}
-
-<++>
-
-\subsubsection{Klasse \texttt{NumberUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
-
-<++>
-
-\subsubsection{Enum \texttt{StepResult}}
-
-<++>
-
-\subsubsection{Klasse \texttt{Substitution}}
-
-<++>
-
-\subsubsection{Klasse \texttt{SubstitutionTermVisitor}}
-
-<++>
-
-\subsubsection{Klasse \texttt{UnificationActivationRecord} erbt von \texttt{ActivationRecord}}
-
-<++>
-
-\subsubsection{Abstrakte Klasse \texttt{UnificationTermVisitor}}
-
-<++>
-
-\subsubsection{Klasse \texttt{UnificationTermVisitorCreator}}
-
-<++>
-
-\subsubsection{Klasse \texttt{VariableUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
-
-<++>
 
 \section{Bibliotheken}
 
