@@ -2447,7 +2447,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 942,
-									"top": 776,
+									"top": 756,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -2468,7 +2468,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 939,
-									"top": 790,
+									"top": 770,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -2489,7 +2489,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 946,
-									"top": 749,
+									"top": 729,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 25,
@@ -2594,7 +2594,7 @@
 							"tail": {
 								"$ref": "AAAAAAFjxQg45FdBeLI="
 							},
-							"points": "968:768;824:768;824:1264;688:1264;688:1336",
+							"points": "968:748;824:748;824:1264;688:1264;688:1336",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFjxcBoFKKb1Kw="
@@ -5089,7 +5089,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 848,
+									"left": 751,
 									"top": 1075,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -5110,7 +5110,7 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 848,
+									"left": 751,
 									"top": 1060,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -5131,7 +5131,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 848,
+									"left": 751,
 									"top": 1105,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -5149,7 +5149,7 @@
 							"tail": {
 								"$ref": "AAAAAAFjxQVLfRM73z4="
 							},
-							"points": "848:745;848:1096;1632:1096",
+							"points": "751:745;751:1096;1632:1096",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAFj2qDL+bxw4kQ="
@@ -7327,7 +7327,7 @@
 											"top": 1472,
 											"width": 291.966796875,
 											"height": 13,
-											"text": "«create»+EditorPanel(command: Command)",
+											"text": "«create»+EditorPanel()",
 											"horizontalAlignment": 0
 										},
 										{
@@ -17798,18 +17798,7 @@
 										"$ref": "AAAAAAFjxP6xHDgbRFI="
 									},
 									"name": "EditorPanel",
-									"stereotype": "create",
-									"parameters": [
-										{
-											"_type": "UMLParameter",
-											"_id": "AAAAAAFj60PErvMUl7o=",
-											"_parent": {
-												"$ref": "AAAAAAFj2ooQkV9oTus="
-											},
-											"name": "command",
-											"type": "Command"
-										}
-									]
+									"stereotype": "create"
 								},
 								{
 									"_type": "UMLOperation",
