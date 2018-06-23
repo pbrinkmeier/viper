@@ -968,11 +968,14 @@ Beinhaltet eine Leinwand mit der es möglich ist, Bilder im SVG-Format anzuzeige
 
 \subsubsection{Klasse \texttt{JSVGCanvas}}
 
+Entspricht einer Swing-Komponente für das Anzeigen von SVGs. Ermöglicht ebenfalls die Navigation innerhalb der Komponente.
+
 \subsection{Paket \texttt{org.fife.ui.rsyntaxtextarea}}
 
 Beinhaltet ein Textfeld, welches im vgl. zum Textfeld aus dem Swing-Paket zusätzliche Funktionen wie z.B. Code-Faltung (das automatische Umbrechen und Einrücken von Text) unterstützt. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter:  \url{https://github.com/bobbylight/RSyntaxTextArea}.
 
 \subsubsection{Klasse \texttt{RSyntaxTextArea}}
+Entspricht einer Swing-Komponente, welche einen Text-Editor darstellt. Neben grundlegenden Funktionen eines Textfelds (Hinzufügen und Löschen von Text, Einfügen aus der Zwischenablage, Markieren von Text) wird automatisches Code-Folding, Suchen und Ersetzen sowie Syntax-Highlighting unterstützt.
 
 \subsection{Paket \texttt{guru.nidi.graphviz.model}}
 
@@ -980,11 +983,15 @@ Beinhaltet Klassen zur Modellierung eines Graphen, dazu gehören u.a. Knoten und
 
 \subsubsection{Klasse \texttt{Graph}}
 
+Datenstruktur für die Konstruktion eines Graphviz-Graphen. Die syntaktische Beschreibung des Graphen orientiert sich an der Graphviz DOT-Sprache, ist jedoch in Java-Syntax umgesetzt.
+
 \subsection{Paket \texttt{guru.nidi.graphviz.engine}}
 
-Beinhaltet Klassen für die Generierung verschiedener Darstellungsformate aus der internen modellierung eines Graphen. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter: \url{https://github.com/bobbylight/RSyntaxTextArea}.
+Beinhaltet Klassen für die Generierung verschiedener Darstellungsformate  aus der internen modellierung eines Graphen.
 
 \subsubsection{Klasse \texttt{Graphviz}}
+
+Entspricht einer Graphviz-Umgebung. Diese kapselt interne Datenstrukturen wie die zu nutzende Engine oder die Maße und Skalierung der Darstellung.
 
 \section{Sequenzdiagramme}
 
