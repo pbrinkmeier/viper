@@ -65,76 +65,502 @@ Enthält Klassen, welche den abstrakten Syntax-Baum (\enquote{abstract syntax tr
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Klasse \texttt{KnowledgeBase}}
-<++>
+TODO
+
+\textbf{\texttt{public KnowledgeBase(List<Rule> rules)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{rules}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public List<Rule> getMatchingRules(Functor head)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{head}: TODO
+	\item[-] Returns \texttt{List<Rule>}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{Rule}}
-<++>
+TODO
+
+\textbf{\texttt{public Rule(Functor head, List<Goal> subgoals)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{head}: TODO
+	\item[-] \texttt{subgoals}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Functor getHead()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Functor}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public List<Goal> getSubgoals()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{List<Goal>}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public String toString()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: TODO
+\end{itemize}
+TODO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Abstrakte Klasse \texttt{Term}}
-<++>
+TODO
+
+\textbf{\texttt{public abstract ResultType accept(TermVisitor<ResultType>\\visitor)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{visitor}: TODO
+	\item[-] Returns \texttt{ResultType}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public abstract Number evaluate()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Number}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public abstract String toString()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public abstract String toHtml()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{Number} erbt von \texttt{Term}}
-<++>
+TODO
+
+\textbf{\texttt{public Number(int number)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{number}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public int getNumber()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{Variable} erbt von \texttt{Term}}
-<++>
+TODO
+
+\textbf{\texttt{public Variable(String name, Integer index)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{name}: TODO
+	\item[-] \texttt{index}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public String getName()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Optional<Integer> getIndex()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<Integer>}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{Functor} erbt von \texttt{Term}}
-<++>
+TODO
+
+\textbf{\texttt{public Functor(String name, List<Term> subTerms)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{name}: TODO
+	\item[-] \texttt{subTerms}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public String getName()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public List<Term> getSubTerms()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{List<Term>}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Functor createNew(String name, List<Term>\\subTerms)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{name}: TODO
+	\item[-] \texttt{subTerms}: TODO
+	\item[-] Returns \texttt{Functor}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public int getArity()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: TODO
+\end{itemize}
+TODO
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Abstrakte Klasse \texttt{BinaryOperation} erbt von \texttt{Functor}}
-<++>
+TODO
+
+\textbf{\texttt{public BinaryOperation(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Number evaluate(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+	\item[-] Returns \texttt{Number}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected int calculate(int a, int b)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{a}: TODO
+	\item[-] \texttt{b}: TODO
+	\item[-] Returns \texttt{int}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public String toString()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public String toHtml()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public abstract BinaryOperation createNew(String head,\\List<Term> subTerms)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{head}: TODO
+	\item[-] \texttt{subTerms}: TODO
+	\item[-] Returns \texttt{BinaryOperation}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{AdditionOperation} erbt von \texttt{BinaryOperation}}
-<++>
+TODO
+
+\textbf{\texttt{public AdditionOperation(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{SubtractionOperation} erbt von \texttt{BinaryOperation}}
-<++>
+TODO
+
+\textbf{\texttt{public SubtractionOperation(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{MultiplicationOperation} erbt von \texttt{BinaryOperation}}
-<++>
+TODO
+
+\textbf{\texttt{public MultiplicationOperation(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Interface \texttt{TermVisitor<ResultType>}}
-<++>
+TODO
+
+\textbf{\texttt{public ResultType visit(Functor fun)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{fun}: TODO
+	\item[-] Returns \texttt{ResultType}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public ResultType visit(Variable var)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{var}: TODO
+	\item[-] Returns \texttt{ResultType}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public ResultType visit(Number num)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{num}: TODO
+	\item[-] Returns \texttt{ResultType}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Interface \texttt{TermTransformationVisitor}}
-<++>
+TODO
+
+\textbf{\texttt{public Functor visit(Functor functor)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{functor}: TODO
+	\item[-] Returns \texttt{Functor}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Variable visit(Variable var)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{var}: TODO
+	\item[-] Returns \texttt{Variable}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Number visit(Number num)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{num}: TODO
+	\item[-] Returns \texttt{Number}: TODO
+\end{itemize}
+TODO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Abstrakte Klasse \texttt{Goal}}
-<++>
+TODO
+
+\textbf{\texttt{public abstract ActivationRecord createActivationRecord\\(Optional<ActivationRecord> parent)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: TODO
+	\item[-] Returns \texttt{ActivationRecord}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public abstract String toString()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{CutGoal} erbt von \texttt{Goal}}
-<++>
+TODO
+
+\textbf{\texttt{public CutGoal()}}
+TODO
 
 \subsubsection{Klasse \texttt{FunctorGoal} erbt von \texttt{Goal}}
-<++>
+TODO
+
+\textbf{\texttt{public FunctorGoal(Functor goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{goal}: TODO
+	\item[-] Returns \texttt{FunctorGoal}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Functor getFunctor()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Functor}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{ArithmeticGoal} erbt von \texttt{Goal}}
-<++>
+TODO
+
+\textbf{\texttt{public ArithmeticGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term getLhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term getRhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{UnificationGoal} erbt von \texttt{Goal}}
-<++>
+TODO
+
+\textbf{\texttt{public UnificationGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term getLhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term getRhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{ComparisonGoal} erbt von \texttt{Goal}}
-<++>
+TODO
+
+\textbf{\texttt{public ComparisonGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term getLhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term getRhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public abstract boolean compareNumbers(int lhs, int rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+	\item[-] Returns \texttt{boolean}: TODO
+\end{itemize}
+TODO
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Klasse \texttt{LessThanGoal} erbt von \texttt{ComparisonGoal}}
-<++>
+TODO
+
+\textbf{\texttt{public LessThanGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{LessThanEqualGoal} erbt von \texttt{ComparisonGoal}}
-<++>
+TODO
+
+\textbf{\texttt{public LessThanEqualGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{GreaterThanGoal} erbt von \texttt{ComparisonGoal}}
-<++>
+TODO
+
+\textbf{\texttt{public GreaterThanGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{GreaterThanEqualGoal} erbt von \texttt{ComparisonGoal}}
-<++>
+TODO
+
+\textbf{\texttt{public GreaterThanEqualGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{EqualGoal} erbt von \texttt{ComparisonGoal}}
-<++>
+TODO
+
+\textbf{\texttt{public EqualGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{NotEqualGoal} erbt von \texttt{ComparisonGoal}}
-<++>
+TODO
+
+\textbf{\texttt{public NotEqualGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: TODO
+	\item[-] \texttt{rhs}: TODO
+\end{itemize}
+TODO
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
@@ -327,89 +753,461 @@ Eine Zahl.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Klasse \texttt{Interpreter}}
-<++>
+TODO
+
+\textbf{\texttt{public Interpreter(KnowledgeBase kb, Goal query)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{kb}: TODO
+	\item[-] \texttt{query}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public StepResult step()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{StepResult}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public ActivationRecord getQuery()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public ActivationRecord getCurrent()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public ActivationRecord getNext()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Interpreter copy()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Interpreter}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Enum \texttt{StepResult}}
-<++>
+TODO\\
+
+\textbf{\texttt{StepResult.NO\_MORE\_SOLUTIONS}}\\
+TODO
+
+\textbf{\texttt{StepResult.SOLUTION\_FOUND}}\\
+TODO
+
+\textbf{\texttt{StepResult.STEPS\_REMAINING}}\\
+TODO
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Klasse \texttt{Environment}}
-<++>
+TODO
+
+\textbf{\texttt{public Environment(ActivationRecord ar, List<Substitution>\\ substitutions)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{ar}: TODO
+	\item[-] \texttt{substitutions}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term applyAllSubstitutions(Term term)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{term}: TODO
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{Substitution}}
-<++>
+TODO
+
+\textbf{\texttt{public Substitution(Variable replace, Term by)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{replace}: TODO
+	\item[-] \texttt{by}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Variable getReplace()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Variable}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term getBy()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{SubstitutionApplier} implementiert \texttt{TermTransformationVisitor}}
-<++>
+TODO
+
+\textbf{\texttt{public SubstitutionApplier(Substitution subst)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{subst}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{Indexifier} implementiert \texttt{TermTransformationVisitor}}
-<++>
+TODO
+
+\textbf{\texttt{public Indexifier(int index)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{index}: TODO
+\end{itemize}
+TODO
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Abstrakte Klasse \texttt{ActivationRecord}}
-<++>
+TODO
+
+\textbf{\texttt{public ActivationRecord(Interpreter interpreter,\\Optional<FunctorActivationRecord> parent)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{interpreter}: TODO
+	\item[-] \texttt{parent}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public abstract ResultType accept\\(ActivationRecordVisitor<ResultType> visitor)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{visitor}: TODO
+	\item[-] Returns \texttt{ResultType}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected ActivationRecord step()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected ActivationRecord createCopy()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected void setEnvironment(Environment env)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{env}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected ActivationRecord getPrevious()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected Environment getEnvironment()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Environment}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected ActivationRecord getNext()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected Interpreter getInterpreter()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Interpreter}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected Optional<FunctorActivationRecord> getParent()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<FunctorActivationRecord>}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected boolean hasBeenVisited()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{boolean}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected void setVisited()}}
+TODO
 
 \subsubsection{Klasse \texttt{ArithmeticActivationRecord} erbt von \texttt{ActivationRecord}}
-<++>
+TODO
+
+\textbf{\texttt{public ArithmeticActivationRecord(Optional<ActivationRecord>\\parent, ArithmeticGoal goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: TODO
+	\item[-] \texttt{goal}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Optional<UnificationResult> getUnificationResult()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<UnificationResult>}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term getLhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term getRhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Optional<String> getArithmeticError()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<String>}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{ComparisonActivationRecord} erbt von \texttt{ActivationRecord}}
-<++>
+TODO
+
+\textbf{\texttt{public ComparisonActivationRecord(Optional<ActivationRecord>\\ parent, ComparisonGoal goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: TODO
+	\item[-] \texttt{goal}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{CutActivationRecord} erbt von \texttt{ActivationRecord}}
-<++>
+TODO
+
+\textbf{\texttt{public CutActivationRecord(Optional<ActivationRecord>\\ parent, CutGoal goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: TODO
+	\item[-] \texttt{goal}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{UnificationActivationRecord} erbt von \texttt{ActivationRecord}}
-<++>
+TODO
+
+\textbf{\texttt{public UnificationActivationRecord(Optional<ActivationRecord>\\ parent, UnificationGoal goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: TODO
+	\item[-] \texttt{goal}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Optional<UnificationResult> getUnificationResult()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<UnificationResult>}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term getLhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Term getRhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Klasse \texttt{FunctorActivationRecord} erbt von \texttt{ActivationRecord}}
-<++>
+TODO
+
+\textbf{\texttt{public FunctorActivationRecord(Optional<ActivationRecord>\\ parent, FunctorGoal goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: TODO
+	\item[-] \texttt{goal}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Optional<UnificationResult> getUnificationResult()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<UnificationResult>}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Functor getFunctor()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Functor}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public Functor getMatchingRuleHead()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Functor}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{public int getRuleIndex()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: TODO
+\end{itemize}
+TODO
 
 \subsubsection{Interface \texttt{ActivationRecordVisitor<ResultType>}}
-<++>
+TODO
+
+\textbf{\texttt{protected ResultType visit(FunctorActivationRecord\\functorAr)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{functorAr}: TODO
+	\item[-] Returns \texttt{ResultType}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected ResultType visit(UnificationActivationRecord\\unificationAr)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{unificationAr}: TODO
+	\item[-] Returns \texttt{ResultType}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected ResultType visit(CutActivationRecord cutAr)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{cutAr}: TODO
+	\item[-] Returns \texttt{ResultType}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected ResultType visit(ArithmeticActivationRecord\\arithAr)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{arithAr}: TODO
+	\item[-] Returns \texttt{ResultType}: TODO
+\end{itemize}
+TODO
+
+\textbf{\texttt{protected ResultType visit(ComparisonActivationRecord\\compAr)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{compAr}: TODO
+	\item[-] Returns \texttt{ResultType}: TODO
+\end{itemize}
+TODO
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Klasse \texttt{VariableExtractor} implementiert \texttt{TermVisitor}}
-<++>
+TODO
 
-\subsubsection{Abstrakte Klasse \texttt{UnificationTermVisitor} implementiert \texttt{TermVisitor}}
-<++>
+\textbf{\texttt{public VariableExtractor()}}\\
+TODO
 
-\subsubsection{Abstrakte Klasse \texttt{FunctorUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
-<++>
+\subsubsection{Abstrakte Klasse \texttt{Unifier}}
+TODO
 
-\subsubsection{Klasse \texttt{VariableUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
-<++>
+\subsubsection{Abstrakte Klasse \texttt{FunctorUnifier} erbt von \texttt{Unifier}}
+TODO
 
-\subsubsection{Klasse \texttt{NumberUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
-<++>
+\textbf{\texttt{public FunctorUnifier(Functor functor)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{functor}: TODO
+\end{itemize}
+TODO
 
-\subsubsection{Klasse \texttt{UnificationTermVisitorCreator}}
-<++>
+\subsubsection{Klasse \texttt{VariableUnifier} erbt von \texttt{Unifier}}
+TODO
+
+\textbf{\texttt{public VariableUnifier(Variable var)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{var}: TODO
+\end{itemize}
+TODO
+
+\subsubsection{Klasse \texttt{NumberUnifier} erbt von \texttt{Unifier}}
+TODO
+
+\textbf{\texttt{public NumberUnifier(Number num)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{num}: TODO
+\end{itemize}
+TODO
+
+\subsubsection{Klasse \texttt{UnifierCreator}}
+TODO
+
+\textbf{\texttt{public UnifierCreator()}}\\
+TODO
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.visualisation}}
 
 Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustands zuständig sind.
 
-\subsubsection{Klasse \texttt{GraphvizActivationRecordVisitor}}
+\subsubsection{Klasse \texttt{GraphvizMaker}}
 
-<++>
+TODO
 
-\textbf{\texttt{public GraphvizActivationRecordVisitor(ActivationRecord root)}}
+\textbf{\texttt{public GraphvizMaker(ActivationRecord root)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
 \end{itemize}
-<++>
+TODO
 
-\subsubsection{Klasse \texttt{LatexActivationRecordVisitor}}
+\subsubsection{Klasse \texttt{LatexMaker}}
+TODO
 
-<++>
-
-\textbf{\texttt{public LatexActivationRecordVisitor(ActivationRecord root)}}
+\textbf{\texttt{public LatexMaker(ActivationRecord root)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
 \end{itemize}
-<++>
+TODO
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.view}}
 
