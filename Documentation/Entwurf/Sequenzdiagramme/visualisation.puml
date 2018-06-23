@@ -28,47 +28,47 @@ note right of InterpreterManager
 end note
 commandNextStep <-- InterpreterManager : result
 
+commandNextStep -> InterpreterManager : getCurrentState()
+commandNextStep <-- InterpreterManager : interpreterInstance
+
+commandNextStep -> GraphvizMaker : createGraph(interpreterInstance)
+commandNextStep <-- GraphvizMaker : graph
+
+commandNextStep -> visualisationPanel : setFromGraph(graph)
+
+visualisationPanel -> visualisationViewer : setFromGraph(graph)
+
+create graphviz
+visualisationViewer -> graphviz : <<create>>
+visualisationViewer <-- graphviz    
+
+visualisationViewer -> graphviz : fromGraph(graph)
+visualisationViewer <-- graphviz
+
+visualisationViewer -> graphviz : render(Format.SVG)
+visualisationViewer <-- graphviz
+
+create file
+visualisationViewer -> file : <<create>>
+visualisationViewer <-- file
+
+visualisationViewer -> graphviz : toFile(file)
+visualisationViewer <-- graphviz
+
+visualisationViewer -> visualisationViewer : setURI(file)
+visualisationViewer <-- visualisationViewer
+
+visualisationPanel <-- visualisationViewer
+
+commandNextStep <-- visualisationPanel
+
 alt result == StepResult.SOLUTION_FOUND
-    commandNextStep -> InterpreterManager : getCurrentState()
-    commandNextStep <-- InterpreterManager : interpreterInstance
-
-    commandNextStep -> GraphvizMaker : createGraph(interpreterInstance)
-    commandNextStep <-- GraphvizMaker : graph
-
-    commandNextStep -> visualisationPanel : setFromGraph(graph)
-
-    visualisationPanel -> visualisationViewer : setFromGraph(graph)
-
-    create graphviz
-    visualisationViewer -> graphviz : <<create>>
-    visualisationViewer <-- graphviz    
-
-    visualisationViewer -> graphviz : fromGraph(graph)
-    visualisationViewer <-- graphviz
-
-    visualisationViewer -> graphviz : render(Format.SVG)
-    visualisationViewer <-- graphviz
-
-    create file
-    visualisationViewer -> file : <<create>>
-    visualisationViewer <-- file
-
-    visualisationViewer -> graphviz : toFile(file)
-    visualisationViewer <-- graphviz
-
-    visualisationViewer -> visualisationViewer : setURI(file)
-    visualisationViewer <-- visualisationViewer
-
-    visualisationPanel <-- visualisationViewer
-
-    commandNextStep <-- visualisationPanel
-    
     commandNextStep -> interpreterInstance : getSolution()
     commandNextStep <-- interpreterInstance : solution
-   
+
     commandNextStep -> LanguageManager : getString("solutionFound");
     commandNextStep <-- LanguageManager : translation
- 
+
     commandNextStep -> consolePanel : printLine(translation + " " + solution)
     consolePanel -> consoleOutputArea : printLine(translation + " " + solution)
     consolePanel <-- consoleOutputArea
