@@ -30,6 +30,7 @@
 \usepackage{listings}
 \usepackage{courier}
 \usepackage{enumitem}
+\usepackage{multicol}
 \hypersetup{
 	pdftitle={Entwurf},
 }
@@ -53,58 +54,6 @@
 \section{Einleitung}
 
 \section{Klassenbeschreibungen}
-
-\subsection{Paket \texttt{javax.swing}}
-
-Stellt Komponenten für das Erstellen einer GUI bereit. Das Swing-Paket ist Teil der Java-Standardbibliothek.
-
-\subsubsection{Klasse \texttt{JFrame}}
-
-\subsubsection{Klasse \texttt{JMenuBar}}
-
-\subsubsection{Klasse \texttt{JMenu}}
-
-\subsubsection{Klasse \texttt{JMenuItem}}
-
-\subsubsection{Klasse \texttt{JToolBar}}
-
-\subsubsection{Klasse \texttt{JButton}}
-
-\subsubsection{Klasse \texttt{JPanel}}
-
-\subsubsection{Klasse \texttt{JTextField}}
-
-\subsection{Paket \texttt{java.util}}
-
-\subsubsection{Klasse \texttt{ListResourceBundle}}
-
-\subsubsection{Interface \texttt{Observer}}
-
-\subsubsection{Klasse \texttt{Observable}}
-
-\subsection{Paket \texttt{org.apache.batik.swing}}
-
-Beinhaltet eine Leinwand mit der es möglich ist, Bilder im SVG-Format anzuzeigen und in diesen zu navigieren. Das Paket stammt aus der Apache Batik Bibliothek, verfügbar unter \url{https://xmlgraphics.apache.org/batik/}.
-
-\subsubsection{Klasse \texttt{JSVGCanvas}}
-
-\subsection{Paket \texttt{org.fife.ui.rsyntaxtextarea}}
-
-Beinhaltet ein Textfeld, welches im vgl. zum Textfeld aus dem Swing-Paket zusätzliche Funktionen wie z.B. Code-Faltung (das automatische Umbrechen und Einrücken von Text) unterstützt. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter \url{https://github.com/bobbylight/RSyntaxTextArea}.
-
-\subsubsection{Klasse \texttt{RSyntaxTextArea}}
-
-\subsection{Paket \texttt{guru.nidi.graphviz.model}}
-
-Beinhaltet Klassen zur Modellierung eines Graphen, dazu gehören u.a. Knoten und Kanten. Das Paket stammt aus der \texttt{graphviz-java} Bibliothek, verfügbar unter \url{https://github.com/nidi3/graphviz-java}.
-
-\subsubsection{Klasse \texttt{Graph}}
-
-\subsection{Paket \texttt{guru.nidi.graphviz.engine}}
-
-Beinhaltet Klassen für die Generierung verschiedener Darstellungsformate aus der internen modellierung eines Graphen. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter \url{https://github.com/bobbylight/RSyntaxTextArea}.
-
-\subsubsection{Klasse \texttt{Graphviz}}
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.view}}
 
@@ -983,6 +932,59 @@ Eine Zahl.
 \subsubsection{Klasse \texttt{VariableUnificationTermVisitor} erbt von \texttt{UnificationTermVisitor}}
 
 <++>
+
+\section{Klassenbeschreibungen: Bibliotheken}
+
+\subsection{Paket \texttt{javax.swing}}
+Stellt Komponenten für das Erstellen einer GUI bereit. Das Swing-Paket ist Teil der Java-Standardbibliothek. Genutzte Datenstrukturen:
+
+\begin{multicols}{2}
+\begin{itemize}
+	\item Klasse: JFrame
+	\item Klasse: JMenu	
+	\item Klasse: JMenuBar
+	\item Klasse: JMenuItem
+	\item Klasse: JToolBar
+	\item Klasse: JButton
+	\item Klasse: JPanel
+	\item Klasse: JTextField
+\end{itemize}
+\end{multicols}
+
+\subsection{Paket \texttt{java.util}}
+Stellt Hilfs-Datenstrukturen bereit. Das Utilities-Paket ist Teil der Java-Standardbibliothek. Genutzte Datenstrukturen:
+
+\begin{multicols}{2}
+\begin{itemize}
+	\item Klasse: ListResourceBundle
+	\item Klasse: Observable
+	\item Interface: Observer
+\end{itemize}
+\end{multicols}
+
+\subsection{Paket \texttt{org.apache.batik.swing}}
+
+Beinhaltet eine Leinwand mit der es möglich ist, Bilder im SVG-Format anzuzeigen und in diesen zu navigieren. Das Paket stammt aus der Apache Batik Bibliothek, verfügbar unter:\\ \url{https://xmlgraphics.apache.org/batik/}.
+
+\subsubsection{Klasse \texttt{JSVGCanvas}}
+
+\subsection{Paket \texttt{org.fife.ui.rsyntaxtextarea}}
+
+Beinhaltet ein Textfeld, welches im vgl. zum Textfeld aus dem Swing-Paket zusätzliche Funktionen wie z.B. Code-Faltung (das automatische Umbrechen und Einrücken von Text) unterstützt. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter:  \url{https://github.com/bobbylight/RSyntaxTextArea}.
+
+\subsubsection{Klasse \texttt{RSyntaxTextArea}}
+
+\subsection{Paket \texttt{guru.nidi.graphviz.model}}
+
+Beinhaltet Klassen zur Modellierung eines Graphen, dazu gehören u.a. Knoten und Kanten. Das Paket stammt aus der \texttt{graphviz-java} Bibliothek, verfügbar unter:\\ \url{https://github.com/nidi3/graphviz-java}.
+
+\subsubsection{Klasse \texttt{Graph}}
+
+\subsection{Paket \texttt{guru.nidi.graphviz.engine}}
+
+Beinhaltet Klassen für die Generierung verschiedener Darstellungsformate aus der internen modellierung eines Graphen. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter: \url{https://github.com/bobbylight/RSyntaxTextArea}.
+
+\subsubsection{Klasse \texttt{Graphviz}}
 
 \section{Sequenzdiagramme}
 
