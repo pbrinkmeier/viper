@@ -178,7 +178,7 @@ Sperrt das Eingabefeld, sodass keine Eingaben mehr möglich sind.
 \textbf{\texttt{public void unlockInput()}}\\
 Gibt das Eingabefeld frei, sodass Eingaben möglich sind. Der Inhalt wird dabei geleert.
 
-\textbf{\texttt{public void printLine(String line, Color color)}}\\
+\textbf{\texttt{public void printLine(String line, Color color)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{line}: Auszugebender Text
@@ -186,7 +186,7 @@ Gibt das Eingabefeld frei, sodass Eingaben möglich sind. Der Inhalt wird dabei 
 \end{itemize}
 Gibt eine Zeile mit dem Text \texttt{line} in der Farbe \texttt{color} auf der Konsole aus.
 
-\textbf{\texttt{public String getText()}}\\
+\textbf{\texttt{public String getText()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{String}: Der Text aus dem Eingabefeld
@@ -200,7 +200,7 @@ GUI-Bereich, welcher das externe Editor-Element \texttt{RSyntaxTextArea} umschli
 \textbf{\texttt{public EditorPanel()}}\\
 Initialisiert einen leeren Editor und konfiguriert ihn für Prolog-Quelltext.
 
-\textbf{\texttt{public String getSourceText()}}\\
+\textbf{\texttt{public String getSourceText()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{String}: Der aktuelle Editor-Inhalt
@@ -214,14 +214,14 @@ Gibt den aktuellen Inhalt des Editors zurück.
 \end{itemize}
 Setzt den Inhalt des Editors auf den übergebenen String. Der vorherige Inhalt wird dabei verworfen.
 
-\textbf{\texttt{public boolean hasChanged()}}\\
+\textbf{\texttt{public boolean hasChanged()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{boolean}: Änderungsstatus des Editors. \texttt{true} falls seit letztem Parser geändert worden, andernfalls \texttt{false}
 \end{itemize}
 Überprüft, ob der Text im Editor seit dem letzen Parser verändert wurde.
 
-\textbf{\texttt{public void setHasChanged(boolean status)}}\\
+\textbf{\texttt{public void setHasChanged(boolean status)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{status}: Setzt den Änderungsstatus des Editors auf \texttt{true} oder \texttt{false}
@@ -235,21 +235,21 @@ Hauptfenster des Programms. Verantwortlich für die Initialisierung aller enthal
 \textbf{\texttt{public MainWindow()}}\\
 Initialisiert das Hauptfenster und die enthaltenen GUI-Elemente (ConsolePanel, EditorPanel, VisualisationPanel, MenuBar, ToolBar).
 
-\textbf{\texttt{public ConsolePanel getConsolePanel()}}\\
+\textbf{\texttt{public ConsolePanel getConsolePanel()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{ConsolePanel}: Instanz von Klasse für Eingabefeld und Konsole
 \end{itemize}
 Gibt die Instanz der Klasse für den GUI-Bereich zurück, der das Eingabefeld und die Konsole umfasst.
 
-\textbf{\texttt{public VisualisationPanel getVisualisationPanel()}}\\
+\textbf{\texttt{public VisualisationPanel getVisualisationPanel()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{VisualisationPanel}: Instanz von Klasse für Visualisierungsbereich
 \end{itemize}
 Gibt die Instanz der Klasse für den GUI-Bereich zurück, der die angezeigte Visualisierung umfasst.
 
-\textbf{\texttt{public EditorPanel getEditorPanel()}}\\
+\textbf{\texttt{public EditorPanel getEditorPanel()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{EditorPanel}: Instanz von Klasse für Editor
@@ -300,14 +300,14 @@ Initialisiert den GUI-Bereich der Visualisierung sowie den VisualisationViewer.
 \textbf{\texttt{public void clearVisualisation()}}\\
 Leert den Inhalt des VisualisationViewers.
 
-\textbf{\texttt{public void zoom(Zoom direction)}}\\
+\textbf{\texttt{public void zoom(Zoom direction)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{direction}: Richtung der Vergrößerung (hinein oder heraus bewegen)
 \end{itemize}
 Vergrößert oder verkleinert den angezeigen Bildausschnitt des Graphen.
 
-\textbf{\texttt{public void setFromGraph(Graph graph)}}\\
+\textbf{\texttt{public void setFromGraph(Graph graph)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{graph}: Der neue Graph, welcher angezeigt werden soll
@@ -634,7 +634,9 @@ Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustan
 
 \subsubsection{Klasse \texttt{GraphvizActivationRecordVisitor}}
 
-\textbf{\texttt{public GraphvizActivationRecordVisitor(root: ActivationRecord)}}\\
+<++>
+
+\textbf{\texttt{public GraphvizActivationRecordVisitor(ActivationRecord root)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
@@ -643,7 +645,9 @@ Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustan
 
 \subsubsection{Klasse \texttt{LatexActivationRecordVisitor}}
 
-\textbf{\texttt{public LatexActivationRecordVisitor(root: ActivationRecord)}}\\
+<++>
+
+\textbf{\texttt{public LatexActivationRecordVisitor(ActivationRecord root)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
@@ -657,6 +661,186 @@ Enthält Klassen, welche den abstrakten Syntax-Baum (\enquote{abstract syntax tr
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.parser}}
 
 Das Parser-Paket enhält mehrere Klassen, welche für die Generierung eines abstrakten Syntax-Baums aus einem gegebenen Prolog-Programm zuständig sind.
+
+\subsubsection{Klasse \texttt{PrologParser}}
+
+Die PrologParser Klasse ist in der Lage, einen gegebenen, korrekten Prolog-Programmcode in eine intere Datenstruktur umzuwandeln. Bei inkorrekten Prolog-Programmen wird eine ParseException geworfen.
+
+\textbf{\texttt{public PrologParser(String program)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{program}: Der zu parsende Prolog-Programmcode
+	\item[-] Throws \texttt{ParseException}: Der gegebene Prolog-Programmcode konnte aufgrund von Syntax-Fehlern nicht geparst werden.
+\end{itemize}
+Erstellt eine neue Instanz des Parsers zu einem gegebenen Prolog-Programmcode.
+
+\textbf{\texttt{public KnowledgeBase parseKnowledgeBase()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{KnowledgeBase}: Die geparste Wissensdatenbank
+\end{itemize}
+Gibt die vom Parser in einen abstrakten Syntax-Baum umgewandelte Wissensdatenbank aus dem geparsten Prolo-Programm zurück.
+
+\textbf{\texttt{public List<Goal> parseGoalList()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{List<Goal>}: Liste von gefundenen Zielen
+\end{itemize}
+Gibt eine Liste von gefundenen Zielen zurück.
+
+\subsubsection{Klasse \texttt{PrologLexer}}
+
+Der Lexer trennt das gegebene Prolog-Programm in sinnvolle Zeichen, d.h. Schlüsselwörtel, Trennzeichen, arithmetische Operatoren, Variablen, Zahlen etc. auf. Diese Teile werden als Token bezeichnet und besitzen je einen Typ (\texttt{TokenType}), sowie Zeilen- und Positionsangabe. Der Lexer beginnt in der ersten Zeile, an der ersten Position des Prolog-Programms und arbeitet sich bis zu letzten Zeile durch.
+
+\textbf{\texttt{public PrologLexer(String program)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{program}: Das aufzuteilende Prolog-Programm
+\end{itemize}
+Erstellt ein neue Instanz vom Lexer zu einem gegebenen Prolog-Programm.
+
+\textbf{\texttt{public Token nextToken()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Token}: Der nächste gefundenen Token. Das Ende des Prolog-Programms wird durch einen Token mit dem Typ \texttt{TokenType.EOF} angegeben
+\end{itemize}
+Gibt den nächsten gefundenen Token des Prolog-Programms zurück.
+
+\subsubsection{Klasse \texttt{PrologException} erbt von \texttt{java.lang.Exception}}
+
+Eine eigene Exception, die vom Parser und Lexer im Falle von Syntax-Fehlern geworfen wird.
+
+\textbf{\texttt{public PrologException(String message)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{message}: Die Fehlernachricht
+\end{itemize}
+Erstellt eine neue Exception mit einer gegebenen Fehlermeldung.
+
+\subsubsection{Klasse \texttt{Token}}
+
+Ein Token stellt ein in Prolog sinnvolles Zeichen dar, d.h. Schlüsselwörter, Trennzeichen, arithmetische Operatoren etc. Identifier, Variablen und Zahlen sind ebenfalls Tokens, auch wenn diese möglicherweise aus mehr als einem Zeichen bestehen.
+
+\textbf{\texttt{public Token(TokenType type, String text, int line, int col)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{type}: Typ dieses Tokens, d.h. ein arithmetische Operator, ein Trennzeichen, eine Klammer, eine Variable etc.
+	\item[-] \texttt{text}: Ein oder mehrere Zeichen aus dem Prolog-Programm, welche dieses Token darstellen
+	\item[-] \texttt{line}: Zeile, in welcher dieses Token gefunden wurde
+	\item[-] \texttt{col}: Position innerhalb einer Zeile, an welcher dieses Token gefunden wurde
+\end{itemize}
+Erstellt ein neues, unveränderliches (\texttt{immutable}) Token mit einem Typ, einem oder mehreren Zeichen (die dieses Token darstellen), sowie einer Positionsangabe.
+
+\textbf{\texttt{public TokenType getType()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{TokenType}: Typ dieses Tokens
+\end{itemize}
+Gibt den Typ dieses Tokens zurück (arithmetischer Operator, Trennzeichen, Klammer, Variable, \dots)
+
+\textbf{\texttt{public String getText()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Ein oder mehrere Zeichen, die dieses Token darstellen
+\end{itemize}
+Gibt das tatsächliche Zeichen oder die tatsächlichen Zeichen aus dem Prolog-Programm zurück, die dieses Token darstellen.
+
+\textbf{\texttt{public int getLine()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: Nummer der Zeile dieses Tokens
+\end{itemize}
+Gibt die Nummer der Zeile zurück, in der dieses Token gefunden wurde.
+
+\textbf{\texttt{public int getCol()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: Position dieses Tokens in der Zeile
+\end{itemize}
+Gibt die Position innerhalb der Zeile zurück, in der dieses Token gefunden wurde.
+
+\textbf{\texttt{public String toString()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Lesbare Darstellung des Tokens
+\end{itemize}
+Gibt eine lesbare Darstellung des Tokens zurück, welche beispielsweise für Fehlermeldungen verwendet werden kann.
+
+\subsubsection{Enum \texttt{TokenType}}
+
+Stellt den Typ eines Tokens dar, d.h. eine arithmetische Operation, ein Trennzeichen, eine Klammer, eine Variable etc.
+
+\textbf{\texttt{TokenType.COLON\_MINUS}}\\
+Operator für zu erfüllende Teilziele (\texttt{:-}).
+
+\textbf{\texttt{TokenType.EQ}}\\
+Das Gleich-Zeichen (\texttt{=}).
+
+\textbf{\texttt{TokenType.LESS}}\\
+Das Kleiner-Zeichen (\texttt{<}).
+
+\textbf{\texttt{TokenType.EQ\_LESS}}\\
+Das Kleiner-Gleich-Zeichen (\texttt{=<}).
+
+\textbf{\texttt{TokenType.GREATER}}\\
+Das Größer-Zeichen (\texttt{<}).
+
+\textbf{\texttt{TokenType.GREATER\_EQ}}\\
+Das Größer-Gleich-Zeichen (\texttt{>=}).
+
+\textbf{\texttt{TokenType.EQ\_COLON\_EQ}}\\
+Das Gleichheit-Zeichen (\texttt{=:=}).
+
+\textbf{\texttt{TokenType.EQ\_BS\_EQ}}\\
+Das Ungleichheit-Zeichen (\texttt{=\=}).
+
+\textbf{\texttt{TokenType.EOF}}\\
+Gibt das Ende des Prolog-Programms an (\enquote{End of file}).
+
+\textbf{\texttt{TokenType.DOT}}\\
+Ein Punkt (\texttt{.}).
+
+\textbf{\texttt{TokenType.COMMA}}\\
+Ein Komman (\texttt{,}).
+
+\textbf{\texttt{TokenType.LP}}\\
+Die öffnende, runde Klammer (\texttt{(}).
+
+\textbf{\texttt{TokenType.RP}}\\
+Die schließende, runde Klammer (\texttt{)}).
+
+\textbf{\texttt{TokenType.LB}}\\
+Die öffnende, eckige Klammer (\texttt{[}).
+
+\textbf{\texttt{TokenType.RB}}\\
+Die schließende, eckige Klammer (\texttt{]}).
+
+\textbf{\texttt{TokenType.BAR}}\\
+Der vertikale Strich (\texttt{|}).
+
+\textbf{\texttt{TokenType.PLUS}}\\
+Das Plus-Zeichen (\texttt{+}).
+
+\textbf{\texttt{TokenType.MINUS}}\\
+Das Minus-Zeichen (\texttt{-}).
+
+\textbf{\texttt{TokenType.STAR}}\\
+Das Sternchen-Zeichen (\texttt{*}).
+
+\textbf{\texttt{TokenType.EXCLAMATION}}\\
+Das Ausrufe-Zeichen (\texttt{!}).
+
+\textbf{\texttt{TokenType.IS}}\\
+Das Schlüsselwort für arithmetische Gleichzeit (\texttt{is}).
+
+\textbf{\texttt{TokenType.VARIABLE}}\\
+Eine Variable (Mindestens ein Großbuchstabe, gefolgt von beliebig vielen weiteren Buchstaben und Zahlen).
+
+\textbf{\texttt{TokenType.IDENTIFIER}}\\
+Ein Identifier (Mindestens ein Kleinbuchstabe, gefolgt von beliebig vielen weiteren Buchstaben und Zahlen).
+
+\textbf{\texttt{TokenType.NUMBER}}\\
+Eine Zahl.
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.interpreter}}
 
