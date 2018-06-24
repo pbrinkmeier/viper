@@ -1561,7 +1561,7 @@ Gibt eine Liste mit allen unterstützten Sprachen zurück.
 Ermöglicht das Parsen von Prolog-Programmen. Verwaltungsstruktur für alle vorhandenen Interpreterzustände. Bietet eine zentrale Referenz auf den aktuellen Zustand. Bietet zusätzlich eine Schnittstelle um auf dem aktuellen Zustand Operationen auszuführen.
 
 \textbf{\texttt{public InterpreterManager()}}\\
-Initialisiert eine Instanz des InterpreterManagers. Die anfängliche Liste an Interpretern ist leer.
+Initialisiert eine Instanz des InterpreterManagers. Die anfängliche Liste an Interpreterzuständen ist leer.
 
 \textbf{\texttt{public void createNew(String program)}}
 \setlist{nolistsep}
@@ -1575,10 +1575,10 @@ Parst den Inhalt des Editors. Erstellt den ersten Interpreterzustand.
 \begin{itemize}[noitemsep]
     \item[-] Returns \texttt{StepResult}: Ergebnis des ausgeführten Schritts
 \end{itemize}
-Führt auf dem aktuellen Interpreterzustand die step() Methode auf.
+Ist der aktuelle Interpreterzustand der neueste, so wird auf einer Kopie die step() Methode aufgerufen. Die Kopie wird anschließend als neuer Interpreterzustand an die Liste angehängt. Ansonsten wird der Index für den aktuellen Interpreterzustand inkrementiert.
 
 \textbf{\texttt{public void runUntilNextSolution()}}\\
-Erstellt einen neuen Thread. Führt in diesem auf dem aktuellen Interpreterzustand wiederholt die step() Methode auf, bis eine Lösung gefunden wurde oder von außen eine boolean-Flag für den Abbruch gesetzt wurde.
+Erstellt einen neuen Thread. Führt in diesem auf einer Kopie des aktuellen Interpreterzustands wiederholt die step() Methode auf, bis eine Lösung gefunden wurde oder von außen eine boolean-Flag für den Abbruch gesetzt wurde.
 
 \textbf{\texttt{public void cancel()}}\\
 Setzt die boolean-Flag für den Thread auf false und bricht somit runUntilNextSolution() Methode ab. 
@@ -1595,7 +1595,7 @@ Gibt den aktuellen Interpreterzustand aus der internen Liste an Interpreterzust�
 \begin{itemize}[noitemsep]
     \item[-] Returns \texttt{List<Substitution>}: Eine Liste an Substitutionen
 \end{itemize}
-Gibt eine Liste mit allen vorhandenen Subtitutionen aus dem aktuellen Interpreterzustand zurück.
+Gibt eine Liste an Substitutionen zurück, unter deren Anwendung die Abfrage des aktuellen Interpreters wahr ist.
 
 \subsubsection{Klasse \texttt{Command}}
 
