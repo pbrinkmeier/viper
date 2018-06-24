@@ -67,14 +67,14 @@ Interaktionen mit der Software durch die View"=Komponente werden über die Contr
 			.3 ast.
 			.3 parser.
 			.3 interpreter.
+			.3 visualisation.
 			.2 controller.
 			.2 view.
-			.3 visualisation.
 		}
 	\end{minipage}
 \end{center}
 
-Das Model"=Paket kapselt die genannte Model"=Komponente. Innerhalb dieses Pakets existieren Unterpakete für die Implementierung des abstrakten Syntaxbaumes (AST), des Prolog"=Parsers und des Prolog"=Interpreters. Weiter existieren eigene Pakete für die Implementierung der View- und Controller"=Komponente. Das Visualisation"=Unterpaket dient spezifisch der Implementierung der Visualisierung.
+Das Model"=Paket kapselt die genannte Model"=Komponente. Innerhalb dieses Pakets existieren Unterpakete für die Implementierung des abstrakten Syntaxbaumes (AST), des Prolog"=Parsers und "=Interpreters sowie der Visualisierung. Weiter existieren eigene Pakete für die Implementierung der View- und Controller"=Komponente. Der Inhalt des Visualisierungs"=Unterpakets beschäftigt sich explizit mit der Generierung der Daten für die Visualisierung, die eigentliche visuelle Darstellung erfolgt in der View-Komponente.
 
 
 \section{Klassenbeschreibungen}
