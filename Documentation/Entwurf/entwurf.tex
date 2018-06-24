@@ -1484,7 +1484,7 @@ Initialisiert den GUI-Bereich der Visualisierung sowie den VisualisationViewer.
 \textbf{\texttt{public void clearVisualisation()}}\\
 Leert den Inhalt des VisualisationViewers.
 
-\textbf{\texttt{public void zoom(Zoom direction)}}
+\textbf{\texttt{public void zoom(ZoomType direction)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{direction}: Richtung der Vergrößerung (hinein oder heraus bewegen)
@@ -1549,6 +1549,54 @@ Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim S
 \end{itemize}
 Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten Sprache zurück. Existiert die angeforderte Übersetzung nicht, so wird der Text in Standard-Sprache (Deutsch) zurückgegeben.
 
+\textbf{\texttt{public List<Locale> getSupportedLanguages()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+    \item[-] Returns \texttt{List<Locale>}: Liste mit unterstützten Sprachen
+\end{itemize}
+Gibt eine Liste mit allen unterstützten Sprachen zurück.
+
+\subsubsection{Klasse \texttt{InterpreterManager}}
+
+Ermöglicht das Parsen von Prolog-Programmen. Verwaltungsstruktur für alle vorhandenen Interpreterzustände. Bietet eine zentrale Referenz auf den aktuellen Zustand. Bietet zusätzlich eine Schnittstelle um auf dem aktuellen Zustand Operationen auszuführen.
+
+\textbf{\texttt{public InterpreterManager()}}\\
+Initialisiert eine Instanz des InterpreterManagers. Die anfängliche Liste an Interpretern ist leer.
+
+\textbf{\texttt{public void createNew(String program)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{program}: Inhalt des EditorPanels
+\end{itemize}
+Parst den Inhalt des Editors. Erstellt den ersten Interpreterzustand.
+
+\textbf{\texttt{public StepResult step()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+    \item[-] Returns \texttt{StepResult}: Ergebnis des ausgeführten Schritts
+\end{itemize}
+Führt auf dem aktuellen Interpreterzustand die step() Methode auf.
+
+\textbf{\texttt{public void runUntilNextSolution()}}\\
+Erstellt einen neuen Thread. Führt in diesem auf dem aktuellen Interpreterzustand wiederholt die step() Methode auf, bis eine Lösung gefunden wurde oder von außen eine boolean-Flag für den Abbruch gesetzt wurde.
+
+\textbf{\texttt{public void cancel()}}\\
+Setzt die boolean-Flag für den Thread auf false und bricht somit runUntilNextSolution() Methode ab. 
+
+\textbf{\texttt{public Interpreter getCurrentState()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+    \item[-] Returns \texttt{Interpreter}: Der aktuelle Interpreterzustand
+\end{itemize}
+Gibt den aktuellen Interpreterzustand aus der internen Liste an Interpreterzuständen zurück.
+
+\textbf{\texttt{public List<Substitution> getSolution()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+    \item[-] Returns \texttt{List<Substitution>}: Eine Liste an Substitutionen
+\end{itemize}
+Gibt eine Liste mit allen vorhandenen Subtitutionen aus dem aktuellen Interpreterzustand zurück.
+
 \subsubsection{Klasse \texttt{Command}}
 
 Abstrakte Kommando-Klasse für die Kapselung von Programm-Abläufen. Entspricht dem Kommando-Entwurfsmuster.
@@ -1611,13 +1659,13 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Parsen des Editor-Inhalts. Der Editor-Inhalt wird hierbei durch das Parser-Objekt verarbeitet, auftretende Fehler werden über die Konsole ausgegeben, die Visualisierung wird geleert.
 
-\textbf{\texttt{public CommandParse(ConsolePanel console, EditorPanel editor,\\VisualisationPanel visualisation, PrologParser parser)}}
+\textbf{\texttt{public CommandParse(ConsolePanel console, EditorPanel editor,\\VisualisationPanel visualisation, InterpreterManager interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
-	\item[-] \texttt{parser}: Parser für den Programmcode
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
 
@@ -1628,12 +1676,12 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Ausführen eines Interpreter-Schritts. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem aktuellen Stand der Interpretation angepasst.
 
-\textbf{\texttt{public CommandNextStep(ConsolePanel console,\\VisualisationPanel visualisation, Interpreter interpreter)}}
+\textbf{\texttt{public CommandNextStep(ConsolePanel console,\\VisualisationPanel visualisation, InterpreterManager interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
-	\item[-] \texttt{interpreter}: Interpreter, der den Schritt ausführen soll
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -1644,12 +1692,12 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Rückgängig-machen eines Interpreter-Schritts. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem aktuellen Stand der Interpretation angepasst.
 
-\textbf{\texttt{public CommandPreviousStep(ConsolePanel console,\\VisualisationPanel visualisation, Interpreter interpreter)}}
+\textbf{\texttt{public CommandPreviousStep(ConsolePanel console,\\VisualisationPanel visualisation, InterpreterManager interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
-	\item[-] \texttt{interpreter}: Interpreter, der den Schritt ausführen soll
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -1660,12 +1708,13 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Ausführen von Interpreter-Schritten bis zum Finden der nächsten Lösung. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem Stand der Interpretation beim Finden der Lösung angepasst.
 
-\textbf{\texttt{public CommandContinue(ConsolePanel console,\\VisualisationPanel visualisation, Interpreter interpreter)}}
+\textbf{\texttt{public CommandContinue(ConsolePanel console,\\VisualisationPanel visualisation, boolean running, InterpreterManager interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
-	\item[-] \texttt{interpreter}: Interpreter, der die Schritte ausführen soll
+    \item[-] \texttt{running}: Zustandsvariable, die aussagt, ob der Interpreter läuft
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -1676,10 +1725,11 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Abbrechen des Interpreters beim Suchen der nächsten Lösung.
 
-\textbf{\texttt{public CommandCancel(Interpreter interpreter)}}
+\textbf{\texttt{public CommandCancel(boolean running, InterpreterManager interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{interpreter}: Interpreter, der die Schritte ausführen soll
+    \item[-] \texttt{running}: Zustandsvariable, die aussagt, ob der Interpreter läuft
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit einer Referenz auf einen Prolog-Interpreter.
 
@@ -1690,12 +1740,12 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Aktivieren bzw. Deaktivieren der Standardbibliothek im Parser. Hierbei werden sowohl die Konsole als auch die Visualisierung geleert.
 
-\textbf{\texttt{public CommandToggleLib(ConsolePanel console,\\VisualisationPanel visualisation, PrologParser parser)}}
+\textbf{\texttt{public CommandToggleLib(ConsolePanel console,\\VisualisationPanel visualisation, InterpreterManager interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
-	\item[-] \texttt{parser}: Parser, bei welchem die Standardbibliothek (de)aktiviert werden soll
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -1721,12 +1771,12 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Setzen einer anderen Sprache für die grafische Oberfläche. Die Konsole sowie die Visualisierung werden hierbei geleert.
 
-\textbf{\texttt{public CommandSetLang(ConsolePanel console,\\VisualisationPanel visualisation, Locale lang)}}
+\textbf{\texttt{public CommandSetLang(ConsolePanel console,\\VisualisationPanel visualisation, Locale lang, InterpreterManager interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
-	\item[-] \texttt{lang}: Zu setzende Sprache
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole sowie der zu setzenden Sprache.
 
@@ -1752,11 +1802,12 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Exportieren der Visualisierung als TikZ-Quelltext. Fehler oder Hinweise zum erfolgreichen Export werden in der Konsole ausgegeben.
 
-\textbf{\texttt{public CommandExportTikz(ConsolePanel console,\\VisualisationPanel visualisation)}}
+\textbf{\texttt{public CommandExportTikz(ConsolePanel console,\\VisualisationPanel visualisation, InterpreterManager interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole.
 
@@ -1767,12 +1818,13 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Exportieren der Visualisierung als Bild-Datei (PNG oder SVG). Der Dateityp wird über eine Enumeration bei der Ausführung unterschieden. Fehler oder Hinweise zum erfolgreichen Export werden in der Konsole ausgegeben.
 
-\textbf{\texttt{public CommandExportImage(ConsolePanel console,\\VisualisationPanel visualisation, ImageFormat format)}}
+\textbf{\texttt{public CommandExportImage(ConsolePanel console,\\VisualisationPanel visualisation, ImageFormat format, InterpreterManager interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{format}: Format der Bild-Datei
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole sowie dem gewollten Bild-Format.
 
