@@ -32,6 +32,9 @@ commandNextStep -> InterpreterManager : getCurrentState()
 commandNextStep <-- InterpreterManager : interpreterInstance
 
 commandNextStep -> GraphvizMaker : createGraph(interpreterInstance)
+note right of GraphvizMaker
+    Grapherstellung ist in anderem Sequenzdiagramm genauer beschrieben
+end note
 commandNextStep <-- GraphvizMaker : graph
 
 commandNextStep -> visualisationPanel : setFromGraph(graph)
