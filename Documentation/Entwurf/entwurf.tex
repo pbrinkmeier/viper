@@ -1722,7 +1722,7 @@ Kommando zum Parsen des Editor-Inhalts. Der Editor-Inhalt wird hierbei durch das
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
-Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
+Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser, einen InterpreterManager und auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
 
 \textbf{\texttt{public void execute()}}\\
 Führt das beschriebene Kommando aus.
@@ -1738,7 +1738,7 @@ Kommando zum Ausführen eines Interpreter-Schritts. Ausgaben beim Finden einer L
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
-Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
+Initialisiert das Kommando mit Referenzen auf einen InterpreterManager sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
 \textbf{\texttt{public void execute()}}\\
 Führt das beschriebene Kommando aus.
@@ -1754,7 +1754,7 @@ Kommando zum Rückgängig-machen eines Interpreter-Schritts. Ausgaben beim Finde
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
-Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
+Initialisiert das Kommando mit Referenzen auf einen InterpreterManager sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
 \textbf{\texttt{public void execute()}}\\
 Führt das beschriebene Kommando aus.
@@ -1771,7 +1771,7 @@ Kommando zum Ausführen von Interpreter-Schritten bis zum Finden der nächsten L
     \item[-] \texttt{running}: Zustandsvariable, die aussagt, ob der Interpreter läuft
 	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
-Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
+Initialisiert das Kommando mit Referenzen auf einen InterpreterManager sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
 \textbf{\texttt{public void execute()}}\\
 Führt das beschriebene Kommando aus.
@@ -1786,7 +1786,7 @@ Kommando zum Abbrechen des Interpreters beim Suchen der nächsten Lösung.
     \item[-] \texttt{running}: Zustandsvariable, die aussagt, ob der Interpreter läuft
 	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
-Initialisiert das Kommando mit einer Referenz auf einen Prolog-Interpreter.
+Initialisiert das Kommando mit einer Referenz auf einen InterpreterManager.
 
 \textbf{\texttt{public void execute()}}\\
 Führt das beschriebene Kommando aus.
@@ -1831,9 +1831,10 @@ Kommando zum Setzen einer anderen Sprache für die grafische Oberfläche. Die Ko
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+        \item[-] \texttt{lang}: Zu setzende Sprache
 	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
-Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole sowie der zu setzenden Sprache.
+Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung, der Konsole, die zu setzende Sprache und einen InterpreterManager.
 
 \textbf{\texttt{public void execute()}}\\
 Führt das beschriebene Kommando aus.
@@ -1864,7 +1865,7 @@ Kommando zum Exportieren der Visualisierung als TikZ-Quelltext. Fehler oder Hinw
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
-Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole.
+Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung, der Konsole und einen InterpreterManager.
 
 \textbf{\texttt{public void execute()}}\\
 Führt das beschriebene Kommando aus.
@@ -1881,7 +1882,7 @@ Kommando zum Exportieren der Visualisierung als Bild-Datei (PNG oder SVG). Der D
 	\item[-] \texttt{format}: Format der Bild-Datei
 	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
-Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole sowie dem gewollten Bild-Format.
+Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole sowie dem gewollten Bild-Format und einen InterpreterManager.
 
 \textbf{\texttt{public void execute()}}\\
 Führt das beschriebene Kommando aus.
