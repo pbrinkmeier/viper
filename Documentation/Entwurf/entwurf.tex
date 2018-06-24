@@ -87,10 +87,12 @@ Repräsentation der Model"=Komponente im Kontext des Model"=View"=Controller Arc
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.ast}}
 
 Enthält Klassen, welche den abstrakten Syntax-Baum (\enquote{abstract syntax tree}) der Prolog-Sprache modellieren.
-
+\newpage
+%\includegraphics[height=\textheight]{images/class_ast.png}
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Klasse \texttt{KnowledgeBase}}
-Enthält eine geordnete Menge von Prolog-Regeln, welche durch den Parser eingelesen werden. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Enthält eine geordnete Menge von Prolog-Regeln, welche durch den Parser eingelesen werden. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public KnowledgeBase(List<Rule> rules)}}
 \setlist{nolistsep}
@@ -108,7 +110,7 @@ Setzt die in der KnowledgeBase enthaltenen Regeln einmalig.
 Sucht passende Regeln in der KnowledgeBase, deren Köpfe denselben Namen und dieselbe Arität haben wie der übergebene Funktor und gibt diese zurück. Die zurückgegebene Liste ist immutable.
 
 \subsubsection{Klasse \texttt{Rule}}
-Repräsentiert eine Prolog-Regel. Hat als Kopf einen Funktor und eine Liste von Teilzielen. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert eine Prolog-Regel. Hat als Kopf einen Funktor und eine Liste von Teilzielen. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public Rule(Functor head, List<Goal> subgoals)}}
 \setlist{nolistsep}
@@ -218,7 +220,7 @@ Exception für das Fehlschlagen einer arithmetischen Auswertung eines Terms, da 
 Initialisiert die Exception mit dem Term, durch den sie erzeugt wurde.
 
 \subsubsection{Klasse \texttt{Number} erbt von \texttt{Term}}
-Repräsentiert einen Prolog-Term in Form einer Ganzzahl. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert einen Prolog-Term in Form einer Ganzzahl. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public Number(int number)}}
 \setlist{nolistsep}
@@ -235,7 +237,7 @@ Setzt die zu repräsentierende Zahl.
 Getter-Funktion für den Wert der repräsentierten Zahl.
 
 \subsubsection{Klasse \texttt{Variable} erbt von \texttt{Term}}
-Repräsentiert eine Prolog-Variable mit einem Namen und einem optionalen Index. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert eine Prolog-Variable mit einem Namen und einem optionalen Index. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public Variable(String name, Integer index)}}
 \setlist{nolistsep}
@@ -260,7 +262,7 @@ Getter-Funktion für den Namen der Variablen.
 Getter-Funktion für den optionalen Index der Variable.
 
 \subsubsection{Klasse \texttt{Functor} erbt von \texttt{Term}}
-Repräsentiert einen Prolog-Funktor mit einem Namen und einer Liste von Subtermen. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert einen Prolog-Funktor mit einem Namen und einer Liste von Subtermen. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public Functor(String name, List<Term> subTerms)}}
 \setlist{nolistsep}
@@ -363,7 +365,7 @@ Repräsentation einer Additions-Operation.
 	\item[-] \texttt{lhs}: Linke Seite der Addition
 	\item[-] \texttt{rhs}: Rechte Seite der Addition
 \end{itemize}
-Initialisiert die Addition mit ihren Operanden. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Initialisiert die Addition mit ihren Operanden. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \subsubsection{Klasse \texttt{SubtractionOperation} erbt von \texttt{BinaryOperation}}
 Repräsentation einer Subtraktions-Operation.
@@ -374,7 +376,7 @@ Repräsentation einer Subtraktions-Operation.
 	\item[-] \texttt{lhs}: Linke Seite der Subtraktion
 	\item[-] \texttt{rhs}: Rechte Seite der Subtraktion
 \end{itemize}
-Initialisiert die Subtraktion mit ihren Operanden. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Initialisiert die Subtraktion mit ihren Operanden. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \subsubsection{Klasse \texttt{MultiplicationOperation} erbt von \texttt{BinaryOperation}}
 Repräsentation einer Multiplikations-Operation.
@@ -385,7 +387,7 @@ Repräsentation einer Multiplikations-Operation.
 	\item[-] \texttt{lhs}: Linke Seite der Multiplikation
 	\item[-] \texttt{rhs}: Rechte Seite der Multiplikation
 \end{itemize}
-Initialisiert die Multiplikation mit ihren Operanden. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Initialisiert die Multiplikation mit ihren Operanden. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Interface \texttt{TermVisitor<ResultType>}}
 Implementiert das Visitor-Pattern für die Term-Klasse. Ein Term kann durch den Aufruf der accept()-Methode von einem TermVisitor \enquote{besucht} werden. Diese Art von Visitor ist dafür geeignet, eine generische, aber für alle Term-Unterklassen gleiche Art von Ergebnis zu liefern. Beispielsweise liefert der VariableExtractor eine Liste an Variablen, die in einem Term vorkommen.
@@ -469,13 +471,13 @@ Getter-Funktion für die textuelle Repräsentation dieses Ziels. Die textuelle R
 \end{itemize}
 
 \subsubsection{Klasse \texttt{CutGoal} erbt von \texttt{Goal}}
-Repräsentiert ein Cut-Ziel. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert ein Cut-Ziel. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
-\textbf{\texttt{public CutGoal()}}
+\textbf{\texttt{public CutGoal()}}\\
 Initialisiert ein Cut-Ziel.
 
 \subsubsection{Klasse \texttt{FunctorGoal} erbt von \texttt{Goal}}
-Repräsentiert ein Funktorziel. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert ein Funktorziel. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public FunctorGoal(Functor goal)}}
 \setlist{nolistsep}
@@ -492,7 +494,7 @@ Initialisiert ein Funktorziel mit den zugehörigen Funktor.
 Getter-Funktion für den zu diesem Ziel gehörigen Funktor.
 
 \subsubsection{Klasse \texttt{ArithmeticGoal} erbt von \texttt{Goal}}
-Repräsentiert ein Arithmetikziel mit einer linken Seite und einer rechten Seite. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert ein Arithmetikziel mit einer linken Seite und einer rechten Seite. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public ArithmeticGoal(Term lhs, Term rhs)}}
 \setlist{nolistsep}
@@ -517,7 +519,7 @@ Getter-Funktion für die linke Seite des Arithmetikziels.
 Getter-Funktion für die rechte Seite des Arithmetikziels.
 
 \subsubsection{Klasse \texttt{UnificationGoal} erbt von \texttt{Goal}}
-Repräsentiert ein Unifikationsziel mit einer linken Seite und einer rechten Seite. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert ein Unifikationsziel mit einer linken Seite und einer rechten Seite. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public UnificationGoal(Term lhs, Term rhs)}}
 \setlist{nolistsep}
@@ -577,7 +579,7 @@ Führt den Vergleich aus und gibt den Wahrheitswert des Vergleiches zurück.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Klasse \texttt{LessThanGoal} erbt von \texttt{ComparisonGoal}}
-Repräsentiert ein Vergleichsziel für den Kleiner-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert ein Vergleichsziel für den Kleiner-Operator. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public LessThanGoal(Term lhs, Term rhs)}}
 \setlist{nolistsep}
@@ -588,7 +590,7 @@ Repräsentiert ein Vergleichsziel für den Kleiner-Operator. Diese Klasse ist im
 Initialisiert ein Kleiner-Ziel mit einer linken und einer rechten Seite.
 
 \subsubsection{Klasse \texttt{LessThanEqualGoal} erbt von \texttt{ComparisonGoal}}
-Repräsentiert ein Vergleichsziel für den Kleiner-Gleich-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert ein Vergleichsziel für den Kleiner-Gleich-Operator. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public LessThanEqualGoal(Term lhs, Term rhs)}}
 \setlist{nolistsep}
@@ -599,7 +601,7 @@ Repräsentiert ein Vergleichsziel für den Kleiner-Gleich-Operator. Diese Klasse
 Initialisiert ein Kleiner-Gleich-Ziel mit einer linken und einer rechten Seite.
 
 \subsubsection{Klasse \texttt{GreaterThanGoal} erbt von \texttt{ComparisonGoal}}
-Repräsentiert ein Vergleichsziel für den Größer-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert ein Vergleichsziel für den Größer-Operator. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public GreaterThanGoal(Term lhs, Term rhs)}}
 \setlist{nolistsep}
@@ -610,7 +612,7 @@ Repräsentiert ein Vergleichsziel für den Größer-Operator. Diese Klasse ist i
 Initialisiert ein Größer-Ziel mit einer linken und einer rechten Seite.
 
 \subsubsection{Klasse \texttt{GreaterThanEqualGoal} erbt von \texttt{ComparisonGoal}}
-Repräsentiert ein Vergleichsziel für den Größer-Gleich-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert ein Vergleichsziel für den Größer-Gleich-Operator. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public GreaterThanEqualGoal(Term lhs, Term rhs)}}
 \setlist{nolistsep}
@@ -621,7 +623,7 @@ Repräsentiert ein Vergleichsziel für den Größer-Gleich-Operator. Diese Klass
 Initialisiert ein Größer-Gleich-Ziel mit einer linken und einer rechten Seite.
 
 \subsubsection{Klasse \texttt{EqualGoal} erbt von \texttt{ComparisonGoal}}
-Repräsentiert ein Vergleichsziel für den Gleichheits-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert ein Vergleichsziel für den Gleichheits-Operator. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public EqualGoal(Term lhs, Term rhs)}}
 \setlist{nolistsep}
@@ -630,9 +632,9 @@ Repräsentiert ein Vergleichsziel für den Gleichheits-Operator. Diese Klasse is
 	\item[-] \texttt{rhs}: Rechte Seite des Vergleichs
 \end{itemize}
 Initialisiert ein Gleichheits-Ziel mit einer linken und einer rechten Seite.
-
+\newpage
 \subsubsection{Klasse \texttt{NotEqualGoal} erbt von \texttt{ComparisonGoal}}
-Repräsentiert ein Vergleichsziel für den Ungleichheits-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert ein Vergleichsziel für den Ungleichheits-Operator. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public NotEqualGoal(Term lhs, Term rhs)}}
 \setlist{nolistsep}
@@ -647,7 +649,9 @@ Initialisiert ein Ungleichheits-Ziel mit einer linken und einer rechten Seite.
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.parser}}
 
 Das Parser-Paket enthält mehrere Klassen, welche für die Generierung eines abstrakten Syntax-Baums aus einem gegebenen Prolog-Programm zuständig sind.
-
+\newpage
+%\includegraphics[height=\textheight]{images/class_parser.png}
+\newpage
 \subsubsection{Klasse \texttt{PrologParser}}
 
 Die PrologParser Klasse ist in der Lage, einen gegebenen, korrekten Prolog-Programmcode in eine interne Datenstruktur umzuwandeln. Bei inkorrekten Prolog-Programmen wird eine ParseException geworfen.
@@ -664,7 +668,7 @@ Erstellt eine neue Instanz des Parsers zu einem gegebenen Prolog-Programmcode.
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{KnowledgeBase}: Die geparste Wissensdatenbank
 \end{itemize}
-Gibt die vom Parser in einen abstrakten Syntax-Baum umgewandelte Wissensdatenbank aus dem geparsten Prolo-Programm zurück.
+Gibt die vom Parser in einen abstrakten Syntax-Baum umgewandelte Wissensdatenbank aus dem geparsten Prolog-Programm zurück.
 
 \textbf{\texttt{public List<Goal> parseGoalList()}}
 \setlist{nolistsep}
@@ -704,7 +708,7 @@ Erstellt eine neue Exception mit einer gegebenen Fehlermeldung.
 
 \subsubsection{Klasse \texttt{Token}}
 
-Repräsentiert ein in Prolog sinnvolles Zeichen, d.h. Schlüsselwörter, Trennzeichen, arithmetische Operatoren etc. Identifier, Variablen und Zahlen sind ebenfalls Tokens, auch wenn diese möglicherweise aus mehr als einem Zeichen bestehen. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert ein in Prolog sinnvolles Zeichen, d.h. Schlüsselwörter, Trennzeichen, arithmetische Operatoren etc. Identifier, Variablen und Zahlen sind ebenfalls Tokens, auch wenn diese möglicherweise aus mehr als einem Zeichen bestehen. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public Token(TokenType type, String text, int line, int col)}}
 \setlist{nolistsep}
@@ -830,6 +834,12 @@ Eine Zahl.
 \newpage
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.interpreter}}
 
+Beinhaltet die Implementation des Interpreters. Der Interpreter bearbeitet Abfragen unter Zuhilfenahme der Konstrukte, die der abstrakte Syntaxbaum zuvor etabliert hat.
+
+\newpage
+%\includegraphics[height=\textheight]{images/class_interpreter.png}
+\newpage
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Klasse \texttt{Interpreter}}
 Repräsentiert einen Prolog-Interpreter in einem aktuellen Zustand bei der Ausführung einer Prolog-Abfrage.
@@ -887,7 +897,7 @@ Resultat, dass noch Schritte zu erledigen sind.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Klasse \texttt{Environment}}
-Repräsentiert eine Umgebung für einen ActivationRecord mit den lokalen Substitutionen. Durch eine Referenz auf diesen ActivationRecord fungiert diese als verkettete Liste aller bisherigen Substitutionen. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert eine Umgebung für einen ActivationRecord mit den lokalen Substitutionen. Durch eine Referenz auf diesen ActivationRecord fungiert diese als verkettete Liste aller bisherigen Substitutionen. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public Environment(ActivationRecord ar, List<Substitution>\\ substitutions)}}
 \setlist{nolistsep}
@@ -906,7 +916,7 @@ Initialisiert ein Environment mit dem korrespondierenden ActivationRecord und de
 Wendet alle vorhergehenden sowie die lokalen Substitutionen im gegebenen Term an.
 
 \subsubsection{Klasse \texttt{Substitution}}
-Repräsentiert eine einzelne Substitution einer Variablen durch einen Term. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert eine einzelne Substitution einer Variablen durch einen Term. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public Substitution(Variable replace, Term by)}}
 \setlist{nolistsep}
@@ -931,7 +941,7 @@ Getter-Funktion für die zu ersetzende Variable.
 Getter-Funktion für den ersetzenden Term.
 
 \subsubsection{Klasse \texttt{SubstitutionApplier} implementiert \texttt{TermTransformationVisitor}}
-Visitor, welcher eine Substitution in einem Term anwendet. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Visitor, welcher eine Substitution in einem Term anwendet. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public SubstitutionApplier(Substitution subst)}}
 \setlist{nolistsep}
@@ -941,7 +951,7 @@ Visitor, welcher eine Substitution in einem Term anwendet. Diese Klasse ist immu
 Initialisiert einen SubstitutionApplier mit einer anzuwendenden Substitution.
 
 \subsubsection{Klasse \texttt{Indexifier} implementiert \texttt{TermTransformationVisitor}}
-Visitor, welcher eine Variable mit einem Index versieht. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Visitor, welcher eine Variable mit einem Index versieht. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public Indexifier(int index)}}
 \setlist{nolistsep}
@@ -951,7 +961,7 @@ Visitor, welcher eine Variable mit einem Index versieht. Diese Klasse ist immuta
 Initialisiert einen Indexifier mit einem anzubringenden Index.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Klasse \texttt{UnificationResult}}
-Repräsentiert das Resultat einer Unifikation. Mögliche Zustände sind auf erfolgreiche und fehlgeschlagene Unifikationen begrenzt. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Repräsentiert das Resultat einer Unifikation. Mögliche Zustände sind auf erfolgreiche und fehlgeschlagene Unifikationen begrenzt. Diese Klasse ist immutable, sie kann nach der Instanziierung nicht mehr verändert werden.
 
 \textbf{\texttt{public static UnificationResult success(List<Substitution>\\substitutions)}}
 \setlist{nolistsep}
@@ -1198,7 +1208,7 @@ Initialisiert einen FunctorActivationRecord mit einem optionalen Mutterknoten un
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{Optional<UnificationResult>}: Optionales Ergebnis einer Unifikation
 \end{itemize}
-Getter-Funktion für ein Optionals Unifikationsergebnis.
+Getter-Funktion für ein optionales Unifikationsergebnis.
 
 \textbf{\texttt{public Functor getFunctor()}}
 \setlist{nolistsep}
@@ -1303,7 +1313,7 @@ Unifier der die Unifikation einer Variable mit einem anderen Term durchführt. �
 	\item[-] \texttt{var}: Zu unifizierende Variable
 \end{itemize}
 Initialisiert einen VariableUnifier mit der zu unifizierenden Variable.
-
+\newpage
 \subsubsection{Klasse \texttt{NumberUnifier} erbt von \texttt{Unifier}}
 
 Unifier der die Unifikation einer Zahl mit einem anderen Term durchführt. Überschreibt nur die Methode visit(Number) von Unifier.
@@ -1319,7 +1329,7 @@ Initialisiert einen NumberUnifier mit der zu unifizierenden Zahl.
 \newpage
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.visualisation}}
 
-Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustands zuständig sind.
+Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustands zuständig sind. Das Klassendiagramm ist aufgrund der Kompaktheit im Klassendiagramm des Interpreters enthalten.
 
 \subsubsection{Klasse \texttt{GraphvizMaker}}
 
@@ -1345,13 +1355,18 @@ Generiert LaTeX-Code für den Graphen der aktuellen Visualisierung.
 \end{itemize}
 Initialisiert den LatexMaker mit dem aktuellen, sowie dem nächsten Schritt.
 
+\newpage
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.view}}
 
 Repräsentation der View-Komponente im Kontext des Model-View-Controller Architekturstils. Umfasst alle selbst implementierten Komponenten der grafischen Benutzeroberfläche, welche zur Darstellung der Inhalte der Model-Komponente dient. Interaktionen mit der Oberfläche werden über Commands aus dem Controller-Paket auf die internen Datenstrukturen des Model-Pakets angewandt.
 
+\newpage
+%\includegraphics[height=\textheight]{images/class_view.png}
+\newpage
+
 \subsubsection{Klasse \texttt{Button} erbt von \texttt{javax.swing.JButton}}
 
-Initialisiert eine neues Schaltflächen-Element für die GUI. Beim Betätigen der Schaltfläche wird ein entsprechender Befehl über den Controller ausgeführt.
+Initialisiert ein neues Schaltflächen-Element für die GUI. Beim Betätigen der Schaltfläche wird ein entsprechender Befehl über den Controller ausgeführt.
 
 \textbf{\texttt{public Button(String textKey, Command command)}}
 \setlist{nolistsep}
@@ -1456,7 +1471,7 @@ Setzt den Inhalt des Editors auf den übergebenen String. Der vorherige Inhalt w
 \textbf{\texttt{public boolean hasChanged()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{boolean}: Änderungsstatus des Editors. \texttt{true} falls seit letztem Parser geändert worden, andernfalls \texttt{false}
+	\item[-] Returns \texttt{boolean}: Änderungsstatus des Editors. \texttt{true} falls seit letztem Parsen geändert worden, andernfalls \texttt{false}
 \end{itemize}
 Überprüft, ob der Text im Editor seit dem letzen Parser verändert wurde.
 
@@ -1575,6 +1590,10 @@ Leert den Anzeigebereich der Visualisierung.
 
 Repräsentation der Controller-Komponente in Kontext des Model-View-Controller Architekturstils. Umfasst Kommandos zur Kapselung von Interaktionen zwischen der View-Komponente und der Model-Komponente.
 
+\newpage
+%\includegraphics[height=\textheight]{images/class_controller.png}
+\newpage
+
 \subsubsection{Klasse \texttt{LanguageManager} erbt von \texttt{java.util.Observable}}
 
 Verwaltungsstruktur für Übersetzungen. Die Klasse ist nach dem Singleton-Entwurfsmuster modelliert. Alle Texte der GUI werden über einen eindeutigen Schlüsselwert identifiziert. Der LanguageManager bietet zentrale Übersetzungen für diese Schlüsselwerte in Abhängigkeit der gesetzten Sprache. Unterstützte Sprachen sind Deutsch und Englisch.
@@ -1621,7 +1640,7 @@ Initialisiert eine Instanz des InterpreterManagers. Die anfängliche Liste an In
 \textbf{\texttt{public void createNew(String program)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{program}: Inhalt des EditorPanels
+	\item[-] \texttt{program}: Inhalt des Editors
 \end{itemize}
 Parst den Inhalt des Editors. Erstellt den ersten Interpreterzustand.
 
@@ -1630,13 +1649,13 @@ Parst den Inhalt des Editors. Erstellt den ersten Interpreterzustand.
 \begin{itemize}[noitemsep]
     \item[-] Returns \texttt{StepResult}: Ergebnis des ausgeführten Schritts
 \end{itemize}
-Ist der aktuelle Interpreterzustand der neueste, so wird auf einer Kopie die step()-Methode aufgerufen. Die Kopie wird anschließend als neuer Interpreterzustand an die Liste angehängt. Ansonsten wird der Index für den aktuellen Interpreterzustand inkrementiert.
+Ist der aktuelle Interpreterzustand der Neueste, so wird auf einer Kopie die step()-Methode aufgerufen. Die Kopie wird anschließend als neuer Interpreterzustand an die Liste angehängt. Ansonsten wird der Index für den aktuellen Interpreterzustand inkrementiert.
 
 \textbf{\texttt{public void runUntilNextSolution()}}\\
-Erstellt einen neuen Thread. Führt in diesem auf einer Kopie des aktuellen Interpreterzustands wiederholt die step()-Methode auf, bis eine Lösung gefunden wurde oder von außen eine boolean-Flag für den Abbruch gesetzt wurde.
+Erstellt einen neuen Thread. Führt in diesem auf einer Kopie des aktuellen Interpreterzustands wiederholt die step()-Methode auf, bis eine Lösung gefunden wurde oder von außen eine Flag für den Abbruch gesetzt wurde.
 
 \textbf{\texttt{public void cancel()}}\\
-Setzt die boolean-Flag für den Thread auf false und bricht somit runUntilNextSolution()-Methode ab. 
+Setzt die Flag für den Thread auf false und bricht somit runUntilNextSolution()-Methode ab. 
 
 \textbf{\texttt{public Interpreter getCurrentState()}}
 \setlist{nolistsep}
@@ -1747,7 +1766,7 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Rückgängig-machen eines Interpreter-Schritts. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem aktuellen Stand der Interpretation angepasst.
 
-\textbf{\texttt{public CommandPreviousStep(ConsolePanel console,\\VisualisationPanel visualisation, InterpreterManager interpreterManager)}}
+\textbf{\texttt{public CommandPreviousStep(ConsolePanel console,\\VisualisationPanel visualisation, InterpreterManager\\interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
@@ -1763,7 +1782,7 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Ausführen von Interpreter-Schritten bis zum Finden der nächsten Lösung. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem Stand der Interpretation beim Finden der Lösung angepasst.
 
-\textbf{\texttt{public CommandContinue(ConsolePanel console,\\VisualisationPanel visualisation, boolean running, InterpreterManager interpreterManager)}}
+\textbf{\texttt{public CommandContinue(ConsolePanel console,\\VisualisationPanel visualisation, boolean running,\\InterpreterManager interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
@@ -1780,7 +1799,7 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Abbrechen des Interpreters beim Suchen der nächsten Lösung.
 
-\textbf{\texttt{public CommandCancel(boolean running, InterpreterManager interpreterManager)}}
+\textbf{\texttt{public CommandCancel(boolean running, InterpreterManager\\interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
     \item[-] \texttt{running}: Zustandsvariable, die aussagt, ob der Interpreter läuft
@@ -1874,7 +1893,7 @@ Führt das beschriebene Kommando aus.
 
 Kommando zum Exportieren der Visualisierung als Bild-Datei (PNG oder SVG). Der Dateityp wird über eine Enumeration bei der Ausführung unterschieden. Fehler oder Hinweise zum erfolgreichen Export werden in der Konsole ausgegeben.
 
-\textbf{\texttt{public CommandExportImage(ConsolePanel console,\\VisualisationPanel visualisation, ImageFormat format, InterpreterManager interpreterManager)}}
+\textbf{\texttt{public CommandExportImage(ConsolePanel console,\\VisualisationPanel visualisation, ImageFormat format,\\InterpreterManager interpreterManager)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{console}: Schnittstelle der Konsole
@@ -1940,7 +1959,7 @@ Stellt Hilfs-Datenstrukturen bereit. Das Utilities-Paket ist Teil der Java-Stand
 
 \begin{multicols}{2}
 \begin{itemize}
-	\item Klasse: ListResourceBundle
+	\item Klasse: ResourceBundle
 	\item Klasse: Observable
 	\item Interface: Observer
 \end{itemize}
@@ -1957,7 +1976,7 @@ Beinhaltet eine Leinwand mit der es möglich ist, Bilder im SVG-Format anzuzeige
 
 Beinhaltet ein Textfeld, welches im vgl. zum Textfeld aus dem Swing-Paket zusätzliche Funktionen wie z.B. Code-Faltung (das automatische Umbrechen und Einrücken von Text) unterstützt. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter:  \url{https://github.com/bobbylight/RSyntaxTextArea}.\\\\Genutzte Datenstrukturen:
 \begin{itemize}
-	\item Klasse: RSyntaxArea
+	\item Klasse: RSyntaxTextArea
 \end{itemize}
 
 \subsection{Paket \texttt{guru.nidi.graphviz}}
@@ -1969,43 +1988,46 @@ Beinhaltet Klassen zur Modellierung und grafischen Ausgabe von Graphen. Das Pake
 \end{itemize}
 
 \section{Sequenzdiagramme}
-
 \subsection{Initialisierung der grafischen Benutzeroberfläche}
-
 Aufbausequenz der grafischen Oberfläche. Enthält die Initialisierung der Schnellzugriffsleiste und Menüleiste sowie der Panels für die Visualisierung, die Konsole und den Editor mit den zugehörigen Schaltflächen.
-
+\newpage
+%\includegraphics[height=\textheight]{images/seq_init_menus.png}
+\newpage
 \subsection{Öffnen einer Prolog-Datei}
-
 Ablauf der Öffnen-Sequenz einer Prolog-Datei, welche durch die Interaktion mit der grafischen Oberfläche ausgelöst und über ein Kommando abgewickelt wird. Das Öffnen leert hierbei automatisch auch die Visualisierung sowie die Konsole.
-
+\newpage
+%\includegraphics[height=\textheight]{images/seq_open_prolog_program.png}
+\newpage
 \subsection{Sprachwechsel}
-
 Ablauf des Sprachwechsels. Hierbei wird die aktuell gewählte Sprache zu einer anderen implementierten Sprache geändert und die grafische Oberfläche entsprechend aktualisiert.
-
+\newpage
+%\includegraphics[height=\textheight]{images/seq_change_language.png}
+\newpage
 \subsection{Interpretationsschritt}
-
 Ablauf der Ausführung eines Interpretationsschritts in einem FunctorActivationRecord.
-
+\newpage
+%\includegraphics[height=\textheight]{images/seq_interpreter.png}
+\newpage
 \subsection{Unifikation}
-
 Ablauf der Unifikation zweier Funktoren innerhalb eines Interpretationsschritts.
-
+\newpage
+%\includegraphics[height=\textheight]{images/seq_unification.png}
+\newpage
 \subsection{Visualisierung}
-
 Ablauf der Visualisierung nach einem abgeschlossenen Interpretationsschritt. 
-
+\newpage
+%\includegraphics[height=\textheight]{images/seq_visualisation.png}
+\newpage
 \subsection{Graph}
-
 Ablauf der Generierung des Graphen aus dem aktuellen Interpreterzustand in der Visualisierung.
+\newpage
+%\includegraphics[height=\textheight]{images/seq_create_graph.png}
 
 \section{Zustandsdiagramm}
-
 Veranschaulichung der möglichen Zustände und Zustandsübergänge für das Parsen und Interpretieren eines Prolog-Programmes sowie die Ausgabe der Visualisierung.
-
-\appendix
-
-\section{Anhang}
-
-\subsection{Klassendiagramm}
+\vspace*{2cm}
+%\begin{figure}[!h]
+%	\includegraphics[width=1.0\textwidth]{images/state_diagram.png}
+%\end{figure}
 
 \end{document}
