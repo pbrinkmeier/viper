@@ -1136,132 +1136,138 @@ TODO
 TODO
 
 \subsubsection{Klasse \texttt{FunctorActivationRecord} erbt von \texttt{ActivationRecord}}
-TODO
+
+Repräsentiert den Ausführungszustand eines Funktorziels.
 
 \textbf{\texttt{public FunctorActivationRecord(Optional<ActivationRecord>\\ parent, FunctorGoal goal)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{parent}: TODO
-	\item[-] \texttt{goal}: TODO
+	\item[-] \texttt{parent}: Optionales Mutterelement
+	\item[-] \texttt{goal}: Korrespondierendes Funktorziel
 \end{itemize}
-TODO
+Initialisiert einen FunctorActivationRecord mit einem optionalen Mutterknoten und dem Funktorziel.
 
 \textbf{\texttt{public Optional<UnificationResult> getUnificationResult()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{Optional<UnificationResult>}: TODO
+	\item[-] Returns \texttt{Optional<UnificationResult>}: Optionales Ergebnis einer Unifikation
 \end{itemize}
-TODO
+Getter-Funktion für ein Optionals Unifikationsergebnis.
 
 \textbf{\texttt{public Functor getFunctor()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{Functor}: TODO
+	\item[-] Returns \texttt{Functor}: Funktor des zugehörigen Funktorziels
 \end{itemize}
-TODO
+Getter-Funktion für den Funktor des zugehörigen Funktorziels. Alle Substitutionen der vorgehenden ActivationRecords werden vor der Rückgabe angewandt. 
 
 \textbf{\texttt{public Functor getMatchingRuleHead()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{Functor}: TODO
+	\item[-] Returns \texttt{Functor}: Funktor der aktuellen passenden Regel
 \end{itemize}
-TODO
+Getter-Funktion für den Funktor der aktuellen passenden Regel
 
 \textbf{\texttt{public int getRuleIndex()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{int}: TODO
+	\item[-] Returns \texttt{int}: Index der aktuellen Regel in der internen Liste an passenden Regeln 
 \end{itemize}
-TODO
+Getter-Funktion für den Index der aktuellen Regel.
 
 \subsubsection{Interface \texttt{ActivationRecordVisitor<ResultType>}}
-TODO
+
+Implementiert das Visitor Pattern für die ActivationRecord-Klasse. Ein ActivationRecord kann durch den Aufruf der accept()-Methode von einem ActivationRecordVisitor \enquote{besucht} werden.
 
 \textbf{\texttt{protected ResultType visit(FunctorActivationRecord\\functorAr)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{functorAr}: TODO
-	\item[-] Returns \texttt{ResultType}: TODO
+	\item[-] \texttt{functorAr}: Besuchter FunctorActivationRecord
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
 \end{itemize}
-TODO
+Definiert das Verhalten beim Besuch eines FunctorActivationRecords. Üblicherweise werden dabei auch die Teilziele des FunctorActivationRecords besucht.
 
 \textbf{\texttt{protected ResultType visit(UnificationActivationRecord\\unificationAr)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{unificationAr}: TODO
-	\item[-] Returns \texttt{ResultType}: TODO
+	\item[-] \texttt{functorAr}: Besuchter UnificationActivationRecord
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
 \end{itemize}
-TODO
+Definiert das Verhalten beim Besuch eines UnificationActivationRecords
 
 \textbf{\texttt{protected ResultType visit(CutActivationRecord cutAr)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{cutAr}: TODO
-	\item[-] Returns \texttt{ResultType}: TODO
+	\item[-] \texttt{functorAr}: Besuchter CutActivationRecord
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
 \end{itemize}
-TODO
+Definiert das Verhalten beim Besuch eines CutActivationRecords
 
 \textbf{\texttt{protected ResultType visit(ArithmeticActivationRecord\\arithAr)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{arithAr}: TODO
-	\item[-] Returns \texttt{ResultType}: TODO
+	\item[-] \texttt{functorAr}: Besuchter ArithmeticActivationRecord
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
 \end{itemize}
-TODO
+Definiert das Verhalten beim Besuch eines ArithmeticActivationRecords
 
 \textbf{\texttt{protected ResultType visit(ComparisonActivationRecord\\compAr)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{compAr}: TODO
-	\item[-] Returns \texttt{ResultType}: TODO
+	\item[-] \texttt{functorAr}: Besuchter ComparisonActivationRecord
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
 \end{itemize}
-TODO
+Definiert das Verhalten beim Besuch eines ComparisonActivationRecords
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Klasse \texttt{VariableExtractor} implementiert \texttt{TermVisitor}}
-TODO
+\subsubsection{Klasse \texttt{VariableExtractor} implementiert \texttt{TermVisitor<List<Variable>{}>}}
+
+TermVisitor der genutzt wird um alle, in einem Term vorkommenden, Variablen zu aufzulisten.
 
 \textbf{\texttt{public VariableExtractor()}}\\
-TODO
+Initialisiert einen VariableExtractor.
 
-\subsubsection{Abstrakte Klasse \texttt{Unifier}}
-TODO
+\subsubsection{Klasse \texttt{UnifierCreator} implementiert \texttt{TermVisitor<Unifier>}}
 
-\subsubsection{Abstrakte Klasse \texttt{FunctorUnifier} erbt von \texttt{Unifier}}
-TODO
+TermVisitor der genutzt wird um Unifier zur Unifikation von Termen zu erzeugen.
+
+\textbf{\texttt{public UnifierCreator()}}\\
+Initialisiert einen UnifierCreator.
+
+\subsubsection{Abstrakte Klasse \texttt{Unifier} implementiert \texttt{TermVisitor<UnificationResult>}}
+
+Unifiziert einen Term mit einem anderen Term.
+
+\subsubsection{Klasse \texttt{FunctorUnifier} erbt von \texttt{Unifier}}
+Unifier der die Unifikation eines Funktors mit einem anderen Term durchführt. Überschreibt nur die Methode visit(Functor) von Unifier.
 
 \textbf{\texttt{public FunctorUnifier(Functor functor)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{functor}: TODO
+	\item[-] \texttt{functor}: Zu unifizierender Funktor
 \end{itemize}
-TODO
+Initialisiert einen FunctorUnifier mit dem zu unifizierenden Funktor.
 
 \subsubsection{Klasse \texttt{VariableUnifier} erbt von \texttt{Unifier}}
-TODO
+Unifier der die Unifikation einer Variable mit einem anderen Term durchführt. Überschreibt nur die Methode visit(Variable) von Unifier.
 
 \textbf{\texttt{public VariableUnifier(Variable var)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{var}: TODO
+	\item[-] \texttt{var}: Zu unifizierende Variable
 \end{itemize}
-TODO
+Initialisiert einen VariableUnifier mit der zu unifizierenden Variable.
 
 \subsubsection{Klasse \texttt{NumberUnifier} erbt von \texttt{Unifier}}
-TODO
+
+Unifier der die Unifikation einer Zahl mit einem anderen Term durchführt. Überschreibt nur die Methode visit(Number) von Unifier.
 
 \textbf{\texttt{public NumberUnifier(Number num)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{num}: TODO
+	\item[-] \texttt{num}: Zu unifizierende Zahl
 \end{itemize}
-TODO
-
-\subsubsection{Klasse \texttt{UnifierCreator}}
-TODO
-
-\textbf{\texttt{public UnifierCreator()}}\\
-TODO
+Initialisiert einen NumberUnifier mit der zu unifizierenden Zahl.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -1271,24 +1277,27 @@ Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustan
 
 \subsubsection{Klasse \texttt{GraphvizMaker}}
 
-TODO
+Generiert ein Graph-Objekt zum aktuellen Interpreterzustand.
 
-\textbf{\texttt{public GraphvizMaker(ActivationRecord root)}}
+\textbf{\texttt{public GraphvizMaker(ActivationRecord current, ActivationRecord next)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
+	\item[-] \texttt{current}: Zuletzt bearbeiteter Schritt
+    \item[-] \texttt{next}: Nächster zu bearbeitender Schritt
 \end{itemize}
-TODO
+Initialisert den GraphvizMaker mit dem aktuellen, sowie dem nächsten Schritt.
 
 \subsubsection{Klasse \texttt{LatexMaker}}
-TODO
 
-\textbf{\texttt{public LatexMaker(ActivationRecord root)}}
+Generiert LaTeX-Code für den Graphen der aktuellen Visualisierung.
+
+\textbf{\texttt{public LatexMaker(ActivationRecord current, ActivationRecord next)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{root}: Wurzel-ActivationRecord der aktuellen Interpretation. Wird gleichzeitig als Wurzel des angezeigten Graphen verwendet
+	\item[-] \texttt{current}: Zuletzt bearbeiteter Schritt
+    \item[-] \texttt{next}: Nächster zu bearbeitender Schritt
 \end{itemize}
-TODO
+Initialisiert den LatexMaker mit dem aktuellen, sowie dem nächsten Schritt.
 
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.view}}
 
