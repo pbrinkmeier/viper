@@ -31,6 +31,7 @@
 \usepackage{courier}
 \usepackage{enumitem}
 \usepackage{dirtree}
+\usepackage{multicol}
 \hypersetup{
 	pdftitle={Entwurf},
 }
@@ -79,7 +80,1275 @@ Das Model"=Paket kapselt die genannte Model"=Komponente. Innerhalb dieses Pakets
 
 \section{Klassenbeschreibungen}
 
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model}}
+
+Repräsentation der Model"=Komponente im Kontext des Model"=View"=Controller Architekturstils. Dies umfasst die Klassen für den Interpreter, den Parser, den abstrakten Syntaxbaum und die Generierung der Visualisierung. Kommandos aus der Controller"=Komponente, welche durch die View"=Komponente ausgelöst werden, erzeugen Änderungen in der Model"=Komponente wie beispielsweise das Voranschreiten der Interpretation.
+
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.ast}}
+
+Enthält Klassen, welche den abstrakten Syntax-Baum (\enquote{abstract syntax tree}) der Prolog-Sprache modellieren.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{KnowledgeBase}}
+Enthält geordnete Menge von Prolog-Regeln, welche durch den Parser eingelesen werden. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public KnowledgeBase(List<Rule> rules)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{rules}: Liste der enthaltenen Regeln
+\end{itemize}
+Setzt die in der KnowledgeBase enthaltenen Regeln einmalig.
+
+\textbf{\texttt{public List<Rule> getMatchingRules(Functor head)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{head}: Funktor, der zur Suche passender Regeln verwendet wird
+	\item[-] Returns \texttt{List<Rule>}: Liste passender Regeln
+\end{itemize}
+Sucht passende Regeln in der KnowledgeBase, deren Köpfe denselben Namen und dieselbe Arität haben wie der übergebene Funktor und gibt diese zurück. Die zurückgegebene Liste ist immutable.
+
+\subsubsection{Klasse \texttt{Rule}}
+Repräsentiert eine Prolog-Regel. Hat als Kopf einen Funktor und eine Liste von Teilzielen. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public Rule(Functor head, List<Goal> subgoals)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{head}: Kopf der Regel
+	\item[-] \texttt{subgoals}: Teilziele der Regel
+\end{itemize}
+Setzt Kopf und Teilziele der Regel einmalig.
+
+\textbf{\texttt{public Functor getHead()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Functor}: Kopf der Regel
+\end{itemize}
+Getter-Funktion für den Kopf der Regel.
+
+\textbf{\texttt{public List<Goal> getSubgoals()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{List<Goal>}: Liste von Teilzielen der Regel
+\end{itemize}
+Getter-Funktion für die Liste der Teilziele der Regel. Die zurückgegebene Liste ist immutable.
+
+\textbf{\texttt{public String toString()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Textuelle Repräsentation der Regel
+\end{itemize}
+Getter-Funktion für die textuelle Repräsentation der Regel. Der zurückgegebene String hat die folgende Form: \texttt{[Kopf] :- [Durch Kommata getrennte Teilziele].}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Abstrakte Klasse \texttt{Term}}
+Repräsentiert einen Prolog-Term.
+
+\textbf{\texttt{public abstract ResultType accept(TermVisitor<ResultType>\\visitor)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{visitor}: Auszuführender TermVisitor
+	\item[-] Returns \texttt{ResultType}: Ergebnis der Ausführung des Visitor-Objekts auf dieser konkreten Term-Instanz
+\end{itemize}
+Wird verwendet, um einen Term-Visitor auf dieser Instanz auszuführen.
+
+\textbf{\texttt{public abstract Term transform(TermTransformationVisitor visitor)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{visitor}: Auszuführender TermTransformationVisitor 
+	\item[-] Returns \texttt{Term}: Ergebnis der Ausführung des TermTransformationVisitor-Objekts auf dieser konkreten Term-Instanz
+\end{itemize}
+Wird verwendet, um einen TermTransformationVisitor auf dieser Instanz auszuführen. Im Gegensatz zum TermVisitor wird statt einem festen Rückgabewert eine Instanz derselben Term-Konkretisierung zurückgegeben.
+
+\textbf{\texttt{public abstract Number evaluate()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Number}: Ergebnis der arithmetischen Auswertung dieses Terms
+\end{itemize}
+Wertet den Term arithmetisch aus. Sollte dies fehlschlagen, so wird eine TermEvaluationException geworfen.
+
+\textbf{\texttt{public abstract String toString()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Textuelle Repräsentation des Terms
+\end{itemize}
+Getter-Funktion für die textuelle Repräsentation des Terms. Der zurückgegebene String hat folgende Form:
+\begin{itemize}
+	\item Number: \texttt{[Zahl]}
+	\item Variable ohne Index: \texttt{[Variablenname]}
+	\item Variable mit Index: \texttt{[Variablenname]\_[Index]}
+	\item Functor ohne Parameter: \texttt{[Funktorname]}
+	\item Functor mit Parametern: \texttt{[Funktorname](Durch Kommata getrennte Parameter)}
+	\item BinaryOperation: \texttt{([Linke Seite]) [Operatorsymbol] ([Rechte Seite])}
+\end{itemize}
+
+\textbf{\texttt{public abstract String toHtml()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: HTML-Repräsentation des Terms
+\end{itemize}
+Getter-Funktion für die Graphviz-geeignete HTML-Repräsentation des Terms.
+
+\subsubsection{Abstrakte Klasse \texttt{TermEvaluationException} erbt von\\\texttt{java.lang.Exception}}
+Exception für das Fehlschlagen der arithmetischen Auswertung eines Terms.
+
+\textbf{\texttt{public abstract String getMessage()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Textuelle Fehlermeldung
+\end{itemize}
+Getter-Funktion für die Fehlermeldung zur aufgetretenen Exception.
+
+\subsubsection{Klasse \texttt{UnsetVariableException} erbt von\\\texttt{TermEvaluationException}}
+Exception für das Fehlschlagen der arithmetischen Auswertung eines Terms aufgrund einer nicht-gesetzten Variable.
+
+\textbf{\texttt{public UnsetVariableException(Variable var)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{var}: Nicht-gesetzte Variable
+\end{itemize}
+Initialisiert die Exception mit der Variable, durch die sie erzeugt wurde.
+
+\subsubsection{Klasse \texttt{UnsupportedTermException} erbt von\\\texttt{TermEvaluationException}}
+Exception für das Fehlschlagen einer arithmetischen Auswertung eines Terms, da die genutzte arithmetische Operation nicht unterstützt wird.
+
+\textbf{\texttt{public UnsupportedTermException(Term term)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{term}: Fehlgeschlagener Term
+\end{itemize}
+Initialisiert die Exception mit dem Term, durch den sie erzeugt wurde.
+
+\subsubsection{Klasse \texttt{Number} erbt von \texttt{Term}}
+Repräsentiert einen Prolog-Term in Form einer Ganzzahl. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public Number(int number)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{number}: Zu repräsentierende Zahl
+\end{itemize}
+Setzt die zu repräsentierende Zahl.
+
+\textbf{\texttt{public int getNumber()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: Repräsentierte Zahl
+\end{itemize}
+Getter-Funktion für den Wert der repräsentierten Zahl.
+
+\subsubsection{Klasse \texttt{Variable} erbt von \texttt{Term}}
+Repräsentiert eine Prolog-Variable mit einem Namen und einem optionalen Index. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public Variable(String name, Integer index)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{name}: Name der Variable
+	\item[-] \texttt{index}: Index der Variable
+\end{itemize}
+Initialisiert die Variable mit einem Namen und einem Index. Ist der Index \texttt{null}, so wird er als nicht vorhanden betrachtet.
+
+\textbf{\texttt{public String getName()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Name der Variable
+\end{itemize}
+Getter-Funktion für den Namen der Variablen.
+
+\textbf{\texttt{public Optional<Integer> getIndex()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<Integer>}: Index der Variable
+\end{itemize}
+Getter-Funktion für den optionalen Index der Variable.
+
+\subsubsection{Klasse \texttt{Functor} erbt von \texttt{Term}}
+Repräsentiert einen Prolog-Funktor mit einem Namen und einer Liste von Subtermen. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public Functor(String name, List<Term> subTerms)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{name}: Name des Funktors
+	\item[-] \texttt{subTerms}: Liste von Subtermen
+\end{itemize}
+Initialisiert den Funktor mit einem Namen und einer Liste von Subtermen.
+
+\textbf{\texttt{public String getName()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Name des Funktors
+\end{itemize}
+Getter-Funktion für den Namen des Funktors.
+
+\textbf{\texttt{public List<Term> getSubTerms()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{List<Term>}: Liste von Subtermen
+\end{itemize}
+Getter-Funktion für die Subterme des Funktors. Die zurückgegebene Liste ist immutable.
+
+\textbf{\texttt{public Functor createNew(String name, List<Term>\\subTerms)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{name}: Name des neuen Funktors
+	\item[-] \texttt{subTerms}: Liste von Subtermen des neuen Funktors
+	\item[-] Returns \texttt{Functor}: Neu erstellter Funktor
+\end{itemize}
+Erstellt einen neuen Funktor mit dem gegebenen Namen und der gegebenen Liste an Subtermen.
+
+\textbf{\texttt{public int getArity()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: Arität des Funktors
+\end{itemize}
+Getter-Funktion für die Arität des Funktors.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Abstrakte Klasse \texttt{BinaryOperation} erbt von \texttt{Functor}}
+Repräsentiert eine zweistellige arithmetische Operation.
+
+\textbf{\texttt{public BinaryOperation(String symbol, Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{symbol}: Textuelles Symbol des Operators
+	\item[-] \texttt{lhs}: Linke Seite der Operation
+	\item[-] \texttt{rhs}: Rechte Seite der Operation
+\end{itemize}
+Initialisiert die BinaryOperation mit den beiden Seiten der Operation und einem Operator-Symbol.
+
+\textbf{\texttt{public Number evaluate(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite der Operation
+	\item[-] \texttt{rhs}: Rechte Seite der Operation
+	\item[-] Returns \texttt{Number}: Ergebnis der Ausführung der Operation
+\end{itemize}
+Wertet die Operation über die calculate()-Methode aus und gibt das Ergebnis zurück.
+
+\textbf{\texttt{protected int calculate(int a, int b)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{a}: Linke Seite der Operation
+	\item[-] \texttt{b}: Rechte Seite der Operation
+	\item[-] Returns \texttt{int}: Ergebnis der Ausführung der Operation
+\end{itemize}
+Wertet die Operation arithmetisch aus und gibt das Ergebnis zurück.
+
+\textbf{\texttt{public String toString()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Textuelle Repräsentation der zweistelligen Operation
+\end{itemize}
+Getter-Funktion für die textuelle Repräsentation der zweistelligen Operation.
+
+\textbf{\texttt{public String toHtml()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: HTML-Repräsentation der zweistelligen Operation
+\end{itemize}
+Getter-Funktion für die Graphviz-geeignete HTML-Repräsentation der zweistelligen Operation.
+
+\textbf{\texttt{public abstract BinaryOperation createNew(String head,\\List<Term> subTerms)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{head}: Operator der zweistelligen Operation
+	\item[-] \texttt{subTerms}: Liste mit zwei Operanden
+	\item[-] Returns \texttt{BinaryOperation}: Neue Instanz der zweistelligen Operation
+\end{itemize}
+Erstellt eine neue zweistellige Operation mit dem gegebenen Operator und einer zwei-elementigen Liste mit den Operanden.
+
+\subsubsection{Klasse \texttt{AdditionOperation} erbt von \texttt{BinaryOperation}}
+Repräsentation einer Additions-Operation.
+
+\textbf{\texttt{public AdditionOperation(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite der Addition
+	\item[-] \texttt{rhs}: Rechte Seite der Addition
+\end{itemize}
+Initialisiert die Addition mit ihren Operanden. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\subsubsection{Klasse \texttt{SubtractionOperation} erbt von \texttt{BinaryOperation}}
+Repräsentation einer Subtraktions-Operation.
+
+\textbf{\texttt{public SubtractionOperation(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite der Subtraktion
+	\item[-] \texttt{rhs}: Rechte Seite der Subtraktion
+\end{itemize}
+Initialisiert die Subtraktion mit ihren Operanden. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\subsubsection{Klasse \texttt{MultiplicationOperation} erbt von \texttt{BinaryOperation}}
+Repräsentation einer Multiplikations-Operation.
+
+\textbf{\texttt{public MultiplicationOperation(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite der Multiplikation
+	\item[-] \texttt{rhs}: Rechte Seite der Multiplikation
+\end{itemize}
+Initialisiert die Multiplikation mit ihren Operanden. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Interface \texttt{TermVisitor<ResultType>}}
+Implementiert das Visitor-Pattern für die Term-Klasse. Ein Term kann durch den Aufruf der accept()-Methode von einem TermVisitor \enquote{besucht} werden. Diese Art von Visitor ist dafür geeignet, eine generische, aber für alle Term-Unterklassen gleiche Art von Ergebnis zu liefern. Beispielsweise liefert der VariableExtractor eine Liste an Variablen, die in einem Term vorkommen.
+
+\textbf{\texttt{public ResultType visit(Functor fun)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{fun}: Besuchter Funktor
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
+\end{itemize}
+Definiert das Verhalten beim Besuch eines Funktors. Üblicherweise werden dabei auch die Subterme des Funktors besucht.
+
+\textbf{\texttt{public ResultType visit(Variable var)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{var}: Besuchte Variable
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
+\end{itemize}
+Definiert das Verhalten beim Besuch einer Variable.
+
+\textbf{\texttt{public ResultType visit(Number num)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{num}: Besuchte Zahl
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
+\end{itemize}
+Definiert das Verhalten beim Besuch einer Zahl.
+
+\subsubsection{Interface \texttt{TermTransformationVisitor}}
+Weitere Implementierung des Visitor-Patterns für die Term-Klasse. Ein Term kann durch den Aufruf der transform()-Methode von einem TermTransformationVisitor \enquote{besucht} werden. Diese Art von Visitor ist dafür geeignet, einen Term unter Beibehaltung seiner Struktur umzuwandeln. Beispielsweise wendet der SubstitutionVisitor eine Substitution in einem Term an.
+
+\textbf{\texttt{public Functor visit(Functor functor)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{functor}: Besuchter Funktor
+	\item[-] Returns \texttt{Functor}: Umgewandelter Funktor
+\end{itemize}
+Definiert das Verhalten beim Besuch eines Funktors. Üblicherweise werden dabei auch die Subterme des Funktors besucht.
+
+\textbf{\texttt{public Variable visit(Variable var)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{var}: Besuchte Variable
+	\item[-] Returns \texttt{Variable}: Umgewandelte Variable
+\end{itemize}
+Definiert das Verhalten beim Besuch einer Variable.
+
+\textbf{\texttt{public Number visit(Number num)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{num}: Besuchte Zahl
+	\item[-] Returns \texttt{Number}: Umgewandelte Zahl
+\end{itemize}
+Definiert das Verhalten beim Besuch einer Zahl.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Abstrakte Klasse \texttt{Goal}}
+
+Repräsentiert ein Prolog-Ziel.
+
+\textbf{\texttt{public abstract ActivationRecord createActivationRecord\\(Optional<ActivationRecord> parent)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: Optionales Mutterelement des erstellten ActivationRecords
+	\item[-] Returns \texttt{ActivationRecord}: Zu diesem Ziel korrespondierender ActivationRecord
+\end{itemize}
+Erzeugt einen zu diesem Ziel passenden ActivationRecord.
+
+\textbf{\texttt{public abstract String toString()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Textuelle Repräsentation dieses Ziels
+\end{itemize}
+Getter-Funktion für die textuelle Repräsentation dieses Ziels. Die textuelle Repräsentation hat die Form:
+\begin{itemize}
+	\item CutGoal: \texttt{!}
+	\item FunctorGoal: \texttt{[Funktor]}
+	\item ArithmeticGoal: \texttt{[Linke Seite] is [Rechte Seite]}
+	\item UnificationGoal: \texttt{[Linke Seite] = [Rechte Seite]}
+	\item ComparisonGoal: \texttt{[Linke Seite] [Vergleichsoperator] [Rechte Seite]}
+\end{itemize}
+
+\subsubsection{Klasse \texttt{CutGoal} erbt von \texttt{Goal}}
+Repräsentiert ein Cut-Ziel. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public CutGoal()}}
+Initialisiert ein Cut-Ziel.
+
+\subsubsection{Klasse \texttt{FunctorGoal} erbt von \texttt{Goal}}
+Repräsentiert ein Funktorziel. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public FunctorGoal(Functor goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{goal}: Zu erfüllender Funktor
+\end{itemize}
+Initialisiert ein Funktorziel mit den zugehörigen Funktor.
+
+\textbf{\texttt{public Functor getFunctor()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Functor}: Von diesem Ziel zu erfüllender Funktor
+\end{itemize}
+Getter-Funktion für den zu diesem Ziel gehörigen Funktor.
+
+\subsubsection{Klasse \texttt{ArithmeticGoal} erbt von \texttt{Goal}}
+Repräsentiert ein Arithmetikziel mit einer linken Seite und einer rechten Seite. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public ArithmeticGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite des is-Operators
+	\item[-] \texttt{rhs}: Rechte Seite des is-Operators
+\end{itemize}
+Initialisiert ein Arithmetikziel mit linker und rechter Seite des Arithmetik-Operators.
+
+\textbf{\texttt{public Term getLhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: Linke Seite des is-Operators
+\end{itemize}
+Getter-Funktion für die linke Seite des Arithmetikziels.
+
+\textbf{\texttt{public Term getRhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: Rechte Seite des is-Operators
+\end{itemize}
+Getter-Funktion für die rechte Seite des Arithmetikziels.
+
+\subsubsection{Klasse \texttt{UnificationGoal} erbt von \texttt{Goal}}
+Repräsentiert ein Unifikationsziel mit einer linken Seite und einer rechten Seite. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public UnificationGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite des Unifikations-Operators
+	\item[-] \texttt{rhs}: Rechte Seite des Unifikations-Operators
+\end{itemize}
+Initialisiert ein Unifikationsziel mit linker und rechter Seite des Unifikations-Operators.
+
+\textbf{\texttt{public Term getLhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: Linke Seite des Unifikations-Operators
+\end{itemize}
+Getter-Funktion für die linke Seite des Unifikations-Operators.
+
+\textbf{\texttt{public Term getRhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: Rechte Seite des Unifikations-Operators.
+\end{itemize}
+Getter-Funktion für die rechte Seite des Unifikations-Operators.
+
+\subsubsection{Abstrakte Klasse \texttt{ComparisonGoal} erbt von \texttt{Goal}}
+Repräsentiert ein Vergleichsziel mit einer linken Seite und einer rechten Seite.
+
+\textbf{\texttt{public ComparisonGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite des Vergleichs
+	\item[-] \texttt{rhs}: Rechte Seite des Vergleichs
+\end{itemize}
+Initialisiert ein Vergleichsziel mit linker und rechter Seite des Vergleichs.
+
+\textbf{\texttt{public Term getLhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: Linke Seite des Vergleichs
+\end{itemize}
+Getter-Funktion für die linke Seite des Vergleichs.
+
+\textbf{\texttt{public Term getRhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: Rechte Seite des Vergleichs
+\end{itemize}
+Getter-Funktion für die rechte Seite des Vergleichs.
+
+\textbf{\texttt{public abstract boolean compareNumbers(int lhs, int rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite des Vergleichs
+	\item[-] \texttt{rhs}: Rechte Seite des Vergleichs
+	\item[-] Returns \texttt{boolean}: Boolscher Wert der aussagt, ob der Vergleich wahr ist
+\end{itemize}
+Führt den Vergleich aus und gibt den Wahrheitswert des Vergleiches zurück.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{LessThanGoal} erbt von \texttt{ComparisonGoal}}
+Repräsentiert ein Vergleichsziel für den Kleiner-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public LessThanGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite des Vergleichs 
+	\item[-] \texttt{rhs}: Rechte Seite des Vergleichs
+\end{itemize}
+Initialisiert ein Kleiner-Ziel mit einer linken und einer rechten Seite.
+
+\subsubsection{Klasse \texttt{LessThanEqualGoal} erbt von \texttt{ComparisonGoal}}
+Repräsentiert ein Vergleichsziel für den Kleiner-Gleich-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public LessThanEqualGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite des Vergleichs
+	\item[-] \texttt{rhs}: Rechte Seite des Vergleichs
+\end{itemize}
+Initialisiert ein Kleiner-Gleich-Ziel mit einer linken und einer rechten Seite.
+
+\subsubsection{Klasse \texttt{GreaterThanGoal} erbt von \texttt{ComparisonGoal}}
+Repräsentiert ein Vergleichsziel für den Größer-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public GreaterThanGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite des Vergleichs
+	\item[-] \texttt{rhs}: Rechte Seite des Vergleichs
+\end{itemize}
+Initialisiert ein Größer-Ziel mit einer linken und einer rechten Seite.
+
+\subsubsection{Klasse \texttt{GreaterThanEqualGoal} erbt von \texttt{ComparisonGoal}}
+Repräsentiert ein Vergleichsziel für den Größer-Gleich-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public GreaterThanEqualGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite des Vergleichs
+	\item[-] \texttt{rhs}: Rechte Seite des Vergleichs
+\end{itemize}
+Initialisiert ein Größer-Gleich-Ziel mit einer linken und einer rechten Seite.
+
+\subsubsection{Klasse \texttt{EqualGoal} erbt von \texttt{ComparisonGoal}}
+Repräsentiert ein Vergleichsziel für den Gleichheits-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public EqualGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite des Vergleichs
+	\item[-] \texttt{rhs}: Rechte Seite des Vergleichs
+\end{itemize}
+Initialisiert ein Gleichheits-Ziel mit einer linken und einer rechten Seite.
+
+\subsubsection{Klasse \texttt{NotEqualGoal} erbt von \texttt{ComparisonGoal}}
+Repräsentiert ein Vergleichsziel für den Ungleichheits-Operator. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public NotEqualGoal(Term lhs, Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linke Seite des Vergleichs
+	\item[-] \texttt{rhs}: Rechte Seite des Vergleichs
+\end{itemize}
+Initialisiert ein Ungleichheits-Ziel mit einer linken und einer rechten Seite.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.parser}}
+
+Das Parser-Paket enhält mehrere Klassen, welche für die Generierung eines abstrakten Syntax-Baums aus einem gegebenen Prolog-Programm zuständig sind.
+
+\subsubsection{Klasse \texttt{PrologParser}}
+
+Die PrologParser Klasse ist in der Lage, einen gegebenen, korrekten Prolog-Programmcode in eine intere Datenstruktur umzuwandeln. Bei inkorrekten Prolog-Programmen wird eine ParseException geworfen.
+
+\textbf{\texttt{public PrologParser(String program)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{program}: Der zu parsende Prolog-Programmcode
+	\item[-] Throws \texttt{ParseException}: Der gegebene Prolog-Programmcode konnte aufgrund von Syntax-Fehlern nicht geparst werden.
+\end{itemize}
+Erstellt eine neue Instanz des Parsers zu einem gegebenen Prolog-Programmcode.
+
+\textbf{\texttt{public KnowledgeBase parseKnowledgeBase()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{KnowledgeBase}: Die geparste Wissensdatenbank
+\end{itemize}
+Gibt die vom Parser in einen abstrakten Syntax-Baum umgewandelte Wissensdatenbank aus dem geparsten Prolo-Programm zurück.
+
+\textbf{\texttt{public List<Goal> parseGoalList()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{List<Goal>}: Liste von gefundenen Zielen
+\end{itemize}
+Gibt eine Liste von gefundenen Zielen zurück.
+
+\subsubsection{Klasse \texttt{PrologLexer}}
+
+Der Lexer trennt das gegebene Prolog-Programm in sinnvolle Zeichen, d.h. Schlüsselwörtel, Trennzeichen, arithmetische Operatoren, Variablen, Zahlen etc. auf. Diese Teile werden als Token bezeichnet und besitzen je einen Typ (\texttt{TokenType}), sowie Zeilen- und Positionsangabe. Der Lexer beginnt in der ersten Zeile, an der ersten Position des Prolog-Programms und arbeitet sich bis zu letzten Zeile durch.
+
+\textbf{\texttt{public PrologLexer(String program)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{program}: Das aufzuteilende Prolog-Programm
+\end{itemize}
+Erstellt ein neue Instanz vom Lexer zu einem gegebenen Prolog-Programm.
+
+\textbf{\texttt{public Token nextToken()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Token}: Der nächste gefundenen Token. Das Ende des Prolog-Programms wird durch einen Token mit dem Typ \texttt{TokenType.EOF} angegeben
+\end{itemize}
+Gibt den nächsten gefundenen Token des Prolog-Programms zurück.
+
+\subsubsection{Klasse \texttt{PrologException} erbt von \texttt{java.lang.Exception}}
+
+Eine eigene Exception, die vom Parser und Lexer im Falle von Syntax-Fehlern geworfen wird.
+
+\textbf{\texttt{public PrologException(String message)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{message}: Die Fehlernachricht
+\end{itemize}
+Erstellt eine neue Exception mit einer gegebenen Fehlermeldung.
+
+\subsubsection{Klasse \texttt{Token}}
+
+Ein Token stellt ein in Prolog sinnvolles Zeichen dar, d.h. Schlüsselwörter, Trennzeichen, arithmetische Operatoren etc. Identifier, Variablen und Zahlen sind ebenfalls Tokens, auch wenn diese möglicherweise aus mehr als einem Zeichen bestehen.
+
+\textbf{\texttt{public Token(TokenType type, String text, int line, int col)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{type}: Typ dieses Tokens, d.h. ein arithmetische Operator, ein Trennzeichen, eine Klammer, eine Variable etc.
+	\item[-] \texttt{text}: Ein oder mehrere Zeichen aus dem Prolog-Programm, welche dieses Token darstellen
+	\item[-] \texttt{line}: Zeile, in welcher dieses Token gefunden wurde
+	\item[-] \texttt{col}: Position innerhalb einer Zeile, an welcher dieses Token gefunden wurde
+\end{itemize}
+Erstellt ein neues, unveränderliches (\texttt{immutable}) Token mit einem Typ, einem oder mehreren Zeichen (die dieses Token darstellen), sowie einer Positionsangabe.
+
+\textbf{\texttt{public TokenType getType()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{TokenType}: Typ dieses Tokens
+\end{itemize}
+Gibt den Typ dieses Tokens zurück (arithmetischer Operator, Trennzeichen, Klammer, Variable, \dots)
+
+\textbf{\texttt{public String getText()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Ein oder mehrere Zeichen, die dieses Token darstellen
+\end{itemize}
+Gibt das tatsächliche Zeichen oder die tatsächlichen Zeichen aus dem Prolog-Programm zurück, die dieses Token darstellen.
+
+\textbf{\texttt{public int getLine()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: Nummer der Zeile dieses Tokens
+\end{itemize}
+Gibt die Nummer der Zeile zurück, in der dieses Token gefunden wurde.
+
+\textbf{\texttt{public int getCol()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: Position dieses Tokens in der Zeile
+\end{itemize}
+Gibt die Position innerhalb der Zeile zurück, in der dieses Token gefunden wurde.
+
+\textbf{\texttt{public String toString()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Lesbare Darstellung des Tokens
+\end{itemize}
+Gibt eine lesbare Darstellung des Tokens zurück, welche beispielsweise für Fehlermeldungen verwendet werden kann.
+
+\subsubsection{Enum \texttt{TokenType}}
+
+Stellt den Typ eines Tokens dar, d.h. eine arithmetische Operation, ein Trennzeichen, eine Klammer, eine Variable etc.
+
+\textbf{\texttt{TokenType.COLON\_MINUS}}\\
+Operator für zu erfüllende Teilziele (\texttt{:-}).
+
+\textbf{\texttt{TokenType.EQ}}\\
+Das Gleich-Zeichen (\texttt{=}).
+
+\textbf{\texttt{TokenType.LESS}}\\
+Das Kleiner-Zeichen (\texttt{<}).
+
+\textbf{\texttt{TokenType.EQ\_LESS}}\\
+Das Kleiner-Gleich-Zeichen (\texttt{=<}).
+
+\textbf{\texttt{TokenType.GREATER}}\\
+Das Größer-Zeichen (\texttt{<}).
+
+\textbf{\texttt{TokenType.GREATER\_EQ}}\\
+Das Größer-Gleich-Zeichen (\texttt{>=}).
+
+\textbf{\texttt{TokenType.EQ\_COLON\_EQ}}\\
+Das Gleichheit-Zeichen (\texttt{=:=}).
+
+\textbf{\texttt{TokenType.EQ\_BS\_EQ}}\\
+Das Ungleichheit-Zeichen (\texttt{=\=}).
+
+\textbf{\texttt{TokenType.EOF}}\\
+Gibt das Ende des Prolog-Programms an (\enquote{End of file}).
+
+\textbf{\texttt{TokenType.DOT}}\\
+Ein Punkt (\texttt{.}).
+
+\textbf{\texttt{TokenType.COMMA}}\\
+Ein Komman (\texttt{,}).
+
+\textbf{\texttt{TokenType.LP}}\\
+Die öffnende, runde Klammer (\texttt{(}).
+
+\textbf{\texttt{TokenType.RP}}\\
+Die schließende, runde Klammer (\texttt{)}).
+
+\textbf{\texttt{TokenType.LB}}\\
+Die öffnende, eckige Klammer (\texttt{[}).
+
+\textbf{\texttt{TokenType.RB}}\\
+Die schließende, eckige Klammer (\texttt{]}).
+
+\textbf{\texttt{TokenType.BAR}}\\
+Der vertikale Strich (\texttt{|}).
+
+\textbf{\texttt{TokenType.PLUS}}\\
+Das Plus-Zeichen (\texttt{+}).
+
+\textbf{\texttt{TokenType.MINUS}}\\
+Das Minus-Zeichen (\texttt{-}).
+
+\textbf{\texttt{TokenType.STAR}}\\
+Das Sternchen-Zeichen (\texttt{*}).
+
+\textbf{\texttt{TokenType.EXCLAMATION}}\\
+Das Ausrufe-Zeichen (\texttt{!}).
+
+\textbf{\texttt{TokenType.IS}}\\
+Das Schlüsselwort für arithmetische Gleichzeit (\texttt{is}).
+
+\textbf{\texttt{TokenType.VARIABLE}}\\
+Eine Variable (Mindestens ein Großbuchstabe, gefolgt von beliebig vielen weiteren Buchstaben und Zahlen).
+
+\textbf{\texttt{TokenType.IDENTIFIER}}\\
+Ein Identifier (Mindestens ein Kleinbuchstabe, gefolgt von beliebig vielen weiteren Buchstaben und Zahlen).
+
+\textbf{\texttt{TokenType.NUMBER}}\\
+Eine Zahl.
+
+\newpage
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.interpreter}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{Interpreter}}
+Repräsentiert einen Prolog-Interpreter in einem aktuellen Zustand bei der Ausführung einer Prolog-Abfrage.
+
+\textbf{\texttt{public Interpreter(KnowledgeBase kb, Goal query)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{kb}: KnowledgeBase, auf die sich der Interpreter beruft
+	\item[-] \texttt{query}: Gestellte Abfrage
+\end{itemize}
+Initialisiert einen neuen Interpreter mit der zugrunde liegenden KnowledgeBase und der gestellten Abfrage.
+
+\textbf{\texttt{public void step()}}\\
+Führt einen Interpretationsschritt aus.
+
+\textbf{\texttt{public ActivationRecord getQuery()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: Gestellte Abfrage
+\end{itemize}
+Getter-Funktion für die gestellte Abfrage.
+
+\textbf{\texttt{public ActivationRecord getCurrent()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: Zuletzt bearbeiteter Schritt
+\end{itemize}
+Getter-Funktion für den zuletzt bearbeiteten Schritt.
+
+\textbf{\texttt{public ActivationRecord getNext()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: Nächster zu bearbeitender Schritt
+\end{itemize}
+Getter-Funktion für den nächsten zu bearbeitenden Schritt.
+
+\textbf{\texttt{public Interpreter copy()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Interpreter}: Kopie des Interpreters
+\end{itemize}
+Kopierfunktion für den Interpreter. Die erhaltene Kopie ist komplett unabhängig vom kopierten Interpreter (\enquote{deep copy}).
+
+\subsubsection{Enum \texttt{StepResult}}
+Enumeration aller möglichen Ergebnisse eines Schrittes.\\
+
+\textbf{\texttt{StepResult.NO\_MORE\_SOLUTIONS}}\\
+Resultat, dass keine weiteren Lösungen existieren.
+
+\textbf{\texttt{StepResult.SOLUTION\_FOUND}}\\
+Resultat, dass eine Lösung gefunden wurde.
+
+\textbf{\texttt{StepResult.STEPS\_REMAINING}}\\
+Resultat, dass noch Schritte zu erledigen sind.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{Environment}}
+Repräsentiert eine Umgebung für einen ActivationRecord mit den lokalen Substitutionen. Durch eine Referenz auf diesen ActivationRecord fungiert diese als verkettete Liste aller bisherigen Substitutionen. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public Environment(ActivationRecord ar, List<Substitution>\\ substitutions)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{ar}: Korrespondierender ActivationRecord
+	\item[-] \texttt{substitutions}: Lokale Substitutionen
+\end{itemize}
+Initialisiert ein Environment mit dem korrespondierenden ActivationRecord und den lokalen Substitutionen.
+
+\textbf{\texttt{public Term applyAllSubstitutions(Term term)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{term}: Term, auf den die Substitutionen angewandt werden sollen
+	\item[-] Returns \texttt{Term}: Resultierender Term
+\end{itemize}
+Wendet alle vorhergehenden sowie die lokalen Substitutionen im gegebenen Term an.
+
+\subsubsection{Klasse \texttt{Substitution}}
+Repräsentiert eine einzelne Substitution einer Variablen durch einen Term. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public Substitution(Variable replace, Term by)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{replace}: Zu ersetzende Variable
+	\item[-] \texttt{by}: Ersetzender Term
+\end{itemize}
+Initialisiert eine Substitution mit einer zu ersetzenden Variable und dem ersetzenden Term.
+
+\textbf{\texttt{public Variable getReplace()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Variable}: Zu ersetzende Variable
+\end{itemize}
+Getter-Funktion für die zu ersetzende Variable.
+
+\textbf{\texttt{public Term getBy()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: Ersetzender Term
+\end{itemize}
+Getter-Funktion für den ersetzenden Term.
+
+\subsubsection{Klasse \texttt{SubstitutionApplier} implementiert \texttt{TermTransformationVisitor}}
+Visitor, welcher eine Substitution in einem Term anwendet. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public SubstitutionApplier(Substitution subst)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{subst}: Anzuwendende Substitution
+\end{itemize}
+Initialisiert einen SubstitutionApplier mit einer anzuwendenden Substitution.
+
+\subsubsection{Klasse \texttt{Indexifier} implementiert \texttt{TermTransformationVisitor}}
+Visitor, welcher eine Variable mit einem Index versieht. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public Indexifier(int index)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{index}: Anzubringender Index
+\end{itemize}
+Initialisiert einen Indexifier mit einem anzubringenden Index.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{UnificationResult}}
+Repräsentiert das Resultat einer Unifikation. Mögliche Zustände sind auf erfolgreiche und fehlgeschlagene Unifikationen begrenzt. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+
+\textbf{\texttt{public static UnificationResult success(List<Substitution>\\substitutions)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{substitutions}: Lösende Substitutionen
+	\item[-] \texttt{UnificationResult}: Erfolgreiche Unifikation
+\end{itemize}
+Initialisiert eine erfolgreiche Unifikation mit einer Liste lösender Substitutionen.
+
+\textbf{\texttt{public static UnificationResult fail(Term lhs,\\Term rhs)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{lhs}: Linker zu unifizierender Term
+	\item[-] \texttt{rhs}: Rechter zu unifizierender Term
+	\item[-] \texttt{UnificationResult}: Fehlgeschlagene Unifikation
+\end{itemize}
+Initialisiert eine fehlgeschlagene Unifikation mit zwei Termen, die nicht unifiziert werden konnten.
+
+\textbf{\texttt{public boolean isSuccess()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{boolean}: Boolscher Wahrheitswert
+\end{itemize}
+Getter-Funktion für den Wahrheitswert, ob die Unifikation erfolgreich war.
+
+\textbf{\texttt{public List<Substitution> getSubstitutions()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{List<Substitution>}: Liste lösender Substitutionen
+\end{itemize}
+Getter-Funktion für die Liste lösender Substitutionen. Die zurückgegebene Liste ist immutable.
+
+\textbf{\texttt{public String getErrorMessage()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Fehlermeldung der fehlgeschlagenen Unifikation
+\end{itemize}
+Getter-Funktion für die Fehlermeldung einer fehlgeschlagenen Unifikation.
+
+\textbf{\texttt{public String toHtml()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: HTML-Darstellung des Unifikationsergebnisses
+\end{itemize}
+Getter-Funktion für eine Graphviz-geeignete HTML-Darstellung des Unifikationsergebnisses.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Abstrakte Klasse \texttt{ActivationRecord}}
+Repräsentiert die kleinste Ausführungseinheit des Prolog-Interpreters. Ein ActivationRecord umfasst eine Referenz auf einen Interpreter, ein Environment und ein optionales Mutterelement. Weiterhin enthält er einen boolschen Wert, ob er bereits besucht wurde.
+
+\textbf{\texttt{public ActivationRecord(Interpreter interpreter,\\Optional<FunctorActivationRecord> parent)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{interpreter}: Referenz auf einen Interpreter
+	\item[-] \texttt{parent}: Optionaler Mutterknoten
+\end{itemize}
+Initialisiert einen ActivationRecord mit einer Referenz auf einen Interpreter sowie einem optionalen Mutterknoten.
+
+\textbf{\texttt{public abstract ResultType accept\\(ActivationRecordVisitor<ResultType> visitor)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{visitor}: Auszuführender ActivationRecordVisitor
+	\item[-] Returns \texttt{ResultType}: Ergebnis der Ausführung des Visitor-Objekts auf dieser konkreten ActivationRecord-Instanz
+\end{itemize}
+Wird verwendet, um einen ActivationRecord-Visitor auf dieser Instanz auszuführen.
+
+\textbf{\texttt{protected ActivationRecord step()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: Nächster auszuführender Schritt
+\end{itemize}
+Führt einen einzelnen Interpretationsschritt aus.
+
+\textbf{\texttt{protected ActivationRecord createCopy()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: Kopie des ActivationRecords
+\end{itemize}
+Kopierfunktion des ActivationRecords. Die entstehende Kopie ist unabhängig vom kopierten ActivationRecord (\enquote{deep copy}).
+
+\textbf{\texttt{protected void setEnvironment(Environment env)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{env}: Zu setzendes Environment
+\end{itemize}
+Setter-Funktion für das Environment des ActivationRecords.
+
+\textbf{\texttt{protected ActivationRecord getPrevious()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: Vorangegangener Interpretationsschritt
+\end{itemize}
+Getter-Funktion für den letzten Interpretationsschritt.
+
+\textbf{\texttt{protected Environment getEnvironment()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Environment}: Environment des ActivationRecords
+\end{itemize}
+Getter-Funktion für das Environment des ActivationRecords.
+
+\textbf{\texttt{protected ActivationRecord getNext()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ActivationRecord}: Folgender Interpretationsschritt
+\end{itemize}
+Getter-Funktion für den nächsten Interpretationsschritt.
+
+\textbf{\texttt{protected Interpreter getInterpreter()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Interpreter}: Interpreter des ActivationRecords
+\end{itemize}
+Getter-Funktion für den Interpreter des ActivationRecords.
+
+\textbf{\texttt{protected Optional<FunctorActivationRecord> getParent()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<FunctorActivationRecord>}: Mutterknoten des ActivationRecords
+\end{itemize}
+Getter-Funktion für den optionalen Mutterknoten des ActivationRecords.
+
+\textbf{\texttt{protected boolean hasBeenVisited()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{boolean}: Boolscher Wert, ob der ActivationRecord bereits besucht wurde
+\end{itemize}
+Getter-Funktion für den Boolschen Wert, ob der ActivationRecord bereits besucht wurde.
+
+\textbf{\texttt{protected void setVisited(boolean visited)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{visited}: Boolscher Wert, ob der ActivationRecord bereits besucht wurde
+\end{itemize}
+Setter-Funktion, welche den ActivationRecord als besucht oder nicht besucht festlegt.
+
+\subsubsection{Klasse \texttt{ArithmeticActivationRecord} erbt von \texttt{ActivationRecord}}
+Repräsentiert den Ausführungszustand eines Arithmetik-Ziels.
+
+\textbf{\texttt{public ArithmeticActivationRecord(Optional<ActivationRecord>\\parent, ArithmeticGoal goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: Optionaler Mutterknoten
+	\item[-] \texttt{goal}: Zugehöriges Arithmetikziel
+\end{itemize}
+Initialisiert einen ActivationRecord eines Arithmetikziels mit dem optionalen Mutterknoten und dem Ziel.
+
+\textbf{\texttt{public Optional<UnificationResult> getUnificationResult()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<UnificationResult>}: Unifikationsergebnis
+\end{itemize}
+Getter-Funktion für das Ergebnis der Unifikation.
+
+\textbf{\texttt{public Term getLhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: Linke Seite des Arithmetikziels
+\end{itemize}
+Getter-Funktion für die linke Seite des Arithmetikziels.
+
+\textbf{\texttt{public Term getRhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: Rechte Seite des Arithmetikziels.
+\end{itemize}
+Getter-Funktion für die rechte Seite des Arithmetikziels.
+
+\textbf{\texttt{public Optional<String> getEvaluationError()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<String>}: Optionale Fehlermeldung der Auswertung
+\end{itemize}
+Getter-Funktion für die optionale Fehlermeldung der Auswertung.
+
+\subsubsection{Klasse \texttt{ComparisonActivationRecord} erbt von \texttt{ActivationRecord}}
+Repräsentiert den Ausführungszustand eines Vergleichsziels.
+
+\textbf{\texttt{public ComparisonActivationRecord(Optional<ActivationRecord>\\ parent, ComparisonGoal goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: Optionaler Mutterknoten
+	\item[-] \texttt{goal}: Zugehöriges Vergleichsziel
+\end{itemize}
+Initialisiert einen ActivationRecord eines Vergleichsziels mit dem optionalen Mutterknoten und dem Ziel.
+
+\subsubsection{Klasse \texttt{CutActivationRecord} erbt von \texttt{ActivationRecord}}
+Repräsentiert den Ausführungszustand eines Cut-Ziels.
+
+\textbf{\texttt{public CutActivationRecord(Optional<ActivationRecord>\\ parent, CutGoal goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: Optionaler Mutterknoten
+	\item[-] \texttt{goal}: Zugehöriges Cut-Ziel
+\end{itemize}
+Initialisiert einen ActivationRecord eines Cut-Ziels mit dem optionalen Mutterknoten und dem Ziel.
+
+\subsubsection{Klasse \texttt{UnificationActivationRecord} erbt von \texttt{ActivationRecord}}
+Repräsentiert den Ausführungszustand eines Unifikationsziels.
+
+\textbf{\texttt{public UnificationActivationRecord(Optional<ActivationRecord>\\ parent, UnificationGoal goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: Optionaler Mutterknoten
+	\item[-] \texttt{goal}: Zugehöriges Unifikationsziel
+\end{itemize}
+Initialisiert einen ActivationRecord eines Unifikationsziels mit dem optionalen Mutterknoten und dem Ziel.
+
+\textbf{\texttt{public Optional<UnificationResult> getUnificationResult()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<UnificationResult>}: Unifikationsergebnis
+\end{itemize}
+Getter-Funktion für das Ergebnis der Unifikation.
+
+\textbf{\texttt{public Term getLhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: Linke Seite des Unifikationsziels
+\end{itemize}
+Getter-Funktion für die linke Seite des Unifikationsziels.
+
+\textbf{\texttt{public Term getRhs()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Term}: Rechte Seite des Unifikationsziels
+\end{itemize}
+Getter-Funktion für die rechte Seite des Unifikationsziels.
+
+\subsubsection{Klasse \texttt{FunctorActivationRecord} erbt von \texttt{ActivationRecord}}
+
+Repräsentiert den Ausführungszustand eines Funktorziels.
+
+\textbf{\texttt{public FunctorActivationRecord(Optional<ActivationRecord>\\ parent, FunctorGoal goal)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{parent}: Optionales Mutterelement
+	\item[-] \texttt{goal}: Korrespondierendes Funktorziel
+\end{itemize}
+Initialisiert einen FunctorActivationRecord mit einem optionalen Mutterknoten und dem Funktorziel.
+
+\textbf{\texttt{public Optional<UnificationResult> getUnificationResult()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Optional<UnificationResult>}: Optionales Ergebnis einer Unifikation
+\end{itemize}
+Getter-Funktion für ein Optionals Unifikationsergebnis.
+
+\textbf{\texttt{public Functor getFunctor()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Functor}: Funktor des zugehörigen Funktorziels
+\end{itemize}
+Getter-Funktion für den Funktor des zugehörigen Funktorziels. Alle Substitutionen der vorgehenden ActivationRecords werden vor der Rückgabe angewandt. 
+
+\textbf{\texttt{public Functor getMatchingRuleHead()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{Functor}: Funktor der aktuellen passenden Regel
+\end{itemize}
+Getter-Funktion für den Funktor der aktuellen passenden Regel
+
+\textbf{\texttt{public int getRuleIndex()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{int}: Index der aktuellen Regel in der internen Liste an passenden Regeln 
+\end{itemize}
+Getter-Funktion für den Index der aktuellen Regel.
+
+\subsubsection{Interface \texttt{ActivationRecordVisitor<ResultType>}}
+
+Implementiert das Visitor Pattern für die ActivationRecord-Klasse. Ein ActivationRecord kann durch den Aufruf der accept()-Methode von einem ActivationRecordVisitor \enquote{besucht} werden.
+
+\textbf{\texttt{protected ResultType visit(FunctorActivationRecord\\functorAr)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{functorAr}: Besuchter FunctorActivationRecord
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
+\end{itemize}
+Definiert das Verhalten beim Besuch eines FunctorActivationRecords. Üblicherweise werden dabei auch die Teilziele des FunctorActivationRecords besucht.
+
+\textbf{\texttt{protected ResultType visit(UnificationActivationRecord\\unificationAr)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{functorAr}: Besuchter UnificationActivationRecord
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
+\end{itemize}
+Definiert das Verhalten beim Besuch eines UnificationActivationRecords
+
+\textbf{\texttt{protected ResultType visit(CutActivationRecord cutAr)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{functorAr}: Besuchter CutActivationRecord
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
+\end{itemize}
+Definiert das Verhalten beim Besuch eines CutActivationRecords
+
+\textbf{\texttt{protected ResultType visit(ArithmeticActivationRecord\\arithAr)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{functorAr}: Besuchter ArithmeticActivationRecord
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
+\end{itemize}
+Definiert das Verhalten beim Besuch eines ArithmeticActivationRecords
+
+\textbf{\texttt{protected ResultType visit(ComparisonActivationRecord\\compAr)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{functorAr}: Besuchter ComparisonActivationRecord
+	\item[-] Returns \texttt{ResultType}: Ergebnis des Besuchs
+\end{itemize}
+Definiert das Verhalten beim Besuch eines ComparisonActivationRecords
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Klasse \texttt{VariableExtractor} implementiert \texttt{TermVisitor<List<Variable>{}>}}
+
+TermVisitor der genutzt wird um alle, in einem Term vorkommenden, Variablen zu aufzulisten.
+
+\textbf{\texttt{public VariableExtractor()}}\\
+Initialisiert einen VariableExtractor.
+
+\subsubsection{Klasse \texttt{UnifierCreator} implementiert \texttt{TermVisitor<Unifier>}}
+
+TermVisitor der genutzt wird um Unifier zur Unifikation von Termen zu erzeugen.
+
+\textbf{\texttt{public UnifierCreator()}}\\
+Initialisiert einen UnifierCreator.
+
+\subsubsection{Abstrakte Klasse \texttt{Unifier} implementiert \texttt{TermVisitor<UnificationResult>}}
+
+Unifiziert einen Term mit einem anderen Term.
+
+\subsubsection{Klasse \texttt{FunctorUnifier} erbt von \texttt{Unifier}}
+Unifier der die Unifikation eines Funktors mit einem anderen Term durchführt. Überschreibt nur die Methode visit(Functor) von Unifier.
+
+\textbf{\texttt{public FunctorUnifier(Functor functor)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{functor}: Zu unifizierender Funktor
+\end{itemize}
+Initialisiert einen FunctorUnifier mit dem zu unifizierenden Funktor.
+
+\subsubsection{Klasse \texttt{VariableUnifier} erbt von \texttt{Unifier}}
+Unifier der die Unifikation einer Variable mit einem anderen Term durchführt. Überschreibt nur die Methode visit(Variable) von Unifier.
+
+\textbf{\texttt{public VariableUnifier(Variable var)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{var}: Zu unifizierende Variable
+\end{itemize}
+Initialisiert einen VariableUnifier mit der zu unifizierenden Variable.
+
+\subsubsection{Klasse \texttt{NumberUnifier} erbt von \texttt{Unifier}}
+
+Unifier der die Unifikation einer Zahl mit einem anderen Term durchführt. Überschreibt nur die Methode visit(Number) von Unifier.
+
+\textbf{\texttt{public NumberUnifier(Number num)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{num}: Zu unifizierende Zahl
+\end{itemize}
+Initialisiert einen NumberUnifier mit der zu unifizierenden Zahl.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.visualisation}}
+
+Beinhaltet Klassen, die für die Visualisierung des aktuellen Interpreter-Zustands zuständig sind.
+
+\subsubsection{Klasse \texttt{GraphvizMaker}}
+
+Generiert ein Graph-Objekt zum aktuellen Interpreterzustand.
+
+\textbf{\texttt{public GraphvizMaker(ActivationRecord current, ActivationRecord next)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{current}: Zuletzt bearbeiteter Schritt
+    \item[-] \texttt{next}: Nächster zu bearbeitender Schritt
+\end{itemize}
+Initialisert den GraphvizMaker mit dem aktuellen, sowie dem nächsten Schritt.
+
+\subsubsection{Klasse \texttt{LatexMaker}}
+
+Generiert LaTeX-Code für den Graphen der aktuellen Visualisierung.
+
+\textbf{\texttt{public LatexMaker(ActivationRecord current, ActivationRecord next)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{current}: Zuletzt bearbeiteter Schritt
+    \item[-] \texttt{next}: Nächster zu bearbeitender Schritt
+\end{itemize}
+Initialisiert den LatexMaker mit dem aktuellen, sowie dem nächsten Schritt.
+
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.view}}
+
+Repräsentation der View-Komponente im Kontext des Model-View-Controller Architekturstils. Umfasst alle selbst implementierten Komponenten der grafischen Benutzeroberfläche, welche zur Darstellung der Inhalte der Model-Komponente dient. Interaktionen mit der Oberfläche werden über Commands aus dem Controller-Paket auf die internen Datenstrukturen des Model-Pakets angewandt.
 
 \subsubsection{Klasse \texttt{Button} erbt von \texttt{javax.swing.JButton}}
 
@@ -95,17 +1364,10 @@ Initialisiert die Schaltfläche mit dem auszuführenden Befehl. Weiterhin wird d
 
 \subsubsection{Klasse \texttt{ConsoleInputField} erbt von \texttt{javax.swing.JTextField}}
 
-Eingabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Ausgabefeld für den Nutzer editierbar und dient der Eingabe von Prolog-Abfragen. Das Eingabefeld ist weiterhin sperrbar, um Eingaben durch den Nutzer zu verhindern, bis es wieder freigegeben wurde.
+Eingabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Ausgabefeld für den Nutzer editierbar und dient der Eingabe von Prolog-Abfragen. Außerdem ist das Eingabefeld sperrbar, um Eingaben durch den Nutzer zu verhindern, bis es wieder freigegeben wurde.
 
 \textbf{\texttt{public ConsoleInputField()}}\\
 Initialisiert ein leeres, editierbares Textfeld mit einer einzelnen Zeile.
-
-\textbf{\texttt{public String getText()}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{String}: Inhalt des Eingabefeldes
-\end{itemize}
-Gibt den aktuellen Inhalt des Eingabefeldes zurück.
 
 \textbf{\texttt{public void clear()}}\\
 Leert das Eingabefeld.
@@ -121,7 +1383,7 @@ Gibt das Eingabefeld frei, sodass Eingaben durch den Nutzer möglich sind. Das E
 Ausgabefeld der Konsole. Dieses Textfeld ist im Gegensatz zum Eingabefeld für den Nutzer ausschließlich lesbar und dient der Ausgabe von Informationen über den Stand des Programmes, Fehlermeldungen oder den Ergebnissen von Prolog-Abfragen. Einzelne Zeilen der Ausgabe können zur besseren visuellen Rückmeldung eingefärbt werden. Ausgaben werden am Ende der Zeile umgebrochen. Das Textfeld erlaubt das Scrollen durch alle ausgegebenen Zeilen, sollten diese die Anzahl gleichzeitig sichtbarer Zeilen überschreiten.
 
 \textbf{\texttt{public ConsoleOutputArea()}}\\
-Initialisiert ein leeres, vom Nutzer nur lesbares Textfeld mit mehreren Zeilen.
+Initialisiert ein leeres, vom Nutzer nur lesbares, Textfeld mit mehreren Zeilen.
 
 \textbf{\texttt{public void printLine(String line, Color color)}}
 \setlist{nolistsep}
@@ -132,76 +1394,79 @@ Initialisiert ein leeres, vom Nutzer nur lesbares Textfeld mit mehreren Zeilen.
 Gibt eine neue Zeile mit Text \texttt{line} in der Farbe \texttt{color} im Textfeld aus. Sollte bereits die unterste Zeile erreicht werden, werden alle Zeilen darüber nach oben geschoben und die neue Zeile unten angefügt.
 
 \textbf{\texttt{public void clear()}}\\
-Leert den Inhalt des Textfelds.
+Leert den Inhalt des Textfeldes.
 
 \subsubsection{Klasse \texttt{ConsolePanel} erbt von \texttt{javax.swing.JPanel}}
 
-GUI-Panel, welches das Eingabe- und Ausgabefeld umschließt. Dieses Element bildet die Konsole und leitet Befehle an die einzelnen Konsolen-Elemente an diese weiter.
+GUI-Bereich, welcher das Eingabe- und Ausgabefeld umfasst. Dieses Element bildet die Konsole und leitet Befehle an die einzelnen Konsolen-Elemente weiter.
 
 \textbf{\texttt{public ConsolePanel()}}\\
 Initialisiert das Eingabe- und Ausgabefeld.
 
 \textbf{\texttt{public void clearAll()}}\\
-Leert sowohl das Eingabe- als auch das Ausgabefeld.
+Leert sowohl das Eingabe-, als auch das Ausgabefeld.
 
 \textbf{\texttt{public void clearOutputArea()}}\\
-Leert ausschließlich den Inhalt des Ausgabefelds.
+Leert den Inhalt des Ausgabefeldes.
 
 \textbf{\texttt{public void clearInputField()}}\\
-Leert ausschließlich den Inhalt des Eingabefelds.
+Leert den Inhalt des Eingabefeldes.
 
 \textbf{\texttt{public void lockInput()}}\\
 Sperrt das Eingabefeld, sodass keine Eingaben mehr möglich sind.
 
 \textbf{\texttt{public void unlockInput()}}\\
-Gibt das Eingabefeld frei, sodass Eingaben möglich sind. Der Inhalt wird bei der Freigabe geleert.
+Gibt das Eingabefeld frei, sodass Eingaben möglich sind. Der Inhalt wird dabei geleert.
+
+\textbf{\texttt{public void printLine(String line, Color color)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{line}: Auszugebender Text
+	\item[-] \texttt{color}: Farbe des Textes
+\end{itemize}
+Gibt eine Zeile mit dem Text \texttt{line} in der Farbe \texttt{color} auf der Konsole aus.
+
+\textbf{\texttt{public String getText()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Der Text aus dem Eingabefeld
+\end{itemize}
+Gibt den vom Nutzer in das Eingabefeld eingegebenen Text zurück.
 
 \subsubsection{Klasse \texttt{EditorPanel} erbt von \texttt{javax.swing.JPanel}}
 
-GUI-Panel, welches das externe Editor-Element \texttt{RSyntaxTextArea} umschließt. Bietet Schnittstellen zum Setzen und Erhalten des Editor-Inhalts.
+GUI-Bereich, welcher das externe Editor-Element \texttt{RSyntaxTextArea} umschließt. Bietet Schnittstellen zum Setzen und Erhalten des Editor-Inhaltes an.
 
 \textbf{\texttt{public EditorPanel()}}\\
-Initialisiert einen leeren, editierbaren Editor und konfiguriert ihn für Prolog-Quelltext.
+Initialisiert einen leeren Editor und konfiguriert ihn für Prolog-Quelltext.
 
-\textbf{\texttt{public String getSourceText()}}\\
+\textbf{\texttt{public String getSourceText()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{String}: Der aktuelle Editor-Inhalt
+\end{itemize}
 Gibt den aktuellen Inhalt des Editors zurück.
 
 \textbf{\texttt{public void setSourceText(String text)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{text}: Gewünschter Text
-	\item[-] Returns \texttt{String}: Der aktuelle Editor-Inhalt
+	\item[-] \texttt{text}: Gewünschter neuer Text für den Editor
 \end{itemize}
-Setzt den Inhalt des Editors. Der vorherige Inhalt wird dabei verworfen.
+Setzt den Inhalt des Editors auf den übergebenen String. Der vorherige Inhalt wird dabei verworfen.
 
-\subsubsection{Klasse \texttt{LanguageManager} erbt von \texttt{Observable}}
-
-Verwaltungsstruktur für Übersetzungen. Die Klasse ist nach dem Singleton-Entwurfsmuster modelliert. Alle Texte der GUI werden über einen eindeutigen Schlüsselwert identifiziert. Der LanguageManager bietet zentrale Übersetzungen für diese Schlüsselwerte in Abhängigkeit der gesetzten Sprache. Unterstützte Sprachen sind Deutsch und Englisch.
-
-\textbf{\texttt{private LanguageManager()}}\\
-Initialisiert die Datenstrukturen der Übersetzungen. Die anfänglich festgelegte Sprache ist Englisch.
-
-\textbf{\texttt{public static LanguageManager getInstance()}}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{LanguageManager}: Instanz des LanguageManagers
-\end{itemize}
-Gibt eine Instanz des \texttt{LanguageManager}s zurück. Ist noch keine Instanz existent, wird diese über den privaten Konstruktor erstellt. Sobald eine Instanz existiert, wird diese bei weiteren Aufrufen zurückgegeben.
-
-\textbf{\texttt{public void setLocale(Locale locale)}}
+\textbf{\texttt{public boolean hasChanged()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] throws \texttt{UnsupportedLocaleException}
-	\item[-] \texttt{locale}: Gewünschte Sprache
+	\item[-] Returns \texttt{boolean}: Änderungsstatus des Editors. \texttt{true} falls seit letztem Parser geändert worden, andernfalls \texttt{false}
 \end{itemize}
-Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim Schließen des Programms erhalten. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge. Ist die gewünschte Sprache nicht unterstützt, so wird eine passende Exception geworfen.
+Überprüft, ob der Text im Editor seit dem letzen Parser verändert wurde.
 
-\textbf{\texttt{public static String getString(String textKey)}}
+\textbf{\texttt{public void setHasChanged(boolean status)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
-	\item[-] Returns \texttt{String}: Übersetzung für aktuell gesetzte Sprache
+	\item[-] \texttt{status}: Setzt den Änderungsstatus des Editors auf \texttt{true} oder \texttt{false}
 \end{itemize}
-Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten Sprache zurück.
+Der Status kann mit \texttt{hasChanged()} abgefragt werden. Ein Setzen auf \texttt{true} hat das Löschen der Konsole sowie der angezeigten Visualisierung zur Folge.
 
 \subsubsection{Klasse \texttt{MainWindow} erbt von \texttt{javax.swing.JFrame}}
 
@@ -210,11 +1475,36 @@ Hauptfenster des Programms. Verantwortlich für die Initialisierung aller enthal
 \textbf{\texttt{public MainWindow()}}\\
 Initialisiert das Hauptfenster und die enthaltenen GUI-Elemente (ConsolePanel, EditorPanel, VisualisationPanel, MenuBar, ToolBar).
 
+\textbf{\texttt{public ConsolePanel getConsolePanel()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{ConsolePanel}: Instanz von Klasse für Eingabefeld und Konsole
+\end{itemize}
+Gibt die Instanz der Klasse für den GUI-Bereich zurück, der das Eingabefeld und die Konsole umfasst.
+
+\textbf{\texttt{public VisualisationPanel getVisualisationPanel()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{VisualisationPanel}: Instanz von Klasse für Visualisierungsbereich
+\end{itemize}
+Gibt die Instanz der Klasse für den GUI-Bereich zurück, der die angezeigte Visualisierung umfasst.
+
+\textbf{\texttt{public EditorPanel getEditorPanel()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{EditorPanel}: Instanz von Klasse für Editor
+\end{itemize}
+Gibt die Instanz der Klasse für den GUI-Bereich zurück, der den Editor umfasst.
+
 \subsubsection{Klasse \texttt{MenuBar} erbt von \texttt{javax.swing.JMenuBar}}
 
 Menüleiste des Hauptfensters. Bietet u.a. Funktionen für Dateioperationen (Öffnen, Speichern, Speichern unter...), Programmoperationen (Parsen, Schrittoperationen des Interpreters), Exportoperationen (Visualisierungsexport zu Bildformaten oder TikZ) und Einstellungen (Sprachwahl).
 
-\textbf{\texttt{public MenuBar()}}\\
+\textbf{\texttt{public MenuBar(MainWindow gui)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{gui}: Instanz des Hauptfensters
+\end{itemize}
 Initialisiert die Menüleiste mit allen verfügbaren Einträgen und Untermenüs.
 
 \subsubsection{Klasse \texttt{MenuItem} erbt von \texttt{javax.swing.JMenuItem}}
@@ -222,52 +1512,47 @@ Initialisiert die Menüleiste mit allen verfügbaren Einträgen und Untermenüs.
 Menü-Element der Menüleiste oder eines Untermenüs. Führt beim Betätigen ein Command des Controllers aus.
 
 \textbf{\texttt{public MenuItem(String textKey, Command command)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
 	\item[-] \texttt{command}: Auszuführender Befehl beim Betätigen des Menü-Elements
 \end{itemize}
-Initialisiert ein neues Menü-Element. Dieses erhält seinen Menütext von der LanguageManager-Klasse über den Schlüsselwert \texttt{textKey}. Weiter wird beim Betätigen des Menü-Elements \texttt{command} ausgeführt wird.
-
-\subsubsection{Klasse \texttt{Observable}}
-
-Die Observer-Klasse richtet einer erbenden Unterklasse eine Schnittstelle ein, mit der andere Klassen sich bei dieser registrieren können. Bei Ereignissen (bspw. dem Umstellen der Sprache) werden diese registrierten Klassen aufgerufen, wodurch z.B das automatische Aktualisieren der Texte beim Sprachwechsel vereinfacht wird.
-
-\textbf{\texttt{public Observable()}}\\
-Erstellt eine neue Instanz.
-
-\textbf{\texttt{public void addListener(Observer listener)}}
-\setlist{nolistsep}
-\begin{itemize}[noitemsep]
-	\item[-] \texttt{listener}: Neuer Beobachter, der benachrichtigt werden kann.
-\end{itemize}
-Registriert einen neuen Beobachter.
-
-\textbf{\texttt{public void notifyListeners()}}\\
-Benachrichtigt alle vorher durch \texttt{addListener()} hinzugefügte Beobachter.
-
-\subsubsection{Interface \texttt{Observer}}
-
-Schnittstelle für Klassen, die bei einer Spezialisierung der Observable-Klasse registrierbar sein sollen.
-
-\textbf{\texttt{public void update()}}\\
-Methode, welche durch die Spezialisierung der Observable-Klasse im Falle eines Ereignisses aufgerufen wird.
+Initialisiert ein neues Menü-Element. Dieses erhält seinen Menütext von der LanguageManager-Klasse über den Schlüsselwert \texttt{textKey}. Beim Betätigen des Menü-Elements wird \texttt{command} ausgeführt wird.
 
 \subsubsection{Klasse \texttt{ToolBar} erbt von \texttt{javax.swing.JToolBar}}
 
 Werkzeugleiste des Hauptfensters.
 
-\textbf{\texttt{public ToolBar()}}\\
+\textbf{\texttt{public ToolBar(MainWindow gui)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{gui}: Instanz des Hauptfensters
+\end{itemize}
 Initialisiert die Werkzeugleiste und die enthaltenen Schaltflächen.
 
 \subsubsection{Klasse \texttt{VisualisationPanel} erbt von \texttt{javax.swing.JPanel}}
 
-GUI-Element, welches die Visualisierung umspannt und Schnittstellen für diese bietet.
+GUI-Element, welches die Visualisierung umfasst und Schnittstellen für diese bietet.
 
 \textbf{\texttt{public VisualisationPanel()}}\\
-Initialisiert das GUI-Panel der Visualisierung und den VisualisationViewer.
+Initialisiert den GUI-Bereich der Visualisierung sowie den VisualisationViewer.
 
 \textbf{\texttt{public void clearVisualisation()}}\\
 Leert den Inhalt des VisualisationViewers.
+
+\textbf{\texttt{public void zoom(ZoomType direction)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{direction}: Richtung der Vergrößerung (hinein oder heraus bewegen)
+\end{itemize}
+Vergrößert oder verkleinert den angezeigen Bildausschnitt des Graphen.
+
+\textbf{\texttt{public void setFromGraph(Graph graph)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{graph}: Der neue Graph, welcher angezeigt werden soll
+\end{itemize}
+Aktualisiert den angezeigten Graphen.
 
 \subsubsection{Klasse \texttt{VisualisationViewer} erbt von \texttt{org.apache.batik.swing.JSVGCanvas}}
 
@@ -276,27 +1561,100 @@ Visualisierungselement für einen generierten Graphen.
 \textbf{\texttt{public VisualisationViewer()}}\\
 Initialisiert eine leere Visualisierung sowie die Eingabefunktionen der Maus für die Navigation des Graphen.
 
-\textbf{\texttt{public void updateGraph(String graph)}}
+\textbf{\texttt{public void setFromGraph(Graph graph)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{graph}: Der anzuzeigende Graph
 \end{itemize}
-Ersetzt den angezeigten Graph durch den im Parameter gegebenen Graph.
+Ersetzt den Angezeigten durch den im Parameter gegebenen Graphen.
 
 \textbf{\texttt{public void clear()}}\\
 Leert den Anzeigebereich der Visualisierung.
 
-\subsubsection{Klasse \texttt{UnsupportedLocaleException} erbt von \texttt{java.lang.Exception}}
-Exception-Klasse für den Versuch, eine nicht-unterstützte Sprache im LanguageManager zu setzen.
-
-\textbf{\texttt{public String getLocalizedMessage()}}
-\begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{String}: Lokalisierte Fehlermeldung
-\end{itemize}
-Gibt den Fehlertext der Exception als lokalisierten (an die gesetzte Sprache angepassten) String zurück. Die gewählte Sprache des Fehlertexts entspricht der Sprache vor dem versuchten Wechsel, der die Exception ausgelöst hat.
-
+\newpage
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.controller}}
 
+Repräsentation der Controller-Komponente in Kontext des Model-View-Controller Architekturstils. Umfasst Kommandos zur Kapselung von Interaktionen zwischen der View-Komponente und der Model-Komponente.
+
+\subsubsection{Klasse \texttt{LanguageManager} erbt von \texttt{java.util.Observable}}
+
+Verwaltungsstruktur für Übersetzungen. Die Klasse ist nach dem Singleton-Entwurfsmuster modelliert. Alle Texte der GUI werden über einen eindeutigen Schlüsselwert identifiziert. Der LanguageManager bietet zentrale Übersetzungen für diese Schlüsselwerte in Abhängigkeit der gesetzten Sprache. Unterstützte Sprachen sind Deutsch und Englisch.
+
+\textbf{\texttt{private LanguageManager()}}\\
+Initialisiert die Datenstrukturen der Übersetzungen. Die anfänglich festgelegte Sprache ist Deutsch.
+
+\textbf{\texttt{public static LanguageManager getInstance()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] Returns \texttt{LanguageManager}: Instanz des LanguageManagers
+\end{itemize}
+Gibt eine Instanz des \texttt{LanguageManager}s zurück. Existiert noch keine Instanz, wird diese zuvor über den privaten Konstruktor erstellt.
+
+\textbf{\texttt{public void setLocale(Locale locale)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{locale}: Gewünschte Sprache
+\end{itemize}
+Setzt die gewünschte Sprache auf \texttt{locale}. Diese Einstellung wird beim Schließen des Programms erhalten. Ein Aufruf dieser Methode hat die Aktualisierung der gesamten GUI zur Folge.
+
+\textbf{\texttt{public String getString(String textKey)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{textKey}: Sprach-Schlüssel für die angeforderte Übersetzung
+	\item[-] Returns \texttt{String}: Übersetzung für aktuell gesetzte Sprache
+\end{itemize}
+Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten Sprache zurück. Existiert die angeforderte Übersetzung nicht, so wird der Text in Standard-Sprache (Deutsch) zurückgegeben.
+
+\textbf{\texttt{public List<Locale> getSupportedLanguages()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+    \item[-] Returns \texttt{List<Locale>}: Liste mit unterstützten Sprachen
+\end{itemize}
+Gibt eine Liste mit allen unterstützten Sprachen zurück.
+
+\subsubsection{Klasse \texttt{InterpreterManager}}
+
+Ermöglicht das Parsen von Prolog-Programmen. Verwaltungsstruktur für alle vorhandenen Interpreterzustände. Bietet eine zentrale Referenz auf den aktuellen Zustand. Bietet zusätzlich eine Schnittstelle um auf dem aktuellen Zustand Operationen auszuführen.
+
+\textbf{\texttt{public InterpreterManager()}}\\
+Initialisiert eine Instanz des InterpreterManagers. Die anfängliche Liste an Interpreterzuständen ist leer.
+
+\textbf{\texttt{public void createNew(String program)}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+	\item[-] \texttt{program}: Inhalt des EditorPanels
+\end{itemize}
+Parst den Inhalt des Editors. Erstellt den ersten Interpreterzustand.
+
+\textbf{\texttt{public StepResult step()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+    \item[-] Returns \texttt{StepResult}: Ergebnis des ausgeführten Schritts
+\end{itemize}
+Ist der aktuelle Interpreterzustand der neueste, so wird auf einer Kopie die step()-Methode aufgerufen. Die Kopie wird anschließend als neuer Interpreterzustand an die Liste angehängt. Ansonsten wird der Index für den aktuellen Interpreterzustand inkrementiert.
+
+\textbf{\texttt{public void runUntilNextSolution()}}\\
+Erstellt einen neuen Thread. Führt in diesem auf einer Kopie des aktuellen Interpreterzustands wiederholt die step()-Methode auf, bis eine Lösung gefunden wurde oder von außen eine boolean-Flag für den Abbruch gesetzt wurde.
+
+\textbf{\texttt{public void cancel()}}\\
+Setzt die boolean-Flag für den Thread auf false und bricht somit runUntilNextSolution()-Methode ab. 
+
+\textbf{\texttt{public Interpreter getCurrentState()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+    \item[-] Returns \texttt{Interpreter}: Der aktuelle Interpreterzustand
+\end{itemize}
+Gibt den aktuellen Interpreterzustand aus der internen Liste an Interpreterzuständen zurück.
+
+\textbf{\texttt{public List<Substitution> getSolution()}}
+\setlist{nolistsep}
+\begin{itemize}[noitemsep]
+    \item[-] Returns \texttt{List<Substitution>}: Eine Liste an Substitutionen
+\end{itemize}
+Gibt eine Liste an Substitutionen zurück, unter deren Anwendung die Abfrage des aktuellen Interpreters wahr ist.
+
 \subsubsection{Klasse \texttt{Command}}
+
 Abstrakte Kommando-Klasse für die Kapselung von Programm-Abläufen. Entspricht dem Kommando-Entwurfsmuster.
 
 \textbf{\texttt{protected Command()}}\\
@@ -306,12 +1664,14 @@ Leerer Konstruktor des Kommandos.
 Abstrakte Ausführungs-Methode des Befehls. Wird von Unterklassen entsprechend ihrer Funktionalität implementiert.
 
 \subsubsection{Klasse \texttt{CommandNew} erbt von \texttt{Command}}
+
 Kommando zum Anlegen einer neuen Datei im Editor. Der Editor, die Konsole sowie die Visualisierung werden hierbei geleert. Sollten zuvor ungespeicherte Änderungen am Editor-Inhalt gemacht worden sein, wird nachgefragt, ob diese gespeichert werden sollen. Ist eine Referenz auf eine gespeicherte Datei im Editor gesetzt, wird diese am Ende der Ausführung gelöscht. Nach dem Ausführen des Neu-Befehls wird entsprechend beim ersten Speichern die Speichern-unter-Funktion ausgeführt.
 
-\textbf{\texttt{public CommandNew(editor: EditorPanel, console: ConsolePanel,\\visualisation: VisualisationPanel)}}\\
+\textbf{\texttt{public CommandNew(ConsolePanel console, EditorPanel editor,\\VisualisationPanel visualisation)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
@@ -320,12 +1680,14 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors, de
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandOpen} erbt von \texttt{Command}}
+
 Kommando zum Öffnen einer Datei über einen Öffnen-Dialog. Der Datei-Inhalt wird hierbei in den Editor geladen. Sowohl die Visualisierung als auch die Konsole werden geleert. Bei ungespeicherten Änderungen am Editor-Inhalt vor dem Laden der neuen Datei wird nachgefragt, ob diese gespeichert werden sollen.
 
-\textbf{\texttt{public CommandOpen(editor: EditorPanel, console: ConsolePanel,\\visualisation: VisualisationPanel)}}\\
+\textbf{\texttt{public CommandOpen(ConsolePanel console, EditorPanel editor,\\VisualisationPanel visualisation)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
@@ -334,12 +1696,14 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors, de
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandSave} erbt von \texttt{Command}}
+
 Kommando zum Speichern des Editor-Inhalts auf einem Speichermedium über einen Speichern-Dialog. Fehler oder ein Hinweis auf das erfolgreiche Speichern werden auf der Konsole ausgegeben. Das Kommando umfasst sowohl die Speichern- als auch die Speichern-unter-Funktionalität und unterscheidet diese über einen Enumerations-Parameter.
 
-\textbf{\texttt{public CommandSave(editor: EditorPanel, console: ConsolePanel,\\saveAs: SaveType)}}\\
+\textbf{\texttt{public CommandSave(ConsolePanel console, EditorPanel editor,\\SaveType saveAs)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{saveAs}: Speicher-Typ (Speichern oder Speichern unter...)
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors und der Konsole sowie einem Speicher-Typ, der bei der Ausführung zwischen Speichern und Speichern-unter unterscheidet.
@@ -348,14 +1712,16 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors und
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandParse} erbt von \texttt{Command}}
+
 Kommando zum Parsen des Editor-Inhalts. Der Editor-Inhalt wird hierbei durch das Parser-Objekt verarbeitet, auftretende Fehler werden über die Konsole ausgegeben, die Visualisierung wird geleert.
 
-\textbf{\texttt{public CommandParse(parser: PrologParser, editor: EditorPanel,\\console: ConsolePanel, visualisation: VisualisationPanel)}}\\
+\textbf{\texttt{public CommandParse(ConsolePanel console, EditorPanel editor,\\VisualisationPanel visualisation, InterpreterManager interpreterManager)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{parser}: Parser für den Programmcode
-	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Schnittstellen des Editors, der Konsole und der Visualisierung.
 
@@ -363,13 +1729,15 @@ Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Sc
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandNextStep} erbt von \texttt{Command}}
+
 Kommando zum Ausführen eines Interpreter-Schritts. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem aktuellen Stand der Interpretation angepasst.
 
-\textbf{\texttt{public CommandNextStep(interpreter: Interpreter,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\textbf{\texttt{public CommandNextStep(ConsolePanel console,\\VisualisationPanel visualisation, InterpreterManager interpreterManager)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{interpreter}: Interpreter, der den Schritt ausführen soll
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -377,13 +1745,15 @@ Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandPreviousStep} erbt von \texttt{Command}}
+
 Kommando zum Rückgängig-machen eines Interpreter-Schritts. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem aktuellen Stand der Interpretation angepasst.
 
-\textbf{\texttt{public CommandPreviousStep(interpreter: Interpreter,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\textbf{\texttt{public CommandPreviousStep(ConsolePanel console,\\VisualisationPanel visualisation, InterpreterManager interpreterManager)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{interpreter}: Interpreter, der den Schritt ausführen soll
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -391,13 +1761,16 @@ Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandContinue} erbt von \texttt{Command}}
+
 Kommando zum Ausführen von Interpreter-Schritten bis zum Finden der nächsten Lösung. Ausgaben beim Finden einer Lösung werden über die Konsole dargestellt. Die Visualisierung wird entsprechend dem Stand der Interpretation beim Finden der Lösung angepasst.
 
-\textbf{\texttt{public CommandContinue(interpreter: Interpreter,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\textbf{\texttt{public CommandContinue(ConsolePanel console,\\VisualisationPanel visualisation, boolean running, InterpreterManager interpreterManager)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{interpreter}: Interpreter, der die Schritte ausführen soll
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+    \item[-] \texttt{running}: Zustandsvariable, die aussagt, ob der Interpreter läuft
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -405,11 +1778,14 @@ Initialisiert das Kommando mit Referenzen auf einen Prolog-Interpreter sowie auf
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandCancel} erbt von \texttt{Command}}
+
 Kommando zum Abbrechen des Interpreters beim Suchen der nächsten Lösung.
 
-\textbf{\texttt{public CommandCancel(interpreter: Interpreter}}\\
+\textbf{\texttt{public CommandCancel(boolean running, InterpreterManager interpreterManager)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{interpreter}: Interpreter, der die Schritte ausführen soll
+    \item[-] \texttt{running}: Zustandsvariable, die aussagt, ob der Interpreter läuft
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit einer Referenz auf einen Prolog-Interpreter.
 
@@ -417,13 +1793,15 @@ Initialisiert das Kommando mit einer Referenz auf einen Prolog-Interpreter.
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandToggleLib} erbt von \texttt{Command}}
+
 Kommando zum Aktivieren bzw. Deaktivieren der Standardbibliothek im Parser. Hierbei werden sowohl die Konsole als auch die Visualisierung geleert.
 
-\textbf{\texttt{public CommandToggleLib(parser: PrologParser,\\console: ConsolePanel, visualisation: Visualisation)}}\\
+\textbf{\texttt{public CommandToggleLib(ConsolePanel console,\\VisualisationPanel visualisation, InterpreterManager interpreterManager)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{parser}: Parser, bei welchem die Standardbibliothek (de)aktiviert werden soll
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Schnittstellen der Konsole sowie der Visualisierung.
 
@@ -431,9 +1809,11 @@ Initialisiert das Kommando mit Referenzen auf einen Prolog-Parser und auf die Sc
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandZoom} erbt von \texttt{Command}}
+
 Kommando zum Zoomen innerhalb der Visualisierung. Dieses Kommando umfasst sowohl das Hinein- als auch das Herauszoomen und unterscheidet diese bei der Ausführung über eine Enumeration.
 
-\textbf{\texttt{public CommandZoom(visualisation: Visualisation,\\direction: ZoomType)}}\\
+\textbf{\texttt{public CommandZoom(VisualisationPanel visualisation,\\ZoomType direction)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{direction}: Art des Zooms (herein oder heraus)
@@ -444,13 +1824,15 @@ Initialisiert das Kommando mit einer Referenz auf die Schnittstelle der Visualis
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandSetLang} erbt von \texttt{Command}}
+
 Kommando zum Setzen einer anderen Sprache für die grafische Oberfläche. Die Konsole sowie die Visualisierung werden hierbei geleert.
 
-\textbf{\texttt{public CommandSetLang(lang: Locale, console: ConsolePanel,\\visualisation: VisualisationPanel)}}\\
+\textbf{\texttt{public CommandSetLang(ConsolePanel console,\\VisualisationPanel visualisation, Locale lang, InterpreterManager interpreterManager)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{lang}: Zu setzende Sprache
 	\item[-] \texttt{console}: Schnittstelle der Konsole
 	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole sowie der zu setzenden Sprache.
 
@@ -458,12 +1840,14 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisier
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandFormat} erbt von \texttt{Command}}
+
 Kommando zum Formatieren des Editor-Inhalts. Nach erfolgreicher Formatierung wird ein Hinweis über die Konsole ausgegeben.
 
-\textbf{\texttt{public CommandFormat(editor: EditorPanel, console: ConsolePanel)}}\\
+\textbf{\texttt{public CommandFormat(ConsolePanel console, EditorPanel editor)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{editor}: Schnittstelle des Editors
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{editor}: Schnittstelle des Editors
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors und der Konsole.
 
@@ -471,12 +1855,15 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen des Editors und
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandExportTikz} erbt von \texttt{Command}}
+
 Kommando zum Exportieren der Visualisierung als TikZ-Quelltext. Fehler oder Hinweise zum erfolgreichen Export werden in der Konsole ausgegeben.
 
-\textbf{\texttt{public CommandExportTikz(visualisation: VisualisationPanel,\\console: ConsolePanel)}}\\
+\textbf{\texttt{public CommandExportTikz(ConsolePanel console,\\VisualisationPanel visualisation, InterpreterManager interpreterManager)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole.
 
@@ -484,20 +1871,136 @@ Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisier
 Führt das beschriebene Kommando aus.
 
 \subsubsection{Klasse \texttt{CommandExportImage} erbt von \texttt{Command}}
+
 Kommando zum Exportieren der Visualisierung als Bild-Datei (PNG oder SVG). Der Dateityp wird über eine Enumeration bei der Ausführung unterschieden. Fehler oder Hinweise zum erfolgreichen Export werden in der Konsole ausgegeben.
 
-\textbf{\texttt{public CommandExportImage(visualisation: VisualisationPanel,\\console: ConsolePanel, format: ImageFormat)}}\\
+\textbf{\texttt{public CommandExportImage(ConsolePanel console,\\VisualisationPanel visualisation, ImageFormat format, InterpreterManager interpreterManager)}}
+\setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{console}: Schnittstelle der Konsole
+	\item[-] \texttt{visualisation}: Schnittstelle der Visualisierung
 	\item[-] \texttt{format}: Format der Bild-Datei
+	\item[-] \texttt{interpreterManager}: InterpreterManager mit Referenz auf den aktuellen Interpreter
 \end{itemize}
 Initialisiert das Kommando mit Referenzen auf die Schnittstellen der Visualisierung und der Konsole sowie dem gewollten Bild-Format.
 
 \textbf{\texttt{public void execute()}}\\
 Führt das beschriebene Kommando aus.
 
-\section{Ablaufdiagramme}
+\subsubsection{Enum \texttt{ZoomType}}
+
+Repräsentiert die möglichen Modi für Zoom im angezeigten Bildausschnitt der Visualisierung. Wird von CommandZoom verwendet.
+
+\textbf{\texttt{ZoomType.ZOOM\_IN}}\\
+Modus für Vergrößerung des angezeigen Bildausschnitts.
+
+\textbf{\texttt{ZoomType.ZOOM\_OUT}}\\
+Modus für Verkleinerung des angezeigen Bildausschnitts.
+
+\subsubsection{Enum \texttt{ImageFormat}}
+
+Repräsentiert Formate für den Bild-Export der angezeigten Visualisierung.
+
+\textbf{\texttt{ImageFormat.SVG}}\\
+Bildformat SVG (\enquote{Scalable Vector Graphics}) mit der Dateiendung \texttt{.svg}.
+
+\textbf{\texttt{ImageFormat.PNG}}\\
+Bildformat PNG (\enquote{Portable Network Graphics}) mit der Dateiendung \texttt{.png}.
+
+\subsubsection{Enum \texttt{SaveType}}
+
+Gibt an, wie das Speichern eines im Editor eingegebenen Prolog-Programms behandelt werden soll.
+
+\textbf{\texttt{SaveType.SAVE}}\\
+Speichert das Prolog-Programm unter bekanntem Namen und Dateipfad ab, die existierende Datei wird dabei überschrieben.
+
+\textbf{\texttt{SaveType.SAVE\_AS}}\\
+Speichert das Prolog-Programm unter einem neuen Namen bzw. Dateipfad, das bedeutet dass der Nutzer über einen Speichern-unter Dialog aufgefordert wird, einen neuen Speicherort auszuwählen.
+
+\section{Bibliotheken}
+
+\subsection{Paket \texttt{javax.swing}}
+Stellt Komponenten für das Erstellen einer GUI bereit. Das Swing-Paket ist Teil der Java-Standardbibliothek.\\\\Genutzte Datenstrukturen:
+
+\begin{multicols}{2}
+\begin{itemize}
+	\item Klasse: JFrame
+	\item Klasse: JMenu	
+	\item Klasse: JMenuBar
+	\item Klasse: JMenuItem
+	\item Klasse: JToolBar
+	\item Klasse: JButton
+	\item Klasse: JPanel
+	\item Klasse: JTextField
+\end{itemize}
+\end{multicols}
+
+\subsection{Paket \texttt{java.util}}
+Stellt Hilfs-Datenstrukturen bereit. Das Utilities-Paket ist Teil der Java-Standardbibliothek.\\\\Genutzte Datenstrukturen:
+
+\begin{multicols}{2}
+\begin{itemize}
+	\item Klasse: ListResourceBundle
+	\item Klasse: Observable
+	\item Interface: Observer
+\end{itemize}
+\end{multicols}
+
+\subsection{Paket \texttt{org.apache.batik.swing}}
+
+Beinhaltet eine Leinwand mit der es möglich ist, Bilder im SVG-Format anzuzeigen und in diesen zu navigieren. Das Paket stammt aus der Apache Batik Bibliothek, verfügbar unter:\\ \url{https://xmlgraphics.apache.org/batik/}.\\\\Genutzte Datenstrukturen:
+\begin{itemize}
+	\item Klasse: JSVGCanvas
+\end{itemize}
+
+\subsection{Paket \texttt{org.fife.ui.rsyntaxtextarea}}
+
+Beinhaltet ein Textfeld, welches im vgl. zum Textfeld aus dem Swing-Paket zusätzliche Funktionen wie z.B. Code-Faltung (das automatische Umbrechen und Einrücken von Text) unterstützt. Dieses Paket stammt aus der \texttt{RSyntaxTextArea} Bibliothek, verfügbar unter:  \url{https://github.com/bobbylight/RSyntaxTextArea}.\\\\Genutzte Datenstrukturen:
+\begin{itemize}
+	\item Klasse: RSyntaxArea
+\end{itemize}
+
+\subsection{Paket \texttt{guru.nidi.graphviz}}
+
+Beinhaltet Klassen zur Modellierung und grafischen Ausgabe von Graphen. Das Paket stammt aus der \texttt{graphviz-java} Bibliothek, verfügbar unter:\\ \url{https://github.com/nidi3/graphviz-java}.\\\\Genutzte Datenstrukturen:
+\begin{itemize}
+	\item Klasse: Graph
+	\item Klasse: Graphviz
+\end{itemize}
+
+\section{Sequenzdiagramme}
+
+\subsection{Initialisierung der grafischen Benutzeroberfläche}
+
+Aufbausequenz der grafischen Oberfläche. Enthält die Initialisierung der Schnellzugriffsleiste und Menüleiste sowie der Panels für die Visualisierung, die Konsole und den Editor mit den zugehörigen Schaltflächen.
+
+\subsection{Öffnen einer Prolog-Datei}
+
+Ablauf der Öffnen-Sequenz einer Prolog-Datei, welche durch die Interaktion mit der grafischen Oberfläche ausgelöst und über ein Kommando abgewickelt wird. Das Öffnen leert hierbei automatisch auch die Visualisierung sowie die Konsole.
+
+\subsection{Sprachwechsel}
+
+Ablauf des Sprachwechsels. Hierbei wird die aktuell gewählte Sprache zu einer anderen implementierten Sprache geändert und die grafische Oberfläche entsprechend aktualisiert.
+
+\subsection{Interpretationsschritt}
+
+Ablauf der Ausführung eines allgemeinen Interpretationsschritts.
+
+\subsection{Unifikation}
+
+Ablauf der Unifikation zweier Funktoren innerhalb eines Interpretationsschritts.
+
+\subsection{Visualisierung}
+
+Ablauf der Visualisierung nach einem abgeschlossenen Interpretationsschritt. 
+
+\subsection{Graph}
+
+Ablauf der Generierung des Graphen aus dem aktuellen Interpreterzustand in der Visualisierung.
+
+\section{Zustandsdiagramm}
+
+Veranschaulichung der möglichen Zustände und Zustandsübergänge für das Parsen und Interpretieren eines Prolog-Programmes sowie die Ausgabe der Visualisierung.
 
 \appendix
 
