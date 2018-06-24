@@ -1575,13 +1575,13 @@ Parst den Inhalt des Editors. Erstellt den ersten Interpreterzustand.
 \begin{itemize}[noitemsep]
     \item[-] Returns \texttt{StepResult}: Ergebnis des ausgeführten Schritts
 \end{itemize}
-Ist der aktuelle Interpreterzustand der neueste, so wird auf einer Kopie die step() Methode aufgerufen. Die Kopie wird anschließend als neuer Interpreterzustand an die Liste angehängt. Ansonsten wird der Index für den aktuellen Interpreterzustand inkrementiert.
+Ist der aktuelle Interpreterzustand der neueste, so wird auf einer Kopie die step()-Methode aufgerufen. Die Kopie wird anschließend als neuer Interpreterzustand an die Liste angehängt. Ansonsten wird der Index für den aktuellen Interpreterzustand inkrementiert.
 
 \textbf{\texttt{public void runUntilNextSolution()}}\\
-Erstellt einen neuen Thread. Führt in diesem auf einer Kopie des aktuellen Interpreterzustands wiederholt die step() Methode auf, bis eine Lösung gefunden wurde oder von außen eine boolean-Flag für den Abbruch gesetzt wurde.
+Erstellt einen neuen Thread. Führt in diesem auf einer Kopie des aktuellen Interpreterzustands wiederholt die step()-Methode auf, bis eine Lösung gefunden wurde oder von außen eine boolean-Flag für den Abbruch gesetzt wurde.
 
 \textbf{\texttt{public void cancel()}}\\
-Setzt die boolean-Flag für den Thread auf false und bricht somit runUntilNextSolution() Methode ab. 
+Setzt die boolean-Flag für den Thread auf false und bricht somit runUntilNextSolution()-Methode ab. 
 
 \textbf{\texttt{public Interpreter getCurrentState()}}
 \setlist{nolistsep}
