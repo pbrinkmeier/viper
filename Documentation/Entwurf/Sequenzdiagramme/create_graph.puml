@@ -1,0 +1,118 @@
+@startuml
+
+!include style.puml
+
+participant "commandNextStep: CommandNextStep" as commandNextStep
+participant "GraphvizMaker" as GraphvizMaker <<class>>
+participant "interpreterInstance: Interpreter" as interpreterInstance
+participant "root: ActivationRecord" as root
+participant "graphvizMaker: GraphvizMaker" as graphvizMaker
+participant "graph: MutableGraph" as graph
+participant "functor: Functor" as functor
+participant "Factory" as Factory <<class>>
+participant "node: MutableNode" as node
+participant "optionalUnificationResult: OptionalUnificationResult" as optionalUnificationResult
+participant "unificationResult: UnificationResult" as unificationResult
+
+activate commandNextStep
+
+note left of commandNextStep
+    commandNextStep hat soeben eine interpreterInstance
+    vom InterpreterManager bekommen 
+end note
+
+commandNextStep -> GraphvizMaker : createGraph(interpreterInstance)
+
+GraphvizMaker -> interpreterInstance : getCurrent()
+GraphvizMaker <-- interpreterInstance : current
+
+GraphvizMaker -> interpreterInstance : getNext()
+GraphvizMaker <-- interpreterInstance : next
+
+create graphvizMaker
+GraphvizMaker -> graphvizMaker : <<create>>(current, next)
+
+create graph
+graphvizMaker -> graph : <<create>>
+graphvizMaker <-- graph
+
+GraphvizMaker <-- graphvizMaker
+
+GraphvizMaker -> interpreterInstance : getQuery()
+GraphvizMaker <-- interpreterInstance : root
+
+GraphvizMaker -> root : accept(graphvizMaker)
+
+root -> graphvizMaker : visit(root)
+
+graphvizMaker -> root : getFunctor().toHtml()
+graphvizMaker <-- root : functorHead
+
+graphvizMaker -> Factory : mutNode("<"+functorHead+">")
+graphvizMaker <-- Factory : node
+
+graphvizMaker -> graph : add(node)
+graphvizMaker <-- graph
+
+alt root == graphvizMaker.getNext()
+    graphvizMaker -> graphvizMaker : setNextNode(node)
+    graphvizMaker <-- graphvizMaker
+    |||
+end
+
+alt root.hasBeenVisited() 
+    alt !getUnificationResult().isPresent()
+        graphvizMaker -> graphvizMaker : getNextNode()
+        graphvizMaker <-- graphvizMaker : nextNode
+
+        graphvizMaker -> node : link(nextNode)
+        graphvizMaker <-- node
+        |||
+    else else
+        graphvizMaker -> root : getMatchingHead().toHtml()
+        graphvizMaker <-- root : functorHead
+
+        graphvizMaker -> root : getUnificationResult.toHtml()
+        graphvizMaker <-- root : substitutions
+
+        graphvizMaker -> Factory : mutNode("<"+name+">")
+        graphvizMaker <-- Factory : node
+
+        graphvizMaker -> node : with(Records.label("<{"+functorHead+"|"+substitutions+"}>"))
+        graphvizMaker <-- node
+
+        alt getUnificationResult.isSuccess()
+            graphvizMaker -> node : add(Color.GREEN)        
+            graphvizMaker <-- node
+            
+            loop for current Substeps
+                graphvizMaker -> root : getSubstepS()
+                graphvizMaker <-- root : List<ActivationRecord>
+
+                graphvizMaker -> substep : accept(graphvizMaker)
+                ... visit(substep) ...
+                graphvizMaker <-- substep : substepNode
+
+                graphvizMaker -> node : link(substepNode)
+                graphvizMaker <-- node
+            |||
+            end
+        else else 
+            graphvizMaker -> node : add(Color.RED)
+            graphvizMaker <-- node
+            |||
+        end
+
+        graphvizMaker -> graph : add(node)
+        graphvizMaker <-- graph
+        |||
+    end
+end
+
+root <-- graphvizMaker
+
+GraphvizMaker <-- root
+
+commandNextStep <-- GraphvizMaker: graph
+
+@enduml

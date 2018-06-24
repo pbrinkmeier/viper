@@ -1,0 +1,176 @@
+@startuml
+
+!include style.puml
+
+Actor "User" as user
+participant "nextStepButton: Button" as nextStepButton
+participant "commandNextStep: CommandNextStep" as commandNextStep
+participant "interpreterManager: InterpreterManager" as interpreterManager
+participant "interpreters: List<Interpreter>" as interpreters
+participant "oldInstance: InterpreterInstance" as oldInstance
+participant "interpreterInstance: InterpreterManager" as interpreterInstance
+participant "current: FunctorActivationRecord" as current
+participant "lhs: Functor" as lhs
+participant "rhs: Functor" as rhs
+participant "unifierCreator: UnifierCreator" as unifierCreator
+participant "unifier: FunctorUnifier" as unifier
+participant "unificationResult: UnificationResult" as unificationResult
+participant "substeps: List<ActivationRecord>" as substeps
+participant "subGoal: SubGoal" as subGoal
+
+user -> nextStepButton : click
+
+nextStepButton -> commandNextStep : execute()
+
+commandNextStep -> interpreterManager : step()
+
+interpreterManager -> interpreterManager : getCurrentIndex()
+interpreterManager <-- interpreterManager : index
+
+interpreterManager -> interpreters : size()
+interpreterManager <-- interpreters : size
+
+alt index != size-1
+    interpreterManager -> interpreterManager : setCurrentIndex(index+1)
+    interpreterManager <-- interpreterManager
+
+    interpreterManager -> interpreterManager : getCurrentState()
+    interpreterManager <-- interpreterManager : interpreterInstance
+    |||
+else else 
+    interpreterManager -> interpreterManager : getCurrentState()
+    interpreterManager <-- interpreterManager : oldInstance
+
+    interpreterManager -> oldInstance : copy()
+    interpreterManager <-- oldInstance : interpreterInstance
+
+    interpreterManager -> interpreterInstance : step()
+
+    interpreterInstance -> interpreterInstance : getNext()
+    interpreterInstance <-- interpreterInstance : current
+
+    interpreterInstance -> current : step()
+
+    alt !current.hasBeenVisited()
+        current -> current : setIndex(0) 
+        current <-- current
+
+        current -> current : setVisited(true)
+        current <-- current
+        |||
+    end
+
+    alt current.getRuleIndex() >= current.getMatchingRules().size()
+        current -> current : getPrevious()
+        current <-- current : next
+        
+        current -> current : setVisited(false)
+        current <-- current
+        |||
+    else else
+        current -> current : getInterpreter()
+        current <-- current : interpreterInstance
+
+        current -> interpreterInstance : getAndIncrementUnificationIndex()
+        current <-- interpreterInstance : unificationIndex
+
+        current -> current : setUnificationIndex(unificationIndex)
+        current <-- current
+
+        current -> current : getMatchingRuleHead()
+        current <-- current : lhs
+        
+        current -> current : getFunctor()
+        current <-- current : rhs
+
+        create unifierCreator
+        current -> unifierCreator : <<create>>
+        current <-- unifierCreator
+
+        current -> lhs : accept(unifierCreator)
+        
+        lhs -> unifierCreator : visit(lhs)
+
+        create unifier
+        unifierCreator -> unifier : <<create>>
+        unifierCreator <-- unifier
+
+        lhs <-- unifierCreator : unifier
+        
+        current <-- lhs : unifier
+        
+        current -> rhs : accept(unifier)
+        
+        rhs -> unifier : visit(rhs)
+            note right of unifier
+                Unifikation ist in einem anderen Sequenzdiagramm genauer beschrieben
+            end note
+        rhs <-- unifier : unificationResult
+
+        current <-- rhs : unificationResult
+        
+        current -> current : setUnificationResult(unificationResult)
+        current <-- current
+
+        alt !unificationResult.isSuccess()
+            note over current
+                next = current
+            end note
+            |||
+        else else
+            create substeps
+            current -> substeps : <<create>>
+            current <-- substeps
+
+            current -> unificationResult : getSubstitutions
+            current <-- unificationResult : substitutions
+
+            current -> current : setEnv(new Environment(current, substitutions))
+            current <-- current
+
+            loop for each subGoal in current.getMatchingRule().getSubGoals()
+                current -> subGoal : transform(new Indexifier(unificationIndex))
+                current <-- subGoal : subGoal
+                
+                current -> subGoal : createActivationRecord(interpreterInstance, Optional.of(current))
+                current <-- subGoal : record
+
+                current -> substeps : add(record)
+                current <-- substeps
+                
+                current -> current : setSubsteps(substeps)
+                current <-- current
+                |||
+            end 
+            alt current.subteps.size() == 0
+                current -> current : getNext()
+                current <-- current : next
+            else else
+                current -> substeps : get(0)
+                current <-- substeps : next
+            end
+        end
+    end
+
+    interpreterInstance <-- current : next
+
+    interpreterInstance -> interpreterInstance : setCurrent(current)
+    interpreterInstance <-- interpreterInstance
+
+    interpreterInstance -> interpreterInstance : setNext(next)
+    interpreterInstance <-- interpreterInstance
+
+    interpreterManager <-- interpreterInstance
+    |||
+end
+
+interpreterManager -> interpreterInstance : getResult()
+interpreterManager <-- interpreterInstance : result
+
+commandNextStep <-- interpreterManager : result
+
+nextStepButton <-- commandNextStep
+
+user <-- nextStepButton
+
+@enduml

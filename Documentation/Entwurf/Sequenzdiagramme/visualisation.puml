@@ -1,0 +1,100 @@
+@startuml
+
+!include style.puml
+
+actor "User" as user
+participant "nextStepButton: Button" as nextStepButton
+participant "commandNextStep: Command" as commandNextStep
+participant "InterpreterManager" as InterpreterManager <<class>>
+participant "interpreterInstance: Interpreter" as interpreterInstance
+participant "GraphvizMaker" as GraphvizMaker <<class>>
+participant "visualisationPanel: VisualisationPanel" as visualisationPanel
+participant "visualisationViewer: VisualisationViewer" as visualisationViewer
+participant "graphviz: Graphviz" as graphviz 
+participant "file: File" as file
+participant "LanguageManager" as LanguageManager <<class>>
+participant "consolePanel: ConsolePanel" as consolePanel
+participant "consoleOutputArea: ConsoleOutputArea" as consoleOutputArea
+
+user -> nextStepButton : click
+
+nextStepButton -> commandNextStep : execute()
+
+commandNextStep -> InterpreterManager : step()
+note right of InterpreterManager
+    Wenn nicht neuester interpreter, erhöhe index von currentState um 1;
+    Ansonsten kopiere neuesten interpreter, führe step() aus, füge zur Liste hinzu
+    und erhöhe Index von currentState um 1
+end note
+commandNextStep <-- InterpreterManager : result
+
+commandNextStep -> InterpreterManager : getCurrentState()
+commandNextStep <-- InterpreterManager : interpreterInstance
+
+commandNextStep -> GraphvizMaker : createGraph(interpreterInstance)
+note right of GraphvizMaker
+    Grapherstellung ist in anderem Sequenzdiagramm genauer beschrieben
+end note
+commandNextStep <-- GraphvizMaker : graph
+
+commandNextStep -> visualisationPanel : setFromGraph(graph)
+
+visualisationPanel -> visualisationViewer : setFromGraph(graph)
+
+create graphviz
+visualisationViewer -> graphviz : <<create>>
+visualisationViewer <-- graphviz    
+
+visualisationViewer -> graphviz : fromGraph(graph)
+visualisationViewer <-- graphviz
+
+visualisationViewer -> graphviz : render(Format.SVG)
+visualisationViewer <-- graphviz
+
+create file
+visualisationViewer -> file : <<create>>
+visualisationViewer <-- file
+
+visualisationViewer -> graphviz : toFile(file)
+visualisationViewer <-- graphviz
+
+visualisationViewer -> visualisationViewer : setURI(file)
+visualisationViewer <-- visualisationViewer
+
+visualisationPanel <-- visualisationViewer
+
+commandNextStep <-- visualisationPanel
+
+alt result == StepResult.SOLUTION_FOUND
+    commandNextStep -> interpreterInstance : getSolution()
+    commandNextStep <-- interpreterInstance : solution
+
+    commandNextStep -> LanguageManager : getString("solutionFound");
+    commandNextStep <-- LanguageManager : translation
+
+    commandNextStep -> consolePanel : printLine(translation + " " + solution)
+    consolePanel -> consoleOutputArea : printLine(translation + " " + solution)
+    consolePanel <-- consoleOutputArea
+    commandNextStep <-- consolePanel
+    |||
+end 
+
+alt result == StepResult.NO_MORE_SOLUTIONS
+    commandNextStep -> nextStepButton : setEnabled(false)
+    commandNextStep <-- nextStepButton
+
+    commandNextStep -> LanguageManager : getString("noMoreSolutions");
+    commandNextStep <-- LanguageManager : translation    
+
+    commandNextStep -> consolePanel : printLine(translation);
+    consolePanel -> consoleOutputArea : printLine(translation)
+    consolePanel <-- consoleOutputArea
+    commandNextStep <-- consolePanel
+    |||
+end
+
+nextStepButton <-- commandNextStep
+
+user <-- nextStepButton
+
+@enduml

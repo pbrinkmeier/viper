@@ -1,0 +1,120 @@
+@startuml
+
+!include style.puml
+
+participant "gui: MainWindow" as gui
+participant "menuBar: MenuBar" as menuBar
+participant "fileMenu: JMenu" as fileMenu
+participant "saveMenuItem: JMenuItem" as saveMenuItem
+participant "toolBar: ToolBar" as toolBar
+participant "saveButton: Button" as saveButton
+participant "consolePanel: ConsolePanel" as consolePanel
+participant "consoleOutputArea: ConsoleOutputArea" as consoleOutputArea
+participant "consoleInputField: ConsoleInputField" as consoleInputField
+
+autoactivate on
+
+[-> gui : Program start
+
+gui -> gui : initMenuBar()
+
+create menuBar
+gui -> menuBar : <<create>>
+
+loop for each Menu
+    menuBar -> menuBar : initFileMenu()
+    
+    create fileMenu
+    menuBar -> fileMenu : <<create>>
+    
+    loop for each MenuItem
+        fileMenu -> fileMenu : initSaveMenuItem
+
+        create saveMenuItem
+        fileMenu -> saveMenuItem : <<create>>
+        fileMenu <-- saveMenuItem        
+
+        fileMenu <-- fileMenu
+
+        fileMenu -> fileMenu : add(saveMenuItem)   
+        fileMenu <-- fileMenu
+        |||
+    end
+
+    menuBar <-- fileMenu
+    
+    menuBar <-- menuBar
+
+    menuBar -> menuBar : add(fileMenu)
+    menuBar <-- menuBar
+    |||
+end
+
+gui <-- menuBar
+
+gui -> gui : add(menuBar)
+gui <-- gui
+
+gui <-- gui
+
+gui -> gui : initToolBar()
+
+create toolBar
+gui -> toolBar : <<create>>
+
+loop for each Button
+    toolBar -> toolBar : initSaveButton
+    
+    create saveButton
+    toolBar -> saveButton : <<create>>
+    toolBar <-- saveButton
+
+    toolBar <-- toolBar
+
+    toolBar -> toolBar : add(saveButton)
+    toolBar <-- toolBar
+    |||
+end
+
+gui <-- toolBar
+
+gui <-- gui
+
+gui -> gui : add(toolBar)
+gui <-- gui
+
+gui -> gui : initConsolePanel()
+
+create consolePanel
+gui -> consolePanel : <<create>>
+
+create consoleOutputArea
+consolePanel -> consoleOutputArea : <<create>>
+consolePanel <-- consoleOutputArea
+
+consolePanel -> consolePanel : add(consoleOutputArea)
+consolePanel <-- consolePanel
+
+create consoleInputField
+consolePanel -> consoleInputField : <<create>>
+consolePanel <-- consoleInputField
+
+consolePanel -> consolePanel : add(consoleInputArea)
+consolePanel <-- consolePanel
+
+gui <-- consolePanel
+
+gui -> gui : add(consolePanel)
+gui <-- gui
+
+gui <-- gui 
+
+note left of gui
+    Analog für
+     - visualisationPanel (fügt VisualisationViewer und ZoomButtons hinzu)
+     - editorPanel (fügt RSyntaxArea hinzu)
+end note
+
+[<-- gui : init complete
+
+@enduml
