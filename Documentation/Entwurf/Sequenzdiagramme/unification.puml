@@ -2,4 +2,121 @@
 
 !include style.puml
 
+Actor "User" as user
+participant "lhs: Functor" as lhs
+participant "rhs: Functor" as rhs
+participant "unifierCreator: UnifierCreator" as unifierCreator
+participant "unifier: FunctorUnifier" as unifier
+participant "UnificationResult" as UnificationResult <<class>>
+participant "substitutions: List<Substitution>" as substitutions
+participant "lhsSubTerms: List<Term>" as lhsSubTerms
+participant "rhsSubTerms: List<Term>" as rhsSubTerms
+participant "subLhs: Term" as subLhs
+participant "subRhs: Term" as subRhs
+participant "replacer: SubstitutionVisitor" as replacer
+participant "subUnifierCreator: UnifierCreator" as subUnifierCreator
+participant "subUnifier: Unifier" as subUnifier
+
+user -> lhs : accept(unifierCreator)
+
+lhs -> unifierCreator : visit(lhs)
+
+create unifier
+unifierCreator -> unifier : <<create>>(lhs)
+unifierCreator <-- unifier
+
+lhs <-- unifierCreator : unifier
+
+user <-- lhs : unifier
+
+user -> rhs : accept(unifier)
+
+rhs -> unifier : visit(rhs)
+
+unifier -> unifier : getFunctor(lhs)
+unifier <-- unifier : lhs
+
+unifier -> lhs : getName()
+unifier <-- lhs : lhsName
+
+unifier -> lhs : getArity()
+unifier <-- lhs : lhsArity
+
+unifier -> rhs : getName()
+unifier <-- rhs : rhsName
+
+unifier -> rhs : getArity()
+unifier <-- rhs : rhsArity
+
+alt !lhsName.equals(rhsName) || lhsArity != rhsArity
+    unifier -> UnificationResult : fail(lhs, rhs)
+    unifier <-- UnificationResult : result
+    |||
+else  else 
+    create substitutions
+    unifier -> substitutions : <<create>>
+    unifier <-- substitutions
+
+    unifier -> lhs : getSubterms()
+    unifier <-- lhs : lhsSubterms
+
+    unifier -> rhs : getSubterms()
+    unifier <-- rhs : rhsSubTerms
+    |||
+
+    loop for each index in [0..lhsTerms.size()-1]
+
+        unifier -> lhsSubTerms : get(index)
+        unifier <-- lhsSubTerms : subLhs
+
+        unifier -> rhsSubTerms : get(index)
+        unifier <-- rhsSubTerms : subRhs
+
+        loop for each substitution in substitutions
+            create replacer
+            unifier -> replacer : <<create>>(substitution)
+            unifier <-- replacer
+
+            unifier -> subLhs : transform(replacer)
+            unifier <-- subLhs : subLhs
+
+            unifier -> subRhs : transform(replacer)
+            unifier <-- subRhs : subRhs
+        end
+
+        create subUnifierCreator
+        unifier -> subUnifierCreator : <<create>>
+        unifier <-- subUnifierCreator
+        
+        unifier -> subLhs : accept(subUnifierCreator)
+        subLhs -> subUnifierCreator : visit(lhs)
+
+        create subUnifier
+        subUnifierCreator -> subUnifier : <<create>>
+        subUnifierCreator <-- subUnifier
+
+        subLhs <-- subUnifierCreator : subUnifier
+        unifier <-- subLhs : subUnifier
+
+        unifier -> subRhs : accept(subUnifier)
+        ... recursive unification ...
+        unifier <-- subRhs : subResult
+
+        alt !subResult.isSuccess()
+            note over unifier
+                set result = subResult and break loop
+            end note
+            |||
+        else else
+            unifier -> substitutions : addAll(subResult.getSubstitutions())
+            unifier <-- substitutions
+            |||
+        end
+    end
+end
+
+rhs <-- unifier : result
+
+user <-- rhs
+
 @enduml
