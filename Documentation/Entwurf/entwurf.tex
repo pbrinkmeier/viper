@@ -90,7 +90,7 @@ Enthält Klassen, welche den abstrakten Syntax-Baum (\enquote{abstract syntax tr
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Klasse \texttt{KnowledgeBase}}
-Enthält geordnete Menge von Prolog-Regeln, welche durch den Parser eingelesen werden. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
+Enthält eine geordnete Menge von Prolog-Regeln, welche durch den Parser eingelesen werden. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
 
 \textbf{\texttt{public KnowledgeBase(List<Rule> rules)}}
 \setlist{nolistsep}
@@ -571,7 +571,7 @@ Getter-Funktion für die rechte Seite des Vergleichs.
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{lhs}: Linke Seite des Vergleichs
 	\item[-] \texttt{rhs}: Rechte Seite des Vergleichs
-	\item[-] Returns \texttt{boolean}: Boolscher Wert der aussagt, ob der Vergleich wahr ist
+	\item[-] Returns \texttt{boolean}: Boolscher Wert, der aussagt, ob der Vergleich wahr ist
 \end{itemize}
 Führt den Vergleich aus und gibt den Wahrheitswert des Vergleiches zurück.
 
@@ -646,17 +646,16 @@ Initialisiert ein Ungleichheits-Ziel mit einer linken und einer rechten Seite.
 \newpage
 \subsection{Paket \texttt{edu.kit.ipd.pp.viper.model.parser}}
 
-Das Parser-Paket enhält mehrere Klassen, welche für die Generierung eines abstrakten Syntax-Baums aus einem gegebenen Prolog-Programm zuständig sind.
+Das Parser-Paket enthält mehrere Klassen, welche für die Generierung eines abstrakten Syntax-Baums aus einem gegebenen Prolog-Programm zuständig sind.
 
 \subsubsection{Klasse \texttt{PrologParser}}
 
-Die PrologParser Klasse ist in der Lage, einen gegebenen, korrekten Prolog-Programmcode in eine intere Datenstruktur umzuwandeln. Bei inkorrekten Prolog-Programmen wird eine ParseException geworfen.
+Die PrologParser Klasse ist in der Lage, einen gegebenen, korrekten Prolog-Programmcode in eine interne Datenstruktur umzuwandeln. Bei inkorrekten Prolog-Programmen wird eine ParseException geworfen.
 
 \textbf{\texttt{public PrologParser(String program)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
 	\item[-] \texttt{program}: Der zu parsende Prolog-Programmcode
-	\item[-] Throws \texttt{ParseException}: Der gegebene Prolog-Programmcode konnte aufgrund von Syntax-Fehlern nicht geparst werden.
 \end{itemize}
 Erstellt eine neue Instanz des Parsers zu einem gegebenen Prolog-Programmcode.
 
@@ -672,7 +671,7 @@ Gibt die vom Parser in einen abstrakten Syntax-Baum umgewandelte Wissensdatenban
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{List<Goal>}: Liste von gefundenen Zielen
 \end{itemize}
-Gibt eine Liste von gefundenen Zielen zurück.
+Gibt eine Liste von gefundenen Zielen zurück. Die zurückgegebene Liste ist immutable.
 
 \subsubsection{Klasse \texttt{PrologLexer}}
 
@@ -688,34 +687,34 @@ Erstellt ein neue Instanz vom Lexer zu einem gegebenen Prolog-Programm.
 \textbf{\texttt{public Token nextToken()}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] Returns \texttt{Token}: Der nächste gefundenen Token. Das Ende des Prolog-Programms wird durch einen Token mit dem Typ \texttt{TokenType.EOF} angegeben
+	\item[-] Returns \texttt{Token}: Der nächste gefundene Token. Das Ende des Prolog-Programms wird durch einen Token mit dem Typ \texttt{TokenType.EOF} angegeben
 \end{itemize}
 Gibt den nächsten gefundenen Token des Prolog-Programms zurück.
 
 \subsubsection{Klasse \texttt{PrologException} erbt von \texttt{java.lang.Exception}}
 
-Eine eigene Exception, die vom Parser und Lexer im Falle von Syntax-Fehlern geworfen wird.
+Exception, die vom Parser und Lexer im Falle von Syntax-Fehlern geworfen wird.
 
 \textbf{\texttt{public PrologException(String message)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{message}: Die Fehlernachricht
+	\item[-] \texttt{message}: Fehlermeldung
 \end{itemize}
 Erstellt eine neue Exception mit einer gegebenen Fehlermeldung.
 
 \subsubsection{Klasse \texttt{Token}}
 
-Ein Token stellt ein in Prolog sinnvolles Zeichen dar, d.h. Schlüsselwörter, Trennzeichen, arithmetische Operatoren etc. Identifier, Variablen und Zahlen sind ebenfalls Tokens, auch wenn diese möglicherweise aus mehr als einem Zeichen bestehen.
+Repräsentiert ein in Prolog sinnvolles Zeichen, d.h. Schlüsselwörter, Trennzeichen, arithmetische Operatoren etc. Identifier, Variablen und Zahlen sind ebenfalls Tokens, auch wenn diese möglicherweise aus mehr als einem Zeichen bestehen. Diese Klasse ist immutable, sie kann nach der Instantiierung nicht mehr verändert werden.
 
 \textbf{\texttt{public Token(TokenType type, String text, int line, int col)}}
 \setlist{nolistsep}
 \begin{itemize}[noitemsep]
-	\item[-] \texttt{type}: Typ dieses Tokens, d.h. ein arithmetische Operator, ein Trennzeichen, eine Klammer, eine Variable etc.
-	\item[-] \texttt{text}: Ein oder mehrere Zeichen aus dem Prolog-Programm, welche dieses Token darstellen
+	\item[-] \texttt{type}: Typ des Tokens, d.h. ein arithmetische Operator, ein Trennzeichen, eine Klammer, eine Variable etc.
+	\item[-] \texttt{text}: Einzelnes oder mehrere Zeichen aus dem Prolog-Programm, welche dieses Token darstellen
 	\item[-] \texttt{line}: Zeile, in welcher dieses Token gefunden wurde
 	\item[-] \texttt{col}: Position innerhalb einer Zeile, an welcher dieses Token gefunden wurde
 \end{itemize}
-Erstellt ein neues, unveränderliches (\texttt{immutable}) Token mit einem Typ, einem oder mehreren Zeichen (die dieses Token darstellen), sowie einer Positionsangabe.
+Erstellt ein neues Token mit einem Typ, einem oder mehreren Zeichen (die dieses Token darstellen), sowie einer Positionsangabe.
 
 \textbf{\texttt{public TokenType getType()}}
 \setlist{nolistsep}
@@ -750,7 +749,7 @@ Gibt die Position innerhalb der Zeile zurück, in der dieses Token gefunden wurd
 \begin{itemize}[noitemsep]
 	\item[-] Returns \texttt{String}: Lesbare Darstellung des Tokens
 \end{itemize}
-Gibt eine lesbare Darstellung des Tokens zurück, welche beispielsweise für Fehlermeldungen verwendet werden kann.
+Gibt eine lesbare Darstellung des Tokens zurück.
 
 \subsubsection{Enum \texttt{TokenType}}
 
@@ -1610,7 +1609,7 @@ Gibt die Übersetzung für den Schlüssel \texttt{key} in der aktuell gesetzten 
 \begin{itemize}[noitemsep]
     \item[-] Returns \texttt{List<Locale>}: Liste mit unterstützten Sprachen
 \end{itemize}
-Gibt eine Liste mit allen unterstützten Sprachen zurück.
+Gibt eine Liste mit allen unterstützten Sprachen zurück. Die zurückgegebene Liste ist immutable.
 
 \subsubsection{Klasse \texttt{InterpreterManager}}
 
@@ -1651,7 +1650,7 @@ Gibt den aktuellen Interpreterzustand aus der internen Liste an Interpreterzust�
 \begin{itemize}[noitemsep]
     \item[-] Returns \texttt{List<Substitution>}: Eine Liste an Substitutionen
 \end{itemize}
-Gibt eine Liste an Substitutionen zurück, unter deren Anwendung die Abfrage des aktuellen Interpreters wahr ist.
+Gibt eine Liste an Substitutionen zurück, unter deren Anwendung die Abfrage des aktuellen Interpreters wahr ist. Die zurückgegebene Liste ist immutable.
 
 \subsubsection{Klasse \texttt{Command}}
 
@@ -1984,7 +1983,7 @@ Ablauf des Sprachwechsels. Hierbei wird die aktuell gewählte Sprache zu einer a
 
 \subsection{Interpretationsschritt}
 
-Ablauf der Ausführung eines allgemeinen Interpretationsschritts.
+Ablauf der Ausführung eines Interpretationsschritts in einem FunctorActivationRecord.
 
 \subsection{Unifikation}
 
