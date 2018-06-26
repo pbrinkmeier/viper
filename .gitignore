@@ -248,3 +248,9 @@ gradle-app.setting
 .gradletasknamecache
 
 !gradle-wrapper.jar
+/bin/
+
+# eclipse files
+.classpath
+.project
+.settings/
