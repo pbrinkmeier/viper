@@ -241,3 +241,10 @@ TSWLatexianTemp*
 
 # standalone packages
 *.sta
+
+# gradle files
+.gradle/
+gradle-app.setting
+.gradletasknamecache
+
+!gradle-wrapper.jar

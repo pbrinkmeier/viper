@@ -1,0 +1,19 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+version = 1.0
+mainClassName = 'edu.kit.ipd.pp.viper.view.MainWindow'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    compile 'com.fifesoft:rsyntaxtextarea:2.6.1'
+    compile 'org.apache.xmlgraphics:batik:1.10'
+    compile 'guru.nidi:graphviz-java:0.5.2'
+}
