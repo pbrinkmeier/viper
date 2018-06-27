@@ -18,3 +18,16 @@ dependencies {
     compile 'org.apache.xmlgraphics:batik-all:1.10'
     compile 'guru.nidi:graphviz-java:0.5.2'
 }
+
+jar {
+	manifest {
+		attributes(
+			'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+			'Main-Class': mainClassName
+		)
+	}
+
+	from {
+		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
