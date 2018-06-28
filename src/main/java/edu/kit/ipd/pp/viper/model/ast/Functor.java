@@ -79,7 +79,7 @@ public class Functor extends Term {
      * @return the result of evaluating this term; in the case of a functor, there will never be any result
      */
     @Override
-    public Number evaluate() throws TermEvaluationException {
+    public Number evaluate() throws UnsupportedTermException {
         throw new UnsupportedTermException(this);
     }
 

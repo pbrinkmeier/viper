@@ -55,7 +55,7 @@ public final class Variable extends Term {
     /**
      * @return evaluates the variable arithmetically (always throws an UnsetVariableException, since trying to evaluate a variable means that it hasnt been set)
      */
-    public Number evaluate() throws TermEvaluationException {
+    public Number evaluate() throws UnsetVariableException {
         throw new UnsetVariableException(this);
     }
 

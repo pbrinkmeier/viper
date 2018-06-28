@@ -38,7 +38,7 @@ public class VariableTest {
     }
 
     @Test(expected = UnsetVariableException.class)
-    public void evaluateTest() throws TermEvaluationException {
+    public void evaluateTest() throws UnsetVariableException {
         this.withoutIndex.evaluate();
     }
 }

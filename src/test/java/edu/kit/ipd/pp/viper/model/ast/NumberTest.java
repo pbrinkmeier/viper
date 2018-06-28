@@ -27,7 +27,7 @@ public class NumberTest {
     }
 
     @Test
-    public void evaluateTest() throws TermEvaluationException {
+    public void evaluateTest() {
         Number evaluated = this.num.evaluate();
 
         assertEquals(this.num.getNumber(), evaluated.getNumber());

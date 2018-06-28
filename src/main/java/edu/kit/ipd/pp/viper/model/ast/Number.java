@@ -35,7 +35,7 @@ public final class Number extends Term {
     /**
      * @return just this number
      */
-    public Number evaluate() throws TermEvaluationException {
+    public Number evaluate() {
         return this;
     }
 

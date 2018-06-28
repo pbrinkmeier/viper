@@ -30,7 +30,7 @@ public class FunctorTest {
     }
 
     @Test(expected = UnsupportedTermException.class)
-    public void evaluateTest() throws TermEvaluationException {
+    public void evaluateTest() throws UnsupportedTermException {
         this.fun.evaluate();
     }
 
