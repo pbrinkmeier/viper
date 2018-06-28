@@ -6,14 +6,21 @@ public final class Variable extends Term {
     private final String name;
     private final Optional<Integer> index;
 
+    /**
+     * Initializes a new variable with just a name, no index.
+     *
+     * @param name the variables name
+     */
     public Variable(String name) {
         this.name = name;
         this.index = Optional.empty();
     }
 
     /**
-     * @param name 
-     * @param index
+     * Initializes a new variable with a name and an index.
+     *
+     * @param name the variables name
+     * @param index the variables index
      */
     public Variable(String name, Integer index) {
         this.name = name;
@@ -21,22 +28,24 @@ public final class Variable extends Term {
     }
 
     /**
-     * @return
+     * @return the variables name
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * @return
+     * @return the variables optional index
      */
     public Optional<Integer> getIndex() {
         return this.index;
     }
 
     /**
-     * @param visitor 
-     * @return
+     * Implements the visitor pattern for Term
+     *
+     * @param visitor visitor to visit this Variable
+     * @return result of the visit
      */
     @Override
     public <ResultType> ResultType accept(TermVisitor<ResultType> visitor) {
@@ -44,24 +53,23 @@ public final class Variable extends Term {
     }
 
     /**
-     * @return
+     * @return evaluates the variable arithmetically (always throws an UnsetVariableException, since trying to evaluate a variable means that it hasnt been set)
      */
     public Number evaluate() throws TermEvaluationException {
         throw new UnsetVariableException(this);
     }
 
     /**
-     * @return
+     * @return a string representation of this variable
      */
     public String toString() {
         return this.getName() + (this.getIndex().isPresent() ? String.format("/%d", this.getIndex().get()) : "");
     }
 
     /**
-     * @return
+     * @return a GraphViz-compatible HTML representation of this variable
      */
     public String toHtml() {
-        // TODO
-        return null;
+        return this.getName() + (this.getIndex().isPresent() ? String.format("<sub>%d</sub>", this.getIndex().get()) : "");
     }
 }
