@@ -22,8 +22,10 @@ public final class Number extends Term {
     }
 
     /**
-     * @param visitor 
-     * @return
+     * Implements the visitor pattern on Term.
+     *
+     * @param visitor visitor to visit this Number
+     * @return result of the visit
      */
     @Override
     public <ResultType> ResultType accept(TermVisitor<ResultType> visitor) {
@@ -38,14 +40,14 @@ public final class Number extends Term {
     }
 
     /**
-     * @return
+     * @return a string representation of this number
      */
     public String toString() {
         return String.format("%d", this.getNumber());
     }
 
     /**
-     * @return
+     * @return a GraphViz-compatible HTML representation of this number
      */
     public String toHtml() {
         return this.toString();
