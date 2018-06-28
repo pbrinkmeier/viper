@@ -3,53 +3,58 @@ package edu.kit.ipd.pp.viper.model.ast;
 import java.util.Optional;
 
 public final class Variable extends Term {
+    private final String name;
+    private final Optional<Integer> index;
+
+    public Variable(String name) {
+        this.name = name;
+        this.index = Optional.empty();
+    }
+
     /**
      * @param name 
      * @param index
      */
     public Variable(String name, Integer index) {
-        // TODO
+        this.name = name;
+        this.index = Optional.of(Integer.valueOf(index));
     }
 
     /**
      * @return
      */
     public String getName() {
-        // TODO
-        return "";
+        return this.name;
     }
 
     /**
      * @return
      */
     public Optional<Integer> getIndex() {
-        // TODO
-        return null;
+        return this.index;
     }
 
     /**
      * @param visitor 
      * @return
      */
-    public Term accept(TermVisitor<Term> visitor) {
-        // TODO
-        return null;
+    @Override
+    public <ResultType> ResultType accept(TermVisitor<ResultType> visitor) {
+        return visitor.visit(this);
     }
 
     /**
      * @return
      */
-    public Number evaluate() {
-        // TODO
-        return null;
+    public Number evaluate() throws TermEvaluationException {
+        throw new UnsetVariableException(this);
     }
 
     /**
      * @return
      */
     public String toString() {
-        // TODO
-        return null;
+        return this.getName() + (this.getIndex().isPresent() ? String.format("/%d", this.getIndex().get()) : "");
     }
 
     /**

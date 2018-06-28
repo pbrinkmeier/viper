@@ -1,19 +1,24 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
 public final class Number extends Term {
+    private final int number;
+
     /**
-     * @param number
+     * Creates a new (immutable) number term.
+     *
+     * @param number Number this term represents
      */
     public Number(int number) {
-        // TODO
+        this.number = number;
     }
 
     /**
-     * @return
+     * Getter-method for the number this term represents.
+     *
+     * @return number this term represents
      */
     public int getNumber() {
-        // TODO
-        return 0;
+        return this.number;
     }
 
     /**
@@ -21,32 +26,28 @@ public final class Number extends Term {
      * @return
      */
     @Override
-    public Term accept(TermVisitor<Term> visitor) {
-        // TODO
-        return null;
+    public <ResultType> ResultType accept(TermVisitor<ResultType> visitor) {
+        return visitor.visit(this);
     }
 
     /**
-     * @return
+     * @return just this number
      */
-    public Number evaluate() {
-        // TODO
-        return null;
+    public Number evaluate() throws TermEvaluationException {
+        return this;
     }
 
     /**
      * @return
      */
     public String toString() {
-        // TODO
-        return null;
+        return String.format("%d", this.getNumber());
     }
 
     /**
      * @return
      */
     public String toHtml() {
-        // TODO
-        return null;
+        return this.toString();
     }
 }
