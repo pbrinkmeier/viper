@@ -6,7 +6,7 @@ import org.junit.*;
 
 public class TermTest {
     @Test
-    public void subClasses() {
+    public void subClassesTest() {
         Term fun = new Functor("test", Arrays.asList());
         Term var = new Variable("X");
         Term num = new Number(42);

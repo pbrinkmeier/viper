@@ -12,7 +12,7 @@ public class NumberTest {
     }
 
     @Test
-    public void canGetNumberTest() {
+    public void getNumberTest() {
         assertEquals(42, this.num.getNumber());
     }
 
@@ -27,7 +27,7 @@ public class NumberTest {
     }
 
     @Test
-    public void evaluationTest() throws TermEvaluationException {
+    public void evaluateTest() throws TermEvaluationException {
         Number evaluated = this.num.evaluate();
 
         assertEquals(this.num.getNumber(), evaluated.getNumber());

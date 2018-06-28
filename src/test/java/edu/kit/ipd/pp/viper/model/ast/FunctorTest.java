@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 
 public class FunctorTest {
     private Functor fun;
+    private Functor noParam;
 
     @Before
     public void init() {
@@ -17,39 +18,37 @@ public class FunctorTest {
                 new Functor("b", Arrays.asList()),
                 new Functor("c", Arrays.asList())
             ));
+        
+        this.noParam =
+            new Functor("noparam", Arrays.asList());
     }
 
     @Test
-    public void noParameterToStringTest() {
-        Functor fun = new Functor("test", Arrays.asList());
-
-        assertEquals(fun.toString(), "test");
-    }
-
-    @Test
-    public void parameterToStringTest() {
+    public void toStringTest() {
+        assertEquals("noparam", this.noParam.toString());
         assertEquals("test(a, b, c)", this.fun.toString());
     }
 
     @Test(expected = UnsupportedTermException.class)
-    public void evaluationTest() throws TermEvaluationException {
+    public void evaluateTest() throws TermEvaluationException {
         this.fun.evaluate();
     }
 
     @Test(expected = UnsupportedOperationException.class)
-    public void parametersAreImmutableTest() throws UnsupportedOperationException {
+    public void getParametersImmutableTest() throws UnsupportedOperationException {
         List<Term> param = this.fun.getParameters();
         param.add(this.fun);
     }
 
     @Test
-    public void canGetName() {
+    public void getNameTest() {
         assertEquals("test", this.fun.getName());
+        assertEquals("noparam", this.noParam.getName());
     }
 
     // TODO this test is a little bit tricky, since we don't have an equals() method on term/functor (yet)
     @Test
-    public void canGetParameters() throws Exception {
+    public void getParametersTest() throws Exception {
         throw new Exception("Not yet implemented");
     }
 }
