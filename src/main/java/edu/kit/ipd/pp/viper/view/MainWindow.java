@@ -1,7 +1,12 @@
 package edu.kit.ipd.pp.viper.view;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+
+import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 
 public class MainWindow extends JFrame {
     /**
@@ -32,6 +37,11 @@ public class MainWindow extends JFrame {
     private VisualisationPanel visualisationPanel;
 
     /**
+     * Global instance of InterpreterManager
+     */
+    private InterpreterManager manager;
+
+    /**
      * The constructor sets up the {@link JFrame} and initialises all three
      * panels
      */
@@ -41,9 +51,16 @@ public class MainWindow extends JFrame {
         this.setResizable(true);
         this.setIconImage(new ImageIcon(getClass().getResource(WINDOW_ICON)).getImage());
 
+        this.setJMenuBar(new MenuBar(this));
+
+        Container contentPane = this.getContentPane();
+        contentPane.add(new ToolBar(this), BorderLayout.NORTH);
+
         this.editorPanel = new EditorPanel();
         this.consolePanel = new ConsolePanel();
         this.visualisationPanel = new VisualisationPanel();
+
+        this.manager = new InterpreterManager();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -83,5 +100,14 @@ public class MainWindow extends JFrame {
      */
     public VisualisationPanel getVisualisationPanel() {
         return this.visualisationPanel;
+    }
+
+    /**
+     * Returns the interpreter manager
+     * 
+     * @return Interpreter manager
+     */
+    public InterpreterManager getInterpreterManager() {
+        return this.manager;
     }
 }

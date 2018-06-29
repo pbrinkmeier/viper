@@ -5,12 +5,13 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 
 import edu.kit.ipd.pp.viper.controller.Command;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
-public class MenuItem extends JMenuItem implements ActionListener, Observer {
+public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListener, Observer {
     private String textKey;
     private Command command;
 
@@ -18,7 +19,7 @@ public class MenuItem extends JMenuItem implements ActionListener, Observer {
      * @param textKey 
      * @param command
      */
-    public MenuItem(String textKey, Command command) {
+    public CheckBoxMenuItem(String textKey, Command command) {
         super(LanguageManager.getInstance().getString(textKey));
         
         LanguageManager.getInstance().addObserver(this);
@@ -31,6 +32,7 @@ public class MenuItem extends JMenuItem implements ActionListener, Observer {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("executing command...");
         this.command.execute();
     }
 
