@@ -82,6 +82,16 @@ public final class Variable extends Term {
      */
     @Override
     public boolean equals(Object other) {
-        return false;
+        if (other == null) {
+            return false;
+        }
+
+        if (!(other instanceof Variable)) {
+            return false;
+        }
+
+        Variable otherVar = (Variable) other;
+
+        return otherVar.getName().equals(this.getName()) && otherVar.getIndex().equals(this.getIndex());
     }
 }

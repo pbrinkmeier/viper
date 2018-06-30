@@ -1,34 +1,35 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
-import java.util.List;
-
+import java.util.List; 
 public class MultiplicationOperation extends BinaryOperation {
     /**
-     * @param lhs 
-     * @param rhs
+     * Initializes a new MultiplicationOperation with a left and right hand side.
+     *
+     * @param lhs left hand side
+     * @param rhs right hand side
      */
     public MultiplicationOperation(Term lhs, Term rhs) {
-    	super(null, null);
-        // TODO
+    	super("*", lhs, rhs);
     }
 
     /**
-     * @param a 
-     * @param b 
-     * @return
+     * Calculates the product of two integers.
+     *
+     * @param a left hand side
+     * @param b right hand side
+     * @return a times b
      */
     protected int calculate(int a, int b) {
-        // TODO
-        return 0;
+        return a * b;
     }
 
     /**
-     * @param head 
-     * @param subTerms 
-     * @return
+     * Creates a new MultiplicationOperation object.
+     *
+     * @param parameters parameters of the new operation
+     * @return a new MultiplicationOperation instance
      */
-    public BinaryOperation createNew(String head, List<Term> subTerms) {
-        // TODO
-        return null;
+    public MultiplicationOperation createNew(List<Term> parameters) {
+        return new MultiplicationOperation(parameters.get(0), parameters.get(1));
     }
 }

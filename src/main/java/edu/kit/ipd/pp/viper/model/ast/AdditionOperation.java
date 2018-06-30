@@ -1,34 +1,36 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class AdditionOperation extends BinaryOperation {
     /**
-     * @param lhs 
-     * @param rhs
+     * Initializes a new AdditionOperation with a left and right hand side.
+     *
+     * @param lhs left hand side
+     * @param rhs right hand side
      */
     public AdditionOperation(Term lhs, Term rhs) {
-    	super(null, null);
-        // TODO
+    	super("+", lhs, rhs);
     }
 
     /**
-     * @param a 
-     * @param b 
-     * @return
+     * Calculates the sum of two integers and return the result.
+     *
+     * @param a left summand
+     * @param b right summand
+     * @return sum of a and b
      */
     protected int calculate(int a, int b) {
-        // TODO
-        return 0;
+        return a + b;
     }
 
     /**
-     * @param head 
-     * @param subTerms 
+     * Creates a new AdditionOperation object
+     * @param parameters parameters of the new AdditionOperation
      * @return
      */
-    public BinaryOperation createNew(String head, List<Term> subTerms) {
-        // TODO
-        return null;
+    public AdditionOperation createNew(List<Term> parameters) {
+        return new AdditionOperation(parameters.get(0), parameters.get(1));
     }
 }

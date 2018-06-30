@@ -2,6 +2,7 @@ package edu.kit.ipd.pp.viper.model.ast;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Functor extends Term {
     private final String name;
@@ -92,6 +93,7 @@ public class Functor extends Term {
 
         if (this.getArity() > 0) {
             repr += "(";
+
             for (int index = 0; index < this.getArity(); index++) {
                 repr += this.getParameters().get(index).toString();
                 
@@ -110,7 +112,23 @@ public class Functor extends Term {
      * @return a GraphViz-compatible HTML representation of this functor
      */
     public String toHtml() {
-        return this.toString();
+        String repr = this.getName();
+
+        if (this.getArity() > 0) {
+            repr += "(";
+
+            for (int index = 0; index < this.getArity(); index++) {
+                repr += this.getParameters().get(index).toHtml();
+
+                if (index != this.getArity() - 1) {
+                    repr += ", ";
+                }
+            }
+
+            repr += ")";
+        }
+
+        return repr;
     }
 
     /**
@@ -121,6 +139,20 @@ public class Functor extends Term {
      * @return whether this is equal to object according to the rules defined above
      */
     public boolean equals(Object other) {
-        return false;
+        if (other == null) {
+            return false;
+        }
+
+        if (!(other instanceof Functor)) {
+            return false;
+        }
+
+        Functor otherFunctor = (Functor) other;
+
+        if (!otherFunctor.getName().equals(this.getName()) || otherFunctor.getArity() != this.getArity()) {
+            return false;
+        }
+        
+        return otherFunctor.getParameters().equals(this.getParameters());
     }
 }

@@ -1,57 +1,81 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class BinaryOperation extends Functor {
     /**
-     * @param lhs 
-     * @param rhs
+     * Initializes a binary operation with a symbol, a left and right hand side.
+     *
+     * @param lhs left hand side of the operation
+     * @param rhs right hand side of the operation
      */
-    public BinaryOperation(Term lhs, Term rhs) {
-    	super(null, null);
-        // TODO
+    public BinaryOperation(String symbol, Term lhs, Term rhs) {
+    	super(symbol, Arrays.asList(lhs, rhs));
     }
 
     /**
-     * @param lhs 
-     * @param rhs 
-     * @return
+     * Evaluates this operation arithmetically.
+     * This method simply evaluates the left and right hand side of the operation and calls calculate(a, b) on the resulting integers.
+     * calculate() must be implemented in the subclasses.
+     * After calling calculate, the resulting int will be wrapped in a new Number Term.
+     *
+     * @return new Number term with the evaluation result
      */
-    public Number evaluate(Term lhs, Term rhs) {
-        // TODO
-        return null;
+    @Override
+    public Number evaluate() throws TermEvaluationException {
+        List<Term> params = this.getParameters();
+
+        int lhs = params.get(0).evaluate().getNumber();
+        int rhs = params.get(1).evaluate().getNumber();
+
+        return new Number(this.calculate(lhs, rhs));
     }
 
     /**
-     * @param a 
-     * @param b 
-     * @return
+     * Implements the actual operation.
+     *
+     * @param a left hand side of the operation
+     * @param b right hand side of the operation
+     * @return result of the operation
      */
-    protected int calculate(int a, int b) {
-        // TODO
-        return 0;
-    }
+    protected abstract int calculate(int a, int b);
 
     /**
-     * @return
+     * Getter-method for a string representation of this operation.
+     *
+     * @return string representation of this operation
      */
+    @Override
     public String toString() {
-        // TODO
-        return "";
+        return String.format("(%s %s %s)",
+            this.getParameters().get(0),
+            this.getName(),
+            this.getParameters().get(1)
+        );
     }
 
     /**
-     * @return
+     * Getter-method for a GraphViz-compatible HTML representation of this operation.
+     *
+     * @return HTML representation of this operation
      */
+    @Override
     public String toHtml() {
-        // TODO
-        return "";
+        return String.format("(%s %s %s)",
+            this.getParameters().get(0).toHtml(),
+            this.getName(),
+            this.getParameters().get(1).toHtml()
+        );
     }
 
     /**
-     * @param head 
-     * @param subTerms 
-     * @return
+     * Creates a new operation with different parameters.
+     * This must be overwritten in the operation subclasses because Term*Visitors only handle Functors, not *Operations.
+     *
+     * @param parameters new operation parameters
+     * @return new instance of an operation
      */
-    public abstract BinaryOperation createNew(String head, List<Term> subTerms);
+    @Override
+    public abstract BinaryOperation createNew(List<Term> parameters);
 }
