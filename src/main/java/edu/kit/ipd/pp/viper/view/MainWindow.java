@@ -5,6 +5,8 @@ import java.awt.Container;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 
@@ -50,6 +52,12 @@ public class MainWindow extends JFrame {
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setResizable(true);
         this.setIconImage(new ImageIcon(getClass().getResource(WINDOW_ICON)).getImage());
+
+        // use system built-in look and feel
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException
+               | IllegalAccessException | UnsupportedLookAndFeelException e) {}
 
         this.setJMenuBar(new MenuBar(this));
 
