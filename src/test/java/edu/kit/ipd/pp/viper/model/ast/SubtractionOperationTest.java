@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 
 // These tests rely heavily on the Number class; all tests for Number should be fulfilled first
 public class SubtractionOperationTest {
-    public SubtractionOperation fortyTwo;
-    public SubtractionOperation notFortyTwo;
+    private SubtractionOperation fortyTwo;
+    private SubtractionOperation notFortyTwo;
 
     @Before
     public void init() {
