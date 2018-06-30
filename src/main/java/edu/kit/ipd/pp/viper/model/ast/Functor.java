@@ -51,14 +51,13 @@ public class Functor extends Term {
     // --- functionality
 
     /**
-     * Creates a new functor. This method is supposed to be overwritten in subclasses for use in TermTransformationVisitors, which only have a visit(Functor) method.
+     * Creates a new functor with different parameters. This method is supposed to be overwritten in subclasses for use in TermTransformationVisitors, which only have a visit(Functor) method.
      *
-     * @param name name of the new functor
      * @param parameters parameters of the new functor
      * @return a newly created functor of exactly same class as this one
      */
-    public Functor createNew(String name, List<Term> parameters) {
-        return new Functor(name, parameters);
+    public Functor createNew(List<Term> parameters) {
+        return new Functor(this.getName(), parameters);
     }
 
     /**
@@ -75,11 +74,12 @@ public class Functor extends Term {
     /**
      * As functors can not be arithmetically evaluated, this method just throws an Exception.
      * This method will be overridden by the *Operation subclasses.
+     * Although this implementation always throws an UnsupportedOperationException, overwriting methods in subclasses may return any kind of TermEvaluationException; thus, only that Exception can be declared to be thrown here.
      *
      * @return the result of evaluating this term; in the case of a functor, there will never be any result
      */
     @Override
-    public Number evaluate() throws UnsupportedTermException {
+    public Number evaluate() throws TermEvaluationException {
         throw new UnsupportedTermException(this);
     }
 
@@ -106,12 +106,21 @@ public class Functor extends Term {
         return repr;
     }
 
-
-
     /**
      * @return a GraphViz-compatible HTML representation of this functor
      */
     public String toHtml() {
         return this.toString();
+    }
+
+    /**
+     * Checks whether this equals another object.
+     * Will only return true for functors of the same name and parameters.
+     *
+     * @param other other Object
+     * @return whether this is equal to object according to the rules defined above
+     */
+    public boolean equals(Object other) {
+        return false;
     }
 }

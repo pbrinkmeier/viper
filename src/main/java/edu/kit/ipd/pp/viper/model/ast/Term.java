@@ -19,10 +19,20 @@ public abstract class Term {
     /**
      * @return a string representation of this term
      */
+    @Override
     public abstract String toString();
 
     /**
      * @return a GraphViz-compatible HTML representation of this term
      */
     public abstract String toHtml();
+
+    /**
+     * Force subclasses to implement equals().
+     * Note: this does explicitly not override equals(Object), because calls to non-terms should always return false.
+     *
+     * @return whether two terms are equal
+     */
+    @Override
+    public abstract boolean equals(Object other);
 }

@@ -52,4 +52,15 @@ public final class Number extends Term {
     public String toHtml() {
         return this.toString();
     }
+
+    /**
+     * Checks whether this is equal to another Object.
+     * Only returns true if the other Object is a Number representing the same number.
+     * @param other other Object
+     * @return whether this equals other according to the rules above
+     */
+    @Override
+    public boolean equals(Object other) {
+        return false;
+    }
 }

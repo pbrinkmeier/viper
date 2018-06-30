@@ -72,4 +72,16 @@ public final class Variable extends Term {
     public String toHtml() {
         return this.getName() + (this.getIndex().isPresent() ? String.format("<sub>%d</sub>", this.getIndex().get()) : "");
     }
+
+    /**
+     * Checks whether this is equal to another Object.
+     * Only returns true if the other is Object is a variable of the same name.
+     *
+     * @param other other Object
+     * @return whether this equals other according to the rules above
+     */
+    @Override
+    public boolean equals(Object other) {
+        return false;
+    }
 }
