@@ -66,7 +66,7 @@ public class LanguageManager extends Observable {
 		
 		return LanguageManager.instance;
 	}
-	
+
 	/**
 	 * Sets the locale to use for translations. If the given locale is not
 	 * supported, calling setLocale will have no effect.
@@ -76,10 +76,13 @@ public class LanguageManager extends Observable {
 	public void setLocale(Locale locale) {
 		if (!Arrays.asList(this.supportedLocales).contains(locale))
 			return;
-		
+
 		bundle = ResourceBundle.getBundle("translations", locale);
+		this.setChanged();
+		
+		this.notifyObservers();
 	}
-	
+
 	/**
 	 * Returns list of supported locales
 	 * 
