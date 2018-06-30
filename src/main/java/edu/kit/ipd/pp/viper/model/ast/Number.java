@@ -61,6 +61,14 @@ public final class Number extends Term {
      */
     @Override
     public boolean equals(Object other) {
-        return false;
+        if (other == null) {
+            return false;
+        }
+
+        if (!(other instanceof Number)) {
+            return false;
+        }
+
+        return ((Number) other).getNumber() == this.getNumber();
     }
 }
