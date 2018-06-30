@@ -1,5 +1,7 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.util.Arrays;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -42,5 +44,15 @@ public class BinaryOperationTest {
             "(A<sub>1</sub> + 1)",
             new AdditionOperation(new Variable("A", 1), new Number(1)).toHtml()
         );
+    }
+
+    @Test
+    public void equalsTest() {
+        assertEquals(new AdditionOperation(new Number(40), new Number(2)), this.plus);
+        assertNotEquals(new Functor("+", Arrays.asList(new Number(40), new Number(2))), this.plus);
+        assertEquals(new SubtractionOperation(new Number(100), new Number(58)), this.minus);
+        assertNotEquals(new Functor("-", Arrays.asList(new Number(100), new Number(58))), this.minus);
+        assertEquals(new MultiplicationOperation(new Number(6), new Number(7)), this.times);
+        assertNotEquals(new Functor("*", Arrays.asList(new Number(6), new Number(7))), this.times);
     }
 }
