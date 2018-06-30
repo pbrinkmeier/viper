@@ -15,6 +15,24 @@ public abstract class BinaryOperation extends Functor {
     }
 
     /**
+     * Getter-method for the left hand side of the operation.
+     *
+     * @return left hand side of the operation
+     */
+    public Term getLhs() {
+        return this.getParameters().get(0);
+    }
+
+    /**
+     * Getter-method for the right hand side of the operation.
+     *
+     * @return right hand side of the operation
+     */
+    public Term getRhs() {
+        return this.getParameters().get(1);
+    }
+
+    /**
      * Evaluates this operation arithmetically.
      * This method simply evaluates the left and right hand side of the operation and calls calculate(a, b) on the resulting integers.
      * calculate() must be implemented in the subclasses.

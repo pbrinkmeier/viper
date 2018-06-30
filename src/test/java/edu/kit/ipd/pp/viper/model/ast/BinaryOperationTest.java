@@ -55,4 +55,18 @@ public class BinaryOperationTest {
         assertEquals(new MultiplicationOperation(new Number(6), new Number(7)), this.times);
         assertNotEquals(new Functor("*", Arrays.asList(new Number(6), new Number(7))), this.times);
     }
+
+    @Test
+    public void getLhsTest() {
+        assertEquals(new Number(40), this.plus.getLhs());
+        assertEquals(new Number(100), this.minus.getLhs());
+        assertEquals(new Number(6), this.times.getLhs());
+    }
+
+    @Test
+    public void getRhsTest() {
+        assertEquals(new Number(2), this.plus.getRhs());
+        assertEquals(new Number(58), this.minus.getRhs());
+        assertEquals(new Number(7), this.times.getRhs());
+    }
 }
