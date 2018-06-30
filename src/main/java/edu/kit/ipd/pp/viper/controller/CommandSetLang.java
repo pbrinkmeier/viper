@@ -6,6 +6,11 @@ import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 public class CommandSetLang extends Command {
+    private ConsolePanel consolePanel;
+    private VisualisationPanel visualisationPanel;
+    private Locale lang;
+    private InterpreterManager interpreterManager;
+
     /**
      * @param console 
      * @param visualisation 
@@ -13,13 +18,16 @@ public class CommandSetLang extends Command {
      * @param interpreterManager
      */
     public CommandSetLang(ConsolePanel console, VisualisationPanel visualisation, Locale lang, InterpreterManager interpreterManager) {
-        // TODO
+        this.consolePanel = console;
+        this.visualisationPanel = visualisation;
+        this.lang = lang;
+        this.interpreterManager = interpreterManager;
     }
 
     /**
      * @return
      */
     public void execute() {
-    	// TODO
+        LanguageManager.getInstance().setLocale(this.lang);
     }
 }
