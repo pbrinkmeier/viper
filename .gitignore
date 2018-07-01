@@ -1,6 +1,8 @@
 ## The build folder
-
 build
+
+## Checkstyle intermediate files
+.checkstyle
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
