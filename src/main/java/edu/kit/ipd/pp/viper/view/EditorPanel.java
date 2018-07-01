@@ -1,5 +1,7 @@
 package edu.kit.ipd.pp.viper.view;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JPanel;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -13,9 +15,11 @@ public class EditorPanel extends JPanel {
     public EditorPanel() {
         this.changed = false;
 
+        this.setLayout(new BorderLayout());
+
         RSyntaxTextArea textArea = new RSyntaxTextArea();
         RTextScrollPane scrollPane = new RTextScrollPane(textArea);
-        this.add(scrollPane);
+        this.add(scrollPane, BorderLayout.CENTER);
     }
 
     /**
