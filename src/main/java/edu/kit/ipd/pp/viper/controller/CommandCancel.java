@@ -1,18 +1,22 @@
 package edu.kit.ipd.pp.viper.controller;
 
+/**
+ * Command for canceling the execution of the continue command.
+ * */
 public class CommandCancel extends Command {
     /**
-     * @param running 
-     * @param interpreterManager
+     * Initializes a new cancel command.
+     * 
+     * @param interpreterManager    Interpreter manager with a reference to the current interpreter
      */
-    public CommandCancel(boolean running, InterpreterManager interpreterManager) {
+    public CommandCancel(InterpreterManager interpreterManager) {
         // TODO
     }
 
     /**
-     * @return
+     * Executes the command.
      */
     public void execute() {
-    	// TODO
+        // TODO
     }
 }
