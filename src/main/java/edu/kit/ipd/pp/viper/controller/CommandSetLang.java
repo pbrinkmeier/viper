@@ -5,21 +5,38 @@ import java.util.Locale;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
+/**
+ * Command for setting the GUI language.
+ * */
 public class CommandSetLang extends Command {
+    private ConsolePanel console;
+    private VisualisationPanel visualisation;
+    private Locale lang;
+    private InterpreterManager interpreterManager;
+
     /**
-     * @param console 
-     * @param visualisation 
-     * @param lang 
-     * @param interpreterManager
+     * Initializes a new set language command.
+     * 
+     * @param console               Panel of the console area
+     * @param visualisation         Panel of the visualisation area
+     * @param lang                  Language to be switched to
+     * @param interpreterManager    Interpreter manager with a reference to the current interpreter
      */
-    public CommandSetLang(ConsolePanel console, VisualisationPanel visualisation, Locale lang, InterpreterManager interpreterManager) {
-        // TODO
+    public CommandSetLang(ConsolePanel console, VisualisationPanel visualisation, Locale lang,
+            InterpreterManager interpreterManager) {
+        this.console = console;
+        this.visualisation = visualisation;
+        this.lang = lang;
+        this.interpreterManager = interpreterManager;
     }
 
     /**
-     * @return
+     * Executes the command.
      */
     public void execute() {
-    	// TODO
+        LanguageManager.getInstance().setLocale(this.lang);
+        console.clearAll();
+        
+        // Rebuild visualisation
     }
 }
