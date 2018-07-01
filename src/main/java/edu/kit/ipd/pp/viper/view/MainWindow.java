@@ -14,7 +14,7 @@ public class MainWindow extends JFrame {
     /**
      * Window title
      */
-    private final static String WINDOW_TITLE = "VIPER";
+    private static final String WINDOW_TITLE = "VIPER";
 
     /**
      * Window icon
@@ -23,13 +23,13 @@ public class MainWindow extends JFrame {
      * otherwise Java will look up the file in the package folder, not in
      * src/main/resources
      */
-    private final static String WINDOW_ICON = "/viper-icon.png";
+    private static final String WINDOW_ICON = "/viper-icon.png";
 
     /**
      * Default window dimensions (however window is resizeable)
      */
-    private final static int WINDOW_HEIGHT = 600;
-    private final static int WINDOW_WIDTH  = 800;
+    private static final int WINDOW_HEIGHT = 600;
+    private static final int WINDOW_WIDTH  = 800;
 
     /**
      * Instances of all three panels
@@ -51,13 +51,13 @@ public class MainWindow extends JFrame {
         this.setTitle(WINDOW_TITLE);
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setResizable(true);
-        this.setIconImage(new ImageIcon(getClass().getResource(WINDOW_ICON)).getImage());
+        this.setIconImage(new ImageIcon(this.getClass().getResource(WINDOW_ICON)).getImage());
 
         // use system built-in look and feel
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException
-               | IllegalAccessException | UnsupportedLookAndFeelException e) {}
+               | IllegalAccessException | UnsupportedLookAndFeelException e) { }
 
         this.setJMenuBar(new MenuBar(this));
 
@@ -68,9 +68,12 @@ public class MainWindow extends JFrame {
         this.consolePanel = new ConsolePanel();
         this.visualisationPanel = new VisualisationPanel();
 
+        this.getContentPane().add(this.editorPanel);
+
         this.manager = new InterpreterManager();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
