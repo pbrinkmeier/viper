@@ -11,6 +11,8 @@ import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
  * passed as a parameter.
  * */
 public class InterpreterManager {
+    private boolean useStandardLibrary = false;
+    
     /**
      * Initializes a new interpreter manager. This should only be called once.
      * */
@@ -66,5 +68,17 @@ public class InterpreterManager {
     public Interpreter getCurrentState() {
         // TODO
         return null;
+    }
+    
+    public void enableStandardLibrary() {
+        this.useStandardLibrary = true;
+    }
+    
+    public void disableStandardLibrary() {
+        this.useStandardLibrary = false;
+    }
+    
+    public boolean isStandardEnabled() {
+        return this.useStandardLibrary;
     }
 }
