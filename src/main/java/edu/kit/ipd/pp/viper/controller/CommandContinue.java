@@ -31,6 +31,10 @@ public class CommandContinue extends Command {
      * Executes the command.
      */
     public void execute() {
-        // TODO
+        interpreterManager.runUntilNextSolution();
+        
+        // Print solution to console
+        
+        // Update visualisation
     }
 }

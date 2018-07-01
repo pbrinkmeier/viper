@@ -9,8 +9,8 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command for setting the GUI language.
  * */
 public class CommandSetLang extends Command {
-    private ConsolePanel consolePanel;
-    private VisualisationPanel visualisationPanel;
+    private ConsolePanel console;
+    private VisualisationPanel visualisation;
     private Locale lang;
     private InterpreterManager interpreterManager;
 
@@ -24,8 +24,8 @@ public class CommandSetLang extends Command {
      */
     public CommandSetLang(ConsolePanel console, VisualisationPanel visualisation, Locale lang,
             InterpreterManager interpreterManager) {
-        this.consolePanel = console;
-        this.visualisationPanel = visualisation;
+        this.console = console;
+        this.visualisation = visualisation;
         this.lang = lang;
         this.interpreterManager = interpreterManager;
     }
@@ -35,5 +35,8 @@ public class CommandSetLang extends Command {
      */
     public void execute() {
         LanguageManager.getInstance().setLocale(this.lang);
+        console.clearAll();
+        
+        // Rebuild visualisation
     }
 }

@@ -1,7 +1,7 @@
 package edu.kit.ipd.pp.viper.controller;
 
 /**
- * Abstract command class. Commands encapsulate the behaviour initiated by GUI-interactions like
+ * Abstract command class. Commands encapsulate the behavior initiated by GUI-interactions like
  * pressing a button.
  * */
 public abstract class Command {

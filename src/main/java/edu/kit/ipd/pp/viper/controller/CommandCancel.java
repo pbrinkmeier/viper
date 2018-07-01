@@ -19,6 +19,8 @@ public class CommandCancel extends Command {
      * Executes the command.
      */
     public void execute() {
-        // TODO
+        interpreterManager.cancel();
+        
+        // Update visualisation
     }
 }

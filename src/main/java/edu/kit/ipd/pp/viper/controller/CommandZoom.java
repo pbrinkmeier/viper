@@ -24,6 +24,6 @@ public class CommandZoom extends Command {
      * Executes the command.
      */
     public void execute() {
-        // TODO
+        visualisation.zoom(direction);
     }
 }

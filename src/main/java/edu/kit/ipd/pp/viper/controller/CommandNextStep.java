@@ -1,5 +1,6 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
@@ -29,6 +30,11 @@ public class CommandNextStep extends Command {
      * Executes the command.
      */
     public void execute() {
-        // TODO
+        final StepResult res = interpreterManager.step();
+        if (res == StepResult.SOLUTION_FOUND) {
+            // Print solution
+        }
+        
+        // Update visualisation
     }
 }
