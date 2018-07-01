@@ -1,44 +1,52 @@
 package edu.kit.ipd.pp.viper.view;
 
-import java.net.URL;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import edu.kit.ipd.pp.viper.controller.Command;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
-public class Button extends JButton {
-    /**
-     * @param icon
-     * @param tooltipKey
-     * @param command
-     */
-    public Button(String icon, String tooltipKey, Command command) {
-        super();
-        
-        this.setToolTipText(LanguageManager.getInstance().getString(tooltipKey));
+public class Button extends JButton implements ActionListener, Observer {
+    private static final int ICON_WIDTH  = 25;
+    private static final int ICON_HEIGHT = 25;
 
-        URL iconURL = this.getClass().getResource(icon);
+    private final String tooltipKey;
+    private final Command command;
+
+    /**
+     * @param iconPath 
+     * @param tooltipKey 
+     * @param command 
+     */
+    public Button(String iconPath, String tooltipKey, Command command) {
+        super();
+
+        this.tooltipKey = tooltipKey;
+        this.command = command;
+
+        this.setToolTipText(LanguageManager.getInstance().getString(tooltipKey));
+        this.addActionListener(this);
+
+        ImageIcon icon = new ImageIcon(this.getClass().getResource(iconPath));
+        icon.setImage(icon.getImage().getScaledInstance(ICON_WIDTH, ICON_HEIGHT, Image.SCALE_SMOOTH));
+
+        if (icon != null)
+            this.setIcon(icon);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        this.command.execute();
+    }
+
+    @Override
+    public void update(Observable obs, Object obj) {
+        this.setToolTipText(LanguageManager.getInstance().getString(this.tooltipKey));
     }
 }
-
-/*
- * //Look for the image.
-    String imgLocation = "images/"
-                         + imageName
-                         + ".gif";
-    URL imageURL = ToolBarDemo.class.getResource(imgLocation);
-
-    //Create and initialize the button.
-    JButton button = new JButton();
-    button.setActionCommand(actionCommand);
-    button.setToolTipText(toolTipText);
-    button.addActionListener(this);
-
-    if (imageURL != null) {                      //image found
-        button.setIcon(new ImageIcon(imageURL, altText));
-    } else {                                     //no image found
-        button.setText(altText);
-        System.err.println("Resource not found: " + imgLocation);
-    }
- */
