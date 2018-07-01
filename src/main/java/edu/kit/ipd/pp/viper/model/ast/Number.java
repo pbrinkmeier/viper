@@ -1,52 +1,74 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
 public final class Number extends Term {
+    private final int number;
+
     /**
-     * @param number
+     * Creates a new (immutable) number term.
+     *
+     * @param number Number this term represents
      */
     public Number(int number) {
-        // TODO
+        this.number = number;
     }
 
     /**
-     * @return
+     * Getter-method for the number this term represents.
+     *
+     * @return number this term represents
      */
     public int getNumber() {
-        // TODO
-        return 0;
+        return this.number;
     }
 
     /**
-     * @param visitor 
-     * @return
+     * Implements the visitor pattern on Term.
+     *
+     * @param visitor visitor to visit this Number
+     * @return result of the visit
      */
     @Override
-    public Term accept(TermVisitor<Term> visitor) {
-        // TODO
-        return null;
+    public <ResultType> ResultType accept(TermVisitor<ResultType> visitor) {
+        return visitor.visit(this);
     }
 
     /**
-     * @return
+     * @return just this number
      */
     public Number evaluate() {
-        // TODO
-        return null;
+        return this;
     }
 
     /**
-     * @return
+     * @return a string representation of this number
      */
     public String toString() {
-        // TODO
-        return null;
+        return String.format("%d", this.getNumber());
     }
 
     /**
-     * @return
+     * @return a GraphViz-compatible HTML representation of this number
      */
     public String toHtml() {
-        // TODO
-        return null;
+        return this.toString();
+    }
+
+    /**
+     * Checks whether this is equal to another Object.
+     * Only returns true if the other Object is a Number representing the same number.
+     * @param other other Object
+     * @return whether this equals other according to the rules above
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+
+        if (!(other instanceof Number)) {
+            return false;
+        }
+
+        return ((Number) other).getNumber() == this.getNumber();
     }
 }

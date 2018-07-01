@@ -1,81 +1,158 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Functor extends Term {
-    /**
-     * @param name 
-     * @param subTerms
-     */
-    public Functor(String name, List<Term> subTerms) {
-        // TODO
-    }
+    private final String name;
+    private final List<Term> parameters;
 
     /**
-     * @return
+     * Initializes a functor with a name and a list of parameters.
+     * This class is immutable.
+     *
+     * @param name name of the functor
+     * @param parameters parameters of the functor
+     */
+    public Functor(String name, List<Term> parameters) {
+        this.name = name;
+        this.parameters = Collections.unmodifiableList(parameters);
+    }
+
+    // --- getters and setters
+
+    /**
+     * Getter-method for this functors name.
+     *
+     * @return name of the functor
      */
     public String getName() {
-        // TODO
-        return "";
+        return this.name;
     }
 
     /**
-     * @return
+     * Getter method for this functors parameters.
+     *
+     * @return parameters of the functor (immutable)
      */
-    public List<Term> getSubTerms() {
-        // TODO
-        return null;
+    public List<Term> getParameters() {
+        return this.parameters;
     }
 
     /**
-     * @param name 
-     * @param subTerms 
-     * @return
-     */
-    public Functor createNew(String name, List<Term> subTerms) {
-        // TODO
-        return null;
-    }
-
-    /**
-     * @return
+     * Getter-method for this functors arity.
+     *
+     * @return arity of the functor (i.e. the number of parameters)
      */
     public int getArity() {
-        // TODO
-        return 0;
+        return this.getParameters().size();
+    }
+
+    // --- functionality
+
+    /**
+     * Creates a new functor with different parameters. This method is supposed to be overwritten in subclasses for use in TermTransformationVisitors, which only have a visit(Functor) method.
+     *
+     * @param parameters parameters of the new functor
+     * @return a newly created functor of exactly same class as this one
+     */
+    public Functor createNew(List<Term> parameters) {
+        return new Functor(this.getName(), parameters);
     }
 
     /**
-     * @param visitor 
-     * @return
+     * Interface for TermVisitors.
+     *
+     * @param visitor visitor to visit this functor
+     * @return result of the visit
      */
     @Override
-    public Term accept(TermVisitor<Term> visitor) {
-        // TODO
-        return null;
+    public <ResultType> ResultType accept(TermVisitor<ResultType> visitor) {
+        return visitor.visit(this);
     }
 
     /**
-     * @return
+     * As functors can not be arithmetically evaluated, this method just throws an Exception.
+     * This method will be overridden by the *Operation subclasses.
+     * Although this implementation always throws an UnsupportedOperationException, overwriting methods in subclasses may return any kind of TermEvaluationException; thus, only that Exception can be declared to be thrown here.
+     *
+     * @return the result of evaluating this term; in the case of a functor, there will never be any result
      */
-    public Number evaluate() {
-        // TODO
-        return null;
+    @Override
+    public Number evaluate() throws TermEvaluationException {
+        throw new UnsupportedTermException(this);
     }
 
     /**
-     * @return
+     * @return a string representation of this functor
      */
+    @Override
     public String toString() {
-        // TODO
-        return null;
+        String repr = this.getName();
+
+        if (this.getArity() > 0) {
+            repr += "(";
+
+            for (int index = 0; index < this.getArity(); index++) {
+                repr += this.getParameters().get(index).toString();
+                
+                if (index != this.getArity() - 1) {
+                    repr += ", ";
+                }
+            }
+
+            repr += ")";
+        }
+
+        return repr;
     }
 
     /**
-     * @return
+     * @return a GraphViz-compatible HTML representation of this functor
      */
     public String toHtml() {
-        // TODO
-        return null;
+        String repr = this.getName();
+
+        if (this.getArity() > 0) {
+            repr += "(";
+
+            for (int index = 0; index < this.getArity(); index++) {
+                repr += this.getParameters().get(index).toHtml();
+
+                if (index != this.getArity() - 1) {
+                    repr += ", ";
+                }
+            }
+
+            repr += ")";
+        }
+
+        return repr;
+    }
+
+    /**
+     * Checks whether this equals another object.
+     * Will only return true for functors of the same name and parameters.
+     *
+     * @param other other Object
+     * @return whether this is equal to object according to the rules defined above
+     */
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+
+        if (!(other instanceof Functor)) {
+            return false;
+        }
+
+        Functor otherFunctor = (Functor) other;
+
+        if (!otherFunctor.getName().equals(this.getName()) || otherFunctor.getArity() != this.getArity()) {
+            return false;
+        }
+        
+        return otherFunctor.getParameters().equals(this.getParameters());
     }
 }

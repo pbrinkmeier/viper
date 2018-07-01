@@ -4,31 +4,34 @@ import java.util.List;
 
 public class SubtractionOperation extends BinaryOperation {
     /**
-     * @param lhs 
-     * @param rhs
+     * Initializes a SubtractionOperation with a left and right hand side.
+     *
+     * @param lhs left hand side
+     * @param rhs right hand side
      */
     public SubtractionOperation(Term lhs, Term rhs) {
-    	super(null, null);
-        // TODO
+    	super("-", lhs, rhs);
     }
 
     /**
-     * @param a 
-     * @param b 
-     * @return
+     * Implements subtraction.
+     *
+     * @param a left hand side
+     * @param b right hand side
+     * @return the result of the expression a - b
      */
     protected int calculate(int a, int b) {
-        // TODO
-        return 0;
+        return a - b;
     }
 
     /**
-     * @param head 
-     * @param subTerms 
-     * @return
+     * Creates a new SubtractionOperation.
+     * Meant to be used in TermVisitors, which do not explcitly visit Operations.
+     *
+     * @param parameters new parameters for the new SubstractionOperation (expected to have exactly two elements)
+     * @return new SubtractionOperation object
      */
-    public BinaryOperation createNew(String head, List<Term> subTerms) {
-        // TODO
-        return null;
+    public BinaryOperation createNew(List<Term> parameters) {
+        return new SubtractionOperation(parameters.get(0), parameters.get(1));
     }
 }

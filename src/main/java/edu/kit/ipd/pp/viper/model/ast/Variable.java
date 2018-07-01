@@ -3,60 +3,95 @@ package edu.kit.ipd.pp.viper.model.ast;
 import java.util.Optional;
 
 public final class Variable extends Term {
+    private final String name;
+    private final Optional<Integer> index;
+
     /**
-     * @param name 
-     * @param index
+     * Initializes a new variable with just a name, no index.
+     *
+     * @param name the variables name
+     */
+    public Variable(String name) {
+        this.name = name;
+        this.index = Optional.empty();
+    }
+
+    /**
+     * Initializes a new variable with a name and an index.
+     *
+     * @param name the variables name
+     * @param index the variables index
      */
     public Variable(String name, Integer index) {
-        // TODO
+        this.name = name;
+        this.index = Optional.of(Integer.valueOf(index));
     }
 
     /**
-     * @return
+     * @return the variables name
      */
     public String getName() {
-        // TODO
-        return "";
+        return this.name;
     }
 
     /**
-     * @return
+     * @return the variables optional index
      */
     public Optional<Integer> getIndex() {
-        // TODO
-        return null;
+        return this.index;
     }
 
     /**
-     * @param visitor 
-     * @return
+     * Implements the visitor pattern for Term
+     *
+     * @param visitor visitor to visit this Variable
+     * @return result of the visit
      */
-    public Term accept(TermVisitor<Term> visitor) {
-        // TODO
-        return null;
+    @Override
+    public <ResultType> ResultType accept(TermVisitor<ResultType> visitor) {
+        return visitor.visit(this);
     }
 
     /**
-     * @return
+     * @return evaluates the variable arithmetically (always throws an UnsetVariableException, since trying to evaluate a variable means that it hasnt been set)
      */
-    public Number evaluate() {
-        // TODO
-        return null;
+    public Number evaluate() throws UnsetVariableException {
+        throw new UnsetVariableException(this);
     }
 
     /**
-     * @return
+     * @return a string representation of this variable
      */
     public String toString() {
-        // TODO
-        return null;
+        return this.getName() + (this.getIndex().isPresent() ? String.format("/%d", this.getIndex().get()) : "");
     }
 
     /**
-     * @return
+     * @return a GraphViz-compatible HTML representation of this variable
      */
     public String toHtml() {
-        // TODO
-        return null;
+        return this.getName() + (this.getIndex().isPresent() ? String.format("<sub>%d</sub>", this.getIndex().get()) : "");
+    }
+
+    /**
+     * Checks whether this is equal to another Object.
+     * Only returns true if the other is Object is a variable of the same name.
+     *
+     * @param other other Object
+     * @return whether this equals other according to the rules above
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+
+        if (!(other instanceof Variable)) {
+            return false;
+        }
+
+        Variable otherVar = (Variable) other;
+
+        return otherVar.getName().equals(this.getName()) && otherVar.getIndex().equals(this.getIndex());
     }
 }

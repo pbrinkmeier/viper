@@ -2,23 +2,37 @@ package edu.kit.ipd.pp.viper.model.ast;
 
 public abstract class Term {
     /**
-     * @param visitor 
-     * @return
+     * Interface for TermVisitors.
+     *
+     * @param visitor visitor to visit this term
+     * @return the result of the visit
      */
-    public abstract Term accept(TermVisitor<Term> visitor);
+    public abstract <ResultType> ResultType accept(TermVisitor<ResultType> visitor);
 
     /**
-     * @return
+     * Evaluates this term arithmetically.
+     *
+     * @return a number term containing the result of the evaluation
      */
-    public abstract Number evaluate();
+    public abstract Number evaluate() throws TermEvaluationException;
 
     /**
-     * @return
+     * @return a string representation of this term
      */
+    @Override
     public abstract String toString();
 
     /**
-     * @return
+     * @return a GraphViz-compatible HTML representation of this term
      */
     public abstract String toHtml();
+
+    /**
+     * Force subclasses to implement equals().
+     * Note: this does explicitly not override equals(Object), because calls to non-terms should always return false.
+     *
+     * @return whether two terms are equal
+     */
+    @Override
+    public abstract boolean equals(Object other);
 }
