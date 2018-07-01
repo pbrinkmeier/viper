@@ -15,19 +15,19 @@ targetCompatibility = 1.8
 dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.fifesoft:rsyntaxtextarea:2.6.1'
-    compile 'org.apache.xmlgraphics:batik-all:1.10'
+    compile 'org.apache.xmlgraphics:batik-swing:1.10'
     compile 'guru.nidi:graphviz-java:0.5.2'
 }
 
 jar {
-	manifest {
-		attributes(
-			'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-			'Main-Class': mainClassName
-		)
-	}
+    manifest {
+        attributes(
+            'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+            'Main-Class': mainClassName
+        )
+    }
 
-	from {
-		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-	}
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }

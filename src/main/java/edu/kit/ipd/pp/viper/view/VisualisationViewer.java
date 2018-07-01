@@ -1,8 +1,10 @@
 package edu.kit.ipd.pp.viper.view;
 
+import org.apache.batik.swing.JSVGCanvas;
+
 import guru.nidi.graphviz.model.Graph;
 
-public class VisualisationViewer {
+public class VisualisationViewer extends JSVGCanvas {
     /**
      * @return
      */

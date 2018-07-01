@@ -1,8 +1,11 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.Observable;
+import java.util.ResourceBundle;
 
 /**
  * Central language manager singleton class. Reads in a list of translations
@@ -18,19 +21,35 @@ public final class LanguageManager extends Observable {
      * It also sets the locale to the one saved at the last execution
      * of the software or falls back to the default if this fails.
      */
-    private LanguageManager() {
-    }
-
+    private static LanguageManager instance;
+    
     /**
-     * Sets the locale to the provided one and notifies all
-     * observers to update their text.
-     * 
-     * @param locale    New locale to be used
+     * Bundle for current locale
      */
-    public void setLocale(Locale locale) {
-        // TODO
+    private ResourceBundle bundle;
+    
+    /**
+     * List of supported locales
+     * 
+     * To add a new language, create a new {@link Locale} entry in this
+     * list and add a translations_<code>.properties file in tthe src
+     * folder
+     */
+    private final Locale[] supportedLocales = {
+            new Locale("de"),
+            new Locale("en")
+    };
+    
+    /**
+     * Private constructor
+     * 
+     * Sets the default locale
+     */
+    private LanguageManager() {
+        Locale.setDefault(this.supportedLocales[0]);
+        this.setLocale(Locale.getDefault());
     }
-
+    
     /**
      * Getter-Method for the unique string respective to the current language. This uses
      * a unique identifier that resolves to the respective translation in all
@@ -40,10 +59,14 @@ public final class LanguageManager extends Observable {
      * @return      Translated string according to the respective unique identifier
      */
     public String getString(String key) {
-        // TODO
-        return "";
+        try {
+            return bundle.getString(key);
+        } catch (NullPointerException | MissingResourceException | ClassCastException e) {
+            // show empty string instead of an error message
+            return "";
+        }
     }
-
+    
     /**
      * Getter-Method for the single instance that exists of this class. If none exists,
      * create a new one.
@@ -51,8 +74,26 @@ public final class LanguageManager extends Observable {
      * @return Instance of this class
      */
     public static LanguageManager getInstance() {
-        // TODO
-        return null;
+        if (LanguageManager.instance == null)
+            LanguageManager.instance = new LanguageManager();
+        
+        return LanguageManager.instance;
+    }
+
+    /**
+     * Sets the locale to the provided one and notifies all
+     * observers to update their text.
+     * 
+     * @param locale    New locale to be used
+     */
+    public void setLocale(Locale locale) {
+        if (!Arrays.asList(this.supportedLocales).contains(locale))
+            return;
+
+        bundle = ResourceBundle.getBundle("translations", locale);
+        this.setChanged();
+        
+        this.notifyObservers();
     }
 
     /**
@@ -60,8 +101,7 @@ public final class LanguageManager extends Observable {
      * 
      * @return Immutable list of all supported languages
      */
-    public List<Locale> getSupportedLanguages() {
-        // TODO
-        return null;
+    public List<Locale> getSupportedLocales() {
+        return Arrays.asList(supportedLocales);
     }
 }

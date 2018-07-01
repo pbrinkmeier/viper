@@ -2,24 +2,31 @@ package edu.kit.ipd.pp.viper.view;
 
 import javax.swing.JPanel;
 
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rtextarea.RTextScrollPane;
+
 public class EditorPanel extends JPanel {
+    private boolean changed;
     /**
      * 
      */
-    public void EditorPanel() {
-        // TODO
+    public EditorPanel() {
+        this.changed = false;
+
+        RSyntaxTextArea textArea = new RSyntaxTextArea();
+        RTextScrollPane scrollPane = new RTextScrollPane(textArea);
+        this.add(scrollPane);
     }
 
     /**
-     * @return
+     * @return boolean
      */
     public boolean hasChanged() {
-        // TODO
-        return false;
+        return this.changed;
     }
 
     /**
-     * @return
+     * @return String
      */
     public String getSourceText() {
         // TODO
@@ -39,6 +46,6 @@ public class EditorPanel extends JPanel {
      * @return
      */
     public void setHasChanged(boolean status) {
-        // TODO
+        this.changed = status;
     }
 }
