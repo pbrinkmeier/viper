@@ -86,7 +86,7 @@ public final class Variable extends Term {
             return false;
         }
 
-        if (!(other instanceof Variable)) {
+        if (!other.getClass().equals(Variable.class)) {
             return false;
         }
 

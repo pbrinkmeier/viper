@@ -42,10 +42,8 @@ public abstract class BinaryOperation extends Functor {
      */
     @Override
     public Number evaluate() throws TermEvaluationException {
-        List<Term> params = this.getParameters();
-
-        int lhs = params.get(0).evaluate().getNumber();
-        int rhs = params.get(1).evaluate().getNumber();
+        int lhs = this.getLhs().evaluate().getNumber();
+        int rhs = this.getRhs().evaluate().getNumber();
 
         return new Number(this.calculate(lhs, rhs));
     }
@@ -67,9 +65,9 @@ public abstract class BinaryOperation extends Functor {
     @Override
     public String toString() {
         return String.format("(%s %s %s)",
-            this.getParameters().get(0),
+            this.getLhs().toString(),
             this.getName(),
-            this.getParameters().get(1)
+            this.getRhs().toString()
         );
     }
 
@@ -81,9 +79,9 @@ public abstract class BinaryOperation extends Functor {
     @Override
     public String toHtml() {
         return String.format("(%s %s %s)",
-            this.getParameters().get(0).toHtml(),
+            this.getLhs().toHtml(),
             this.getName(),
-            this.getParameters().get(1).toHtml()
+            this.getRhs().toHtml()
         );
     }
 
@@ -96,4 +94,26 @@ public abstract class BinaryOperation extends Functor {
      */
     @Override
     public abstract BinaryOperation createNew(List<Term> parameters);
+
+    /**
+     * Checks whether this equals another object.
+     * For an operation to equal another operation, they have to be of the same class and have to have the same left and right hand side.
+     *
+     * @param other other operation object
+     * @return whether this equals the other operation
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+
+        if (!other.getClass().equals(this.getClass())) {
+            return false;
+        }
+
+        BinaryOperation operation = (BinaryOperation) other;
+
+        return operation.getLhs().equals(this.getLhs()) && operation.getRhs().equals(this.getRhs());
+    }
 }

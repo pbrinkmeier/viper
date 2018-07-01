@@ -65,7 +65,7 @@ public final class Number extends Term {
             return false;
         }
 
-        if (!(other instanceof Number)) {
+        if (!other.getClass().equals(Number.class)) {
             return false;
         }
 
