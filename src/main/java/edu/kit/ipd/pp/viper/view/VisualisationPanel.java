@@ -15,7 +15,7 @@ public class VisualisationPanel extends JPanel {
     }
 
     /**
-     * @return
+     * @return String
      */
     public String getTikZ() {
         // TODO

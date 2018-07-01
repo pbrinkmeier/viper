@@ -6,8 +6,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JMenuItem;
-
 import edu.kit.ipd.pp.viper.controller.Command;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
@@ -17,7 +15,7 @@ public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListene
 
     /**
      * @param textKey 
-     * @param command
+     * @param command 
      */
     public CheckBoxMenuItem(String textKey, Command command) {
         super(LanguageManager.getInstance().getString(textKey));

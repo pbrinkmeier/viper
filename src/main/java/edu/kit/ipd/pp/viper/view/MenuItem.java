@@ -16,16 +16,16 @@ public class MenuItem extends JMenuItem implements ActionListener, Observer {
 
     /**
      * @param textKey 
-     * @param command
+     * @param command 
      */
     public MenuItem(String textKey, Command command) {
         super(LanguageManager.getInstance().getString(textKey));
-        
+
         LanguageManager.getInstance().addObserver(this);
-        
+
         this.textKey = textKey;
         this.command = command;
-        
+
         this.addActionListener(this);
     }
 

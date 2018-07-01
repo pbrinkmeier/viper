@@ -8,7 +8,7 @@ public class ConsolePanel extends JPanel {
     /**
      * 
      */
-    public void ConsolePanel() {
+    public ConsolePanel() {
         // TODO
     }
 
@@ -20,7 +20,7 @@ public class ConsolePanel extends JPanel {
     }
 
     /**
-     * @return
+     * @return String
      */
     public String getText() {
         // TODO

@@ -7,8 +7,8 @@ import java.util.MissingResourceException;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
-public class LanguageManager extends Observable {
-	/**
+public final class LanguageManager extends Observable {
+    /**
 	 * Global instance of this LanguageManager (singleton pattern)
 	 */
 	private static LanguageManager instance;
@@ -49,7 +49,7 @@ public class LanguageManager extends Observable {
 	public String getString(String key) {
 		try {
 			return bundle.getString(key);
-		} catch(NullPointerException | MissingResourceException | ClassCastException e) {
+		} catch (NullPointerException | MissingResourceException | ClassCastException e) {
 			// show empty string instead of an error message
 			return "";
 		}

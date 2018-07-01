@@ -6,7 +6,7 @@ public class ConsoleOutputArea extends javax.swing.JTextArea {
     /**
      * 
      */
-    public void ConsoleOutputArea() {
+    public ConsoleOutputArea() {
         // TODO
     }
 

@@ -15,9 +15,9 @@ public class Menu extends JMenu implements Observer {
      */
     public Menu(String textKey) {
         super(LanguageManager.getInstance().getString(textKey));
-        
+
         LanguageManager.getInstance().addObserver(this);
-        
+
         this.textKey = textKey;
     }
 
