@@ -6,6 +6,9 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command for zooming in and out of the visualisation by a set amount.
  * */
 public class CommandZoom extends Command {
+    private VisualisationPanel visualisation;
+    private ZoomType direction;
+    
     /**
      * Initializes a new zoom command.
      * 
@@ -13,7 +16,8 @@ public class CommandZoom extends Command {
      * @param direction         Type of zoom (either in or out)
      */
     public CommandZoom(VisualisationPanel visualisation, ZoomType direction) {
-        // TODO
+        this.visualisation = visualisation;
+        this.direction = direction;
     }
 
     /**

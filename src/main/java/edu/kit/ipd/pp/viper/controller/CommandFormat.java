@@ -7,6 +7,9 @@ import edu.kit.ipd.pp.viper.view.EditorPanel;
  * Command for formatting the editor content to a standardized format.
  * */
 public class CommandFormat extends Command {
+    private ConsolePanel console;
+    private EditorPanel editor;
+    
     /**
      * Initializes a new format command.
      * 
@@ -14,7 +17,8 @@ public class CommandFormat extends Command {
      * @param editor        Panel of the visualisation area
      */
     public CommandFormat(ConsolePanel console, EditorPanel editor) {
-        // TODO
+        this.console = console;
+        this.editor = editor;
     }
 
     /**

@@ -7,6 +7,10 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command for exporting the visualisation to TikZ for LaTex.
  * */
 public class CommandExportTikz extends Command {
+    private ConsolePanel console;
+    private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
+    
     /**
      * Initializes a new TikZ export command.
      * 
@@ -16,7 +20,9 @@ public class CommandExportTikz extends Command {
      */
     public CommandExportTikz(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager) {
-        // TODO
+        this.console = console;
+        this.visualisation = visualisation;
+        this.interpreterManager = interpreterManager;
     }
 
     /**

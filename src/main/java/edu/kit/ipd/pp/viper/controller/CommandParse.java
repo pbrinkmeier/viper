@@ -8,6 +8,11 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command for parsing the entered Prolog code.
  * */
 public class CommandParse extends Command {
+    private ConsolePanel console;
+    private EditorPanel editor;
+    private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
+    
     /**
      * Initializes a new parse command.
      * 
@@ -18,7 +23,10 @@ public class CommandParse extends Command {
      */
     public CommandParse(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             InterpreterManager interpreterManager) {
-        // TODO
+        this.console = console;
+        this.editor = editor;
+        this.visualisation = visualisation;
+        this.interpreterManager = interpreterManager;
     }
 
     /**

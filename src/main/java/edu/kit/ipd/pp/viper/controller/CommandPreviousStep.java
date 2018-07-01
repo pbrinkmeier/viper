@@ -7,6 +7,10 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command for returning to the interpreter step before the current one.
  * */
 public class CommandPreviousStep extends Command {
+    private ConsolePanel console;
+    private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
+    
     /**
      * Initializes a new previous step command.
      * 
@@ -16,7 +20,9 @@ public class CommandPreviousStep extends Command {
      */
     public CommandPreviousStep(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager) {
-        // TODO
+        this.console = console;
+        this.visualisation = visualisation;
+        this.interpreterManager = interpreterManager;
     }
 
     /**

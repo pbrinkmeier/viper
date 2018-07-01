@@ -7,6 +7,11 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command for exporting the visualisation to a supported image format (PNG or SVG).
  * */
 public class CommandExportImage extends Command {
+    private ConsolePanel console;
+    private VisualisationPanel visualisation;
+    private ImageFormat format;
+    private InterpreterManager interpreterManager;
+    
     /**
      * Initializes a new image export command.
      * 
@@ -17,7 +22,10 @@ public class CommandExportImage extends Command {
      */
     public CommandExportImage(ConsolePanel console, VisualisationPanel visualisation, ImageFormat format,
             InterpreterManager interpreterManager) {
-        // TODO
+        this.console = console;
+        this.visualisation = visualisation;
+        this.format = format;
+        this.interpreterManager = interpreterManager;
     }
 
     /**

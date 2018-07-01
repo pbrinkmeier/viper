@@ -7,6 +7,10 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command for executing a single interpreter step.
  * */
 public class CommandNextStep extends Command {
+    private ConsolePanel console;
+    private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
+    
     /**
      * Initializes a new step command.
      * 
@@ -16,7 +20,9 @@ public class CommandNextStep extends Command {
      */
     public CommandNextStep(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager) {
-        // TODO
+        this.console = console;
+        this.visualisation = visualisation;
+        this.interpreterManager = interpreterManager;
     }
 
     /**

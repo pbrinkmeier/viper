@@ -7,6 +7,10 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command to toggle the usage of the standard library.
  * */
 public class CommandToggleLib extends Command {
+    private ConsolePanel console;
+    private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
+    
     /**
      * Initializes a new toggle library command.
      * 
@@ -16,7 +20,9 @@ public class CommandToggleLib extends Command {
      */
     public CommandToggleLib(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager) {
-        // TODO
+        this.console = console;
+        this.visualisation = visualisation;
+        this.interpreterManager = interpreterManager;
     }
 
     /**

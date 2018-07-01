@@ -9,6 +9,10 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * adapts to the respective interpreter state.
  * */
 public class CommandContinue extends Command {
+    private ConsolePanel console;
+    private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
+    
     /**
      * Initializes a new continue command.
      * 
@@ -18,7 +22,9 @@ public class CommandContinue extends Command {
      */
     public CommandContinue(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager) {
-        // TODO
+        this.console = console;
+        this.visualisation = visualisation;
+        this.interpreterManager = interpreterManager;
     }
 
     /**
