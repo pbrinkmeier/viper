@@ -28,7 +28,7 @@ public class AdditionOperation extends BinaryOperation {
     /**
      * Creates a new AdditionOperation object
      * @param parameters parameters of the new AdditionOperation
-     * @return
+     * @return new AdditionOperation object
      */
     public AdditionOperation createNew(List<Term> parameters) {
         return new AdditionOperation(parameters.get(0), parameters.get(1));

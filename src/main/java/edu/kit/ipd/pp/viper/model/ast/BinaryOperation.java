@@ -94,4 +94,26 @@ public abstract class BinaryOperation extends Functor {
      */
     @Override
     public abstract BinaryOperation createNew(List<Term> parameters);
+
+    /**
+     * Checks whether this equals another object.
+     * For an operation to equal another operation, they have to be of the same class and have to have the same left and right hand side.
+     *
+     * @param other other operation object
+     * @return whether this equals the other operation
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+
+        if (!other.getClass().equals(this.getClass())) {
+            return false;
+        }
+
+        BinaryOperation operation = (BinaryOperation) other;
+
+        return operation.getLhs().equals(this.getLhs()) && operation.getRhs().equals(this.getRhs());
+    }
 }
