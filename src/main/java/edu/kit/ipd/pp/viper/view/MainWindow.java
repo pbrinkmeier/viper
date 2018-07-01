@@ -5,6 +5,7 @@ import java.awt.Container;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -67,8 +68,26 @@ public class MainWindow extends JFrame {
         this.editorPanel = new EditorPanel();
         this.consolePanel = new ConsolePanel();
         this.visualisationPanel = new VisualisationPanel();
+        
+        JSplitPane secSplitPane = new JSplitPane(
+                JSplitPane.VERTICAL_SPLIT,
+                true,
+                this.visualisationPanel,
+                this.consolePanel
+        );
+        secSplitPane.setResizeWeight(0.5);
+        secSplitPane.setDividerLocation(this.getWidth() / 2);
 
-        this.getContentPane().add(this.editorPanel);
+        JSplitPane splitPane = new JSplitPane(
+                JSplitPane.HORIZONTAL_SPLIT,
+                true,
+                this.editorPanel,
+                secSplitPane
+        );
+        splitPane.setResizeWeight(0.5);
+        splitPane.setDividerLocation(this.getWidth() / 2);
+
+        this.getContentPane().add(splitPane, BorderLayout.CENTER);
 
         this.manager = new InterpreterManager();
 
