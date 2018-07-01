@@ -4,6 +4,7 @@ import javax.swing.JToolBar;
 
 import edu.kit.ipd.pp.viper.controller.CommandContinue;
 import edu.kit.ipd.pp.viper.controller.CommandFormat;
+import edu.kit.ipd.pp.viper.controller.CommandNew;
 import edu.kit.ipd.pp.viper.controller.CommandNextStep;
 import edu.kit.ipd.pp.viper.controller.CommandOpen;
 import edu.kit.ipd.pp.viper.controller.CommandParse;
@@ -34,11 +35,10 @@ public class ToolBar extends JToolBar {
     }
 
     private void addButtons() {
-        this.add(new Button(ICON_NEW, "tooltip_new", new CommandParse(
+        this.add(new Button(ICON_NEW, "tooltip_new", new CommandNew(
                         this.main.getConsolePanel(),
                         this.main.getEditorPanel(),
-                        this.main.getVisualisationPanel(),
-                        this.main.getInterpreterManager()
+                        this.main.getVisualisationPanel()
         )));
 
         this.add(new Button(ICON_OPEN, "tooltip_open", new CommandOpen(

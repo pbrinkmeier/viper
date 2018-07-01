@@ -60,6 +60,8 @@ public class MainWindow extends JFrame {
         } catch (ClassNotFoundException | InstantiationException
                | IllegalAccessException | UnsupportedLookAndFeelException e) { }
 
+        this.manager = new InterpreterManager();
+
         this.setJMenuBar(new MenuBar(this));
 
         Container contentPane = this.getContentPane();
@@ -88,8 +90,6 @@ public class MainWindow extends JFrame {
         splitPane.setDividerLocation(this.getWidth() / 2);
 
         this.getContentPane().add(splitPane, BorderLayout.CENTER);
-
-        this.manager = new InterpreterManager();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
