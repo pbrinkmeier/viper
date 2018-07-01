@@ -14,17 +14,17 @@ public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListene
     private Command command;
 
     /**
-     * @param textKey 
-     * @param command 
+     * @param textKey
+     * @param command
      */
     public CheckBoxMenuItem(String textKey, Command command) {
         super(LanguageManager.getInstance().getString(textKey));
-        
+
         LanguageManager.getInstance().addObserver(this);
-        
+
         this.textKey = textKey;
         this.command = command;
-        
+
         this.addActionListener(this);
     }
 

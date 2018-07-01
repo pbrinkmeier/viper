@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Rule {
     /**
-     * @param head 
+     * @param head
      * @param subgoals
      */
     public Rule(Functor head, List<Goal> subgoals) {

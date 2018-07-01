@@ -28,8 +28,9 @@ public abstract class Term {
     public abstract String toHtml();
 
     /**
-     * Force subclasses to implement equals().
-     * Note: this does explicitly not override equals(Object), because calls to non-terms should always return false.
+     * Force subclasses to implement equals(). Note: this does explicitly not
+     * override equals(Object), because calls to non-terms should always return
+     * false.
      *
      * @return whether two terms are equal
      */

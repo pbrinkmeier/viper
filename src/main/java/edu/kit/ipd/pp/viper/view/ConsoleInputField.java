@@ -6,7 +6,7 @@ import edu.kit.ipd.pp.viper.controller.Command;
 
 public class ConsoleInputField extends JTextField {
     /**
-     * @param command 
+     * @param command
      */
     public ConsoleInputField(Command command) {
         // TODO

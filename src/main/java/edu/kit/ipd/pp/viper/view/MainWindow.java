@@ -20,9 +20,8 @@ public class MainWindow extends JFrame {
     /**
      * Window icon
      * 
-     * The icon path has to begin with a slash,
-     * otherwise Java will look up the file in the package folder, not in
-     * src/main/resources
+     * The icon path has to begin with a slash, otherwise Java will look up the file
+     * in the package folder, not in src/main/resources
      */
     private static final String WINDOW_ICON = "/viper-icon.png";
 
@@ -30,7 +29,7 @@ public class MainWindow extends JFrame {
      * Default window dimensions (however window is resizeable)
      */
     private static final int WINDOW_HEIGHT = 600;
-    private static final int WINDOW_WIDTH  = 800;
+    private static final int WINDOW_WIDTH = 800;
 
     /**
      * Instances of all three panels
@@ -45,8 +44,7 @@ public class MainWindow extends JFrame {
     private InterpreterManager manager;
 
     /**
-     * The constructor sets up the {@link JFrame} and initialises all three
-     * panels
+     * The constructor sets up the {@link JFrame} and initialises all three panels
      */
     public MainWindow() {
         this.setTitle(WINDOW_TITLE);
@@ -57,8 +55,9 @@ public class MainWindow extends JFrame {
         // use system built-in look and feel
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException
-               | IllegalAccessException | UnsupportedLookAndFeelException e) { }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
+        }
 
         this.manager = new InterpreterManager();
 
@@ -70,22 +69,13 @@ public class MainWindow extends JFrame {
         this.editorPanel = new EditorPanel();
         this.consolePanel = new ConsolePanel();
         this.visualisationPanel = new VisualisationPanel();
-        
-        JSplitPane secSplitPane = new JSplitPane(
-                JSplitPane.VERTICAL_SPLIT,
-                true,
-                this.visualisationPanel,
-                this.consolePanel
-        );
+
+        JSplitPane secSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, this.visualisationPanel,
+                this.consolePanel);
         secSplitPane.setResizeWeight(0.5);
         secSplitPane.setDividerLocation(this.getWidth() / 2);
 
-        JSplitPane splitPane = new JSplitPane(
-                JSplitPane.HORIZONTAL_SPLIT,
-                true,
-                this.editorPanel,
-                secSplitPane
-        );
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, this.editorPanel, secSplitPane);
         splitPane.setResizeWeight(0.5);
         splitPane.setDividerLocation(this.getWidth() / 2);
 

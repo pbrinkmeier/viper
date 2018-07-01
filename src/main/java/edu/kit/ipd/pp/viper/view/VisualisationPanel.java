@@ -30,7 +30,7 @@ public class VisualisationPanel extends JPanel {
     }
 
     /**
-     * @param direction 
+     * @param direction
      * @return
      */
     public void zoom(ZoomType direction) {
@@ -38,7 +38,7 @@ public class VisualisationPanel extends JPanel {
     }
 
     /**
-     * @param graph 
+     * @param graph
      * @return
      */
     public void setFromGraph(Graph graph) {
@@ -46,7 +46,7 @@ public class VisualisationPanel extends JPanel {
     }
 
     /**
-     * @param type 
+     * @param type
      * @return
      */
     public void getImage(ImageFormat type) {

@@ -15,8 +15,8 @@ public class MenuItem extends JMenuItem implements ActionListener, Observer {
     private Command command;
 
     /**
-     * @param textKey 
-     * @param command 
+     * @param textKey
+     * @param command
      */
     public MenuItem(String textKey, Command command) {
         super(LanguageManager.getInstance().getString(textKey));

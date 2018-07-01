@@ -11,7 +11,7 @@ public abstract class BinaryOperation extends Functor {
      * @param rhs right hand side of the operation
      */
     public BinaryOperation(String symbol, Term lhs, Term rhs) {
-    	super(symbol, Arrays.asList(lhs, rhs));
+        super(symbol, Arrays.asList(lhs, rhs));
     }
 
     /**
@@ -33,10 +33,10 @@ public abstract class BinaryOperation extends Functor {
     }
 
     /**
-     * Evaluates this operation arithmetically.
-     * This method simply evaluates the left and right hand side of the operation and calls calculate(a, b) on the resulting integers.
-     * calculate() must be implemented in the subclasses.
-     * After calling calculate, the resulting int will be wrapped in a new Number Term.
+     * Evaluates this operation arithmetically. This method simply evaluates the
+     * left and right hand side of the operation and calls calculate(a, b) on the
+     * resulting integers. calculate() must be implemented in the subclasses. After
+     * calling calculate, the resulting int will be wrapped in a new Number Term.
      *
      * @return new Number term with the evaluation result
      */
@@ -64,30 +64,24 @@ public abstract class BinaryOperation extends Functor {
      */
     @Override
     public String toString() {
-        return String.format("(%s %s %s)",
-            this.getLhs().toString(),
-            this.getName(),
-            this.getRhs().toString()
-        );
+        return String.format("(%s %s %s)", this.getLhs().toString(), this.getName(), this.getRhs().toString());
     }
 
     /**
-     * Getter-method for a GraphViz-compatible HTML representation of this operation.
+     * Getter-method for a GraphViz-compatible HTML representation of this
+     * operation.
      *
      * @return HTML representation of this operation
      */
     @Override
     public String toHtml() {
-        return String.format("(%s %s %s)",
-            this.getLhs().toHtml(),
-            this.getName(),
-            this.getRhs().toHtml()
-        );
+        return String.format("(%s %s %s)", this.getLhs().toHtml(), this.getName(), this.getRhs().toHtml());
     }
 
     /**
-     * Creates a new operation with different parameters.
-     * This must be overwritten in the operation subclasses because Term*Visitors only handle Functors, not *Operations.
+     * Creates a new operation with different parameters. This must be overwritten
+     * in the operation subclasses because Term*Visitors only handle Functors, not
+     * *Operations.
      *
      * @param parameters new operation parameters
      * @return new instance of an operation
@@ -96,8 +90,9 @@ public abstract class BinaryOperation extends Functor {
     public abstract BinaryOperation createNew(List<Term> parameters);
 
     /**
-     * Checks whether this equals another object.
-     * For an operation to equal another operation, they have to be of the same class and have to have the same left and right hand side.
+     * Checks whether this equals another object. For an operation to equal another
+     * operation, they have to be of the same class and have to have the same left
+     * and right hand side.
      *
      * @param other other operation object
      * @return whether this equals the other operation

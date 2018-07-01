@@ -53,7 +53,9 @@ public final class Variable extends Term {
     }
 
     /**
-     * @return evaluates the variable arithmetically (always throws an UnsetVariableException, since trying to evaluate a variable means that it hasnt been set)
+     * @return evaluates the variable arithmetically (always throws an
+     * UnsetVariableException, since trying to evaluate a variable means that it
+     * hasnt been set)
      */
     public Number evaluate() throws UnsetVariableException {
         throw new UnsetVariableException(this);
@@ -70,12 +72,13 @@ public final class Variable extends Term {
      * @return a GraphViz-compatible HTML representation of this variable
      */
     public String toHtml() {
-        return this.getName() + (this.getIndex().isPresent() ? String.format("<sub>%d</sub>", this.getIndex().get()) : "");
+        return this.getName()
+                + (this.getIndex().isPresent() ? String.format("<sub>%d</sub>", this.getIndex().get()) : "");
     }
 
     /**
-     * Checks whether this is equal to another Object.
-     * Only returns true if the other is Object is a variable of the same name.
+     * Checks whether this is equal to another Object. Only returns true if the
+     * other is Object is a variable of the same name.
      *
      * @param other other Object
      * @return whether this equals other according to the rules above

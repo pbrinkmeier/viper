@@ -10,7 +10,7 @@ public class Menu extends JMenu implements Observer {
     private String textKey;
 
     /**
-     * @param textKey 
+     * @param textKey
      * @param command
      */
     public Menu(String textKey) {

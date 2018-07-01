@@ -18,15 +18,15 @@ import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
- * Command for opening a file and writing its contents to the editor.
- * This also sets a reference to the file so future saving operations
- * can overwrite this file.
- * */
+ * Command for opening a file and writing its contents to the editor. This also
+ * sets a reference to the file so future saving operations can overwrite this
+ * file.
+ */
 public class CommandOpen extends Command {
     private static final String KEY_PROLOG_FILES = "key_prolog_files";
     private static final String KEY_OPEN_FILE_ERROR = "key_open_file_error";
     private static final String KEY_OPEN_FILE_SUCCESS = "key_open_file_success";
-    
+
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
@@ -34,9 +34,9 @@ public class CommandOpen extends Command {
     /**
      * Initializes a new open command.
      * 
-     * @param console           Panel of the console area
-     * @param editor            Panel of the editor area
-     * @param visualisation     Panel of the visualisation area
+     * @param console Panel of the console area
+     * @param editor Panel of the editor area
+     * @param visualisation Panel of the visualisation area
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation) {
         this.console = console;

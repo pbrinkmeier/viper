@@ -6,7 +6,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 
 public class ArithmeticGoal extends Goal {
     /**
-     * @param lhs 
+     * @param lhs
      * @param rhs
      */
     public ArithmeticGoal(Term lhs, Term rhs) {
@@ -30,7 +30,7 @@ public class ArithmeticGoal extends Goal {
     }
 
     /**
-     * @param parent 
+     * @param parent
      * @return
      */
     public ActivationRecord createActivationRecord(Optional<ActivationRecord> parent) {

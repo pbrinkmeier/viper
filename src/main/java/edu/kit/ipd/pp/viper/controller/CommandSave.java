@@ -16,12 +16,12 @@ import edu.kit.ipd.pp.viper.view.EditorPanel;
 
 /**
  * Command for saving the editor content to disk as a Prolog file.
- * */
+ */
 public class CommandSave extends Command {
     private static final String KEY_PROLOG_FILES = "key_prolog_files";
     private static final String KEY_SAVE_FILE_ERROR = "key_save_file_error";
     private static final String KEY_SAVE_FILE_SUCCESS = "key_save_file_success";
-    
+
     private ConsolePanel console;
     private EditorPanel editor;
     private SaveType saveType;
@@ -29,9 +29,9 @@ public class CommandSave extends Command {
     /**
      * Initializes a new save command.
      * 
-     * @param console   Panel of the console area
-     * @param editor    Panel of the editor area
-     * @param saveType  Save type (either save or save as new)
+     * @param console Panel of the console area
+     * @param editor Panel of the editor area
+     * @param saveType Save type (either save or save as new)
      */
     public CommandSave(ConsolePanel console, EditorPanel editor, SaveType saveType) {
         this.console = console;

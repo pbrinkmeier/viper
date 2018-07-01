@@ -21,7 +21,7 @@ public class FunctorGoal extends Goal {
     }
 
     /**
-     * @param parent 
+     * @param parent
      * @return
      */
     public ActivationRecord createActivationRecord(Optional<ActivationRecord> parent) {

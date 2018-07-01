@@ -7,11 +7,11 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 
 public class ArithmeticActivationRecord extends ActivationRecord {
     /**
-     * @param parent 
+     * @param parent
      * @param goal
      */
     public ArithmeticActivationRecord(Optional<ActivationRecord> parent, ArithmeticGoal goal) {
-    	super(null, null);
+        super(null, null);
         // TODO
     }
 
@@ -63,10 +63,10 @@ public class ArithmeticActivationRecord extends ActivationRecord {
         return null;
     }
 
-	@Override
-	public ActivationRecordVisitor accept(ActivationRecordVisitor visitor) {
-		// TODO
-		return null;
-	}
+    @Override
+    public ActivationRecordVisitor accept(ActivationRecordVisitor visitor) {
+        // TODO
+        return null;
+    }
 
 }

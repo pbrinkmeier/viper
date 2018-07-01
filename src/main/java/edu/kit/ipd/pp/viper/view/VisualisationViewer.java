@@ -13,7 +13,7 @@ public class VisualisationViewer extends JSVGCanvas {
     }
 
     /**
-     * @param graph 
+     * @param graph
      * @return
      */
     public void setFromGraph(Graph graph) {

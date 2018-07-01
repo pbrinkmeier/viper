@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public abstract class ActivationRecord<ResultType> {
     /**
-     * @param interpreter 
+     * @param interpreter
      * @param parent
      */
     public ActivationRecord(Interpreter interpreter, Optional<FunctorActivationRecord> parent) {
@@ -12,7 +12,7 @@ public abstract class ActivationRecord<ResultType> {
     }
 
     /**
-     * @param visitor 
+     * @param visitor
      * @return
      */
     public abstract ResultType accept(ActivationRecordVisitor<ResultType> visitor);
@@ -28,7 +28,7 @@ public abstract class ActivationRecord<ResultType> {
     protected abstract ActivationRecord<?> createCopy();
 
     /**
-     * @param env 
+     * @param env
      * @return
      */
     protected void setEnvironment(Environment env) {
@@ -84,7 +84,7 @@ public abstract class ActivationRecord<ResultType> {
     }
 
     /**
-     * @param visited 
+     * @param visited
      * @return
      */
     protected void setVisited(boolean visited) {

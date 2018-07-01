@@ -55,41 +55,29 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addNewItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_new", new CommandNew(
-                this.main.getConsolePanel(),
-                this.main.getEditorPanel(),
-                this.main.getVisualisationPanel()
-        ));
+        MenuItem item = new MenuItem("menu_new", new CommandNew(this.main.getConsolePanel(), this.main.getEditorPanel(),
+                this.main.getVisualisationPanel()));
 
         menu.add(item);
     }
 
     private void addOpenItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_open", new CommandOpen(
-                this.main.getConsolePanel(),
-                this.main.getEditorPanel(),
-                this.main.getVisualisationPanel()
-        ));
+        MenuItem item = new MenuItem("menu_open", new CommandOpen(this.main.getConsolePanel(),
+                this.main.getEditorPanel(), this.main.getVisualisationPanel()));
 
         menu.add(item);
     }
 
     private void addSaveItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_save", new CommandSave(
-                this.main.getConsolePanel(),
-                this.main.getEditorPanel(),
-                SaveType.SAVE
-        ));
+        MenuItem item = new MenuItem("menu_save",
+                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE));
 
         menu.add(item);
     }
 
     private void addSaveAsItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_saveas", new CommandSave(
-                this.main.getConsolePanel(),
-                this.main.getEditorPanel(),
-                SaveType.SAVE_AS
-        ));
+        MenuItem item = new MenuItem("menu_saveas",
+                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE_AS));
 
         menu.add(item);
     }
@@ -97,7 +85,8 @@ public class MenuBar extends JMenuBar {
     private void addRecentlyOpenedMenu(Menu menu) {
         Menu usedMenu = new Menu("menu_recent");
 
-        // TODO: loop all recently used files, for each: create MenuItem with CommandOpen
+        // TODO: loop all recently used files, for each: create MenuItem with
+        // CommandOpen
 
         menu.add(usedMenu);
     }
@@ -117,21 +106,15 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addParseItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_parse", new CommandParse(
-                this.main.getConsolePanel(),
-                this.main.getEditorPanel(),
-                this.main.getVisualisationPanel(),
-                this.main.getInterpreterManager()
-        ));
+        MenuItem item = new MenuItem("menu_parse", new CommandParse(this.main.getConsolePanel(),
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
 
         menu.add(item);
     }
 
     private void addFormatItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_format", new CommandFormat(
-                this.main.getConsolePanel(),
-                this.main.getEditorPanel()
-        ));
+        MenuItem item = new MenuItem("menu_format",
+                new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel()));
 
         menu.add(item);
     }
@@ -139,23 +122,14 @@ public class MenuBar extends JMenuBar {
     private void addExportMenu() {
         Menu menu = new Menu("menu_export");
 
-        MenuItem itemPng = new MenuItem("menu_export_png", new CommandExportImage(
-                this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(),
-                ImageFormat.PNG
-        ));
+        MenuItem itemPng = new MenuItem("menu_export_png", new CommandExportImage(this.main.getConsolePanel(),
+                this.main.getVisualisationPanel(), ImageFormat.PNG));
 
-        MenuItem itemSvg = new MenuItem("menu_export_svg", new CommandExportImage(
-                this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(),
-                ImageFormat.SVG
-        ));
+        MenuItem itemSvg = new MenuItem("menu_export_svg", new CommandExportImage(this.main.getConsolePanel(),
+                this.main.getVisualisationPanel(), ImageFormat.SVG));
 
-        MenuItem itemTikz = new MenuItem("menu_export_tikz", new CommandExportTikz(
-                this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(),
-                this.main.getInterpreterManager()
-        ));
+        MenuItem itemTikz = new MenuItem("menu_export_tikz", new CommandExportTikz(this.main.getConsolePanel(),
+                this.main.getVisualisationPanel()));
 
         menu.add(itemPng);
         menu.add(itemSvg);
@@ -167,11 +141,8 @@ public class MenuBar extends JMenuBar {
     private void addSettingsMenu() {
         Menu menu = new Menu("menu_settings");
 
-        CheckBoxMenuItem item = new CheckBoxMenuItem("menu_stdlib", new CommandToggleLib(
-                this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(),
-                this.main.getInterpreterManager()
-        ));
+        CheckBoxMenuItem item = new CheckBoxMenuItem("menu_stdlib", new CommandToggleLib(this.main.getConsolePanel(),
+                this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
         item.setSelected(true);
 
         menu.add(item);
@@ -191,12 +162,8 @@ public class MenuBar extends JMenuBar {
             Locale locale = iter.next();
 
             CheckBoxMenuItem item = new CheckBoxMenuItem("menu_language_" + locale.getLanguage(),
-                    new CommandSetLang(
-                            this.main.getConsolePanel(),
-                            this.main.getVisualisationPanel(),
-                            locale,
-                            this.main.getInterpreterManager()
-            ));
+                    new CommandSetLang(this.main.getConsolePanel(), this.main.getVisualisationPanel(), locale,
+                            this.main.getInterpreterManager()));
             languageGroup.add(item);
 
             if (select) {

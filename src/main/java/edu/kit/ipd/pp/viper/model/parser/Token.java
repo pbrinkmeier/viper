@@ -2,9 +2,9 @@ package edu.kit.ipd.pp.viper.model.parser;
 
 public class Token {
     /**
-     * @param type 
-     * @param text 
-     * @param line 
+     * @param type
+     * @param text
+     * @param line
      * @param column
      */
     public Token(TokenType type, String text, int line, int column) {

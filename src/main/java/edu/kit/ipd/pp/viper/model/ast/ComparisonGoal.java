@@ -6,7 +6,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 
 public abstract class ComparisonGoal extends Goal {
     /**
-     * @param lhs 
+     * @param lhs
      * @param rhs
      */
     public ComparisonGoal(Term lhs, Term rhs) {
@@ -30,14 +30,14 @@ public abstract class ComparisonGoal extends Goal {
     }
 
     /**
-     * @param lhs 
-     * @param rhs 
+     * @param lhs
+     * @param rhs
      * @return
      */
     public abstract boolean compareNumbers(int lhs, int rhs);
 
     /**
-     * @param parent 
+     * @param parent
      * @return
      */
     public ActivationRecord createActivationRecord(Optional<ActivationRecord> parent) {

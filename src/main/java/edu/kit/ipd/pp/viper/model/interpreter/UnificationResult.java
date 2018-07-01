@@ -6,7 +6,7 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 
 public class UnificationResult {
     /**
-     * @param substitutions 
+     * @param substitutions
      * @return
      */
     public static UnificationResult success(List<Substitution> substitutions) {
@@ -15,8 +15,8 @@ public class UnificationResult {
     }
 
     /**
-     * @param lhs 
-     * @param rhs 
+     * @param lhs
+     * @param rhs
      * @return
      */
     public static UnificationResult fail(Term lhs, Term rhs) {

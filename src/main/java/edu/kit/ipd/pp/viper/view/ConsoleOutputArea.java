@@ -18,8 +18,8 @@ public class ConsoleOutputArea extends javax.swing.JTextArea {
     }
 
     /**
-     * @param line 
-     * @param color 
+     * @param line
+     * @param color
      * @return
      */
     public void printLine(String line, Color color) {

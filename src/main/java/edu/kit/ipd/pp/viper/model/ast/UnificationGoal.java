@@ -6,7 +6,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 
 public class UnificationGoal extends Goal {
     /**
-     * @param lhs 
+     * @param lhs
      * @param rhs
      */
     public UnificationGoal(Term lhs, Term rhs) {
@@ -30,7 +30,7 @@ public class UnificationGoal extends Goal {
     }
 
     /**
-     * @param parent 
+     * @param parent
      * @return
      */
     public ActivationRecord createActivationRecord(Optional<ActivationRecord> parent) {

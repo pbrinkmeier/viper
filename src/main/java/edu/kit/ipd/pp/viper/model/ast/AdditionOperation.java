@@ -11,7 +11,7 @@ public class AdditionOperation extends BinaryOperation {
      * @param rhs right hand side
      */
     public AdditionOperation(Term lhs, Term rhs) {
-    	super("+", lhs, rhs);
+        super("+", lhs, rhs);
     }
 
     /**
@@ -27,6 +27,7 @@ public class AdditionOperation extends BinaryOperation {
 
     /**
      * Creates a new AdditionOperation object
+     * 
      * @param parameters parameters of the new AdditionOperation
      * @return new AdditionOperation object
      */

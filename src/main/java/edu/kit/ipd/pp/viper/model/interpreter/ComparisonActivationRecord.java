@@ -6,12 +6,12 @@ import edu.kit.ipd.pp.viper.model.ast.ComparisonGoal;
 
 public class ComparisonActivationRecord extends ActivationRecord {
     /**
-     * @param parent 
+     * @param parent
      * @param goal
      */
     public ComparisonActivationRecord(Optional<ActivationRecord> parent, ComparisonGoal goal) {
         super(null, null);
-    	// TODO
+        // TODO
     }
 
     /**
@@ -31,7 +31,7 @@ public class ComparisonActivationRecord extends ActivationRecord {
     }
 
     /**
-     * @param visitor 
+     * @param visitor
      * @return
      */
     public ComparisonActivationRecord accept(ComparisonActivationRecord visitor) {
@@ -55,9 +55,9 @@ public class ComparisonActivationRecord extends ActivationRecord {
         return null;
     }
 
-	@Override
-	public ActivationRecordVisitor accept(ActivationRecordVisitor visitor) {
-		// TODO
-		return null;
-	}
+    @Override
+    public ActivationRecordVisitor accept(ActivationRecordVisitor visitor) {
+        // TODO
+        return null;
+    }
 }

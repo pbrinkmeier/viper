@@ -7,12 +7,12 @@ import edu.kit.ipd.pp.viper.model.ast.UnificationGoal;
 
 public class UnificationActivationRecord extends ActivationRecord {
     /**
-     * @param parent 
+     * @param parent
      * @param goal
      */
     public UnificationActivationRecord(Optional<ActivationRecord> parent, UnificationGoal goal) {
         super(null, null);
-    	// TODO
+        // TODO
     }
 
     /**
@@ -40,7 +40,7 @@ public class UnificationActivationRecord extends ActivationRecord {
     }
 
     /**
-     * @param visitor 
+     * @param visitor
      * @return
      */
     public FunctorActivationRecord accept(ActivationRecordVisitor visitor) {

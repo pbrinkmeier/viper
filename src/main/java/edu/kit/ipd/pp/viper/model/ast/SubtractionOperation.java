@@ -10,7 +10,7 @@ public class SubtractionOperation extends BinaryOperation {
      * @param rhs right hand side
      */
     public SubtractionOperation(Term lhs, Term rhs) {
-    	super("-", lhs, rhs);
+        super("-", lhs, rhs);
     }
 
     /**
@@ -25,10 +25,11 @@ public class SubtractionOperation extends BinaryOperation {
     }
 
     /**
-     * Creates a new SubtractionOperation.
-     * Meant to be used in TermVisitors, which do not explcitly visit Operations.
+     * Creates a new SubtractionOperation. Meant to be used in TermVisitors, which
+     * do not explcitly visit Operations.
      *
-     * @param parameters new parameters for the new SubstractionOperation (expected to have exactly two elements)
+     * @param parameters new parameters for the new SubstractionOperation (expected
+     * to have exactly two elements)
      * @return new SubtractionOperation object
      */
     public BinaryOperation createNew(List<Term> parameters) {

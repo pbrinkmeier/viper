@@ -4,18 +4,18 @@ import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
 
 /**
- * Manager class for interpreters. This class holds references to all interpreters created
- * and serves as an interface for commands to control the interpretation and create new
- * interpreters. In practice, this manager should be treated like a singleton without
- * global state, meaning there should only be one instance which can be accessed by reference
- * passed as a parameter.
- * */
+ * Manager class for interpreters. This class holds references to all
+ * interpreters created and serves as an interface for commands to control the
+ * interpretation and create new interpreters. In practice, this manager should
+ * be treated like a singleton without global state, meaning there should only
+ * be one instance which can be accessed by reference passed as a parameter.
+ */
 public class InterpreterManager {
     private boolean useStandardLibrary = false;
-    
+
     /**
      * Initializes a new interpreter manager. This should only be called once.
-     * */
+     */
     public InterpreterManager() {
         // TODO
     }
@@ -25,7 +25,8 @@ public class InterpreterManager {
      * a KnowledgeBase and creates a query from which said new interpreter is built.
      * The new interpreter then gets added to the internal container.
      * 
-     * @param program   Source code of the Prolog program to create a KnowledgeBase from
+     * @param program Source code of the Prolog program to create a KnowledgeBase
+     * from
      */
     public void createNew(String program) {
         // TODO
@@ -42,19 +43,19 @@ public class InterpreterManager {
     }
 
     /**
-     * Runs the interpreter until a new solution is found. This is done in
-     * a separate thread to ensure the GUI is still responsive and the
-     * execution can be canceled if it's going on for too long.
+     * Runs the interpreter until a new solution is found. This is done in a
+     * separate thread to ensure the GUI is still responsive and the execution can
+     * be canceled if it's going on for too long.
      */
     public void runUntilNextSolution() {
         // TODO
     }
 
     /**
-     * Cancels any currently running search for the next solution invoked
-     * by calling runUntilNextSolution() by stopping the thread. The currently
-     * executed interpretation step is finished before the process is stopped.
-     * The visualisation gets updated to the respective current step.
+     * Cancels any currently running search for the next solution invoked by calling
+     * runUntilNextSolution() by stopping the thread. The currently executed
+     * interpretation step is finished before the process is stopped. The
+     * visualisation gets updated to the respective current step.
      */
     public void cancel() {
         // TODO
@@ -69,15 +70,26 @@ public class InterpreterManager {
         // TODO
         return null;
     }
-    
+
+    /**
+     * Enables the standard library.
+     * */
     public void enableStandardLibrary() {
         this.useStandardLibrary = true;
     }
-    
+
+    /**
+     * Disables the standard library.
+     * */
     public void disableStandardLibrary() {
         this.useStandardLibrary = false;
     }
-    
+
+    /**
+     * Returns whether the standard library is enabled.
+     * 
+     * @return boolean value describing whether the standard library is enabled
+     * */
     public boolean isStandardEnabled() {
         return this.useStandardLibrary;
     }

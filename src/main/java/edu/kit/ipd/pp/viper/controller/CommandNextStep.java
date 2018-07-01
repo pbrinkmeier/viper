@@ -6,18 +6,19 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
  * Command for executing a single interpreter step.
- * */
+ */
 public class CommandNextStep extends Command {
     private ConsolePanel console;
     private VisualisationPanel visualisation;
     private InterpreterManager interpreterManager;
-    
+
     /**
      * Initializes a new step command.
      * 
-     * @param console               Panel of the console area
-     * @param visualisation         Panel of the visualisation area
-     * @param interpreterManager    Interpreter manager with a reference to the current interpreter
+     * @param console Panel of the console area
+     * @param visualisation Panel of the visualisation area
+     * @param interpreterManager Interpreter manager with a reference to the current
+     * interpreter
      */
     public CommandNextStep(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager) {
@@ -34,7 +35,7 @@ public class CommandNextStep extends Command {
         if (res == StepResult.SOLUTION_FOUND) {
             // Print solution
         }
-        
+
         // Update visualisation
     }
 }

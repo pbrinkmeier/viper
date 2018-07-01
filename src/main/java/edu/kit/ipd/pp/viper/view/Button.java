@@ -13,16 +13,16 @@ import edu.kit.ipd.pp.viper.controller.Command;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 public class Button extends JButton implements ActionListener, Observer {
-    private static final int ICON_WIDTH  = 25;
+    private static final int ICON_WIDTH = 25;
     private static final int ICON_HEIGHT = 25;
 
     private final String tooltipKey;
     private final Command command;
 
     /**
-     * @param iconPath 
-     * @param tooltipKey 
-     * @param command 
+     * @param iconPath
+     * @param tooltipKey
+     * @param command
      */
     public Button(String iconPath, String tooltipKey, Command command) {
         super();

@@ -9,6 +9,7 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 
 public class EditorPanel extends JPanel {
     private boolean changed;
+
     /**
      * 
      */
@@ -38,7 +39,7 @@ public class EditorPanel extends JPanel {
     }
 
     /**
-     * @param text 
+     * @param text
      * @return
      */
     public void setSourceText(String text) {
@@ -46,7 +47,7 @@ public class EditorPanel extends JPanel {
     }
 
     /**
-     * @param status 
+     * @param status
      * @return
      */
     public void setHasChanged(boolean status) {

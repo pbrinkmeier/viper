@@ -11,7 +11,7 @@ public class KnowledgeBase {
     }
 
     /**
-     * @param head 
+     * @param head
      * @return
      */
     public List<Rule> getMatchingRules(Functor head) {

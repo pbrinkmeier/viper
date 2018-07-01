@@ -5,7 +5,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
 public class LatexMaker {
     /**
-     * @param root 
+     * @param root
      * @param next
      */
     private LatexMaker(ActivationRecord root, ActivationRecord next) {
@@ -13,7 +13,7 @@ public class LatexMaker {
     }
 
     /**
-     * @param interpreter 
+     * @param interpreter
      * @return
      */
     public static String createLatex(Interpreter interpreter) {

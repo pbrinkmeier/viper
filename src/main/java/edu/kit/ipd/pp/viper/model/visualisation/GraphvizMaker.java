@@ -6,7 +6,7 @@ import guru.nidi.graphviz.model.Graph;
 
 public class GraphvizMaker {
     /**
-     * @param current 
+     * @param current
      * @param next
      */
     private GraphvizMaker(ActivationRecord current, ActivationRecord next) {
@@ -14,7 +14,7 @@ public class GraphvizMaker {
     }
 
     /**
-     * @param interpreter 
+     * @param interpreter
      * @return
      */
     public static Graph createGraph(Interpreter interpreter) {

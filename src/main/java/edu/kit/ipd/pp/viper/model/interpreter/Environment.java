@@ -6,7 +6,7 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 
 public class Environment {
     /**
-     * @param ar 
+     * @param ar
      * @param substitutions
      */
     public Environment(ActivationRecord ar, List<Substitution> substitutions) {
@@ -14,7 +14,7 @@ public class Environment {
     }
 
     /**
-     * @param term 
+     * @param term
      * @return
      */
     public Term applyAllSubstitutions(Term term) {

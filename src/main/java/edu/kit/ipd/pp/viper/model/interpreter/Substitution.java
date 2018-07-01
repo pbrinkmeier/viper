@@ -5,7 +5,7 @@ import edu.kit.ipd.pp.viper.model.ast.Variable;
 
 public class Substitution {
     /**
-     * @param replace 
+     * @param replace
      * @param by
      */
     public Substitution(Variable replace, Term by) {

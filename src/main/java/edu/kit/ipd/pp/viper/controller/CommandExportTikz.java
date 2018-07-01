@@ -16,23 +16,22 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
  * Command for exporting the visualisation to TikZ for LaTex.
- * */
+ */
 public class CommandExportTikz extends Command {
     private static final String KEY_TIKZ_FILES = "key_tikz_files";
     private static final String KEY_EXPORT_FILE_ERROR = "key_export_file_error";
     private static final String KEY_EXPORT_FILE_SUCCESS = "key_export_file_success";
-    
+
     private ConsolePanel console;
     private VisualisationPanel visualisation;
-    
+
     /**
      * Initializes a new TikZ export command.
      * 
-     * @param console               Panel of the console area
-     * @param visualisation         Panel of the visualisation area
+     * @param console Panel of the console area
+     * @param visualisation Panel of the visualisation area
      */
-    public CommandExportTikz(ConsolePanel console, VisualisationPanel visualisation,
-            InterpreterManager interpreterManager) {
+    public CommandExportTikz(ConsolePanel console, VisualisationPanel visualisation) {
         this.console = console;
         this.visualisation = visualisation;
     }

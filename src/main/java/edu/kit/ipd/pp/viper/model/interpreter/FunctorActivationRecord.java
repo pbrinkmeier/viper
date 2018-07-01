@@ -13,11 +13,11 @@ public class FunctorActivationRecord extends ActivationRecord {
     private int ruleIndex;
 
     /**
-     * @param parent 
+     * @param parent
      * @param goal
      */
     public FunctorActivationRecord(Optional<ActivationRecord> parent, FunctorGoal goal) {
-    	super(null, null);
+        super(null, null);
         // TODO
     }
 
@@ -62,7 +62,7 @@ public class FunctorActivationRecord extends ActivationRecord {
     }
 
     /**
-     * @param visitor 
+     * @param visitor
      * @return
      */
     public FunctorActivationRecord accept(ActivationRecordVisitor visitor) {

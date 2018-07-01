@@ -5,7 +5,7 @@ import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
 
 public class Interpreter {
     /**
-     * @param kb 
+     * @param kb
      * @param query
      */
     public Interpreter(KnowledgeBase kb, Goal query) {

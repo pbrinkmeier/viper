@@ -15,23 +15,24 @@ import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
- * Command for exporting the visualisation to a supported image format (PNG or SVG).
- * */
+ * Command for exporting the visualisation to a supported image format (PNG or
+ * SVG).
+ */
 public class CommandExportImage extends Command {
     private static final String KEY_IMAGE_FILES = "key_image_files";
     private static final String KEY_EXPORT_FILE_ERROR = "key_export_file_error";
     private static final String KEY_EXPORT_FILE_SUCCESS = "key_export_file_success";
-    
+
     private ConsolePanel console;
     private VisualisationPanel visualisation;
     private ImageFormat format;
-    
+
     /**
      * Initializes a new image export command.
      * 
-     * @param console               Panel of the console area
-     * @param visualisation         Panel of the visualisation area
-     * @param format                Format of the image to be saved
+     * @param console Panel of the console area
+     * @param visualisation Panel of the visualisation area
+     * @param format Format of the image to be saved
      */
     public CommandExportImage(ConsolePanel console, VisualisationPanel visualisation, ImageFormat format) {
         this.console = console;
@@ -52,7 +53,7 @@ public class CommandExportImage extends Command {
             @Override
             public boolean accept(File f) {
                 return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("png")
-                    || FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg");
+                        || FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg");
             }
         };
 
@@ -66,7 +67,7 @@ public class CommandExportImage extends Command {
 
                 // Receive and write SVG or PNG depending on format
                 visualisation.getImage(format);
-                
+
                 out.flush();
                 out.close();
 

@@ -6,16 +6,16 @@ import edu.kit.ipd.pp.viper.model.ast.CutGoal;
 
 public class CutActivationRecord extends ActivationRecord {
     /**
-     * @param parent 
+     * @param parent
      * @param goal
      */
     public CutActivationRecord(Optional<ActivationRecord> parent, CutGoal goal) {
-    	super(null, null);
+        super(null, null);
         // TODO
     }
 
     /**
-     * @param visitor 
+     * @param visitor
      * @return
      */
     public CutActivationRecord accept(CutActivationRecord visitor) {
@@ -39,9 +39,9 @@ public class CutActivationRecord extends ActivationRecord {
         return null;
     }
 
-	@Override
-	public CutActivationRecord accept(ActivationRecordVisitor visitor) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public CutActivationRecord accept(ActivationRecordVisitor visitor) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

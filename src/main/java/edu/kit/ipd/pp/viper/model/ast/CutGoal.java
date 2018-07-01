@@ -6,7 +6,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 
 public class CutGoal extends Goal {
     /**
-     * @param parent 
+     * @param parent
      * @return
      */
     public ActivationRecord createActivationRecord(Optional<ActivationRecord> parent) {
@@ -14,9 +14,9 @@ public class CutGoal extends Goal {
         return null;
     }
 
-	@Override
-	public String toString() {
-		// TODO
-		return null;
-	}
+    @Override
+    public String toString() {
+        // TODO
+        return null;
+    }
 }

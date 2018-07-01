@@ -56,8 +56,8 @@ public class ConsolePanel extends JPanel {
     }
 
     /**
-     * @param line 
-     * @param color 
+     * @param line
+     * @param color
      * @return
      */
     public void printLine(String line, Color color) {

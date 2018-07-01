@@ -9,7 +9,7 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 /**
  * Command for setting the editor up with a new file. This clears the editor and
  * removes any reference to previously saved files.
- * */
+ */
 public class CommandNew extends Command {
     private static final String KEY_NO = "key_no";
     private static final String KEY_YES = "key_yes";
@@ -22,9 +22,9 @@ public class CommandNew extends Command {
     private VisualisationPanel visualisation;
 
     /**
-     * @param console               Panel of the console area
-     * @param visualisation         Panel of the visualisation area
-     * @param editor                Panel of the editor area
+     * @param console Panel of the console area
+     * @param visualisation Panel of the visualisation area
+     * @param editor Panel of the editor area
      */
     public CommandNew(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation) {
         this.console = console;

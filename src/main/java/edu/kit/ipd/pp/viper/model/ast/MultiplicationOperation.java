@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
-import java.util.List; 
+import java.util.List;
+
 public class MultiplicationOperation extends BinaryOperation {
     /**
      * Initializes a new MultiplicationOperation with a left and right hand side.
@@ -9,7 +10,7 @@ public class MultiplicationOperation extends BinaryOperation {
      * @param rhs right hand side
      */
     public MultiplicationOperation(Term lhs, Term rhs) {
-    	super("*", lhs, rhs);
+        super("*", lhs, rhs);
     }
 
     /**
