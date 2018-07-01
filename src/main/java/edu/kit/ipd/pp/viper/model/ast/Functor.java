@@ -143,7 +143,7 @@ public class Functor extends Term {
             return false;
         }
 
-        if (!(other instanceof Functor)) {
+        if (!other.getClass().equals(Functor.class)) {
             return false;
         }
 
