@@ -2,7 +2,6 @@ package edu.kit.ipd.pp.viper.model.ast;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Functor extends Term {
     private final String name;
