@@ -39,6 +39,7 @@ public class PrologParser {
 
     /**
      * Sets token to the next available token.
+     * @throws ParseException if the next token is invalid
      */
     private void nextToken() throws ParseException {
         this.token = lexer.nextToken();
@@ -62,7 +63,7 @@ public class PrologParser {
      * @return the program given by the String
      * @throws ParseException if the program String is not syntactically valid
      */
-    public Object parse() throws ParseException {
+    public KnowledgeBase parse() throws ParseException {
         return parseProgram();
     }
 
