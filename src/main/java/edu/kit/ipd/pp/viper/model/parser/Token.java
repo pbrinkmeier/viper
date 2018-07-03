@@ -1,73 +1,68 @@
 package edu.kit.ipd.pp.viper.model.parser;
 
 /**
- * Represents a logical part of a prolog program. That includes symbols like separators, keywords, arithmetic operations
- * and even variables, identifiers and numbers.
+ * A token of the Prolog language.
  */
 public class Token {
+    /**
+     * token type of this Token
+     */
     private final TokenType type;
+    /**
+     * the text of this token in the source code
+     */
     private final String text;
     private final int line;
-    private final int column;
-    
+    private final int col;
+
     /**
-     * Initializes a new Token with a specific token type, it's text, the line and the column.
-     * 
-     * @param type The specific TokenType that represents this Token
-     * @param text The sign or multiple letters that this token contains
-     * @param line The line where this Token can be found
-     * @param column The position in the line
+     * Constructs a token.
+     * @param type the token type
+     * @param text text of this token in the source code
+     * @param line line this token is in
+     * @param col column this token begins
      */
-    public Token(TokenType type, String text, int line, int column) {
+    public Token(TokenType type, String text, int line, int col) {
         this.type = type;
         this.text = text;
         this.line = line;
-        this.column = column;
+        this.col = col;
     }
 
     /**
-     * Returns this tokens specific type.
-     * 
-     * @return This tokens type
+     * Returns the token type
+     * @return token type
      */
     public TokenType getType() {
-        return this.type;
+        return type;
     }
 
     /**
-     * Returns this tokens specific text.
-     * 
-     * @return This tokens text
+     * Returns the text of this token in the source code
+     * @return text of this token in the source code
      */
     public String getText() {
-        return this.text;
+        return text;
     }
 
     /**
-     * Returns the line this token can be found at.
-     * 
-     * @return This tokens line
+     * Returns the line this token is in
+     * @return line this token is in
      */
     public int getLine() {
-        return this.line;
+        return line;
     }
 
     /**
-     * Returns this tokens position in the line.
-     * 
-     * @return This tokens column
+     * Returns the column this token begins
+     * @return column this token begins
      */
-    public int getColumn() {
-        return this.column;
+    public int getCol() {
+        return col;
     }
 
-    /**
-     * Returns a String representation of this token.
-     * 
-     * @return This token as a String.
-     */
     @Override
     public String toString() {
-        return this.type + "(\"" + text + "\")";
+        return type + "(\"" + text + "\")";
     }
 }
