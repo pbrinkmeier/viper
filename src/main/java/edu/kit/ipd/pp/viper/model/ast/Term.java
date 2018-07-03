@@ -13,6 +13,7 @@ public abstract class Term {
      * Evaluates this term arithmetically.
      *
      * @return a number term containing the result of the evaluation
+     * @throws TermEvaluationException when evaluation fails (for example when trying to evaluate a functor)
      */
     public abstract Number evaluate() throws TermEvaluationException;
 

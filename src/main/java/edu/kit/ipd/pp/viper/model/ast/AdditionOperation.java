@@ -1,6 +1,5 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class AdditionOperation extends BinaryOperation {

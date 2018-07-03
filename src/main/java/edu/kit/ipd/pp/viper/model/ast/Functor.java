@@ -1,8 +1,8 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Functor extends Term {
     private final String name;
@@ -160,5 +160,14 @@ public class Functor extends Term {
         }
 
         return otherFunctor.getParameters().equals(this.getParameters());
+    }
+
+    /**
+     * Creates a functor without any parameters, also called an atom.
+     *
+     * @param name name of the atom
+     */
+    public static Functor atom(String name) {
+        return new Functor(name, Arrays.asList());
     }
 }

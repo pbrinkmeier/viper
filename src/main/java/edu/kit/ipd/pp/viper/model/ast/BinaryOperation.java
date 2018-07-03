@@ -7,6 +7,7 @@ public abstract class BinaryOperation extends Functor {
     /**
      * Initializes a binary operation with a symbol, a left and right hand side.
      *
+     * @param symbol symbol of the operation, e.g. "+", "-", "*"
      * @param lhs left hand side of the operation
      * @param rhs right hand side of the operation
      */

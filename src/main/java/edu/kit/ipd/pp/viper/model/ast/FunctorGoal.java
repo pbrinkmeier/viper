@@ -1,39 +1,49 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
+
 import java.util.Optional;
 
-import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
-
 public class FunctorGoal extends Goal {
+    private final Functor functor;
+
     /**
-     * @param goal
+     * Initializes a functor goal with its functor.
+     *
+     * @param functor functor to fulfill against a knowledgebase
      */
-    public FunctorGoal(Functor goal) {
-        // TODO
+    public FunctorGoal(Functor functor) {
+        this.functor = functor;
     }
 
     /**
-     * @return
+     * Getter-method for this goals functor
+     *
+     * @return functor this goal tries to fulfill against a knowledgebase
      */
     public Functor getFunctor() {
-        // TODO
-        return null;
+        return this.functor;
     }
 
     /**
-     * @param parent
-     * @return
+     * Creates a new FunctorActivationRecord for this goal.
+     *
+     * @param parent optional parent ActivationRecord
+     * @return new FunctorActivationRecord
      */
-    public ActivationRecord createActivationRecord(Optional<ActivationRecord> parent) {
-        // TODO
-        return null;
+    @Override
+    public FunctorActivationRecord createActivationRecord(Optional<FunctorActivationRecord> parent) {
+        return new FunctorActivationRecord(parent, this);
     }
 
     /**
-     * @return
+     * Getter-method for a string representation of this goal.
+     * This equals the string representation of this goals functor.
+     *
+     * @return string representation of this goal.
      */
+    @Override
     public String toString() {
-        // TODO
-        return null;
+        return this.getFunctor().toString();
     }
 }
