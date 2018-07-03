@@ -48,7 +48,7 @@ public final class Variable extends Term {
      * @return result of the visit
      */
     @Override
-    public <ResultType> ResultType accept(TermVisitor<ResultType> visitor) {
+    public <T> T accept(TermVisitor<T> visitor) {
         return visitor.visit(this);
     }
 
