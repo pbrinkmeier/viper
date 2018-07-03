@@ -55,6 +55,26 @@ public final class LanguageManager extends Observable {
      * language
      * @return Translated string according to the respective unique identifier
      */
+    public String getString(LanguageKey key) {
+        try {
+            return bundle.getString(key.getString());
+        } catch (NullPointerException | MissingResourceException | ClassCastException e) {
+            // show empty string instead of an error message
+            return "";
+        }
+    }
+
+    /**
+     * Getter-Method for the unique string respective to the current language. This
+     * uses a unique identifier that resolves to the respective translation in all
+     * supported languages. This version takes the unique key as a raw string and is
+     * deprecated by the LanguageKey enum.
+     * 
+     * @param key Unique identifier to find the translated string for the current
+     * language
+     * @return Translated string according to the respective unique identifier
+     */
+    @Deprecated
     public String getString(String key) {
         try {
             return bundle.getString(key);
