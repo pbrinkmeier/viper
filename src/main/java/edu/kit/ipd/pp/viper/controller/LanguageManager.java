@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.controller;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -15,12 +16,6 @@ import java.util.ResourceBundle;
  * the software by using a unique identifier.
  */
 public final class LanguageManager extends Observable {
-    /**
-     * Initializes the language manager. This reads in all provided language
-     * resource files and creates a list of available languages. It also sets the
-     * locale to the one saved at the last execution of the software or falls back
-     * to the default if this fails.
-     */
     private static LanguageManager instance;
 
     /**
@@ -34,12 +29,13 @@ public final class LanguageManager extends Observable {
      * To add a new language, create a new {@link Locale} entry in this list and add
      * a translations_<code>.properties file in the src folder</code>
      */
-    private final Locale[] supportedLocales = {new Locale("de"), new Locale("en")};
+    private final Locale[] supportedLocales = {new Locale("en"), new Locale("de")};
 
     /**
-     * Private constructor
-     * 
-     * Sets the default locale
+     * Initializes the language manager. This reads in all provided language
+     * resource files and creates a list of available languages. It also sets the
+     * locale to the one saved at the last execution of the software or falls back
+     * to the default if this fails.
      */
     private LanguageManager() {
         Locale.setDefault(this.supportedLocales[0]);
@@ -120,6 +116,6 @@ public final class LanguageManager extends Observable {
      * @return Immutable list of all supported languages
      */
     public List<Locale> getSupportedLocales() {
-        return Arrays.asList(supportedLocales);
+        return Collections.unmodifiableList(Arrays.asList(supportedLocales));
     }
 }
