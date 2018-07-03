@@ -73,14 +73,14 @@ public class InterpreterManager {
 
     /**
      * Enables the standard library.
-     * */
+     */
     public void enableStandardLibrary() {
         this.useStandardLibrary = true;
     }
 
     /**
      * Disables the standard library.
-     * */
+     */
     public void disableStandardLibrary() {
         this.useStandardLibrary = false;
     }
@@ -89,7 +89,7 @@ public class InterpreterManager {
      * Returns whether the standard library is enabled.
      * 
      * @return boolean value describing whether the standard library is enabled
-     * */
+     */
     public boolean isStandardEnabled() {
         return this.useStandardLibrary;
     }

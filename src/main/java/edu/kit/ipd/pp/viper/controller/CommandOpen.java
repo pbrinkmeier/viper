@@ -56,7 +56,7 @@ public class CommandOpen extends Command {
 
             @Override
             public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("pl");
+                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("pl") || f.isDirectory();
             }
         };
 

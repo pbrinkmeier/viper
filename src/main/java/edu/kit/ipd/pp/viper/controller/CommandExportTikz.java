@@ -48,7 +48,7 @@ public class CommandExportTikz extends Command {
 
             @Override
             public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("tikz");
+                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("tikz") || f.isDirectory();
             }
         };
 

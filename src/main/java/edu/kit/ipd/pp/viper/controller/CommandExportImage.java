@@ -53,7 +53,7 @@ public class CommandExportImage extends Command {
             @Override
             public boolean accept(File f) {
                 return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("png")
-                        || FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg");
+                        || FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg") || f.isDirectory();
             }
         };
 
