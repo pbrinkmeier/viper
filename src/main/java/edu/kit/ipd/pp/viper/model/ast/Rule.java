@@ -1,8 +1,12 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Rule {
+    private final Functor head;
+    private final List<Goal> subgoals;
+
     /**
      * Initializes a rule with a functor as head and a list of subgoals.
      *
@@ -10,7 +14,8 @@ public class Rule {
      * @param subgoals subgoals of this rule
      */
     public Rule(Functor head, List<Goal> subgoals) {
-        // TODO
+        this.head = head;
+        this.subgoals = Collections.unmodifiableList(subgoals);
     }
 
     /**
@@ -19,18 +24,17 @@ public class Rule {
      * @return head of this rule
      */
     public Functor getHead() {
-        // TODO
-        return null;
+        return this.head;
     }
 
     /**
      * Getter-method for the subgoals of this rule.
+     * The returned list is immutable.
      *
      * @return subgoals of this rule
      */
     public List<Goal> getSubgoals() {
-        // TODO
-        return null;
+        return this.subgoals;
     }
 
     /**
@@ -39,7 +43,23 @@ public class Rule {
      * @return string representation of this rule
      */
     public String toString() {
-        // TODO
-        return "";
+        String repr = this.getHead().toString();
+        List<Goal> subgoals = this.getSubgoals();
+
+        if (subgoals.size() != 0) {
+            repr += " :- \n";
+
+            for (int index = 0; index < subgoals.size(); index++) {
+                repr += "  " + subgoals.get(index);
+
+                if (index != subgoals.size() - 1) {
+                    repr += ",\n";
+                }
+            }
+        }
+
+        repr += ".";
+
+        return repr;
     }
 }
