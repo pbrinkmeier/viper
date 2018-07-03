@@ -16,7 +16,7 @@ public class FunctorActivationRecord extends ActivationRecord {
      * @param parent
      * @param goal
      */
-    public FunctorActivationRecord(Optional<ActivationRecord> parent, FunctorGoal goal) {
+    public FunctorActivationRecord(Optional<FunctorActivationRecord> parent, FunctorGoal goal) {
         super(null, null);
         // TODO
     }

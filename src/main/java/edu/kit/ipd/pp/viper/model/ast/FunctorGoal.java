@@ -5,13 +5,15 @@ import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import java.util.Optional;
 
 public class FunctorGoal extends Goal {
+    private final Functor functor;
+
     /**
      * Initializes a functor goal with its functor.
      *
-     * @param goal functor to fulfill against a knowledgebase
+     * @param functor functor to fulfill against a knowledgebase
      */
-    public FunctorGoal(Functor goal) {
-        // TODO
+    public FunctorGoal(Functor functor) {
+        this.functor = functor;
     }
 
     /**
@@ -20,8 +22,7 @@ public class FunctorGoal extends Goal {
      * @return functor this goal tries to fulfill against a knowledgebase
      */
     public Functor getFunctor() {
-        // TODO
-        return null;
+        return this.functor;
     }
 
     /**
@@ -32,8 +33,7 @@ public class FunctorGoal extends Goal {
      */
     @Override
     public FunctorActivationRecord createActivationRecord(Optional<FunctorActivationRecord> parent) {
-        // TODO
-        return null;
+        return new FunctorActivationRecord(parent, this);
     }
 
     /**
@@ -44,7 +44,6 @@ public class FunctorGoal extends Goal {
      */
     @Override
     public String toString() {
-        // TODO
-        return null;
+        return this.getFunctor().toString();
     }
 }
