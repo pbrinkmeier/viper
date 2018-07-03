@@ -1,10 +1,34 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
+import java.util.Collections;
 import java.util.List;
 
 import edu.kit.ipd.pp.viper.model.ast.Term;
 
-public class UnificationResult {
+public final class UnificationResult {
+    private final boolean success;
+    private final List<Substitution> substitutions;
+    private final Term lhs;
+    private final Term rhs;
+
+    private UnificationResult() throws Exception {
+        throw new Exception();
+    }
+
+    private UnificationResult(List<Substitution> substitutions) {
+        this.success = true;
+        this.substitutions = Collections.unmodifiableList(substitutions);
+        this.lhs = null;
+        this.rhs = null;
+    }
+
+    private UnificationResult(Term lhs, Term rhs) {
+        this.success = false;
+        this.lhs = lhs;
+        this.rhs = rhs;
+        this.substitutions = null;
+    }
+
     /**
      * Initializes a success-result with a list of substitutions.
      *
@@ -12,8 +36,7 @@ public class UnificationResult {
      * @return an UnificationResult object
      */
     public static UnificationResult success(List<Substitution> substitutions) {
-        // TODO
-        return null;
+        return new UnificationResult(substitutions);
     }
 
     /**
@@ -24,8 +47,7 @@ public class UnificationResult {
      * @return an UnificationResult object
      */
     public static UnificationResult fail(Term lhs, Term rhs) {
-        // TODO
-        return null;
+        return new UnificationResult(lhs, rhs);
     }
 
     /**
@@ -34,8 +56,7 @@ public class UnificationResult {
      * @return whether this result is a success-result
      */
     public boolean isSuccess() {
-        // TODO
-        return false;
+        return this.success;
     }
 
     /**
@@ -45,8 +66,11 @@ public class UnificationResult {
      * @throws UnsupportedOperationException when trying to get the substitutions of a fail-result
      */
     public List<Substitution> getSubstitutions() throws UnsupportedOperationException {
-        // TODO
-        return null;
+        if (!this.isSuccess()) {
+            throw new UnsupportedOperationException();
+        }
+
+        return this.substitutions;
     }
 
     /**
@@ -56,8 +80,11 @@ public class UnificationResult {
      * @throws UnsupportedOperationException when trying to get the error message of a success-result
      */
     public String getErrorMessage() throws UnsupportedOperationException {
-        // TODO
-        return "";
+        if (this.isSuccess()) {
+            throw new UnsupportedOperationException();
+        }
+
+        return String.format("%s ≠ %s", this.lhs.toString(), this.rhs.toString());
     }
 
     /**
@@ -66,7 +93,25 @@ public class UnificationResult {
      * @return HTML representation of this result
      */
     public String toHtml() {
-        // TODO
-        return "";
+        if (this.isSuccess()) {
+            List<Substitution> subst = this.getSubstitutions();
+            String repr = "";
+
+            for (int index = 0; index < subst.size(); index++) {
+                repr +=
+                    String.format("%s ⇒ %s",
+                        subst.get(index).getReplace().toHtml(),
+                        subst.get(index).getBy().toHtml()
+                    );
+
+                if (index != subst.size() - 1) {
+                    repr += ", ";
+                }
+            }
+
+            return repr;
+        } else {
+            return String.format("%s ≠ %s", this.lhs.toHtml(), this.rhs.toHtml());
+        }
     }
 }
