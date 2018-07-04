@@ -12,7 +12,7 @@ public class ParserTest {
     
     @Before
     public void init() throws IOException, ParseException {
-        String src = new String(Files.readAllBytes(Paths.get("simpsons.pl")));
+        String src = new String(Files.readAllBytes(Paths.get("src/test/resources/simpsons.pl")));
         this.parser = new PrologParser(src);
     }
     
