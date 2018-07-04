@@ -2,20 +2,15 @@ package edu.kit.ipd.pp.viper.model.interpreter;
 
 import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.Number;
+import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.TermVisitor;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class VariableExtractor implements TermVisitor<List<Variable>> {
-    /**
-     * Initializes a variable extractor.
-     * Creates an empty list internally to keep track of the variables found.
-     */
-    public VariableExtractor() {
-        // TODO
-    }
-
     /**
      * Extracts variables from a functor.
      * Loops through parameters and extracts their variables.
@@ -25,8 +20,19 @@ public class VariableExtractor implements TermVisitor<List<Variable>> {
      */
     @Override
     public List<Variable> visit(Functor functor) {
-        // TODO
-        return null;
+        List<Variable> variables = new ArrayList<>();
+
+        for (Term parameter : functor.getParameters()) {
+            // this should actually use a Set, not a list.
+            // But we dont have a hashCode on Term/Variable yet :(
+            for (Variable variable : parameter.accept(this)) {
+                if (!variables.contains(variable)) {
+                    variables.add(variable);
+                }
+            }
+        }
+
+        return variables;
     }
 
     /**
@@ -38,8 +44,7 @@ public class VariableExtractor implements TermVisitor<List<Variable>> {
      */
     @Override
     public List<Variable> visit(Variable variable) {
-        // TODO
-        return null;
+        return Arrays.asList(variable);
     }
 
     /**
@@ -52,7 +57,6 @@ public class VariableExtractor implements TermVisitor<List<Variable>> {
      */
     @Override
     public List<Variable> visit(Number number) {
-        // TODO
-        return null;
+        return Arrays.asList();
     }
 }
