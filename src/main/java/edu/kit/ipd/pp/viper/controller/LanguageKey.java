@@ -51,7 +51,11 @@ public enum LanguageKey {
     KEY_EXPORT_FILE_SUCCESS("key_export_file_success"),
 
     /** Console output message on failed export of a file */
-    KEY_EXPORT_FILE_ERROR("key_export_file_error");
+    KEY_EXPORT_FILE_ERROR("key_export_file_error"),
+
+    // Console output for query results
+    /** Console output message for a possible solution */
+    KEY_SOLUTION_FOUND("key_solution_found");
 
     private String value;
 

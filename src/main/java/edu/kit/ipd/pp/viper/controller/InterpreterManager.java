@@ -1,7 +1,10 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import java.util.List;
+
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
+import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
 
 /**
  * Manager class for interpreters. This class holds references to all
@@ -43,6 +46,16 @@ public class InterpreterManager {
     }
 
     /**
+     * Takes an interpreter step back.
+     * 
+     * @return Result of the step taken
+     */
+    public StepResult stepBack() {
+        // TODO
+        return null;
+    }
+
+    /**
      * Runs the interpreter until a new solution is found. This is done in a
      * separate thread to ensure the GUI is still responsive and the execution can
      * be canceled if it's going on for too long.
@@ -59,6 +72,24 @@ public class InterpreterManager {
      */
     public void cancel() {
         // TODO
+    }
+
+    /**
+     * Returns an immutable list of substitutions that solve the query.
+     * 
+     * @return A possible solution in the form of an immutable list
+     */
+    public List<Substitution> getSolution() {
+        return null;
+    }
+
+    /**
+     * Returns a string representation of the solution for console output.
+     * 
+     * @return string representation of the substitutions found
+     */
+    public String getSolutionString() {
+        return "";
     }
 
     /**

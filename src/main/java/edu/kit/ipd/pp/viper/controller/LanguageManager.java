@@ -29,7 +29,7 @@ public final class LanguageManager extends Observable {
      * To add a new language, create a new {@link Locale} entry in this list and add
      * a translations_<code>.properties file in the src folder</code>
      */
-    private final Locale[] supportedLocales = {new Locale("en"), new Locale("de")};
+    private final Locale[] supportedLocales = {new Locale("de"), new Locale("en")};
 
     /**
      * Initializes the language manager. This reads in all provided language

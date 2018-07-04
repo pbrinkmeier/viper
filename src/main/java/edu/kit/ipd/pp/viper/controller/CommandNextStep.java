@@ -1,8 +1,12 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import java.awt.Color;
+
 import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
+import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
+import guru.nidi.graphviz.model.Graph;
 
 /**
  * Command for executing a single interpreter step.
@@ -33,9 +37,11 @@ public class CommandNextStep extends Command {
     public void execute() {
         final StepResult res = interpreterManager.step();
         if (res == StepResult.SOLUTION_FOUND) {
-            // Print solution
+            final String prefix = LanguageManager.getInstance().getString(LanguageKey.KEY_SOLUTION_FOUND);
+            console.printLine(prefix + interpreterManager.getSolutionString(), Color.BLACK);
         }
 
-        // Update visualisation
+        Graph graph = GraphvizMaker.createGraph(interpreterManager.getCurrentState());
+        visualisation.setFromGraph(graph);
     }
 }
