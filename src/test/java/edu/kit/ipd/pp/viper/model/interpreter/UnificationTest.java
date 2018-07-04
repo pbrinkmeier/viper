@@ -98,4 +98,27 @@ public class UnificationTest {
             result.getSubstitutions()
         );
     }
+
+    // Unifying a variable with itself should not yield any substitutions
+    @Test
+    public void avoidSelfSubstitutionTest() {
+        Term lhs = new Variable("X");
+        Term rhs = new Variable("X");
+
+        UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
+
+        assertTrue(result.isSuccess());
+        assertEquals(Arrays.asList(), result.getSubstitutions());
+    }
+
+    @Test
+    public void avoidRecursiveSubstitutionTest() {
+        Term lhs = new Variable("X");
+        Term rhs = new Functor("f", Arrays.asList(new Variable("X")));
+
+        UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
+
+        assertTrue(!result.isSuccess());
+        assertEquals("X ≠ f(X)", result.getErrorMessage());
+    }
 }
