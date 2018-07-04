@@ -4,6 +4,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JMenu;
+
+import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
@@ -13,7 +15,7 @@ public class Menu extends JMenu implements Observer {
     /**
      * The key used for translation
      */
-    private String textKey;
+    private LanguageKey textKey;
 
     /**
      * Creates a new menu using a translation key. {@link MenuItem}s can be added using the inherited method
@@ -21,7 +23,7 @@ public class Menu extends JMenu implements Observer {
      * 
      * @param textKey Key used for translation
      */
-    public Menu(String textKey) {
+    public Menu(LanguageKey textKey) {
         super(LanguageManager.getInstance().getString(textKey));
 
         LanguageManager.getInstance().addObserver(this);

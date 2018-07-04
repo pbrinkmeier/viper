@@ -1,6 +1,36 @@
 package edu.kit.ipd.pp.viper.controller;
 
 public enum LanguageKey {
+    // Menu
+    MENU_FILE("menu_file"),
+    MENU_NEW("menu_new"),
+    MENU_OPEN("menu_open"),
+    MENU_SAVE("menu_save"),
+    MENU_SAVEAS("menu_saveas"),
+    MENU_RECENT("menu_recent"),
+    MENU_EXIT("menu_exit"),
+    MENU_PROGRAM("menu_program"),
+    MENU_PARSE("menu_parse"),
+    MENU_FORMAT("menu_format"),
+    MENU_EXPORT("menu_export"),
+    MENU_EXPORT_PNG("menu_export_png"),
+    MENU_EXPORT_SVG("menu_export_svg"),
+    MENU_EXPORT_TIKZ("menu_export_tikz"),
+    MENU_SETTINGS("menu_settings"),
+    MENU_STDLIB("menu_stdlib"),
+    MENU_LANGUAGE("menu_language"),
+    MENU_LANGUAGE_DE("menu_language_de"),
+    MENU_LANGUAGE_EN("menu_language_en"),
+
+    // Tooltips
+    TOOLTIP_NEW("tooltip_new"),
+    TOOLTIP_OPEN("tooltip_open"),
+    TOOLTIP_SAVE("tooltip_save"),
+    TOOLTIP_PARSE("tooltip_parse"),
+    TOOLTIP_FORMAT("tooltip_format"),
+    TOOLTIP_STEP("tooltip_step"),
+    TOOLTIP_NEXT("tooltip_next"),
+
     // Dialog options
     /**
      * "Yes" dialog option

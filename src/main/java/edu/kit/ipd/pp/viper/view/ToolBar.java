@@ -9,6 +9,7 @@ import edu.kit.ipd.pp.viper.controller.CommandNextStep;
 import edu.kit.ipd.pp.viper.controller.CommandOpen;
 import edu.kit.ipd.pp.viper.controller.CommandParse;
 import edu.kit.ipd.pp.viper.controller.CommandSave;
+import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.SaveType;
 
 public class ToolBar extends JToolBar {
@@ -49,29 +50,29 @@ public class ToolBar extends JToolBar {
      * Adds all buttons to the toolbar
      */
     private void addButtons() {
-        this.add(new Button(ICON_NEW, "tooltip_new", new CommandNew(this.main.getConsolePanel(),
+        this.add(new Button(ICON_NEW, LanguageKey.TOOLTIP_NEW, new CommandNew(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel())));
 
-        this.add(new Button(ICON_OPEN, "tooltip_open", new CommandOpen(this.main.getConsolePanel(),
+        this.add(new Button(ICON_OPEN, LanguageKey.TOOLTIP_OPEN, new CommandOpen(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel())));
 
-        this.add(new Button(ICON_SAVE, "tooltip_save",
+        this.add(new Button(ICON_SAVE, LanguageKey.TOOLTIP_SAVE,
                 new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE)));
 
         this.addSeparator();
 
-        this.add(new Button(ICON_PARSE, "tooltip_parse", new CommandParse(this.main.getConsolePanel(),
+        this.add(new Button(ICON_PARSE, LanguageKey.TOOLTIP_PARSE, new CommandParse(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager())));
 
-        this.add(new Button(ICON_FORMAT, "tooltip_format",
+        this.add(new Button(ICON_FORMAT, LanguageKey.TOOLTIP_FORMAT,
                 new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel())));
 
         this.addSeparator();
 
-        this.add(new Button(ICON_STEP, "tooltip_step", new CommandNextStep(this.main.getConsolePanel(),
+        this.add(new Button(ICON_STEP, LanguageKey.TOOLTIP_STEP, new CommandNextStep(this.main.getConsolePanel(),
                 this.main.getVisualisationPanel(), this.main.getInterpreterManager())));
 
-        this.add(new Button(ICON_SOLUTION, "tooltip_next", new CommandContinue(this.main.getConsolePanel(),
+        this.add(new Button(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT, new CommandContinue(this.main.getConsolePanel(),
                 this.main.getVisualisationPanel(), this.main.getInterpreterManager())));
     }
 }

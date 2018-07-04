@@ -8,6 +8,7 @@ import java.util.Observer;
 import javax.swing.JMenuItem;
 
 import edu.kit.ipd.pp.viper.controller.Command;
+import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
@@ -17,7 +18,7 @@ public class MenuItem extends JMenuItem implements ActionListener, Observer {
     /**
      * The key used for translation
      */
-    private String textKey;
+    private LanguageKey textKey;
 
     /**
      * Command to execute
@@ -30,7 +31,7 @@ public class MenuItem extends JMenuItem implements ActionListener, Observer {
      * @param textKey Key used for translation
      * @param command Command to execute when item was checked/unchecked
      */
-    public MenuItem(String textKey, Command command) {
+    public MenuItem(LanguageKey textKey, Command command) {
         super(LanguageManager.getInstance().getString(textKey));
 
         LanguageManager.getInstance().addObserver(this);

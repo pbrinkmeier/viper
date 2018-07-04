@@ -16,6 +16,7 @@ import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.CommandSetLang;
 import edu.kit.ipd.pp.viper.controller.CommandToggleLib;
 import edu.kit.ipd.pp.viper.controller.ImageFormat;
+import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.SaveType;
 
@@ -40,7 +41,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addFileMenu() {
-        Menu menu = new Menu("menu_file");
+        Menu menu = new Menu(LanguageKey.MENU_FILE);
 
         this.addNewItem(menu);
         this.addOpenItem(menu);
@@ -55,35 +56,35 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addNewItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_new", new CommandNew(this.main.getConsolePanel(), this.main.getEditorPanel(),
-                this.main.getVisualisationPanel()));
+        MenuItem item = new MenuItem(LanguageKey.MENU_NEW, new CommandNew(this.main.getConsolePanel(),
+                this.main.getEditorPanel(), this.main.getVisualisationPanel()));
 
         menu.add(item);
     }
 
     private void addOpenItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_open", new CommandOpen(this.main.getConsolePanel(),
+        MenuItem item = new MenuItem(LanguageKey.MENU_OPEN, new CommandOpen(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel()));
 
         menu.add(item);
     }
 
     private void addSaveItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_save",
+        MenuItem item = new MenuItem(LanguageKey.MENU_SAVE,
                 new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE));
 
         menu.add(item);
     }
 
     private void addSaveAsItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_saveas",
+        MenuItem item = new MenuItem(LanguageKey.MENU_SAVEAS,
                 new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE_AS));
 
         menu.add(item);
     }
 
     private void addRecentlyOpenedMenu(Menu menu) {
-        Menu usedMenu = new Menu("menu_recent");
+        Menu usedMenu = new Menu(LanguageKey.MENU_RECENT);
 
         // TODO: loop all recently used files, for each: create MenuItem with
         // CommandOpen
@@ -92,12 +93,12 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addExitItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_exit", new CommandExit());
+        MenuItem item = new MenuItem(LanguageKey.MENU_EXIT, new CommandExit());
         menu.add(item);
     }
 
     private void addProgramMenu() {
-        Menu menu = new Menu("menu_program");
+        Menu menu = new Menu(LanguageKey.MENU_PROGRAM);
 
         this.addParseItem(menu);
         this.addFormatItem(menu);
@@ -106,29 +107,29 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addParseItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_parse", new CommandParse(this.main.getConsolePanel(),
+        MenuItem item = new MenuItem(LanguageKey.MENU_PARSE, new CommandParse(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
 
         menu.add(item);
     }
 
     private void addFormatItem(Menu menu) {
-        MenuItem item = new MenuItem("menu_format",
-                new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel()));
+        MenuItem item = new MenuItem(LanguageKey.MENU_FORMAT, new CommandFormat(this.main.getConsolePanel(),
+                this.main.getEditorPanel()));
 
         menu.add(item);
     }
 
     private void addExportMenu() {
-        Menu menu = new Menu("menu_export");
+        Menu menu = new Menu(LanguageKey.MENU_EXPORT);
 
-        MenuItem itemPng = new MenuItem("menu_export_png", new CommandExportImage(this.main.getConsolePanel(),
+        MenuItem itemPng = new MenuItem(LanguageKey.MENU_EXPORT_PNG, new CommandExportImage(this.main.getConsolePanel(),
                 this.main.getVisualisationPanel(), ImageFormat.PNG));
 
-        MenuItem itemSvg = new MenuItem("menu_export_svg", new CommandExportImage(this.main.getConsolePanel(),
+        MenuItem itemSvg = new MenuItem(LanguageKey.MENU_EXPORT_SVG, new CommandExportImage(this.main.getConsolePanel(),
                 this.main.getVisualisationPanel(), ImageFormat.SVG));
 
-        MenuItem itemTikz = new MenuItem("menu_export_tikz", new CommandExportTikz(this.main.getConsolePanel(),
+        MenuItem itemTikz = new MenuItem(LanguageKey.MENU_EXPORT_TIKZ, new CommandExportTikz(this.main.getConsolePanel(),
                 this.main.getVisualisationPanel()));
 
         menu.add(itemPng);
@@ -139,10 +140,10 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addSettingsMenu() {
-        Menu menu = new Menu("menu_settings");
+        Menu menu = new Menu(LanguageKey.MENU_SETTINGS);
 
-        CheckBoxMenuItem item = new CheckBoxMenuItem("menu_stdlib", new CommandToggleLib(this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
+        CheckBoxMenuItem item = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB, new CommandToggleLib(
+                this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
         item.setSelected(true);
 
         menu.add(item);
@@ -152,16 +153,17 @@ public class MenuBar extends JMenuBar {
     }
 
     private void addLanguageSwitchMenu(Menu menu) {
-        Menu languageMenu = new Menu("menu_language");
+        Menu languageMenu = new Menu(LanguageKey.MENU_LANGUAGE);
 
         ButtonGroup languageGroup = new ButtonGroup();
 
+        // TODO: using a boolean is ugly
         boolean select = true;
         Iterator<Locale> iter = LanguageManager.getInstance().getSupportedLocales().iterator();
         while (iter.hasNext()) {
             Locale locale = iter.next();
 
-            CheckBoxMenuItem item = new CheckBoxMenuItem("menu_language_" + locale.getLanguage(),
+            CheckBoxMenuItem item = new CheckBoxMenuItem(locale.getDisplayLanguage(),
                     new CommandSetLang(this.main.getConsolePanel(), this.main.getVisualisationPanel(), locale,
                             this.main.getInterpreterManager()));
             languageGroup.add(item);
