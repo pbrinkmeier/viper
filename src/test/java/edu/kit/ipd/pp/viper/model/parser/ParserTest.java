@@ -12,8 +12,8 @@ public class ParserTest {
     
     @Before
     public void init() throws IOException, ParseException {
-        String src = new String(Files.readAllBytes(Paths.get("simpsons.pl")));
-        this.parser = new PrologParser(src);
+        // String src = new String(Files.readAllBytes(Paths.get("simpsons.pl")));
+        // this.parser = new PrologParser(src);
     }
     
     @Test
