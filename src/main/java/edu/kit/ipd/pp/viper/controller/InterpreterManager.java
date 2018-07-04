@@ -1,10 +1,15 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import java.awt.Color;
 import java.util.List;
 
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
 import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
+import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
+import edu.kit.ipd.pp.viper.view.ConsolePanel;
+import edu.kit.ipd.pp.viper.view.VisualisationPanel;
+import guru.nidi.graphviz.model.Graph;
 
 /**
  * Manager class for interpreters. This class holds references to all
@@ -14,6 +19,8 @@ import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
  * be one instance which can be accessed by reference passed as a parameter.
  */
 public class InterpreterManager {
+    private Thread continueThread;
+    private boolean searchingForSolution = false;
     private boolean useStandardLibrary = false;
 
     /**
@@ -59,9 +66,31 @@ public class InterpreterManager {
      * Runs the interpreter until a new solution is found. This is done in a
      * separate thread to ensure the GUI is still responsive and the execution can
      * be canceled if it's going on for too long.
+     * 
+     * @param console Panel of the console area
+     * @param visualisation Panel of the visualisation area
      */
-    public void runUntilNextSolution() {
-        // TODO
+    public void runUntilNextSolution(ConsolePanel console, VisualisationPanel visualisation) {
+        if (!searchingForSolution) {
+            searchingForSolution = true;
+            continueThread = new Thread(() -> {
+                StepResult result = StepResult.STEPS_REMAINING;
+                while (searchingForSolution) {
+                    result = step();
+                    searchingForSolution = result == StepResult.STEPS_REMAINING;
+                }
+
+                if (result == StepResult.SOLUTION_FOUND) {
+                    final String prefix = LanguageManager.getInstance().getString(LanguageKey.KEY_SOLUTION_FOUND);
+                    console.printLine(prefix + getSolutionString(), Color.BLACK);
+                }
+
+                Graph graph = GraphvizMaker.createGraph(getCurrentState());
+                visualisation.setFromGraph(graph);
+                searchingForSolution = false;
+            });
+            continueThread.start();
+        }
     }
 
     /**
@@ -71,7 +100,7 @@ public class InterpreterManager {
      * visualisation gets updated to the respective current step.
      */
     public void cancel() {
-        // TODO
+        searchingForSolution = false;
     }
 
     /**

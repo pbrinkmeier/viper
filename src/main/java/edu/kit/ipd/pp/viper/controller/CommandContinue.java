@@ -1,11 +1,7 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.awt.Color;
-
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
-import guru.nidi.graphviz.model.Graph;
 
 /**
  * Command for continuously executing interpreter-steps until the next solution
@@ -36,12 +32,6 @@ public class CommandContinue extends Command {
      * Executes the command.
      */
     public void execute() {
-        interpreterManager.runUntilNextSolution();
-
-        final String prefix = LanguageManager.getInstance().getString(LanguageKey.KEY_SOLUTION_FOUND);
-        console.printLine(prefix + interpreterManager.getSolutionString(), Color.BLACK);
-
-        Graph graph = GraphvizMaker.createGraph(interpreterManager.getCurrentState());
-        visualisation.setFromGraph(graph);
+        interpreterManager.runUntilNextSolution(this.console, this.visualisation);
     }
 }
