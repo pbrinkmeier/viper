@@ -1,53 +1,68 @@
 package edu.kit.ipd.pp.viper.model.parser;
 
+/**
+ * A token of the Prolog language.
+ */
 public class Token {
     /**
-     * @param type
-     * @param text
-     * @param line
-     * @param column
+     * token type of this Token
      */
-    public Token(TokenType type, String text, int line, int column) {
-        // TODO
+    private final TokenType type;
+    /**
+     * the text of this token in the source code
+     */
+    private final String text;
+    private final int line;
+    private final int col;
+
+    /**
+     * Constructs a token.
+     * @param type the token type
+     * @param text text of this token in the source code
+     * @param line line this token is in
+     * @param col column this token begins
+     */
+    public Token(TokenType type, String text, int line, int col) {
+        this.type = type;
+        this.text = text;
+        this.line = line;
+        this.col = col;
     }
 
     /**
-     * @return
+     * Returns the token type
+     * @return token type
      */
     public TokenType getType() {
-        // TODO
-        return null;
+        return type;
     }
 
     /**
-     * @return
+     * Returns the text of this token in the source code
+     * @return text of this token in the source code
      */
     public String getText() {
-        // TODO
-        return "";
+        return text;
     }
 
     /**
-     * @return
+     * Returns the line this token is in
+     * @return line this token is in
      */
     public int getLine() {
-        // TODO
-        return 0;
+        return line;
     }
 
     /**
-     * @return
+     * Returns the column this token begins
+     * @return column this token begins
      */
-    public int getColumn() {
-        // TODO
-        return 0;
+    public int getCol() {
+        return col;
     }
 
-    /**
-     * @return
-     */
+    @Override
     public String toString() {
-        // TODO
-        return "";
+        return type + "(\"" + text + "\")";
     }
 }
