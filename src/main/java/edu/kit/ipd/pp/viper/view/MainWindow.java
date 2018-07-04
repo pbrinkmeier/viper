@@ -94,6 +94,8 @@ public class MainWindow extends JFrame {
         );
         innerPane.setResizeWeight(0.5);
         innerPane.setDividerLocation(this.getWidth() / 2);
+        innerPane.setEnabled(false);
+        innerPane.setDividerSize(0);
 
         // the outer pane splits up the window into a left (editor) and right (inner pane) side
         JSplitPane outerPane = new JSplitPane(
@@ -104,6 +106,8 @@ public class MainWindow extends JFrame {
         );
         outerPane.setResizeWeight(0.5);
         outerPane.setDividerLocation(this.getWidth() / 2);
+        outerPane.setEnabled(false);
+        outerPane.setDividerSize(0);
 
         this.getContentPane().add(outerPane, BorderLayout.CENTER);
     }
