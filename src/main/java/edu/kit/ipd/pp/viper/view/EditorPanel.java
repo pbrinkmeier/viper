@@ -4,68 +4,136 @@ import java.awt.BorderLayout;
 import java.io.File;
 
 import javax.swing.JPanel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
-public class EditorPanel extends JPanel {
+public class EditorPanel extends JPanel implements DocumentListener {
+    /**
+     * The actual text area
+     */
+    private final RSyntaxTextArea textArea;
+
+    /**
+     * A pane surrounding the text area to allow scrolling
+     */
+    private final RTextScrollPane scrollPane;
+
+    /**
+     * Indicates whether the document has changed since the last parsing
+     */
     private boolean changed;
 
     /**
-     * 
+     * Holds a reference to the file that the editor content was loaded from
+     */
+    private File reference;
+
+    /**
+     * Creates a new panel containing a text area with scroll support.
      */
     public EditorPanel() {
         this.changed = false;
 
         this.setLayout(new BorderLayout());
 
-        RSyntaxTextArea textArea = new RSyntaxTextArea();
-        RTextScrollPane scrollPane = new RTextScrollPane(textArea);
-        this.add(scrollPane, BorderLayout.CENTER);
+        this.textArea = new RSyntaxTextArea();
+        this.scrollPane = new RTextScrollPane(this.textArea);
+        this.add(this.scrollPane, BorderLayout.CENTER);
+        
+        this.textArea.getDocument().addDocumentListener(this);
     }
 
     /**
-     * @return boolean
+     * Returns whether the text content has changed since the last parsing
+     * 
+     * @return boolean true if has changed, false otherwise
      */
     public boolean hasChanged() {
         return this.changed;
     }
 
     /**
-     * @return String
+     * Returns the current content of the text area
+     * 
+     * @return String Text area content
      */
     public String getSourceText() {
-        // TODO
-        return "";
+        try {
+            return this.textArea.getText();
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
     /**
-     * @param text
-     * @return
+     * Sets the content of the text area. All previous content is overridden.
+     * 
+     * @param text The new content
      */
     public void setSourceText(String text) {
-        // TODO
+        this.textArea.setText(text);
     }
 
     /**
-     * @param status
+     * Sets the changed status to true, meaning that a call to {@link #hasChanged()} will return true afterwards.
      * @return
      */
-    public void setHasChanged(boolean status) {
-        this.changed = status;
+    public void setHasChanged() {
+        this.changed = true;
     }
 
     /**
-     * @return
+     * Checks whether the editor has a reference to a {@link File} the content was opened from
+     * 
+     * @return true if a {@link File} reference is known, false otherwise
      */
     public boolean hasFileReference() {
-        return false;
+        return this.reference != null;
     }
 
     /**
-     * @return
+     * Returns reference to a file the editor content was loaded from.
+     * 
+     * @return File reference, null if {@link #hasFileReference()} returns false
      */
     public File getFileReference() {
-        return null;
+        return this.reference;
+    }
+
+    /**
+     * Sets the file reference the editor content was loaded from
+     * 
+     * @param reference File reference
+     */
+    public void setFileReference(File reference) {
+        this.reference = reference;
+    }
+
+    /**
+     * Called when an attribute of the {@link Document} has changed.
+     * We only care about changes to the actual text, therefore nothing happens here.
+     */
+    @Override
+    public void changedUpdate(DocumentEvent event) {
+    }
+
+    /**
+     * Called when a portion of text was inserted into the text area.
+     */
+    @Override
+    public void insertUpdate(DocumentEvent event) {
+        this.changed = true;
+    }
+
+    /**
+     * Called when a portion of text was removed from the text area.
+     */
+    @Override
+    public void removeUpdate(DocumentEvent event) {
+        this.changed = true;
     }
 }
