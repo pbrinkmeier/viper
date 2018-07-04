@@ -38,13 +38,15 @@ public class VariableUnifier extends Unifier<Variable> {
     }
 
     /**
-     * Returns a substitution as described in {@link #createResult(Term)}.
+     * Returns a result in which the visited variable is substituted by this unifiers variable.
+     * This means that the left side of any unification is "stronger" than the right side.
+     * The variables on the left side persist.
      *
-     * @param variable variable to substitute with
+     * @param variable variable substitute
      * @return a success-result with a single substitution
      */
     public UnificationResult visit(Variable variable) {
-        return this.createResult(variable);
+        return UnificationResult.success(Arrays.asList(new Substitution(variable, this.getTerm())));
     }
 
     /**
