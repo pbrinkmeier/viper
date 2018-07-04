@@ -10,6 +10,7 @@ public class Interpreter {
     private final ActivationRecord query;
     private Optional<ActivationRecord> current;
     private Optional<ActivationRecord> next;
+    private int unificationIndex = 1;
 
     /**
      * Initializes an interpreter with a knowledgebase and a query.
@@ -67,6 +68,18 @@ public class Interpreter {
     }
 
     /**
+     * Getter-method for the current unification index.
+     * An unification index can only be used once.
+     * After requesting it from the Interpreter, make
+     * sure to call {@link #incrementUnificationIndex()}.
+     *
+     * @return unification index
+     */
+    public int getUnificationIndex() {
+        return this.unificationIndex;
+    }
+
+    /**
      * Setter-method for this interpreters current step.
      * For internal use only.
      *
@@ -86,6 +99,13 @@ public class Interpreter {
         this.next = next;
     }
 
+    /**
+     * Increments the unification index.
+     */
+    protected void incrementUnificationIndex() {
+        this.unificationIndex++;
+    }
+
     // ---
 
     /**
@@ -97,7 +117,13 @@ public class Interpreter {
      * @return a StepResult
      */
     public StepResult step() {
-        // TODO
-        return null;
+        if (!this.getNext().isPresent()) {
+            return StepResult.NO_MORE_SOLUTIONS;
+        }
+
+        this.setCurrent(this.getNext());
+        this.setNext(this.getNext().get().step());
+
+        return StepResult.STEPS_REMAINING;
     }
 }
