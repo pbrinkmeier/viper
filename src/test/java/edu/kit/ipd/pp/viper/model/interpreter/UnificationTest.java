@@ -99,6 +99,22 @@ public class UnificationTest {
         );
     }
 
+    @Test
+    public void directionFunctorTest() {
+        Term lhs = new Functor("grandfather", Arrays.asList(new Variable("X"), new Variable("Y")));
+        Term rhs = new Functor("grandfather", Arrays.asList(new Variable("X", 1), new Variable("Y", 1)));
+
+        UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
+        assertTrue(result.isSuccess());
+        assertEquals(
+            Arrays.asList(
+                new Substitution(new Variable("X", 1), new Variable("X")),
+                new Substitution(new Variable("Y", 1), new Variable("Y"))
+            ),
+            result.getSubstitutions()
+        );
+    }
+
     // Unifying a variable with itself should not yield any substitutions
     @Test
     public void avoidSelfSubstitutionTest() {

@@ -49,7 +49,7 @@ public class FunctorUnifier extends Unifier<Functor> {
                 rhs = rhs.accept(replacer);
             }
 
-            UnificationResult partialResult = lhs.accept(rhs.accept(new UnifierCreator()));
+            UnificationResult partialResult = rhs.accept(lhs.accept(new UnifierCreator()));
 
             if (!partialResult.isSuccess()) {
                 return partialResult;
