@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.io.File;
 
 import javax.swing.JPanel;
 
@@ -52,5 +53,19 @@ public class EditorPanel extends JPanel {
      */
     public void setHasChanged(boolean status) {
         this.changed = status;
+    }
+
+    /**
+     * @return
+     */
+    public boolean hasFileReference() {
+        return false;
+    }
+
+    /**
+     * @return
+     */
+    public File getFileReference() {
+        return null;
     }
 }

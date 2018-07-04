@@ -1,8 +1,6 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
@@ -52,38 +50,66 @@ public class MainWindow extends JFrame {
         this.setResizable(true);
         this.setIconImage(new ImageIcon(this.getClass().getResource(WINDOW_ICON)).getImage());
 
-        // use system built-in look and feel
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | UnsupportedLookAndFeelException e) {
-        }
-
-        this.manager = new InterpreterManager();
-
-        this.setJMenuBar(new MenuBar(this));
-
-        Container contentPane = this.getContentPane();
-        contentPane.add(new ToolBar(this), BorderLayout.NORTH);
+        // use system built-in look and feel instead of default swing look
+        this.setDesign();
 
         this.editorPanel = new EditorPanel();
         this.consolePanel = new ConsolePanel();
         this.visualisationPanel = new VisualisationPanel();
+        this.manager = new InterpreterManager();
 
-        JSplitPane secSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, this.visualisationPanel,
-                this.consolePanel);
-        secSplitPane.setResizeWeight(0.5);
-        secSplitPane.setDividerLocation(this.getWidth() / 2);
+        // add menu bar and tool bar to window
+        this.setJMenuBar(new MenuBar(this));
+        this.getContentPane().add(new ToolBar(this), BorderLayout.NORTH);
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, this.editorPanel, secSplitPane);
-        splitPane.setResizeWeight(0.5);
-        splitPane.setDividerLocation(this.getWidth() / 2);
-
-        this.getContentPane().add(splitPane, BorderLayout.CENTER);
+        // set up layout using two split panes
+        this.initLayout();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+
+    /**
+     * Sets the "look and feel" of the application by using the system default theme.
+     */
+    private void setDesign() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException
+               | IllegalAccessException | UnsupportedLookAndFeelException e) {
+        }
+    }
+
+    /**
+     * Sets up the main layout of the program. Two nested {@link JSplitPane}s are used to realise the wanted layout.
+     */
+    private void initLayout() {
+        // the inner pane splits up the right side into top (visualisation) and bottom (console)
+        JSplitPane innerPane = new JSplitPane(
+                JSplitPane.VERTICAL_SPLIT,
+                true,
+                this.visualisationPanel,
+                this.consolePanel
+        );
+        innerPane.setResizeWeight(0.5);
+        innerPane.setDividerLocation(this.getWidth() / 2);
+        innerPane.setEnabled(false);
+        innerPane.setDividerSize(0);
+
+        // the outer pane splits up the window into a left (editor) and right (inner pane) side
+        JSplitPane outerPane = new JSplitPane(
+                JSplitPane.HORIZONTAL_SPLIT,
+                true,
+                this.editorPanel,
+                innerPane
+        );
+        outerPane.setResizeWeight(0.5);
+        outerPane.setDividerLocation(this.getWidth() / 2);
+        outerPane.setEnabled(false);
+        outerPane.setDividerSize(0);
+
+        this.getContentPane().add(outerPane, BorderLayout.CENTER);
     }
 
     /**
