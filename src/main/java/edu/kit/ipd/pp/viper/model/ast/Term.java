@@ -11,6 +11,16 @@ public abstract class Term {
     public abstract <T> T accept(TermVisitor<T> visitor);
 
     /**
+     * Interface for TermTransformationVisitors.
+     * Instead of having a single generic return type, transform() returns a
+     * term of the same type as the visited one.
+     *
+     * @param visitor visitor to visit this term
+     * @return the result of the visit
+     */
+    public abstract Term transform(TermTransformationVisitor visitor);
+
+    /**
      * Evaluates this term arithmetically.
      *
      * @return a number term containing the result of the evaluation

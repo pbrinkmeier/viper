@@ -63,14 +63,13 @@ public class Functor extends Term {
         return new Functor(this.getName(), parameters);
     }
 
-    /**
-     * Interface for TermVisitors.
-     *
-     * @param visitor visitor to visit this functor
-     * @return result of the visit
-     */
     @Override
     public <T> T accept(TermVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public Functor transform(TermTransformationVisitor visitor) {
         return visitor.visit(this);
     }
 
