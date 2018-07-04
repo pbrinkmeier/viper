@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
 import edu.kit.ipd.pp.viper.model.ast.Goal;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -9,6 +10,11 @@ import java.util.Optional;
  * The abbreviation "AR" in these files comments stands for Activation Record.
  */
 public abstract class ActivationRecord {
+    private final Interpreter interpreter;
+    private final Optional<FunctorActivationRecord> parent;
+    private Environment environment;
+    private boolean visited;
+
     /**
      * General initialization for activation records.
      * Sets the interpreter and parent AR.
@@ -17,7 +23,8 @@ public abstract class ActivationRecord {
      * @param parent optional parent AR
      */
     public ActivationRecord(Interpreter interpreter, Optional<FunctorActivationRecord> parent) {
-        // TODO
+        this.interpreter = interpreter;
+        this.parent = parent;
     }
 
     /**
@@ -26,7 +33,7 @@ public abstract class ActivationRecord {
      * @param environment new environment
      */
     protected void setEnvironment(Environment environment) {
-        // TODO
+        this.environment = environment;
     }
 
     /**
@@ -38,7 +45,23 @@ public abstract class ActivationRecord {
      * @return previous AR for this AR, according to the rules stated above
      */
     protected Optional<ActivationRecord> getPrevious() {
-        // TODO
+        if (!this.getParent().isPresent()) {
+            return Optional.empty();
+        }
+
+        List<ActivationRecord> children = this.getParent().get().getChildren();
+
+        if (children.get(0) == this) {
+            return Optional.of(this.getParent().get());
+        }
+    
+        for (int index = 1; index < children.size(); index++) {
+            if (children.get(index) == this) {
+                return Optional.of(children.get(index));
+            }
+        }
+
+        // This can never be reached. Java compiler complains when it's missing tho.
         return null;
     }
 
@@ -48,8 +71,7 @@ public abstract class ActivationRecord {
      * @return this ARs environment
      */
     protected Environment getEnvironment() {
-        // TODO
-        return null;
+        return this.environment;
     }
 
     /**
@@ -71,8 +93,7 @@ public abstract class ActivationRecord {
      * @return this ARs interpreter
      */
     protected Interpreter getInterpreter() {
-        // TODO
-        return null;
+        return this.interpreter;
     }
 
     /**
@@ -81,8 +102,7 @@ public abstract class ActivationRecord {
      * @return this ARs optional parent
      */
     protected Optional<FunctorActivationRecord> getParent() {
-        // TODO
-        return null;
+        return this.parent;
     }
 
     /**
@@ -90,9 +110,8 @@ public abstract class ActivationRecord {
      *
      * @return whether this AR has already been visited
      */
-    protected boolean isVisited() {
-        // TODO
-        return false;
+    public boolean isVisited() {
+        return this.visited;
     }
 
     /**
@@ -101,7 +120,7 @@ public abstract class ActivationRecord {
      * @param visited new visited value to set
      */
     protected void setVisited(boolean visited) {
-        // TODO
+        this.visited = visited;
     }
 
     /**
