@@ -12,6 +12,11 @@ import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.SaveType;
 
 public class ToolBar extends JToolBar {
+    /**
+     * Path to icons used by {@link Button}s of this toolbar.
+     * All paths need to begin with a slash, otherwise Java will look for the file inside the
+     * <code>edu.kit.ipd.pp.viper.view</code> package, not inside <code>src/main/resources/</code>.
+     */
     private static final String ICON_NEW = "/icon_placeholder.png";
     private static final String ICON_OPEN = "/icon_placeholder.png";
     private static final String ICON_SAVE = "/icon_placeholder.png";
@@ -20,10 +25,16 @@ public class ToolBar extends JToolBar {
     private static final String ICON_STEP = "/icon_placeholder.png";
     private static final String ICON_SOLUTION = "/icon_placeholder.png";
 
+    /**
+     * Reference to main class
+     */
     private MainWindow main;
 
     /**
-     * @param gui
+     * Creates a new toolbar that can be added to the main window
+     * 
+     * @param gui Reference to main window. Necessary because the commands executed by clicking on buttons in this
+     *            toolbar need the different panels available via getters in the main class.
      */
     public ToolBar(MainWindow gui) {
         this.main = gui;
@@ -34,6 +45,9 @@ public class ToolBar extends JToolBar {
         this.addButtons();
     }
 
+    /**
+     * Adds all buttons to the toolbar
+     */
     private void addButtons() {
         this.add(new Button(ICON_NEW, "tooltip_new", new CommandNew(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel())));
