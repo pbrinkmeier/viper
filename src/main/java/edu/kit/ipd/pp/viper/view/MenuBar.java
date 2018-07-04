@@ -129,8 +129,8 @@ public class MenuBar extends JMenuBar {
         MenuItem itemSvg = new MenuItem(LanguageKey.MENU_EXPORT_SVG, new CommandExportImage(this.main.getConsolePanel(),
                 this.main.getVisualisationPanel(), ImageFormat.SVG));
 
-        MenuItem itemTikz = new MenuItem(LanguageKey.MENU_EXPORT_TIKZ, new CommandExportTikz(this.main.getConsolePanel(),
-                this.main.getVisualisationPanel()));
+        MenuItem itemTikz = new MenuItem(LanguageKey.MENU_EXPORT_TIKZ, new CommandExportTikz(
+                this.main.getConsolePanel(), this.main.getVisualisationPanel()));
 
         menu.add(itemPng);
         menu.add(itemSvg);
@@ -163,9 +163,9 @@ public class MenuBar extends JMenuBar {
         while (iter.hasNext()) {
             Locale locale = iter.next();
 
-            CheckBoxMenuItem item = new CheckBoxMenuItem(locale.getDisplayLanguage(),
-                    new CommandSetLang(this.main.getConsolePanel(), this.main.getVisualisationPanel(), locale,
-                            this.main.getInterpreterManager()));
+            LanguageCheckBoxMenuItem item = new LanguageCheckBoxMenuItem(locale, new CommandSetLang(
+                    this.main.getConsolePanel(), this.main.getVisualisationPanel(), locale,
+                    this.main.getInterpreterManager()));
             languageGroup.add(item);
 
             if (select) {
