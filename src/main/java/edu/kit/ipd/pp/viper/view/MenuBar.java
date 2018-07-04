@@ -24,7 +24,7 @@ public class MenuBar extends JMenuBar {
     /**
      * Instance of main window
      */
-    private MainWindow main;
+    private final MainWindow main;
 
     /**
      * The constructor initialises all menus in the menu bar

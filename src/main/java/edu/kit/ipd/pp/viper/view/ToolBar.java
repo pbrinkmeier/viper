@@ -29,7 +29,7 @@ public class ToolBar extends JToolBar {
     /**
      * Reference to main class
      */
-    private MainWindow main;
+    private final MainWindow main;
 
     /**
      * Creates a new toolbar that can be added to the main window

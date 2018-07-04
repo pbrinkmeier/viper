@@ -18,12 +18,12 @@ public class LanguageCheckBoxMenuItem extends JCheckBoxMenuItem implements Actio
     /**
      * The locale of this checkbox
      */
-    private Locale locale;
+    private final Locale locale;
 
     /**
      * Command to execute
      */
-    private Command command;
+    private final Command command;
 
     /**
      * Creates a new checkable menu item that can be used for a "radio selection" using a {@link ButtonGroup}

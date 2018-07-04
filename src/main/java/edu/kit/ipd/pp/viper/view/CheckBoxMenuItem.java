@@ -18,12 +18,12 @@ public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListene
     /**
      * The key used for translation
      */
-    private LanguageKey textKey;
+    private final LanguageKey textKey;
 
     /**
      * Command to execute
      */
-    private Command command;
+    private final Command command;
 
     /**
      * Creates a new checkable menu item that can be used for a enable/disable item (e.g. enable/disable standard

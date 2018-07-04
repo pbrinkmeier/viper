@@ -15,7 +15,7 @@ public class Menu extends JMenu implements Observer {
     /**
      * The key used for translation
      */
-    private LanguageKey textKey;
+    private final LanguageKey textKey;
 
     /**
      * Creates a new menu using a translation key. {@link MenuItem}s can be added using the inherited method

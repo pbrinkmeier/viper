@@ -18,12 +18,12 @@ public class MenuItem extends JMenuItem implements ActionListener, Observer {
     /**
      * The key used for translation
      */
-    private LanguageKey textKey;
+    private final LanguageKey textKey;
 
     /**
      * Command to execute
      */
-    private Command command;
+    private final Command command;
 
     /**
      * Creates a new menu item that can be used to execute a specific action, realized through a {@link Command}.
