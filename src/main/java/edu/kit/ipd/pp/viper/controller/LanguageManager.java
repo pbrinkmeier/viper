@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
  */
 public final class LanguageManager extends Observable {
     private static LanguageManager instance;
+    private static Locale currentLocale;
 
     /**
      * Bundle for current locale
@@ -86,6 +87,7 @@ public final class LanguageManager extends Observable {
         if (!Arrays.asList(this.supportedLocales).contains(locale))
             return;
 
+        LanguageManager.currentLocale = locale;
         bundle = ResourceBundle.getBundle("translations", locale);
         this.setChanged();
 
@@ -100,5 +102,14 @@ public final class LanguageManager extends Observable {
      */
     public List<Locale> getSupportedLocales() {
         return Collections.unmodifiableList(Arrays.asList(supportedLocales));
+    }
+
+    /**
+     * Returns the locale that is currently set
+     * 
+     * @return Current locale
+     */
+    public static Locale getCurrentLocale() {
+        return LanguageManager.currentLocale;
     }
 }
