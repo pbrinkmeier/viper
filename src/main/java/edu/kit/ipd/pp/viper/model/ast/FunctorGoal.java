@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
 import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
+import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
 import java.util.Optional;
 
@@ -27,13 +28,16 @@ public class FunctorGoal extends Goal {
 
     /**
      * Creates a new FunctorActivationRecord for this goal.
+     * The interpreter reference is passed in order for the activation record
+     * to be able to look up things in the interpreters knowledge base.
      *
+     * @param interpreter interpreter for the created activation record
      * @param parent optional parent ActivationRecord
      * @return new FunctorActivationRecord
      */
     @Override
-    public FunctorActivationRecord createActivationRecord(Optional<FunctorActivationRecord> parent) {
-        return new FunctorActivationRecord(parent, this);
+    public FunctorActivationRecord createActivationRecord(Interpreter interpreter, Optional<FunctorActivationRecord> parent) {
+        return new FunctorActivationRecord(interpreter, parent, this);
     }
 
     /**
