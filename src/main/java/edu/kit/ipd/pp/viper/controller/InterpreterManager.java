@@ -81,7 +81,7 @@ public class InterpreterManager {
                 }
 
                 if (result == StepResult.SOLUTION_FOUND) {
-                    final String prefix = LanguageManager.getInstance().getString(LanguageKey.KEY_SOLUTION_FOUND);
+                    final String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
                     console.printLine(prefix + getSolutionString(), Color.BLACK);
                 }
 

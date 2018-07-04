@@ -32,10 +32,10 @@ public class CommandNew extends Command {
     public void execute() {
         if (editor.hasChanged()) {
             LanguageManager langman = LanguageManager.getInstance();
-            Object options[] = {langman.getString(LanguageKey.KEY_YES), langman.getString(LanguageKey.KEY_NO),
-                    langman.getString(LanguageKey.KEY_CANCEL)};
-            int rv = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.KEY_CONFIRMATION),
-                    langman.getString(LanguageKey.KEY_CONFIRMATION_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
+            Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),
+                    langman.getString(LanguageKey.CANCEL)};
+            int rv = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
+                    langman.getString(LanguageKey.CONFIRMATION_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
             switch (rv) {

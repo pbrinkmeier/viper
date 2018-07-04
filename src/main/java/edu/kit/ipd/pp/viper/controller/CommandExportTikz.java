@@ -39,7 +39,7 @@ public class CommandExportTikz extends Command {
         FileFilter filter = new FileFilter() {
             @Override
             public String getDescription() {
-                return LanguageManager.getInstance().getString(LanguageKey.KEY_TIKZ_FILES);
+                return LanguageManager.getInstance().getString(LanguageKey.TIKZ_FILES);
             }
 
             @Override
@@ -59,14 +59,14 @@ public class CommandExportTikz extends Command {
                 out.flush();
                 out.close();
 
-                String msg = LanguageManager.getInstance().getString(LanguageKey.KEY_EXPORT_FILE_SUCCESS);
+                String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
                 console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
             } catch (FileNotFoundException e) {
-                String err = LanguageManager.getInstance().getString(LanguageKey.KEY_EXPORT_FILE_ERROR);
+                String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
                 console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
                 e.printStackTrace();
             } catch (IOException e) {
-                String err = LanguageManager.getInstance().getString(LanguageKey.KEY_EXPORT_FILE_ERROR);
+                String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
                 console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
                 e.printStackTrace();
             }

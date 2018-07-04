@@ -55,11 +55,11 @@ public class CommandSave extends Command {
             out.flush();
             out.close();
         } catch (FileNotFoundException e) {
-            String err = LanguageManager.getInstance().getString(LanguageKey.KEY_SAVE_FILE_ERROR);
+            String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
             console.printLine(err + ": " + file.getAbsolutePath(), Color.RED);
             e.printStackTrace();
         } catch (IOException e) {
-            String err = LanguageManager.getInstance().getString(LanguageKey.KEY_SAVE_FILE_ERROR);
+            String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
             console.printLine(err + ": " + file.getAbsolutePath(), Color.RED);
             e.printStackTrace();
         }
@@ -69,7 +69,7 @@ public class CommandSave extends Command {
         FileFilter filter = new FileFilter() {
             @Override
             public String getDescription() {
-                return LanguageManager.getInstance().getString(LanguageKey.KEY_PROLOG_FILES);
+                return LanguageManager.getInstance().getString(LanguageKey.PROLOG_FILES);
             }
 
             @Override
@@ -89,14 +89,14 @@ public class CommandSave extends Command {
                 out.flush();
                 out.close();
 
-                String msg = LanguageManager.getInstance().getString(LanguageKey.KEY_SAVE_FILE_SUCCESS);
+                String msg = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_SUCCESS);
                 console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
             } catch (FileNotFoundException e) {
-                String err = LanguageManager.getInstance().getString(LanguageKey.KEY_SAVE_FILE_ERROR);
+                String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
                 console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
                 e.printStackTrace();
             } catch (IOException e) {
-                String err = LanguageManager.getInstance().getString(LanguageKey.KEY_SAVE_FILE_ERROR);
+                String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
                 console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
                 e.printStackTrace();
             }

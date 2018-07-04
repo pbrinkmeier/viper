@@ -37,7 +37,7 @@ public class CommandNextStep extends Command {
     public void execute() {
         final StepResult res = interpreterManager.step();
         if (res == StepResult.SOLUTION_FOUND) {
-            final String prefix = LanguageManager.getInstance().getString(LanguageKey.KEY_SOLUTION_FOUND);
+            final String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
             console.printLine(prefix + interpreterManager.getSolutionString(), Color.BLACK);
         }
 
