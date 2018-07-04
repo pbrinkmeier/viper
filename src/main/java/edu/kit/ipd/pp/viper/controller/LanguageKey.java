@@ -2,33 +2,125 @@ package edu.kit.ipd.pp.viper.controller;
 
 public enum LanguageKey {
     // Menu
+    /**
+     * Menu "File" option
+     */
     MENU_FILE("menu_file"),
+
+    /**
+     * Menu "New" option
+     */
     MENU_NEW("menu_new"),
+
+    /**
+     * Menu "Open" option
+     */
     MENU_OPEN("menu_open"),
+
+    /**
+     * Menu "Save" option
+     */
     MENU_SAVE("menu_save"),
+
+    /**
+     * Menu "Save As..." option
+     */
     MENU_SAVEAS("menu_saveas"),
+
+    /**
+     * Menu "Recent >" option
+     */
     MENU_RECENT("menu_recent"),
+
+    /**
+     * Menu "Exit" option
+     */
     MENU_EXIT("menu_exit"),
+
+    /**
+     * Menu "Program" option
+     */
     MENU_PROGRAM("menu_program"),
+
+    /**
+     * Menu "Parse" option
+     */
     MENU_PARSE("menu_parse"),
+
+    /**
+     * Menu "Format" option
+     */
     MENU_FORMAT("menu_format"),
+
+    /**
+     * Menu "Export" option
+     */
     MENU_EXPORT("menu_export"),
+
+    /**
+     * Menu "Export as PNG" option
+     */
     MENU_EXPORT_PNG("menu_export_png"),
+
+    /**
+     * Menu "Export as SVG" option
+     */
     MENU_EXPORT_SVG("menu_export_svg"),
+
+    /**
+     * Menu "Export as TikZ" option
+     */
     MENU_EXPORT_TIKZ("menu_export_tikz"),
+
+    /**
+     * Menu "Settings" option
+     */
     MENU_SETTINGS("menu_settings"),
+
+    /**
+     * Menu "Toggle Standard Library" option
+     */
     MENU_STDLIB("menu_stdlib"),
+
+    /**
+     * Menu "Language" option
+     */
     MENU_LANGUAGE("menu_language"),
-    MENU_LANGUAGE_DE("menu_language_de"),
-    MENU_LANGUAGE_EN("menu_language_en"),
 
     // Tooltips
+    /**
+     * Toolbar "New" tooltip
+     */
     TOOLTIP_NEW("tooltip_new"),
+
+    /**
+     * Toolbar "Open" tooltip
+     */
     TOOLTIP_OPEN("tooltip_open"),
+
+    /**
+     * Toolbar "Save" tooltip
+     */
     TOOLTIP_SAVE("tooltip_save"),
+
+    /**
+     * Toolbar "Parse" tooltip
+     */
     TOOLTIP_PARSE("tooltip_parse"),
+
+    /**
+     * Toolbar "Format" tooltip
+     */
     TOOLTIP_FORMAT("tooltip_format"),
+
+    /**
+     * Toolbar "Next Step" tooltip
+     */
     TOOLTIP_STEP("tooltip_step"),
+
+    /**
+     * Toolbar "Next Solution" tooltip
+     */
     TOOLTIP_NEXT("tooltip_next"),
 
     // Dialog options
