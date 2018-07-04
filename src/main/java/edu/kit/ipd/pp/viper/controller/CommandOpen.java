@@ -23,10 +23,6 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * file.
  */
 public class CommandOpen extends Command {
-    private static final String KEY_PROLOG_FILES = "key_prolog_files";
-    private static final String KEY_OPEN_FILE_ERROR = "key_open_file_error";
-    private static final String KEY_OPEN_FILE_SUCCESS = "key_open_file_success";
-
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
@@ -51,12 +47,12 @@ public class CommandOpen extends Command {
         FileFilter filter = new FileFilter() {
             @Override
             public String getDescription() {
-                return LanguageManager.getInstance().getString(KEY_PROLOG_FILES);
+                return LanguageManager.getInstance().getString(LanguageKey.KEY_PROLOG_FILES);
             }
 
             @Override
             public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("pl");
+                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("pl") || f.isDirectory();
             }
         };
 
@@ -78,7 +74,7 @@ public class CommandOpen extends Command {
                 editor.setSourceText(buf.toString());
                 visualisation.clearVisualization();
 
-                final String out = LanguageManager.getInstance().getString(KEY_OPEN_FILE_SUCCESS);
+                final String out = LanguageManager.getInstance().getString(LanguageKey.KEY_OPEN_FILE_SUCCESS);
                 console.clearAll();
                 console.printLine(out + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
 
@@ -87,12 +83,12 @@ public class CommandOpen extends Command {
             } catch (FileNotFoundException e) {
                 // Shouldn't be able to happen since we just retrieved the file from
                 // an open dialog
-                String err = LanguageManager.getInstance().getString(KEY_OPEN_FILE_ERROR);
+                String err = LanguageManager.getInstance().getString(LanguageKey.KEY_OPEN_FILE_ERROR);
                 console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
                 e.printStackTrace();
                 return;
             } catch (IOException e) {
-                String err = LanguageManager.getInstance().getString(KEY_OPEN_FILE_ERROR);
+                String err = LanguageManager.getInstance().getString(LanguageKey.KEY_OPEN_FILE_ERROR);
                 console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
                 e.printStackTrace();
                 return;

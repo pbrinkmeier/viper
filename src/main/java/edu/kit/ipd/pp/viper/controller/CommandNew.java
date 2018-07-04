@@ -11,12 +11,6 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * removes any reference to previously saved files.
  */
 public class CommandNew extends Command {
-    private static final String KEY_NO = "key_no";
-    private static final String KEY_YES = "key_yes";
-    private static final String KEY_CANCEL = "key_cancel";
-    private static final String KEY_CONFIRMATION = "key_confirm_new";
-    private static final String KEY_CONFIRMATION_TITLE = "key_confirm_new_title";
-
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
@@ -38,9 +32,10 @@ public class CommandNew extends Command {
     public void execute() {
         if (editor.hasChanged()) {
             LanguageManager langman = LanguageManager.getInstance();
-            Object options[] = {langman.getString(KEY_YES), langman.getString(KEY_NO), langman.getString(KEY_CANCEL)};
-            int rv = JOptionPane.showOptionDialog(null, langman.getString(KEY_CONFIRMATION),
-                    langman.getString(KEY_CONFIRMATION_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
+            Object options[] = {langman.getString(LanguageKey.KEY_YES), langman.getString(LanguageKey.KEY_NO),
+                    langman.getString(LanguageKey.KEY_CANCEL)};
+            int rv = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.KEY_CONFIRMATION),
+                    langman.getString(LanguageKey.KEY_CONFIRMATION_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
             switch (rv) {

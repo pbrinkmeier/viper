@@ -19,10 +19,6 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * SVG).
  */
 public class CommandExportImage extends Command {
-    private static final String KEY_IMAGE_FILES = "key_image_files";
-    private static final String KEY_EXPORT_FILE_ERROR = "key_export_file_error";
-    private static final String KEY_EXPORT_FILE_SUCCESS = "key_export_file_success";
-
     private ConsolePanel console;
     private VisualisationPanel visualisation;
     private ImageFormat format;
@@ -47,13 +43,13 @@ public class CommandExportImage extends Command {
         FileFilter filter = new FileFilter() {
             @Override
             public String getDescription() {
-                return LanguageManager.getInstance().getString(KEY_IMAGE_FILES);
+                return LanguageManager.getInstance().getString(LanguageKey.KEY_IMAGE_FILES);
             }
 
             @Override
             public boolean accept(File f) {
                 return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("png")
-                        || FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg");
+                        || FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg") || f.isDirectory();
             }
         };
 
@@ -71,14 +67,14 @@ public class CommandExportImage extends Command {
                 out.flush();
                 out.close();
 
-                String msg = LanguageManager.getInstance().getString(KEY_EXPORT_FILE_SUCCESS);
+                String msg = LanguageManager.getInstance().getString(LanguageKey.KEY_EXPORT_FILE_SUCCESS);
                 console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
             } catch (FileNotFoundException e) {
-                String err = LanguageManager.getInstance().getString(KEY_EXPORT_FILE_ERROR);
+                String err = LanguageManager.getInstance().getString(LanguageKey.KEY_EXPORT_FILE_ERROR);
                 console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
                 e.printStackTrace();
             } catch (IOException e) {
-                String err = LanguageManager.getInstance().getString(KEY_EXPORT_FILE_ERROR);
+                String err = LanguageManager.getInstance().getString(LanguageKey.KEY_EXPORT_FILE_ERROR);
                 console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
                 e.printStackTrace();
             }
