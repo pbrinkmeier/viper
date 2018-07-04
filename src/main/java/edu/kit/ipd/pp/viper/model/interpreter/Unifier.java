@@ -6,6 +6,8 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 import edu.kit.ipd.pp.viper.model.ast.TermVisitor;
 
+import java.util.Arrays;
+
 public abstract class Unifier<R extends Term> implements TermVisitor<UnificationResult> {
     private final R term;
 
@@ -24,7 +26,7 @@ public abstract class Unifier<R extends Term> implements TermVisitor<Unification
      * @return term this unififer will try to unify with
      */
     protected R getTerm() {
-        return null;
+        return this.term;
     }
 
     // ---
@@ -40,8 +42,7 @@ public abstract class Unifier<R extends Term> implements TermVisitor<Unification
      */
     @Override
     public UnificationResult visit(Functor functor) {
-        // TODO
-        return null;
+        return UnificationResult.fail(this.getTerm(), functor);
     }
 
     /**
@@ -53,8 +54,7 @@ public abstract class Unifier<R extends Term> implements TermVisitor<Unification
      */
     @Override
     public UnificationResult visit(Variable variable) {
-        // TODO
-        return null;
+        return UnificationResult.success(Arrays.asList(new Substitution(variable, this.getTerm())));
     }
 
     /**
@@ -68,7 +68,6 @@ public abstract class Unifier<R extends Term> implements TermVisitor<Unification
      */
     @Override
     public UnificationResult visit(Number number) {
-        // TODO
-        return null;
+        return UnificationResult.fail(this.getTerm(), number);
     }
 }

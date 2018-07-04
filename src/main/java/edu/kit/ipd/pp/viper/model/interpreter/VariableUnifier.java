@@ -5,6 +5,8 @@ import edu.kit.ipd.pp.viper.model.ast.Number;
 import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 
+import java.util.Arrays;
+
 public class VariableUnifier extends Unifier<Variable> {
     /**
      * Initializes a variable unifier with a variable.
@@ -22,7 +24,7 @@ public class VariableUnifier extends Unifier<Variable> {
      * @return a success-result with a single substitution 
      */
     private UnificationResult createResult(Term term) {
-        return null;
+        return UnificationResult.success(Arrays.asList(new Substitution(this.getTerm(), term)));
     }
 
     /**
@@ -32,7 +34,7 @@ public class VariableUnifier extends Unifier<Variable> {
      * @return a success-result with a single substitution
      */
     public UnificationResult visit(Functor functor) {
-        return null;
+        return this.createResult(functor);
     }
 
     /**
@@ -42,7 +44,7 @@ public class VariableUnifier extends Unifier<Variable> {
      * @return a success-result with a single substitution
      */
     public UnificationResult visit(Variable variable) {
-        return null;
+        return this.createResult(variable);
     }
 
     /**
@@ -52,6 +54,6 @@ public class VariableUnifier extends Unifier<Variable> {
      * @return a success-result with a single substitution
      */
     public UnificationResult visit(Number number) {
-        return null;
+        return this.createResult(number);
     }
 }

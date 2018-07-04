@@ -2,6 +2,8 @@ package edu.kit.ipd.pp.viper.model.interpreter;
 
 import edu.kit.ipd.pp.viper.model.ast.Number;
 
+import java.util.Arrays;
+
 public class NumberUnifier extends Unifier<Number> {
     /**
      * Initializes the unifier with a number to do unification with
@@ -21,6 +23,10 @@ public class NumberUnifier extends Unifier<Number> {
      * @return an UnificationResult according to the rules stated above
      */
     public UnificationResult visit(Number number) {
-        return null;
+        if (number.equals(this.getTerm())) {
+            return UnificationResult.success(Arrays.asList());
+        } else {
+            return UnificationResult.fail(this.getTerm(), number);
+        }
     }
 }
