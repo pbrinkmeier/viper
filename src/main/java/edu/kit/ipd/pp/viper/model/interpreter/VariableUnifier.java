@@ -18,23 +18,13 @@ public class VariableUnifier extends Unifier<Variable> {
     }
 
     /**
-     * Creates a result that substitutes the variable of this unifier with the given term.
-     *
-     * @param term term to subtstitute with
-     * @return a success-result with a single substitution 
-     */
-    private UnificationResult createResult(Term term) {
-        return UnificationResult.success(Arrays.asList(new Substitution(this.getTerm(), term)));
-    }
-
-    /**
      * Returns a substitution as described in {@link #createResult(Term)}.
      *
      * @param functor functor to substitute with
      * @return a success-result with a single substitution
      */
     public UnificationResult visit(Functor functor) {
-        return this.createResult(functor);
+        return this.createSubstitution(this.getTerm(), functor);
     }
 
     /**
@@ -46,7 +36,7 @@ public class VariableUnifier extends Unifier<Variable> {
      * @return a success-result with a single substitution
      */
     public UnificationResult visit(Variable variable) {
-        return UnificationResult.success(Arrays.asList(new Substitution(variable, this.getTerm())));
+        return this.createSubstitution(variable, this.getTerm());
     }
 
     /**
@@ -56,6 +46,6 @@ public class VariableUnifier extends Unifier<Variable> {
      * @return a success-result with a single substitution
      */
     public UnificationResult visit(Number number) {
-        return this.createResult(number);
+        return this.createSubstitution(this.getTerm(), number);
     }
 }

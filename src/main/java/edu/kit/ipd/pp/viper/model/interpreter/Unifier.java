@@ -7,6 +7,7 @@ import edu.kit.ipd.pp.viper.model.ast.Variable;
 import edu.kit.ipd.pp.viper.model.ast.TermVisitor;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class Unifier<R extends Term> implements TermVisitor<UnificationResult> {
     private final R term;
@@ -30,6 +31,34 @@ public abstract class Unifier<R extends Term> implements TermVisitor<Unification
     }
 
     // ---
+    
+    /**
+     * Creates an UnificationResult with a single substitution in it.
+     * Checks whether the variable occurs in the term it should be substituted
+     * with and fails if it does.
+     * This is a helper method meant to be used in VariableUnifier, but
+     * also in {@link #visit(Variable)}.
+     *
+     * @param replace variable to substitute
+     * @param by term to substitute with
+     * @return an UnificationResult according to the rules stated above
+     */
+    protected UnificationResult createSubstitution(Variable replace, Term by) {
+        // do not add substitutions of variables with themselves
+        if (replace.equals(by)) {
+            return UnificationResult.success(Arrays.asList());
+        }
+
+        List<Variable> occurring = by.accept(new VariableExtractor());
+
+        // avoid recursion
+        // TODO: this should have its own error message
+        if (occurring.contains(replace)) {
+            return UnificationResult.fail(replace, by);
+        }
+
+        return UnificationResult.success(Arrays.asList(new Substitution(replace, by)));
+    }
 
     /**
      * Implements the general case of unification with a functor.
@@ -54,7 +83,7 @@ public abstract class Unifier<R extends Term> implements TermVisitor<Unification
      */
     @Override
     public UnificationResult visit(Variable variable) {
-        return UnificationResult.success(Arrays.asList(new Substitution(variable, this.getTerm())));
+        return this.createSubstitution(variable, this.getTerm());
     }
 
     /**
