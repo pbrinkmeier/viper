@@ -1,89 +1,53 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
-import java.util.List;
-import java.util.Optional;
-
-import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
+
+import java.util.Optional;
 
 public class FunctorActivationRecord extends ActivationRecord {
     /**
-     * 
+     * Initializes a functor activation record with an interpreter, a parent and a functor goal.
+     * Internally, this already fetches all matching rules from the knowledgebase.
+     *
+     * @param interpreter interpreter reference (for access to the knowledgebase)
+     * @param parent optional parent AR
+     * @param goal goal that corresponds to this AR
      */
-    private int ruleIndex;
-
-    /**
-     * @param parent
-     * @param goal
-     */
-    public FunctorActivationRecord(Optional<FunctorActivationRecord> parent, FunctorGoal goal) {
+    public FunctorActivationRecord(
+        Interpreter interpreter,
+        Optional<FunctorActivationRecord> parent,
+        FunctorGoal goal
+    ) {
         super(null, null);
         // TODO
     }
 
     /**
-     * @return
+     * Getter-method for the functor goal that corresponds to this functor AR.
      */
-    public Optional<UnificationResult> getUnificationResult() {
+    @Override
+    public FunctorGoal getGoal() {
         // TODO
         return null;
     }
 
     /**
-     * @return
+     * Executes a single step of a functor AR.
+     * If this AR has not been visited, set the index of the internal matching rule to 0.
+     * If the index of the internal matching rule does not point into the list of matching rules,
+     * set visited to false and return getPrevious().
+     * If there is a matching rule at the current index, try to unify it with the functor of the functor goal.
+     * Increase the index.
+     * If unification failed, return this AR, thus trying it again.
+     * If unification was successful, create a new environment for this AR with the resulting substitutions.
+     * Get the subgoals and sets their corresponding ARs as this ARs children.
+     * If there are any subgoals, return the first subgoal; else, return this.
+     *
+     * @return an optional next step (may be empty if the absolute end has been reached)
      */
-    public Functor getFunctor() {
+    @Override
+    public Optional<ActivationRecord> step() {
         // TODO
         return null;
     }
-
-    /**
-     * @return
-     */
-    public Functor getMatchingRuleHead() {
-        // TODO
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    public int getRuleIndex() {
-        // TODO
-        return 0;
-    }
-
-    /**
-     * @return
-     */
-    public List<ActivationRecord> getSubSteps() {
-        // TODO
-        return null;
-    }
-
-    /**
-     * @param visitor
-     * @return
-     */
-    public FunctorActivationRecord accept(ActivationRecordVisitor visitor) {
-        // TODO
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    protected ActivationRecord step() {
-        // TODO
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    protected ActivationRecord createCopy() {
-        // TODO
-        return null;
-    }
-
 }

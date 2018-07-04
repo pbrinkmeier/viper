@@ -5,8 +5,6 @@ import edu.kit.ipd.pp.viper.model.ast.Number;
 import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 
-import java.util.Arrays;
-
 public class VariableUnifier extends Unifier<Variable> {
     /**
      * Initializes a variable unifier with a variable.
