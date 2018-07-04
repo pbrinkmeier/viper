@@ -14,7 +14,20 @@ public abstract class Goal {
      * @param parent optional FunctorActivationRecord that has this as subgoal
      * @return newly created ActivationRecord
      */
-    public abstract ActivationRecord createActivationRecord(Interpreter interpreter, Optional<FunctorActivationRecord> parent);
+    public abstract ActivationRecord createActivationRecord(
+        Interpreter interpreter,
+        Optional<FunctorActivationRecord> parent
+    );
+
+    /**
+     * Applies a TermTransformationVisitor to all terms in this goal.
+     * This allows {@link edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord#step()} to indexify
+     * the subgoals of a matching rule.
+     *
+     * @param visitor {@link TermTransformationVisitor} to visit this goal
+     * @return new version of the goal where the visitor has been applied to all terms
+     */
+    public abstract Goal transform(TermTransformationVisitor visitor);
 
     /**
      * Getter-method for a string representation of this goal.

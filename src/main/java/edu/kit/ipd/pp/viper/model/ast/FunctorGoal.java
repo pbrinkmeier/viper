@@ -26,6 +26,11 @@ public class FunctorGoal extends Goal {
         return this.functor;
     }
 
+    @Override
+    public FunctorGoal transform(TermTransformationVisitor visitor) {
+        return new FunctorGoal(this.getFunctor().transform(visitor));
+    }
+
     /**
      * Creates a new FunctorActivationRecord for this goal.
      * The interpreter reference is passed in order for the activation record
@@ -36,7 +41,10 @@ public class FunctorGoal extends Goal {
      * @return new FunctorActivationRecord
      */
     @Override
-    public FunctorActivationRecord createActivationRecord(Interpreter interpreter, Optional<FunctorActivationRecord> parent) {
+    public FunctorActivationRecord createActivationRecord(
+        Interpreter interpreter,
+        Optional<FunctorActivationRecord> parent
+    ) {
         return new FunctorActivationRecord(interpreter, parent, this);
     }
 
