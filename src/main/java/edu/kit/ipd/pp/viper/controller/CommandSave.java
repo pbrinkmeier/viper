@@ -2,7 +2,6 @@ package edu.kit.ipd.pp.viper.controller;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -39,25 +38,22 @@ public class CommandSave extends Command {
      * Executes the command.
      */
     public void execute() {
-        boolean editorHasFileRef = false;
-        if (saveType == SaveType.SAVE && editorHasFileRef)
-            save();
-        else
-            saveAs();
+        if (editor.hasChanged()) {
+            if (saveType == SaveType.SAVE && editor.hasFileReference())
+                save();
+            else
+                saveAs();
+        }
     }
 
     private void save() {
-        String filePath = "";
-        File file = new File(filePath);
+        File file = editor.getFileReference();
         try {
             FileOutputStream out = new FileOutputStream(file);
             out.write(editor.getSourceText().getBytes());
             out.flush();
             out.close();
-        } catch (FileNotFoundException e) {
-            String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
-            console.printLine(err + ": " + file.getAbsolutePath(), Color.RED);
-            e.printStackTrace();
+            editor.setHasChanged(false);
         } catch (IOException e) {
             String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
             console.printLine(err + ": " + file.getAbsolutePath(), Color.RED);
@@ -88,13 +84,11 @@ public class CommandSave extends Command {
                 out.write(editor.getSourceText().getBytes());
                 out.flush();
                 out.close();
+                editor.setHasChanged(false);
+                editor.setFileReference(chooser.getSelectedFile());
 
                 String msg = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_SUCCESS);
                 console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
-            } catch (FileNotFoundException e) {
-                String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
-                console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
-                e.printStackTrace();
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
                 console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);

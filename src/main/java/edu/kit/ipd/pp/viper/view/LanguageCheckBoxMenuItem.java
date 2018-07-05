@@ -2,23 +2,23 @@ package edu.kit.ipd.pp.viper.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import edu.kit.ipd.pp.viper.controller.Command;
-import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
- * Represents a checkable menu item, used both to enable/disable the standard library via the menubar, as well as for
- * the language selection.
+ * Represents a checkable menu item used for the language selection.
  */
-public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListener, Observer {
+public class LanguageCheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListener, Observer {
     /**
-     * The key used for translation
+     * The locale of this checkbox
      */
-    private final LanguageKey textKey;
+    private final Locale locale;
 
     /**
      * Command to execute
@@ -26,18 +26,18 @@ public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListene
     private final Command command;
 
     /**
-     * Creates a new checkable menu item that can be used for a enable/disable item (e.g. enable/disable standard
-     * library).
+     * Creates a new checkable menu item that can be used for a "radio selection" using a {@link ButtonGroup}
+     * (language selection).
      * 
-     * @param textKey Key used for translation
+     * @param locale  Locale this checkbox represents
      * @param command Command to execute when item was checked/unchecked
      */
-    public CheckBoxMenuItem(LanguageKey textKey, Command command) {
-        super(LanguageManager.getInstance().getString(textKey));
+    public LanguageCheckBoxMenuItem(Locale locale, Command command) {
+        super(locale.getDisplayLanguage(LanguageManager.getCurrentLocale()));
 
         LanguageManager.getInstance().addObserver(this);
 
-        this.textKey = textKey;
+        this.locale = locale;
         this.command = command;
 
         this.addActionListener(this);
@@ -54,13 +54,14 @@ public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListene
     }
 
     /**
-     * Called by the {@link LanguageManager} when the locale was changed. This triggers an update of the item text.
+     * Called by the {@link LanguageManager} when the program locale was changed. This triggers an update of the item
+     * text.
      * 
      * @param obs Class that triggered the update, ignored here
      * @param obj Object that was triggered, ignored here
      */
     @Override
     public void update(Observable obs, Object obj) {
-        this.setText(LanguageManager.getInstance().getString(this.textKey));
+        this.setText(this.locale.getDisplayLanguage(LanguageManager.getCurrentLocale()));
     }
 }

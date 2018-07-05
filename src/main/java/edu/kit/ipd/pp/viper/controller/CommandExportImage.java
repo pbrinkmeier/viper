@@ -2,8 +2,6 @@ package edu.kit.ipd.pp.viper.controller;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
@@ -11,8 +9,11 @@ import javax.swing.filechooser.FileFilter;
 
 import org.apache.commons.io.FilenameUtils;
 
+import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
-import edu.kit.ipd.pp.viper.view.VisualisationPanel;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.model.Graph;
 
 /**
  * Command for exporting the visualisation to a supported image format (PNG or
@@ -20,20 +21,21 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  */
 public class CommandExportImage extends Command {
     private ConsolePanel console;
-    private VisualisationPanel visualisation;
     private ImageFormat format;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new image export command.
      * 
      * @param console Panel of the console area
-     * @param visualisation Panel of the visualisation area
      * @param format Format of the image to be saved
+     * @param interpreterManager Interpreter manager with a reference to the current
+     * interpreter
      */
-    public CommandExportImage(ConsolePanel console, VisualisationPanel visualisation, ImageFormat format) {
+    public CommandExportImage(ConsolePanel console, ImageFormat format, InterpreterManager interpreterManager) {
         this.console = console;
-        this.visualisation = visualisation;
         this.format = format;
+        this.interpreterManager = interpreterManager;
     }
 
     /**
@@ -58,26 +60,44 @@ public class CommandExportImage extends Command {
         int rv = chooser.showSaveDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {
-            try {
-                FileOutputStream out = new FileOutputStream(chooser.getSelectedFile());
+            Graph graph = GraphvizMaker.createGraph(interpreterManager.getCurrentState());
+            Graphviz viz = Graphviz.fromGraph(graph);
 
-                // Receive and write SVG or PNG depending on format
-                visualisation.getImage(format);
-
-                out.flush();
-                out.close();
-
-                String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
-                console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
-            } catch (FileNotFoundException e) {
-                String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-                console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
-                e.printStackTrace();
-            } catch (IOException e) {
-                String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-                console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
-                e.printStackTrace();
+            switch (format) {
+            case SVG:
+                exportSVG(viz, chooser.getSelectedFile());
+                break;
+            case PNG:
+                exportPNG(viz, chooser.getSelectedFile());
+                break;
+            default:
+                String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_UNSUPPORTED_FORMAT);
+                console.printLine(msg, Color.RED);
             }
+        }
+    }
+
+    private void exportSVG(Graphviz viz, File file) {
+        try {
+            viz.render(Format.SVG).toFile(file);
+            String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
+            console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
+        } catch (IOException e) {
+            String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
+            console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
+            e.printStackTrace();
+        }
+    }
+
+    private void exportPNG(Graphviz viz, File file) {
+        try {
+            viz.render(Format.PNG).toFile(file);
+            String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
+            console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
+        } catch (IOException e) {
+            String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
+            console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
+            e.printStackTrace();
         }
     }
 }

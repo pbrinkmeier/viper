@@ -15,14 +15,6 @@ public class VisualisationPanel extends JPanel {
     }
 
     /**
-     * @return String
-     */
-    public String getTikZ() {
-        // TODO
-        return "";
-    }
-
-    /**
      * @return
      */
     public void clearVisualization() {
@@ -42,14 +34,6 @@ public class VisualisationPanel extends JPanel {
      * @return
      */
     public void setFromGraph(Graph graph) {
-        // TODO
-    }
-
-    /**
-     * @param type
-     * @return
-     */
-    public void getImage(ImageFormat type) {
         // TODO
     }
 }
