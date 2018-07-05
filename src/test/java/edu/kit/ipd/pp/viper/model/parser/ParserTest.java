@@ -38,11 +38,11 @@ public class ParserTest {
                             )),
                                 Arrays.asList()
                             ),
-                    new Rule(new Functor("father", Arrays.asList(
-                                Functor.atom("abe"), Functor.atom("homer")
+                    new Rule(new Functor("grandfather", Arrays.asList(
+                                new Variable("X"), new Variable("Y")
                             )), Arrays.asList(
                                 new FunctorGoal(new Functor("father", Arrays.asList(
-                                    new Variable("X"), new Variable("Y")
+                                    new Variable("X"), new Variable("Z")
                                 ))),
                                 new FunctorGoal(new Functor("father", Arrays.asList(
                                     new Variable("Z"), new Variable("Y")
@@ -55,7 +55,8 @@ public class ParserTest {
     
     @Test
     public void parseTest() throws ParseException {
-        assertEquals(parser.parse(), testBase);
-        assertNotEquals(parser.parse(), emptyBase);
+        KnowledgeBase parsed = parser.parse();
+        assertEquals(parsed, this.testBase);
+        assertNotEquals(parsed, this.emptyBase);
     }
 }

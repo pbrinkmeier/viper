@@ -67,6 +67,9 @@ public class KnowledgeBase {
 
         List<Rule> otherRules = ((KnowledgeBase) other).getRules();
         
+        if (this.rules.isEmpty() && otherRules.isEmpty())
+            return true;
+        
         if (this.rules.size() != otherRules.size())
             return false;
         
