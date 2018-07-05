@@ -124,13 +124,13 @@ public class MenuBar extends JMenuBar {
         Menu menu = new Menu(LanguageKey.MENU_EXPORT);
 
         MenuItem itemPng = new MenuItem(LanguageKey.MENU_EXPORT_PNG, new CommandExportImage(this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(), ImageFormat.PNG));
+                ImageFormat.PNG, this.main.getInterpreterManager()));
 
         MenuItem itemSvg = new MenuItem(LanguageKey.MENU_EXPORT_SVG, new CommandExportImage(this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(), ImageFormat.SVG));
+                ImageFormat.SVG, this.main.getInterpreterManager()));
 
         MenuItem itemTikz = new MenuItem(LanguageKey.MENU_EXPORT_TIKZ, new CommandExportTikz(
-                this.main.getConsolePanel(), this.main.getVisualisationPanel()));
+                this.main.getConsolePanel(), this.main.getInterpreterManager()));
 
         menu.add(itemPng);
         menu.add(itemSvg);

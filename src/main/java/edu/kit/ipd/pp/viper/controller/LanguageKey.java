@@ -199,6 +199,11 @@ public enum LanguageKey {
      */
     EXPORT_FILE_ERROR("export_file_error"),
 
+    /**
+     * Console output message on failed export due to unsupported format
+     */
+    EXPORT_UNSUPPORTED_FORMAT("export_unsupported_format"),
+
     // Console output for query results
     /**
      * Console output message for a possible solution

@@ -2,7 +2,6 @@ package edu.kit.ipd.pp.viper.controller;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -11,25 +10,26 @@ import javax.swing.filechooser.FileFilter;
 
 import org.apache.commons.io.FilenameUtils;
 
+import edu.kit.ipd.pp.viper.model.visualisation.LatexMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
-import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
  * Command for exporting the visualisation to TikZ for LaTex.
  */
 public class CommandExportTikz extends Command {
     private ConsolePanel console;
-    private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new TikZ export command.
      * 
      * @param console Panel of the console area
-     * @param visualisation Panel of the visualisation area
+     * @param interpreterManager Interpreter manager with a reference to the current
+     * interpreter
      */
-    public CommandExportTikz(ConsolePanel console, VisualisationPanel visualisation) {
+    public CommandExportTikz(ConsolePanel console, InterpreterManager interpreterManager) {
         this.console = console;
-        this.visualisation = visualisation;
+        this.interpreterManager = interpreterManager;
     }
 
     /**
@@ -55,16 +55,13 @@ public class CommandExportTikz extends Command {
         if (rv == JFileChooser.APPROVE_OPTION) {
             try {
                 FileOutputStream out = new FileOutputStream(chooser.getSelectedFile());
-                out.write(visualisation.getTikZ().getBytes());
+                final String code = LatexMaker.createLatex(interpreterManager.getCurrentState());
+                out.write(code.getBytes());
                 out.flush();
                 out.close();
 
                 String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
                 console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
-            } catch (FileNotFoundException e) {
-                String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-                console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
-                e.printStackTrace();
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
                 console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
