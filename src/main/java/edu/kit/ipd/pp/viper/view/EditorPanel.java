@@ -79,11 +79,12 @@ public class EditorPanel extends JPanel implements DocumentListener {
     }
 
     /**
-     * Sets the changed status to true, meaning that a call to {@link #hasChanged()} will return true afterwards.
-     * @return
+     * Sets the internal status whether the editor has unsaved changes.
+     * 
+     * @param changed Boolean value describing whether the editor has unsaved content
      */
-    public void setHasChanged() {
-        this.changed = true;
+    public void setHasChanged(boolean changed) {
+        this.changed = changed;
     }
 
     /**
