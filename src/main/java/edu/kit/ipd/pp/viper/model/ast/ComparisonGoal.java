@@ -79,4 +79,17 @@ public abstract class ComparisonGoal extends Goal {
      * @return symbol for this comparison
      */
     protected abstract String getSymbol();
+    
+    /**
+     * Checks whether this equals another object. Will only return true for functors
+     * of the same name and parameters.
+     *
+     * @param other other Object
+     * @return whether this is equal to object according to the rules defined above
+     */
+    @Override
+    public boolean equals(Object other) {
+        // TODO
+        return false;
+    }
 }

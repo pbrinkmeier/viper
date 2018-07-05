@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class Rule {
@@ -61,5 +62,43 @@ public class Rule {
         repr += ".";
 
         return repr;
+    }
+    
+    /**
+     * Checks whether this equals another object. Will only return true for functors
+     * of the same name and parameters.
+     *
+     * @param other other Object
+     * @return whether this is equal to object according to the rules defined above
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+
+        if (!other.getClass().equals(Rule.class)) {
+            return false;
+        }
+        
+        Functor otherHead = ((Rule) other).getHead();
+        
+        if (this.head.equals(otherHead))
+            return false;
+        
+        List<Goal> otherGoals = ((Rule) other).getSubgoals();
+        
+        if (this.subgoals.size() != otherGoals.size())
+            return false;
+        
+        Iterator<Goal> thisIter = this.subgoals.iterator();
+        Iterator<Goal> otherIter = otherGoals.iterator();
+        
+        while (thisIter.hasNext()) {
+            if (!thisIter.next().equals(otherIter.next()))
+                return false;
+        }
+        
+        return true;
     }
 }

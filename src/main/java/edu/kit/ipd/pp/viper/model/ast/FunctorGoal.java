@@ -46,4 +46,26 @@ public class FunctorGoal extends Goal {
     public String toString() {
         return this.getFunctor().toString();
     }
+    
+    /**
+     * Checks whether this equals another object. Will only return true for functors
+     * of the same name and parameters.
+     *
+     * @param other other Object
+     * @return whether this is equal to object according to the rules defined above
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+
+        if (!other.getClass().equals(FunctorGoal.class)) {
+            return false;
+        }
+
+        FunctorGoal otherGoal = (FunctorGoal) other;
+        
+        return this.functor.equals(otherGoal.getFunctor());
+    }
 }

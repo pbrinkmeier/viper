@@ -2,6 +2,7 @@ package edu.kit.ipd.pp.viper.model.ast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class KnowledgeBase {
@@ -45,5 +46,38 @@ public class KnowledgeBase {
         }
 
         return Collections.unmodifiableList(matchingRules);
+    }
+    
+    /**
+     * Checks whether this equals another object. Will only return true for functors
+     * of the same name and parameters.
+     *
+     * @param other other Object
+     * @return whether this is equal to object according to the rules defined above
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) {
+            return false;
+        }
+        
+        if (!other.getClass().equals(KnowledgeBase.class)) {
+            return false;
+        }
+
+        List<Rule> otherRules = ((KnowledgeBase) other).getRules();
+        
+        if (this.rules.size() != otherRules.size())
+            return false;
+        
+        Iterator<Rule> otherIter = otherRules.iterator();
+        Iterator<Rule> thisIter = this.rules.iterator();
+        
+        while (thisIter.hasNext()) {
+            if (!thisIter.next().equals(otherIter.next()))
+                return false;
+        }
+        
+        return true;
     }
 }
