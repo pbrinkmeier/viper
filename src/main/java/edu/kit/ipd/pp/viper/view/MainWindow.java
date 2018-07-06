@@ -21,7 +21,7 @@ public class MainWindow extends JFrame {
      * The icon path has to begin with a slash, otherwise Java will look up the file
      * in the package folder, not in src/main/resources
      */
-    private static final String WINDOW_ICON = "/viper-icon.png";
+    private static final String WINDOW_ICON = "/icons_png/viper-icon.png";
 
     /**
      * Default window dimensions (however window is resizeable)

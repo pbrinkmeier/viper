@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="256px"
+   height="256px"
+   viewBox="0 0 256 256"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="icon_formatfile.svg"
+   inkscape:export-filename="/home/novare/Schreibtisch/viper/build/resources/main/icon_formatfile.png"
+   inkscape:export-xdpi="96.000008"
+   inkscape:export-ydpi="96.000008"
+   inkscape:version="0.92.2 2405546, 2018-03-11">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="21.789785"
+     inkscape:cy="180.24087"
+     inkscape:document-units="px"
+     inkscape:current-layer="g929"
+     showgrid="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1029"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:grid-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid891" />
+  </sodipodi:namedview>
+  <defs
+     id="defs10">
+    <symbol
+       id="Recycling">
+      <title
+         id="title9273">Recycling</title>
+      <g
+         style="stroke:none"
+         id="g9287">
+        <path
+           d="m 55.5,14.75 -5.25,3 -3.5,-6 c -0.5,-0.875 -1.5,-1.5 -2.875,-1.5 l -10.5,0 c 0.75,0.75 0.875,1 1.25,1.625 l 6.5,11.25 -5.25,3 13,0 z"
+           id="path9275" />
+        <path
+           d="m 53.875,45.5 5.25,0 c 3.125,0 5,-3.375 3.5,-6 l -6.625,-11.6 -9,5.25 z"
+           id="path9277" />
+        <path
+           d="m 46,64.5 0,-6 7,0 c 1,0 2,-0.5 2.75,-1.75 l 5.25,-9 c -1,0.25 -1.375,0.25 -2,0.25 l -13,0 0,-6 -6.5,11.25 z"
+           id="path9279" />
+        <path
+           d="m 20.25,48 -2.625,4.5 c -1.5,2.75 0.375,6 3.375,6 l 13.25,0 0,-10.5 z"
+           id="path9281" />
+        <path
+           d="m 7.75,31.75 5.25,3 -3.5,6 c -0.5,0.875 -0.5,2 0.125,3.25 l 5.125,9 c 0.25,-1 0.375,-1.25 0.75,-1.875 l 6.5,-11.25 5.25,3 -6.5,-11.25 z"
+           id="path9283" />
+        <path
+           d="m 35,17.5 -2.5,-4.5 c -1.625,-2.625 -5.375,-2.625 -6.875,0 l -6.625,11.5 9,5.25 z"
+           id="path9285" />
+      </g>
+    </symbol>
+  </defs>
+  <metadata
+     id="metadata13">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Ebene 1">
+    <g
+       id="g929"
+       transform="translate(-15.624557,13.337761)"
+       style="stroke-width:8;stroke-miterlimit:4;stroke-dasharray:none">
+      <use
+         id="use15984"
+         style="fill:#000000;stroke:#000000"
+         xlink:href="#Recycling"
+         transform="matrix(4.5070423,0,0,4.5070423,-16.152746,-53.788467)"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+    </g>
+  </g>
+</svg>
