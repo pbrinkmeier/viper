@@ -30,11 +30,7 @@ public class CommandToggleLib extends Command {
      * Executes the command.
      */
     public void execute() {
-        if (interpreterManager.isStandardEnabled())
-            interpreterManager.disableStandardLibrary();
-        else
-            interpreterManager.enableStandardLibrary();
-
+        interpreterManager.toggleStandardLibrary();
         console.clearAll();
         visualisation.clearVisualization();
     }

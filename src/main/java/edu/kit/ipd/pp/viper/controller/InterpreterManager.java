@@ -130,19 +130,12 @@ public class InterpreterManager {
         // TODO
         return null;
     }
-
+    
     /**
-     * Enables the standard library.
+     * Toggles the standard library on or off.
      */
-    public void enableStandardLibrary() {
-        this.useStandardLibrary = true;
-    }
-
-    /**
-     * Disables the standard library.
-     */
-    public void disableStandardLibrary() {
-        this.useStandardLibrary = false;
+    public void toggleStandardLibrary() {
+        this.useStandardLibrary = !this.useStandardLibrary;
     }
 
     /**
