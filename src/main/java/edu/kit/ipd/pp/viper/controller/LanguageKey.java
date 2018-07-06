@@ -208,8 +208,12 @@ public enum LanguageKey {
     /**
      * Console output message for a possible solution
      */
-    SOLUTION_FOUND("solution_found");
+    SOLUTION_FOUND("solution_found"),
 
+    // Console output for editor changes
+    /** Console output message for formatting the editor content */
+    EDITOR_FORMATTED("editor_formatted");
+    
     private String value;
 
     private LanguageKey(String value) {
