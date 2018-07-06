@@ -60,10 +60,10 @@ public class CommandExportImage extends Command {
         int rv = chooser.showSaveDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {
-            Graph graph = GraphvizMaker.createGraph(interpreterManager.getCurrentState());
+            Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
             Graphviz viz = Graphviz.fromGraph(graph);
 
-            switch (format) {
+            switch (this.format) {
             case SVG:
                 exportSVG(viz, chooser.getSelectedFile());
                 break;
@@ -81,10 +81,10 @@ public class CommandExportImage extends Command {
         try {
             viz.render(Format.SVG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
-            console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
         } catch (IOException e) {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-            console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
             e.printStackTrace();
         }
     }
@@ -93,10 +93,10 @@ public class CommandExportImage extends Command {
         try {
             viz.render(Format.PNG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
-            console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
         } catch (IOException e) {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-            console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
             e.printStackTrace();
         }
     }

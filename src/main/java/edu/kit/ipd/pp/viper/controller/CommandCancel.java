@@ -27,8 +27,8 @@ public class CommandCancel extends Command {
      * Executes the command.
      */
     public void execute() {
-        interpreterManager.cancel();
-        Graph graph = GraphvizMaker.createGraph(interpreterManager.getCurrentState());
-        visualisation.setFromGraph(graph);
+        this.interpreterManager.cancel();
+        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
+        this.visualisation.setFromGraph(graph);
     }
 }

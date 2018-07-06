@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -71,25 +70,18 @@ public class CommandOpen extends Command {
                     buf.append(str + '\n');
                 }
 
-                editor.setSourceText(buf.toString());
-                visualisation.clearVisualization();
+                this.editor.setSourceText(buf.toString());
+                this.visualisation.clearVisualization();
 
                 final String out = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_SUCCESS);
-                console.clearAll();
-                console.printLine(out + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
+                this.console.clearAll();
+                this.console.printLine(out + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
 
                 in.close();
                 reader.close();
-            } catch (FileNotFoundException e) {
-                // Shouldn't be able to happen since we just retrieved the file from
-                // an open dialog
-                String err = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_ERROR);
-                console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
-                e.printStackTrace();
-                return;
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_ERROR);
-                console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
+                this.console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
                 e.printStackTrace();
                 return;
             }

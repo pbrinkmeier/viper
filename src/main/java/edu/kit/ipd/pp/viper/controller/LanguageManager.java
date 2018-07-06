@@ -85,7 +85,7 @@ public final class LanguageManager extends Observable {
             return;
 
         LanguageManager.currentLocale = locale;
-        bundle = ResourceBundle.getBundle("translations", locale);
+        this.bundle = ResourceBundle.getBundle("translations", locale);
         this.setChanged();
 
         this.notifyObservers();

@@ -30,8 +30,8 @@ public class CommandToggleLib extends Command {
      * Executes the command.
      */
     public void execute() {
-        interpreterManager.toggleStandardLibrary();
-        console.clearAll();
-        visualisation.clearVisualization();
+        this.interpreterManager.toggleStandardLibrary();
+        this.console.clearAll();
+        this.visualisation.clearVisualization();
     }
 }

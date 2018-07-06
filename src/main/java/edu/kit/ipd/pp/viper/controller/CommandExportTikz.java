@@ -55,7 +55,7 @@ public class CommandExportTikz extends Command {
         if (rv == JFileChooser.APPROVE_OPTION) {
             try {
                 FileOutputStream out = new FileOutputStream(chooser.getSelectedFile());
-                final String code = LatexMaker.createLatex(interpreterManager.getCurrentState());
+                final String code = LatexMaker.createLatex(this.interpreterManager.getCurrentState());
                 out.write(code.getBytes());
                 out.flush();
                 out.close();
@@ -64,7 +64,7 @@ public class CommandExportTikz extends Command {
                 console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-                console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
+                this.console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
                 e.printStackTrace();
             }
         }

@@ -87,39 +87,39 @@ public enum LanguageKey {
      */
     MENU_LANGUAGE("menu_language"),
 
-    // Tooltips
+    // Tool tips
     /**
-     * Toolbar "New" tooltip
+     * Tool bar "New" tool tip
      */
     TOOLTIP_NEW("tooltip_new"),
 
     /**
-     * Toolbar "Open" tooltip
+     * Tool bar "Open" tool tip
      */
     TOOLTIP_OPEN("tooltip_open"),
 
     /**
-     * Toolbar "Save" tooltip
+     * Tool bar "Save" tool tip
      */
     TOOLTIP_SAVE("tooltip_save"),
 
     /**
-     * Toolbar "Parse" tooltip
+     * Tool bar "Parse" tool tip
      */
     TOOLTIP_PARSE("tooltip_parse"),
 
     /**
-     * Toolbar "Format" tooltip
+     * Tool bar "Format" tool tip
      */
     TOOLTIP_FORMAT("tooltip_format"),
 
     /**
-     * Toolbar "Next Step" tooltip
+     * Tool bar "Next Step" tool tip
      */
     TOOLTIP_STEP("tooltip_step"),
 
     /**
-     * Toolbar "Next Solution" tooltip
+     * Tool bar "Next Solution" tool tip
      */
     TOOLTIP_NEXT("tooltip_next"),
 

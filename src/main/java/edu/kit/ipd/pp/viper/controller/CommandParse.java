@@ -34,8 +34,8 @@ public class CommandParse extends Command {
      * Executes the command.
      */
     public void execute() {
-        interpreterManager.createNew(editor.getSourceText());
-        console.clearAll();
-        visualisation.clearVisualization();
+        this.interpreterManager.createNew(this.editor.getSourceText());
+        this.console.clearAll();
+        this.visualisation.clearVisualization();
     }
 }

@@ -38,9 +38,9 @@ public class CommandSetLang extends Command {
      */
     public void execute() {
         LanguageManager.getInstance().setLocale(this.lang);
-        console.clearAll();
+        this.console.clearAll();
 
-        Graph graph = GraphvizMaker.createGraph(interpreterManager.getCurrentState());
-        visualisation.setFromGraph(graph);
+        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
+        this.visualisation.setFromGraph(graph);
     }
 }

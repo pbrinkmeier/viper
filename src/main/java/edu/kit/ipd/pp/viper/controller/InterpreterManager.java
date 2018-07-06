@@ -71,13 +71,13 @@ public class InterpreterManager {
      * @param visualisation Panel of the visualisation area
      */
     public void runUntilNextSolution(ConsolePanel console, VisualisationPanel visualisation) {
-        if (!searchingForSolution) {
-            searchingForSolution = true;
-            continueThread = new Thread(() -> {
+        if (!this.searchingForSolution) {
+            this.searchingForSolution = true;
+            this.continueThread = new Thread(() -> {
                 StepResult result = StepResult.STEPS_REMAINING;
-                while (searchingForSolution) {
+                while (this.searchingForSolution) {
                     result = step();
-                    searchingForSolution = result == StepResult.STEPS_REMAINING;
+                    this.searchingForSolution = result == StepResult.STEPS_REMAINING;
                 }
 
                 if (result == StepResult.SOLUTION_FOUND) {
@@ -89,7 +89,7 @@ public class InterpreterManager {
                 visualisation.setFromGraph(graph);
                 searchingForSolution = false;
             });
-            continueThread.start();
+            this.continueThread.start();
         }
     }
 
@@ -100,7 +100,7 @@ public class InterpreterManager {
      * visualisation gets updated to the respective current step.
      */
     public void cancel() {
-        searchingForSolution = false;
+        this.searchingForSolution = false;
     }
 
     /**
@@ -130,7 +130,7 @@ public class InterpreterManager {
         // TODO
         return null;
     }
-    
+
     /**
      * Toggles the standard library on or off.
      */
