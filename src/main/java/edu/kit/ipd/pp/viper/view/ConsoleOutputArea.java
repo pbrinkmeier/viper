@@ -2,27 +2,68 @@ package edu.kit.ipd.pp.viper.view;
 
 import java.awt.Color;
 
-public class ConsoleOutputArea extends javax.swing.JTextArea {
+import javax.swing.JTextPane;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+
+public class ConsoleOutputArea extends JTextPane {
     /**
-     * 
+     * Initialises the output area
      */
     public ConsoleOutputArea() {
-        // TODO
+        super();
     }
 
     /**
-     * @return
+     * Clears the entire console
      */
     public void clear() {
-        // TODO
+        this.clear();
     }
 
     /**
-     * @param line
-     * @param color
-     * @return
+     * Prints a new line (including a line break) to the console. The {@link LogType} determines
+     * the line color. {@link LogType#DEBUG} will only be printed if the program was started in
+     * debug mode.
+     * 
+     * @param line The String to print
+     * @param type Type of message
      */
+    public void printLine(String line, LogType type) {
+        Color color;
+
+        switch (type) {
+        case SUCCESS:
+            color = Color.GREEN;
+            break;
+        case ERROR:
+            color = Color.RED;
+            break;
+        //case DEBUG:
+        //    color = Color.GRAY;
+        //    break;
+        default:
+        case INFO:
+            color = Color.BLACK;
+            break;
+        }
+
+        StyleContext context = StyleContext.getDefaultStyleContext();
+
+        // set some attributes for font, alignment etc.
+        AttributeSet set = context.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
+        set = context.addAttribute(set, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+        set = context.addAttribute(set, StyleConstants.FontFamily, "monospace");
+
+        this.setCaretPosition(this.getDocument().getLength());
+        this.setCharacterAttributes(set, false);
+        this.replaceSelection(line + "\n");
+    }
+
+    @Deprecated
     public void printLine(String line, Color color) {
-        // TODO
+        this.printLine(line, LogType.INFO);
     }
 }
