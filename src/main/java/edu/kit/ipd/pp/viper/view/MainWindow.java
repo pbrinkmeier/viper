@@ -92,10 +92,10 @@ public class MainWindow extends JFrame {
                 this.visualisationPanel,
                 this.consolePanel
         );
-        innerPane.setResizeWeight(0.5);
+        innerPane.setResizeWeight(0.6);
         innerPane.setDividerLocation(this.getWidth() / 2);
-        innerPane.setEnabled(false);
-        innerPane.setDividerSize(0);
+        innerPane.setEnabled(true);
+        innerPane.setDividerSize(5);
 
         // the outer pane splits up the window into a left (editor) and right (inner pane) side
         JSplitPane outerPane = new JSplitPane(
