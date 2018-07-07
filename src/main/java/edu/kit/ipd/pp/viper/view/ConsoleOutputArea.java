@@ -20,7 +20,7 @@ public class ConsoleOutputArea extends JTextPane {
      * Clears the entire console
      */
     public void clear() {
-        this.clear();
+        this.setText(null);
     }
 
     /**
