@@ -4,19 +4,31 @@ import org.apache.batik.swing.JSVGCanvas;
 
 import guru.nidi.graphviz.model.Graph;
 
+/**
+ * Represents an interactive SVG viewer, customized for the needs of this program.
+ */
 public class VisualisationViewer extends JSVGCanvas {
     /**
-     * @return
+     * Creates a new interactive viewer
      */
-    public void clear() {
-        // TODO
+    public VisualisationViewer() {
+        super();
+
+        this.setEnableRotateInteractor(false);
+        this.setEnablePanInteractor(false);
     }
 
     /**
-     * @param graph
-     * @return
+     * Clears the displayed SVG
+     */
+    public void clear() {
+    }
+
+    /**
+     * Sets the displayed Graph. A previously shown graph will be cleared.
+     * 
+     * @param graph The graph to show
      */
     public void setFromGraph(Graph graph) {
-        // TODO
     }
 }
