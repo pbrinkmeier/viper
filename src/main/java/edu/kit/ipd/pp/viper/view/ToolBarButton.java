@@ -61,7 +61,7 @@ public class ToolBarButton extends JButton implements ActionListener, Observer {
     }
 
     /**
-     * Called when item was checked or unchecked
+     * Called when button is clicked
      * 
      * @param event Event that was performed, ignored here
      */
