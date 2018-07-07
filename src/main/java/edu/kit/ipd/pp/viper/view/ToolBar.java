@@ -12,18 +12,22 @@ import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.SaveType;
 
+/**
+ * Represents a toolbar containing a bunch of button with icons. This toolbar can be attached to the main window
+ * of the program to represent "shortcuts" for different menu options.
+ */
 public class ToolBar extends JToolBar {
     /**
      * Path to icons used by {@link ToolBarButton}s of this toolbar.
      * All paths need to begin with a slash, otherwise Java will look for the file inside the
      * <code>edu.kit.ipd.pp.viper.view</code> package, not inside <code>src/main/resources/</code>.
      */
-    private static final String ICON_NEW = "/icon_placeholder.png";
-    private static final String ICON_OPEN = "/icon_placeholder.png";
-    private static final String ICON_SAVE = "/icon_placeholder.png";
-    private static final String ICON_PARSE = "/icon_placeholder.png";
-    private static final String ICON_FORMAT = "/icon_placeholder.png";
-    private static final String ICON_STEP = "/icon_placeholder.png";
+    private static final String ICON_NEW      = "/icon_placeholder.png";
+    private static final String ICON_OPEN     = "/icon_placeholder.png";
+    private static final String ICON_SAVE     = "/icon_placeholder.png";
+    private static final String ICON_PARSE    = "/icon_placeholder.png";
+    private static final String ICON_FORMAT   = "/icon_placeholder.png";
+    private static final String ICON_STEP     = "/icon_placeholder.png";
     private static final String ICON_SOLUTION = "/icon_placeholder.png";
 
     /**

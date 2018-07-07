@@ -11,7 +11,13 @@ import javax.swing.JTextField;
 import edu.kit.ipd.pp.viper.controller.Command;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 
+/**
+ * Represents a panel contaning an input field for prolog queries, as well as a button to send the query.
+ */
 public class ConsoleInputField extends JPanel {
+    /**
+     * Input field
+     */
     private final JTextField textField;
 
     /**

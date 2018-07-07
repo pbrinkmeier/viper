@@ -11,6 +11,9 @@ import javax.swing.text.Document;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
+/**
+ * Represents a panel containing an editor
+ */
 public class EditorPanel extends JPanel implements DocumentListener {
     /**
      * The actual text area

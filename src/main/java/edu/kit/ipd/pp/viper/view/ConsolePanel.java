@@ -5,12 +5,23 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
+/**
+ * Represents a panel containing a console-like output field, as well as an input field for
+ * prolog queries.
+ */
 public class ConsolePanel extends JPanel {
+    /**
+     * Console panel
+     */
     private ConsoleOutputArea outputArea;
+
+    /**
+     * Input field panel
+     */
     private ConsoleInputField inputField;
 
     /**
-     * 
+     * Creates a new console panel
      */
     public ConsolePanel() {
         super();
@@ -25,7 +36,7 @@ public class ConsolePanel extends JPanel {
     }
 
     /**
-     * @return
+     * Clears the console and the input field
      */
     public void clearAll() {
         this.outputArea.clear();
@@ -33,35 +44,37 @@ public class ConsolePanel extends JPanel {
     }
 
     /**
-     * @return String
+     * Returns the content of the input field
+     * 
+     * @return String Input field contents
      */
     public String getText() {
         return this.inputField.getText();
     }
 
     /**
-     * @return
+     * Makes the input field un-editable
      */
     public void lockInput() {
         this.inputField.lock();
     }
 
     /**
-     * @return
+     * Makes the input field editable
      */
     public void unlockInput() {
         this.inputField.unlock();
     }
 
     /**
-     * @return
+     * Clears the input field
      */
     public void clearInputField() {
         this.inputField.clear();
     }
 
     /**
-     * @return
+     * Clears the console
      */
     public void clearOutputArea() {
         this.outputArea.clear();
@@ -79,6 +92,12 @@ public class ConsolePanel extends JPanel {
         this.outputArea.printLine(line, type);
     }
 
+    /**
+     * Deprecated method to print to the console, used {@link ConsolePanel#printLine(String, LogType)} instead
+     * 
+     * @param line  String to print
+     * @param color Color of line (IGNORED! Use {@link ConsolePanel#printLine(String, LogType)} instead)
+     */
     @Deprecated
     public void printLine(String line, Color color) {
         this.outputArea.printLine(line, LogType.INFO);

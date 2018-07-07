@@ -8,6 +8,9 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
+/**
+ * Represents a console-like text panel
+ */
 public class ConsoleOutputArea extends JTextPane {
     /**
      * Initialises the output area
@@ -62,6 +65,12 @@ public class ConsoleOutputArea extends JTextPane {
         this.replaceSelection(line + "\n");
     }
 
+    /**
+     * Deprecated method to print to the console, used {@link ConsolePanel#printLine(String, LogType)} instead
+     * 
+     * @param line  String to print
+     * @param color Color of line (IGNORED! Use {@link ConsolePanel#printLine(String, LogType)} instead)
+     */
     @Deprecated
     public void printLine(String line, Color color) {
         this.printLine(line, LogType.INFO);
