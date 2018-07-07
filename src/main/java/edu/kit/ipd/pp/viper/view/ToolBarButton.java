@@ -15,10 +15,10 @@ import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
- * Represents a {@link Button} in the toolbar of the main window. These buttons are shortcuts for functionality also
- * available in the menubar and thus take the same {@link CommandSave}.
+ * Represents a {@link ToolBarButton} in the toolbar of the main window. These buttons are shortcuts for functionality
+ * also available in the menubar and thus take the same {@link CommandSave}.
  */
-public class Button extends JButton implements ActionListener, Observer {
+public class ToolBarButton extends JButton implements ActionListener, Observer {
     /**
      * Dimensions for the icons that are used on all buttons
      */
@@ -44,7 +44,7 @@ public class Button extends JButton implements ActionListener, Observer {
      * @param tooltipKey Key used for translation of the button tooltip
      * @param command    Command to execute on click
      */
-    public Button(String iconPath, LanguageKey tooltipKey, Command command) {
+    public ToolBarButton(String iconPath, LanguageKey tooltipKey, Command command) {
         super();
 
         this.tooltipKey = tooltipKey;
