@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'eclipse'
+apply plugin: 'jacoco'
 
 version = 1.0
 mainClassName = 'edu.kit.ipd.pp.viper.view.MainWindow'
@@ -17,6 +18,17 @@ dependencies {
     compile 'com.fifesoft:rsyntaxtextarea:2.6.1'
     compile 'org.apache.xmlgraphics:batik-swing:1.10'
     compile 'guru.nidi:graphviz-java:0.5.2'
+}
+
+test { finalizedBy jacocoTestReport }
+
+jacocoTestReport {
+    group = "Reporting"
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination "${buildDir}/reports/coverage"
+    }
 }
 
 jar {
