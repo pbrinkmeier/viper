@@ -1,6 +1,8 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,7 +24,14 @@ public class ConsoleInputField extends JPanel {
 
         this.setLayout(new BorderLayout());
 
+        // initialise text field and add listener for [ENTER] key press
         this.textField = new JTextField();
+        this.textField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                command.execute();
+            }
+        });
 
         this.add(new JLabel("?-"), BorderLayout.LINE_START);
         this.add(this.textField, BorderLayout.CENTER);
