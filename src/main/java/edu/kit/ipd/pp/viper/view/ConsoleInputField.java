@@ -2,7 +2,6 @@ package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,7 +13,9 @@ public class ConsoleInputField extends JPanel {
     private final JTextField textField;
 
     /**
-     * @param command
+     * Creates a new panel that contains an input field and a button
+     * 
+     * @param command Command to execute on button click
      */
     public ConsoleInputField(Command command) {
         super();
@@ -38,21 +39,21 @@ public class ConsoleInputField extends JPanel {
     }
 
     /**
-     * @return
+     * Clears the content of the input field
      */
     public void clear() {
         this.textField.setText(null);
     }
 
     /**
-     * @return
+     * Makes the input field un-editable
      */
     public void lock() {
         this.textField.setEditable(false);
     }
 
     /**
-     * @return
+     * Makes the input field editable
      */
     public void unlock() {
         this.textField.setEditable(true);
