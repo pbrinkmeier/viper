@@ -1,66 +1,86 @@
 package edu.kit.ipd.pp.viper.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JPanel;
 
 public class ConsolePanel extends JPanel {
+    private ConsoleOutputArea outputArea;
+    private ConsoleInputField inputField;
+
     /**
      * 
      */
     public ConsolePanel() {
-        // TODO
+        super();
+
+        this.setLayout(new BorderLayout());
+
+        this.outputArea = new ConsoleOutputArea();
+        this.inputField = new ConsoleInputField(null);
+
+        this.add(this.outputArea, BorderLayout.CENTER);
+        this.add(this.inputField, BorderLayout.PAGE_END);
     }
 
     /**
      * @return
      */
     public void clearAll() {
-        // TODO
+        this.outputArea.clear();
+        this.inputField.clear();
     }
 
     /**
      * @return String
      */
     public String getText() {
-        // TODO
-        return "";
+        return this.inputField.getText();
     }
 
     /**
      * @return
      */
     public void lockInput() {
-        // TODO
+        this.inputField.lock();
     }
 
     /**
      * @return
      */
     public void unlockInput() {
-        // TODO
+        this.inputField.unlock();
     }
 
     /**
      * @return
      */
     public void clearInputField() {
-        // TODO
+        this.inputField.clear();
     }
 
     /**
      * @return
      */
     public void clearOutputArea() {
-        // TODO
+        this.outputArea.clear();
     }
 
     /**
-     * @param line
-     * @param color
-     * @return
+     * Prints a new line (including a line break) to the console. The {@link LogType} determines
+     * the line color. {@link LogType#DEBUG} will only be printed if the program was started in
+     * debug mode.
+     * 
+     * @param line The String to print
+     * @param type Type of message
      */
+    public void printLine(String line, LogType type) {
+        this.outputArea.printLine(line, type);
+    }
+
+    @Deprecated
     public void printLine(String line, Color color) {
-        // TODO
+        this.outputArea.printLine(line, LogType.INFO);
     }
 }
