@@ -28,7 +28,7 @@ public enum LanguageKey {
     MENU_SAVEAS("menu_saveas"),
 
     /**
-     * Menu "Recent >" option
+     * Menu "Recent" option
      */
     MENU_RECENT("menu_recent"),
 
@@ -87,39 +87,39 @@ public enum LanguageKey {
      */
     MENU_LANGUAGE("menu_language"),
 
-    // Tooltips
+    // Tool tips
     /**
-     * Toolbar "New" tooltip
+     * Tool bar "New" tool tip
      */
     TOOLTIP_NEW("tooltip_new"),
 
     /**
-     * Toolbar "Open" tooltip
+     * Tool bar "Open" tool tip
      */
     TOOLTIP_OPEN("tooltip_open"),
 
     /**
-     * Toolbar "Save" tooltip
+     * Tool bar "Save" tool tip
      */
     TOOLTIP_SAVE("tooltip_save"),
 
     /**
-     * Toolbar "Parse" tooltip
+     * Tool bar "Parse" tool tip
      */
     TOOLTIP_PARSE("tooltip_parse"),
 
     /**
-     * Toolbar "Format" tooltip
+     * Tool bar "Format" tool tip
      */
     TOOLTIP_FORMAT("tooltip_format"),
 
     /**
-     * Toolbar "Next Step" tooltip
+     * Tool bar "Next Step" tool tip
      */
     TOOLTIP_STEP("tooltip_step"),
 
     /**
-     * Toolbar "Next Solution" tooltip
+     * Tool bar "Next Solution" tool tip
      */
     TOOLTIP_NEXT("tooltip_next"),
 
@@ -153,9 +153,14 @@ public enum LanguageKey {
 
     // File types
     /**
-     * Image files export dialog filter description
+     * PNG files export dialog filter description
      */
-    IMAGE_FILES("image_files"),
+    PNG_FILES("png_files"),
+
+    /**
+     * SVG files export dialog filter description
+     */
+    SVG_FILES("svg_files"),
 
     /**
      * TikZ files export dialog filter description
@@ -208,7 +213,15 @@ public enum LanguageKey {
     /**
      * Console output message for a possible solution
      */
-    SOLUTION_FOUND("solution_found");
+    SOLUTION_FOUND("solution_found"),
+
+    // Console output for editor changes
+    /** Console output message for formatting the editor content */
+    EDITOR_FORMATTED("editor_formatted"),
+
+    // Console output for parsing
+    /** Console output message for failed parsing */
+    PARSER_ERROR("parser_error");
 
     private String value;
 

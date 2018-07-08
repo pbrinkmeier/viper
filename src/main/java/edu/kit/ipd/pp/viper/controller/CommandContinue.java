@@ -32,6 +32,6 @@ public class CommandContinue extends Command {
      * Executes the command.
      */
     public void execute() {
-        interpreterManager.runUntilNextSolution(this.console, this.visualisation);
+        this.interpreterManager.runUntilNextSolution(this.console, this.visualisation);
     }
 }

@@ -30,32 +30,26 @@ public class CommandNew extends Command {
      * Executes the command.
      */
     public void execute() {
-        if (editor.hasChanged()) {
+        if (this.editor.hasChanged()) {
             LanguageManager langman = LanguageManager.getInstance();
             Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),
                     langman.getString(LanguageKey.CANCEL)};
-            int rv = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
+            final int rv = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
                     langman.getString(LanguageKey.CONFIRMATION_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
-            switch (rv) {
-            // Yes option
-            case 0:
-                CommandSave save = new CommandSave(console, editor, SaveType.SAVE);
+            if (rv == 0) {
+                CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE);
                 save.execute();
-                break;
-            // No option
-            case 1:
-                break;
-            // Cancel option
-            default:
-                return;
+            }
+
+            if (rv != 2) {
+                this.editor.setSourceText("");
+                this.editor.setHasChanged(false);
+                this.editor.setFileReference(null);
+                this.console.clearAll();
+                this.visualisation.clearVisualization();
             }
         }
-
-        editor.setSourceText("");
-        editor.setHasChanged(false);
-        console.clearAll();
-        visualisation.clearVisualization();
     }
 }

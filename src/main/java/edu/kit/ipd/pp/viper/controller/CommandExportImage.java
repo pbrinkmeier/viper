@@ -42,28 +42,44 @@ public class CommandExportImage extends Command {
      * Executes the command.
      */
     public void execute() {
-        FileFilter filter = new FileFilter() {
+        FileFilter pngfilter = new FileFilter() {
             @Override
             public String getDescription() {
-                return LanguageManager.getInstance().getString(LanguageKey.IMAGE_FILES);
+                return LanguageManager.getInstance().getString(LanguageKey.PNG_FILES);
             }
 
             @Override
             public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("png")
-                        || FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg") || f.isDirectory();
+                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("png") || f.isDirectory();
+            }
+        };
+
+        FileFilter svgfilter = new FileFilter() {
+            @Override
+            public String getDescription() {
+                return LanguageManager.getInstance().getString(LanguageKey.SVG_FILES);
+            }
+
+            @Override
+            public boolean accept(File f) {
+                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg") || f.isDirectory();
             }
         };
 
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(filter);
-        int rv = chooser.showSaveDialog(null);
 
+        if (format == ImageFormat.PNG) {
+            chooser.setFileFilter(pngfilter);
+        } else if (format == ImageFormat.SVG) {
+            chooser.setFileFilter(svgfilter);
+        }
+
+        int rv = chooser.showSaveDialog(null);
         if (rv == JFileChooser.APPROVE_OPTION) {
-            Graph graph = GraphvizMaker.createGraph(interpreterManager.getCurrentState());
+            Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
             Graphviz viz = Graphviz.fromGraph(graph);
 
-            switch (format) {
+            switch (this.format) {
             case SVG:
                 exportSVG(viz, chooser.getSelectedFile());
                 break;
@@ -77,26 +93,38 @@ public class CommandExportImage extends Command {
         }
     }
 
-    private void exportSVG(Graphviz viz, File file) {
+    private void exportSVG(Graphviz viz, File f) {
+        File file = f;
+        String filePath = file.getAbsolutePath();
+        if (!filePath.endsWith(".svg")) {
+            file = new File(filePath + ".svg");
+        }
+
         try {
             viz.render(Format.SVG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
-            console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
         } catch (IOException e) {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-            console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
             e.printStackTrace();
         }
     }
 
-    private void exportPNG(Graphviz viz, File file) {
+    private void exportPNG(Graphviz viz, File f) {
+        File file = f;
+        String filePath = file.getAbsolutePath();
+        if (!filePath.endsWith(".png")) {
+            file = new File(filePath + ".png");
+        }
+
         try {
             viz.render(Format.PNG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
-            console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
         } catch (IOException e) {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-            console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
             e.printStackTrace();
         }
     }

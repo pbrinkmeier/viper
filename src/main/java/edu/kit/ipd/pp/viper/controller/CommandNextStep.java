@@ -35,13 +35,13 @@ public class CommandNextStep extends Command {
      * Executes the command.
      */
     public void execute() {
-        final StepResult res = interpreterManager.step();
+        final StepResult res = this.interpreterManager.step();
         if (res == StepResult.SOLUTION_FOUND) {
             final String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
-            console.printLine(prefix + interpreterManager.getSolutionString(), Color.BLACK);
+            this.console.printLine(prefix + this.interpreterManager.getSolutionString(), Color.BLACK);
         }
 
-        Graph graph = GraphvizMaker.createGraph(interpreterManager.getCurrentState());
-        visualisation.setFromGraph(graph);
+        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
+        this.visualisation.setFromGraph(graph);
     }
 }

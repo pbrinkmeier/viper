@@ -38,8 +38,8 @@ public class CommandSave extends Command {
      * Executes the command.
      */
     public void execute() {
-        if (editor.hasChanged()) {
-            if (saveType == SaveType.SAVE && editor.hasFileReference())
+        if (this.editor.hasChanged()) {
+            if (this.saveType == SaveType.SAVE && this.editor.hasFileReference())
                 save();
             else
                 saveAs();
@@ -47,16 +47,16 @@ public class CommandSave extends Command {
     }
 
     private void save() {
-        File file = editor.getFileReference();
+        File file = this.editor.getFileReference();
         try {
             FileOutputStream out = new FileOutputStream(file);
-            out.write(editor.getSourceText().getBytes());
+            out.write(this.editor.getSourceText().getBytes());
             out.flush();
             out.close();
-            editor.setHasChanged(false);
+            this.editor.setHasChanged(false);
         } catch (IOException e) {
             String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
-            console.printLine(err + ": " + file.getAbsolutePath(), Color.RED);
+            this.console.printLine(err + ": " + file.getAbsolutePath(), Color.RED);
             e.printStackTrace();
         }
     }
@@ -79,19 +79,26 @@ public class CommandSave extends Command {
         int rv = chooser.showSaveDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            String filePath = file.getAbsolutePath();
+            if (!filePath.endsWith(".pl")) {
+                file = new File(filePath + ".pl");
+            }
+
             try {
-                FileOutputStream out = new FileOutputStream(chooser.getSelectedFile());
-                out.write(editor.getSourceText().getBytes());
+                FileOutputStream out = new FileOutputStream(file);
+
+                out.write(this.editor.getSourceText().getBytes());
                 out.flush();
                 out.close();
-                editor.setHasChanged(false);
-                editor.setFileReference(chooser.getSelectedFile());
+                this.editor.setHasChanged(false);
+                this.editor.setFileReference(file);
 
                 String msg = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_SUCCESS);
-                console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
+                this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
-                console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
+                this.console.printLine(err + ": " + file.getAbsolutePath(), Color.RED);
                 e.printStackTrace();
             }
         }

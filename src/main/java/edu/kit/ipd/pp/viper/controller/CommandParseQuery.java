@@ -1,9 +1,5 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.awt.Color;
-
-import edu.kit.ipd.pp.viper.model.parser.ParseException;
-import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
@@ -11,38 +7,35 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 /**
  * Command for parsing the entered Prolog code.
  */
-public class CommandParse extends Command {
+public class CommandParseQuery extends Command {
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
 
     /**
-     * Initializes a new parse command.
+     * Initializes a new parse query command.
      * 
      * @param console Panel of the console area
      * @param editor Panel of the editor area
      * @param visualisation Panel of the visualisation area
+     * @param interpreterManager Interpreter manager with a reference to the current
+     * interpreter
      */
-    public CommandParse(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation) {
+    public CommandParseQuery(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
+            InterpreterManager interpreterManager) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
+        this.interpreterManager = interpreterManager;
     }
 
     /**
      * Executes the command.
      */
     public void execute() {
-        try {
-            new PrologParser(editor.getSourceText()).parse();
-            console.unlockInput();
-        } catch (ParseException e) {
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), Color.BLACK);
-            console.lockInput();
-            e.printStackTrace();
-        }
-
-        this.console.clearAll();
+        this.interpreterManager.createNew(this.editor.getSourceText(), this.console.getText(), this.console);
         this.visualisation.clearVisualization();
+        this.console.clearOutputArea();
     }
 }
