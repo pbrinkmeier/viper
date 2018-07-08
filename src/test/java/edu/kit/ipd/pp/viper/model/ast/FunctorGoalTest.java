@@ -24,7 +24,7 @@ public class FunctorGoalTest {
 
     @Test
     public void createActivationRecordTest() {
-        FunctorActivationRecord far = this.testGoal.createActivationRecord(Optional.empty());
+        // FunctorActivationRecord far = this.testGoal.createActivationRecord(Optional.empty());
 
         // without any substitutions, these should be equal
         // assertEquals(this.testGoal.getFunctor(), far.getFunctor());
