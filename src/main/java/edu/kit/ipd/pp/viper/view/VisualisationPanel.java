@@ -16,6 +16,11 @@ import guru.nidi.graphviz.model.Graph;
  */
 public class VisualisationPanel extends JPanel {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = 6723362475925553655L;
+
+    /**
      * Main window
      */
     private final MainWindow main;

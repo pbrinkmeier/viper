@@ -18,6 +18,11 @@ import edu.kit.ipd.pp.viper.controller.SaveType;
  */
 public class ToolBar extends JToolBar {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = 7709171094564025321L;
+    
+    /**
      * Path to icons used by {@link ToolBarButton}s of this toolbar.
      * All paths need to begin with a slash, otherwise Java will look for the file inside the
      * <code>edu.kit.ipd.pp.viper.view</code> package, not inside <code>src/main/resources/</code>.

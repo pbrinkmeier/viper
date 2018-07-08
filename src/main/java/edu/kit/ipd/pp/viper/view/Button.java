@@ -16,6 +16,11 @@ import edu.kit.ipd.pp.viper.controller.LanguageManager;
  */
 public class Button extends JButton implements ActionListener, Observer {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = -862558869728026481L;
+
+    /**
      * Each button is translateable via the {@link LanguageManager}, therefore this translation
      * key is necessary
      */

@@ -20,6 +20,11 @@ import edu.kit.ipd.pp.viper.controller.LanguageManager;
  */
 public class ToolBarButton extends JButton implements ActionListener, Observer {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = -7356326159655702744L;
+    
+    /**
      * Dimensions for the icons that are used on all buttons
      */
     private static final int ICON_WIDTH = 25;

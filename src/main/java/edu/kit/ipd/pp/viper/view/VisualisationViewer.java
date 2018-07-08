@@ -20,6 +20,11 @@ import guru.nidi.graphviz.model.Graph;
  */
 public class VisualisationViewer extends JSVGCanvas implements MouseWheelListener {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = 8240189444679062587L;
+
+    /**
      * Name of temp file to save the graph to
      */
     private static final String TMP_NAME = "viper_tmp.svg";

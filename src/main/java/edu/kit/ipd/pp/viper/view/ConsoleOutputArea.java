@@ -13,6 +13,11 @@ import javax.swing.text.StyleContext;
  */
 public class ConsoleOutputArea extends JTextPane {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = -2469735720829687714L;
+
+    /**
      * Initialises the output area
      */
     public ConsoleOutputArea() {

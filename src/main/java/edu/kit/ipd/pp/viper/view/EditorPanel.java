@@ -16,6 +16,11 @@ import org.fife.ui.rtextarea.RTextScrollPane;
  */
 public class EditorPanel extends JPanel implements DocumentListener {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = 689492118433496287L;
+
+    /**
      * The actual text area
      */
     private final RSyntaxTextArea textArea;

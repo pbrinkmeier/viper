@@ -12,6 +12,11 @@ import edu.kit.ipd.pp.viper.controller.CommandParseQuery;
  */
 public class ConsolePanel extends JPanel {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = -533194077782445895L;
+
+    /**
      * Main window reference
      */
     private MainWindow main;

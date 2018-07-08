@@ -12,15 +12,13 @@ public class FunctorTest {
 
     @Before
     public void init() {
-        this.fun =
-            new Functor("test", Arrays.asList(
+        this.fun = new Functor("test", Arrays.asList(
                 Functor.atom("a"),
                 Functor.atom("b"),
                 Functor.atom("c")
             ));
         
-        this.noParam =
-            Functor.atom("noparam");
+        this.noParam = Functor.atom("noparam");
     }
 
     @Test
@@ -67,12 +65,11 @@ public class FunctorTest {
 
     @Test
     public void equalsTest() {
-        Functor testFunctor =
-            new Functor("test", Arrays.asList(
+        Functor testFunctor = new Functor("test", Arrays.asList(
                 Functor.atom("a"),
                 Functor.atom("b"),
                 Functor.atom("c")
-            ));
+        ));
 
         assertEquals(testFunctor, this.fun);
 

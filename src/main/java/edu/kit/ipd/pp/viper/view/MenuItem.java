@@ -16,6 +16,11 @@ import edu.kit.ipd.pp.viper.controller.LanguageManager;
  */
 public class MenuItem extends JMenuItem implements ActionListener, Observer {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = -3678608047830149856L;
+
+    /**
      * The key used for translation
      */
     private final LanguageKey textKey;

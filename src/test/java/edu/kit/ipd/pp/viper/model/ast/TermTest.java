@@ -6,6 +6,7 @@ import org.junit.*;
 
 // This test wont even compile without all its subclasses present
 public class TermTest {
+    @SuppressWarnings("unused")
     @Test
     public void subClassesTest() {
         Term fun = new Functor("test", Arrays.asList());

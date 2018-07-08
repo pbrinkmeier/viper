@@ -25,6 +25,11 @@ import edu.kit.ipd.pp.viper.controller.SaveType;
  */
 public class MenuBar extends JMenuBar {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = -8638583278667065231L;
+    
+    /**
      * Instance of main window
      */
     private final MainWindow main;

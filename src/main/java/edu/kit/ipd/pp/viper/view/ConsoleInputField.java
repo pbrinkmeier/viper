@@ -16,6 +16,10 @@ import edu.kit.ipd.pp.viper.controller.LanguageKey;
  */
 public class ConsoleInputField extends JPanel {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = 5877670236808229252L;
+    /**
      * Input field
      */
     private final JTextField textField;

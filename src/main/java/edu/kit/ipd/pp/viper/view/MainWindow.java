@@ -14,6 +14,11 @@ import edu.kit.ipd.pp.viper.controller.CommandExit;
 
 public class MainWindow extends JFrame {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = -5807530819617746945L;
+
+    /**
      * Stores whether VIPER was started in debug mode or not.
      * Debug mode will print some additional information to the console.
      */

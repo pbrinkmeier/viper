@@ -15,6 +15,11 @@ import edu.kit.ipd.pp.viper.controller.LanguageManager;
  */
 public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListener, Observer {
     /**
+     * Serial UID
+     */
+    private static final long serialVersionUID = 2024632031068747779L;
+
+    /**
      * The key used for translation
      */
     private final LanguageKey textKey;
