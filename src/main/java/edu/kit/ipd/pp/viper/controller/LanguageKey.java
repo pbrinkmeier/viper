@@ -153,9 +153,14 @@ public enum LanguageKey {
 
     // File types
     /**
-     * Image files export dialog filter description
+     * PNG files export dialog filter description
      */
-    IMAGE_FILES("image_files"),
+    PNG_FILES("png_files"),
+
+    /**
+     * SVG files export dialog filter description
+     */
+    SVG_FILES("svg_files"),
 
     /**
      * TikZ files export dialog filter description
