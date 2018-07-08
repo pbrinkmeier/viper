@@ -11,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
+import edu.kit.ipd.pp.viper.view.MainWindow;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Graph;
@@ -107,7 +108,10 @@ public class CommandExportImage extends Command {
         } catch (IOException e) {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
             this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.ERROR);
-            e.printStackTrace();
+
+            if (MainWindow.inDebugMode()) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -125,7 +129,10 @@ public class CommandExportImage extends Command {
         } catch (IOException e) {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
             this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.ERROR);
-            e.printStackTrace();
+
+            if (MainWindow.inDebugMode()) {
+                e.printStackTrace();
+            }
         }
     }
 }

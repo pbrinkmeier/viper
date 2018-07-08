@@ -14,6 +14,7 @@ import org.apache.commons.io.FilenameUtils;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
+import edu.kit.ipd.pp.viper.view.MainWindow;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
@@ -84,7 +85,10 @@ public class CommandOpen extends Command {
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_ERROR);
                 this.console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.ERROR);
-                e.printStackTrace();
+
+                if (MainWindow.inDebugMode()) {
+                    e.printStackTrace();
+                }
                 return;
             }
 

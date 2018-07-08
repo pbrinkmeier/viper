@@ -12,6 +12,7 @@ import org.apache.commons.io.FilenameUtils;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
+import edu.kit.ipd.pp.viper.view.MainWindow;
 
 /**
  * Command for saving the editor content to disk as a Prolog file.
@@ -55,7 +56,10 @@ public class CommandSave extends Command {
         } catch (IOException e) {
             String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
             this.console.printLine(err + ": " + file.getAbsolutePath(), LogType.ERROR);
-            e.printStackTrace();
+
+            if (MainWindow.inDebugMode()) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -97,7 +101,10 @@ public class CommandSave extends Command {
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
                 this.console.printLine(err + ": " + file.getAbsolutePath(), LogType.ERROR);
-                e.printStackTrace();
+
+                if (MainWindow.inDebugMode()) {
+                    e.printStackTrace();
+                }
             }
         }
     }

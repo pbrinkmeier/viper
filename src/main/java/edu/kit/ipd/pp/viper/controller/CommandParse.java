@@ -5,6 +5,7 @@ import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
+import edu.kit.ipd.pp.viper.view.MainWindow;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
@@ -41,7 +42,10 @@ public class CommandParse extends Command {
         } catch (ParseException e) {
             console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.ERROR);
             console.lockInput();
-            e.printStackTrace();
+
+            if (MainWindow.inDebugMode()) {
+                e.printStackTrace();
+            }
         }
     }
 }

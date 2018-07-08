@@ -13,6 +13,7 @@ import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
+import edu.kit.ipd.pp.viper.view.MainWindow;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 import guru.nidi.graphviz.model.Graph;
 
@@ -53,7 +54,10 @@ public class InterpreterManager {
             kb = new PrologParser(program).parse();
         } catch (ParseException e) {
             console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.INFO);
-            e.printStackTrace();
+
+            if (MainWindow.inDebugMode()) {
+                e.printStackTrace();
+            }
         }
 
         Goal query = null;
@@ -61,7 +65,10 @@ public class InterpreterManager {
             query = new PrologParser(queryCode).parseGoalList().get(0);
         } catch (ParseException e) {
             console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.INFO);
-            e.printStackTrace();
+
+            if (MainWindow.inDebugMode()) {
+                e.printStackTrace();
+            }
         }
 
         Interpreter interpreter = new Interpreter(kb, query);

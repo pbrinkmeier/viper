@@ -10,6 +10,7 @@ import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
+import edu.kit.ipd.pp.viper.view.MainWindow;
 
 /**
  * Command for formatting the editor content to a standardized format.
@@ -41,7 +42,10 @@ public class CommandFormat extends Command {
             rules = kb.getRules();
         } catch (ParseException e) {
             this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.ERROR);
-            e.printStackTrace();
+
+            if (MainWindow.inDebugMode()) {
+                e.printStackTrace();
+            }
         }
 
         if (rules == null)
