@@ -8,13 +8,13 @@ public enum TokenType {
     COLON_MINUS,
     /** An equals sign (=) */
     EQ,
-    /** A less than sign (<) */
+    /** A less than sign (&lt;) */
     LESS,
-    /** A less than and equal sign (<=) */
+    /** A less than and equal sign (&lt;=) */
     EQ_LESS,
-    /** A greater than sign (>) */
+    /** A greater than sign (&gt;) */
     GREATER,
-    /** A greater than and equal sign (>=) */
+    /** A greater than and equal sign (&gt;=) */
     GREATER_EQ,
     /** Arithmetic equality (=:=) */
     EQ_COLON_EQ,
