@@ -18,7 +18,7 @@ public class ConsoleOutputArea extends JTextPane {
     public ConsoleOutputArea() {
         super();
 
-        this.setEnabled(false);
+        this.setEditable(false);
     }
 
     /**
@@ -57,6 +57,12 @@ public class ConsoleOutputArea extends JTextPane {
             break;
         }
 
+        // using setEnabled(false) grays out the entire console, removing all colors. therefore, we're using
+        // setEditable(false). this however not only disables input from the user, but also input from the
+        // program itself. to work around this, the text pane is set editable before a print and set un-editable
+        // again after a print
+        this.setEditable(true);
+
         StyleContext context = StyleContext.getDefaultStyleContext();
 
         // set some attributes for font, alignment etc.
@@ -67,6 +73,8 @@ public class ConsoleOutputArea extends JTextPane {
         this.setCaretPosition(this.getDocument().getLength());
         this.setCharacterAttributes(set, false);
         this.replaceSelection(line + "\n");
+
+        this.setEditable(false);
     }
 
     /**
