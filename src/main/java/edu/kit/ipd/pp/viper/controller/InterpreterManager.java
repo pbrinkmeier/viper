@@ -1,11 +1,16 @@
 package edu.kit.ipd.pp.viper.controller;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
+import edu.kit.ipd.pp.viper.model.ast.Goal;
+import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
 import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
+import edu.kit.ipd.pp.viper.model.parser.ParseException;
+import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
@@ -23,11 +28,13 @@ public class InterpreterManager {
     private boolean searchingForSolution = false;
     private boolean useStandardLibrary = false;
 
+    private List<Interpreter> interpreters;
+
     /**
      * Initializes a new interpreter manager. This should only be called once.
      */
     public InterpreterManager() {
-        // TODO
+        interpreters = new ArrayList<Interpreter>();
     }
 
     /**
@@ -37,9 +44,28 @@ public class InterpreterManager {
      * 
      * @param program Source code of the Prolog program to create a KnowledgeBase
      * from
+     * @param queryCode Source code of the query to be interpreted
+     * @param console Panel of the console area
      */
-    public void createNew(String program) {
-        // TODO
+    public void createNew(String program, String queryCode, ConsolePanel console) {
+        KnowledgeBase kb = null;
+        try {
+            kb = new PrologParser(program).parse();
+        } catch (ParseException e) {
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), Color.BLACK);
+            e.printStackTrace();
+        }
+
+        Goal query = null;
+        try {
+            query = new PrologParser(queryCode).parseGoalList().get(0);
+        } catch (ParseException e) {
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), Color.BLACK);
+            e.printStackTrace();
+        }
+
+        Interpreter interpreter = new Interpreter(kb, query);
+        interpreters.add(interpreter);
     }
 
     /**
@@ -48,8 +74,7 @@ public class InterpreterManager {
      * @return Result of the step taken
      */
     public StepResult step() {
-        // TODO
-        return null;
+        return this.getCurrentState().step();
     }
 
     /**
@@ -58,7 +83,6 @@ public class InterpreterManager {
      * @return Result of the step taken
      */
     public StepResult stepBack() {
-        // TODO
         return null;
     }
 
@@ -118,7 +142,15 @@ public class InterpreterManager {
      * @return string representation of the substitutions found
      */
     public String getSolutionString() {
-        return "";
+        final List<Substitution> solution = getSolution();
+        String rv = "{";
+
+        for (int i = 0; i < solution.size(); i++) {
+            rv += solution.get(i).toString();
+            rv += i < solution.size() - 1 ? ", " : "}";
+        }
+
+        return rv;
     }
 
     /**
@@ -127,8 +159,7 @@ public class InterpreterManager {
      * @return Current state of the interpretation
      */
     public Interpreter getCurrentState() {
-        // TODO
-        return null;
+        return interpreters.get(interpreters.size() - 1);
     }
 
     /**
