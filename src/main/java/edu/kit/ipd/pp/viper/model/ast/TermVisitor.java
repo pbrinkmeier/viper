@@ -1,21 +1,27 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
-public interface TermVisitor<ResultType> {
+public interface TermVisitor<T> {
     /**
-     * @param fun
-     * @return
+     * Describes the visitors behavior when it visits a functor.
+     *
+     * @param functor functor term to visit
+     * @return result of the visit
      */
-    public ResultType visit(Functor fun);
+    T visit(Functor functor);
 
     /**
-     * @param var
-     * @return
+     * Describes the visitors behavior when it visits a variable.
+     *
+     * @param variable variable term to visit
+     * @return result of the visit
      */
-    public ResultType visit(Variable var);
+    T visit(Variable variable);
 
     /**
-     * @param num
-     * @return
+     * Describes the visitors behavior when it visits a number.
+     *
+     * @param number number term to visit
+     * @return result of the visit
      */
-    public ResultType visit(Number num);
+    T visit(Number number);
 }

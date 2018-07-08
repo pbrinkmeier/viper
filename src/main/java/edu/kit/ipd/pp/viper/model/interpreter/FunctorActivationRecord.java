@@ -1,89 +1,168 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
+import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
+import edu.kit.ipd.pp.viper.model.ast.Goal;
+import edu.kit.ipd.pp.viper.model.ast.Rule;
+import edu.kit.ipd.pp.viper.model.ast.Term;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import edu.kit.ipd.pp.viper.model.ast.Functor;
-import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
-
 public class FunctorActivationRecord extends ActivationRecord {
-    /**
-     * 
-     */
+    private final FunctorGoal goal;
+    private final List<Rule> matchingRules;
     private int ruleIndex;
+    private List<ActivationRecord> children;
 
     /**
-     * @param parent
-     * @param goal
+     * Initializes a functor activation record with an interpreter, a parent and a functor goal.
+     * Internally, this already fetches all matching rules from the knowledgebase.
+     *
+     * @param interpreter interpreter reference (for access to the knowledgebase)
+     * @param parent optional parent AR
+     * @param goal goal that corresponds to this AR
      */
-    public FunctorActivationRecord(Optional<FunctorActivationRecord> parent, FunctorGoal goal) {
-        super(null, null);
-        // TODO
+    public FunctorActivationRecord(
+        Interpreter interpreter,
+        Optional<FunctorActivationRecord> parent,
+        FunctorGoal goal
+    ) {
+        super(interpreter, parent);
+        this.goal = goal;
+        this.matchingRules = this.getInterpreter().getKnowledgeBase().getMatchingRules(goal.getFunctor());
     }
 
     /**
-     * @return
-     */
-    public Optional<UnificationResult> getUnificationResult() {
-        // TODO
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    public Functor getFunctor() {
-        // TODO
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    public Functor getMatchingRuleHead() {
-        // TODO
-        return null;
-    }
-
-    /**
-     * @return
+     * Getter-method for the index of the current matching rule.
+     * This method is public because this information is going to be used in the visualisation.
+     *
+     * @return index of the current matching rule
      */
     public int getRuleIndex() {
-        // TODO
-        return 0;
+        return this.ruleIndex;
     }
 
     /**
-     * @return
+     * Setter-method for the index of the current matching rule.
      */
-    public List<ActivationRecord> getSubSteps() {
-        // TODO
-        return null;
+    private void setRuleIndex(int ruleIndex) {
+        this.ruleIndex = ruleIndex;
     }
 
     /**
-     * @param visitor
-     * @return
+     * Getter-method for this ARs matching rules.
+     * 
+     * @return matching rules from the knowledgebase
      */
-    public FunctorActivationRecord accept(ActivationRecordVisitor visitor) {
-        // TODO
-        return null;
+    private List<Rule> getMatchingRules() {
+        return this.matchingRules;
     }
 
     /**
-     * @return
+     * Getter-method for this functor ARs functor.
+     * This returns a term because it has to apply substitutions first.
+     *
+     * @return functor of this functor ARs goal, with all previous substitutions applied
      */
-    protected ActivationRecord step() {
-        // TODO
-        return null;
+    public Term getFunctor() {
+        Term functor = this.getGoal().getFunctor();
+
+        if (this.getPrevious().isPresent()) {
+            functor = this.getPrevious().get().getEnvironment().applyAllSubstitutions(functor);
+        }
+
+        return functor;
     }
 
     /**
-     * @return
+     * Getter-method for this ARs children ("substeps").
+     * TODO: insert warning
+     *
+     * @return this ARs substeps
      */
-    protected ActivationRecord createCopy() {
-        // TODO
-        return null;
+    public List<ActivationRecord> getChildren() {
+        return this.children;
     }
 
+    private void setChildren(List<ActivationRecord> children) {
+        this.children = children;
+    }
+
+    /**
+     * Getter-method for the functor goal that corresponds to this functor AR.
+     */
+    @Override
+    public FunctorGoal getGoal() {
+        return this.goal;
+    }
+
+    // ---
+    
+    @Override
+    protected ActivationRecord getRightmost() {
+        if (this.getChildren().size() == 0) {
+            return this;
+        }
+
+        return this.getChildren().get(this.getChildren().size() - 1).getRightmost();
+    }
+
+    /**
+     * Executes a single step of a functor AR.
+     * If this AR has not been visited, set the index of the internal matching rule to 0.
+     * If the index of the internal matching rule does not point into the list of matching rules,
+     * set visited to false and return getPrevious().
+     * If there is a matching rule at the current index, try to unify it with the functor of the functor goal.
+     * Increase the index.
+     * If unification failed, return this AR, thus trying it again.
+     * If unification was successful, create a new environment for this AR with the resulting substitutions.
+     * Get the subgoals and sets their corresponding ARs as this ARs children.
+     * If there are any subgoals, return the first subgoal; else, return this.
+     *
+     * @return an optional next step (may be empty if the absolute end has been reached)
+     */
+    @Override
+    public Optional<ActivationRecord> step() {
+        if (!this.isVisited()) {
+            this.setRuleIndex(0);
+            this.setVisited(true);
+        }
+
+        if (this.getRuleIndex() >= this.getMatchingRules().size()) {
+            this.setVisited(false);
+            return this.getPrevious();
+        }
+
+        int unificationIndex = this.getInterpreter().getUnificationIndex();
+        this.getInterpreter().incrementUnificationIndex();
+        Rule matchingRule = this.getMatchingRules().get(this.getRuleIndex());
+
+        Term lhs = this.getFunctor();
+        Term rhs = matchingRule.getHead().transform(new Indexifier(unificationIndex));
+        this.setRuleIndex(this.getRuleIndex() + 1);
+
+        UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
+
+        if (!result.isSuccess()) {
+            return Optional.of(this);
+        }
+
+        this.setEnvironment(new Environment(this, result.getSubstitutions()));
+        List<ActivationRecord> children = new ArrayList<>();
+        Indexifier uniquerator = new Indexifier(unificationIndex);
+
+        for (Goal subgoal : matchingRule.getSubgoals()) {
+            Goal indexified = subgoal.transform(uniquerator);
+            children.add(indexified.createActivationRecord(this.getInterpreter(), Optional.of(this)));
+        }
+
+        this.setChildren(children);
+
+        if (children.size() != 0) {
+            return Optional.of(children.get(0));
+        }
+
+        return Optional.of(this.getNext());
+    }
 }

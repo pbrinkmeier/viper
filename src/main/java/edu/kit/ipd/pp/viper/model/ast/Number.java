@@ -21,14 +21,13 @@ public final class Number extends Term {
         return this.number;
     }
 
-    /**
-     * Implements the visitor pattern on Term.
-     *
-     * @param visitor visitor to visit this Number
-     * @return result of the visit
-     */
     @Override
-    public <ResultType> ResultType accept(TermVisitor<ResultType> visitor) {
+    public <T> T accept(TermVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public Number transform(TermTransformationVisitor visitor) {
         return visitor.visit(this);
     }
 

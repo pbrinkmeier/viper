@@ -63,14 +63,13 @@ public class Functor extends Term {
         return new Functor(this.getName(), parameters);
     }
 
-    /**
-     * Interface for TermVisitors.
-     *
-     * @param visitor visitor to visit this functor
-     * @return result of the visit
-     */
     @Override
-    public <ResultType> ResultType accept(TermVisitor<ResultType> visitor) {
+    public <T> T accept(TermVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public Functor transform(TermTransformationVisitor visitor) {
         return visitor.visit(this);
     }
 
@@ -166,6 +165,7 @@ public class Functor extends Term {
      * Creates a functor without any parameters, also called an atom.
      *
      * @param name name of the atom
+     * @return functor instance with a name but no parameters
      */
     public static Functor atom(String name) {
         return new Functor(name, Arrays.asList());

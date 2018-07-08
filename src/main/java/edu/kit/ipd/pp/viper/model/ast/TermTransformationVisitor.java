@@ -2,20 +2,24 @@ package edu.kit.ipd.pp.viper.model.ast;
 
 public interface TermTransformationVisitor {
     /**
-     * @param functor
-     * @return
+     * How to transform a functor.
+     *
+     * @param functor functor to transform
+     * @return transformed functor
      */
-    public Functor visit(Functor functor);
+    Functor visit(Functor functor);
 
     /**
-     * @param var
-     * @return
+     * How to transform a variable.
+     *
+     * @param variable variable to transform
+     * @return transformed variable
      */
-    public Variable visit(Variable var);
+    Variable visit(Variable variable);
 
     /**
-     * @param num
-     * @return
+     * @param number number to transform
+     * @return transformed number
      */
-    public Number visit(Number num);
+    Number visit(Number number);
 }

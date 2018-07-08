@@ -41,14 +41,13 @@ public final class Variable extends Term {
         return this.index;
     }
 
-    /**
-     * Implements the visitor pattern for Term
-     *
-     * @param visitor visitor to visit this Variable
-     * @return result of the visit
-     */
     @Override
-    public <ResultType> ResultType accept(TermVisitor<ResultType> visitor) {
+    public <T> T accept(TermVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public Variable transform(TermTransformationVisitor visitor) {
         return visitor.visit(this);
     }
 
