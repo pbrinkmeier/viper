@@ -11,8 +11,7 @@ import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
- * Represents a checkable menu item, used both to enable/disable the standard library via the menubar, as well as for
- * the language selection.
+ * Represents a checkable menu item used to enable/disable the standard library via the menubar
  */
 public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListener, Observer {
     /**

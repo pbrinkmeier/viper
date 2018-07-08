@@ -11,6 +11,12 @@ import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 
 public class MainWindow extends JFrame {
     /**
+     * Stores whether VIPER was started in debug mode or not.
+     * Debug mode will print some additional information to the console.
+     */
+    private static boolean debug;
+
+    /**
      * Window title
      */
     private static final String WINDOW_TITLE = "VIPER";
@@ -43,8 +49,12 @@ public class MainWindow extends JFrame {
 
     /**
      * The constructor sets up the {@link JFrame} and initialises all three panels
+     * 
+     * @param debug Sets debug mode to enabled/disabled
      */
-    public MainWindow() {
+    public MainWindow(boolean debug) {
+        MainWindow.debug = debug;
+
         this.setTitle(WINDOW_TITLE);
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setResizable(true);
@@ -55,7 +65,7 @@ public class MainWindow extends JFrame {
 
         this.editorPanel = new EditorPanel();
         this.consolePanel = new ConsolePanel();
-        this.visualisationPanel = new VisualisationPanel();
+        this.visualisationPanel = new VisualisationPanel(this);
         this.manager = new InterpreterManager();
 
         // add menu bar and tool bar to window
@@ -68,6 +78,9 @@ public class MainWindow extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+
+        // DEBUG (visualisation not implemented yet)
+        this.getVisualisationPanel().setFromGraph(null);
     }
 
     /**
@@ -94,8 +107,8 @@ public class MainWindow extends JFrame {
         );
         innerPane.setResizeWeight(0.5);
         innerPane.setDividerLocation(this.getWidth() / 2);
-        innerPane.setEnabled(false);
-        innerPane.setDividerSize(0);
+        innerPane.setEnabled(true);
+        innerPane.setDividerSize(5);
 
         // the outer pane splits up the window into a left (editor) and right (inner pane) side
         JSplitPane outerPane = new JSplitPane(
@@ -118,7 +131,22 @@ public class MainWindow extends JFrame {
      * @param args Command line arguments (ignored)
      */
     public static void main(String[] args) {
-        new MainWindow();
+        boolean debug = false;
+        for (String a : args) {
+            if (a.equals("--debug"))
+                debug = true;
+        }
+
+        new MainWindow(debug);
+    }
+
+    /**
+     * Returns the debug mode
+     * 
+     * @return Debug mode enabled or not
+     */
+    public static boolean inDebugMode() {
+        return MainWindow.debug;
     }
 
     /**

@@ -20,6 +20,9 @@ import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.SaveType;
 
+/**
+ * Represents a menu bar containing all available options and functionalities of the program.
+ */
 public class MenuBar extends JMenuBar {
     /**
      * Instance of main window
@@ -40,6 +43,9 @@ public class MenuBar extends JMenuBar {
         this.addSettingsMenu();
     }
 
+    /**
+     * Adds the "file" menu
+     */
     private void addFileMenu() {
         Menu menu = new Menu(LanguageKey.MENU_FILE);
 
@@ -55,6 +61,11 @@ public class MenuBar extends JMenuBar {
         this.add(menu);
     }
 
+    /**
+     * Adds the "file > new" item
+     * 
+     * @param menu Menu to attach to
+     */
     private void addNewItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_NEW, new CommandNew(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel()));
@@ -62,6 +73,11 @@ public class MenuBar extends JMenuBar {
         menu.add(item);
     }
 
+    /**
+     * Adds the "file > open" item
+     * 
+     * @param menu Menu to attach to
+     */
     private void addOpenItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_OPEN, new CommandOpen(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel()));
@@ -69,6 +85,11 @@ public class MenuBar extends JMenuBar {
         menu.add(item);
     }
 
+    /**
+     * Adds the "file > save" item
+     * 
+     * @param menu Menu to attach to
+     */
     private void addSaveItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_SAVE,
                 new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE));
@@ -76,6 +97,11 @@ public class MenuBar extends JMenuBar {
         menu.add(item);
     }
 
+    /**
+     * Adds the "file > save as" item
+     * 
+     * @param menu Menu to attach to
+     */
     private void addSaveAsItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_SAVEAS,
                 new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE_AS));
@@ -83,6 +109,11 @@ public class MenuBar extends JMenuBar {
         menu.add(item);
     }
 
+    /**
+     * Adds the "file > recently opened" item
+     * 
+     * @param menu Menu to attach to
+     */
     private void addRecentlyOpenedMenu(Menu menu) {
         Menu usedMenu = new Menu(LanguageKey.MENU_RECENT);
 
@@ -92,11 +123,19 @@ public class MenuBar extends JMenuBar {
         menu.add(usedMenu);
     }
 
+    /**
+     * Adds the "file > exit" item
+     * 
+     * @param menu Menu to attach to
+     */
     private void addExitItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_EXIT, new CommandExit());
         menu.add(item);
     }
 
+    /**
+     * Adds the "program" menu
+     */
     private void addProgramMenu() {
         Menu menu = new Menu(LanguageKey.MENU_PROGRAM);
 
@@ -106,6 +145,11 @@ public class MenuBar extends JMenuBar {
         this.add(menu);
     }
 
+    /**
+     * Adds the "program > parse" item
+     * 
+     * @param menu Menu to attach to
+     */
     private void addParseItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_PARSE, new CommandParse(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel()));
@@ -113,6 +157,11 @@ public class MenuBar extends JMenuBar {
         menu.add(item);
     }
 
+    /**
+     * Adds the "program > format" item
+     * 
+     * @param menu Menu to attach to
+     */
     private void addFormatItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_FORMAT, new CommandFormat(this.main.getConsolePanel(),
                 this.main.getEditorPanel()));
@@ -120,6 +169,9 @@ public class MenuBar extends JMenuBar {
         menu.add(item);
     }
 
+    /**
+     * Adds the "export" menu
+     */
     private void addExportMenu() {
         Menu menu = new Menu(LanguageKey.MENU_EXPORT);
 
@@ -139,6 +191,9 @@ public class MenuBar extends JMenuBar {
         this.add(menu);
     }
 
+    /**
+     * Adds the "settings" menu
+     */
     private void addSettingsMenu() {
         Menu menu = new Menu(LanguageKey.MENU_SETTINGS);
 
@@ -152,6 +207,11 @@ public class MenuBar extends JMenuBar {
         this.add(menu);
     }
 
+    /**
+     * Adds the "swttings > language" item
+     * 
+     * @param menu Menu to attach to
+     */
     private void addLanguageSwitchMenu(Menu menu) {
         Menu languageMenu = new Menu(LanguageKey.MENU_LANGUAGE);
 

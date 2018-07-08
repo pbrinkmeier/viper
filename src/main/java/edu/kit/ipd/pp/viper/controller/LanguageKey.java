@@ -123,6 +123,17 @@ public enum LanguageKey {
      */
     TOOLTIP_NEXT("tooltip_next"),
 
+    // Buttons
+    /**
+     * Text for "send" button next to input field
+     */
+    BUTTON_SEND("button_send"),
+
+    /**
+     * Text for "next step" button in visualisation panel
+     */
+    BUTTON_STEP("button_step"),
+
     // Dialog options
     /**
      * "Yes" dialog option

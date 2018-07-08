@@ -1,66 +1,105 @@
 package edu.kit.ipd.pp.viper.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JPanel;
 
+/**
+ * Represents a panel containing a console-like output field, as well as an input field for
+ * prolog queries.
+ */
 public class ConsolePanel extends JPanel {
     /**
-     * 
+     * Console panel
+     */
+    private ConsoleOutputArea outputArea;
+
+    /**
+     * Input field panel
+     */
+    private ConsoleInputField inputField;
+
+    /**
+     * Creates a new console panel
      */
     public ConsolePanel() {
-        // TODO
+        super();
+
+        this.setLayout(new BorderLayout());
+
+        this.outputArea = new ConsoleOutputArea();
+        this.inputField = new ConsoleInputField(null);
+
+        this.add(this.outputArea, BorderLayout.CENTER);
+        this.add(this.inputField, BorderLayout.PAGE_END);
     }
 
     /**
-     * @return
+     * Clears the console and the input field
      */
     public void clearAll() {
-        // TODO
+        this.outputArea.clear();
+        this.inputField.clear();
     }
 
     /**
-     * @return String
+     * Returns the content of the input field
+     * 
+     * @return String Input field contents
      */
     public String getText() {
-        // TODO
-        return "";
+        return this.inputField.getText();
     }
 
     /**
-     * @return
+     * Makes the input field un-editable
      */
     public void lockInput() {
-        // TODO
+        this.inputField.lock();
     }
 
     /**
-     * @return
+     * Makes the input field editable
      */
     public void unlockInput() {
-        // TODO
+        this.inputField.unlock();
     }
 
     /**
-     * @return
+     * Clears the input field
      */
     public void clearInputField() {
-        // TODO
+        this.inputField.clear();
     }
 
     /**
-     * @return
+     * Clears the console
      */
     public void clearOutputArea() {
-        // TODO
+        this.outputArea.clear();
     }
 
     /**
-     * @param line
-     * @param color
-     * @return
+     * Prints a new line (including a line break) to the console. The {@link LogType} determines
+     * the line color. {@link LogType#DEBUG} will only be printed if the program was started in
+     * debug mode.
+     * 
+     * @param line The String to print
+     * @param type Type of message
      */
+    public void printLine(String line, LogType type) {
+        this.outputArea.printLine(line, type);
+    }
+
+    /**
+     * Deprecated method to print to the console, used {@link ConsolePanel#printLine(String, LogType)} instead
+     * 
+     * @param line  String to print
+     * @param color Color of line (IGNORED! Use {@link ConsolePanel#printLine(String, LogType)} instead)
+     */
+    @Deprecated
     public void printLine(String line, Color color) {
-        // TODO
+        this.outputArea.printLine(line, LogType.INFO);
     }
 }
