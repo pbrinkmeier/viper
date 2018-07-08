@@ -14,8 +14,8 @@ public final class GraphvizMaker {
     }
 
     /**
-     * @param interpreter
-     * @return
+     * @param interpreter The interpreter to create the graph from
+     * @return the resulting graph object
      */
     public static Graph createGraph(Interpreter interpreter) {
         // TODO

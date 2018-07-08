@@ -2,14 +2,14 @@ package edu.kit.ipd.pp.viper.model.ast;
 
 public class UnsupportedTermException extends TermEvaluationException {
     /**
-     * @param term
+     * @param term The term causing the exception
      */
     public UnsupportedTermException(Term term) {
         // TODO
     }
 
     /**
-     * @return
+     * @return the error message
      */
     public String getMessage() {
         // TODO

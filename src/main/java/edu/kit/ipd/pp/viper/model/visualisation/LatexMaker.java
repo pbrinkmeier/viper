@@ -13,8 +13,8 @@ public final class LatexMaker {
     }
 
     /**
-     * @param interpreter
-     * @return
+     * @param interpreter The interpreter to create the TikZ representation from
+     * @return the graph representation as TikZ source code
      */
     public static String createLatex(Interpreter interpreter) {
         // TODO

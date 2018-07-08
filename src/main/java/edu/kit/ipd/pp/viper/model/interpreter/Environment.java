@@ -48,14 +48,15 @@ public class Environment {
     public Term applyAllSubstitutions(Term term) {
         Optional<ActivationRecord> previous = this.getActivationRecord().getPrevious();
 
+        Term t = null;
         if (previous.isPresent()) {
-            term = previous.get().getEnvironment().applyAllSubstitutions(term);
+            t = previous.get().getEnvironment().applyAllSubstitutions(term);
         }
 
         for (Substitution s : this.getSubstitutions()) {
-            term = term.accept(new SubstitutionApplier(s));
+            t = term.accept(new SubstitutionApplier(s));
         }
 
-        return term;
+        return t;
     }
 }
