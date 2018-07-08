@@ -22,6 +22,7 @@ public class VisualisationViewer extends JSVGCanvas {
      * Clears the displayed SVG
      */
     public void clear() {
+        this.setURI(null);
     }
 
     /**
@@ -30,5 +31,7 @@ public class VisualisationViewer extends JSVGCanvas {
      * @param graph The graph to show
      */
     public void setFromGraph(Graph graph) {
+        String path = this.getClass().getResource("/graph_placeholder.svg").getPath();
+        this.setURI(path);
     }
 }

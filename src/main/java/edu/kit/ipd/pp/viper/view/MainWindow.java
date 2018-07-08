@@ -55,7 +55,7 @@ public class MainWindow extends JFrame {
 
         this.editorPanel = new EditorPanel();
         this.consolePanel = new ConsolePanel();
-        this.visualisationPanel = new VisualisationPanel();
+        this.visualisationPanel = new VisualisationPanel(this);
         this.manager = new InterpreterManager();
 
         // add menu bar and tool bar to window
@@ -68,6 +68,8 @@ public class MainWindow extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+
+        this.getVisualisationPanel().setFromGraph(null);
     }
 
     /**
@@ -92,7 +94,7 @@ public class MainWindow extends JFrame {
                 this.visualisationPanel,
                 this.consolePanel
         );
-        innerPane.setResizeWeight(0.6);
+        innerPane.setResizeWeight(0.5);
         innerPane.setDividerLocation(this.getWidth() / 2);
         innerPane.setEnabled(true);
         innerPane.setDividerSize(5);
