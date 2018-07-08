@@ -213,11 +213,11 @@ public enum LanguageKey {
     // Console output for editor changes
     /** Console output message for formatting the editor content */
     EDITOR_FORMATTED("editor_formatted"),
-    
+
     // Console output for parsing
     /** Console output message for failed parsing */
     PARSER_ERROR("parser_error");
-    
+
     private String value;
 
     private LanguageKey(String value) {
