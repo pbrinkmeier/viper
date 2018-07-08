@@ -22,10 +22,30 @@ public class KnowledgeBase {
      *
      * @return all rules in this knowledgebase
      */
-    public List<Rule> getRules() {
-        return Collections.unmodifiableList(this.rules);
+    private List<Rule> getRules() {
+        return this.rules;
     }
 
+    @Override
+    public String toString() {
+        String source = "";
+        for (final Rule r : getRules()) {
+            List<Goal> subGoals = r.getSubgoals();
+            if (subGoals.size() == 0) {
+                source += r.getHead() + ".\n";
+            } else {
+                source += "\n" + r.getHead() + " :-\n";
+                for (int i = 0; i < subGoals.size(); i++) {
+                    final Goal g = subGoals.get(i);
+                    source += "  " + g.toString();
+                    source += i == subGoals.size() - 1 ? ".\n" : ",\n";
+                }
+            }
+        }
+        
+        return source;
+    }
+    
     /**
      * Fetches an immutable list of rules "matching" a functor.
      * A rule matches a functor if its head (which is a functor)
