@@ -71,6 +71,8 @@ public class CommandOpen extends Command {
                 }
 
                 this.editor.setSourceText(buf.toString());
+                this.editor.setHasChanged(false);
+                this.editor.setFileReference(chooser.getSelectedFile());
                 this.visualisation.clearVisualization();
 
                 final String out = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_SUCCESS);

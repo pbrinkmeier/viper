@@ -46,6 +46,7 @@ public class CommandNew extends Command {
 
         this.editor.setSourceText("");
         this.editor.setHasChanged(false);
+        this.editor.setFileReference(null);
         this.console.clearAll();
         this.visualisation.clearVisualization();
     }
