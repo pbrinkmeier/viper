@@ -42,12 +42,14 @@ public class CommandNew extends Command {
                 CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE);
                 save.execute();
             }
-        }
 
-        this.editor.setSourceText("");
-        this.editor.setHasChanged(false);
-        this.editor.setFileReference(null);
-        this.console.clearAll();
-        this.visualisation.clearVisualization();
+            if (rv != 2) {
+                this.editor.setSourceText("");
+                this.editor.setHasChanged(false);
+                this.editor.setFileReference(null);
+                this.console.clearAll();
+                this.visualisation.clearVisualization();
+            }
+        }
     }
 }
