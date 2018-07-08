@@ -11,6 +11,12 @@ import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 
 public class MainWindow extends JFrame {
     /**
+     * Stores whether VIPER was started in debug mode or not.
+     * Debug mode will print some additional information to the console.
+     */
+    private static boolean debug;
+
+    /**
      * Window title
      */
     private static final String WINDOW_TITLE = "VIPER";
@@ -43,8 +49,12 @@ public class MainWindow extends JFrame {
 
     /**
      * The constructor sets up the {@link JFrame} and initialises all three panels
+     * 
+     * @param debug Sets debug mode to enabled/disabled
      */
-    public MainWindow() {
+    public MainWindow(boolean debug) {
+        MainWindow.debug = debug;
+
         this.setTitle(WINDOW_TITLE);
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setResizable(true);
@@ -120,7 +130,22 @@ public class MainWindow extends JFrame {
      * @param args Command line arguments (ignored)
      */
     public static void main(String[] args) {
-        new MainWindow();
+        boolean debug = false;
+        for (String a : args) {
+            if (a.equals("--debug"))
+                debug = true;
+        }
+
+        new MainWindow(debug);
+    }
+
+    /**
+     * Returns the debug mode
+     * 
+     * @return Debug mode enabled or not
+     */
+    public static boolean inDebugMode() {
+        return MainWindow.debug;
     }
 
     /**

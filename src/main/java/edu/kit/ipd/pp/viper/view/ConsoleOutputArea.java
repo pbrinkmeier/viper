@@ -44,9 +44,11 @@ public class ConsoleOutputArea extends JTextPane {
         case ERROR:
             color = Color.RED;
             break;
-        //case DEBUG:
-        //    color = Color.GRAY;
-        //    break;
+        case DEBUG:
+            if (!MainWindow.inDebugMode())
+                return;
+            color = Color.GRAY;
+            break;
         default:
         case INFO:
             color = Color.BLACK;
