@@ -28,7 +28,7 @@ public enum LanguageKey {
     MENU_SAVEAS("menu_saveas"),
 
     /**
-     * Menu "Recent >" option
+     * Menu "Recent" option
      */
     MENU_RECENT("menu_recent"),
 
