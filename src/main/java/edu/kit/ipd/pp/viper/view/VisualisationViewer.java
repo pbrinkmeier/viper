@@ -5,8 +5,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.io.File;
-import java.io.IOException;
 
 import javax.swing.Action;
 import javax.swing.ActionMap;
@@ -15,8 +13,6 @@ import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.AbstractPanInteractor;
 import org.apache.batik.swing.gvt.Interactor;
 
-import guru.nidi.graphviz.engine.Format;
-import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Graph;
 
 /**

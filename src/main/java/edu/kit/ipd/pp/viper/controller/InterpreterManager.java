@@ -1,6 +1,5 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +12,7 @@ import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
+import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 import guru.nidi.graphviz.model.Graph;
 
@@ -52,7 +52,7 @@ public class InterpreterManager {
         try {
             kb = new PrologParser(program).parse();
         } catch (ParseException e) {
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), Color.BLACK);
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.INFO);
             e.printStackTrace();
         }
 
@@ -60,7 +60,7 @@ public class InterpreterManager {
         try {
             query = new PrologParser(queryCode).parseGoalList().get(0);
         } catch (ParseException e) {
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), Color.BLACK);
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.INFO);
             e.printStackTrace();
         }
 
@@ -106,7 +106,7 @@ public class InterpreterManager {
 
                 if (result == StepResult.SOLUTION_FOUND) {
                     final String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
-                    console.printLine(prefix + getSolutionString(), Color.BLACK);
+                    console.printLine(prefix + getSolutionString(), LogType.INFO);
                 }
 
                 Graph graph = GraphvizMaker.createGraph(getCurrentState());

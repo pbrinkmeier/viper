@@ -1,7 +1,6 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 
 import javax.swing.JPanel;
 
@@ -90,16 +89,5 @@ public class ConsolePanel extends JPanel {
      */
     public void printLine(String line, LogType type) {
         this.outputArea.printLine(line, type);
-    }
-
-    /**
-     * Deprecated method to print to the console, used {@link ConsolePanel#printLine(String, LogType)} instead
-     * 
-     * @param line  String to print
-     * @param color Color of line (IGNORED! Use {@link ConsolePanel#printLine(String, LogType)} instead)
-     */
-    @Deprecated
-    public void printLine(String line, Color color) {
-        this.outputArea.printLine(line, LogType.INFO);
     }
 }

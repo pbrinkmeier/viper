@@ -1,6 +1,5 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.awt.Color;
 import java.util.List;
 
 import edu.kit.ipd.pp.viper.model.ast.Goal;
@@ -10,6 +9,7 @@ import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
+import edu.kit.ipd.pp.viper.view.LogType;
 
 /**
  * Command for formatting the editor content to a standardized format.
@@ -38,13 +38,9 @@ public class CommandFormat extends Command {
         List<Rule> rules = null;
         try {
             KnowledgeBase kb = new PrologParser(source).parse();
-        
-            // TODO: Use the code two lines below once getRules() is made public
-            rules = kb.getMatchingRules(null);
-            // rules = kb.getRules();
-
+            rules = kb.getRules();
         } catch (ParseException e) {
-            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), Color.BLACK);
+            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.ERROR);
             e.printStackTrace();
         }
 
@@ -66,7 +62,7 @@ public class CommandFormat extends Command {
         if (!source.equals(newSource)) {
             this.editor.setSourceText(newSource);
             this.editor.setHasChanged(true);
-            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.EDITOR_FORMATTED), Color.BLACK);
+            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.EDITOR_FORMATTED), LogType.INFO);
         }
     }
 }

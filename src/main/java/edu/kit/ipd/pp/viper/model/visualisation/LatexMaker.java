@@ -3,7 +3,7 @@ package edu.kit.ipd.pp.viper.model.visualisation;
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
-public class LatexMaker {
+public final class LatexMaker {
     /**
      * @param root
      * @param next

@@ -22,8 +22,8 @@ public class KnowledgeBase {
      *
      * @return all rules in this knowledgebase
      */
-    private List<Rule> getRules() {
-        return this.rules;
+    public List<Rule> getRules() {
+        return Collections.unmodifiableList(this.rules);
     }
 
     /**

@@ -1,6 +1,5 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 
@@ -11,6 +10,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
+import edu.kit.ipd.pp.viper.view.LogType;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Graph;
@@ -88,7 +88,7 @@ public class CommandExportImage extends Command {
                 break;
             default:
                 String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_UNSUPPORTED_FORMAT);
-                console.printLine(msg, Color.RED);
+                console.printLine(msg, LogType.ERROR);
             }
         }
     }
@@ -103,10 +103,10 @@ public class CommandExportImage extends Command {
         try {
             viz.render(Format.SVG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
-            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
         } catch (IOException e) {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.ERROR);
             e.printStackTrace();
         }
     }
@@ -121,10 +121,10 @@ public class CommandExportImage extends Command {
         try {
             viz.render(Format.PNG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
-            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
         } catch (IOException e) {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-            this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.RED);
+            this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.ERROR);
             e.printStackTrace();
         }
     }

@@ -1,6 +1,5 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import edu.kit.ipd.pp.viper.model.visualisation.LatexMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
+import edu.kit.ipd.pp.viper.view.LogType;
 
 /**
  * Command for exporting the visualisation to TikZ for LaTex.
@@ -61,10 +61,10 @@ public class CommandExportTikz extends Command {
                 out.close();
 
                 String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
-                console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
+                console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.INFO);
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-                this.console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
+                this.console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.ERROR);
                 e.printStackTrace();
             }
         }

@@ -1,11 +1,10 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.awt.Color;
-
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
+import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
@@ -37,7 +36,7 @@ public class CommandParse extends Command {
             new PrologParser(editor.getSourceText()).parse();
             console.unlockInput();
         } catch (ParseException e) {
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), Color.BLACK);
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.INFO);
             console.lockInput();
             e.printStackTrace();
         }

@@ -1,6 +1,5 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +13,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
+import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
@@ -77,13 +77,13 @@ public class CommandOpen extends Command {
 
                 final String out = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_SUCCESS);
                 this.console.clearAll();
-                this.console.printLine(out + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
+                this.console.printLine(out + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.INFO);
 
                 in.close();
                 reader.close();
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_ERROR);
-                this.console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
+                this.console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.ERROR);
                 e.printStackTrace();
                 return;
             }

@@ -1,6 +1,5 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
+import edu.kit.ipd.pp.viper.view.LogType;
 
 /**
  * Command for saving the editor content to disk as a Prolog file.
@@ -56,7 +56,7 @@ public class CommandSave extends Command {
             this.editor.setHasChanged(false);
         } catch (IOException e) {
             String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
-            this.console.printLine(err + ": " + file.getAbsolutePath(), Color.RED);
+            this.console.printLine(err + ": " + file.getAbsolutePath(), LogType.ERROR);
             e.printStackTrace();
         }
     }
@@ -95,10 +95,10 @@ public class CommandSave extends Command {
                 this.editor.setFileReference(file);
 
                 String msg = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_SUCCESS);
-                this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
+                this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
-                this.console.printLine(err + ": " + file.getAbsolutePath(), Color.RED);
+                this.console.printLine(err + ": " + file.getAbsolutePath(), LogType.ERROR);
                 e.printStackTrace();
             }
         }

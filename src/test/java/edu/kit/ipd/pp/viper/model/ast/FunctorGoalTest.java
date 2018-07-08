@@ -1,12 +1,12 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
-import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.Arrays;
-import java.util.Optional;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class FunctorGoalTest {
     private FunctorGoal testGoal;

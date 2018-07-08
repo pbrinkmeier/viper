@@ -4,7 +4,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import guru.nidi.graphviz.model.Graph;
 
-public class GraphvizMaker {
+public final class GraphvizMaker {
     /**
      * @param current
      * @param next

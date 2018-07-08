@@ -1,12 +1,7 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
-import edu.kit.ipd.pp.viper.model.ast.Functor;
-import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
-import edu.kit.ipd.pp.viper.model.ast.Goal;
-import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
-import edu.kit.ipd.pp.viper.model.ast.Variable;
-import edu.kit.ipd.pp.viper.model.parser.ParseException;
-import edu.kit.ipd.pp.viper.model.parser.PrologParser;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,8 +10,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import edu.kit.ipd.pp.viper.model.ast.Functor;
+import edu.kit.ipd.pp.viper.model.ast.Goal;
+import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
+import edu.kit.ipd.pp.viper.model.ast.Variable;
+import edu.kit.ipd.pp.viper.model.parser.ParseException;
+import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 
 public class InterpreterTest {
     @Test public void stepTest() throws IOException, ParseException {

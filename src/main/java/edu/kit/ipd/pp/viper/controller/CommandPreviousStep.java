@@ -1,10 +1,9 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.awt.Color;
-
 import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
+import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 import guru.nidi.graphviz.model.Graph;
 
@@ -38,7 +37,7 @@ public class CommandPreviousStep extends Command {
         final StepResult res = this.interpreterManager.stepBack();
         if (res == StepResult.SOLUTION_FOUND) {
             final String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
-            this.console.printLine(prefix + this.interpreterManager.getSolutionString(), Color.BLACK);
+            this.console.printLine(prefix + this.interpreterManager.getSolutionString(), LogType.INFO);
         }
 
         Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
