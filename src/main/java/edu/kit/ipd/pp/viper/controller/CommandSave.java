@@ -38,12 +38,10 @@ public class CommandSave extends Command {
      * Executes the command.
      */
     public void execute() {
-        if (this.editor.hasChanged()) {
-            if (this.saveType == SaveType.SAVE && this.editor.hasFileReference())
-                save();
-            else
-                saveAs();
-        }
+        if (this.saveType == SaveType.SAVE && this.editor.hasFileReference())
+            save();
+        else
+            saveAs();
     }
 
     private void save() {

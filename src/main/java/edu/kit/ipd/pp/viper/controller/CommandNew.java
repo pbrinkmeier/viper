@@ -50,6 +50,12 @@ public class CommandNew extends Command {
                 this.console.clearAll();
                 this.visualisation.clearVisualization();
             }
+        } else {
+            this.editor.setSourceText("");
+            this.editor.setHasChanged(false);
+            this.editor.setFileReference(null);
+            this.console.clearAll();
+            this.visualisation.clearVisualization();
         }
     }
 }
