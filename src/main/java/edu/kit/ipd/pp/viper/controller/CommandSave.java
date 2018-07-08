@@ -79,19 +79,26 @@ public class CommandSave extends Command {
         int rv = chooser.showSaveDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            String filePath = file.getAbsolutePath();
+            if (!filePath.endsWith(".pl")) {
+                file = new File(filePath + ".pl");
+            }
+
             try {
-                FileOutputStream out = new FileOutputStream(chooser.getSelectedFile());
+                FileOutputStream out = new FileOutputStream(file);
+
                 out.write(this.editor.getSourceText().getBytes());
                 out.flush();
                 out.close();
                 this.editor.setHasChanged(false);
-                this.editor.setFileReference(chooser.getSelectedFile());
+                this.editor.setFileReference(file);
 
                 String msg = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_SUCCESS);
-                this.console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.BLACK);
+                this.console.printLine(msg + ": " + file.getAbsolutePath(), Color.BLACK);
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
-                this.console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), Color.RED);
+                this.console.printLine(err + ": " + file.getAbsolutePath(), Color.RED);
                 e.printStackTrace();
             }
         }
