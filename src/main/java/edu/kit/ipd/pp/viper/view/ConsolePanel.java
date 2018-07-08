@@ -4,11 +4,18 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import edu.kit.ipd.pp.viper.controller.CommandParseQuery;
+
 /**
  * Represents a panel containing a console-like output field, as well as an input field for
  * prolog queries.
  */
 public class ConsolePanel extends JPanel {
+    /**
+     * Main window reference
+     */
+    private MainWindow main;
+
     /**
      * Console panel
      */
@@ -21,14 +28,19 @@ public class ConsolePanel extends JPanel {
 
     /**
      * Creates a new console panel
+     * 
+     * @param gui Main window reference
      */
-    public ConsolePanel() {
+    public ConsolePanel(MainWindow gui) {
         super();
+
+        this.main = gui;
 
         this.setLayout(new BorderLayout());
 
         this.outputArea = new ConsoleOutputArea();
-        this.inputField = new ConsoleInputField(null);
+        this.inputField = new ConsoleInputField(new CommandParseQuery(this.main.getConsolePanel(),
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
 
         this.add(this.outputArea, BorderLayout.CENTER);
         this.add(this.inputField, BorderLayout.PAGE_END);
