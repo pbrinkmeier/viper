@@ -1,6 +1,8 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
@@ -8,6 +10,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
+import edu.kit.ipd.pp.viper.controller.CommandExit;
 
 public class MainWindow extends JFrame {
     /**
@@ -81,6 +84,13 @@ public class MainWindow extends JFrame {
 
         // DEBUG (visualisation not implemented yet)
         this.getVisualisationPanel().setFromGraph(null);
+
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+         public void windowClosing(WindowEvent e) {
+            new CommandExit(getConsolePanel(), getEditorPanel()).execute();
+         }
+      });
     }
 
     /**
