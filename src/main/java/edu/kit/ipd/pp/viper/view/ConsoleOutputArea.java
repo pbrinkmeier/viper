@@ -17,6 +17,8 @@ public class ConsoleOutputArea extends JTextPane {
      */
     public ConsoleOutputArea() {
         super();
+
+        this.setEnabled(false);
     }
 
     /**
