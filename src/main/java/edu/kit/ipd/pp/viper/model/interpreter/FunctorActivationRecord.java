@@ -68,8 +68,8 @@ public class FunctorActivationRecord extends ActivationRecord {
     public Term getFunctor() {
         Term functor = this.getGoal().getFunctor();
 
-        if (this.getParent().isPresent()) {
-            functor = this.getParent().get().getEnvironment().applyAllSubstitutions(functor);
+        if (this.getPrevious().isPresent()) {
+            functor = this.getPrevious().get().getEnvironment().applyAllSubstitutions(functor);
         }
 
         return functor;
@@ -89,14 +89,23 @@ public class FunctorActivationRecord extends ActivationRecord {
         this.children = children;
     }
 
-    // ---
-
     /**
      * Getter-method for the functor goal that corresponds to this functor AR.
      */
     @Override
     public FunctorGoal getGoal() {
         return this.goal;
+    }
+
+    // ---
+    
+    @Override
+    protected ActivationRecord getRightmost() {
+        if (this.getChildren().size() == 0) {
+            return this;
+        }
+
+        return this.getChildren().get(this.getChildren().size() - 1).getRightmost();
     }
 
     /**
@@ -154,6 +163,6 @@ public class FunctorActivationRecord extends ActivationRecord {
             return Optional.of(children.get(0));
         }
 
-        return Optional.of(this);
+        return Optional.of(this.getNext());
     }
 }

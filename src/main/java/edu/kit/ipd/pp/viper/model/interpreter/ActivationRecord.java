@@ -40,29 +40,45 @@ public abstract class ActivationRecord {
      * Helper method for subclasses to determine the previous goal/AR.
      * If this AR has no parent, return empty.
      * If this AR has a parent and is its parents first subgoal, return the parent.
-     * If this AR has a parent and a preceding subgoal, return that subgoal.
+     * If this AR has a parent and a preceding subgoal, return that subgoals rightmost subgoal.
      *
      * @return previous AR for this AR, according to the rules stated above
      */
     protected Optional<ActivationRecord> getPrevious() {
+        // no parent -> no previous goal
         if (!this.getParent().isPresent()) {
             return Optional.empty();
         }
 
         List<ActivationRecord> children = this.getParent().get().getChildren();
 
+        // first child -> backtrack to parent
         if (children.get(0) == this) {
             return Optional.of(this.getParent().get());
         }
     
+        // not first child -> backtrack to previous child
+        // find "this" in child list and return the previous childs rightmost subgoal
         for (int index = 1; index < children.size(); index++) {
             if (children.get(index) == this) {
-                return Optional.of(children.get(index));
+                return Optional.of(children.get(index - 1).getRightmost());
             }
         }
 
         // This can never be reached. Java compiler complains when it's missing tho.
         return null;
+    }
+
+    /**
+     * Returns just this AR, since ARs usually do not have children.
+     * This is used only in {@link #getPrevious()}. It is meant to be overwritten
+     * by {@link FunctorActivationRecord#getRightmost()} to find the visually rightmost
+     * ActivationRecord in a tree.
+     *
+     * @return rightmost AR in the tree spanned by this AR
+     */
+    protected ActivationRecord getRightmost() {
+        return this;
     }
 
     /**
@@ -76,15 +92,25 @@ public abstract class ActivationRecord {
 
     /**
      * Helper method for subclasses to determine the next goal/AR.
-     * If this AR has no parent, return empty.
+     * If this AR has no parent, return the rightmost member of its subtree.
      * If this AR has a parent and isn't its parents last subgoal, return the next subgoal.
      * If this AR has a parent and is its parents last subgoal, return its parents getNext().
      *
      * @return next AR
      */
-    protected Optional<ActivationRecord> getNext() {
-        // TODO
-        return null;
+    protected ActivationRecord getNext() {
+        if (!this.getParent().isPresent()) {
+            return this.getRightmost();
+        }
+
+        List<ActivationRecord> children = this.getParent().get().getChildren();
+        for (int index = 0; index < children.size() - 1; index++) {
+            if (children.get(index) == this) {
+                return children.get(index + 1);
+            }
+        }
+
+        return this.getParent().get().getNext();
     }
 
     /**
