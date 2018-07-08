@@ -44,6 +44,9 @@ public class CommandFormat extends Command {
             e.printStackTrace();
         }
 
+        if (rules == null)
+            return;
+        
         String newSource = "";
         for (final Rule r : rules) {
             List<Goal> subGoals = r.getSubgoals();
