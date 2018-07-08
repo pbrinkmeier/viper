@@ -18,13 +18,13 @@ public class ToolBar extends JToolBar {
      * All paths need to begin with a slash, otherwise Java will look for the file inside the
      * <code>edu.kit.ipd.pp.viper.view</code> package, not inside <code>src/main/resources/</code>.
      */
-    private static final String ICON_NEW = "/icon_placeholder.png";
-    private static final String ICON_OPEN = "/icon_placeholder.png";
-    private static final String ICON_SAVE = "/icon_placeholder.png";
-    private static final String ICON_PARSE = "/icon_placeholder.png";
-    private static final String ICON_FORMAT = "/icon_placeholder.png";
-    private static final String ICON_STEP = "/icon_placeholder.png";
-    private static final String ICON_SOLUTION = "/icon_placeholder.png";
+    private static final String ICON_NEW = "/icons_png/icon_newfile.png";
+    private static final String ICON_OPEN = "/icons_png/icon_openfile.png";
+    private static final String ICON_SAVE = "/icons_png/icon_savefile.png";
+    private static final String ICON_PARSE = "/icons_png/icon_parsefile.png";
+    private static final String ICON_FORMAT = "/icons_png/icon_formatfile.png";
+    private static final String ICON_STEP = "/icons_png/icon_singlestep.png";
+    private static final String ICON_SOLUTION = "/icons_png/icon_continue.png";
 
     /**
      * Reference to main class
