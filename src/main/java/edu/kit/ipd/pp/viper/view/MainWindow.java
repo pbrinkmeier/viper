@@ -67,7 +67,7 @@ public class MainWindow extends JFrame {
         this.setDesign();
 
         this.editorPanel = new EditorPanel();
-        this.consolePanel = new ConsolePanel();
+        this.consolePanel = new ConsolePanel(this);
         this.visualisationPanel = new VisualisationPanel(this);
         this.manager = new InterpreterManager();
 
