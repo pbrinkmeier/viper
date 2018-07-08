@@ -34,14 +34,14 @@ public class CommandParse extends Command {
     public void execute() {
         try {
             new PrologParser(editor.getSourceText()).parse();
+            console.clearAll();
+            visualisation.clearVisualization();
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_SUCCESS), LogType.INFO);
             console.unlockInput();
         } catch (ParseException e) {
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.INFO);
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.ERROR);
             console.lockInput();
             e.printStackTrace();
         }
-
-        this.console.clearAll();
-        this.visualisation.clearVisualization();
     }
 }

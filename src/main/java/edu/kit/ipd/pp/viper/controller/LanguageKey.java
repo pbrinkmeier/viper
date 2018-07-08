@@ -232,6 +232,9 @@ public enum LanguageKey {
 
     // Console output for parsing
     /** Console output message for failed parsing */
+    PARSER_SUCCESS("parser_success"),
+    
+    /** Console output message for failed parsing */
     PARSER_ERROR("parser_error");
 
     private String value;
