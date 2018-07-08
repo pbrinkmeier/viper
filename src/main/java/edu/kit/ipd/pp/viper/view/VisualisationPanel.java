@@ -38,7 +38,7 @@ public class VisualisationPanel extends JPanel {
         this.setLayout(new GridBagLayout());
         this.setBackground(Color.WHITE);
 
-        this.viewer = new VisualisationViewer();
+        this.viewer = new VisualisationViewer(this.main);
 
         GridBagConstraints viewerConstraints = new GridBagConstraints();
         viewerConstraints.fill = GridBagConstraints.HORIZONTAL;
