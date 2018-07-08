@@ -79,6 +79,7 @@ public class MainWindow extends JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
+        // DEBUG (visualisation not implemented yet)
         this.getVisualisationPanel().setFromGraph(null);
     }
 

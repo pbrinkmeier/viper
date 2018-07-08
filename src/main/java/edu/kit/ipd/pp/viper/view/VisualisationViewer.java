@@ -98,7 +98,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * @param graph The graph to show
      */
     public void setFromGraph(Graph graph) {
-        this.clear();
+        /*this.clear();
 
         String tmp = this.getTempDir();
         if (tmp.equals("")) {
@@ -115,7 +115,8 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             return;
         }
 
-        this.setURI(tmpFile.getAbsolutePath());
+        this.setURI(tmpFile.getAbsolutePath());*/
+        this.setURI(this.getClass().getResource("/graph_placeholder.svg").getPath());
     }
 
     /**
