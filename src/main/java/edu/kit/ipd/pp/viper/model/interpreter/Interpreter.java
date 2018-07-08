@@ -124,6 +124,6 @@ public class Interpreter {
         this.setCurrent(this.getNext());
         this.setNext(this.getNext().get().step());
 
-        return StepResult.STEPS_REMAINING;
+        return this.getNext().isPresent() ? StepResult.STEPS_REMAINING : StepResult.NO_MORE_SOLUTIONS;
     }
 }
