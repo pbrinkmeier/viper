@@ -40,7 +40,8 @@ public class CommandParse extends Command {
             console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_SUCCESS), LogType.INFO);
             console.unlockInput();
         } catch (ParseException e) {
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.ERROR);
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR)
+                + "\n" + e.getMessage(), LogType.ERROR);
             console.lockInput();
 
             if (MainWindow.inDebugMode()) {

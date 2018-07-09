@@ -5,51 +5,66 @@ package edu.kit.ipd.pp.viper.model.parser;
  */
 public enum TokenType {
     /** The separator of a rule head and it's goals */
-    COLON_MINUS,
+    COLON_MINUS(":-"),
     /** An equals sign (=) */
-    EQ,
+    EQ("="),
     /** A less than sign (&lt;) */
-    LESS,
-    /** A less than and equal sign (&lt;=) */
-    EQ_LESS,
+    LESS("<"),
+    /** A less than and equal sign (=&lt;) */
+    EQ_LESS("=<"),
     /** A greater than sign (&gt;) */
-    GREATER,
+    GREATER(">"),
     /** A greater than and equal sign (&gt;=) */
-    GREATER_EQ,
+    GREATER_EQ(">="),
     /** Arithmetic equality (=:=) */
-    EQ_COLON_EQ,
+    EQ_COLON_EQ("=:="),
     /** Not equal (=\=) */
-    EQ_BS_EQ,
+    EQ_BS_EQ("=\\="),
     /** End of File */
-    EOF,
+    EOF("End of File"),
     /** End of rule */
-    DOT,
+    DOT("."),
     /** Separates two goals of a rule */
-    COMMA,
+    COMMA(","),
     /** Left parentheses */
-    LP,
+    LP("("),
     /** Right parentheses */
-    RP,
+    RP(")"),
     /** Left bracket */
-    LB,
+    LB("["),
     /** Right bracket */
-    RB,
+    RB("]"),
     /** Pipe sign, that separates list entries (|) */
-    BAR,
+    BAR("|"),
     /** Plus sign */
-    PLUS,
+    PLUS("+"),
     /** Minus sign */
-    MINUS,
+    MINUS("-"),
     /** Star sign (*) */
-    STAR,
+    STAR("*"),
     /** Exclamation mark */
-    EXCLAMATION,
+    EXCLAMATION("!"),
     /** Arithmetically evaluates the right side and unifies it with the left side*/
-    IS,
+    IS("is"),
     /** A variable (can be anything that starts with an upper case letter) */
-    VARIABLE,
+    VARIABLE("Variable"),
     /** An identifier (can be anything that starts with a lower case letter) */
-    IDENTIFIER,
+    IDENTIFIER("Identifier"),
     /** A regular number */
-    NUMBER
+    NUMBER("Number");
+    
+    private String value;
+
+    private TokenType(String value) {
+        this.value = value;
+    }
+
+    /**
+     * Getter-Method for the string value of an enum.
+     * 
+     * @return string value of a specific enum
+     */
+    public String getString() {
+        return this.value;
+    }
 }

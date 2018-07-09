@@ -1,5 +1,7 @@
 package edu.kit.ipd.pp.viper.model.parser;
 
+import edu.kit.ipd.pp.viper.controller.LanguageKey;
+import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.model.parser.TokenType;
 
 import java.util.HashMap;
@@ -125,7 +127,10 @@ public class PrologLexer {
                 } while (pos < program.length() && SYMBOLS.indexOf(program.charAt(pos)) > -1);
                 TokenType type = SYMBOL_STRING_TO_TOKEN.get(sb.toString());
                 if (type == null) {
-                    throw new ParseException("Operator '" + sb.toString() + "' not recognized!");
+                    throw new ParseException(
+                            String.format(LanguageManager.getInstance().getString(LanguageKey.OPERATOR_NOT_RECOGNIZED),
+                            sb.toString())
+                            + getTokenPositionString());
                 }
                 return new Token(type, sb.toString(), line, colStart);
             }
@@ -202,8 +207,25 @@ public class PrologLexer {
                     } while (pos < program.length() && Character.isDigit(program.charAt(pos)));
                     return new Token(TokenType.NUMBER, sb.toString(), line, colStart);
                 } else {
-                    throw new ParseException("Illegal character '" + program.charAt(pos) + "'");
+                    throw new ParseException(LanguageManager.getInstance().getString(LanguageKey.ILLEGAL_CHAR)
+                            + " '" + program.charAt(pos) + "'"
+                            + getTokenPositionString());
                 }
         }
+    }
+
+    /** 
+     * Return the last line (max 50 char.) of code before the current token
+     * @return code block
+     */
+    String getCodeBeforeCurrentPos() {
+        String codeBefore = this.program.substring(Math.max(0, this.pos - 50), this.pos - 1);
+        String[] lines = codeBefore.split("\n");
+        return lines[lines.length - 1].trim();
+    }
+
+    private String getTokenPositionString() {
+        return " " + String.format(LanguageManager.getInstance().getString(LanguageKey.POSITION),
+                getCodeBeforeCurrentPos(), line, col);
     }
 }
