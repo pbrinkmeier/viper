@@ -37,6 +37,9 @@ public class CommandExit extends Command {
                 CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE);
                 save.execute();
             }
+            if (rv == 2) {
+                return;
+            }
         }
         System.exit(0);
     }
