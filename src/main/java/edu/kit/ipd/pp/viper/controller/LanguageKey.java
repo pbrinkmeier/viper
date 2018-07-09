@@ -240,7 +240,31 @@ public enum LanguageKey {
     PARSER_SUCCESS("parser_success"),
     
     /** Console output message for failed parsing */
-    PARSER_ERROR("parser_error");
+    PARSER_ERROR("parser_error"),
+
+    /** Line containing the error for an ParserException */
+    POSITION("position"),
+    
+    /** Illegal Character Warning for Parser Failures */
+    ILLEGAL_CHAR("illegal_char"),
+
+    /** "Operator not recognized" warning for parser failures*/
+    OPERATOR_NOT_RECOGNIZED("operator_not_recognized"),
+
+    /** "Expected * instead of" warnings for parser failures */
+    EXPECTED_INSTEAD("expected_instead"),
+
+    /** The Goal not supported error for parser */
+    GOAL_NOT_SUPPORTED("goal_not_supported"),
+
+    /** The Term translation */
+    TERM("term"),
+
+    /** The Functor translation */
+    FUNCTOR("functor"),
+
+    /** Lists unsupported error for parser */
+    UNSUPPORTED_LISTS("unsupported_lists");
 
     private String value;
 
