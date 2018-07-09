@@ -1,5 +1,6 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
+import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.Rule;
@@ -14,6 +15,8 @@ public class FunctorActivationRecord extends ActivationRecord {
     private final List<Rule> matchingRules;
     private int ruleIndex;
     private List<ActivationRecord> children;
+    private UnificationResult unificationResult;
+    private Functor matchingRuleHead;
 
     /**
      * Initializes a functor activation record with an interpreter, a parent and a functor goal.
@@ -44,6 +47,15 @@ public class FunctorActivationRecord extends ActivationRecord {
     }
 
     /**
+     * Getter-method for the result of the last unification attempt.
+     *
+     * @return result of the last unification attempt
+     */
+    public UnificationResult getUnificationResult() {
+        return this.unificationResult;
+    }
+
+    /**
      * Setter-method for the index of the current matching rule.
      */
     private void setRuleIndex(int ruleIndex) {
@@ -69,10 +81,21 @@ public class FunctorActivationRecord extends ActivationRecord {
         Term functor = this.getGoal().getFunctor();
 
         if (this.getPrevious().isPresent()) {
-            functor = this.getPrevious().get().getEnvironment().applyAllSubstitutions(functor);
+            functor = this.getPrevious().get()
+                .getEnvironment()
+                .applyAllSubstitutions(functor);
         }
 
         return functor;
+    }
+
+    /**
+     * Getter-method for the head of the rule of the last unification.
+     *
+     * @return head of the rule of the last unification
+     */
+    public Functor getMatchingRuleHead() {
+        return this.matchingRuleHead;
     }
 
     /**
@@ -89,6 +112,11 @@ public class FunctorActivationRecord extends ActivationRecord {
         this.children = children;
     }
 
+    @Override
+    public <T> T accept(ActivationRecordVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
+
     /**
      * Getter-method for the functor goal that corresponds to this functor AR.
      */
@@ -101,7 +129,7 @@ public class FunctorActivationRecord extends ActivationRecord {
     
     @Override
     protected ActivationRecord getRightmost() {
-        if (this.getChildren().size() == 0) {
+        if (!this.isVisited() || this.getChildren().size() == 0) {
             return this;
         }
 
@@ -134,15 +162,18 @@ public class FunctorActivationRecord extends ActivationRecord {
             return this.getPrevious();
         }
 
-        int unificationIndex = this.getInterpreter().getUnificationIndex();
-        this.getInterpreter().incrementUnificationIndex();
         Rule matchingRule = this.getMatchingRules().get(this.getRuleIndex());
+        this.setRuleIndex(this.getRuleIndex() + 1);
+        Indexifier indexifier = new Indexifier(this.getInterpreter().getUnificationIndex());
+        this.getInterpreter().incrementUnificationIndex();
+
+        this.matchingRuleHead = matchingRule.getHead().transform(indexifier);
 
         Term lhs = this.getFunctor();
-        Term rhs = matchingRule.getHead().transform(new Indexifier(unificationIndex));
-        this.setRuleIndex(this.getRuleIndex() + 1);
+        Term rhs = this.getMatchingRuleHead();
 
         UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
+        this.unificationResult = result;
 
         if (!result.isSuccess()) {
             return Optional.of(this);
@@ -150,10 +181,9 @@ public class FunctorActivationRecord extends ActivationRecord {
 
         this.setEnvironment(new Environment(this, result.getSubstitutions()));
         List<ActivationRecord> children = new ArrayList<>();
-        Indexifier uniquerator = new Indexifier(unificationIndex);
 
         for (Goal subgoal : matchingRule.getSubgoals()) {
-            Goal indexified = subgoal.transform(uniquerator);
+            Goal indexified = subgoal.transform(indexifier);
             children.add(indexified.createActivationRecord(this.getInterpreter(), Optional.of(this)));
         }
 
