@@ -9,8 +9,8 @@ import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 import edu.kit.ipd.pp.viper.controller.CommandExit;
+import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 
 public class MainWindow extends JFrame {
     /**
@@ -38,12 +38,6 @@ public class MainWindow extends JFrame {
     private static final String WINDOW_ICON = "/icons_png/viper-icon.png";
 
     /**
-     * Default window dimensions (however window is resizeable)
-     */
-    private static final int WINDOW_HEIGHT = 600;
-    private static final int WINDOW_WIDTH = 800;
-
-    /**
      * Instances of all three panels
      */
     private final EditorPanel editorPanel;
@@ -64,7 +58,6 @@ public class MainWindow extends JFrame {
         MainWindow.debug = debug;
 
         this.setTitle(WINDOW_TITLE);
-        this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setResizable(true);
         this.setIconImage(new ImageIcon(this.getClass().getResource(WINDOW_ICON)).getImage());
 
@@ -83,19 +76,19 @@ public class MainWindow extends JFrame {
         // set up layout using two split panes
         this.initLayout();
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        // use CommandExit on JFrame close, because the editor may still containt unsaved content
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                new CommandExit(consolePanel, editorPanel).execute();
+            }
+        });
         this.setLocationRelativeTo(null);
+        this.pack();
         this.setVisible(true);
 
-        // DEBUG (visualisation not implemented yet)
-        this.getVisualisationPanel().setFromGraph(null);
-
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        this.addWindowListener(new WindowAdapter() {
-         public void windowClosing(WindowEvent e) {
-            new CommandExit(getConsolePanel(), getEditorPanel()).execute();
-         }
-      });
+        this.consolePanel.printLine("VIPER v1.0 ready", LogType.INFO);
     }
 
     /**
@@ -121,7 +114,6 @@ public class MainWindow extends JFrame {
                 this.consolePanel
         );
         innerPane.setResizeWeight(0.5);
-        innerPane.setDividerLocation(this.getWidth() / 2);
         innerPane.setEnabled(true);
         innerPane.setDividerSize(5);
 
@@ -133,9 +125,8 @@ public class MainWindow extends JFrame {
                 innerPane
         );
         outerPane.setResizeWeight(0.5);
-        outerPane.setDividerLocation(this.getWidth() / 2);
-        outerPane.setEnabled(false);
-        outerPane.setDividerSize(0);
+        outerPane.setEnabled(true);
+        outerPane.setDividerSize(5);
 
         this.getContentPane().add(outerPane, BorderLayout.CENTER);
     }

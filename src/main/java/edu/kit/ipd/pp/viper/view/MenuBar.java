@@ -134,7 +134,8 @@ public class MenuBar extends JMenuBar {
      * @param menu Menu to attach to
      */
     private void addExitItem(Menu menu) {
-        MenuItem item = new MenuItem(LanguageKey.MENU_EXIT, new CommandExit(this.main.getConsolePanel(), this.main.getEditorPanel()));
+        MenuItem item = new MenuItem(LanguageKey.MENU_EXIT, new CommandExit(this.main.getConsolePanel(),
+                this.main.getEditorPanel()));
         menu.add(item);
     }
 

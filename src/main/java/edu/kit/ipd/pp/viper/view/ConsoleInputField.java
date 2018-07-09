@@ -1,12 +1,14 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import edu.kit.ipd.pp.viper.controller.Command;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
@@ -33,6 +35,7 @@ public class ConsoleInputField extends JPanel {
         super();
 
         this.setLayout(new BorderLayout());
+        this.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // initialise text field and add listener for [ENTER] key press
         this.textField = new JTextField();
@@ -42,10 +45,16 @@ public class ConsoleInputField extends JPanel {
                 command.execute();
             }
         });
+        this.textField.setFont(new Font("monospaced", Font.PLAIN, 14));
 
-        this.add(new JLabel("?-"), BorderLayout.LINE_START);
+        JLabel text = new JLabel("?-");
+        text.setFont(new Font("monospaced", Font.PLAIN, 14));
+
+        this.add(text, BorderLayout.LINE_START);
         this.add(this.textField, BorderLayout.CENTER);
         this.add(new Button(LanguageKey.BUTTON_SEND, command), BorderLayout.LINE_END);
+
+        this.lock();
     }
 
     /**

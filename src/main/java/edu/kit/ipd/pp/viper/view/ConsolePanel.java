@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
@@ -41,6 +42,7 @@ public class ConsolePanel extends JPanel {
 
         this.main = gui;
 
+        this.setPreferredSize(new Dimension(400, 200));
         this.setLayout(new BorderLayout());
 
         this.outputArea = new ConsoleOutputArea();

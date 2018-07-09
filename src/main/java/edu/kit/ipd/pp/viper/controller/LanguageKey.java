@@ -123,16 +123,21 @@ public enum LanguageKey {
      */
     TOOLTIP_NEXT("tooltip_next"),
 
+    /**
+     * Tooltip for zoom in button
+     */
+    ZOOM_IN("zoom_in"),
+
+    /**
+     * Tooltip for zoom in button
+     */
+    ZOOM_OUT("zoom_out"),
+
     // Buttons
     /**
      * Text for "send" button next to input field
      */
     BUTTON_SEND("button_send"),
-
-    /**
-     * Text for "next step" button in visualisation panel
-     */
-    BUTTON_STEP("button_step"),
 
     // Dialog options
     /**

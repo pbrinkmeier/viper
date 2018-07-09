@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
@@ -23,6 +24,7 @@ public class ConsoleOutputArea extends JTextPane {
     public ConsoleOutputArea() {
         super();
 
+        this.setFont(new Font("monospaced", Font.PLAIN, 14));
         this.setEditable(false);
     }
 

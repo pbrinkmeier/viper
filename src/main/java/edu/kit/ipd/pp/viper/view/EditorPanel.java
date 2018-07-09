@@ -1,6 +1,8 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.io.File;
 
 import javax.swing.JPanel;
@@ -47,9 +49,11 @@ public class EditorPanel extends JPanel implements DocumentListener {
         this.changed = false;
 
         this.setLayout(new BorderLayout());
+        this.setFont(new Font("Monospaced", Font.PLAIN, 14));
 
         this.textArea = new RSyntaxTextArea();
         this.scrollPane = new RTextScrollPane(this.textArea);
+        this.scrollPane.setPreferredSize(new Dimension(400, 600));
         this.add(this.scrollPane, BorderLayout.CENTER);
         
         this.textArea.getDocument().addDocumentListener(this);
