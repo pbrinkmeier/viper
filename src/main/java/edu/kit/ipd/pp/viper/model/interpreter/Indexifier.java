@@ -21,13 +21,6 @@ public class Indexifier implements TermTransformationVisitor {
         this.index = index;
     }
 
-    /**
-     * Getter-method for the index this indexifier will give variables.
-     */
-    private int getIndex() {
-        return this.index;
-    }
-
     // ---
 
     @Override
@@ -44,7 +37,7 @@ public class Indexifier implements TermTransformationVisitor {
     @Override
     public Variable visit(Variable variable) {
         // exisiting indices are ignored
-        return new Variable(variable.getName(), this.getIndex());
+        return new Variable(variable.getName(), this.index);
     }
 
     @Override
