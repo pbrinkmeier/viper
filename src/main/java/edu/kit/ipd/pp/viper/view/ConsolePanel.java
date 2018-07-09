@@ -1,8 +1,11 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 import edu.kit.ipd.pp.viper.controller.CommandParseQuery;
 
@@ -20,6 +23,11 @@ public class ConsolePanel extends JPanel {
      * Main window reference
      */
     private MainWindow main;
+
+    /**
+     * Scroll pane
+     */
+    private JScrollPane scrollPane;
 
     /**
      * Console panel
@@ -41,13 +49,17 @@ public class ConsolePanel extends JPanel {
 
         this.main = gui;
 
+        this.setPreferredSize(new Dimension(400, 200));
         this.setLayout(new BorderLayout());
 
         this.outputArea = new ConsoleOutputArea();
+        this.scrollPane = new JScrollPane(this.outputArea);
+        this.scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+
         this.inputField = new ConsoleInputField(new CommandParseQuery(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
 
-        this.add(this.outputArea, BorderLayout.CENTER);
+        this.add(this.scrollPane, BorderLayout.CENTER);
         this.add(this.inputField, BorderLayout.PAGE_END);
     }
 
@@ -106,5 +118,8 @@ public class ConsolePanel extends JPanel {
      */
     public void printLine(String line, LogType type) {
         this.outputArea.printLine(line, type);
+
+        JScrollBar bar = this.scrollPane.getVerticalScrollBar();
+        bar.setValue(bar.getMaximum());
     }
 }

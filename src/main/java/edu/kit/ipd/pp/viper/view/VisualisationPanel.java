@@ -1,12 +1,15 @@
 package edu.kit.ipd.pp.viper.view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.Dimension;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-import edu.kit.ipd.pp.viper.controller.CommandNextStep;
+import edu.kit.ipd.pp.viper.controller.CommandZoom;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
 import guru.nidi.graphviz.model.Graph;
@@ -14,11 +17,17 @@ import guru.nidi.graphviz.model.Graph;
 /**
  * Represents a panel containing a SVG viewer
  */
-public class VisualisationPanel extends JPanel {
+public class VisualisationPanel extends JPanel implements ComponentListener {
     /**
      * Serial UID
      */
     private static final long serialVersionUID = 6723362475925553655L;
+
+    /**
+     * Icons for zoom buttons
+     */
+    private static final String ICON_ZOOM_IN  = "/icons_png/icon_placeholder.png";
+    private static final String ICON_ZOOM_OUT = "/icons_png/icon_placeholder.png";
 
     /**
      * Main window
@@ -39,38 +48,33 @@ public class VisualisationPanel extends JPanel {
         super();
 
         this.main = gui;
+        this.addComponentListener(this);
 
-        this.setLayout(new GridBagLayout());
+        this.setLayout(new BorderLayout());
+        this.setPreferredSize(new Dimension(400, 400));
         this.setBackground(Color.WHITE);
 
+        // use a layered pane here, so that the zoom buttons can float above
+        // the visualisation viewer
+        JLayeredPane contentPane = new JLayeredPane();
+        contentPane.setPreferredSize(new Dimension(400, 400));
+
         this.viewer = new VisualisationViewer(this.main);
+        this.componentResized(null);
 
-        GridBagConstraints viewerConstraints = new GridBagConstraints();
-        viewerConstraints.fill = GridBagConstraints.BOTH;
-        viewerConstraints.gridx = 0;
-        viewerConstraints.gridy = 0;
-        viewerConstraints.gridwidth = 1;
-        viewerConstraints.gridheight = 1;
-        viewerConstraints.weightx = 1.0;
-        viewerConstraints.weighty = 0.8;
+        ToolBarButton zoomIn = new ToolBarButton(ICON_ZOOM_IN, LanguageKey.ZOOM_IN, new CommandZoom(this,
+                ZoomType.ZOOM_IN));
+        zoomIn.setBounds(10, 10, 30, 30);
+        ToolBarButton zoomOut = new ToolBarButton(ICON_ZOOM_OUT, LanguageKey.ZOOM_OUT, new CommandZoom(this,
+                ZoomType.ZOOM_OUT));
+        zoomOut.setBounds(40, 10, 30, 30);
 
-        this.add(this.viewer, viewerConstraints);
+        // viewer is on level 1, both buttons on level 2 and therefore appear above the viewer
+        contentPane.add(this.viewer, new Integer(1));
+        contentPane.add(zoomIn, new Integer(2));
+        contentPane.add(zoomOut, new Integer(2));
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        GridBagConstraints panelConstraints = new GridBagConstraints();
-        panelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        panelConstraints.gridx = 0;
-        panelConstraints.gridy = 1;
-        panelConstraints.gridwidth = 1;
-        panelConstraints.gridheight = 1;
-        panelConstraints.weightx = 1.0;
-        panelConstraints.weighty = 0.2;
-
-        buttonPanel.setBackground(Color.WHITE);
-        buttonPanel.add(new Button(LanguageKey.BUTTON_STEP, new CommandNextStep(this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager())));
-
-        this.add(buttonPanel, panelConstraints);
+        this.add(contentPane, BorderLayout.CENTER);
     }
 
     /**
@@ -86,6 +90,7 @@ public class VisualisationPanel extends JPanel {
      * @param direction Direction to zoom (in or out)
      */
     public void zoom(ZoomType direction) {
+        this.viewer.zoom(direction);
     }
 
     /**
@@ -96,5 +101,27 @@ public class VisualisationPanel extends JPanel {
     public void setFromGraph(Graph graph) {
         this.clearVisualization();
         this.viewer.setFromGraph(graph);
+    }
+
+    /**
+     * Called when the visualisation panel gets resized
+     * 
+     * @param event Event that caused the resize, ignored here
+     */
+    @Override
+    public void componentResized(ComponentEvent event) {
+        this.viewer.setBounds(0, 0, this.getWidth(), this.getHeight());
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent arg0) {
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent arg0) {
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
     }
 }

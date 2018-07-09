@@ -1,10 +1,13 @@
 package edu.kit.ipd.pp.viper.view;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.Action;
 import javax.swing.ActionMap;
@@ -13,6 +16,9 @@ import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.AbstractPanInteractor;
 import org.apache.batik.swing.gvt.Interactor;
 
+import edu.kit.ipd.pp.viper.controller.ZoomType;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Graph;
 
 /**
@@ -42,9 +48,11 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     public VisualisationViewer(MainWindow gui) {
         super();
 
+        this.setLayout(new BorderLayout());
         this.main = gui;
 
         // disable default rotation and panning iteractors
+        this.setEnableImageZoomInteractor(false);
         this.setEnableRotateInteractor(false);
         this.setEnablePanInteractor(false);
 
@@ -67,20 +75,30 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
-        double rot = event.getPreciseWheelRotation();
+        if (event.getPreciseWheelRotation() > 0.0)
+            this.zoom(ZoomType.ZOOM_OUT);
+        else
+            this.zoom(ZoomType.ZOOM_IN);
+    }
+
+    /**
+     * Performs a zoom operation
+     * 
+     * @param type Zoom type (in or out)
+     */
+    public void zoom(ZoomType type) {
         ActionMap map = this.getActionMap();
         Action action = null;
 
-        if (event.isAltDown()) {
-            if (rot > 0.0)
-                action = map.get(JSVGCanvas.SCROLL_LEFT_ACTION);
-            else
-                action = map.get(JSVGCanvas.SCROLL_RIGHT_ACTION);
-        } else {
-            if (rot > 0.0)
-                action = map.get(JSVGCanvas.ZOOM_OUT_ACTION);
-            else
-                action = map.get(JSVGCanvas.ZOOM_IN_ACTION);
+        switch (type) {
+        case ZOOM_IN:
+            action = map.get(JSVGCanvas.ZOOM_IN_ACTION);
+            break;
+        case ZOOM_OUT:
+            action = map.get(JSVGCanvas.ZOOM_OUT_ACTION);
+            break;
+        default:
+            break;
         }
 
         action.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
@@ -99,7 +117,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * @param graph The graph to show
      */
     public void setFromGraph(Graph graph) {
-        /*this.clear();
+        this.clear();
 
         String tmp = this.getTempDir();
         if (tmp.equals("")) {
@@ -116,8 +134,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             return;
         }
 
-        this.setURI(tmpFile.getAbsolutePath());*/
-        this.setURI(this.getClass().getResource("/graph_placeholder.svg").getPath());
+        this.setURI(tmpFile.getAbsolutePath());
     }
 
     /**
