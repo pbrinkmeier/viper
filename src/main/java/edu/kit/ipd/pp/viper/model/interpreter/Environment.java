@@ -33,20 +33,13 @@ public class Environment {
     }
 
     /**
-     * Getter-method for the activation record this environment belongs to.
-     */
-    private ActivationRecord getActivationRecord() {
-        return this.activationRecord;
-    }
-
-    /**
      * Applies substitutions from all previous activation records and substitutions from this environment.
      *
      * @param term term to apply the substitutions in
      * @return new term with all substitutions applied
      */
     public Term applyAllSubstitutions(Term term) {
-        Optional<ActivationRecord> previous = this.getActivationRecord().getPrevious();
+        Optional<ActivationRecord> previous = this.activationRecord.getPrevious();
 
         Term newTerm = term;
 

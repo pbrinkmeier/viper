@@ -56,22 +56,6 @@ public class FunctorActivationRecord extends ActivationRecord {
     }
 
     /**
-     * Setter-method for the index of the current matching rule.
-     */
-    private void setRuleIndex(int ruleIndex) {
-        this.ruleIndex = ruleIndex;
-    }
-
-    /**
-     * Getter-method for this ARs matching rules.
-     * 
-     * @return matching rules from the knowledgebase
-     */
-    private List<Rule> getMatchingRules() {
-        return this.matchingRules;
-    }
-
-    /**
      * Getter-method for this functor ARs functor.
      * This returns a term because it has to apply substitutions first.
      *
@@ -106,10 +90,6 @@ public class FunctorActivationRecord extends ActivationRecord {
      */
     public List<ActivationRecord> getChildren() {
         return this.children;
-    }
-
-    private void setChildren(List<ActivationRecord> children) {
-        this.children = children;
     }
 
     @Override
@@ -153,17 +133,17 @@ public class FunctorActivationRecord extends ActivationRecord {
     @Override
     public Optional<ActivationRecord> step() {
         if (!this.isVisited()) {
-            this.setRuleIndex(0);
+            this.ruleIndex = 0;
             this.setVisited(true);
         }
 
-        if (this.getRuleIndex() >= this.getMatchingRules().size()) {
+        if (this.getRuleIndex() >= this.matchingRules.size()) {
             this.setVisited(false);
             return this.getPrevious();
         }
 
-        Rule matchingRule = this.getMatchingRules().get(this.getRuleIndex());
-        this.setRuleIndex(this.getRuleIndex() + 1);
+        Rule matchingRule = this.matchingRules.get(this.getRuleIndex());
+        this.ruleIndex = this.getRuleIndex() + 1;
         Indexifier indexifier = new Indexifier(this.getInterpreter().getUnificationIndex());
         this.getInterpreter().incrementUnificationIndex();
 
@@ -187,7 +167,7 @@ public class FunctorActivationRecord extends ActivationRecord {
             children.add(indexified.createActivationRecord(this.getInterpreter(), Optional.of(this)));
         }
 
-        this.setChildren(children);
+        this.children = children;
 
         if (children.size() != 0) {
             return Optional.of(children.get(0));

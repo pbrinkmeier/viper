@@ -22,14 +22,6 @@ public class SubstitutionApplier implements TermVisitor<Term> {
     }
 
     /**
-     * Getter-method for the substitution to apply.
-     * @return substitution to apply
-     */
-    private Substitution getSubstitution() {
-        return this.substitution;
-    }
-
-    /**
      * How to apply a substitution to a functor.
      * Apply the substitution to its parameters and leave the name.
      *
@@ -58,8 +50,8 @@ public class SubstitutionApplier implements TermVisitor<Term> {
      */
     @Override
     public Term visit(Variable variable) {
-        if (this.getSubstitution().getReplace().equals(variable)) {
-            return this.getSubstitution().getBy();
+        if (this.substitution.getReplace().equals(variable)) {
+            return this.substitution.getBy();
         }
 
         return variable;
