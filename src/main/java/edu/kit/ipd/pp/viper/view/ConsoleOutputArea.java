@@ -24,7 +24,7 @@ public class ConsoleOutputArea extends JTextPane {
     public ConsoleOutputArea() {
         super();
 
-        this.setFont(new Font("monospaced", Font.PLAIN, 14));
+        this.setFont(new Font("Monospaced", Font.PLAIN, 14));
         this.setEditable(false);
     }
 
