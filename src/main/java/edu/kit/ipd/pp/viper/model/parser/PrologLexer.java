@@ -117,23 +117,7 @@ public class PrologLexer {
             case '=':
             case '<':
             case '>':
-            {
-                // these operators may consist of multiple SYMBOLS
-                int colStart = col;
-                StringBuilder sb = new StringBuilder();
-                do {
-                    sb.append(program.charAt(pos));
-                    advance();
-                } while (pos < program.length() && SYMBOLS.indexOf(program.charAt(pos)) > -1);
-                TokenType type = SYMBOL_STRING_TO_TOKEN.get(sb.toString());
-                if (type == null) {
-                    throw new ParseException(
-                            String.format(LanguageManager.getInstance().getString(LanguageKey.OPERATOR_NOT_RECOGNIZED),
-                            sb.toString())
-                            + getTokenPositionString());
-                }
-                return new Token(type, sb.toString(), line, colStart);
-            }
+                return handleMultiSimOperators();
             // bunch of single-character tokens
             case '.':
                 t = new Token(TokenType.DOT, ".", line, col);
@@ -180,37 +164,59 @@ public class PrologLexer {
                 advance();
                 return t;
             default:
-                int colStart = col;
-                if (Character.isLetter(c)) {
-                    // variable, identifier or the special token "is"
-                    StringBuilder sb = new StringBuilder();
-                    do {
-                        sb.append(program.charAt(pos));
-                        advance();
-                    } while (pos < program.length() && Character.isLetterOrDigit(program.charAt(pos)));
-                    String s = sb.toString();
-                    TokenType type;
-                    if ("is".equals(s)) {
-                        type = TokenType.IS;
-                    } else if (Character.isUpperCase(c)) {
-                        type = TokenType.VARIABLE;
-                    } else {
-                        type = TokenType.IDENTIFIER;
-                    }
-                    return new Token(type, s, line, colStart);
-                } else if (Character.isDigit(c)) {
-                    // number literal
-                    StringBuilder sb = new StringBuilder();
-                    do {
-                        sb.append(program.charAt(pos));
-                        advance();
-                    } while (pos < program.length() && Character.isDigit(program.charAt(pos)));
-                    return new Token(TokenType.NUMBER, sb.toString(), line, colStart);
-                } else {
-                    throw new ParseException(LanguageManager.getInstance().getString(LanguageKey.ILLEGAL_CHAR)
-                            + " '" + program.charAt(pos) + "'"
-                            + getTokenPositionString());
-                }
+                return handleDefault(c);
+        }
+    }
+    
+    private Token handleMultiSimOperators() throws ParseException {
+        // these operators may consist of multiple SYMBOLS
+        int colStart = col;
+        StringBuilder sb = new StringBuilder();
+        do {
+            sb.append(program.charAt(pos));
+            advance();
+        } while (pos < program.length() && SYMBOLS.indexOf(program.charAt(pos)) > -1);
+        TokenType type = SYMBOL_STRING_TO_TOKEN.get(sb.toString());
+        if (type == null) {
+            throw new ParseException(
+                    String.format(LanguageManager.getInstance().getString(LanguageKey.OPERATOR_NOT_RECOGNIZED),
+                    sb.toString())
+                    + getTokenPositionString());
+        }
+        return new Token(type, sb.toString(), line, colStart);
+    }
+    
+    private Token handleDefault(char c) throws ParseException {
+        int colStart = col;
+        if (Character.isLetter(c)) {
+            // variable, identifier or the special token "is"
+            StringBuilder sb = new StringBuilder();
+            do {
+                sb.append(program.charAt(pos));
+                advance();
+            } while (pos < program.length() && Character.isLetterOrDigit(program.charAt(pos)));
+            String s = sb.toString();
+            TokenType type;
+            if ("is".equals(s)) {
+                type = TokenType.IS;
+            } else if (Character.isUpperCase(c)) {
+                type = TokenType.VARIABLE;
+            } else {
+                type = TokenType.IDENTIFIER;
+            }
+            return new Token(type, s, line, colStart);
+        } else if (Character.isDigit(c)) {
+            // number literal
+            StringBuilder sb = new StringBuilder();
+            do {
+                sb.append(program.charAt(pos));
+                advance();
+            } while (pos < program.length() && Character.isDigit(program.charAt(pos)));
+            return new Token(TokenType.NUMBER, sb.toString(), line, colStart);
+        } else {
+            throw new ParseException(LanguageManager.getInstance().getString(LanguageKey.ILLEGAL_CHAR)
+                    + " '" + program.charAt(pos) + "'"
+                    + getTokenPositionString());
         }
     }
 
