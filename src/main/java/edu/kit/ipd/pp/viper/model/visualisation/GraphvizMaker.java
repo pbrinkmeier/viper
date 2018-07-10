@@ -13,16 +13,22 @@ import static guru.nidi.graphviz.attribute.Attributes.attr;
 import static guru.nidi.graphviz.attribute.Label.html;
 
 import guru.nidi.graphviz.attribute.Color;
+import guru.nidi.graphviz.attribute.Rank;
 import guru.nidi.graphviz.attribute.Style;
 import guru.nidi.graphviz.model.Graph;
+import guru.nidi.graphviz.model.MutableNode;
 import guru.nidi.graphviz.model.Node;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     private final Optional<ActivationRecord> current;
     private final Optional<ActivationRecord> next;
     private Optional<Node> backtrackingNode;
+    private List<Graph> rankEnforcers;
 
     /**
      * Creates new instance with the current and the next step
@@ -34,6 +40,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         this.current = current;
         this.next = next;
         this.backtrackingNode = Optional.empty();
+        this.rankEnforcers = new ArrayList<>();
     }
 
     @Override
@@ -41,7 +48,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         Node node = node(html(far.getFunctor().toHtml()));
 
         if (!far.isVisited()) {
-            if (this.backtrackingNode.isPresent()) {
+            if (this.current.isPresent() && this.current.get() == far && this.backtrackingNode.isPresent()) {
                 node = node.link(
                     to(this.backtrackingNode.get())
                     .with(Style.DOTTED)
@@ -74,8 +81,29 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         // if the unification was a success there definitely will be child nodes
         if (result.isSuccess()) {
+            List<Node> childNodes = new ArrayList<>();
+            Graph rankEnforcer = graph().graphAttr().with(Rank.SAME);
+
             for (ActivationRecord child : far.getChildren()) {
-                resultBox = resultBox.link(child.accept(this));
+                Node childNode = child.accept(this);
+                rankEnforcer = rankEnforcer.with(node(((MutableNode) childNode).name()));
+                childNodes.add(childNode);
+            }
+            this.rankEnforcers.add(rankEnforcer);
+
+            Optional<Node> previous = Optional.empty();
+            Collections.reverse(childNodes);
+
+            for (Node childNode : childNodes) {
+                resultBox = resultBox.link(
+                    to(
+                        previous.isPresent()
+                        ? childNode.link(to(previous.get()).with(Style.INVIS))
+                        : childNode
+                    ).with(Style.DASHED)
+                );
+
+                previous = Optional.of(childNode);
             }
         }
 
@@ -92,7 +120,12 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     public static Graph createGraph(Interpreter interpreter) {
         GraphvizMaker maker = new GraphvizMaker(interpreter.getCurrent(), interpreter.getNext());
         Node rootNode = interpreter.getQuery().accept(maker);
+        Graph g = graph("visualisation").directed().with(rootNode);
 
-        return graph("visualisation").directed().with(rootNode);
+        for (Graph rankEnforcer : maker.rankEnforcers) {
+            g = g.with(rankEnforcer);
+        }
+
+        return g;
     }
 }
