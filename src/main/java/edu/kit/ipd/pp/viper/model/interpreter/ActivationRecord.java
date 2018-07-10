@@ -161,6 +161,15 @@ public abstract class ActivationRecord {
     public abstract <T> T accept(ActivationRecordVisitor<T> visitor);
 
     /**
+     * Checks whether this AR is fulfilled.
+     * "Fulfilled" means that itself was a success and all its subgoals too.
+     * Take a look at the comments in the implementing subclasses for more information.
+     *
+     * @return whether this AR is fulfilled
+     */
+    protected abstract boolean isFulfilled();
+
+    /**
      * To be overwritten by subclasses (to allow them to have concrete return types).
      *
      * @return the goal that corresponds to this AR

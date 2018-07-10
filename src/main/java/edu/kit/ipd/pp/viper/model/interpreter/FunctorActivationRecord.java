@@ -98,6 +98,31 @@ public class FunctorActivationRecord extends ActivationRecord {
     }
 
     /**
+     * A functor AR is fulfilled if ALL of the following criteria are met:
+     * - It has been visited (isVisited())
+     * - It had a successful unification (getUnificationResult().isSuccess())
+     * - All of its children are fulfilled.
+     */
+    @Override
+    protected boolean isFulfilled() {
+        if (!this.isVisited()) {
+            return false;
+        }
+
+        if (!this.getUnificationResult().isSuccess()) {
+            return false;
+        }
+
+        for (ActivationRecord child : this.getChildren()) {
+            if (!child.isFulfilled()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Getter-method for the functor goal that corresponds to this functor AR.
      */
     @Override
