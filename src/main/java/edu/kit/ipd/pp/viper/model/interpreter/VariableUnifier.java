@@ -5,14 +5,21 @@ import edu.kit.ipd.pp.viper.model.ast.Number;
 import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 
-public class VariableUnifier extends Unifier<Variable> {
+public class VariableUnifier extends Unifier {
+    private final Variable variable;
+
     /**
      * Initializes a variable unifier with a variable.
      *
      * @param variable variable to create substitutions with
      */
     public VariableUnifier(Variable variable) {
-        super(variable);
+        this.variable = variable;
+    }
+
+    @Override
+    protected Variable getTerm() {
+        return this.variable;
     }
 
     /**

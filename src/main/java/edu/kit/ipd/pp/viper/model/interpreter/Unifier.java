@@ -9,26 +9,13 @@ import edu.kit.ipd.pp.viper.model.ast.TermVisitor;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Unifier<R extends Term> implements TermVisitor<UnificationResult> {
-    private final R term;
-
-    /**
-     * To be used by subclasses to set the term for error messages in methods implemented here.
-     *
-     * @param term term this unifier will try to unify with other terms
-     */
-    public Unifier(R term) {
-        this.term = term;
-    }
-
+public abstract class Unifier implements TermVisitor<UnificationResult> {
     /**
      * Getter-method for the term this unififer will try to unify with.
      *
      * @return term this unififer will try to unify with
      */
-    protected R getTerm() {
-        return this.term;
-    }
+    protected abstract Term getTerm();
 
     // ---
     

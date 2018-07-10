@@ -124,6 +124,10 @@ public class Interpreter {
         this.setCurrent(this.getNext());
         this.setNext(this.getNext().get().step());
 
+        if (this.getQuery().isFulfilled()) {
+            return StepResult.SOLUTION_FOUND;
+        }
+
         return this.getNext().isPresent() ? StepResult.STEPS_REMAINING : StepResult.NO_MORE_SOLUTIONS;
     }
 }

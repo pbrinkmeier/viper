@@ -42,6 +42,7 @@ public class InterpreterTest {
         assertEquals(new Functor("father", Arrays.asList(new Variable("X"), new Variable("Z", 1))), subgoal.getFunctor());
 
         List<Functor> expectedFunctors = Arrays.asList(
+            new Functor("father", Arrays.asList(new Variable("X"), new Variable("Z", 1))),
             // second subgoal of gf(X, Y) is tried, fails on father(abe, homer)...
             new Functor("father", Arrays.asList(Functor.atom("homer"), new Variable("Y"))),
             // ... is thus tried again, succeeds on father(homer, bart)...
@@ -60,13 +61,27 @@ public class InterpreterTest {
             new Functor("grandfather", Arrays.asList(new Variable("X"), new Variable("Y")))
         );
 
-        for (Functor expected : expectedFunctors) {
-            // this will need to be replaced in the future (one of the results may be StepResult.SOLUTION_FOUND)
-            assertEquals(StepResult.STEPS_REMAINING, interpreter.step());
+        List<StepResult> expectedResults = Arrays.asList(
+            StepResult.STEPS_REMAINING,
+            StepResult.STEPS_REMAINING,
+            StepResult.SOLUTION_FOUND,
+            StepResult.STEPS_REMAINING,
+            StepResult.STEPS_REMAINING,
+            StepResult.STEPS_REMAINING,
+            StepResult.STEPS_REMAINING,
+            StepResult.STEPS_REMAINING,
+            StepResult.STEPS_REMAINING,
+            StepResult.NO_MORE_SOLUTIONS
+        );
+
+        assertEquals(expectedFunctors.size(), expectedResults.size());
+
+        for (int i = 0; i < expectedFunctors.size(); i++) {
+            assertEquals(expectedResults.get(i), interpreter.step());
 
             assertEquals(
-                expected,
-                ((FunctorActivationRecord) interpreter.getNext().get()).getFunctor()
+                expectedFunctors.get(i),
+                ((FunctorActivationRecord) interpreter.getCurrent().get()).getFunctor()
             );
         }
 
