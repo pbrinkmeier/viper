@@ -64,10 +64,10 @@ public class MainWindow extends JFrame {
         // use system built-in look and feel instead of default swing look
         this.setDesign();
 
-        this.editorPanel = new EditorPanel();
-        this.consolePanel = new ConsolePanel(this);
-        this.visualisationPanel = new VisualisationPanel(this);
         this.manager = new InterpreterManager();
+        this.editorPanel = new EditorPanel();
+        this.visualisationPanel = new VisualisationPanel(this);
+        this.consolePanel = new ConsolePanel(this);
 
         // add menu bar and tool bar to window
         this.setJMenuBar(new MenuBar(this));
