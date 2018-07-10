@@ -6,14 +6,21 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctorUnifier extends Unifier<Functor> {
+public class FunctorUnifier extends Unifier {
+    private final Functor functor;
+
     /**
      * Initializes a functor-unifier with the functor to try unification with.
      *
      * @param functor functor to try unification with
      */
     public FunctorUnifier(Functor functor) {
-        super(functor);
+        this.functor = functor;
+    }
+
+    @Override
+    protected Functor getTerm() {
+        return this.functor;
     }
 
     /**

@@ -4,13 +4,20 @@ import edu.kit.ipd.pp.viper.model.ast.Number;
 
 import java.util.Arrays;
 
-public class NumberUnifier extends Unifier<Number> {
+public class NumberUnifier extends Unifier {
+    private final Number number;
+
     /**
      * Initializes the unifier with a number to do unification with
      * @param number number to unify
      */
     public NumberUnifier(Number number) {
-        super(number);
+        this.number = number;
+    }
+
+    @Override
+    protected Number getTerm() {
+        return this.number;
     }
 
     /**
