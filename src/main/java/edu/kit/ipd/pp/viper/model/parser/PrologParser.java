@@ -3,6 +3,8 @@ package edu.kit.ipd.pp.viper.model.parser;
 import edu.kit.ipd.pp.viper.model.ast.Rule;
 import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
+import edu.kit.ipd.pp.viper.controller.LanguageKey;
+import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
 import edu.kit.ipd.pp.viper.model.ast.Goal;
@@ -53,7 +55,11 @@ public class PrologParser {
      */
     private void expect(TokenType type) throws ParseException {
         if (this.token.getType() != type) {
-            throw new ParseException("Expected '" + type + "', got '" + this.token + "'");
+            throw new ParseException(
+                    String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
+                    "'" + type.getString() + "'",
+                    this.token.getType().getString())
+                    + getTokenPositionString());
         }
         nextToken();
     }
@@ -124,7 +130,8 @@ public class PrologParser {
                 if (this.token.getType() == TokenType.COMMA || this.token.getType() == TokenType.DOT) {
                     return new FunctorGoal(f);
                 } else {
-                    throw new ParseException("Goal type not supported");
+                    throw new ParseException(getTokenPositionString()
+                            + LanguageManager.getInstance().getString(LanguageKey.GOAL_NOT_SUPPORTED));
                     //return parseGoalRest(f);
                 }
             /*case VARIABLE:
@@ -136,7 +143,11 @@ public class PrologParser {
                 // TODO: Cut
                 return new Object();*/
             default:
-                throw new ParseException("Expected a term, got '" + this.token + "'");
+                throw new ParseException(
+                        String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
+                        LanguageManager.getInstance().getString(LanguageKey.TERM),
+                        this.token.getType().getString())
+                        + getTokenPositionString());
         }
     }
 
@@ -163,10 +174,15 @@ public class PrologParser {
                 nextToken();
                 return new Functor(name, terms);
             case LB:
-                throw new ParseException("Lists not supported");
+                throw new ParseException(getTokenPositionString()
+                        + LanguageManager.getInstance().getString(LanguageKey.UNSUPPORTED_LISTS));
                 //return parseList();
             default:
-                throw new ParseException("Expected functor, got '" + this.token + "'");
+                throw new ParseException(
+                        String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
+                        LanguageManager.getInstance().getString(LanguageKey.FUNCTOR),
+                        this.token.getType().getString())
+                        + getTokenPositionString());
         }
     }
 
@@ -313,7 +329,11 @@ public class PrologParser {
                 expect(TokenType.RP);
                 return t;*/
             default:
-                throw new ParseException("Expected a term, got '" + token + "'");
+                throw new ParseException(
+                        String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
+                        LanguageManager.getInstance().getString(LanguageKey.TERM),
+                        this.token.getType().getString())
+                        + getTokenPositionString());
         }
     }
 
@@ -387,4 +407,9 @@ public class PrologParser {
         return new Object();
     }
     */
+
+    private String getTokenPositionString() {
+        return " " + String.format(LanguageManager.getInstance().getString(LanguageKey.POSITION)
+                , this.lexer.getCodeBeforeCurrentPos(), this.token.getLine(), this.token.getCol());
+    }
 }

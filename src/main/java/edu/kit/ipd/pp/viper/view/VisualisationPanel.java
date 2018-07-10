@@ -26,8 +26,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener {
     /**
      * Icons for zoom buttons
      */
-    private static final String ICON_ZOOM_IN  = "/icons_png/icon_placeholder.png";
-    private static final String ICON_ZOOM_OUT = "/icons_png/icon_placeholder.png";
+    private static final String ICON_ZOOM_IN  = "/icons_png/icon_zoom_in.png";
+    private static final String ICON_ZOOM_OUT = "/icons_png/icon_zoom_out.png";
 
     /**
      * Main window

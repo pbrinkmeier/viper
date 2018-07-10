@@ -53,8 +53,8 @@ public class InterpreterManager {
         try {
             kb = new PrologParser(program).parse();
         } catch (ParseException e) {
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.INFO);
-
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.ERROR);
+            console.printLine(e.getMessage(), LogType.ERROR);
             if (MainWindow.inDebugMode()) {
                 e.printStackTrace();
             }
@@ -64,8 +64,8 @@ public class InterpreterManager {
         try {
             query = new PrologParser(queryCode).parseGoalList().get(0);
         } catch (ParseException e) {
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.INFO);
-
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.ERROR);
+            console.printLine(e.getMessage(), LogType.ERROR);
             if (MainWindow.inDebugMode()) {
                 e.printStackTrace();
             }

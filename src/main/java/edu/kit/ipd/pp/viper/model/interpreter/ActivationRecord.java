@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
 import edu.kit.ipd.pp.viper.model.ast.Goal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ public abstract class ActivationRecord {
     public ActivationRecord(Interpreter interpreter, Optional<FunctorActivationRecord> parent) {
         this.interpreter = interpreter;
         this.parent = parent;
+        this.setEnvironment(new Environment(this, Arrays.asList()));
     }
 
     /**
@@ -148,6 +150,15 @@ public abstract class ActivationRecord {
     protected void setVisited(boolean visited) {
         this.visited = visited;
     }
+
+    /**
+     * Interface for ActivationRecordVisitors.
+     *
+     * @param <T> visit result type
+     * @param visitor visitor to visit this activation record
+     * @return result of the visit
+     */
+    public abstract <T> T accept(ActivationRecordVisitor<T> visitor);
 
     /**
      * To be overwritten by subclasses (to allow them to have concrete return types).

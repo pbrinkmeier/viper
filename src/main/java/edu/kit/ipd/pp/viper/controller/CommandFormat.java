@@ -36,7 +36,8 @@ public class CommandFormat extends Command {
         try {
             kb = new PrologParser(source).parse();
         } catch (ParseException e) {
-            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.ERROR);
+            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR)
+                + "\n" + e.getMessage(), LogType.ERROR);
             if (MainWindow.inDebugMode()) {
                 e.printStackTrace();
             }
