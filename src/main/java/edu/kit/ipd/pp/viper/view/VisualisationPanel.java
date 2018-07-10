@@ -26,8 +26,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener {
     /**
      * Icons for zoom buttons
      */
-    private static final String ICON_ZOOM_IN  = "/icons_png/icon_placeholder.png";
-    private static final String ICON_ZOOM_OUT = "/icons_png/icon_placeholder.png";
+    private static final String ICON_ZOOM_IN  = "/icons_png/icon_zoom_in.png";
+    private static final String ICON_ZOOM_OUT = "/icons_png/icon_zoom_out.png";
 
     /**
      * Main window
@@ -67,7 +67,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener {
         zoomIn.setBounds(10, 10, 30, 30);
         ToolBarButton zoomOut = new ToolBarButton(ICON_ZOOM_OUT, LanguageKey.ZOOM_OUT, new CommandZoom(this,
                 ZoomType.ZOOM_OUT));
-        zoomOut.setBounds(40, 10, 30, 30);
+        zoomOut.setBounds(10, 40, 30, 30);
 
         // viewer is on level 1, both buttons on level 2 and therefore appear above the viewer
         contentPane.add(this.viewer, new Integer(1));
