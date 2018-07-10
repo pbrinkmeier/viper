@@ -67,7 +67,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener {
         zoomIn.setBounds(10, 10, 30, 30);
         ToolBarButton zoomOut = new ToolBarButton(ICON_ZOOM_OUT, LanguageKey.ZOOM_OUT, new CommandZoom(this,
                 ZoomType.ZOOM_OUT));
-        zoomOut.setBounds(40, 10, 30, 30);
+        zoomOut.setBounds(10, 40, 30, 30);
 
         // viewer is on level 1, both buttons on level 2 and therefore appear above the viewer
         contentPane.add(this.viewer, new Integer(1));
