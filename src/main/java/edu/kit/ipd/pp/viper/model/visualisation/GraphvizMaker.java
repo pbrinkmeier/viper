@@ -20,6 +20,7 @@ import java.util.Optional;
 public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     private final Optional<ActivationRecord> current;
     private final Optional<ActivationRecord> next;
+    private boolean backtracking;
 
     /**
      * Creates new instance with the current and the next step
@@ -30,6 +31,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     private GraphvizMaker(Optional<ActivationRecord> current, Optional<ActivationRecord> next) {
         this.current = current;
         this.next = next;
+        this.backtracking = false;
     }
 
     @Override
@@ -39,6 +41,14 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         if (!far.isVisited())
             return node;
 
+        /*
+         * In case of backtracking we reach the "next" node before we reach the "current" node
+         * so we have to save the information that backtracking has to be done for later
+        */
+        if (this.next.get() == far)
+            this.backtracking = true;
+
+        // Create box with the unification status and message
         UnificationResult result = far.getUnificationResult();
         Node resultBox
             = node(html("{" + far.getMatchingRuleHead().toHtml() + "|" + result.toHtml() + "}"))
@@ -50,10 +60,16 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
             resultBox = resultBox.with(result.isSuccess() ? Color.GREEN : Color.RED);
         }
 
+        // if the unification was a success there definitely will be child nodes
         if (result.isSuccess()) {
             for (ActivationRecord child : far.getChildren()) {
                 resultBox = resultBox.link(child.accept(this));
             }
+        // if we have to backtrack, link the resultBox to the "next" node
+        } else if (!result.isSuccess() && backtracking) {
+            Node backtracking = node(html(next.get().getFunctor().toHtml()));
+
+            resultBox = resultBox.link(backtracking);
         }
 
         return node.link(resultBox);
