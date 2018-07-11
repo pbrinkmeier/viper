@@ -1,8 +1,6 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.Color;
-import java.awt.Font;
-
 import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
@@ -24,7 +22,6 @@ public class ConsoleOutputArea extends JTextPane {
     public ConsoleOutputArea() {
         super();
 
-        this.setFont(new Font("Monospaced", Font.PLAIN, 14));
         this.setEditable(false);
     }
 
@@ -75,7 +72,8 @@ public class ConsoleOutputArea extends JTextPane {
         // set some attributes for font, alignment etc.
         AttributeSet set = context.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
         set = context.addAttribute(set, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-        set = context.addAttribute(set, StyleConstants.FontFamily, "monospace");
+        set = context.addAttribute(set, StyleConstants.FontFamily, "monospaced");
+        set = context.addAttribute(set, StyleConstants.FontSize, 14);
 
         this.setCaretPosition(this.getDocument().getLength());
         this.setCharacterAttributes(set, false);
