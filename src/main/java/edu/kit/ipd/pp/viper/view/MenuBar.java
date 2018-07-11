@@ -21,18 +21,31 @@ import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.SaveType;
 
 /**
- * Represents a menu bar containing all available options and functionalities of the program.
+ * Represents a menu bar containing all available options and functionalities of
+ * the program.
  */
-public class MenuBar extends JMenuBar {
+public class MenuBar extends JMenuBar implements HasClickable {
     /**
      * Serial UID
      */
     private static final long serialVersionUID = -8638583278667065231L;
-    
+
     /**
      * Instance of main window
      */
     private final MainWindow main;
+
+    private MenuItem itemNew;
+    private MenuItem itemOpen;
+    private MenuItem itemSave;
+    private MenuItem itemSaveAs;
+    private MenuItem itemExit;
+    private MenuItem itemParse;
+    private MenuItem itemFormat;
+    private MenuItem itemExportPNG;
+    private MenuItem itemExportSVG;
+    private MenuItem itemExportTikZ;
+    private CheckBoxMenuItem itemToggleSTD;
 
     /**
      * The constructor initialises all menus in the menu bar
@@ -72,10 +85,10 @@ public class MenuBar extends JMenuBar {
      * @param menu Menu to attach to
      */
     private void addNewItem(Menu menu) {
-        MenuItem item = new MenuItem(LanguageKey.MENU_NEW, new CommandNew(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel()));
+        itemNew = new MenuItem(LanguageKey.MENU_NEW, new CommandNew(this.main.getConsolePanel(),
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::switchClickableState));
 
-        menu.add(item);
+        menu.add(itemNew);
     }
 
     /**
@@ -84,10 +97,10 @@ public class MenuBar extends JMenuBar {
      * @param menu Menu to attach to
      */
     private void addOpenItem(Menu menu) {
-        MenuItem item = new MenuItem(LanguageKey.MENU_OPEN, new CommandOpen(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel()));
+        itemOpen = new MenuItem(LanguageKey.MENU_OPEN, new CommandOpen(this.main.getConsolePanel(),
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::switchClickableState));
 
-        menu.add(item);
+        menu.add(itemOpen);
     }
 
     /**
@@ -96,10 +109,10 @@ public class MenuBar extends JMenuBar {
      * @param menu Menu to attach to
      */
     private void addSaveItem(Menu menu) {
-        MenuItem item = new MenuItem(LanguageKey.MENU_SAVE,
+        itemSave = new MenuItem(LanguageKey.MENU_SAVE,
                 new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE));
 
-        menu.add(item);
+        menu.add(itemSave);
     }
 
     /**
@@ -108,10 +121,10 @@ public class MenuBar extends JMenuBar {
      * @param menu Menu to attach to
      */
     private void addSaveAsItem(Menu menu) {
-        MenuItem item = new MenuItem(LanguageKey.MENU_SAVEAS,
+        itemSaveAs = new MenuItem(LanguageKey.MENU_SAVEAS,
                 new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE_AS));
 
-        menu.add(item);
+        menu.add(itemSaveAs);
     }
 
     /**
@@ -134,9 +147,9 @@ public class MenuBar extends JMenuBar {
      * @param menu Menu to attach to
      */
     private void addExitItem(Menu menu) {
-        MenuItem item = new MenuItem(LanguageKey.MENU_EXIT, new CommandExit(this.main.getConsolePanel(),
-                this.main.getEditorPanel()));
-        menu.add(item);
+        itemExit = new MenuItem(LanguageKey.MENU_EXIT,
+                new CommandExit(this.main.getConsolePanel(), this.main.getEditorPanel()));
+        menu.add(itemExit);
     }
 
     /**
@@ -157,10 +170,10 @@ public class MenuBar extends JMenuBar {
      * @param menu Menu to attach to
      */
     private void addParseItem(Menu menu) {
-        MenuItem item = new MenuItem(LanguageKey.MENU_PARSE, new CommandParse(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel()));
+        itemParse = new MenuItem(LanguageKey.MENU_PARSE, new CommandParse(this.main.getConsolePanel(),
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::switchClickableState));
 
-        menu.add(item);
+        menu.add(itemParse);
     }
 
     /**
@@ -169,10 +182,10 @@ public class MenuBar extends JMenuBar {
      * @param menu Menu to attach to
      */
     private void addFormatItem(Menu menu) {
-        MenuItem item = new MenuItem(LanguageKey.MENU_FORMAT, new CommandFormat(this.main.getConsolePanel(),
-                this.main.getEditorPanel()));
+        itemFormat = new MenuItem(LanguageKey.MENU_FORMAT,
+                new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel()));
 
-        menu.add(item);
+        menu.add(itemFormat);
     }
 
     /**
@@ -181,18 +194,18 @@ public class MenuBar extends JMenuBar {
     private void addExportMenu() {
         Menu menu = new Menu(LanguageKey.MENU_EXPORT);
 
-        MenuItem itemPng = new MenuItem(LanguageKey.MENU_EXPORT_PNG, new CommandExportImage(this.main.getConsolePanel(),
+        itemExportPNG = new MenuItem(LanguageKey.MENU_EXPORT_PNG, new CommandExportImage(this.main.getConsolePanel(),
                 ImageFormat.PNG, this.main.getInterpreterManager()));
 
-        MenuItem itemSvg = new MenuItem(LanguageKey.MENU_EXPORT_SVG, new CommandExportImage(this.main.getConsolePanel(),
+        itemExportSVG = new MenuItem(LanguageKey.MENU_EXPORT_SVG, new CommandExportImage(this.main.getConsolePanel(),
                 ImageFormat.SVG, this.main.getInterpreterManager()));
 
-        MenuItem itemTikz = new MenuItem(LanguageKey.MENU_EXPORT_TIKZ, new CommandExportTikz(
-                this.main.getConsolePanel(), this.main.getInterpreterManager()));
+        itemExportTikZ = new MenuItem(LanguageKey.MENU_EXPORT_TIKZ,
+                new CommandExportTikz(this.main.getConsolePanel(), this.main.getInterpreterManager()));
 
-        menu.add(itemPng);
-        menu.add(itemSvg);
-        menu.add(itemTikz);
+        menu.add(itemExportPNG);
+        menu.add(itemExportSVG);
+        menu.add(itemExportTikZ);
 
         this.add(menu);
     }
@@ -203,11 +216,11 @@ public class MenuBar extends JMenuBar {
     private void addSettingsMenu() {
         Menu menu = new Menu(LanguageKey.MENU_SETTINGS);
 
-        CheckBoxMenuItem item = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB, new CommandToggleLib(
-                this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
-        item.setSelected(true);
+        itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB, new CommandToggleLib(this.main.getConsolePanel(),
+                this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main::switchClickableState));
+        itemToggleSTD.setSelected(true);
 
-        menu.add(item);
+        menu.add(itemToggleSTD);
         this.addLanguageSwitchMenu(menu);
 
         this.add(menu);
@@ -229,9 +242,9 @@ public class MenuBar extends JMenuBar {
         while (iter.hasNext()) {
             Locale locale = iter.next();
 
-            LanguageCheckBoxMenuItem item = new LanguageCheckBoxMenuItem(locale, new CommandSetLang(
-                    this.main.getConsolePanel(), this.main.getVisualisationPanel(), locale,
-                    this.main.getInterpreterManager()));
+            LanguageCheckBoxMenuItem item = new LanguageCheckBoxMenuItem(locale,
+                    new CommandSetLang(this.main.getConsolePanel(), this.main.getVisualisationPanel(), locale,
+                            this.main.getInterpreterManager()));
             languageGroup.add(item);
 
             if (select) {
@@ -243,5 +256,40 @@ public class MenuBar extends JMenuBar {
         }
 
         menu.add(languageMenu);
+    }
+
+    @Override
+    public void switchClickableState(ClickableState state) {
+        switch (state) {
+        case NOT_PARSED_YET:
+        case PARSED_PROGRAM:
+            this.itemNew.setEnabled(true);
+            this.itemOpen.setEnabled(true);
+            this.itemSave.setEnabled(true);
+            this.itemSaveAs.setEnabled(true);
+            this.itemExit.setEnabled(true);
+            this.itemParse.setEnabled(true);
+            this.itemFormat.setEnabled(true);
+            this.itemExportPNG.setEnabled(false);
+            this.itemExportSVG.setEnabled(false);
+            this.itemExportTikZ.setEnabled(false);
+            this.itemToggleSTD.setEnabled(true);
+            break;
+        case PARSED_QUERY:
+            this.itemNew.setEnabled(true);
+            this.itemOpen.setEnabled(true);
+            this.itemSave.setEnabled(true);
+            this.itemSaveAs.setEnabled(true);
+            this.itemExit.setEnabled(true);
+            this.itemParse.setEnabled(true);
+            this.itemFormat.setEnabled(true);
+            this.itemExportPNG.setEnabled(true);
+            this.itemExportSVG.setEnabled(true);
+            this.itemExportTikZ.setEnabled(true);
+            this.itemToggleSTD.setEnabled(true);
+            break;
+        default:
+            break;
+        }
     }
 }

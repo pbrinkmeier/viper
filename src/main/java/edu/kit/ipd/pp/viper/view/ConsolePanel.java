@@ -10,10 +10,10 @@ import javax.swing.JScrollPane;
 import edu.kit.ipd.pp.viper.controller.CommandParseQuery;
 
 /**
- * Represents a panel containing a console-like output field, as well as an input field for
- * prolog queries.
+ * Represents a panel containing a console-like output field, as well as an
+ * input field for prolog queries.
  */
-public class ConsolePanel extends JPanel {
+public class ConsolePanel extends JPanel implements HasClickable {
     /**
      * Serial UID
      */
@@ -57,7 +57,8 @@ public class ConsolePanel extends JPanel {
         this.scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         this.inputField = new ConsoleInputField(new CommandParseQuery(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager(),
+                this.main::switchClickableState));
 
         this.add(this.scrollPane, BorderLayout.CENTER);
         this.add(this.inputField, BorderLayout.PAGE_END);
@@ -109,9 +110,9 @@ public class ConsolePanel extends JPanel {
     }
 
     /**
-     * Prints a new line (including a line break) to the console. The {@link LogType} determines
-     * the line color. {@link LogType#DEBUG} will only be printed if the program was started in
-     * debug mode.
+     * Prints a new line (including a line break) to the console. The
+     * {@link LogType} determines the line color. {@link LogType#DEBUG} will only be
+     * printed if the program was started in debug mode.
      * 
      * @param line The String to print
      * @param type Type of message
@@ -121,5 +122,10 @@ public class ConsolePanel extends JPanel {
 
         JScrollBar bar = this.scrollPane.getVerticalScrollBar();
         bar.setValue(bar.getMaximum());
+    }
+
+    @Override
+    public void switchClickableState(ClickableState state) {
+        this.inputField.switchClickableState(state);
     }
 }

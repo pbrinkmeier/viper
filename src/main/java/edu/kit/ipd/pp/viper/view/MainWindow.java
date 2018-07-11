@@ -19,8 +19,8 @@ public class MainWindow extends JFrame {
     private static final long serialVersionUID = -5807530819617746945L;
 
     /**
-     * Stores whether VIPER was started in debug mode or not.
-     * Debug mode will print some additional information to the console.
+     * Stores whether VIPER was started in debug mode or not. Debug mode will print
+     * some additional information to the console.
      */
     private static boolean debug;
 
@@ -43,6 +43,9 @@ public class MainWindow extends JFrame {
     private final EditorPanel editorPanel;
     private final ConsolePanel consolePanel;
     private final VisualisationPanel visualisationPanel;
+
+    private ToolBar toolbar;
+    private MenuBar menubar;
 
     /**
      * Global instance of InterpreterManager
@@ -70,14 +73,18 @@ public class MainWindow extends JFrame {
         this.manager = new InterpreterManager();
 
         // add menu bar and tool bar to window
-        this.setJMenuBar(new MenuBar(this));
-        this.getContentPane().add(new ToolBar(this), BorderLayout.NORTH);
+        this.menubar = new MenuBar(this);
+        this.toolbar = new ToolBar(this);
+
+        this.setJMenuBar(this.menubar);
+        this.getContentPane().add(this.toolbar, BorderLayout.NORTH);
 
         // set up layout using two split panes
         this.initLayout();
 
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        // use CommandExit on JFrame close, because the editor may still containt unsaved content
+        // use CommandExit on JFrame close, because the editor may still containt
+        // unsaved content
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -87,43 +94,52 @@ public class MainWindow extends JFrame {
         this.setLocationRelativeTo(null);
         this.pack();
         this.setVisible(true);
+        this.switchClickableState(ClickableState.NOT_PARSED_YET);
 
         this.consolePanel.printLine("VIPER v1.0 ready", LogType.INFO);
     }
 
     /**
-     * Sets the "look and feel" of the application by using the system default theme.
+     * Global clickable change function. This toggles all sub-elements
+     * in the GUI to change their clickable state.
+     * 
+     * @param state The new state to be changed to
+     */
+    public void switchClickableState(ClickableState state) {
+        this.menubar.switchClickableState(state);
+        this.toolbar.switchClickableState(state);
+        this.consolePanel.switchClickableState(state);
+        this.visualisationPanel.switchClickableState(state);
+    }
+
+    /**
+     * Sets the "look and feel" of the application by using the system default
+     * theme.
      */
     private void setDesign() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException
-               | IllegalAccessException | UnsupportedLookAndFeelException e) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
         }
     }
 
     /**
-     * Sets up the main layout of the program. Two nested {@link JSplitPane}s are used to realise the wanted layout.
+     * Sets up the main layout of the program. Two nested {@link JSplitPane}s are
+     * used to realise the wanted layout.
      */
     private void initLayout() {
-        // the inner pane splits up the right side into top (visualisation) and bottom (console)
-        JSplitPane innerPane = new JSplitPane(
-                JSplitPane.VERTICAL_SPLIT,
-                true,
-                this.visualisationPanel,
-                this.consolePanel
-        );
+        // the inner pane splits up the right side into top (visualisation) and bottom
+        // (console)
+        JSplitPane innerPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, this.visualisationPanel,
+                this.consolePanel);
         innerPane.setResizeWeight(0.5);
         innerPane.setEnabled(true);
         innerPane.setDividerSize(5);
 
-        // the outer pane splits up the window into a left (editor) and right (inner pane) side
-        JSplitPane outerPane = new JSplitPane(
-                JSplitPane.HORIZONTAL_SPLIT,
-                true,
-                this.editorPanel,
-                innerPane
-        );
+        // the outer pane splits up the window into a left (editor) and right (inner
+        // pane) side
+        JSplitPane outerPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, true, this.editorPanel, innerPane);
         outerPane.setResizeWeight(0.5);
         outerPane.setEnabled(true);
         outerPane.setDividerSize(5);

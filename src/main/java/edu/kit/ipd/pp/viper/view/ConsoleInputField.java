@@ -16,7 +16,7 @@ import edu.kit.ipd.pp.viper.controller.LanguageKey;
 /**
  * Represents a panel contaning an input field for prolog queries, as well as a button to send the query.
  */
-public class ConsoleInputField extends JPanel {
+public class ConsoleInputField extends JPanel implements HasClickable {
     /**
      * Serial UID
      */
@@ -26,6 +26,8 @@ public class ConsoleInputField extends JPanel {
      */
     private final JTextField textField;
 
+    private Button buttonSend;
+    
     /**
      * Creates a new panel that contains an input field and a button
      * 
@@ -50,9 +52,11 @@ public class ConsoleInputField extends JPanel {
         JLabel text = new JLabel("?-");
         text.setFont(new Font("monospaced", Font.PLAIN, 14));
 
+        this.buttonSend = new Button(LanguageKey.BUTTON_SEND, command);
+        
         this.add(text, BorderLayout.LINE_START);
         this.add(this.textField, BorderLayout.CENTER);
-        this.add(new Button(LanguageKey.BUTTON_SEND, command), BorderLayout.LINE_END);
+        this.add(this.buttonSend, BorderLayout.LINE_END);
 
         this.lock();
     }
@@ -85,5 +89,20 @@ public class ConsoleInputField extends JPanel {
      */
     public void unlock() {
         this.textField.setEditable(true);
+    }
+
+    @Override
+    public void switchClickableState(ClickableState state) {
+        switch (state) {
+            case NOT_PARSED_YET:
+                buttonSend.setEnabled(false);
+                break;
+            case PARSED_PROGRAM:
+            case PARSED_QUERY:
+                buttonSend.setEnabled(true);
+                break;
+            default:
+                break;
+        }
     }
 }
