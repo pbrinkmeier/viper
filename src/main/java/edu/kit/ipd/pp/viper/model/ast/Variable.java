@@ -65,7 +65,7 @@ public final class Variable extends Term {
      * @return a string representation of this variable
      */
     public String toString() {
-        return this.getName() + (this.getIndex().isPresent() ? String.format("/%d", this.getIndex().get()) : "");
+        return this.getName() + (this.getIndex().isPresent() ? String.format("_%d", this.getIndex().get()) : "");
     }
 
     /**
