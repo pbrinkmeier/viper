@@ -1,13 +1,11 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
-import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;

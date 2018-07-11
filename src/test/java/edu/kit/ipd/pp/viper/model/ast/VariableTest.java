@@ -19,6 +19,7 @@ public class VariableTest {
         assertEquals("X/42", this.withIndex.toString());
     }
 
+    @Ignore
     @Test
     public void toHtmlTest() {
         assertEquals("X", this.withoutIndex.toHtml());
