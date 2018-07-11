@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import static java.util.stream.Collectors.joining;
 
 public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     private final Optional<ActivationRecord> current;
@@ -71,8 +72,21 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         // Create box with the unification status and message
         UnificationResult result = far.getUnificationResult();
+
+        // Add rule index to matching rules head
+        String ruleRepr = String.format("%s_%d", far.getMatchingRuleHead().getName(), far.getRuleIndex());
+
+        if (far.getMatchingRuleHead().getParameters().size() != 0) {
+            ruleRepr += "(";
+            ruleRepr += far.getMatchingRuleHead().getParameters().stream()
+            .map(param -> param.toHtml())
+            .collect(joining(", "));
+            ruleRepr += ")";
+        }
+
+        // create the result box node
         Node resultBox
-            = node(html("{" + far.getMatchingRuleHead().toHtml() + "|" + result.toHtml() + "}"))
+            = node(html("{" + ruleRepr + "|" + result.toHtml() + "}"))
             .with(
                 attr("shape", "record")
             );
