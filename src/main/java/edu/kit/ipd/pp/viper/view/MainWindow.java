@@ -147,6 +147,19 @@ public class MainWindow extends JFrame {
     }
 
     /**
+     * Sets the window title to '{title} - VIPER'. This can be used to
+     * include the currently opened file in the title.
+     * 
+     * @param title String to display, using "" or null removes the title
+     */
+    public void setWindowTitle(String title) {
+        if (title == null || title.equals(""))
+            this.setTitle(WINDOW_TITLE);
+        else
+            this.setTitle(title + " - " + WINDOW_TITLE);
+    }
+
+    /**
      * Returns the debug mode
      * 
      * @return Debug mode enabled or not
