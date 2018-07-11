@@ -73,7 +73,7 @@ public class MenuBar extends JMenuBar {
      */
     private void addNewItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_NEW, new CommandNew(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel()));
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::setWindowTitle));
 
         menu.add(item);
     }
@@ -85,7 +85,7 @@ public class MenuBar extends JMenuBar {
      */
     private void addOpenItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_OPEN, new CommandOpen(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel()));
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::setWindowTitle));
 
         menu.add(item);
     }
@@ -97,7 +97,8 @@ public class MenuBar extends JMenuBar {
      */
     private void addSaveItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_SAVE,
-                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE));
+                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE,
+                        this.main::setWindowTitle));
 
         menu.add(item);
     }
@@ -109,7 +110,8 @@ public class MenuBar extends JMenuBar {
      */
     private void addSaveAsItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_SAVEAS,
-                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE_AS));
+                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE_AS,
+                        this.main::setWindowTitle));
 
         menu.add(item);
     }
@@ -135,7 +137,7 @@ public class MenuBar extends JMenuBar {
      */
     private void addExitItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_EXIT, new CommandExit(this.main.getConsolePanel(),
-                this.main.getEditorPanel()));
+                this.main.getEditorPanel(), this.main::setWindowTitle));
         menu.add(item);
     }
 

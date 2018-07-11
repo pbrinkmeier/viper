@@ -1,5 +1,7 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import java.util.function.Consumer;
+
 import javax.swing.JOptionPane;
 
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
@@ -14,16 +16,20 @@ public class CommandNew extends Command {
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
+    private Consumer<String> setTitle;
 
     /**
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
      * @param editor Panel of the editor area
+     * @param setTitle Consumer function to change the window title
      */
-    public CommandNew(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation) {
+    public CommandNew(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
+            Consumer<String> setTitle) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
+        this.setTitle = setTitle;
     }
 
     /**
@@ -39,7 +45,7 @@ public class CommandNew extends Command {
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
             if (rv == 0) {
-                CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE);
+                CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE, this.setTitle);
                 save.execute();
             }
 
@@ -56,6 +62,7 @@ public class CommandNew extends Command {
         this.editor.setHasChanged(false);
         this.editor.setFileReference(null);
         this.console.clearAll();
-        this.visualisation.clearVisualization();        
+        this.visualisation.clearVisualization();
+        this.setTitle.accept("");
     }
 }

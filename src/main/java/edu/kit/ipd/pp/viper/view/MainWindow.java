@@ -3,6 +3,8 @@ package edu.kit.ipd.pp.viper.view;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.function.Consumer;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
@@ -44,6 +46,8 @@ public class MainWindow extends JFrame {
     private final ConsolePanel consolePanel;
     private final VisualisationPanel visualisationPanel;
 
+    private Consumer<String> setWindowTitle;
+
     /**
      * Global instance of InterpreterManager
      */
@@ -69,6 +73,8 @@ public class MainWindow extends JFrame {
         this.visualisationPanel = new VisualisationPanel(this);
         this.manager = new InterpreterManager();
 
+        this.setWindowTitle = this::setWindowTitle;
+
         // add menu bar and tool bar to window
         this.setJMenuBar(new MenuBar(this));
         this.getContentPane().add(new ToolBar(this), BorderLayout.NORTH);
@@ -81,7 +87,7 @@ public class MainWindow extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                new CommandExit(consolePanel, editorPanel).execute();
+                new CommandExit(consolePanel, editorPanel, setWindowTitle).execute();
             }
         });
         this.setLocationRelativeTo(null);

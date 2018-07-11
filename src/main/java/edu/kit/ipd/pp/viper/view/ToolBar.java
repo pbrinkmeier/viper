@@ -60,13 +60,14 @@ public class ToolBar extends JToolBar {
      */
     private void addButtons() {
         this.add(new ToolBarButton(ICON_NEW, LanguageKey.TOOLTIP_NEW, new CommandNew(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel())));
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::setWindowTitle)));
 
         this.add(new ToolBarButton(ICON_OPEN, LanguageKey.TOOLTIP_OPEN, new CommandOpen(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel())));
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::setWindowTitle)));
 
         this.add(new ToolBarButton(ICON_SAVE, LanguageKey.TOOLTIP_SAVE,
-                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE)));
+                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE,
+                        this.main::setWindowTitle)));
 
         this.addSeparator();
 

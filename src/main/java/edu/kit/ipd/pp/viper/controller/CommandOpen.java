@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.function.Consumer;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -26,6 +27,7 @@ public class CommandOpen extends Command {
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
+    private Consumer<String> setTitle;
 
     /**
      * Initializes a new open command.
@@ -33,11 +35,14 @@ public class CommandOpen extends Command {
      * @param console Panel of the console area
      * @param editor Panel of the editor area
      * @param visualisation Panel of the visualisation area
+     * @param setTitle Consumer function that can change the window title
      */
-    public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation) {
+    public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
+            Consumer<String> setTitle) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
+        this.setTitle = setTitle;
     }
 
     /**
@@ -79,6 +84,7 @@ public class CommandOpen extends Command {
                 final String out = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_SUCCESS);
                 this.console.clearAll();
                 this.console.printLine(out + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.INFO);
+                this.setTitle.accept(chooser.getSelectedFile().getAbsolutePath());
 
                 in.close();
                 reader.close();
