@@ -44,18 +44,18 @@ public class CommandNew extends Command {
             }
 
             if (rv != 2) {
-                this.editor.setSourceText("");
-                this.editor.setHasChanged(false);
-                this.editor.setFileReference(null);
-                this.console.clearAll();
-                this.visualisation.clearVisualization();
+                clear();
             }
         } else {
-            this.editor.setSourceText("");
-            this.editor.setHasChanged(false);
-            this.editor.setFileReference(null);
-            this.console.clearAll();
-            this.visualisation.clearVisualization();
+            clear();
         }
+    }
+    
+    private void clear() {
+        this.editor.setSourceText("");
+        this.editor.setHasChanged(false);
+        this.editor.setFileReference(null);
+        this.console.clearAll();
+        this.visualisation.clearVisualization();        
     }
 }
