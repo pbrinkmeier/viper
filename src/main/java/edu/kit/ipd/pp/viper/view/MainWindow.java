@@ -11,6 +11,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import edu.kit.ipd.pp.viper.controller.CommandExit;
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
+import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 
 public class MainWindow extends JFrame {
     /**
@@ -44,6 +45,8 @@ public class MainWindow extends JFrame {
     private final ConsolePanel consolePanel;
     private final VisualisationPanel visualisationPanel;
 
+    private final PreferencesManager prefManager;
+
     /**
      * Global instance of InterpreterManager
      */
@@ -68,6 +71,8 @@ public class MainWindow extends JFrame {
         this.consolePanel = new ConsolePanel(this);
         this.visualisationPanel = new VisualisationPanel(this);
         this.manager = new InterpreterManager();
+
+        this.prefManager = new PreferencesManager(this.consolePanel);
 
         // add menu bar and tool bar to window
         this.setJMenuBar(new MenuBar(this));
