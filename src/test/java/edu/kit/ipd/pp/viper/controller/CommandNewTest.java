@@ -2,6 +2,7 @@ package edu.kit.ipd.pp.viper.controller;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
@@ -10,18 +11,33 @@ import edu.kit.ipd.pp.viper.view.MainWindow;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 public class CommandNewTest {
+    private MainWindow gui;
+    private ConsolePanel console;
+    private EditorPanel editor;
+    private VisualisationPanel visualisation;
+
+    /**
+     * Constructs the GUI.
+     */
+    @Before
+    public void buildGUI() {
+        this.gui = new MainWindow(true);
+        this.gui.setVisible(false);
+        this.editor = this.gui.getEditorPanel();
+        this.console = this.gui.getConsolePanel();
+        this.visualisation = this.gui.getVisualisationPanel();
+    }
+
+    /**
+     * Tests whether the new command actually clears the editor.
+     * This test assumes there are no changes left to be saved to disk.
+     */
     @Test
     public void getsCleared() {
-        MainWindow gui = new MainWindow(false);
-        gui.setVisible(false);
-        ConsolePanel console = new ConsolePanel(gui);
-        EditorPanel editor = new EditorPanel();
-        VisualisationPanel visualisation = new VisualisationPanel(gui);
-        
-        editor.setSourceText("test");
-        editor.setHasChanged(false);
-        new CommandNew(console, editor, visualisation, gui::switchClickableState).execute();
+        this.editor.setSourceText("test");
+        this.editor.setHasChanged(false);
+        new CommandNew(this.console, this.editor, this.visualisation, this.gui::switchClickableState).execute();
 
-        assertTrue(editor.getSourceText().equals(""));
+        assertTrue(this.editor.getSourceText().equals(""));
     }
 }

@@ -33,7 +33,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * Main window
      */
     private final MainWindow main;
-
+    
     /**
      * Viewer to use
      */
@@ -42,6 +42,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     private ToolBarButton zoomIn;
     private ToolBarButton zoomOut;
 
+    private boolean hasGraph;
+    
     /**
      * Creates a new viewer panel
      * 
@@ -77,13 +79,24 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         contentPane.add(zoomOut, new Integer(2));
 
         this.add(contentPane, BorderLayout.CENTER);
+        this.hasGraph = false;
     }
 
+    /**
+     * Returns whether there is a graph currently shown in the panel.
+     * 
+     * @return boolean value whether a graph is set right now
+     */
+    public boolean hasGraph() {
+        return this.hasGraph;
+    }
+    
     /**
      * Clears the currently shown visualisation
      */
     public void clearVisualization() {
         this.viewer.clear();
+        this.hasGraph = false;
     }
 
     /**
@@ -103,6 +116,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     public void setFromGraph(Graph graph) {
         this.clearVisualization();
         this.viewer.setFromGraph(graph);
+        this.hasGraph = true;
     }
 
     /**

@@ -38,7 +38,8 @@ public class ConsolePanel extends JPanel implements HasClickable {
      * Input field panel
      */
     private ConsoleInputField inputField;
-
+    private boolean inputLocked;
+    
     /**
      * Creates a new console panel
      * 
@@ -62,6 +63,7 @@ public class ConsolePanel extends JPanel implements HasClickable {
 
         this.add(this.scrollPane, BorderLayout.CENTER);
         this.add(this.inputField, BorderLayout.PAGE_END);
+        this.inputLocked = true;
     }
 
     /**
@@ -77,15 +79,34 @@ public class ConsolePanel extends JPanel implements HasClickable {
      * 
      * @return String Input field contents
      */
-    public String getText() {
+    public String getInputFieldText() {
         return this.inputField.getText();
     }
 
+    /**
+     * Returns the content of the output area
+     * 
+     * @return String Output area contents
+     */
+    public String getOutputAreaText() {
+        return this.outputArea.getText();
+    }
+    
+    /**
+     * Returns whether the input field is locked
+     * 
+     * @return boolean value describing whether the input field is locked
+     */
+    public boolean hasLockedInput() {
+        return inputLocked;
+    }
+    
     /**
      * Makes the input field un-editable
      */
     public void lockInput() {
         this.inputField.lock();
+        this.inputLocked = true;
     }
 
     /**
@@ -93,6 +114,7 @@ public class ConsolePanel extends JPanel implements HasClickable {
      */
     public void unlockInput() {
         this.inputField.unlock();
+        this.inputLocked = false;
     }
 
     /**
