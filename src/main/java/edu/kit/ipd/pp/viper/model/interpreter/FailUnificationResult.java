@@ -31,11 +31,11 @@ class FailUnificationResult extends UnificationResult {
 
     @Override
     public String getErrorMessage() {
-        return String.format("%s ≠ %s", this.lhs, this.rhs);
+        return String.format("%s is not unifiable with %s", this.lhs, this.rhs);
     }
 
     @Override
     public String toHtml() {
-        return String.format("%s ≠ %s", this.lhs.toHtml(), this.rhs.toHtml());
+        return String.format("%s is not unifiable with %s", this.lhs.toHtml(), this.rhs.toHtml());
     }
 }

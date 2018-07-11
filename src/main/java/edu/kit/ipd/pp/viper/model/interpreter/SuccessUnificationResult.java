@@ -35,7 +35,7 @@ class SuccessUnificationResult extends UnificationResult {
 
         for (int index = 0; index < this.substitutions.size(); index++) {
             repr +=
-                String.format("%s ⇒ %s",
+                String.format("%s =&gt; %s",
                     this.substitutions.get(index).getReplace().toHtml(),
                     this.substitutions.get(index).getBy().toHtml()
                 );
