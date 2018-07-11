@@ -17,7 +17,7 @@ import guru.nidi.graphviz.model.Graph;
 /**
  * Represents a panel containing a SVG viewer
  */
-public class VisualisationPanel extends JPanel implements ComponentListener {
+public class VisualisationPanel extends JPanel implements ComponentListener, HasClickable {
     /**
      * Serial UID
      */
@@ -26,7 +26,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener {
     /**
      * Icons for zoom buttons
      */
-    private static final String ICON_ZOOM_IN  = "/icons_png/icon_zoom_in.png";
+    private static final String ICON_ZOOM_IN = "/icons_png/icon_zoom_in.png";
     private static final String ICON_ZOOM_OUT = "/icons_png/icon_zoom_out.png";
 
     /**
@@ -38,6 +38,9 @@ public class VisualisationPanel extends JPanel implements ComponentListener {
      * Viewer to use
      */
     private final VisualisationViewer viewer;
+
+    private ToolBarButton zoomIn;
+    private ToolBarButton zoomOut;
 
     /**
      * Creates a new viewer panel
@@ -62,14 +65,13 @@ public class VisualisationPanel extends JPanel implements ComponentListener {
         this.viewer = new VisualisationViewer(this.main);
         this.componentResized(null);
 
-        ToolBarButton zoomIn = new ToolBarButton(ICON_ZOOM_IN, LanguageKey.ZOOM_IN, new CommandZoom(this,
-                ZoomType.ZOOM_IN));
-        zoomIn.setBounds(10, 10, 30, 30);
-        ToolBarButton zoomOut = new ToolBarButton(ICON_ZOOM_OUT, LanguageKey.ZOOM_OUT, new CommandZoom(this,
-                ZoomType.ZOOM_OUT));
-        zoomOut.setBounds(10, 40, 30, 30);
+        this.zoomIn = new ToolBarButton(ICON_ZOOM_IN, LanguageKey.ZOOM_IN, new CommandZoom(this, ZoomType.ZOOM_IN));
+        this.zoomIn.setBounds(10, 10, 30, 30);
+        this.zoomOut = new ToolBarButton(ICON_ZOOM_OUT, LanguageKey.ZOOM_OUT, new CommandZoom(this, ZoomType.ZOOM_OUT));
+        this.zoomOut.setBounds(10, 40, 30, 30);
 
-        // viewer is on level 1, both buttons on level 2 and therefore appear above the viewer
+        // viewer is on level 1, both buttons on level 2 and therefore appear above the
+        // viewer
         contentPane.add(this.viewer, new Integer(1));
         contentPane.add(zoomIn, new Integer(2));
         contentPane.add(zoomOut, new Integer(2));
@@ -123,5 +125,23 @@ public class VisualisationPanel extends JPanel implements ComponentListener {
 
     @Override
     public void componentShown(ComponentEvent e) {
+    }
+
+    @Override
+    public void switchClickableState(ClickableState state) {
+        switch (state) {
+        case NOT_PARSED_YET:
+        case PARSED_PROGRAM:
+            zoomIn.setEnabled(false);
+            zoomOut.setEnabled(false);
+            break;
+        case PARSED_QUERY:
+            zoomIn.setEnabled(false);
+            zoomOut.setEnabled(false);
+            break;
+        default:
+            break;
+        }
+
     }
 }

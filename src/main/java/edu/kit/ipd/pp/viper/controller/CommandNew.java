@@ -1,7 +1,10 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import java.util.function.Consumer;
+
 import javax.swing.JOptionPane;
 
+import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
@@ -14,16 +17,21 @@ public class CommandNew extends Command {
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
+    private Consumer<ClickableState> toggleStateFunc;
 
     /**
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
      * @param editor Panel of the editor area
+     * @param toggleStateFunc Consumer function that switches the state of clickable
+     * elements in the GUI
      */
-    public CommandNew(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation) {
+    public CommandNew(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
+            Consumer<ClickableState> toggleStateFunc) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
+        this.toggleStateFunc = toggleStateFunc;
     }
 
     /**
@@ -50,12 +58,13 @@ public class CommandNew extends Command {
             clear();
         }
     }
-    
+
     private void clear() {
         this.editor.setSourceText("");
         this.editor.setHasChanged(false);
         this.editor.setFileReference(null);
         this.console.clearAll();
-        this.visualisation.clearVisualization();        
+        this.visualisation.clearVisualization();
+        this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
     }
 }

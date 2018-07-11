@@ -5,12 +5,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.function.Consumer;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 import org.apache.commons.io.FilenameUtils;
 
+import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
@@ -26,6 +28,7 @@ public class CommandOpen extends Command {
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
+    private Consumer<ClickableState> toggleStateFunc;
 
     /**
      * Initializes a new open command.
@@ -33,11 +36,15 @@ public class CommandOpen extends Command {
      * @param console Panel of the console area
      * @param editor Panel of the editor area
      * @param visualisation Panel of the visualisation area
+     * @param toggleStateFunc Consumer function that switches the state of clickable
+     * elements in the GUI
      */
-    public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation) {
+    public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
+            Consumer<ClickableState> toggleStateFunc) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
+        this.toggleStateFunc = toggleStateFunc;
     }
 
     /**
@@ -80,6 +87,7 @@ public class CommandOpen extends Command {
                 this.console.clearAll();
                 this.console.printLine(out + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.INFO);
 
+                this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
                 in.close();
                 reader.close();
             } catch (IOException e) {

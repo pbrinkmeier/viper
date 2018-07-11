@@ -13,27 +13,37 @@ import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.SaveType;
 
 /**
- * Represents a toolbar containing a bunch of button with icons. This toolbar can be attached to the main window
- * of the program to represent "shortcuts" for different menu options.
+ * Represents a toolbar containing a bunch of button with icons. This toolbar
+ * can be attached to the main window of the program to represent "shortcuts"
+ * for different menu options.
  */
-public class ToolBar extends JToolBar {
+public class ToolBar extends JToolBar implements HasClickable {
     /**
      * Serial UID
      */
     private static final long serialVersionUID = 7709171094564025321L;
-    
+
     /**
-     * Path to icons used by {@link ToolBarButton}s of this toolbar.
-     * All paths need to begin with a slash, otherwise Java will look for the file inside the
-     * <code>edu.kit.ipd.pp.viper.view</code> package, not inside <code>src/main/resources/</code>.
+     * Path to icons used by {@link ToolBarButton}s of this toolbar. All paths need
+     * to begin with a slash, otherwise Java will look for the file inside the
+     * <code>edu.kit.ipd.pp.viper.view</code> package, not inside
+     * <code>src/main/resources/</code>.
      */
-    private static final String ICON_NEW      = "/icons_png/icon_newfile.png";
-    private static final String ICON_OPEN     = "/icons_png/icon_openfile.png";
-    private static final String ICON_SAVE     = "/icons_png/icon_savefile.png";
-    private static final String ICON_PARSE    = "/icons_png/icon_parsefile.png";
-    private static final String ICON_FORMAT   = "/icons_png/icon_formatfile.png";
-    private static final String ICON_STEP     = "/icons_png/icon_singlestep.png";
+    private static final String ICON_NEW = "/icons_png/icon_newfile.png";
+    private static final String ICON_OPEN = "/icons_png/icon_openfile.png";
+    private static final String ICON_SAVE = "/icons_png/icon_savefile.png";
+    private static final String ICON_PARSE = "/icons_png/icon_parsefile.png";
+    private static final String ICON_FORMAT = "/icons_png/icon_formatfile.png";
+    private static final String ICON_STEP = "/icons_png/icon_singlestep.png";
     private static final String ICON_SOLUTION = "/icons_png/icon_continue.png";
+
+    private ToolBarButton buttonNew;
+    private ToolBarButton buttonOpen;
+    private ToolBarButton buttonSave;
+    private ToolBarButton buttonParse;
+    private ToolBarButton buttonFormat;
+    private ToolBarButton buttonStep;
+    private ToolBarButton buttonSolution;
 
     /**
      * Reference to main class
@@ -43,8 +53,9 @@ public class ToolBar extends JToolBar {
     /**
      * Creates a new toolbar that can be added to the main window
      * 
-     * @param gui Reference to main window. Necessary because the commands executed by clicking on buttons in this
-     *            toolbar need the different panels available via getters in the main class.
+     * @param gui Reference to main window. Necessary because the commands executed
+     * by clicking on buttons in this toolbar need the different panels available
+     * via getters in the main class.
      */
     public ToolBar(MainWindow gui) {
         this.main = gui;
@@ -59,29 +70,61 @@ public class ToolBar extends JToolBar {
      * Adds all buttons to the toolbar
      */
     private void addButtons() {
-        this.add(new ToolBarButton(ICON_NEW, LanguageKey.TOOLTIP_NEW, new CommandNew(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel())));
+        this.buttonNew = new ToolBarButton(ICON_NEW, LanguageKey.TOOLTIP_NEW,
+                new CommandNew(this.main.getConsolePanel(), this.main.getEditorPanel(),
+                        this.main.getVisualisationPanel(), this.main::switchClickableState));
+        this.buttonOpen = new ToolBarButton(ICON_OPEN, LanguageKey.TOOLTIP_OPEN,
+                new CommandOpen(this.main.getConsolePanel(), this.main.getEditorPanel(),
+                        this.main.getVisualisationPanel(), this.main::switchClickableState));
+        this.buttonSave = new ToolBarButton(ICON_SAVE, LanguageKey.TOOLTIP_SAVE,
+                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE));
 
-        this.add(new ToolBarButton(ICON_OPEN, LanguageKey.TOOLTIP_OPEN, new CommandOpen(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel())));
+        this.buttonParse = new ToolBarButton(ICON_PARSE, LanguageKey.TOOLTIP_PARSE,
+                new CommandParse(this.main.getConsolePanel(), this.main.getEditorPanel(),
+                        this.main.getVisualisationPanel(), this.main::switchClickableState));
+        this.buttonFormat = new ToolBarButton(ICON_FORMAT, LanguageKey.TOOLTIP_FORMAT,
+                new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel()));
 
-        this.add(new ToolBarButton(ICON_SAVE, LanguageKey.TOOLTIP_SAVE,
-                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE)));
+        this.buttonStep = new ToolBarButton(ICON_STEP, LanguageKey.TOOLTIP_STEP, new CommandNextStep(
+                this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
+        this.buttonSolution = new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT, new CommandContinue(
+                this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
 
+        this.add(buttonNew);
+        this.add(buttonOpen);
+        this.add(buttonSave);
         this.addSeparator();
-
-        this.add(new ToolBarButton(ICON_PARSE, LanguageKey.TOOLTIP_PARSE, new CommandParse(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel())));
-
-        this.add(new ToolBarButton(ICON_FORMAT, LanguageKey.TOOLTIP_FORMAT,
-                new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel())));
-
+        this.add(buttonParse);
+        this.add(buttonFormat);
         this.addSeparator();
+        this.add(buttonStep);
+        this.add(buttonSolution);
+    }
 
-        this.add(new ToolBarButton(ICON_STEP, LanguageKey.TOOLTIP_STEP, new CommandNextStep(this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager())));
-
-        this.add(new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT, new CommandContinue(
-                this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager())));
+    @Override
+    public void switchClickableState(ClickableState state) {
+        switch (state) {
+        case NOT_PARSED_YET:
+        case PARSED_PROGRAM:
+            this.buttonNew.setEnabled(true);
+            this.buttonOpen.setEnabled(true);
+            this.buttonSave.setEnabled(true);
+            this.buttonParse.setEnabled(true);
+            this.buttonFormat.setEnabled(true);
+            this.buttonStep.setEnabled(false);
+            this.buttonSolution.setEnabled(false);
+            break;
+        case PARSED_QUERY:
+            this.buttonNew.setEnabled(true);
+            this.buttonOpen.setEnabled(true);
+            this.buttonSave.setEnabled(true);
+            this.buttonParse.setEnabled(true);
+            this.buttonFormat.setEnabled(true);
+            this.buttonStep.setEnabled(true);
+            this.buttonSolution.setEnabled(true);
+            break;
+        default:
+            break;
+        }
     }
 }
