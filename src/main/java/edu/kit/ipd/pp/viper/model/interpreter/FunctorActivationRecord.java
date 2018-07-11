@@ -34,6 +34,7 @@ public class FunctorActivationRecord extends ActivationRecord {
         super(interpreter, parent);
         this.goal = goal;
         this.matchingRules = this.getInterpreter().getKnowledgeBase().getMatchingRules(goal.getFunctor());
+        this.children = new ArrayList<>();
     }
 
     /**

@@ -15,6 +15,7 @@ import static guru.nidi.graphviz.attribute.Label.html;
 import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Rank;
 import guru.nidi.graphviz.attribute.Style;
+import guru.nidi.graphviz.attribute.Font;
 import guru.nidi.graphviz.model.Graph;
 import guru.nidi.graphviz.model.MutableNode;
 import guru.nidi.graphviz.model.Node;
@@ -53,6 +54,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
                     to(this.backtrackingNode.get())
                     .with(Style.DOTTED)
                     .with(Color.RED)
+                    .with(attr("constraint", "false"))
                 )
                 .with(Color.RED);
             }
@@ -120,7 +122,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     public static Graph createGraph(Interpreter interpreter) {
         GraphvizMaker maker = new GraphvizMaker(interpreter.getCurrent(), interpreter.getNext());
         Node rootNode = interpreter.getQuery().accept(maker);
-        Graph g = graph("visualisation").directed().with(rootNode);
+        Graph g = graph("visualisation").directed().with(rootNode).nodeAttr().with(Font.name("Times New Roman"));
 
         for (Graph rankEnforcer : maker.rankEnforcers) {
             g = g.with(rankEnforcer);

@@ -72,8 +72,12 @@ public final class Variable extends Term {
      * @return a GraphViz-compatible HTML representation of this variable
      */
     public String toHtml() {
+        /*
         return this.getName()
                 + (this.getIndex().isPresent() ? String.format("<sub>%d</sub>", this.getIndex().get()) : "");
+        */
+
+        return this.toString();
     }
 
     /**

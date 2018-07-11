@@ -56,7 +56,7 @@ public class ConsolePanel extends JPanel {
         this.scrollPane = new JScrollPane(this.outputArea);
         this.scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        this.inputField = new ConsoleInputField(new CommandParseQuery(this.main.getConsolePanel(),
+        this.inputField = new ConsoleInputField(new CommandParseQuery(this,
                 this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
 
         this.add(this.scrollPane, BorderLayout.CENTER);

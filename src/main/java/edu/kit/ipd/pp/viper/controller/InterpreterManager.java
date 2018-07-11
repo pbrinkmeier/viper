@@ -28,14 +28,14 @@ public class InterpreterManager {
     private Thread continueThread;
     private boolean searchingForSolution = false;
     private boolean useStandardLibrary = false;
-
     private List<Interpreter> interpreters;
+
+    private Interpreter interpreter;
 
     /**
      * Initializes a new interpreter manager. This should only be called once.
      */
     public InterpreterManager() {
-        interpreters = new ArrayList<Interpreter>();
     }
 
     /**
@@ -71,8 +71,7 @@ public class InterpreterManager {
             }
         }
 
-        Interpreter interpreter = new Interpreter(kb, query);
-        interpreters.add(interpreter);
+        this.interpreter = new Interpreter(kb, query);
     }
 
     /**
@@ -81,7 +80,8 @@ public class InterpreterManager {
      * @return Result of the step taken
      */
     public StepResult step() {
-        return this.getCurrentState().step();
+        System.out.println("interpreterman#step");
+        return this.interpreter.step();
     }
 
     /**
@@ -135,29 +135,12 @@ public class InterpreterManager {
     }
 
     /**
-     * Returns an immutable list of substitutions that solve the query.
-     * 
-     * @return A possible solution in the form of an immutable list
-     */
-    public List<Substitution> getSolution() {
-        return null;
-    }
-
-    /**
      * Returns a string representation of the solution for console output.
      * 
      * @return string representation of the substitutions found
      */
     public String getSolutionString() {
-        final List<Substitution> solution = getSolution();
-        String rv = "{";
-
-        for (int i = 0; i < solution.size(); i++) {
-            rv += solution.get(i).toString();
-            rv += i < solution.size() - 1 ? ", " : "}";
-        }
-
-        return rv;
+        return "N/A";
     }
 
     /**
@@ -166,7 +149,7 @@ public class InterpreterManager {
      * @return Current state of the interpretation
      */
     public Interpreter getCurrentState() {
-        return interpreters.get(interpreters.size() - 1);
+        return this.interpreter;
     }
 
     /**
