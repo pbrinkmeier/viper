@@ -134,7 +134,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             return;
         }
 
-        this.setURI(tmpFile.getAbsolutePath());
+        this.setURI(tmpFile.toURI().toString());
     }
 
     /**
