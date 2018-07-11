@@ -78,7 +78,6 @@ public class InterpreterManager {
      * @return Result of the step taken
      */
     public StepResult step() {
-        System.out.println("interpreterman#step");
         return this.interpreter.step();
     }
 

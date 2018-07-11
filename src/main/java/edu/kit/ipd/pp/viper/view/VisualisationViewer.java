@@ -12,6 +12,7 @@ import java.io.IOException;
 import javax.swing.Action;
 import javax.swing.ActionMap;
 
+import org.apache.batik.bridge.UserAgent;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.AbstractPanInteractor;
 import org.apache.batik.swing.gvt.Interactor;
@@ -67,6 +68,36 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
 
         this.addMouseWheelListener(this);
     }
+	
+	/**
+	 * This method must be overriden to use our custom user agent.
+	 * That user agent is used to suppress SVG warnings, because
+	 * the default behavior is to display a dialog instead of throwing
+	 * an exception.
+	 */
+	@Override
+	protected UserAgent createUserAgent() {
+		return new CustomUserAgent(this);
+	}
+
+	private class CustomUserAgent extends CanvasUserAgent {
+		private VisualisationViewer viewer;
+		
+		public CustomUserAgent(VisualisationViewer viewer) {
+			this.viewer = viewer;
+		}
+		
+		@Override
+		public void displayError(Exception exception) {
+			this.displayError(exception.getMessage());
+		}
+		
+		@Override
+		public void displayError(String message) {
+			this.viewer.main.getConsolePanel()
+			.printLine(String.format("SVG Render Error: %s", message), LogType.DEBUG);
+		}
+	}
 
     /**
      * Implements zooming of the displayed image using the mouse wheel
