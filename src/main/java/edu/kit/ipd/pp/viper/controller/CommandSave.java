@@ -5,9 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
-import org.apache.commons.io.FilenameUtils;
 
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
@@ -17,7 +14,7 @@ import edu.kit.ipd.pp.viper.view.MainWindow;
 /**
  * Command for saving the editor content to disk as a Prolog file.
  */
-public class CommandSave extends Command {
+public class CommandSave extends Command {    
     private ConsolePanel console;
     private EditorPanel editor;
     private SaveType saveType;
@@ -64,20 +61,8 @@ public class CommandSave extends Command {
     }
 
     private void saveAs() {
-        FileFilter filter = new FileFilter() {
-            @Override
-            public String getDescription() {
-                return LanguageManager.getInstance().getString(LanguageKey.PROLOG_FILES);
-            }
-
-            @Override
-            public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("pl") || f.isDirectory();
-            }
-        };
-
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(filter);
+        chooser.setFileFilter(FileFilters.PL_FILTER);
         int rv = chooser.showSaveDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {

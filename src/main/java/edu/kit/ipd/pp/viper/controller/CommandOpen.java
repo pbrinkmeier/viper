@@ -1,16 +1,12 @@
 package edu.kit.ipd.pp.viper.controller;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.function.Consumer;
 
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
-import org.apache.commons.io.FilenameUtils;
 
 import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
@@ -24,7 +20,7 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * sets a reference to the file so future saving operations can overwrite this
  * file.
  */
-public class CommandOpen extends Command {
+public class CommandOpen extends Command {    
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
@@ -51,20 +47,8 @@ public class CommandOpen extends Command {
      * Executes the command.
      */
     public void execute() {
-        FileFilter filter = new FileFilter() {
-            @Override
-            public String getDescription() {
-                return LanguageManager.getInstance().getString(LanguageKey.PROLOG_FILES);
-            }
-
-            @Override
-            public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("pl") || f.isDirectory();
-            }
-        };
-
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(filter);
+        chooser.setFileFilter(FileFilters.PL_FILTER);
         int rv = chooser.showOpenDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {

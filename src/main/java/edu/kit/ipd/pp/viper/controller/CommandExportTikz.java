@@ -1,13 +1,9 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
-import org.apache.commons.io.FilenameUtils;
 
 import edu.kit.ipd.pp.viper.model.visualisation.LatexMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
@@ -17,22 +13,7 @@ import edu.kit.ipd.pp.viper.view.MainWindow;
 /**
  * Command for exporting the visualisation to TikZ for LaTex.
  */
-public class CommandExportTikz extends Command {
-    /**
-     * File filter used for TikZ files.
-     */
-    public static final FileFilter TIKZ_FILTER = new FileFilter() {
-        @Override
-        public String getDescription() {
-            return LanguageManager.getInstance().getString(LanguageKey.TIKZ_FILES);
-        }
-
-        @Override
-        public boolean accept(File f) {
-            return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("tikz") || f.isDirectory();
-        }
-    };
-    
+public class CommandExportTikz extends Command {    
     private ConsolePanel console;
     private InterpreterManager interpreterManager;
     
@@ -53,7 +34,7 @@ public class CommandExportTikz extends Command {
      */
     public void execute() {
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(CommandExportTikz.TIKZ_FILTER);
+        chooser.setFileFilter(FileFilters.TIKZ_FILTER);
         int rv = chooser.showSaveDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {

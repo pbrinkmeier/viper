@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
-import org.apache.commons.io.FilenameUtils;
 
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
@@ -20,37 +17,7 @@ import guru.nidi.graphviz.model.Graph;
  * Command for exporting the visualisation to a supported image format (PNG or
  * SVG).
  */
-public class CommandExportImage extends Command {
-    /**
-     * File filter used for PNG files.
-     */
-    public static final FileFilter PNG_FILTER = new FileFilter() {
-        @Override
-        public String getDescription() {
-            return LanguageManager.getInstance().getString(LanguageKey.PNG_FILES);
-        }
-
-        @Override
-        public boolean accept(File f) {
-            return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("png") || f.isDirectory();
-        }
-    };
-    
-    /**
-     * File filter used for SVG files.
-     */
-    public static final FileFilter SVG_FILTER = new FileFilter() {
-        @Override
-        public String getDescription() {
-            return LanguageManager.getInstance().getString(LanguageKey.SVG_FILES);
-        }
-
-        @Override
-        public boolean accept(File f) {
-            return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg") || f.isDirectory();
-        }
-    };
-    
+public class CommandExportImage extends Command {    
     private ConsolePanel console;
     private ImageFormat format;
     private InterpreterManager interpreterManager;
@@ -76,9 +43,9 @@ public class CommandExportImage extends Command {
         JFileChooser chooser = new JFileChooser();
 
         if (format == ImageFormat.PNG) {
-            chooser.setFileFilter(CommandExportImage.PNG_FILTER);
+            chooser.setFileFilter(FileFilters.PNG_FILTER);
         } else if (format == ImageFormat.SVG) {
-            chooser.setFileFilter(CommandExportImage.SVG_FILTER);
+            chooser.setFileFilter(FileFilters.SVG_FILTER);
         }
 
         int rv = chooser.showSaveDialog(null);
