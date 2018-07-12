@@ -31,6 +31,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     private final Optional<ActivationRecord> next;
     private Optional<Node> backtrackingNode;
     private List<Graph> rankEnforcers;
+    private int nodeIndex;
 
     /**
      * Creates new instance with the current and the next step
@@ -43,11 +44,16 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         this.next = next;
         this.backtrackingNode = Optional.empty();
         this.rankEnforcers = new ArrayList<>();
+        this.nodeIndex = 0;
+    }
+
+    private String createUniqueNodeName() {
+        return String.format("node%d", this.nodeIndex++);
     }
 
     @Override
     public Node visit(FunctorActivationRecord far) {
-        Node node = node(html(far.getFunctor().toHtml()));
+        Node node = node(this.createUniqueNodeName()).with(html(far.getFunctor().toHtml()));
 
         if (!far.isVisited()) {
             if (this.current.isPresent() && this.current.get() == far && this.backtrackingNode.isPresent()) {
@@ -86,7 +92,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         // create the result box node
         Node resultBox
-            = node(html("{" + ruleRepr + "|" + result.toHtml() + "}"))
+            = node(this.createUniqueNodeName()).with(html("{" + ruleRepr + "|" + result.toHtml() + "}"))
             .with(
                 attr("shape", "record")
             );
