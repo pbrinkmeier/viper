@@ -18,9 +18,24 @@ import edu.kit.ipd.pp.viper.view.MainWindow;
  * Command for exporting the visualisation to TikZ for LaTex.
  */
 public class CommandExportTikz extends Command {
+    /**
+     * File filter used for TikZ files.
+     */
+    public static final FileFilter TIKZ_FILTER = new FileFilter() {
+        @Override
+        public String getDescription() {
+            return LanguageManager.getInstance().getString(LanguageKey.TIKZ_FILES);
+        }
+
+        @Override
+        public boolean accept(File f) {
+            return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("tikz") || f.isDirectory();
+        }
+    };
+    
     private ConsolePanel console;
     private InterpreterManager interpreterManager;
-
+    
     /**
      * Initializes a new TikZ export command.
      * 
@@ -37,20 +52,8 @@ public class CommandExportTikz extends Command {
      * Executes the command.
      */
     public void execute() {
-        FileFilter filter = new FileFilter() {
-            @Override
-            public String getDescription() {
-                return LanguageManager.getInstance().getString(LanguageKey.TIKZ_FILES);
-            }
-
-            @Override
-            public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("tikz") || f.isDirectory();
-            }
-        };
-
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(filter);
+        chooser.setFileFilter(CommandExportTikz.TIKZ_FILTER);
         int rv = chooser.showSaveDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {

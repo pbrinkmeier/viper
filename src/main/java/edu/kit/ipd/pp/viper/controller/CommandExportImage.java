@@ -21,10 +21,40 @@ import guru.nidi.graphviz.model.Graph;
  * SVG).
  */
 public class CommandExportImage extends Command {
+    /**
+     * File filter used for PNG files.
+     */
+    public static final FileFilter PNG_FILTER = new FileFilter() {
+        @Override
+        public String getDescription() {
+            return LanguageManager.getInstance().getString(LanguageKey.PNG_FILES);
+        }
+
+        @Override
+        public boolean accept(File f) {
+            return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("png") || f.isDirectory();
+        }
+    };
+    
+    /**
+     * File filter used for SVG files.
+     */
+    public static final FileFilter SVG_FILTER = new FileFilter() {
+        @Override
+        public String getDescription() {
+            return LanguageManager.getInstance().getString(LanguageKey.SVG_FILES);
+        }
+
+        @Override
+        public boolean accept(File f) {
+            return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg") || f.isDirectory();
+        }
+    };
+    
     private ConsolePanel console;
     private ImageFormat format;
     private InterpreterManager interpreterManager;
-
+    
     /**
      * Initializes a new image export command.
      * 
@@ -43,36 +73,12 @@ public class CommandExportImage extends Command {
      * Executes the command.
      */
     public void execute() {
-        FileFilter pngfilter = new FileFilter() {
-            @Override
-            public String getDescription() {
-                return LanguageManager.getInstance().getString(LanguageKey.PNG_FILES);
-            }
-
-            @Override
-            public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("png") || f.isDirectory();
-            }
-        };
-
-        FileFilter svgfilter = new FileFilter() {
-            @Override
-            public String getDescription() {
-                return LanguageManager.getInstance().getString(LanguageKey.SVG_FILES);
-            }
-
-            @Override
-            public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg") || f.isDirectory();
-            }
-        };
-
         JFileChooser chooser = new JFileChooser();
 
         if (format == ImageFormat.PNG) {
-            chooser.setFileFilter(pngfilter);
+            chooser.setFileFilter(CommandExportImage.PNG_FILTER);
         } else if (format == ImageFormat.SVG) {
-            chooser.setFileFilter(svgfilter);
+            chooser.setFileFilter(CommandExportImage.SVG_FILTER);
         }
 
         int rv = chooser.showSaveDialog(null);
