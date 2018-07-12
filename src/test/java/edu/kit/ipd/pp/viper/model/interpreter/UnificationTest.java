@@ -50,7 +50,7 @@ public class UnificationTest {
         UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
 
         assertTrue(!result.isSuccess());
-        assertEquals("homer ≠ marge", result.getErrorMessage());
+        assertEquals("homer is not unifiable with marge", result.getErrorMessage());
     }
 
     @Test
@@ -135,6 +135,6 @@ public class UnificationTest {
         UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
 
         assertTrue(!result.isSuccess());
-        assertEquals("X ≠ f(X)", result.getErrorMessage());
+        assertEquals("X is not unifiable with f(X)", result.getErrorMessage());
     }
 }
