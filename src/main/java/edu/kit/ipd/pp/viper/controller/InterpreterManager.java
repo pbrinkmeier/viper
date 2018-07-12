@@ -4,8 +4,11 @@ import java.util.List;
 
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
+import edu.kit.ipd.pp.viper.model.ast.Variable;
+import edu.kit.ipd.pp.viper.model.interpreter.Environment;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
+import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
@@ -14,6 +17,8 @@ import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.MainWindow;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 import guru.nidi.graphviz.model.Graph;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Manager class for interpreters. This class holds references to all
@@ -28,7 +33,9 @@ public class InterpreterManager {
     private boolean useStandardLibrary = false;
     private List<Interpreter> interpreters;
 
+    private ConsolePanel console;
     private Interpreter interpreter;
+    private List<Variable> variables;
 
     /**
      * Initializes a new interpreter manager. This should only be called once.
@@ -47,6 +54,8 @@ public class InterpreterManager {
      * @param console Panel of the console area
      */
     public void createNew(String program, String queryCode, ConsolePanel console) {
+        this.console = console;
+
         KnowledgeBase kb = null;
         try {
             kb = new PrologParser(program).parse();
@@ -69,6 +78,7 @@ public class InterpreterManager {
             }
         }
 
+        this.variables = query.getVariables();
         this.interpreter = new Interpreter(kb, query);
     }
 
@@ -78,7 +88,17 @@ public class InterpreterManager {
      * @return Result of the step taken
      */
     public StepResult step() {
-        return this.interpreter.step();
+        StepResult result = this.interpreter.step();
+
+        if (result == StepResult.SOLUTION_FOUND) {
+            final String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
+            List<Substitution> solution = this.getSolution();
+            String solutionString = solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
+
+            this.console.printLine(String.format("%s:\n%s", prefix, solutionString), LogType.SUCCESS);
+        }
+        
+        return result;
     }
 
     /**
@@ -108,11 +128,6 @@ public class InterpreterManager {
                     this.searchingForSolution = result == StepResult.STEPS_REMAINING;
                 }
 
-                if (result == StepResult.SOLUTION_FOUND) {
-                    final String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
-                    console.printLine(prefix + getSolutionString(), LogType.INFO);
-                }
-
                 Graph graph = GraphvizMaker.createGraph(getCurrentState());
                 visualisation.setFromGraph(graph);
                 searchingForSolution = false;
@@ -132,12 +147,23 @@ public class InterpreterManager {
     }
 
     /**
-     * Returns a string representation of the solution for console output.
+     * Returns a solution for the query.
+     * This method assumes that on the current interpreter instance,
+     * interpreter.getCurrent().isPresent() holds.
+     * This means that at least one step must have been executed.
      * 
-     * @return string representation of the substitutions found
+     * @return string list of substitutions that form a solution
      */
-    public String getSolutionString() {
-        return "N/A";
+    public List<Substitution> getSolution() {
+        Environment currentEnv = this.getCurrentState().getCurrent().get().getEnvironment();
+
+        List<Substitution> solution = this.variables.stream()
+        .map(variable -> {
+            return new Substitution(variable, currentEnv.applyAllSubstitutions(variable));
+        })
+        .collect(toList());
+
+        return solution;
     }
 
     /**

@@ -1,9 +1,7 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
-import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 import guru.nidi.graphviz.model.Graph;
 
@@ -34,11 +32,7 @@ public class CommandPreviousStep extends Command {
      * Executes the command.
      */
     public void execute() {
-        final StepResult res = this.interpreterManager.stepBack();
-        if (res == StepResult.SOLUTION_FOUND) {
-            final String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
-            this.console.printLine(prefix + this.interpreterManager.getSolutionString(), LogType.INFO);
-        }
+        this.interpreterManager.stepBack();
 
         Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
         this.visualisation.setFromGraph(graph);

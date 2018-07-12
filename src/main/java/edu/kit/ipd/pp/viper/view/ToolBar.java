@@ -78,7 +78,7 @@ public class ToolBar extends JToolBar {
 
         this.addSeparator();
 
-        this.add(new ToolBarButton(ICON_STEP, LanguageKey.TOOLTIP_STEP, new CommandNextStep(this.main.getConsolePanel(),
+        this.add(new ToolBarButton(ICON_STEP, LanguageKey.TOOLTIP_STEP, new CommandNextStep(
                 this.main.getVisualisationPanel(), this.main.getInterpreterManager())));
 
         this.add(new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT, new CommandContinue(

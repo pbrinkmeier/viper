@@ -37,6 +37,11 @@ public class Substitution {
         return this.by;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s => %s", this.replace, this.by);
+    }
+
     /**
      * Checks whether a substitution is equal to another object.
      * Two substitutions are equal, if their replace and by fields are equal.
