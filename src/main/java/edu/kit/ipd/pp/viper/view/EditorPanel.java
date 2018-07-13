@@ -17,8 +17,6 @@ import javax.swing.text.Document;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
-import edu.kit.ipd.pp.viper.controller.ZoomType;
-
 /**
  * Represents a panel containing an editor
  */
@@ -28,7 +26,10 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     private static final long serialVersionUID = 689492118433496287L;
 
-    private static final int DEFAULT_FONT_SIZE = 14;
+    private static final int FONT_DEFAULT_SIZE = 14;
+    private static final int FONT_MIN_SIZE = 10;
+    private static final int FONT_MAX_SIZE = 30;
+
     private int fontSize;
 
     /**
@@ -58,10 +59,10 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.changed = false;
 
         this.setLayout(new BorderLayout());
-        this.fontSize = DEFAULT_FONT_SIZE;
+        this.fontSize = FONT_DEFAULT_SIZE;
 
         this.textArea = new RSyntaxTextArea();
-        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, DEFAULT_FONT_SIZE));
+        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, FONT_DEFAULT_SIZE));
         this.textArea.addKeyListener(this);
         this.textArea.addMouseWheelListener(this);
         this.scrollPane = new RTextScrollPane(this.textArea);
@@ -163,14 +164,14 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     }
 
     private void increaseFont() {
-        if (this.fontSize > 30)
+        if (this.fontSize > FONT_MAX_SIZE)
             return;
 
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, ++this.fontSize));
     }
 
     private void decreaseFont() {
-        if (this.fontSize < 10)
+        if (this.fontSize < FONT_MIN_SIZE)
             return;
 
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, --this.fontSize));
