@@ -158,7 +158,7 @@ public class MenuBar extends JMenuBar {
      */
     private void addParseItem(Menu menu) {
         MenuItem item = new MenuItem(LanguageKey.MENU_PARSE, new CommandParse(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel()));
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
 
         menu.add(item);
     }

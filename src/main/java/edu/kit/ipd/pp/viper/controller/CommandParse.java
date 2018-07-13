@@ -1,7 +1,6 @@
 package edu.kit.ipd.pp.viper.controller;
 
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
-import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
@@ -15,6 +14,7 @@ public class CommandParse extends Command {
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new parse command.
@@ -22,27 +22,36 @@ public class CommandParse extends Command {
      * @param console Panel of the console area
      * @param editor Panel of the editor area
      * @param visualisation Panel of the visualisation area
+     * @param interpreterManager interpreter manager
      */
-    public CommandParse(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation) {
+    public CommandParse(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
+                        InterpreterManager interpreterManager) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
+        this.interpreterManager = interpreterManager;
     }
 
     /**
      * Executes the command.
      */
     public void execute() {
+        this.console.clearAll();
+        this.visualisation.clearVisualization();
+
+        this.interpreterManager.reset();
+
         try {
-            new PrologParser(editor.getSourceText()).parse();
-            console.clearAll();
-            visualisation.clearVisualization();
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_SUCCESS), LogType.INFO);
-            console.unlockInput();
+            this.interpreterManager.parseKnowledgeBase(editor.getSourceText());
+
+            this.console.printLine(
+                LanguageManager.getInstance().getString(LanguageKey.PARSER_SUCCESS), LogType.SUCCESS);
+            this.console.unlockInput();
         } catch (ParseException e) {
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR)
-                + "\n" + e.getMessage(), LogType.ERROR);
-            console.lockInput();
+            String prefix = LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR);
+            String parserError = e.getMessage();
+
+            this.console.printLine(String.format("%s: %s", prefix, parserError), LogType.ERROR);
 
             if (MainWindow.inDebugMode()) {
                 e.printStackTrace();

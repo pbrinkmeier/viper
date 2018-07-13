@@ -71,7 +71,7 @@ public class ToolBar extends JToolBar {
         this.addSeparator();
 
         this.add(new ToolBarButton(ICON_PARSE, LanguageKey.TOOLTIP_PARSE, new CommandParse(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel())));
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager())));
 
         this.add(new ToolBarButton(ICON_FORMAT, LanguageKey.TOOLTIP_FORMAT,
                 new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel())));
@@ -79,7 +79,7 @@ public class ToolBar extends JToolBar {
         this.addSeparator();
 
         this.add(new ToolBarButton(ICON_STEP, LanguageKey.TOOLTIP_STEP, new CommandNextStep(
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager())));
+                this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main.getConsolePanel())));
 
         this.add(new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT, new CommandContinue(
                 this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager())));
