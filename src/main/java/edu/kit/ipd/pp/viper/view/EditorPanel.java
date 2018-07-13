@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.File;
 
 import javax.swing.JPanel;
@@ -15,10 +17,12 @@ import javax.swing.text.Document;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
+import edu.kit.ipd.pp.viper.controller.ZoomType;
+
 /**
  * Represents a panel containing an editor
  */
-public class EditorPanel extends JPanel implements DocumentListener, KeyListener {
+public class EditorPanel extends JPanel implements DocumentListener, KeyListener, MouseWheelListener {
     /**
      * Serial UID
      */
@@ -59,6 +63,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.textArea = new RSyntaxTextArea();
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, DEFAULT_FONT_SIZE));
         this.textArea.addKeyListener(this);
+        this.textArea.addMouseWheelListener(this);
         this.scrollPane = new RTextScrollPane(this.textArea);
         this.scrollPane.setPreferredSize(new Dimension(400, 600));
         this.add(this.scrollPane, BorderLayout.CENTER);
@@ -171,6 +176,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, --this.fontSize));
     }
 
+    /**
+     * Fired when a key was pressed
+     * 
+     * @param event Event that happened
+     */
     @Override
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
@@ -204,5 +214,21 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @param e 
      */
     public void keyReleased(KeyEvent e) {
+    }
+
+    /**
+     * Fired when mouse was scrolled
+     * 
+     * @param event The event that happened
+     */
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent event) {
+        if (!event.isControlDown())
+            return;
+
+        if (event.getPreciseWheelRotation() > 0.0)
+            this.decreaseFont();
+        else
+            this.increaseFont();
     }
 }
