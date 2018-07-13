@@ -89,6 +89,7 @@ public class ConsoleInputField extends JPanel implements HasClickable {
      */
     public void unlock() {
         this.textField.setEditable(true);
+        this.textField.requestFocusInWindow();
     }
 
     @Override
