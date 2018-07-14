@@ -11,6 +11,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import edu.kit.ipd.pp.viper.controller.CommandExit;
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
+import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 
 public class MainWindow extends JFrame {
@@ -45,6 +46,9 @@ public class MainWindow extends JFrame {
     private final ConsolePanel consolePanel;
     private final VisualisationPanel visualisationPanel;
 
+    /**
+     * Preferences manager instance
+     */
     private final PreferencesManager prefManager;
 
     /**
@@ -93,6 +97,8 @@ public class MainWindow extends JFrame {
         this.pack();
         this.setVisible(true);
 
+        // load language from config and set it
+        LanguageManager.getInstance().setLocale(this.prefManager.getLanguage());
         this.consolePanel.printLine("VIPER v1.0 ready", LogType.INFO);
     }
 
@@ -194,5 +200,14 @@ public class MainWindow extends JFrame {
      */
     public InterpreterManager getInterpreterManager() {
         return this.manager;
+    }
+
+    /**
+     * Returns the preferences manager
+     * 
+     * @return Preferences manager
+     */
+    public PreferencesManager getPreferencesManager() {
+        return this.prefManager;
     }
 }
