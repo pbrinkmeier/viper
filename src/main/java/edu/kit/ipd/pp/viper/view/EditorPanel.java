@@ -71,7 +71,7 @@ public class EditorPanel extends JPanel implements DocumentListener {
     /**
      * Returns the current content of the text area
      * 
-     * @return String Text area content
+     * @return Text area content
      */
     public String getSourceText() {
         try {
@@ -111,7 +111,7 @@ public class EditorPanel extends JPanel implements DocumentListener {
     /**
      * Returns reference to a file the editor content was loaded from.
      * 
-     * @return File reference, null if {@link #hasFileReference()} returns false
+     * @return file reference, null if {@link #hasFileReference()} returns false
      */
     public File getFileReference() {
         return this.reference;

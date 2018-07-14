@@ -153,6 +153,5 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         default:
             break;
         }
-
     }
 }

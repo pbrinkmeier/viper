@@ -126,6 +126,9 @@ public class ConsolePanel extends JPanel implements HasClickable {
         bar.setValue(bar.getMaximum());
     }
 
+    /**
+     * Called when program switched to a new state (program was parsed, query was send, ...)
+     */
     @Override
     public void switchClickableState(ClickableState state) {
         this.inputField.switchClickableState(state);

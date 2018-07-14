@@ -92,6 +92,12 @@ public class ConsoleInputField extends JPanel implements HasClickable {
         this.textField.requestFocusInWindow();
     }
 
+    /**
+     * Called when a program was parsed or a query was send. Enables or disables the send
+     * button based on that.
+     * 
+     * @param state The new program state
+     */
     @Override
     public void switchClickableState(ClickableState state) {
         switch (state) {
