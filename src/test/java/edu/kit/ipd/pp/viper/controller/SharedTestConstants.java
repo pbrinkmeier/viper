@@ -11,4 +11,7 @@ public class SharedTestConstants {
             + "father(homer, lisa).\n" + "mother(marge, bart).\n\n" + "grandfather(X, Y) :-\n" + "  father(X, Z),\n"
             + "  parent(Z, Y).\n\n" + "parent(X, Y) :-\n" + "  mother(X, Y).\n\n" + "parent(X, Y) :-\n"
             + "  father(X, Y).\n";
+
+    /** An exemplary query */
+    public static final String TEST_QUERY = "father(homer, bart).";
 }
