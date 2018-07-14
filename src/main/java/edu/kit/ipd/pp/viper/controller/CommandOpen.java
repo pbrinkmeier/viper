@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +21,7 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * sets a reference to the file so future saving operations can overwrite this
  * file.
  */
-public class CommandOpen extends Command {    
+public class CommandOpen extends Command {
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
@@ -32,8 +33,7 @@ public class CommandOpen extends Command {
      * @param console Panel of the console area
      * @param editor Panel of the editor area
      * @param visualisation Panel of the visualisation area
-     * @param toggleStateFunc Consumer function that switches the state of clickable
-     * elements in the GUI
+     * @param toggleStateFunc Consumer function that switches the state of clickable elements in the GUI
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<ClickableState> toggleStateFunc) {
@@ -41,6 +41,69 @@ public class CommandOpen extends Command {
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
+    }
+
+    /**
+     * File to String reading routine. This should only be called internally, but
+     * it's public for testing purposes.
+     * 
+     * @param file the file to be read
+     * @return the file content as a string
+     */
+    public String getFileText(File file) {
+        StringBuffer buf = new StringBuffer();
+
+        try {
+            FileInputStream in = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+            String str = "";
+            while ((str = reader.readLine()) != null) {
+                buf.append(str + '\n');
+            }
+
+            in.close();
+            reader.close();
+        } catch (IOException e) {
+            printOpenError(e, file.getAbsolutePath());
+        }
+
+        return buf.toString();
+    }
+
+    /**
+     * Reading error output routine. This should only be called internally, but it's
+     * public for testing purposes.
+     * 
+     * @param e the exception that was raised by the reading failure
+     * @param filePath the path of the file that couldn't be read
+     */
+    public void printOpenError(IOException e, String filePath) {
+        String err = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_ERROR);
+        this.console.printLine(err + ": " + filePath, LogType.ERROR);
+
+        if (MainWindow.inDebugMode()) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * UI update routine. This should only be called internally, but it's public for
+     * testing purposes.
+     * 
+     * @param file the file that was read
+     */
+    public void updateUI(File file) {
+        this.editor.setSourceText(getFileText(file));
+        this.editor.setHasChanged(false);
+        this.editor.setFileReference(file);
+        this.visualisation.clearVisualization();
+
+        final String out = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_SUCCESS);
+        this.console.clearAll();
+        this.console.printLine(out + ": " + file.getAbsolutePath(), LogType.INFO);
+
+        this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
     }
 
     /**
@@ -52,38 +115,7 @@ public class CommandOpen extends Command {
         int rv = chooser.showOpenDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {
-            try {
-                FileInputStream in = new FileInputStream(chooser.getSelectedFile());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-                String str = "";
-                StringBuffer buf = new StringBuffer();
-                while ((str = reader.readLine()) != null) {
-                    buf.append(str + '\n');
-                }
-
-                this.editor.setSourceText(buf.toString());
-                this.editor.setHasChanged(false);
-                this.editor.setFileReference(chooser.getSelectedFile());
-                this.visualisation.clearVisualization();
-
-                final String out = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_SUCCESS);
-                this.console.clearAll();
-                this.console.printLine(out + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.INFO);
-
-                this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
-                in.close();
-                reader.close();
-            } catch (IOException e) {
-                String err = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_ERROR);
-                this.console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.ERROR);
-
-                if (MainWindow.inDebugMode()) {
-                    e.printStackTrace();
-                }
-                return;
-            }
-
+            updateUI(chooser.getSelectedFile());
         }
     }
 }

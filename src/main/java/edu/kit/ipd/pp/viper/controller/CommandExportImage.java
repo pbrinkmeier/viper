@@ -17,18 +17,17 @@ import guru.nidi.graphviz.model.Graph;
  * Command for exporting the visualisation to a supported image format (PNG or
  * SVG).
  */
-public class CommandExportImage extends Command {    
+public class CommandExportImage extends Command {
     private ConsolePanel console;
     private ImageFormat format;
     private InterpreterManager interpreterManager;
-    
+
     /**
      * Initializes a new image export command.
      * 
      * @param console Panel of the console area
      * @param format Format of the image to be saved
-     * @param interpreterManager Interpreter manager with a reference to the current
-     * interpreter
+     * @param interpreterManager Interpreter manager with a reference to the current interpreter
      */
     public CommandExportImage(ConsolePanel console, ImageFormat format, InterpreterManager interpreterManager) {
         this.console = console;
@@ -50,15 +49,12 @@ public class CommandExportImage extends Command {
 
         int rv = chooser.showSaveDialog(null);
         if (rv == JFileChooser.APPROVE_OPTION) {
-            Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-            Graphviz viz = Graphviz.fromGraph(graph);
-
             switch (this.format) {
             case SVG:
-                exportSVG(viz, chooser.getSelectedFile());
+                exportSVG(chooser.getSelectedFile());
                 break;
             case PNG:
-                exportPNG(viz, chooser.getSelectedFile());
+                exportPNG(chooser.getSelectedFile());
                 break;
             default:
                 String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_UNSUPPORTED_FORMAT);
@@ -67,13 +63,17 @@ public class CommandExportImage extends Command {
         }
     }
 
-    private void exportSVG(Graphviz viz, File f) {
-        File file = f;
-        String filePath = file.getAbsolutePath();
-        if (!filePath.endsWith(".svg")) {
-            file = new File(filePath + ".svg");
-        }
+    /**
+     * SVG export routine. This should only be used internally, but is public for
+     * testing purposes.
+     * 
+     * @param f file to export the SVG graph to
+     */
+    public void exportSVG(File f) {
+        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
+        Graphviz viz = Graphviz.fromGraph(graph);
 
+        File file = FileUtilities.checkForMissingExtension(f, ".svg");
         try {
             viz.render(Format.SVG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
@@ -88,13 +88,17 @@ public class CommandExportImage extends Command {
         }
     }
 
-    private void exportPNG(Graphviz viz, File f) {
-        File file = f;
-        String filePath = file.getAbsolutePath();
-        if (!filePath.endsWith(".png")) {
-            file = new File(filePath + ".png");
-        }
+    /**
+     * PNG export routine. This should only be used internally, but is public for
+     * testing purposes.
+     * 
+     * @param f file to export the PNG graph to
+     */
+    public void exportPNG(File f) {
+        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
+        Graphviz viz = Graphviz.fromGraph(graph);
 
+        File file = FileUtilities.checkForMissingExtension(f, ".png");
         try {
             viz.render(Format.PNG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
