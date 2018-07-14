@@ -65,7 +65,7 @@ public class PreferencesManager {
             // write property and close handle
             this.properties.setProperty(key, value);
 
-            this.properties.store(writer, "settings");
+            this.properties.store(writer, null);
             writer.close();
         } catch (IOException e) {
             this.console.printLine("Could not write properties file to '" + this.propertiesFile.getAbsolutePath()
