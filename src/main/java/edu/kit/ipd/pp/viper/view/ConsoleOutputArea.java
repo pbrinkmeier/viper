@@ -81,15 +81,4 @@ public class ConsoleOutputArea extends JTextPane {
 
         this.setEditable(false);
     }
-
-    /**
-     * Deprecated method to print to the console, used {@link ConsolePanel#printLine(String, LogType)} instead
-     * 
-     * @param line  String to print
-     * @param color Color of line (IGNORED! Use {@link ConsolePanel#printLine(String, LogType)} instead)
-     */
-    @Deprecated
-    public void printLine(String line, Color color) {
-        this.printLine(line, LogType.INFO);
-    }
 }
