@@ -139,6 +139,11 @@ public enum LanguageKey {
      */
     BUTTON_SEND("button_send"),
 
+    /**
+     * Text for "next step" button below visualisation viewer
+     */
+    BUTTON_STEP("button_step"),
+
     // Dialog options
     /**
      * "Yes" dialog option

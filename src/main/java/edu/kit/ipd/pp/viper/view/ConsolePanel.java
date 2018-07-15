@@ -2,10 +2,10 @@ package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import edu.kit.ipd.pp.viper.controller.CommandParseQuery;
 
@@ -54,7 +54,9 @@ public class ConsolePanel extends JPanel implements HasClickable {
 
         this.outputArea = new ConsoleOutputArea();
         this.scrollPane = new JScrollPane(this.outputArea);
-        this.scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        this.scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        this.scrollPane.setViewportView(this.outputArea);
 
         this.inputField = new ConsoleInputField(new CommandParseQuery(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager(),
@@ -124,6 +126,9 @@ public class ConsolePanel extends JPanel implements HasClickable {
         bar.setValue(bar.getMaximum());
     }
 
+    /**
+     * Called when program switched to a new state (program was parsed, query was send, ...)
+     */
     @Override
     public void switchClickableState(ClickableState state) {
         this.inputField.switchClickableState(state);
