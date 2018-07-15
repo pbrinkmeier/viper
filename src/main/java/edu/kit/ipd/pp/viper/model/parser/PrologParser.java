@@ -136,8 +136,8 @@ public class PrologParser {
             if (this.token.getType() == TokenType.COMMA || this.token.getType() == TokenType.DOT) {
                 return new FunctorGoal(f);
             } else {
-                throw new ParseException(getTokenPositionString()
-                        + LanguageManager.getInstance().getString(LanguageKey.GOAL_NOT_SUPPORTED));
+                throw new ParseException(LanguageManager.getInstance().getString(LanguageKey.GOAL_NOT_SUPPORTED)
+                    + getTokenPositionString());
                 // return parseGoalRest(f);
             }
             /*
@@ -177,7 +177,7 @@ public class PrologParser {
             return new Functor(name, terms);
         case LB:
             throw new ParseException(
-                    getTokenPositionString() + LanguageManager.getInstance().getString(LanguageKey.UNSUPPORTED_LISTS));
+                    LanguageManager.getInstance().getString(LanguageKey.UNSUPPORTED_LISTS) + getTokenPositionString());
             // return parseList();
         default:
             throw new ParseException(
