@@ -236,21 +236,20 @@ public class MenuBar extends JMenuBar implements HasClickable {
 
         ButtonGroup languageGroup = new ButtonGroup();
 
-        // TODO: using a boolean is ugly
-        boolean select = true;
+        // get the currently set locale from the preferences manager
+        Locale configLocale = this.main.getPreferencesManager().getLanguage();
+
         Iterator<Locale> iter = LanguageManager.getInstance().getSupportedLocales().iterator();
         while (iter.hasNext()) {
             Locale locale = iter.next();
-
-            LanguageCheckBoxMenuItem item = new LanguageCheckBoxMenuItem(locale,
-                    new CommandSetLang(this.main.getConsolePanel(), this.main.getVisualisationPanel(), locale,
-                            this.main.getInterpreterManager()));
+            
+            LanguageCheckBoxMenuItem item = new LanguageCheckBoxMenuItem(locale, new CommandSetLang(
+                    this.main.getConsolePanel(), this.main.getVisualisationPanel(), locale,
+                    this.main.getInterpreterManager(), this.main.getPreferencesManager()));
             languageGroup.add(item);
 
-            if (select) {
+            if (locale.getLanguage().equals(configLocale.getLanguage()))
                 item.setSelected(true);
-                select = !select;
-            }
 
             languageMenu.add(item);
         }
