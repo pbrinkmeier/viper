@@ -30,8 +30,7 @@ public class InterpreterManager {
     private Optional<List<Variable>> variables;
 
     /**
-     * Initializes an interpreter manager.
-     * This method calls reset() internally.
+     * Initializes an interpreter manager. This method calls reset() internally.
      */
     public InterpreterManager() {
         this.reset();
@@ -58,7 +57,8 @@ public class InterpreterManager {
     }
 
     /**
-     * Parses a query and initializes an interpreter, if a parsed knowledgebase is available.
+     * Parses a query and initializes an interpreter, if a parsed knowledgebase is
+     * available.
      *
      * @param querySource source code of the query to parse
      * @throws ParseException if the source code is malformed
@@ -75,10 +75,11 @@ public class InterpreterManager {
     }
 
     /**
-     * Takes an interpreter step.
-     * If this method is called after a call to {@link #reset()} (that includes the constructor)
-     * and before calls to {@link #parseKnowledgeBase(String)} and {@link #parseQuery(String)}, i.e.
-     * before an interpreter instance has been created, it will have no effect and return null.
+     * Takes an interpreter step. If this method is called after a call to
+     * {@link #reset()} (that includes the constructor) and before calls to
+     * {@link #parseKnowledgeBase(String)} and {@link #parseQuery(String)}, i.e.
+     * before an interpreter instance has been created, it will have no effect and
+     * return null.
      * 
      * @return Result of the step taken
      */
@@ -109,22 +110,15 @@ public class InterpreterManager {
      */
     public void runUntilNextSolution(ConsolePanel console, VisualisationPanel visualisation) {
         /*
-        if (!this.searchingForSolution) {
-            this.searchingForSolution = true;
-            this.continueThread = new Thread(() -> {
-                StepResult result = StepResult.STEPS_REMAINING;
-                while (this.searchingForSolution) {
-                    result = step();
-                    this.searchingForSolution = result == StepResult.STEPS_REMAINING;
-                }
-
-                Graph graph = GraphvizMaker.createGraph(getCurrentState());
-                visualisation.setFromGraph(graph);
-                searchingForSolution = false;
-            });
-            this.continueThread.start();
-        }
-        */
+         * if (!this.searchingForSolution) { this.searchingForSolution = true;
+         * this.continueThread = new Thread(() -> { StepResult result =
+         * StepResult.STEPS_REMAINING; while (this.searchingForSolution) { result =
+         * step(); this.searchingForSolution = result == StepResult.STEPS_REMAINING; }
+         * 
+         * Graph graph = GraphvizMaker.createGraph(getCurrentState());
+         * visualisation.setFromGraph(graph); searchingForSolution = false; });
+         * this.continueThread.start(); }
+         */
     }
 
     /**
@@ -135,26 +129,23 @@ public class InterpreterManager {
      */
     public void cancel() {
         /**
-        this.searchingForSolution = false;
-        */
+         * this.searchingForSolution = false;
+         */
     }
 
     /**
-     * Returns a solution for the query.
-     * This method assumes that on the current interpreter instance,
-     * interpreter.getCurrent().isPresent() holds.
-     * This means that at least one step must have been executed.
+     * Returns a solution for the query. This method assumes that on the current
+     * interpreter instance, interpreter.getCurrent().isPresent() holds. This means
+     * that at least one step must have been executed.
      * 
      * @return string list of substitutions that form a solution
      */
     public List<Substitution> getSolution() {
         Environment currentEnv = this.getCurrentState().getCurrent().get().getEnvironment();
 
-        List<Substitution> solution = this.variables.get().stream()
-        .map(variable -> {
+        List<Substitution> solution = this.variables.get().stream().map(variable -> {
             return new Substitution(variable, currentEnv.applyAllSubstitutions(variable));
-        })
-        .collect(toList());
+        }).collect(toList());
 
         return solution;
     }
@@ -173,8 +164,8 @@ public class InterpreterManager {
      */
     public void toggleStandardLibrary() {
         /*
-        this.useStandardLibrary = !this.useStandardLibrary;
-        */
+         * this.useStandardLibrary = !this.useStandardLibrary;
+         */
     }
 
     /**
@@ -184,8 +175,8 @@ public class InterpreterManager {
      */
     public boolean isStandardEnabled() {
         /*
-        return this.useStandardLibrary;
-        */
+         * return this.useStandardLibrary;
+         */
         return false;
     }
 }

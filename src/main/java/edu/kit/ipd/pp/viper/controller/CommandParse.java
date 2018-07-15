@@ -28,7 +28,7 @@ public class CommandParse extends Command {
      * @param visualisation Panel of the visualisation area
      * @param interpreterManager interpreter manager
      * @param toggleStateFunc Consumer function that switches the state of clickable
-     * elements in the GUI
+     *            elements in the GUI
      */
     public CommandParse(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             InterpreterManager interpreterManager, Consumer<ClickableState> toggleStateFunc) {
@@ -51,8 +51,8 @@ public class CommandParse extends Command {
         try {
             this.interpreterManager.parseKnowledgeBase(editor.getSourceText());
 
-            this.console.printLine(
-                LanguageManager.getInstance().getString(LanguageKey.PARSER_SUCCESS), LogType.SUCCESS);
+            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_SUCCESS),
+                    LogType.SUCCESS);
             this.console.unlockInput();
             this.toggleStateFunc.accept(ClickableState.PARSED_PROGRAM);
         } catch (ParseException e) {

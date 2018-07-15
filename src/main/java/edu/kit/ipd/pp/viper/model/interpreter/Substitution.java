@@ -8,8 +8,8 @@ public class Substitution {
     private final Term by;
 
     /**
-     * Initializes a substitution with a variable to replace and a term to replace it with.
-     * This class is immutable.
+     * Initializes a substitution with a variable to replace and a term to replace
+     * it with. This class is immutable.
      *
      * @param replace variable to replace
      * @param by term to replace the variable by
@@ -43,8 +43,8 @@ public class Substitution {
     }
 
     /**
-     * Checks whether a substitution is equal to another object.
-     * Two substitutions are equal, if their replace and by fields are equal.
+     * Checks whether a substitution is equal to another object. Two substitutions
+     * are equal, if their replace and by fields are equal.
      *
      * @param other Object to check equality to
      * @return whether this is equal to other

@@ -22,7 +22,8 @@ public class CommandSetLang extends Command {
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
      * @param lang Language to be switched to
-     * @param interpreterManager Interpreter manager with a reference to the current interpreter
+     * @param interpreterManager Interpreter manager with a reference to the current
+     *            interpreter
      * @param prefManager Preferences manager
      */
     public CommandSetLang(ConsolePanel console, VisualisationPanel visualisation, Locale lang,

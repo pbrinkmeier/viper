@@ -57,22 +57,18 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         if (!far.isVisited()) {
             if (this.current.isPresent() && this.current.get() == far && this.backtrackingNode.isPresent()) {
-                node = node.link(
-                    to(this.backtrackingNode.get())
-                    .with(Style.DOTTED)
-                    .with(Color.RED)
-                    .with(attr("constraint", "false"))
-                )
-                .with(Color.RED);
+                node = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(Color.RED)
+                        .with(attr("constraint", "false"))).with(Color.RED);
             }
 
             return node;
         }
 
         /*
-         * In case of backtracking we reach the "next" node before we reach the "current" node
-         * so we have to save the information that backtracking has to be done for later
-        */
+         * In case of backtracking we reach the "next" node before we reach the
+         * "current" node so we have to save the information that backtracking has to be
+         * done for later
+         */
         if (this.next.isPresent() && this.next.get() == far)
             this.backtrackingNode = Optional.of(node);
 
@@ -84,18 +80,14 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         if (far.getMatchingRuleHead().getParameters().size() != 0) {
             ruleRepr += "(";
-            ruleRepr += far.getMatchingRuleHead().getParameters().stream()
-            .map(param -> param.toHtml())
-            .collect(joining(", "));
+            ruleRepr += far.getMatchingRuleHead().getParameters().stream().map(param -> param.toHtml())
+                    .collect(joining(", "));
             ruleRepr += ")";
         }
 
         // create the result box node
-        Node resultBox
-            = node(this.createUniqueNodeName()).with(html("{" + ruleRepr + "|" + result.toHtml() + "}"))
-            .with(
-                attr("shape", "record")
-            );
+        Node resultBox = node(this.createUniqueNodeName()).with(html("{" + ruleRepr + "|" + result.toHtml() + "}"))
+                .with(attr("shape", "record"));
 
         if (this.current.isPresent() && this.current.get() == far) {
             resultBox = resultBox.with(result.isSuccess() ? Color.GREEN : Color.RED);
@@ -118,12 +110,8 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
             for (Node childNode : childNodes) {
                 resultBox = resultBox.link(
-                    to(
-                        previous.isPresent()
-                        ? childNode.link(to(previous.get()).with(Style.INVIS))
-                        : childNode
-                    ).with(Style.DASHED)
-                );
+                        to(previous.isPresent() ? childNode.link(to(previous.get()).with(Style.INVIS)) : childNode)
+                                .with(Style.DASHED));
 
                 previous = Optional.of(childNode);
             }
@@ -133,8 +121,9 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     }
 
     /**
-     * Calls the private constructor to create an new instance and creates a graph with the
-     * new instance by visiting all the available ActivationRecords in the interpreter
+     * Calls the private constructor to create an new instance and creates a graph
+     * with the new instance by visiting all the available ActivationRecords in the
+     * interpreter
      *
      * @param interpreter The interpreter to create the graph from
      * @return the resulting graph object

@@ -24,12 +24,12 @@ public class FunctorUnifier extends Unifier {
     }
 
     /**
-     * How to unify two functors.
-     * If their names or arity are not equal, unification fails.
-     * If they are, try to unify all their parameters.
-     * If any of the unifications of parameters fails, unification fails.
-     * For every unification of parameters, store the resulting substitutions.
-     * If all unifications of parameters have succeeded, unification succeeds with the stored substitutions.
+     * How to unify two functors. If their names or arity are not equal, unification
+     * fails. If they are, try to unify all their parameters. If any of the
+     * unifications of parameters fails, unification fails. For every unification of
+     * parameters, store the resulting substitutions. If all unifications of
+     * parameters have succeeded, unification succeeds with the stored
+     * substitutions.
      *
      * @param functor functor to unify with
      * @return an UnificationResult according to the rules stated above
@@ -47,7 +47,8 @@ public class FunctorUnifier extends Unifier {
             Term lhs = me.getParameters().get(index);
             Term rhs = functor.getParameters().get(index);
 
-            // Previously found substitutions must be applied in case a variable has been used multiple times.
+            // Previously found substitutions must be applied in case a variable has been
+            // used multiple times.
             // Consider the unification "max(42, 17, Max) = max(X, Y, X)".
             for (Substitution s : substitutions) {
                 SubstitutionApplier replacer = new SubstitutionApplier(s);

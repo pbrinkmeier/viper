@@ -15,25 +15,24 @@ public abstract class Goal {
      * @param parent optional FunctorActivationRecord that has this as subgoal
      * @return newly created ActivationRecord
      */
-    public abstract ActivationRecord createActivationRecord(
-        Interpreter interpreter,
-        Optional<FunctorActivationRecord> parent
-    );
+    public abstract ActivationRecord createActivationRecord(Interpreter interpreter,
+            Optional<FunctorActivationRecord> parent);
 
     /**
-     * Applies a TermTransformationVisitor to all terms in this goal.
-     * This allows {@link edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord#step()} to indexify
-     * the subgoals of a matching rule.
+     * Applies a TermTransformationVisitor to all terms in this goal. This allows
+     * {@link edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord#step()}
+     * to indexify the subgoals of a matching rule.
      *
      * @param visitor {@link TermTransformationVisitor} to visit this goal
-     * @return new version of the goal where the visitor has been applied to all terms
+     * @return new version of the goal where the visitor has been applied to all
+     *         terms
      */
     public abstract Goal transform(TermTransformationVisitor visitor);
 
     /**
-     * Returns an immutable list of variables that appear in this goal.
-     * This list may be used by the interpreter manager to find out which
-     * variables a certain interpreter is trying to solve for.
+     * Returns an immutable list of variables that appear in this goal. This list
+     * may be used by the interpreter manager to find out which variables a certain
+     * interpreter is trying to solve for.
      *
      * @return list of variables that appear in this goal
      */
@@ -46,7 +45,7 @@ public abstract class Goal {
      */
     @Override
     public abstract String toString();
-    
+
     /**
      * Checks whether this equals another object. Will only return true for functors
      * of the same name and parameters.

@@ -10,21 +10,16 @@ public class RuleTest {
 
     @Before
     public void init() {
-        this.testRule = new Rule(
-            new Functor("grandfather", Arrays.asList(new Variable("X"), new Variable("Y"))),
-            Arrays.asList(
-                new FunctorGoal(new Functor("father", Arrays.asList(new Variable("X"), new Variable("Z")))),
-                new FunctorGoal(new Functor("father", Arrays.asList(new Variable("Z"), new Variable("Y"))))
-            )
-        );
+        this.testRule = new Rule(new Functor("grandfather", Arrays.asList(new Variable("X"), new Variable("Y"))),
+                Arrays.asList(
+                        new FunctorGoal(new Functor("father", Arrays.asList(new Variable("X"), new Variable("Z")))),
+                        new FunctorGoal(new Functor("father", Arrays.asList(new Variable("Z"), new Variable("Y"))))));
     }
 
     @Test
     public void getHeadTest() {
-        assertEquals(
-            new Functor("grandfather", Arrays.asList(new Variable("X"), new Variable("Y"))),
-            this.testRule.getHead()
-        );
+        assertEquals(new Functor("grandfather", Arrays.asList(new Variable("X"), new Variable("Y"))),
+                this.testRule.getHead());
     }
 
     @Test(expected = UnsupportedOperationException.class)

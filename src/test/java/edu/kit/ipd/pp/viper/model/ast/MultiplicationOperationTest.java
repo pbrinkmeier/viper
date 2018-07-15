@@ -25,9 +25,7 @@ public class MultiplicationOperationTest {
 
     @Test
     public void createNewTest() {
-        assertEquals(
-            this.fortyTwo.createNew(Arrays.asList(new Number(1), new Number(2))),
-            new MultiplicationOperation(new Number(1), new Number(2))
-        );
+        assertEquals(this.fortyTwo.createNew(Arrays.asList(new Number(1), new Number(2))),
+                new MultiplicationOperation(new Number(1), new Number(2)));
     }
 }

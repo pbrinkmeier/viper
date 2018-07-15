@@ -25,9 +25,9 @@ public class CommandParseQuery extends Command {
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
      * @param interpreterManager Interpreter manager with a reference to the current
-     * interpreter
+     *            interpreter
      * @param toggleStateFunc Consumer function that switches the state of clickable
-     * elements in the GUI
+     *            elements in the GUI
      */
     public CommandParseQuery(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager, Consumer<ClickableState> toggleStateFunc) {
@@ -47,8 +47,8 @@ public class CommandParseQuery extends Command {
             this.visualisation.setFromGraph(graph);
             this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
             this.console.clearInputField();
-            this.console.printLine(
-                LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_STARTED), LogType.SUCCESS);
+            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_STARTED),
+                    LogType.SUCCESS);
         } catch (ParseException e) {
             String prefix = LanguageManager.getInstance().getString(LanguageKey.PARSER_QUERY_ERROR);
             String parserError = e.getMessage();

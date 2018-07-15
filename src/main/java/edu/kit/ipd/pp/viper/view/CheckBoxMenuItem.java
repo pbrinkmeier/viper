@@ -11,7 +11,8 @@ import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
- * Represents a checkable menu item used to enable/disable the standard library via the menubar
+ * Represents a checkable menu item used to enable/disable the standard library
+ * via the menubar
  */
 public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListener, Observer {
     /**
@@ -30,8 +31,8 @@ public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListene
     private final Command command;
 
     /**
-     * Creates a new checkable menu item that can be used for a enable/disable item (e.g. enable/disable standard
-     * library).
+     * Creates a new checkable menu item that can be used for a enable/disable item
+     * (e.g. enable/disable standard library).
      * 
      * @param textKey Key used for translation
      * @param command Command to execute when item was checked/unchecked
@@ -58,7 +59,8 @@ public class CheckBoxMenuItem extends JCheckBoxMenuItem implements ActionListene
     }
 
     /**
-     * Called by the {@link LanguageManager} when the locale was changed. This triggers an update of the item text.
+     * Called by the {@link LanguageManager} when the locale was changed. This
+     * triggers an update of the item text.
      * 
      * @param obs Class that triggered the update, ignored here
      * @param obj Object that was triggered, ignored here

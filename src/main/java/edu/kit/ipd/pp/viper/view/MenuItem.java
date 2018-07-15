@@ -31,7 +31,8 @@ public class MenuItem extends JMenuItem implements ActionListener, Observer {
     private final Command command;
 
     /**
-     * Creates a new menu item that can be used to execute a specific action, realized through a {@link Command}.
+     * Creates a new menu item that can be used to execute a specific action,
+     * realized through a {@link Command}.
      * 
      * @param textKey Key used for translation
      * @param command Command to execute when item was checked/unchecked
@@ -58,7 +59,8 @@ public class MenuItem extends JMenuItem implements ActionListener, Observer {
     }
 
     /**
-     * Called by the {@link LanguageManager} when the locale was changed. This triggers an update of the item text.
+     * Called by the {@link LanguageManager} when the locale was changed. This
+     * triggers an update of the item text.
      * 
      * @param obs Class that triggered the update, ignored here
      * @param obj Object that was triggered, ignored here

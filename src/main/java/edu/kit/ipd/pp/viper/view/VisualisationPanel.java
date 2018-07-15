@@ -35,7 +35,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * Main window
      */
     private final MainWindow main;
-    
+
     /**
      * Viewer to use
      */
@@ -46,7 +46,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     private Button buttonStep;
 
     private boolean hasGraph;
-    
+
     /**
      * Creates a new viewer panel
      * 
@@ -75,15 +75,16 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         this.zoomOut = new ToolBarButton(ICON_ZOOM_OUT, LanguageKey.ZOOM_OUT, new CommandZoom(this, ZoomType.ZOOM_OUT));
         this.zoomOut.setBounds(10, 40, 30, 30);
 
-        // viewer is on level 1, both buttons on level 2 and therefore appear above the viewer
+        // viewer is on level 1, both buttons on level 2 and therefore appear above the
+        // viewer
         contentPane.add(this.viewer, new Integer(1));
         contentPane.add(zoomIn, new Integer(2));
         contentPane.add(zoomOut, new Integer(2));
 
         // panel for the buttons below the visualisation
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        this.buttonStep = new Button(LanguageKey.BUTTON_STEP, new CommandNextStep(
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main.getConsolePanel()));
+        this.buttonStep = new Button(LanguageKey.BUTTON_STEP, new CommandNextStep(this.main.getVisualisationPanel(),
+                this.main.getInterpreterManager(), this.main.getConsolePanel()));
         buttonPanel.add(buttonStep);
 
         this.add(contentPane, BorderLayout.CENTER);
@@ -99,7 +100,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     public boolean hasGraph() {
         return this.hasGraph;
     }
-    
+
     /**
      * Clears the currently shown visualisation
      */

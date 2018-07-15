@@ -16,29 +16,21 @@ public class IndexifierTest {
     public void visitFunctorTest() {
         Functor fun = new Functor("father", Arrays.asList(new Variable("X"), new Variable("Z")));
 
-        assertEquals(
-            new Functor("father", Arrays.asList(new Variable("X", 42), new Variable("Z", 42))),
-            fun.transform(new Indexifier(42))
-        );
+        assertEquals(new Functor("father", Arrays.asList(new Variable("X", 42), new Variable("Z", 42))),
+                fun.transform(new Indexifier(42)));
     }
 
     @Test
     public void visitVariableTest() {
         Variable var = new Variable("A");
 
-        assertEquals(
-            new Variable("A", 42),
-            var.transform(new Indexifier(42))
-        );
+        assertEquals(new Variable("A", 42), var.transform(new Indexifier(42)));
     }
 
     @Test
     public void visitNumberTest() {
         Number num = new Number(100);
 
-        assertEquals(
-            new Number(100),
-            num.transform(new Indexifier(42))
-        );
+        assertEquals(new Number(100), num.transform(new Indexifier(42)));
     }
 }

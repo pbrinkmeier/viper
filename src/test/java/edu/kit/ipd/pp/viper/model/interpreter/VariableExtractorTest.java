@@ -14,14 +14,8 @@ import static org.junit.Assert.*;
 public class VariableExtractorTest {
     @Test
     public void extractFromFunctorTest() {
-        Term term = new Functor("blub", Arrays.asList(
-            new Number(42),
-            new Variable("X"),
-            new Functor("sub", Arrays.asList(
-                new Variable("X"),
-                new Variable("Y")
-            ))
-        ));
+        Term term = new Functor("blub", Arrays.asList(new Number(42), new Variable("X"),
+                new Functor("sub", Arrays.asList(new Variable("X"), new Variable("Y")))));
 
         List<Variable> variables = term.accept(new VariableExtractor());
         assertEquals(Arrays.asList(new Variable("X"), new Variable("Y")), variables);

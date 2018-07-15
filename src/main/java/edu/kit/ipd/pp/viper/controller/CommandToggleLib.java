@@ -21,8 +21,9 @@ public class CommandToggleLib extends Command {
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
      * @param interpreterManager Interpreter manager with a reference to the current
-     * interpreter
-     * @param toggleStateFunc Consumer function that switches the state of clickable elements in the GUI
+     *            interpreter
+     * @param toggleStateFunc Consumer function that switches the state of clickable
+     *            elements in the GUI
      */
     public CommandToggleLib(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager, Consumer<ClickableState> toggleStateFunc) {

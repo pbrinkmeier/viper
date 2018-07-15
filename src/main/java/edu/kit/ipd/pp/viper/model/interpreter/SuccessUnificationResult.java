@@ -24,7 +24,7 @@ class SuccessUnificationResult extends UnificationResult {
         return this.substitutions;
     }
 
-    @Override 
+    @Override
     public String getErrorMessage() throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
@@ -34,11 +34,8 @@ class SuccessUnificationResult extends UnificationResult {
         String repr = "";
 
         for (int index = 0; index < this.substitutions.size(); index++) {
-            repr +=
-                String.format("%s =&gt; %s",
-                    this.substitutions.get(index).getReplace().toHtml(),
-                    this.substitutions.get(index).getBy().toHtml()
-                );
+            repr += String.format("%s =&gt; %s", this.substitutions.get(index).getReplace().toHtml(),
+                    this.substitutions.get(index).getBy().toHtml());
 
             if (index != this.substitutions.size() - 1) {
                 repr += ", ";

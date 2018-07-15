@@ -68,7 +68,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.scrollPane = new RTextScrollPane(this.textArea);
         this.scrollPane.setPreferredSize(new Dimension(400, 600));
         this.add(this.scrollPane, BorderLayout.CENTER);
-        
+
         this.textArea.getDocument().addDocumentListener(this);
     }
 
@@ -106,14 +106,16 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     /**
      * Sets the internal status whether the editor has unsaved changes.
      * 
-     * @param changed Boolean value describing whether the editor has unsaved content
+     * @param changed Boolean value describing whether the editor has unsaved
+     *            content
      */
     public void setHasChanged(boolean changed) {
         this.changed = changed;
     }
 
     /**
-     * Checks whether the editor has a reference to a {@link File} the content was opened from
+     * Checks whether the editor has a reference to a {@link File} the content was
+     * opened from
      * 
      * @return true if a {@link File} reference is known, false otherwise
      */
@@ -140,8 +142,8 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     }
 
     /**
-     * Called when an attribute of the {@link Document} has changed.
-     * We only care about changes to the actual text, therefore nothing happens here.
+     * Called when an attribute of the {@link Document} has changed. We only care
+     * about changes to the actual text, therefore nothing happens here.
      */
     @Override
     public void changedUpdate(DocumentEvent event) {
@@ -204,7 +206,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     /**
      * Fired when a key was successfully typed, ignored here
      * 
-     * @param e 
+     * @param e The issued event
      */
     public void keyTyped(KeyEvent e) {
     }
@@ -212,7 +214,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     /**
      * Fire when a key was released, ignored here
      * 
-     * @param e 
+     * @param e The issued event
      */
     public void keyReleased(KeyEvent e) {
     }

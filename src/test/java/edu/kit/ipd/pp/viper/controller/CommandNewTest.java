@@ -29,14 +29,16 @@ public class CommandNewTest {
     }
 
     /**
-     * Tests whether the new command actually clears the editor.
-     * This test assumes there are no changes left to be saved to disk.
+     * Tests whether the new command actually clears the editor. This test assumes
+     * there are no changes left to be saved to disk.
      */
     @Test
     public void getsCleared() {
         this.editor.setSourceText("test");
         this.editor.setHasChanged(false);
-        new CommandNew(this.console, this.editor, this.visualisation, this.gui::setTitle, this.gui::switchClickableState).execute();
+        new CommandNew(this.console, this.editor, this.visualisation,
+                this.gui::setTitle,
+                this.gui::switchClickableState).execute();
 
         assertTrue(this.editor.getSourceText().equals(""));
     }

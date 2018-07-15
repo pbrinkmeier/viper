@@ -114,8 +114,8 @@ public class MainWindow extends JFrame {
     }
 
     /**
-     * Global clickable change function. This toggles all sub-elements
-     * in the GUI to change their clickable state.
+     * Global clickable change function. This toggles all sub-elements in the GUI to
+     * change their clickable state.
      * 
      * @param state The new state to be changed to
      */
@@ -177,8 +177,8 @@ public class MainWindow extends JFrame {
     }
 
     /**
-     * Sets the window title to '{title} - VIPER'. This can be used to
-     * include the currently opened file in the title.
+     * Sets the window title to '{title} - VIPER'. This can be used to include the
+     * currently opened file in the title.
      * 
      * @param title String to display, using "" or null removes the title
      */

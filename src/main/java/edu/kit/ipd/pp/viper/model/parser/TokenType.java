@@ -44,7 +44,7 @@ public enum TokenType {
     STAR("*"),
     /** Exclamation mark */
     EXCLAMATION("!"),
-    /** Arithmetically evaluates the right side and unifies it with the left side*/
+    /** Arithmetically evaluates the right side and unifies it with the left side */
     IS("is"),
     /** A variable (can be anything that starts with an upper case letter) */
     VARIABLE("Variable"),
@@ -52,7 +52,7 @@ public enum TokenType {
     IDENTIFIER("Identifier"),
     /** A regular number */
     NUMBER("Number");
-    
+
     private String value;
 
     private TokenType(String value) {

@@ -15,10 +15,8 @@ public class UnificationResultTest {
 
     @Before
     public void init() {
-        List<Substitution> substitutions = Arrays.asList(
-            new Substitution(new Variable("X"), Functor.atom("abe")),
-            new Substitution(new Variable("Y"), Functor.atom("bart"))
-        );
+        List<Substitution> substitutions = Arrays.asList(new Substitution(new Variable("X"), Functor.atom("abe")),
+                new Substitution(new Variable("Y"), Functor.atom("bart")));
 
         this.successResult = UnificationResult.success(substitutions);
         this.failResult = UnificationResult.fail(Functor.atom("abe"), Functor.atom("homer"));
@@ -32,10 +30,8 @@ public class UnificationResultTest {
 
     @Test
     public void getSubstitutionsSuccessTest() {
-        List<Substitution> substitutions = Arrays.asList(
-            new Substitution(new Variable("X"), Functor.atom("abe")),
-            new Substitution(new Variable("Y"), Functor.atom("bart"))
-        );
+        List<Substitution> substitutions = Arrays.asList(new Substitution(new Variable("X"), Functor.atom("abe")),
+                new Substitution(new Variable("Y"), Functor.atom("bart")));
 
         assertEquals(substitutions, this.successResult.getSubstitutions());
     }

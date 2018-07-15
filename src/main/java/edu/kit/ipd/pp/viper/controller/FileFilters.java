@@ -21,7 +21,7 @@ public class FileFilters {
             return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("pl") || f.isDirectory();
         }
     };
-    
+
     /**
      * File filter used for TikZ files.
      */
@@ -36,7 +36,7 @@ public class FileFilters {
             return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("tikz") || f.isDirectory();
         }
     };
-    
+
     /**
      * File filter used for PNG files.
      */
@@ -51,7 +51,7 @@ public class FileFilters {
             return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("png") || f.isDirectory();
         }
     };
-    
+
     /**
      * File filter used for SVG files.
      */

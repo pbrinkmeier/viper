@@ -9,7 +9,8 @@ class FailUnificationResult extends UnificationResult {
     private final Term rhs;
 
     /**
-     * Intializes a fail-result with a left and right hand side of a failed unification.
+     * Intializes a fail-result with a left and right hand side of a failed
+     * unification.
      *
      * @param lhs left hand side of the failed unification
      * @param rhs right hand side of the failed unification

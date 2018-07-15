@@ -15,15 +15,16 @@ import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
- * Represents a {@link ToolBarButton} in the toolbar of the main window. These buttons are shortcuts for functionality
- * also available in the menubar and thus take the same {@link CommandSave}.
+ * Represents a {@link ToolBarButton} in the toolbar of the main window. These
+ * buttons are shortcuts for functionality also available in the menubar and
+ * thus take the same {@link CommandSave}.
  */
 public class ToolBarButton extends JButton implements ActionListener, Observer {
     /**
      * Serial UID
      */
     private static final long serialVersionUID = -7356326159655702744L;
-    
+
     /**
      * Dimensions for the icons that are used on all buttons
      */
@@ -31,8 +32,8 @@ public class ToolBarButton extends JButton implements ActionListener, Observer {
     private static final int ICON_HEIGHT = 25;
 
     /**
-     * The tooltip for each button is translateable via the {@link LanguageManager}, therefore this translation
-     * key is necessary
+     * The tooltip for each button is translateable via the {@link LanguageManager},
+     * therefore this translation key is necessary
      */
     private final LanguageKey tooltipKey;
 
@@ -42,12 +43,13 @@ public class ToolBarButton extends JButton implements ActionListener, Observer {
     private final Command command;
 
     /**
-     * Creates a new button using a path to an icon that will be used for display, a language key for translation of
-     * the tooltip, as well as command to execute on click.
+     * Creates a new button using a path to an icon that will be used for display, a
+     * language key for translation of the tooltip, as well as command to execute on
+     * click.
      * 
-     * @param iconPath   Path to the icon that will be displayed on the button
+     * @param iconPath Path to the icon that will be displayed on the button
      * @param tooltipKey Key used for translation of the button tooltip
-     * @param command    Command to execute on click
+     * @param command Command to execute on click
      */
     public ToolBarButton(String iconPath, LanguageKey tooltipKey, Command command) {
         super();
@@ -76,7 +78,8 @@ public class ToolBarButton extends JButton implements ActionListener, Observer {
     }
 
     /**
-     * Called by the {@link LanguageManager} when the locale was changed. This triggers an update of the item text.
+     * Called by the {@link LanguageManager} when the locale was changed. This
+     * triggers an update of the item text.
      * 
      * @param obs Class that triggered the update, ignored here
      * @param obj Object that was triggered, ignored here

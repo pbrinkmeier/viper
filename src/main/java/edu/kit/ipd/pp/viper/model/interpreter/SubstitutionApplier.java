@@ -22,8 +22,8 @@ public class SubstitutionApplier implements TermVisitor<Term> {
     }
 
     /**
-     * How to apply a substitution to a functor.
-     * Apply the substitution to its parameters and leave the name.
+     * How to apply a substitution to a functor. Apply the substitution to its
+     * parameters and leave the name.
      *
      * @param functor functor to apply a substitution to
      * @return same functor, with the substitution applied to its parameters
@@ -40,10 +40,9 @@ public class SubstitutionApplier implements TermVisitor<Term> {
     }
 
     /**
-     * How to apply a substitution to a variable.
-     * If the substitutions replace field is the same as the variable,
-     * replace it by the substitutions by field.
-     * Else, leave it.
+     * How to apply a substitution to a variable. If the substitutions replace field
+     * is the same as the variable, replace it by the substitutions by field. Else,
+     * leave it.
      *
      * @param variable variable term to replace
      * @return if no substitution occurred the variable, else its replacement
@@ -58,8 +57,8 @@ public class SubstitutionApplier implements TermVisitor<Term> {
     }
 
     /**
-     * How to apply a substitution to a number.
-     * A number just stays the same; it is never substituted.
+     * How to apply a substitution to a number. A number just stays the same; it is
+     * never substituted.
      *
      * @param number number term to visit for substitution
      * @return just the same number term

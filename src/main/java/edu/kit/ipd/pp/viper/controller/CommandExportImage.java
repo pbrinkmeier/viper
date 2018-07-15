@@ -27,7 +27,8 @@ public class CommandExportImage extends Command {
      * 
      * @param console Panel of the console area
      * @param format Format of the image to be saved
-     * @param interpreterManager Interpreter manager with a reference to the current interpreter
+     * @param interpreterManager Interpreter manager with a reference to the current
+     *            interpreter
      */
     public CommandExportImage(ConsolePanel console, ImageFormat format, InterpreterManager interpreterManager) {
         this.console = console;

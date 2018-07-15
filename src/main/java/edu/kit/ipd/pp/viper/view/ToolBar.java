@@ -54,8 +54,8 @@ public class ToolBar extends JToolBar implements HasClickable {
      * Creates a new toolbar that can be added to the main window
      * 
      * @param gui Reference to main window. Necessary because the commands executed
-     * by clicking on buttons in this toolbar need the different panels available
-     * via getters in the main class.
+     *            by clicking on buttons in this toolbar need the different panels
+     *            available via getters in the main class.
      */
     public ToolBar(MainWindow gui) {
         this.main = gui;
@@ -76,12 +76,13 @@ public class ToolBar extends JToolBar implements HasClickable {
         this.buttonOpen = new ToolBarButton(ICON_OPEN, LanguageKey.TOOLTIP_OPEN,
                 new CommandOpen(this.main.getConsolePanel(), this.main.getEditorPanel(),
                         this.main.getVisualisationPanel(), this.main::setWindowTitle, this.main::switchClickableState));
-        this.buttonSave = new ToolBarButton(ICON_SAVE, LanguageKey.TOOLTIP_SAVE,
-                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE, this.main::setWindowTitle));
+        this.buttonSave = new ToolBarButton(ICON_SAVE, LanguageKey.TOOLTIP_SAVE, new CommandSave(
+                this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE, this.main::setWindowTitle));
 
         this.buttonParse = new ToolBarButton(ICON_PARSE, LanguageKey.TOOLTIP_PARSE,
                 new CommandParse(this.main.getConsolePanel(), this.main.getEditorPanel(),
-                        this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main::switchClickableState));
+                        this.main.getVisualisationPanel(), this.main.getInterpreterManager(),
+                        this.main::switchClickableState));
         this.buttonFormat = new ToolBarButton(ICON_FORMAT, LanguageKey.TOOLTIP_FORMAT,
                 new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel()));
 

@@ -37,7 +37,8 @@ public abstract class UnificationResult {
      * Getter-method for the substitutions of a success-result.
      *
      * @return list of substitutions in this result (immutable)
-     * @throws UnsupportedOperationException when trying to get the substitutions of a fail-result
+     * @throws UnsupportedOperationException when trying to get the substitutions of
+     *             a fail-result
      */
     public abstract List<Substitution> getSubstitutions() throws UnsupportedOperationException;
 
@@ -45,7 +46,8 @@ public abstract class UnificationResult {
      * Getter-method for the error-message of a fail-result.
      *
      * @return error message describing how the unification went wrong
-     * @throws UnsupportedOperationException when trying to get the error message of a success-result
+     * @throws UnsupportedOperationException when trying to get the error message of
+     *             a success-result
      */
     public abstract String getErrorMessage() throws UnsupportedOperationException;
 

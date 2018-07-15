@@ -25,9 +25,7 @@ public class SubtractionOperationTest {
 
     @Test
     public void createNewTest() {
-        assertEquals(
-            this.fortyTwo.createNew(Arrays.asList(new Number(1), new Number(2))),
-            new SubtractionOperation(new Number(1), new Number(2))
-        );
+        assertEquals(this.fortyTwo.createNew(Arrays.asList(new Number(1), new Number(2))),
+                new SubtractionOperation(new Number(1), new Number(2)));
     }
 }

@@ -29,8 +29,7 @@ public class Rule {
     }
 
     /**
-     * Getter-method for the subgoals of this rule.
-     * The returned list is immutable.
+     * Getter-method for the subgoals of this rule. The returned list is immutable.
      *
      * @return subgoals of this rule
      */
@@ -63,7 +62,7 @@ public class Rule {
 
         return repr;
     }
-    
+
     /**
      * Checks whether this equals another object. Will only return true for functors
      * of the same name and parameters.
@@ -80,28 +79,28 @@ public class Rule {
         if (!other.getClass().equals(Rule.class)) {
             return false;
         }
-        
+
         Functor otherHead = ((Rule) other).getHead();
-        
+
         if (!this.head.equals(otherHead))
             return false;
-        
+
         List<Goal> otherGoals = ((Rule) other).getSubgoals();
-        
+
         if (this.subgoals.isEmpty() && otherGoals.isEmpty())
             return true;
-        
+
         if (this.subgoals.size() != otherGoals.size())
             return false;
-        
+
         Iterator<Goal> thisIter = this.subgoals.iterator();
         Iterator<Goal> otherIter = otherGoals.iterator();
-            
+
         while (thisIter.hasNext()) {
             if (!thisIter.next().equals(otherIter.next()))
                 return false;
         }
-        
+
         return true;
     }
 }

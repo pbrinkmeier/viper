@@ -25,7 +25,7 @@ public class CommandNew extends Command {
      * @param visualisation Panel of the visualisation area
      * @param editor Panel of the editor area
      * @param toggleStateFunc Consumer function that switches the state of clickable
-     * elements in the GUI
+     *            elements in the GUI
      * @param setTitle Consumer function to change the window title
      */
     public CommandNew(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,

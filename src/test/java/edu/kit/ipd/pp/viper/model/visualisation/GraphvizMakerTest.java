@@ -20,7 +20,7 @@ import guru.nidi.graphviz.model.Graph;
 public class GraphvizMakerTest {
     @Test
     public void createGraphtest() throws Exception, IOException, ParseException {
-        String source = new String(Files.readAllBytes(Paths.get("src/test/resources/simpsons_advanced.pl"))); 
+        String source = new String(Files.readAllBytes(Paths.get("src/test/resources/simpsons_advanced.pl")));
         KnowledgeBase kb = new PrologParser(source).parse();
         Goal query = new PrologParser("grandfather(X, Y).").parseGoalList().get(0);
         Interpreter ip = new Interpreter(kb, query);

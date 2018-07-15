@@ -13,16 +13,16 @@ import edu.kit.ipd.pp.viper.view.MainWindow;
 /**
  * Command for exporting the visualisation to TikZ for LaTex.
  */
-public class CommandExportTikz extends Command {    
+public class CommandExportTikz extends Command {
     private ConsolePanel console;
     private InterpreterManager interpreterManager;
-    
+
     /**
      * Initializes a new TikZ export command.
      * 
      * @param console Panel of the console area
      * @param interpreterManager Interpreter manager with a reference to the current
-     * interpreter
+     *            interpreter
      */
     public CommandExportTikz(ConsolePanel console, InterpreterManager interpreterManager) {
         this.console = console;
@@ -50,7 +50,7 @@ public class CommandExportTikz extends Command {
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
                 this.console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.ERROR);
-                
+
                 if (MainWindow.inDebugMode()) {
                     e.printStackTrace();
                 }

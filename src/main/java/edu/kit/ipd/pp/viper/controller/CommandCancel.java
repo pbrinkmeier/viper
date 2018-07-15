@@ -15,7 +15,7 @@ public class CommandCancel extends Command {
      * Initializes a new cancel command.
      * 
      * @param interpreterManager Interpreter manager with a reference to the current
-     * interpreter
+     *            interpreter
      * @param visualisation Panel of the visualisation
      */
     public CommandCancel(InterpreterManager interpreterManager, VisualisationPanel visualisation) {

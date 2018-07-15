@@ -19,10 +19,8 @@ public class UnificationTest {
         UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
 
         assertTrue(result.isSuccess());
-        assertEquals(
-            Arrays.asList(new Substitution(new Variable("Foond"), Functor.atom("cheezburger"))),
-            result.getSubstitutions()
-        );
+        assertEquals(Arrays.asList(new Substitution(new Variable("Foond"), Functor.atom("cheezburger"))),
+                result.getSubstitutions());
     }
 
     @Test
@@ -33,13 +31,8 @@ public class UnificationTest {
         UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
 
         assertTrue(result.isSuccess());
-        assertEquals(
-            Arrays.asList(
-                new Substitution(new Variable("X"), Functor.atom("abe")),
-                new Substitution(new Variable("Y"), Functor.atom("homer"))
-            ),
-            result.getSubstitutions()
-        );
+        assertEquals(Arrays.asList(new Substitution(new Variable("X"), Functor.atom("abe")),
+                new Substitution(new Variable("Y"), Functor.atom("homer"))), result.getSubstitutions());
     }
 
     @Test
@@ -55,36 +48,24 @@ public class UnificationTest {
 
     @Test
     public void variableUsedMultipleTimesTest() {
-        Term lhs = new Functor("max", Arrays.asList(
-            new Number(42),
-            new Number(17),
-            new Variable("Maximum", 1)
-        ));
+        Term lhs = new Functor("max", Arrays.asList(new Number(42), new Number(17), new Variable("Maximum", 1)));
 
-        Term rhs = new Functor("max", Arrays.asList(
-            new Variable("X"),
-            new Variable("Y"),
-            new Variable("X")
-        ));
+        Term rhs = new Functor("max", Arrays.asList(new Variable("X"), new Variable("Y"), new Variable("X")));
 
         UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
-        
+
         assertTrue(result.isSuccess());
-        assertEquals(
-            Arrays.asList(
-                new Substitution(new Variable("X"), new Number(42)),
+        assertEquals(Arrays.asList(new Substitution(new Variable("X"), new Number(42)),
                 new Substitution(new Variable("Y"), new Number(17)),
-                new Substitution(new Variable("Maximum", 1), new Number(42))
-            ),
-            result.getSubstitutions()
-        );
+                new Substitution(new Variable("Maximum", 1), new Number(42))), result.getSubstitutions());
     }
 
     @Test
     // Unification, although "working both ways", has a direction in our model.
     // The direction determines which sides variables are "stronger".
     // Stronger Variables propagate deeper; in our model, the left side is stronger.
-    // This means that when two variables are unified, the left one is not going the be replaced;
+    // This means that when two variables are unified, the left one is not going the
+    // be replaced;
     // it replaces the right one.
     public void directionTest() {
         Term lhs = new Variable("X");
@@ -93,10 +74,7 @@ public class UnificationTest {
         UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
 
         assertTrue(result.isSuccess());
-        assertEquals(
-            Arrays.asList(new Substitution(new Variable("Y"), new Variable("X"))),
-            result.getSubstitutions()
-        );
+        assertEquals(Arrays.asList(new Substitution(new Variable("Y"), new Variable("X"))), result.getSubstitutions());
     }
 
     @Test
@@ -106,13 +84,8 @@ public class UnificationTest {
 
         UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
         assertTrue(result.isSuccess());
-        assertEquals(
-            Arrays.asList(
-                new Substitution(new Variable("X", 1), new Variable("X")),
-                new Substitution(new Variable("Y", 1), new Variable("Y"))
-            ),
-            result.getSubstitutions()
-        );
+        assertEquals(Arrays.asList(new Substitution(new Variable("X", 1), new Variable("X")),
+                new Substitution(new Variable("Y", 1), new Variable("Y"))), result.getSubstitutions());
     }
 
     // Unifying a variable with itself should not yield any substitutions

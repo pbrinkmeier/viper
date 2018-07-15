@@ -253,7 +253,7 @@ public enum LanguageKey {
     // Console output for parsing
     /** Console output message for failed parsing */
     PARSER_SUCCESS("parser_success"),
-    
+
     /** Console output message for failed parsing */
     PARSER_ERROR("parser_error"),
 
@@ -269,11 +269,11 @@ public enum LanguageKey {
 
     /** Line containing the error for an ParserException */
     POSITION("position"),
-    
+
     /** Illegal Character Warning for Parser Failures */
     ILLEGAL_CHAR("illegal_char"),
 
-    /** "Operator not recognized" warning for parser failures*/
+    /** "Operator not recognized" warning for parser failures */
     OPERATOR_NOT_RECOGNIZED("operator_not_recognized"),
 
     /** "Expected * instead of" warnings for parser failures */

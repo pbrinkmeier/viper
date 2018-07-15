@@ -13,7 +13,8 @@ import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 
 /**
- * The preference manager handles settings like the selected program language by saving them to the disk
+ * The preference manager handles settings like the selected program language by
+ * saving them to the disk
  */
 public class PreferencesManager {
     /**
@@ -68,8 +69,8 @@ public class PreferencesManager {
             this.properties.store(writer, null);
             writer.close();
         } catch (IOException e) {
-            this.console.printLine("Could not write properties file to '" + this.propertiesFile.getAbsolutePath()
-                + "'", LogType.DEBUG);
+            this.console.printLine("Could not write properties file to '" + this.propertiesFile.getAbsolutePath() + "'",
+                    LogType.DEBUG);
         }
     }
 

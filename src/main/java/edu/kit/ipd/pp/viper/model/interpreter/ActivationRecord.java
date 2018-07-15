@@ -17,8 +17,8 @@ public abstract class ActivationRecord {
     private boolean visited;
 
     /**
-     * General initialization for activation records.
-     * Sets the interpreter and parent AR.
+     * General initialization for activation records. Sets the interpreter and
+     * parent AR.
      *
      * @param interpreter interpreter reference
      * @param parent optional parent AR
@@ -39,10 +39,10 @@ public abstract class ActivationRecord {
     }
 
     /**
-     * Helper method for subclasses to determine the previous goal/AR.
-     * If this AR has no parent, return empty.
-     * If this AR has a parent and is its parents first subgoal, return the parent.
-     * If this AR has a parent and a preceding subgoal, return that subgoals rightmost subgoal.
+     * Helper method for subclasses to determine the previous goal/AR. If this AR
+     * has no parent, return empty. If this AR has a parent and is its parents first
+     * subgoal, return the parent. If this AR has a parent and a preceding subgoal,
+     * return that subgoals rightmost subgoal.
      *
      * @return previous AR for this AR, according to the rules stated above
      */
@@ -58,7 +58,7 @@ public abstract class ActivationRecord {
         if (children.get(0) == this) {
             return Optional.of(this.getParent().get());
         }
-    
+
         // not first child -> backtrack to previous child
         // find "this" in child list and return the previous childs rightmost subgoal
         for (int index = 1; index < children.size(); index++) {
@@ -72,9 +72,9 @@ public abstract class ActivationRecord {
     }
 
     /**
-     * Returns just this AR, since ARs usually do not have children.
-     * This is used only in {@link #getPrevious()}. It is meant to be overwritten
-     * by {@link FunctorActivationRecord#getRightmost()} to find the visually rightmost
+     * Returns just this AR, since ARs usually do not have children. This is used
+     * only in {@link #getPrevious()}. It is meant to be overwritten by
+     * {@link FunctorActivationRecord#getRightmost()} to find the visually rightmost
      * ActivationRecord in a tree.
      *
      * @return rightmost AR in the tree spanned by this AR
@@ -93,10 +93,10 @@ public abstract class ActivationRecord {
     }
 
     /**
-     * Helper method for subclasses to determine the next goal/AR.
-     * If this AR has no parent, return the rightmost member of its subtree.
-     * If this AR has a parent and isn't its parents last subgoal, return the next subgoal.
-     * If this AR has a parent and is its parents last subgoal, return its parents getNext().
+     * Helper method for subclasses to determine the next goal/AR. If this AR has no
+     * parent, return the rightmost member of its subtree. If this AR has a parent
+     * and isn't its parents last subgoal, return the next subgoal. If this AR has a
+     * parent and is its parents last subgoal, return its parents getNext().
      *
      * @return next AR
      */
@@ -161,24 +161,25 @@ public abstract class ActivationRecord {
     public abstract <T> T accept(ActivationRecordVisitor<T> visitor);
 
     /**
-     * Checks whether this AR is fulfilled.
-     * "Fulfilled" means that itself was a success and all its subgoals too.
-     * Take a look at the comments in the implementing subclasses for more information.
+     * Checks whether this AR is fulfilled. "Fulfilled" means that itself was a
+     * success and all its subgoals too. Take a look at the comments in the
+     * implementing subclasses for more information.
      *
      * @return whether this AR is fulfilled
      */
     protected abstract boolean isFulfilled();
 
     /**
-     * To be overwritten by subclasses (to allow them to have concrete return types).
+     * To be overwritten by subclasses (to allow them to have concrete return
+     * types).
      *
      * @return the goal that corresponds to this AR
      */
     protected abstract Goal getGoal();
 
     /**
-     * To be overwritten by the subclasses.
-     * This is actually the core of the whole execution.
+     * To be overwritten by the subclasses. This is actually the core of the whole
+     * execution.
      *
      * @return an optional next step to run after this one
      */

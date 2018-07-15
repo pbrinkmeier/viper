@@ -23,7 +23,8 @@ import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Graph;
 
 /**
- * Represents an interactive SVG viewer, customized for the needs of this program.
+ * Represents an interactive SVG viewer, customized for the needs of this
+ * program.
  */
 public class VisualisationViewer extends JSVGCanvas implements MouseWheelListener {
     /**
@@ -57,7 +58,8 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
         this.setEnableRotateInteractor(false);
         this.setEnablePanInteractor(false);
 
-        // add new iteractor that moves the image when left-clicking and holding the mouse
+        // add new iteractor that moves the image when left-clicking and holding the
+        // mouse
         Interactor panInteractor = new AbstractPanInteractor() {
             public boolean startInteraction(InputEvent ie) {
                 int mods = ie.getModifiers();
@@ -72,7 +74,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     /**
      * Implements zooming of the displayed image using the mouse wheel
      * 
-     * @param event 
+     * @param event
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
@@ -158,11 +160,10 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     }
 
     /**
-    * This method must be overriden to use our custom user agent.
-    * That user agent is used to suppress SVG warnings, because
-    * the default behavior is to display a dialog instead of throwing
-    * an exception.
-    */
+     * This method must be overriden to use our custom user agent. That user agent
+     * is used to suppress SVG warnings, because the default behavior is to display
+     * a dialog instead of throwing an exception.
+     */
     @Override
     protected UserAgent createUserAgent() {
         return new CustomUserAgent(this);
@@ -182,8 +183,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
 
         @Override
         public void displayError(String message) {
-            this.viewer.main.getConsolePanel()
-            .printLine(String.format("SVG Render Error: %s", message), LogType.DEBUG);
+            this.viewer.main.getConsolePanel().printLine(String.format("SVG Render Error: %s", message), LogType.DEBUG);
         }
     }
 }

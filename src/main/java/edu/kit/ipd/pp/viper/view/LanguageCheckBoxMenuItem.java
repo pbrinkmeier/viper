@@ -31,10 +31,10 @@ public class LanguageCheckBoxMenuItem extends JCheckBoxMenuItem implements Actio
     private final Command command;
 
     /**
-     * Creates a new checkable menu item that can be used for a "radio selection" using a {@link ButtonGroup}
-     * (language selection).
+     * Creates a new checkable menu item that can be used for a "radio selection"
+     * using a {@link ButtonGroup} (language selection).
      * 
-     * @param locale  Locale this checkbox represents
+     * @param locale Locale this checkbox represents
      * @param command Command to execute when item was checked/unchecked
      */
     public LanguageCheckBoxMenuItem(Locale locale, Command command) {
@@ -59,8 +59,8 @@ public class LanguageCheckBoxMenuItem extends JCheckBoxMenuItem implements Actio
     }
 
     /**
-     * Called by the {@link LanguageManager} when the program locale was changed. This triggers an update of the item
-     * text.
+     * Called by the {@link LanguageManager} when the program locale was changed.
+     * This triggers an update of the item text.
      * 
      * @param obs Class that triggered the update, ignored here
      * @param obj Object that was triggered, ignored here

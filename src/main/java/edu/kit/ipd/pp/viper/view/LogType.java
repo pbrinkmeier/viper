@@ -1,8 +1,8 @@
 package edu.kit.ipd.pp.viper.view;
 
 /**
- * A logtype controls the output of the console output field. This mainly includes color, however
- * certain LogTypes may also affect whether 
+ * A logtype controls the output of the console output field. This mainly
+ * includes color, however certain LogTypes may also affect whether
  */
 public enum LogType {
     /**
@@ -11,7 +11,8 @@ public enum LogType {
     INFO,
 
     /**
-     * Debug messages. These messages only appear if the program was started in debug mode
+     * Debug messages. These messages only appear if the program was started in
+     * debug mode
      */
     DEBUG,
 

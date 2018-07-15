@@ -18,13 +18,12 @@ public abstract class Unifier implements TermVisitor<UnificationResult> {
     protected abstract Term getTerm();
 
     // ---
-    
+
     /**
-     * Creates an UnificationResult with a single substitution in it.
-     * Checks whether the variable occurs in the term it should be substituted
-     * with and fails if it does.
-     * This is a helper method meant to be used in VariableUnifier, but
-     * also in {@link #visit(Variable)}.
+     * Creates an UnificationResult with a single substitution in it. Checks whether
+     * the variable occurs in the term it should be substituted with and fails if it
+     * does. This is a helper method meant to be used in VariableUnifier, but also
+     * in {@link #visit(Variable)}.
      *
      * @param replace variable to substitute
      * @param by term to substitute with
@@ -48,10 +47,10 @@ public abstract class Unifier implements TermVisitor<UnificationResult> {
     }
 
     /**
-     * Implements the general case of unification with a functor.
-     * In the general case, unification should fail here; this may be
-     * overwritten in *Unifiers which do support Unification with Functors
-     * (e.g. FunctorUnifier, VariableUnifier, but not NumberUnifier).
+     * Implements the general case of unification with a functor. In the general
+     * case, unification should fail here; this may be overwritten in *Unifiers
+     * which do support Unification with Functors (e.g. FunctorUnifier,
+     * VariableUnifier, but not NumberUnifier).
      *
      * @param functor functor to unify with
      * @return a fail-result
@@ -62,8 +61,8 @@ public abstract class Unifier implements TermVisitor<UnificationResult> {
     }
 
     /**
-     * Implements the general case of unification with a variable.
-     * That is, to return a success-result with a single substitution.
+     * Implements the general case of unification with a variable. That is, to
+     * return a success-result with a single substitution.
      *
      * @param variable variable to create a substitution for
      * @return a success-result containing a single substitution
@@ -74,10 +73,10 @@ public abstract class Unifier implements TermVisitor<UnificationResult> {
     }
 
     /**
-     * Implements the general case of unification with a number.
-     * In the general case, unification should fail here; this may
-     * overwritten in *Unifiers which do support unification with Numbers
-     * (e.g. NumberUnifier, VariableUnifier, but not FunctorUnifier).
+     * Implements the general case of unification with a number. In the general
+     * case, unification should fail here; this may overwritten in *Unifiers which
+     * do support unification with Numbers (e.g. NumberUnifier, VariableUnifier, but
+     * not FunctorUnifier).
      *
      * @param number number to unify with
      * @return a fail-result

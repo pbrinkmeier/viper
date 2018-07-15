@@ -39,7 +39,7 @@ public class ConsolePanel extends JPanel implements HasClickable {
      */
     private ConsoleInputField inputField;
     private boolean inputLocked;
-    
+
     /**
      * Creates a new console panel
      * 
@@ -60,8 +60,7 @@ public class ConsolePanel extends JPanel implements HasClickable {
         this.scrollPane.setViewportView(this.outputArea);
 
         this.inputField = new ConsoleInputField(new CommandParseQuery(this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager(),
-                this.main::switchClickableState));
+                this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main::switchClickableState));
 
         this.add(this.scrollPane, BorderLayout.CENTER);
         this.add(this.inputField, BorderLayout.PAGE_END);
@@ -93,7 +92,7 @@ public class ConsolePanel extends JPanel implements HasClickable {
     public String getOutputAreaText() {
         return this.outputArea.getText();
     }
-    
+
     /**
      * Returns whether the input field is locked
      * 
@@ -102,7 +101,7 @@ public class ConsolePanel extends JPanel implements HasClickable {
     public boolean hasLockedInput() {
         return inputLocked;
     }
-    
+
     /**
      * Makes the input field un-editable
      */
@@ -149,7 +148,8 @@ public class ConsolePanel extends JPanel implements HasClickable {
     }
 
     /**
-     * Called when program switched to a new state (program was parsed, query was send, ...)
+     * Called when program switched to a new state (program was parsed, query was
+     * send, ...)
      */
     @Override
     public void switchClickableState(ClickableState state) {

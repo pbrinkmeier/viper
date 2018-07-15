@@ -33,9 +33,9 @@ public class VariableUnifier extends Unifier {
     }
 
     /**
-     * Returns a result in which the visited variable is substituted by this unifiers variable.
-     * This means that the left side of any unification is "stronger" than the right side.
-     * The variables on the left side persist.
+     * Returns a result in which the visited variable is substituted by this
+     * unifiers variable. This means that the left side of any unification is
+     * "stronger" than the right side. The variables on the left side persist.
      *
      * @param variable variable substitute
      * @return a success-result with a single substitution

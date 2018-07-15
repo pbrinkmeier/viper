@@ -12,8 +12,8 @@ import java.util.List;
 
 public class VariableExtractor implements TermVisitor<List<Variable>> {
     /**
-     * Extracts variables from a functor.
-     * Loops through parameters and extracts their variables.
+     * Extracts variables from a functor. Loops through parameters and extracts
+     * their variables.
      *
      * @param functor functor to extract from
      * @return a list of variables that have been extracted
@@ -36,8 +36,8 @@ public class VariableExtractor implements TermVisitor<List<Variable>> {
     }
 
     /**
-     * Extracts "all" variables from a variable.
-     * This means that it just returns that variable.
+     * Extracts "all" variables from a variable. This means that it just returns
+     * that variable.
      *
      * @param variable variable to extract from
      * @return a list with the visited variable as the single entry
@@ -48,9 +48,8 @@ public class VariableExtractor implements TermVisitor<List<Variable>> {
     }
 
     /**
-     * Extracts a variable from a number.
-     * Obviously there are no variables in a number, so this
-     * method always return an empty list.
+     * Extracts a variable from a number. Obviously there are no variables in a
+     * number, so this method always return an empty list.
      *
      * @param number to visit
      * @return an empty list

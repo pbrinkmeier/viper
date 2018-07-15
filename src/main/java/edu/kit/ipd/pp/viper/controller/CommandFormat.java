@@ -36,8 +36,9 @@ public class CommandFormat extends Command {
         try {
             kb = new PrologParser(source).parse();
         } catch (ParseException e) {
-            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR)
-                + "\n" + e.getMessage(), LogType.ERROR);
+            this.console.printLine(
+                    LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR) + "\n" + e.getMessage(),
+                    LogType.ERROR);
             if (MainWindow.inDebugMode()) {
                 e.printStackTrace();
             }
@@ -45,7 +46,7 @@ public class CommandFormat extends Command {
 
         if (kb == null)
             return;
-        
+
         final String newSource = kb.toString();
         if (!source.equals(newSource)) {
             this.editor.setSourceText(newSource);

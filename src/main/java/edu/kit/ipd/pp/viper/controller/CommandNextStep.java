@@ -24,11 +24,12 @@ public class CommandNextStep extends Command {
      * Initializes a new step command.
      * 
      * @param visualisation Panel of the visualisation area
-     * @param interpreterManager Interpreter manager with a reference to the current interpreter
+     * @param interpreterManager Interpreter manager with a reference to the current
+     *            interpreter
      * @param console ConsolePanel for output
      */
-    public CommandNextStep(VisualisationPanel visualisation,
-            InterpreterManager interpreterManager, ConsolePanel console) {
+    public CommandNextStep(VisualisationPanel visualisation, InterpreterManager interpreterManager,
+            ConsolePanel console) {
         this.visualisation = visualisation;
         this.interpreterManager = interpreterManager;
         this.console = console;
@@ -48,18 +49,16 @@ public class CommandNextStep extends Command {
             String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
             List<Substitution> solution = this.interpreterManager.getSolution();
 
-
-            String solutionString
-                = solution.size() == 0
-                ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
-                : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
+            String solutionString = solution.size() == 0
+                    ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
+                    : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
 
             this.console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
         }
 
         if (result == StepResult.NO_MORE_SOLUTIONS) {
-            this.console.printLine(
-                LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS), LogType.INFO);
+            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
+                    LogType.INFO);
         }
 
         Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());

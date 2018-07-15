@@ -17,6 +17,7 @@ public class Token {
 
     /**
      * Constructs a token.
+     * 
      * @param type the token type
      * @param text text of this token in the source code
      * @param line line this token is in
@@ -31,6 +32,7 @@ public class Token {
 
     /**
      * Returns the token type
+     * 
      * @return token type
      */
     public TokenType getType() {
@@ -39,6 +41,7 @@ public class Token {
 
     /**
      * Returns the text of this token in the source code
+     * 
      * @return text of this token in the source code
      */
     public String getText() {
@@ -47,6 +50,7 @@ public class Token {
 
     /**
      * Returns the line this token is in
+     * 
      * @return line this token is in
      */
     public int getLine() {
@@ -55,6 +59,7 @@ public class Token {
 
     /**
      * Returns the column this token begins
+     * 
      * @return column this token begins
      */
     public int getCol() {

@@ -39,7 +39,9 @@ public class CommandParseTest {
         this.console.clearAll();
         this.visualisation.clearVisualization();
         this.editor.setSourceText("");
-        new CommandParse(this.console, this.editor, this.visualisation, this.interpreterManager, this.gui::switchClickableState).execute();
+        new CommandParse(this.console, this.editor, this.visualisation,
+                this.interpreterManager,
+                this.gui::switchClickableState).execute();
 
         assertTrue(this.editor.getSourceText().equals(""));
         assertFalse(this.visualisation.hasGraph());
@@ -49,15 +51,17 @@ public class CommandParseTest {
     }
 
     /**
-     * Tests whether an incorrect program (like an open parenthesis) gets
-     * rejected by the parser.
+     * Tests whether an incorrect program (like an open parenthesis) gets rejected
+     * by the parser.
      */
     @Test
     public void testIncorrectSyntax() {
         this.console.clearAll();
         this.visualisation.clearVisualization();
         this.editor.setSourceText("(");
-        new CommandParse(this.console, this.editor, this.visualisation, this.interpreterManager, this.gui::switchClickableState).execute();
+        new CommandParse(this.console, this.editor, this.visualisation,
+                this.interpreterManager,
+                this.gui::switchClickableState).execute();
 
         assertTrue(this.editor.getSourceText().trim().equals("("));
         assertFalse(this.visualisation.hasGraph());
@@ -74,7 +78,9 @@ public class CommandParseTest {
         this.console.clearAll();
         this.visualisation.clearVisualization();
         this.editor.setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
-        new CommandParse(this.console, this.editor, this.visualisation, this.interpreterManager, this.gui::switchClickableState).execute();
+        new CommandParse(this.console, this.editor, this.visualisation,
+                this.interpreterManager,
+                this.gui::switchClickableState).execute();
 
         assertTrue(this.editor.getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
         assertFalse(this.visualisation.hasGraph());

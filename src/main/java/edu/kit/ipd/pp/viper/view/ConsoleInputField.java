@@ -18,7 +18,8 @@ import edu.kit.ipd.pp.viper.controller.Command;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 
 /**
- * Represents a panel contaning an input field for prolog queries, as well as a button to send the query.
+ * Represents a panel contaning an input field for prolog queries, as well as a
+ * button to send the query.
  */
 public class ConsoleInputField extends JPanel implements KeyListener, HasClickable {
     /**
@@ -53,7 +54,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         this.textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                //command.execute();
+                // command.execute();
                 clear();
             }
         });
@@ -65,7 +66,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         text.setFont(new Font("monospaced", Font.PLAIN, 14));
 
         this.buttonSend = new Button(LanguageKey.BUTTON_SEND, command);
-        
+
         this.add(text, BorderLayout.LINE_START);
         this.add(this.textField, BorderLayout.CENTER);
         this.add(this.buttonSend, BorderLayout.LINE_END);
@@ -113,36 +114,36 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
     public void unlock() {
         this.textField.setEditable(true);
         this.textField.requestFocusInWindow();
-        
+
         // clear the history
         this.history.clear();
         this.historyPos = 0;
     }
 
     /**
-     * Called when a program was parsed or a query was send. Enables or disables the send
-     * button based on that.
+     * Called when a program was parsed or a query was send. Enables or disables the
+     * send button based on that.
      * 
      * @param state The new program state
      */
     @Override
     public void switchClickableState(ClickableState state) {
         switch (state) {
-            case NOT_PARSED_YET:
-                buttonSend.setEnabled(false);
-                break;
-            case PARSED_PROGRAM:
-            case PARSED_QUERY:
-                buttonSend.setEnabled(true);
-                break;
-            default:
-                break;
+        case NOT_PARSED_YET:
+            buttonSend.setEnabled(false);
+            break;
+        case PARSED_PROGRAM:
+        case PARSED_QUERY:
+            buttonSend.setEnabled(true);
+            break;
+        default:
+            break;
         }
     }
 
     /**
-     * Fired when a key was pressed, e.g. an arrow key.
-     * Used to "scroll" through the input history
+     * Fired when a key was pressed, e.g. an arrow key. Used to "scroll" through the
+     * input history
      * 
      * @param event The key event that occured
      */
@@ -176,7 +177,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
     /**
      * Fired when a key was successfully typed, ignored here
      * 
-     * @param e 
+     * @param e The issued event
      */
     public void keyTyped(KeyEvent e) {
     }
@@ -184,7 +185,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
     /**
      * Fire when a key was released, ignored here
      * 
-     * @param e 
+     * @param e The issued event
      */
     public void keyReleased(KeyEvent e) {
     }

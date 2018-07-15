@@ -23,50 +23,35 @@ public class ParserTest {
     private PrologParser kbParser;
     private KnowledgeBase testBase;
     private KnowledgeBase emptyBase;
-    
+
     @Before
     public void init() throws IOException, ParseException {
         String src = new String(Files.readAllBytes(Paths.get("src/test/resources/simpsons.pl")));
         this.kbParser = new PrologParser(src);
-        
+
         this.testBase = new KnowledgeBase(Arrays.asList(
-                    new Rule(new Functor("father", Arrays.asList(
-                                Functor.atom("abe"), Functor.atom("homer")
-                            )),
-                                Arrays.asList()
-                            ),
-                    new Rule(new Functor("father", Arrays.asList(
-                                Functor.atom("homer"), Functor.atom("bart")
-                            )),
-                                Arrays.asList()
-                            ),
-                    new Rule(new Functor("grandfather", Arrays.asList(
-                                new Variable("X"), new Variable("Y")
-                            )), Arrays.asList(
-                                new FunctorGoal(new Functor("father", Arrays.asList(
-                                    new Variable("X"), new Variable("Z")
-                                ))),
-                                new FunctorGoal(new Functor("father", Arrays.asList(
-                                    new Variable("Z"), new Variable("Y")
-                                )))
-                            ))
-                ));
-        
+                new Rule(new Functor("father", Arrays.asList(Functor.atom("abe"), Functor.atom("homer"))),
+                        Arrays.asList()),
+                new Rule(new Functor("father", Arrays.asList(Functor.atom("homer"), Functor.atom("bart"))),
+                        Arrays.asList()),
+                new Rule(new Functor("grandfather", Arrays.asList(new Variable("X"), new Variable("Y"))), Arrays.asList(
+                        new FunctorGoal(new Functor("father", Arrays.asList(new Variable("X"), new Variable("Z")))),
+                        new FunctorGoal(new Functor("father", Arrays.asList(new Variable("Z"), new Variable("Y"))))))));
+
         this.emptyBase = new KnowledgeBase(Arrays.asList());
     }
-    
+
     @Test
     public void parseTest() throws ParseException {
         KnowledgeBase parsed = kbParser.parse();
         assertEquals(parsed, this.testBase);
         assertNotEquals(parsed, this.emptyBase);
     }
-    
+
     @Test
     public void parseGoalListTest() throws ParseException {
         List<Goal> parsedOneRule = new PrologParser("grandfather(X, Y).").parseGoalList();
-        assertEquals(new FunctorGoal(new Functor("grandfather", Arrays.asList(
-                new Variable("X"), new Variable("Y")
-            ))), parsedOneRule.get(0));
+        assertEquals(new FunctorGoal(new Functor("grandfather", Arrays.asList(new Variable("X"), new Variable("Y")))),
+                parsedOneRule.get(0));
     }
 }

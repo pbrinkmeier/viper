@@ -34,19 +34,17 @@ public class FunctorGoal extends Goal {
     }
 
     /**
-     * Creates a new FunctorActivationRecord for this goal.
-     * The interpreter reference is passed in order for the activation record
-     * to be able to look up things in the interpreters knowledge base.
+     * Creates a new FunctorActivationRecord for this goal. The interpreter
+     * reference is passed in order for the activation record to be able to look up
+     * things in the interpreters knowledge base.
      *
      * @param interpreter interpreter for the created activation record
      * @param parent optional parent ActivationRecord
      * @return new FunctorActivationRecord
      */
     @Override
-    public FunctorActivationRecord createActivationRecord(
-        Interpreter interpreter,
-        Optional<FunctorActivationRecord> parent
-    ) {
+    public FunctorActivationRecord createActivationRecord(Interpreter interpreter,
+            Optional<FunctorActivationRecord> parent) {
         return new FunctorActivationRecord(interpreter, parent, this);
     }
 
@@ -56,8 +54,8 @@ public class FunctorGoal extends Goal {
     }
 
     /**
-     * Getter-method for a string representation of this goal.
-     * This equals the string representation of this goals functor.
+     * Getter-method for a string representation of this goal. This equals the
+     * string representation of this goals functor.
      *
      * @return string representation of this goal.
      */
@@ -65,7 +63,7 @@ public class FunctorGoal extends Goal {
     public String toString() {
         return this.getFunctor().toString();
     }
-    
+
     /**
      * Checks whether this equals another object. Will only return true for functors
      * of the same name and parameters.
@@ -84,7 +82,7 @@ public class FunctorGoal extends Goal {
         }
 
         FunctorGoal otherGoal = (FunctorGoal) other;
-        
+
         return this.functor.equals(otherGoal.getFunctor());
     }
 }

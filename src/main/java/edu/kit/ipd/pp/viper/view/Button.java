@@ -21,8 +21,8 @@ public class Button extends JButton implements ActionListener, Observer {
     private static final long serialVersionUID = -862558869728026481L;
 
     /**
-     * Each button is translateable via the {@link LanguageManager}, therefore this translation
-     * key is necessary
+     * Each button is translateable via the {@link LanguageManager}, therefore this
+     * translation key is necessary
      */
     private final LanguageKey textKey;
 
@@ -32,8 +32,8 @@ public class Button extends JButton implements ActionListener, Observer {
     private final Command command;
 
     /**
-     * Creates a new button using a language key for translation of the button text, as well as command to execute on
-     * click.
+     * Creates a new button using a language key for translation of the button text,
+     * as well as command to execute on click.
      * 
      * @param textKey Key used for translation of the button text
      * @param command Command to execute on click
@@ -59,7 +59,8 @@ public class Button extends JButton implements ActionListener, Observer {
     }
 
     /**
-     * Called by the {@link LanguageManager} when the locale was changed. This triggers an update of the button text.
+     * Called by the {@link LanguageManager} when the locale was changed. This
+     * triggers an update of the button text.
      * 
      * @param obs Class that triggered the update, ignored here
      * @param obj Object that was triggered, ignored here

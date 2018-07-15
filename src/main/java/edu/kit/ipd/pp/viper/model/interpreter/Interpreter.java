@@ -45,9 +45,9 @@ public class Interpreter {
     }
 
     /**
-     * Getter-method for this interpreters "current" step.
-     * This refers to the step that has just been completed.
-     * In case the interpreter was just created, this will return empty.
+     * Getter-method for this interpreters "current" step. This refers to the step
+     * that has just been completed. In case the interpreter was just created, this
+     * will return empty.
      *
      * @return optional current step of this interpreter
      */
@@ -56,10 +56,9 @@ public class Interpreter {
     }
 
     /**
-     * Getter-method for this interpreters next step.
-     * In case the interpreter has reached the absolute end of execution
-     * (that is, no more solutions are possible at all), this will
-     * return empty.
+     * Getter-method for this interpreters next step. In case the interpreter has
+     * reached the absolute end of execution (that is, no more solutions are
+     * possible at all), this will return empty.
      *
      * @return optional next step of this interpreter
      */
@@ -68,10 +67,9 @@ public class Interpreter {
     }
 
     /**
-     * Getter-method for the current unification index.
-     * An unification index can only be used once.
-     * After requesting it from the Interpreter, make
-     * sure to call {@link #incrementUnificationIndex()}.
+     * Getter-method for the current unification index. An unification index can
+     * only be used once. After requesting it from the Interpreter, make sure to
+     * call {@link #incrementUnificationIndex()}.
      *
      * @return unification index
      */
@@ -80,8 +78,7 @@ public class Interpreter {
     }
 
     /**
-     * Setter-method for this interpreters current step.
-     * For internal use only.
+     * Setter-method for this interpreters current step. For internal use only.
      *
      * @param current optional current step
      */
@@ -90,8 +87,7 @@ public class Interpreter {
     }
 
     /**
-     * Setter-method for this interpreters next step.
-     * For interal use only.
+     * Setter-method for this interpreters next step. For interal use only.
      *
      * @param next optional next step
      */
@@ -109,10 +105,9 @@ public class Interpreter {
     // ---
 
     /**
-     * Executes the next step and sets it as the current step.
-     * Sets the next step to the one that follows.
-     * If there is no next step (getNext() == Optional.empty()),
-     * calling this has no effect.
+     * Executes the next step and sets it as the current step. Sets the next step to
+     * the one that follows. If there is no next step (getNext() ==
+     * Optional.empty()), calling this has no effect.
      *
      * @return a StepResult
      */

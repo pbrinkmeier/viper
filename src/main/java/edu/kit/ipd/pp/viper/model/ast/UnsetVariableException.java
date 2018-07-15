@@ -14,9 +14,8 @@ public class UnsetVariableException extends TermEvaluationException {
     }
 
     /**
-     * Returns a message in the currently selected language
-     * that tells the user that the variable passed in the
-     * constructor has not been set.
+     * Returns a message in the currently selected language that tells the user that
+     * the variable passed in the constructor has not been set.
      *
      * @return a message in the currently selected language
      */

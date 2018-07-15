@@ -35,7 +35,8 @@ public class CommandOpen extends Command {
      * @param editor Panel of the editor area
      * @param visualisation Panel of the visualisation area
      * @param setTitle Consumer function that can change the window title
-     * @param toggleStateFunc Consumer function that switches the state of clickable elements in the GUI
+     * @param toggleStateFunc Consumer function that switches the state of clickable
+     *            elements in the GUI
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc) {

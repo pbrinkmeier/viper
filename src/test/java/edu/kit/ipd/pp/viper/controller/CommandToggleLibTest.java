@@ -26,7 +26,7 @@ public class CommandToggleLibTest {
         this.visualisation = this.gui.getVisualisationPanel();
         this.interpreterManager = this.gui.getInterpreterManager();
     }
-    
+
     /**
      * Tests twice whether toggling the standard library works properly.
      */
@@ -35,7 +35,7 @@ public class CommandToggleLibTest {
         boolean firstState = interpreterManager.isStandardEnabled();
         new CommandToggleLib(console, visualisation, interpreterManager, gui::switchClickableState).execute();
         assertTrue(interpreterManager.isStandardEnabled() == !firstState);
-        new CommandToggleLib(console, visualisation, interpreterManager, gui::switchClickableState).execute();        
+        new CommandToggleLib(console, visualisation, interpreterManager, gui::switchClickableState).execute();
         assertTrue(interpreterManager.isStandardEnabled() == firstState);
-    }    
+    }
 }

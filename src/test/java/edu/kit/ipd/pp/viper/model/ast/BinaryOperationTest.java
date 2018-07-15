@@ -23,15 +23,11 @@ public class BinaryOperationTest {
         assertEquals("(100 - 58)", this.minus.toString());
         assertEquals("(6 * 7)", this.times.toString());
 
-        assertEquals(
-            "(6 * (4 + 3))",
-            new MultiplicationOperation(new Number(6), new AdditionOperation(new Number(4), new Number(3))).toString()
-        );
+        assertEquals("(6 * (4 + 3))",
+                new MultiplicationOperation(new Number(6), new AdditionOperation(new Number(4), new Number(3)))
+                        .toString());
 
-        assertEquals(
-            "(A_1 + 1)",
-            new AdditionOperation(new Variable("A", 1), new Number(1)).toString()
-        );
+        assertEquals("(A_1 + 1)", new AdditionOperation(new Variable("A", 1), new Number(1)).toString());
     }
 
     @Ignore
@@ -41,10 +37,7 @@ public class BinaryOperationTest {
         assertEquals("(100 - 58)", this.minus.toHtml());
         assertEquals("(6 * 7)", this.times.toHtml());
 
-        assertEquals(
-            "(A<sub>1</sub> + 1)",
-            new AdditionOperation(new Variable("A", 1), new Number(1)).toHtml()
-        );
+        assertEquals("(A<sub>1</sub> + 1)", new AdditionOperation(new Variable("A", 1), new Number(1)).toHtml());
     }
 
     @Test

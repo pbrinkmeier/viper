@@ -7,23 +7,23 @@ import edu.kit.ipd.pp.viper.model.parser.TokenType;
 import java.util.HashMap;
 
 /**
- * This class lexes a program given as String into tokens.
- * Tokens are lexed one by one as requested by the parser.
+ * This class lexes a program given as String into tokens. Tokens are lexed one
+ * by one as requested by the parser.
  */
 public class PrologLexer {
     /**
-     * String of characters that may be part of an operator
-     * (excluding operators whose starting character are not at the start of another operator).
+     * String of characters that may be part of an operator (excluding operators
+     * whose starting character are not at the start of another operator).
      */
     private static final String SYMBOLS = ":-=<>\\";
 
     /**
-     * Maps a String of SYMBOLS to the correct operator.
-     * Characters where the only recognized operator starting with it contains just that symbol
-     * are lexed directly and therefore not part of this map.
+     * Maps a String of SYMBOLS to the correct operator. Characters where the only
+     * recognized operator starting with it contains just that symbol are lexed
+     * directly and therefore not part of this map.
      */
     private static final HashMap<String, TokenType> SYMBOL_STRING_TO_TOKEN = new HashMap<>();
-    
+
     /**
      * The given program as a String
      */
@@ -42,8 +42,8 @@ public class PrologLexer {
     private int col = 1;
 
     /*
-     * Initialize SYMBOL_STRING_TO_TOKEN map.
-     * Every used operator that is not lexed directly must be put into this map.
+     * Initialize SYMBOL_STRING_TO_TOKEN map. Every used operator that is not lexed
+     * directly must be put into this map.
      */
     static {
         SYMBOL_STRING_TO_TOKEN.put(":-", TokenType.COLON_MINUS);
@@ -58,6 +58,7 @@ public class PrologLexer {
 
     /**
      * Constructs a lexer that lexes the given program
+     * 
      * @param program the program to lex
      */
     public PrologLexer(String program) {
@@ -65,8 +66,8 @@ public class PrologLexer {
     }
 
     /**
-     * Advances the current char to the next char in the program.
-     * Adapts line and column number accordingly.
+     * Advances the current char to the next char in the program. Adapts line and
+     * column number accordingly.
      */
     private void advance() {
         if (program.charAt(pos) == '\n') {
@@ -93,12 +94,12 @@ public class PrologLexer {
 
     /**
      * Lexes and returns the next token.
+     * 
      * @return the next token
      * @throws ParseException if the next token is invalid
      */
     public Token nextToken() throws ParseException {
-        while (pos < program.length()
-                && (Character.isWhitespace(program.charAt(pos)) || program.charAt(pos) == '%')) {
+        while (pos < program.length() && (Character.isWhitespace(program.charAt(pos)) || program.charAt(pos) == '%')) {
             // ignore whitespace and comments
             if (program.charAt(pos) == '%') {
                 lexComment();
@@ -113,61 +114,61 @@ public class PrologLexer {
         Token t;
         char c = program.charAt(pos);
         switch (c) {
-            case ':':
-            case '=':
-            case '<':
-            case '>':
-                return handleMultiSimOperators();
-            // bunch of single-character tokens
-            case '.':
-                t = new Token(TokenType.DOT, ".", line, col);
-                advance();
-                return t;
-            case ',':
-                t = new Token(TokenType.COMMA, ",", line, col);
-                advance();
-                return t;
-            case '(':
-                t = new Token(TokenType.LP, "(", line, col);
-                advance();
-                return t;
-            case ')':
-                t = new Token(TokenType.RP, ")", line, col);
-                advance();
-                return t;
-            case '[':
-                t = new Token(TokenType.LB, "[", line, col);
-                advance();
-                return t;
-            case ']':
-                t = new Token(TokenType.RB, "]", line, col);
-                advance();
-                return t;
-            case '|':
-                t = new Token(TokenType.BAR, "|", line, col);
-                advance();
-                return t;
-            case '+':
-                t = new Token(TokenType.PLUS, "+", line, col);
-                advance();
-                return t;
-            case '-':
-                t = new Token(TokenType.MINUS, "-", line, col);
-                advance();
-                return t;
-            case '*':
-                t = new Token(TokenType.STAR, "*", line, col);
-                advance();
-                return t;
-            case '!':
-                t = new Token(TokenType.EXCLAMATION, "!", line, col);
-                advance();
-                return t;
-            default:
-                return handleDefault(c);
+        case ':':
+        case '=':
+        case '<':
+        case '>':
+            return handleMultiSimOperators();
+        // bunch of single-character tokens
+        case '.':
+            t = new Token(TokenType.DOT, ".", line, col);
+            advance();
+            return t;
+        case ',':
+            t = new Token(TokenType.COMMA, ",", line, col);
+            advance();
+            return t;
+        case '(':
+            t = new Token(TokenType.LP, "(", line, col);
+            advance();
+            return t;
+        case ')':
+            t = new Token(TokenType.RP, ")", line, col);
+            advance();
+            return t;
+        case '[':
+            t = new Token(TokenType.LB, "[", line, col);
+            advance();
+            return t;
+        case ']':
+            t = new Token(TokenType.RB, "]", line, col);
+            advance();
+            return t;
+        case '|':
+            t = new Token(TokenType.BAR, "|", line, col);
+            advance();
+            return t;
+        case '+':
+            t = new Token(TokenType.PLUS, "+", line, col);
+            advance();
+            return t;
+        case '-':
+            t = new Token(TokenType.MINUS, "-", line, col);
+            advance();
+            return t;
+        case '*':
+            t = new Token(TokenType.STAR, "*", line, col);
+            advance();
+            return t;
+        case '!':
+            t = new Token(TokenType.EXCLAMATION, "!", line, col);
+            advance();
+            return t;
+        default:
+            return handleDefault(c);
         }
     }
-    
+
     private Token handleMultiSimOperators() throws ParseException {
         // these operators may consist of multiple SYMBOLS
         int colStart = col;
@@ -180,12 +181,11 @@ public class PrologLexer {
         if (type == null) {
             throw new ParseException(
                     String.format(LanguageManager.getInstance().getString(LanguageKey.OPERATOR_NOT_RECOGNIZED),
-                    sb.toString())
-                    + getTokenPositionString());
+                            sb.toString()) + getTokenPositionString());
         }
         return new Token(type, sb.toString(), line, colStart);
     }
-    
+
     private Token handleDefault(char c) throws ParseException {
         int colStart = col;
         if (Character.isLetter(c)) {
@@ -214,14 +214,14 @@ public class PrologLexer {
             } while (pos < program.length() && Character.isDigit(program.charAt(pos)));
             return new Token(TokenType.NUMBER, sb.toString(), line, colStart);
         } else {
-            throw new ParseException(LanguageManager.getInstance().getString(LanguageKey.ILLEGAL_CHAR)
-                    + " '" + program.charAt(pos) + "'"
-                    + getTokenPositionString());
+            throw new ParseException(LanguageManager.getInstance().getString(LanguageKey.ILLEGAL_CHAR) + " '"
+                    + program.charAt(pos) + "'" + getTokenPositionString());
         }
     }
 
-    /** 
+    /**
      * Return the last line (max 50 char.) of code before the current token
+     * 
      * @return code block
      */
     String getCodeBeforeCurrentPos() {

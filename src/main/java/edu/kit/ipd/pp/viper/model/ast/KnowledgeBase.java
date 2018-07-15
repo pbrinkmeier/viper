@@ -42,14 +42,13 @@ public class KnowledgeBase {
                 }
             }
         }
-        
+
         return source;
     }
-    
+
     /**
-     * Fetches an immutable list of rules "matching" a functor.
-     * A rule matches a functor if its head (which is a functor)
-     * has the same name and arity.
+     * Fetches an immutable list of rules "matching" a functor. A rule matches a
+     * functor if its head (which is a functor) has the same name and arity.
      *
      * @param head functor to compare to
      * @return list of matching functors (immutable)
@@ -67,7 +66,7 @@ public class KnowledgeBase {
 
         return Collections.unmodifiableList(matchingRules);
     }
-    
+
     /**
      * Checks whether this equals another object. Will only return true for functors
      * of the same name and parameters.
@@ -80,27 +79,27 @@ public class KnowledgeBase {
         if (other == null) {
             return false;
         }
-        
+
         if (!other.getClass().equals(KnowledgeBase.class)) {
             return false;
         }
 
         List<Rule> otherRules = ((KnowledgeBase) other).getRules();
-        
+
         if (this.rules.isEmpty() && otherRules.isEmpty())
             return true;
-        
+
         if (this.rules.size() != otherRules.size())
             return false;
-        
+
         Iterator<Rule> otherIter = otherRules.iterator();
         Iterator<Rule> thisIter = this.rules.iterator();
-        
+
         while (thisIter.hasNext()) {
             if (!thisIter.next().equals(otherIter.next()))
                 return false;
         }
-        
+
         return true;
     }
 }

@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 public class VariableTest {
     private Variable withoutIndex;
     private Variable withIndex;
-    
+
     @Before
     public void init() {
         this.withoutIndex = new Variable("X");
@@ -47,10 +47,10 @@ public class VariableTest {
     public void equalsTest() {
         assertEquals(new Variable("X"), this.withoutIndex);
         assertEquals(new Variable("X", 42), this.withIndex);
-        
+
         assertNotEquals(this.withoutIndex, new Variable("Y"));
         assertNotEquals(this.withoutIndex, new Variable("X", 42));
-        
+
         assertNotEquals(this.withIndex, new Variable("Y", 42));
         assertNotEquals(this.withIndex, new Variable("X", 100));
         assertNotEquals(this.withIndex, new Variable("X"));

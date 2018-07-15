@@ -53,8 +53,8 @@ public final class Variable extends Term {
 
     /**
      * @return evaluates the variable arithmetically (always throws an
-     * UnsetVariableException, since trying to evaluate a variable means that it
-     * hasnt been set)
+     *         UnsetVariableException, since trying to evaluate a variable means
+     *         that it hasnt been set)
      * @throws UnsetVariableException whenever this method is called
      */
     public Number evaluate() throws UnsetVariableException {
@@ -73,9 +73,9 @@ public final class Variable extends Term {
      */
     public String toHtml() {
         /*
-        return this.getName()
-                + (this.getIndex().isPresent() ? String.format("<sub>%d</sub>", this.getIndex().get()) : "");
-        */
+         * return this.getName() + (this.getIndex().isPresent() ?
+         * String.format("<sub>%d</sub>", this.getIndex().get()) : "");
+         */
 
         return this.toString();
     }
