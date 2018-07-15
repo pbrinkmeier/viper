@@ -169,7 +169,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
         return new CustomUserAgent(this);
     }
 
-    private class CustomUserAgent extends CanvasUserAgent {
+    private class CustomUserAgent extends BridgeUserAgent {
         private VisualisationViewer viewer;
 
         public CustomUserAgent(VisualisationViewer viewer) {
