@@ -262,6 +262,11 @@ public enum LanguageKey {
      */
     VISUALISATION_STARTED("visualisation_started"),
 
+    /**
+     * Console output when program starts
+     */
+    VIPER_READY("viper_started"),
+
     /** Line containing the error for an ParserException */
     POSITION("position"),
 

@@ -13,10 +13,18 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import edu.kit.ipd.pp.viper.controller.CommandExit;
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
+import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 
 public class MainWindow extends JFrame {
+    /**
+     * VIPER version number
+     * 
+     * The version number follows the MAJOR.MINOR scheme, change this on each new release!
+     */
+    public static final String VERSION = "1.0";
+
     /**
      * Serial UID
      */
@@ -111,7 +119,8 @@ public class MainWindow extends JFrame {
 
         // load language from config and set it
         LanguageManager.getInstance().setLocale(this.prefManager.getLanguage());
-        this.consolePanel.printLine("VIPER v1.0 ready", LogType.INFO);
+        this.consolePanel.printLine(String.format(LanguageManager.getInstance().getString(LanguageKey.VIPER_READY),
+                VERSION), LogType.INFO);
     }
 
     /**
