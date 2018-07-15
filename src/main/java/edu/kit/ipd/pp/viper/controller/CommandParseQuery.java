@@ -41,7 +41,7 @@ public class CommandParseQuery extends Command {
      * Executes the command.
      */
     public void execute() {
-        this.interpreterManager.createNew(this.editor.getSourceText(), this.console.getText(), this.console);
+        this.interpreterManager.createNew(this.editor.getSourceText(), this.console.getInputFieldText(), this.console);
         this.visualisation.clearVisualization();
         this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
         this.console.clearInputField();

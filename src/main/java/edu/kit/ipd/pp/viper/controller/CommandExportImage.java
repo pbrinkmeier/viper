@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
-import org.apache.commons.io.FilenameUtils;
 
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
@@ -30,8 +27,7 @@ public class CommandExportImage extends Command {
      * 
      * @param console Panel of the console area
      * @param format Format of the image to be saved
-     * @param interpreterManager Interpreter manager with a reference to the current
-     * interpreter
+     * @param interpreterManager Interpreter manager with a reference to the current interpreter
      */
     public CommandExportImage(ConsolePanel console, ImageFormat format, InterpreterManager interpreterManager) {
         this.console = console;
@@ -43,49 +39,22 @@ public class CommandExportImage extends Command {
      * Executes the command.
      */
     public void execute() {
-        FileFilter pngfilter = new FileFilter() {
-            @Override
-            public String getDescription() {
-                return LanguageManager.getInstance().getString(LanguageKey.PNG_FILES);
-            }
-
-            @Override
-            public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("png") || f.isDirectory();
-            }
-        };
-
-        FileFilter svgfilter = new FileFilter() {
-            @Override
-            public String getDescription() {
-                return LanguageManager.getInstance().getString(LanguageKey.SVG_FILES);
-            }
-
-            @Override
-            public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("svg") || f.isDirectory();
-            }
-        };
-
         JFileChooser chooser = new JFileChooser();
 
         if (format == ImageFormat.PNG) {
-            chooser.setFileFilter(pngfilter);
+            chooser.setFileFilter(FileFilters.PNG_FILTER);
         } else if (format == ImageFormat.SVG) {
-            chooser.setFileFilter(svgfilter);
+            chooser.setFileFilter(FileFilters.SVG_FILTER);
         }
 
         int rv = chooser.showSaveDialog(null);
         if (rv == JFileChooser.APPROVE_OPTION) {
-            Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-            Graphviz viz = Graphviz.fromGraph(graph);
-
             switch (this.format) {
             case SVG:
-                exportSVG(viz, chooser.getSelectedFile());
+                exportSVG(chooser.getSelectedFile());
                 break;
             case PNG:
-                exportPNG(viz, chooser.getSelectedFile());
+                exportPNG(chooser.getSelectedFile());
                 break;
             default:
                 String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_UNSUPPORTED_FORMAT);
@@ -94,13 +63,17 @@ public class CommandExportImage extends Command {
         }
     }
 
-    private void exportSVG(Graphviz viz, File f) {
-        File file = f;
-        String filePath = file.getAbsolutePath();
-        if (!filePath.endsWith(".svg")) {
-            file = new File(filePath + ".svg");
-        }
+    /**
+     * SVG export routine. This should only be used internally, but is public for
+     * testing purposes.
+     * 
+     * @param f file to export the SVG graph to
+     */
+    public void exportSVG(File f) {
+        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
+        Graphviz viz = Graphviz.fromGraph(graph);
 
+        File file = FileUtilities.checkForMissingExtension(f, ".svg");
         try {
             viz.render(Format.SVG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
@@ -115,13 +88,17 @@ public class CommandExportImage extends Command {
         }
     }
 
-    private void exportPNG(Graphviz viz, File f) {
-        File file = f;
-        String filePath = file.getAbsolutePath();
-        if (!filePath.endsWith(".png")) {
-            file = new File(filePath + ".png");
-        }
+    /**
+     * PNG export routine. This should only be used internally, but is public for
+     * testing purposes.
+     * 
+     * @param f file to export the PNG graph to
+     */
+    public void exportPNG(File f) {
+        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
+        Graphviz viz = Graphviz.fromGraph(graph);
 
+        File file = FileUtilities.checkForMissingExtension(f, ".png");
         try {
             viz.render(Format.PNG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);

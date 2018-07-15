@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-
-import org.apache.commons.io.FilenameUtils;
 
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
@@ -49,68 +46,62 @@ public class CommandSave extends Command {
             saveAs();
     }
 
+    /**
+     * Save error printing routine. This should only be called internally, but it's
+     * public for testing purposes.
+     * 
+     * @param e IOException caused by failing to write to disk
+     * @param filePath the path of the file that caused the exception
+     */
+    public void printSaveError(IOException e, String filePath) {
+        String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
+        this.console.printLine(err + ": " + filePath, LogType.ERROR);
+
+        if (MainWindow.inDebugMode()) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Write-to-disk routine. This should only be used internally, but it's public
+     * for testing purposes.
+     * 
+     * @param file the file to be written
+     * @throws IOException when the writing fails
+     */
+    public void writeFile(File file) throws IOException {
+        FileOutputStream out = new FileOutputStream(file);
+        out.write(this.editor.getSourceText().getBytes());
+        out.flush();
+        out.close();
+        this.editor.setHasChanged(false);
+        this.editor.setFileReference(file);
+        this.setTitle.accept(file.getAbsolutePath());
+
+        String msg = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_SUCCESS);
+        this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
+    }
+
     private void save() {
         File file = this.editor.getFileReference();
         try {
-            FileOutputStream out = new FileOutputStream(file);
-            out.write(this.editor.getSourceText().getBytes());
-            out.flush();
-            out.close();
-            this.editor.setHasChanged(false);
-            this.setTitle.accept(file.getAbsolutePath());
+            writeFile(file);
         } catch (IOException e) {
-            String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
-            this.console.printLine(err + ": " + file.getAbsolutePath(), LogType.ERROR);
-
-            if (MainWindow.inDebugMode()) {
-                e.printStackTrace();
-            }
+            printSaveError(e, file.getAbsolutePath());
         }
     }
 
     private void saveAs() {
-        FileFilter filter = new FileFilter() {
-            @Override
-            public String getDescription() {
-                return LanguageManager.getInstance().getString(LanguageKey.PROLOG_FILES);
-            }
-
-            @Override
-            public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals("pl") || f.isDirectory();
-            }
-        };
-
         JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(filter);
+        chooser.setFileFilter(FileFilters.PL_FILTER);
         int rv = chooser.showSaveDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {
-            File file = chooser.getSelectedFile();
-            String filePath = file.getAbsolutePath();
-            if (!filePath.endsWith(".pl")) {
-                file = new File(filePath + ".pl");
-            }
-
+            File file = FileUtilities.checkForMissingExtension(chooser.getSelectedFile(), ".pl");
             try {
-                FileOutputStream out = new FileOutputStream(file);
-
-                out.write(this.editor.getSourceText().getBytes());
-                out.flush();
-                out.close();
-                this.editor.setHasChanged(false);
-                this.editor.setFileReference(file);
-                this.setTitle.accept(chooser.getSelectedFile().getAbsolutePath());
-
-                String msg = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_SUCCESS);
-                this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
+                writeFile(file);
             } catch (IOException e) {
-                String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
-                this.console.printLine(err + ": " + file.getAbsolutePath(), LogType.ERROR);
-
-                if (MainWindow.inDebugMode()) {
-                    e.printStackTrace();
-                }
+                printSaveError(e, file.getAbsolutePath());
             }
         }
     }
