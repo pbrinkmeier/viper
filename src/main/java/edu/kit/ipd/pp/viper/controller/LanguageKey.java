@@ -139,11 +139,6 @@ public enum LanguageKey {
      */
     BUTTON_SEND("button_send"),
 
-    /**
-     * Text for "next step" button below visualisation viewer
-     */
-    BUTTON_STEP("button_step"),
-
     // Dialog options
     /**
      * "Yes" dialog option
@@ -266,6 +261,11 @@ public enum LanguageKey {
      * Console output for when the visualisation has been started
      */
     VISUALISATION_STARTED("visualisation_started"),
+
+    /**
+     * Console output when program starts
+     */
+    VIPER_READY("viper_started"),
 
     /** Line containing the error for an ParserException */
     POSITION("position"),

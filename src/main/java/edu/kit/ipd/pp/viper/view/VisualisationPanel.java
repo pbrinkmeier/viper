@@ -3,14 +3,12 @@ package edu.kit.ipd.pp.viper.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-import edu.kit.ipd.pp.viper.controller.CommandNextStep;
 import edu.kit.ipd.pp.viper.controller.CommandZoom;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
@@ -43,7 +41,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
 
     private ToolBarButton zoomIn;
     private ToolBarButton zoomOut;
-    private Button buttonStep;
 
     private boolean hasGraph;
 
@@ -75,20 +72,12 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         this.zoomOut = new ToolBarButton(ICON_ZOOM_OUT, LanguageKey.ZOOM_OUT, new CommandZoom(this, ZoomType.ZOOM_OUT));
         this.zoomOut.setBounds(10, 40, 30, 30);
 
-        // viewer is on level 1, both buttons on level 2 and therefore appear above the
-        // viewer
+        // viewer is on level 1, both buttons on level 2 and therefore appear above the viewer
         contentPane.add(this.viewer, new Integer(1));
         contentPane.add(zoomIn, new Integer(2));
         contentPane.add(zoomOut, new Integer(2));
 
-        // panel for the buttons below the visualisation
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        this.buttonStep = new Button(LanguageKey.BUTTON_STEP, new CommandNextStep(this.main.getVisualisationPanel(),
-                this.main.getInterpreterManager(), this.main.getConsolePanel()));
-        buttonPanel.add(buttonStep);
-
         this.add(contentPane, BorderLayout.CENTER);
-        this.add(buttonPanel, BorderLayout.PAGE_END);
         this.hasGraph = false;
     }
 
@@ -158,12 +147,10 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         case PARSED_PROGRAM:
             this.zoomIn.setEnabled(false);
             this.zoomOut.setEnabled(false);
-            this.buttonStep.setEnabled(false);
             break;
         case PARSED_QUERY:
             this.zoomIn.setEnabled(true);
             this.zoomOut.setEnabled(true);
-            this.buttonStep.setEnabled(true);
             break;
         default:
             break;

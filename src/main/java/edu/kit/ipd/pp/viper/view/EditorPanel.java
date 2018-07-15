@@ -63,6 +63,8 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
 
         this.textArea = new RSyntaxTextArea();
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, FONT_DEFAULT_SIZE));
+        this.textArea.setTabSize(2);
+        this.textArea.setTabsEmulated(true);
         this.textArea.addKeyListener(this);
         this.textArea.addMouseWheelListener(this);
         this.scrollPane = new RTextScrollPane(this.textArea);
