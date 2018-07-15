@@ -20,7 +20,7 @@ public class CommandNewTest {
         
         editor.setSourceText("test");
         editor.setHasChanged(false);
-        new CommandNew(console, editor, visualisation, gui::switchClickableState).execute();
+        new CommandNew(console, editor, visualisation, gui::setTitle, gui::switchClickableState).execute();
 
         assertTrue(editor.getSourceText().equals(""));
     }
