@@ -232,6 +232,11 @@ public enum LanguageKey {
     SOLUTION_FOUND("solution_found"),
 
     /**
+     * Console output message for successful queries without variables
+     */
+    SOLUTION_YES("solution_yes"),
+
+    /**
      * Console output message when the end was reached
      */
     NO_MORE_SOLUTIONS("no_more_solutions"),

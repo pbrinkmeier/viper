@@ -47,9 +47,14 @@ public class CommandNextStep extends Command {
         if (result == StepResult.SOLUTION_FOUND) {
             String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
             List<Substitution> solution = this.interpreterManager.getSolution();
-            String solutionString = solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
 
-            this.console.printLine(String.format("%s:\n%s", prefix, solutionString), LogType.SUCCESS);
+
+            String solutionString
+                = solution.size() == 0
+                ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
+                : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
+
+            this.console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
         }
 
         if (result == StepResult.NO_MORE_SOLUTIONS) {
