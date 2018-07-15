@@ -3,6 +3,10 @@ package edu.kit.ipd.pp.viper.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.File;
 
 import javax.swing.JPanel;
@@ -16,11 +20,17 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 /**
  * Represents a panel containing an editor
  */
-public class EditorPanel extends JPanel implements DocumentListener {
+public class EditorPanel extends JPanel implements DocumentListener, KeyListener, MouseWheelListener {
     /**
      * Serial UID
      */
     private static final long serialVersionUID = 689492118433496287L;
+
+    private static final int FONT_DEFAULT_SIZE = 14;
+    private static final int FONT_MIN_SIZE = 10;
+    private static final int FONT_MAX_SIZE = 30;
+
+    private int fontSize;
 
     /**
      * The actual text area
@@ -49,9 +59,12 @@ public class EditorPanel extends JPanel implements DocumentListener {
         this.changed = false;
 
         this.setLayout(new BorderLayout());
-        this.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        this.fontSize = FONT_DEFAULT_SIZE;
 
         this.textArea = new RSyntaxTextArea();
+        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, FONT_DEFAULT_SIZE));
+        this.textArea.addKeyListener(this);
+        this.textArea.addMouseWheelListener(this);
         this.scrollPane = new RTextScrollPane(this.textArea);
         this.scrollPane.setPreferredSize(new Dimension(400, 600));
         this.add(this.scrollPane, BorderLayout.CENTER);
@@ -148,5 +161,75 @@ public class EditorPanel extends JPanel implements DocumentListener {
     @Override
     public void removeUpdate(DocumentEvent event) {
         this.changed = true;
+    }
+
+    private void increaseFont() {
+        if (this.fontSize > FONT_MAX_SIZE)
+            return;
+
+        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, ++this.fontSize));
+    }
+
+    private void decreaseFont() {
+        if (this.fontSize < FONT_MIN_SIZE)
+            return;
+
+        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, --this.fontSize));
+    }
+
+    /**
+     * Fired when a key was pressed
+     * 
+     * @param event Event that happened
+     */
+    @Override
+    public void keyPressed(KeyEvent event) {
+        int keyCode = event.getKeyCode();
+
+        if (!event.isControlDown())
+            return;
+
+        switch (keyCode) {
+        case KeyEvent.VK_PLUS: // plus key
+            this.increaseFont();
+            break;
+        case KeyEvent.VK_MINUS: // minus key
+            this.decreaseFont();
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
+     * Fired when a key was successfully typed, ignored here
+     * 
+     * @param e 
+     */
+    public void keyTyped(KeyEvent e) {
+    }
+
+    /**
+     * Fire when a key was released, ignored here
+     * 
+     * @param e 
+     */
+    public void keyReleased(KeyEvent e) {
+    }
+
+    /**
+     * Fired when mouse was scrolled
+     * 
+     * @param event The event that happened
+     */
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent event) {
+        if (!event.isControlDown())
+            return;
+
+        if (event.getPreciseWheelRotation() > 0.0)
+            this.decreaseFont();
+        else
+            this.increaseFont();
     }
 }
