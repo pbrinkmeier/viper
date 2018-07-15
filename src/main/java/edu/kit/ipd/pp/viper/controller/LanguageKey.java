@@ -236,6 +236,16 @@ public enum LanguageKey {
      */
     SOLUTION_FOUND("solution_found"),
 
+    /**
+     * Console output message for successful queries without variables
+     */
+    SOLUTION_YES("solution_yes"),
+
+    /**
+     * Console output message when the end was reached
+     */
+    NO_MORE_SOLUTIONS("no_more_solutions"),
+
     // Console output for editor changes
     /** Console output message for formatting the editor content */
     EDITOR_FORMATTED("editor_formatted"),
@@ -246,6 +256,16 @@ public enum LanguageKey {
     
     /** Console output message for failed parsing */
     PARSER_ERROR("parser_error"),
+
+    /**
+     * Console output message for failed query parsing
+     */
+    PARSER_QUERY_ERROR("parser_query_error"),
+
+    /**
+     * Console output for when the visualisation has been started
+     */
+    VISUALISATION_STARTED("visualisation_started"),
 
     /** Line containing the error for an ParserException */
     POSITION("position"),

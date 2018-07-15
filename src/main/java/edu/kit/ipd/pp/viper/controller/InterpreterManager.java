@@ -1,21 +1,20 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
+import edu.kit.ipd.pp.viper.model.ast.Variable;
+import edu.kit.ipd.pp.viper.model.interpreter.Environment;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
 import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
-import edu.kit.ipd.pp.viper.view.LogType;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
-import guru.nidi.graphviz.model.Graph;
+import static java.util.stream.Collectors.toList;
+import java.util.Optional;
 
 /**
  * Manager class for interpreters. This class holds references to all
@@ -25,63 +24,70 @@ import guru.nidi.graphviz.model.Graph;
  * be one instance which can be accessed by reference passed as a parameter.
  */
 public class InterpreterManager {
-    private Thread continueThread;
-    private boolean searchingForSolution = false;
-    private boolean useStandardLibrary = false;
-
-    private List<Interpreter> interpreters;
+    private Optional<KnowledgeBase> knowledgeBase;
+    private Optional<Goal> query;
+    private Optional<Interpreter> interpreter;
+    private Optional<List<Variable>> variables;
 
     /**
-     * Initializes a new interpreter manager. This should only be called once.
+     * Initializes an interpreter manager.
+     * This method calls reset() internally.
      */
     public InterpreterManager() {
-        interpreters = new ArrayList<Interpreter>();
+        this.reset();
     }
 
     /**
-     * Creates a new interpreter from source. This method calls the parser to create
-     * a KnowledgeBase and creates a query from which said new interpreter is built.
-     * The new interpreter then gets added to the internal container.
-     * 
-     * @param program Source code of the Prolog program to create a KnowledgeBase
-     * from
-     * @param queryCode Source code of the query to be interpreted
-     * @param console Panel of the console area
+     * Resets the instance to make it ready for a new interpreter.
      */
-    public void createNew(String program, String queryCode, ConsolePanel console) {
-        KnowledgeBase kb = null;
-        try {
-            kb = new PrologParser(program).parse();
-        } catch (ParseException e) {
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.ERROR);
-            console.printLine(e.getMessage(), LogType.ERROR);
-            if (MainWindow.inDebugMode()) {
-                e.printStackTrace();
-            }
+    public void reset() {
+        this.knowledgeBase = Optional.empty();
+        this.query = Optional.empty();
+        this.interpreter = Optional.empty();
+        this.variables = Optional.empty();
+    }
+
+    /**
+     * Parses a knowledgebase and remembers it.
+     *
+     * @param kbSource source code to parse
+     * @throws ParseException if the source code is malformed
+     */
+    public void parseKnowledgeBase(String kbSource) throws ParseException {
+        this.knowledgeBase = Optional.of(new PrologParser(kbSource).parse());
+    }
+
+    /**
+     * Parses a query and initializes an interpreter, if a parsed knowledgebase is available.
+     *
+     * @param querySource source code of the query to parse
+     * @throws ParseException if the source code is malformed
+     */
+    public void parseQuery(String querySource) throws ParseException {
+        this.query = Optional.of(new PrologParser(querySource).parseGoalList().get(0));
+
+        if (!this.knowledgeBase.isPresent()) {
+            return;
         }
 
-        Goal query = null;
-        try {
-            query = new PrologParser(queryCode).parseGoalList().get(0);
-        } catch (ParseException e) {
-            console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR), LogType.ERROR);
-            console.printLine(e.getMessage(), LogType.ERROR);
-            if (MainWindow.inDebugMode()) {
-                e.printStackTrace();
-            }
-        }
-
-        Interpreter interpreter = new Interpreter(kb, query);
-        interpreters.add(interpreter);
+        this.interpreter = Optional.of(new Interpreter(this.knowledgeBase.get(), this.query.get()));
+        this.variables = Optional.of(this.query.get().getVariables());
     }
 
     /**
      * Takes an interpreter step.
+     * If this method is called after a call to {@link #reset()} (that includes the constructor)
+     * and before calls to {@link #parseKnowledgeBase(String)} and {@link #parseQuery(String)}, i.e.
+     * before an interpreter instance has been created, it will have no effect and return null.
      * 
      * @return Result of the step taken
      */
     public StepResult step() {
-        return this.getCurrentState().step();
+        if (!this.interpreter.isPresent()) {
+            return null;
+        }
+
+        return this.interpreter.get().step();
     }
 
     /**
@@ -102,6 +108,7 @@ public class InterpreterManager {
      * @param visualisation Panel of the visualisation area
      */
     public void runUntilNextSolution(ConsolePanel console, VisualisationPanel visualisation) {
+        /*
         if (!this.searchingForSolution) {
             this.searchingForSolution = true;
             this.continueThread = new Thread(() -> {
@@ -111,17 +118,13 @@ public class InterpreterManager {
                     this.searchingForSolution = result == StepResult.STEPS_REMAINING;
                 }
 
-                if (result == StepResult.SOLUTION_FOUND) {
-                    final String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
-                    console.printLine(prefix + getSolutionString(), LogType.INFO);
-                }
-
                 Graph graph = GraphvizMaker.createGraph(getCurrentState());
                 visualisation.setFromGraph(graph);
                 searchingForSolution = false;
             });
             this.continueThread.start();
         }
+        */
     }
 
     /**
@@ -131,33 +134,29 @@ public class InterpreterManager {
      * visualisation gets updated to the respective current step.
      */
     public void cancel() {
+        /**
         this.searchingForSolution = false;
+        */
     }
 
     /**
-     * Returns an immutable list of substitutions that solve the query.
+     * Returns a solution for the query.
+     * This method assumes that on the current interpreter instance,
+     * interpreter.getCurrent().isPresent() holds.
+     * This means that at least one step must have been executed.
      * 
-     * @return A possible solution in the form of an immutable list
+     * @return string list of substitutions that form a solution
      */
     public List<Substitution> getSolution() {
-        return null;
-    }
+        Environment currentEnv = this.getCurrentState().getCurrent().get().getEnvironment();
 
-    /**
-     * Returns a string representation of the solution for console output.
-     * 
-     * @return string representation of the substitutions found
-     */
-    public String getSolutionString() {
-        final List<Substitution> solution = getSolution();
-        String rv = "{";
+        List<Substitution> solution = this.variables.get().stream()
+        .map(variable -> {
+            return new Substitution(variable, currentEnv.applyAllSubstitutions(variable));
+        })
+        .collect(toList());
 
-        for (int i = 0; i < solution.size(); i++) {
-            rv += solution.get(i).toString();
-            rv += i < solution.size() - 1 ? ", " : "}";
-        }
-
-        return rv;
+        return solution;
     }
 
     /**
@@ -166,14 +165,16 @@ public class InterpreterManager {
      * @return Current state of the interpretation
      */
     public Interpreter getCurrentState() {
-        return interpreters.get(interpreters.size() - 1);
+        return this.interpreter.get();
     }
 
     /**
      * Toggles the standard library on or off.
      */
     public void toggleStandardLibrary() {
+        /*
         this.useStandardLibrary = !this.useStandardLibrary;
+        */
     }
 
     /**
@@ -182,6 +183,9 @@ public class InterpreterManager {
      * @return boolean value describing whether the standard library is enabled
      */
     public boolean isStandardEnabled() {
+        /*
         return this.useStandardLibrary;
+        */
+        return false;
     }
 }

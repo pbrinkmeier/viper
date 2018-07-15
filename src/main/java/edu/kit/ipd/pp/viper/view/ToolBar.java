@@ -81,12 +81,12 @@ public class ToolBar extends JToolBar implements HasClickable {
 
         this.buttonParse = new ToolBarButton(ICON_PARSE, LanguageKey.TOOLTIP_PARSE,
                 new CommandParse(this.main.getConsolePanel(), this.main.getEditorPanel(),
-                        this.main.getVisualisationPanel(), this.main::switchClickableState));
+                        this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main::switchClickableState));
         this.buttonFormat = new ToolBarButton(ICON_FORMAT, LanguageKey.TOOLTIP_FORMAT,
                 new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel()));
 
         this.buttonStep = new ToolBarButton(ICON_STEP, LanguageKey.TOOLTIP_STEP, new CommandNextStep(
-                this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
+                this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main.getConsolePanel()));
         this.buttonSolution = new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT, new CommandContinue(
                 this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
 

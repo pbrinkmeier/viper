@@ -81,9 +81,7 @@ public class MainWindow extends JFrame {
         this.editorPanel = new EditorPanel();
         this.visualisationPanel = new VisualisationPanel(this);
         this.consolePanel = new ConsolePanel(this);
-
         this.prefManager = new PreferencesManager(this.consolePanel);
-
         this.setWindowTitle = this::setWindowTitle;
 
         // add menu bar and tool bar to window

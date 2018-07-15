@@ -82,8 +82,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
 
         // panel for the buttons below the visualisation
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        this.buttonStep = new Button(LanguageKey.BUTTON_STEP, new CommandNextStep(this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
+        this.buttonStep = new Button(LanguageKey.BUTTON_STEP, new CommandNextStep(
+                this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main.getConsolePanel()));
         buttonPanel.add(buttonStep);
 
         this.add(contentPane, BorderLayout.CENTER);

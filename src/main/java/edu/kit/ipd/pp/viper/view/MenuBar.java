@@ -172,7 +172,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      */
     private void addParseItem(Menu menu) {
         itemParse = new MenuItem(LanguageKey.MENU_PARSE, new CommandParse(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::switchClickableState));
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main::switchClickableState));
 
         menu.add(itemParse);
     }

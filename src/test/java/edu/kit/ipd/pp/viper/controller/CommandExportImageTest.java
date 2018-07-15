@@ -26,9 +26,9 @@ public class CommandExportImageTest {
         this.console = this.gui.getConsolePanel();
         this.interpreterManager = this.gui.getInterpreterManager();
 
-        final String program = SharedTestConstants.SIMPSONS_FORMATTED;
-        final String query = SharedTestConstants.TEST_QUERY;
-        this.interpreterManager.createNew(program, query, this.console);
+        // final String program = SharedTestConstants.SIMPSONS_FORMATTED;
+        // final String query = SharedTestConstants.TEST_QUERY;
+        // this.interpreterManager.createNew(program, query, this.console);
         this.interpreterManager.runUntilNextSolution(this.console, this.gui.getVisualisationPanel());
     }
 

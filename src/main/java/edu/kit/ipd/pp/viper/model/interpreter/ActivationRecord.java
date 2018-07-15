@@ -88,7 +88,7 @@ public abstract class ActivationRecord {
      *
      * @return this ARs environment
      */
-    protected Environment getEnvironment() {
+    public Environment getEnvironment() {
         return this.environment;
     }
 

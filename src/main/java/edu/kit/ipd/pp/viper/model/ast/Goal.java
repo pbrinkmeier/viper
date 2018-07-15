@@ -4,6 +4,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
+import java.util.List;
 import java.util.Optional;
 
 public abstract class Goal {
@@ -28,6 +29,15 @@ public abstract class Goal {
      * @return new version of the goal where the visitor has been applied to all terms
      */
     public abstract Goal transform(TermTransformationVisitor visitor);
+
+    /**
+     * Returns an immutable list of variables that appear in this goal.
+     * This list may be used by the interpreter manager to find out which
+     * variables a certain interpreter is trying to solve for.
+     *
+     * @return list of variables that appear in this goal
+     */
+    public abstract List<Variable> getVariables();
 
     /**
      * Getter-method for a string representation of this goal.

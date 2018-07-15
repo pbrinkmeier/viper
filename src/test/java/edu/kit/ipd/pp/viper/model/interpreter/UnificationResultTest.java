@@ -59,12 +59,12 @@ public class UnificationResultTest {
 
     @Test
     public void getErrorMessageFailTest() {
-        assertEquals("abe ≠ homer", this.failResult.getErrorMessage());
+        assertEquals("abe is not unifiable with homer", this.failResult.getErrorMessage());
     }
 
     @Test
     public void toHtmlTest() {
-        assertEquals("X ⇒ abe, Y ⇒ bart", this.successResult.toHtml());
-        assertEquals("abe ≠ homer", this.failResult.toHtml());
+        assertEquals("X =&gt; abe, Y =&gt; bart", this.successResult.toHtml());
+        assertEquals("abe is not unifiable with homer", this.failResult.toHtml());
     }
 }

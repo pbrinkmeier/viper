@@ -16,6 +16,7 @@ public class CommandParseTest {
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
 
     /**
      * Constructs the GUI.
@@ -27,6 +28,7 @@ public class CommandParseTest {
         this.editor = this.gui.getEditorPanel();
         this.console = this.gui.getConsolePanel();
         this.visualisation = this.gui.getVisualisationPanel();
+        this.interpreterManager = this.gui.getInterpreterManager();
     }
 
     /**
@@ -37,7 +39,7 @@ public class CommandParseTest {
         this.console.clearAll();
         this.visualisation.clearVisualization();
         this.editor.setSourceText("");
-        new CommandParse(this.console, this.editor, this.visualisation, this.gui::switchClickableState).execute();
+        new CommandParse(this.console, this.editor, this.visualisation, this.interpreterManager, this.gui::switchClickableState).execute();
 
         assertTrue(this.editor.getSourceText().equals(""));
         assertFalse(this.visualisation.hasGraph());
@@ -55,7 +57,7 @@ public class CommandParseTest {
         this.console.clearAll();
         this.visualisation.clearVisualization();
         this.editor.setSourceText("(");
-        new CommandParse(this.console, this.editor, this.visualisation, this.gui::switchClickableState).execute();
+        new CommandParse(this.console, this.editor, this.visualisation, this.interpreterManager, this.gui::switchClickableState).execute();
 
         assertTrue(this.editor.getSourceText().trim().equals("("));
         assertFalse(this.visualisation.hasGraph());
@@ -72,7 +74,7 @@ public class CommandParseTest {
         this.console.clearAll();
         this.visualisation.clearVisualization();
         this.editor.setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
-        new CommandParse(this.console, this.editor, this.visualisation, this.gui::switchClickableState).execute();
+        new CommandParse(this.console, this.editor, this.visualisation, this.interpreterManager, this.gui::switchClickableState).execute();
 
         assertTrue(this.editor.getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
         assertFalse(this.visualisation.hasGraph());
