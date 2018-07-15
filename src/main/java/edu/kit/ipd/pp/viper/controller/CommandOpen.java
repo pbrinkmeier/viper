@@ -29,6 +29,7 @@ public class CommandOpen extends Command {
     private EditorPanel editor;
     private VisualisationPanel visualisation;
     private Consumer<ClickableState> toggleStateFunc;
+    private Consumer<String> setTitle;
 
     /**
      * Initializes a new open command.
@@ -38,13 +39,15 @@ public class CommandOpen extends Command {
      * @param visualisation Panel of the visualisation area
      * @param toggleStateFunc Consumer function that switches the state of clickable
      * elements in the GUI
+     * @param setTitle Consumer function that can change the window title
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
-            Consumer<ClickableState> toggleStateFunc) {
+            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
+        this.setTitle = setTitle;
     }
 
     /**
@@ -86,6 +89,7 @@ public class CommandOpen extends Command {
                 final String out = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_SUCCESS);
                 this.console.clearAll();
                 this.console.printLine(out + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.INFO);
+                this.setTitle.accept(chooser.getSelectedFile().getAbsolutePath());
 
                 this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
                 in.close();

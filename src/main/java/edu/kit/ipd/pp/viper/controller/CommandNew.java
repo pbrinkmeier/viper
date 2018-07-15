@@ -18,6 +18,7 @@ public class CommandNew extends Command {
     private EditorPanel editor;
     private VisualisationPanel visualisation;
     private Consumer<ClickableState> toggleStateFunc;
+    private Consumer<String> setTitle;
 
     /**
      * @param console Panel of the console area
@@ -25,13 +26,15 @@ public class CommandNew extends Command {
      * @param editor Panel of the editor area
      * @param toggleStateFunc Consumer function that switches the state of clickable
      * elements in the GUI
+     * @param setTitle Consumer function to change the window title
      */
     public CommandNew(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
-            Consumer<ClickableState> toggleStateFunc) {
+            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
+        this.setTitle = setTitle;
     }
 
     /**
@@ -47,7 +50,7 @@ public class CommandNew extends Command {
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
             if (rv == 0) {
-                CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE);
+                CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE, this.setTitle);
                 save.execute();
             }
 
@@ -66,5 +69,6 @@ public class CommandNew extends Command {
         this.console.clearAll();
         this.visualisation.clearVisualization();
         this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
+        this.setTitle.accept("");
     }
 }

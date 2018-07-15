@@ -72,12 +72,12 @@ public class ToolBar extends JToolBar implements HasClickable {
     private void addButtons() {
         this.buttonNew = new ToolBarButton(ICON_NEW, LanguageKey.TOOLTIP_NEW,
                 new CommandNew(this.main.getConsolePanel(), this.main.getEditorPanel(),
-                        this.main.getVisualisationPanel(), this.main::switchClickableState));
+                        this.main.getVisualisationPanel(), this.main.getVisualisationPanel(), this.main::setWindowTitle, this.main::switchClickableState));
         this.buttonOpen = new ToolBarButton(ICON_OPEN, LanguageKey.TOOLTIP_OPEN,
                 new CommandOpen(this.main.getConsolePanel(), this.main.getEditorPanel(),
-                        this.main.getVisualisationPanel(), this.main::switchClickableState));
+                        this.main.getVisualisationPanel(), this.main.getVisualisationPanel(), this.main::setWindowTitle, this.main::switchClickableState));
         this.buttonSave = new ToolBarButton(ICON_SAVE, LanguageKey.TOOLTIP_SAVE,
-                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE));
+                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE, this.main::setWindowTitle));
 
         this.buttonParse = new ToolBarButton(ICON_PARSE, LanguageKey.TOOLTIP_PARSE,
                 new CommandParse(this.main.getConsolePanel(), this.main.getEditorPanel(),

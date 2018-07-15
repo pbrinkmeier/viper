@@ -3,6 +3,8 @@ package edu.kit.ipd.pp.viper.view;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.function.Consumer;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
@@ -53,6 +55,7 @@ public class MainWindow extends JFrame {
      * Preferences manager instance
      */
     private final PreferencesManager prefManager;
+    private Consumer<String> setWindowTitle;
 
     /**
      * Global instance of InterpreterManager
@@ -81,6 +84,8 @@ public class MainWindow extends JFrame {
 
         this.prefManager = new PreferencesManager(this.consolePanel);
 
+        this.setWindowTitle = this::setWindowTitle;
+
         // add menu bar and tool bar to window
         this.menubar = new MenuBar(this);
         this.toolbar = new ToolBar(this);
@@ -97,7 +102,7 @@ public class MainWindow extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                new CommandExit(consolePanel, editorPanel).execute();
+                new CommandExit(consolePanel, editorPanel, setWindowTitle).execute();
             }
         });
         this.setLocationRelativeTo(null);
@@ -171,6 +176,19 @@ public class MainWindow extends JFrame {
         }
 
         new MainWindow(debug);
+    }
+
+    /**
+     * Sets the window title to '{title} - VIPER'. This can be used to
+     * include the currently opened file in the title.
+     * 
+     * @param title String to display, using "" or null removes the title
+     */
+    public void setWindowTitle(String title) {
+        if (title == null || title.equals(""))
+            this.setTitle(WINDOW_TITLE);
+        else
+            this.setTitle(title + " - " + WINDOW_TITLE);
     }
 
     /**
