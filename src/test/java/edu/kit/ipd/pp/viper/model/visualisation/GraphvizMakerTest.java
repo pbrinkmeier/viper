@@ -18,8 +18,14 @@ import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.Graph;
 
 public class GraphvizMakerTest {
+    /**
+     * Tests the creation of a graph.
+     * 
+     * @throws IOException if the file couldn't be read properly
+     * @throws ParseException if the code couldn't be parsed
+     */
     @Test
-    public void createGraphtest() throws Exception, IOException, ParseException {
+    public void createGraphtest() throws IOException, ParseException {
         String source = new String(Files.readAllBytes(Paths.get("src/test/resources/simpsons_advanced.pl")));
         KnowledgeBase kb = new PrologParser(source).parse();
         Goal query = new PrologParser("grandfather(X, Y).").parseGoalList().get(0);

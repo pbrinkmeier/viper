@@ -10,6 +10,9 @@ public class BinaryOperationTest {
     private BinaryOperation minus;
     private BinaryOperation times;
 
+    /**
+     * Initializes the binary operations used in the tests.
+     */
     @Before
     public void init() {
         this.plus = new AdditionOperation(new Number(40), new Number(2));
@@ -17,6 +20,9 @@ public class BinaryOperationTest {
         this.times = new MultiplicationOperation(new Number(6), new Number(7));
     }
 
+    /**
+     * Tests the conversion from a binary operation to a string.
+     */
     @Test
     public void toStringTest() {
         assertEquals("(40 + 2)", this.plus.toString());
@@ -30,6 +36,9 @@ public class BinaryOperationTest {
         assertEquals("(A_1 + 1)", new AdditionOperation(new Variable("A", 1), new Number(1)).toString());
     }
 
+    /**
+     * Tests the conversion from a binary operation to HTML code.
+     */
     @Ignore
     @Test
     public void toHtmlTest() {
@@ -40,6 +49,9 @@ public class BinaryOperationTest {
         assertEquals("(A<sub>1</sub> + 1)", new AdditionOperation(new Variable("A", 1), new Number(1)).toHtml());
     }
 
+    /**
+     * Tests the comparison of binary operations.
+     */
     @Test
     public void equalsTest() {
         assertEquals(new AdditionOperation(new Number(40), new Number(2)), this.plus);
@@ -50,6 +62,9 @@ public class BinaryOperationTest {
         assertNotEquals(new Functor("*", Arrays.asList(new Number(6), new Number(7))), this.times);
     }
 
+    /**
+     * Tests the Getter-Methods for the left-hand side of the operation.
+     */
     @Test
     public void getLhsTest() {
         assertEquals(new Number(40), this.plus.getLhs());
@@ -57,6 +72,9 @@ public class BinaryOperationTest {
         assertEquals(new Number(6), this.times.getLhs());
     }
 
+    /**
+     * Tests the Getter-Methods for the right-hand side of the operation.
+     */
     @Test
     public void getRhsTest() {
         assertEquals(new Number(2), this.plus.getRhs());

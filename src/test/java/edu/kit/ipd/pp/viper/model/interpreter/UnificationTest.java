@@ -11,6 +11,9 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class UnificationTest {
+    /**
+     * Tests a simple unification of a variable and an atom.
+     */
     @Test
     public void simpleTest() {
         Term lhs = Functor.atom("cheezburger");
@@ -23,6 +26,9 @@ public class UnificationTest {
                 result.getSubstitutions());
     }
 
+    /**
+     * Tests the unification of two functors.
+     */
     @Test
     public void functorTest() {
         Term lhs = new Functor("father", Arrays.asList(new Variable("X"), new Variable("Y")));
@@ -35,6 +41,9 @@ public class UnificationTest {
                 new Substitution(new Variable("Y"), Functor.atom("homer"))), result.getSubstitutions());
     }
 
+    /**
+     * Tests for proper failure of trying to unify two different atoms.
+     */
     @Test
     public void failTest() {
         Term lhs = Functor.atom("homer");
@@ -46,6 +55,9 @@ public class UnificationTest {
         assertEquals("homer is not unifiable with marge", result.getErrorMessage());
     }
 
+    /**
+     * Tests the proper substitution of a variable used multiple times.
+     */
     @Test
     public void variableUsedMultipleTimesTest() {
         Term lhs = new Functor("max", Arrays.asList(new Number(42), new Number(17), new Variable("Maximum", 1)));
@@ -60,6 +72,9 @@ public class UnificationTest {
                 new Substitution(new Variable("Maximum", 1), new Number(42))), result.getSubstitutions());
     }
 
+    /**
+     * Tests proper variable precedence.
+     */
     @Test
     // Unification, although "working both ways", has a direction in our model.
     // The direction determines which sides variables are "stronger".
@@ -77,6 +92,9 @@ public class UnificationTest {
         assertEquals(Arrays.asList(new Substitution(new Variable("Y"), new Variable("X"))), result.getSubstitutions());
     }
 
+    /**
+     * Tests proper functor precedence.
+     */
     @Test
     public void directionFunctorTest() {
         Term lhs = new Functor("grandfather", Arrays.asList(new Variable("X"), new Variable("Y")));
@@ -89,6 +107,9 @@ public class UnificationTest {
     }
 
     // Unifying a variable with itself should not yield any substitutions
+    /**
+     * Tests whether self-substitution (unification of a variable with itself) is avoided properly.
+     */
     @Test
     public void avoidSelfSubstitutionTest() {
         Term lhs = new Variable("X");
@@ -100,6 +121,9 @@ public class UnificationTest {
         assertEquals(Arrays.asList(), result.getSubstitutions());
     }
 
+    /**
+     * Test if recursive substitutions are properly avoided.
+     */
     @Test
     public void avoidRecursiveSubstitutionTest() {
         Term lhs = new Variable("X");

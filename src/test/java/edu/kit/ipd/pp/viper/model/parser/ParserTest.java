@@ -24,6 +24,12 @@ public class ParserTest {
     private KnowledgeBase testBase;
     private KnowledgeBase emptyBase;
 
+    /**
+     * Initializes the KnowledgeBases and Parser used in the tests.
+     * 
+     * @throws IOException if the example program couldn't be loaded
+     * @throws ParseException if the example program couldn't be parsed
+     */
     @Before
     public void init() throws IOException, ParseException {
         String src = new String(Files.readAllBytes(Paths.get("src/test/resources/simpsons.pl")));
@@ -41,6 +47,11 @@ public class ParserTest {
         this.emptyBase = new KnowledgeBase(Arrays.asList());
     }
 
+    /**
+     * Tests the successful parsing of the given prolog code.
+     * 
+     * @throws ParseException if the prolog code couldn't be parsed
+     */
     @Test
     public void parseTest() throws ParseException {
         KnowledgeBase parsed = kbParser.parse();
@@ -48,6 +59,11 @@ public class ParserTest {
         assertNotEquals(parsed, this.emptyBase);
     }
 
+    /**
+     * Tests parsing the goal list of a given query.
+     * 
+     * @throws ParseException if the query couldn't be parsed
+     */
     @Test
     public void parseGoalListTest() throws ParseException {
         List<Goal> parsedOneRule = new PrologParser("grandfather(X, Y).").parseGoalList();

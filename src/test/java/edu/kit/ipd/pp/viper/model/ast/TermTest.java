@@ -6,6 +6,9 @@ import org.junit.*;
 
 // This test wont even compile without all its subclasses present
 public class TermTest {
+    /**
+     * Tests the creation of all subclasses of Term.
+     */
     @SuppressWarnings("unused")
     @Test
     public void subClassesTest() {

@@ -20,6 +20,12 @@ import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 
 public class InterpreterTest {
+    /**
+     * Tests performing a single step with the interpreter.
+     * 
+     * @throws IOException if the example program couldn't be loaded
+     * @throws ParseException if the example program couldn't be parsed
+     */
     @Test
     public void stepTest() throws IOException, ParseException {
         String source = new String(Files.readAllBytes(Paths.get("src/test/resources/simpsons.pl")));

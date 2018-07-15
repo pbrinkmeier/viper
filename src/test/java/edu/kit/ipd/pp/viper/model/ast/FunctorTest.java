@@ -10,6 +10,9 @@ public class FunctorTest {
     private Functor fun;
     private Functor noParam;
 
+    /**
+     * Initializes the Functors used in the tests.
+     */
     @Before
     public void init() {
         this.fun = new Functor("test", Arrays.asList(Functor.atom("a"), Functor.atom("b"), Functor.atom("c")));
@@ -17,6 +20,9 @@ public class FunctorTest {
         this.noParam = Functor.atom("noparam");
     }
 
+    /**
+     * Tests the static atom-Function in comparison to using the constructor.
+     */
     @Test
     public void atomTest() {
         assertEquals(new Functor("test", Arrays.asList()), Functor.atom("test"));
@@ -24,12 +30,18 @@ public class FunctorTest {
         assertEquals(new Functor("pls", Arrays.asList()), Functor.atom("pls"));
     }
 
+    /**
+     * Tests the conversion of a Functor to a String.
+     */
     @Test
     public void toStringTest() {
         assertEquals("noparam", this.noParam.toString());
         assertEquals("test(a, b, c)", this.fun.toString());
     }
 
+    /**
+     * Tests the conversion of a Functor to HTML code.
+     */
     @Ignore
     @Test
     public void toHtmlTest() {
@@ -40,23 +52,38 @@ public class FunctorTest {
         assertEquals("index(X<sub>42</sub>)", new Functor("index", Arrays.asList(new Variable("X", 42))).toHtml());
     }
 
+    /**
+     * Tests the functor evaluation method.
+     * 
+     * @throws TermEvaluationException if the evaluation fails
+     */
     @Test(expected = UnsupportedTermException.class)
     public void evaluateTest() throws TermEvaluationException {
         this.fun.evaluate();
     }
 
+    /**
+     * Tests whether the getParameters()-Method actually returns an
+     * immutable list.
+     */
     @Test(expected = UnsupportedOperationException.class)
-    public void getParametersImmutableTest() throws UnsupportedOperationException {
+    public void getParametersImmutableTest() {
         List<Term> param = this.fun.getParameters();
         param.add(this.fun);
     }
 
+    /**
+     * Tests the Getter-Method for the Functor name.
+     */
     @Test
     public void getNameTest() {
         assertEquals("test", this.fun.getName());
         assertEquals("noparam", this.noParam.getName());
     }
 
+    /**
+     * Tests Functor-comparison.
+     */
     @Test
     public void equalsTest() {
         Functor testFunctor = new Functor("test",
@@ -92,11 +119,18 @@ public class FunctorTest {
                 new Functor("mother", Arrays.asList(Functor.atom("marge"), Functor.atom("bart"))));
     }
 
+    /**
+     * Tests the Getter-Method for the Functor parameter list.
+     */
     @Test
-    public void getParametersTest() throws Exception {
+    public void getParametersTest() {
         assertEquals(Arrays.asList(Functor.atom("a"), Functor.atom("b"), Functor.atom("c")), this.fun.getParameters());
     }
 
+    /**
+     * Tests the creation of a new Functor via an already
+     * instantiated Functor object.
+     */
     @Test
     public void createNewTest() {
         assertEquals(new Functor("test", Arrays.asList(Functor.atom("single"))),

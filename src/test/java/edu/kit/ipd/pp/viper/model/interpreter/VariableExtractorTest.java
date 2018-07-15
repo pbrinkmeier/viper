@@ -12,6 +12,9 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class VariableExtractorTest {
+    /**
+     * Tests the proper extraction of variables from a term.
+     */
     @Test
     public void extractFromFunctorTest() {
         Term term = new Functor("blub", Arrays.asList(new Number(42), new Variable("X"),

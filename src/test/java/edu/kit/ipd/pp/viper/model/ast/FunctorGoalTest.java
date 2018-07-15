@@ -11,11 +11,17 @@ import org.junit.Test;
 public class FunctorGoalTest {
     private FunctorGoal testGoal;
 
+    /**
+     * Initializes the functor goal used in the tests.
+     */
     @Before
     public void init() {
         this.testGoal = new FunctorGoal(new Functor("test", Arrays.asList(Functor.atom("a"), Functor.atom("b"))));
     }
 
+    /**
+     * Tests the Getter-Function for the Functor of a Functor-Goal.
+     */
     @Test
     public void getFunctorTest() {
         assertEquals(new Functor("test", Arrays.asList(Functor.atom("a"), Functor.atom("b"))),
@@ -23,6 +29,9 @@ public class FunctorGoalTest {
         assertNotEquals(Functor.atom("test"), this.testGoal.getFunctor());
     }
 
+    /**
+     * Tests the creation of an adequate Activation Record.
+     */
     @Test
     public void createActivationRecordTest() {
         // FunctorActivationRecord far =

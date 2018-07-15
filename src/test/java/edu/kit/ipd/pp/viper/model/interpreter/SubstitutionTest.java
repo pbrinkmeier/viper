@@ -9,21 +9,33 @@ import static org.junit.Assert.*;
 public class SubstitutionTest {
     private Substitution substitution;
 
+    /**
+     * Initializes the substitution used in the tests.
+     */
     @Before
     public void init() {
         this.substitution = new Substitution(new Variable("X"), Functor.atom("homer"));
     }
 
+    /**
+     * Tests the Getter-Method for the replacement term.
+     */
     @Test
     public void getReplaceTest() {
         assertEquals(new Variable("X"), this.substitution.getReplace());
     }
 
+    /**
+     * Tests the Getter-Method for the replacer term.
+     */
     @Test
     public void getByTest() {
         assertEquals(Functor.atom("homer"), this.substitution.getBy());
     }
 
+    /**
+     * Tests the comparison of two substitutions.
+     */
     @Test
     public void equalsTest() {
         assertNotEquals(new Substitution(new Variable("Y"), Functor.atom("homer")), this.substitution);

@@ -12,6 +12,9 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class IndexifierTest {
+    /**
+     * Tests the proper visiting of a functor.
+     */
     @Test
     public void visitFunctorTest() {
         Functor fun = new Functor("father", Arrays.asList(new Variable("X"), new Variable("Z")));
@@ -20,6 +23,9 @@ public class IndexifierTest {
                 fun.transform(new Indexifier(42)));
     }
 
+    /**
+     * Tests the proper visiting of a variable.
+     */
     @Test
     public void visitVariableTest() {
         Variable var = new Variable("A");
@@ -27,6 +33,9 @@ public class IndexifierTest {
         assertEquals(new Variable("A", 42), var.transform(new Indexifier(42)));
     }
 
+    /**
+     * Tests the proper visiting of a number.
+     */
     @Test
     public void visitNumberTest() {
         Number num = new Number(100);
