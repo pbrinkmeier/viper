@@ -42,9 +42,12 @@ public class CommandSetLang extends Command {
         LanguageManager.getInstance().setLocale(this.lang);
         this.prefManager.setLanguage(this.lang);
 
+        boolean hasGraph = this.visualisation.hasGraph();
         this.console.clearAll();
 
-        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-        this.visualisation.setFromGraph(graph);
+        if (hasGraph) {
+            Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
+            this.visualisation.setFromGraph(graph);
+        }
     }
 }
