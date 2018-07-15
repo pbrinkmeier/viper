@@ -54,7 +54,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         this.textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                // command.execute();
+                command.execute();
                 clear();
             }
         });

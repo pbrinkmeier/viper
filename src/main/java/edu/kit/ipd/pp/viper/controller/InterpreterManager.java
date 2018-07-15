@@ -28,6 +28,7 @@ public class InterpreterManager {
     private Optional<Goal> query;
     private Optional<Interpreter> interpreter;
     private Optional<List<Variable>> variables;
+    private boolean useStandardLibrary = false;
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -163,9 +164,7 @@ public class InterpreterManager {
      * Toggles the standard library on or off.
      */
     public void toggleStandardLibrary() {
-        /*
-         * this.useStandardLibrary = !this.useStandardLibrary;
-         */
+        this.useStandardLibrary = !this.useStandardLibrary;
     }
 
     /**
@@ -174,9 +173,6 @@ public class InterpreterManager {
      * @return boolean value describing whether the standard library is enabled
      */
     public boolean isStandardEnabled() {
-        /*
-         * return this.useStandardLibrary;
-         */
-        return false;
+        return this.useStandardLibrary;
     }
 }
