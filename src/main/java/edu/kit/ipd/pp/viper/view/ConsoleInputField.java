@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,7 +20,7 @@ import edu.kit.ipd.pp.viper.controller.LanguageKey;
 /**
  * Represents a panel contaning an input field for prolog queries, as well as a button to send the query.
  */
-public class ConsoleInputField extends JPanel implements HasClickable {
+public class ConsoleInputField extends JPanel implements KeyListener, HasClickable {
     /**
      * Serial UID
      */
@@ -27,7 +31,9 @@ public class ConsoleInputField extends JPanel implements HasClickable {
     private final JTextField textField;
 
     private Button buttonSend;
-    
+    private List<String> history;
+    private int historyPos;
+
     /**
      * Creates a new panel that contains an input field and a button
      * 
@@ -35,6 +41,9 @@ public class ConsoleInputField extends JPanel implements HasClickable {
      */
     public ConsoleInputField(Command command) {
         super();
+
+        this.history = new ArrayList<>();
+        this.historyPos = 0;
 
         this.setLayout(new BorderLayout());
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -44,9 +53,12 @@ public class ConsoleInputField extends JPanel implements HasClickable {
         this.textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                command.execute();
+                //command.execute();
+                clear();
             }
         });
+        this.textField.addKeyListener(this);
+
         this.textField.setFont(new Font("monospaced", Font.PLAIN, 14));
 
         JLabel text = new JLabel("?-");
@@ -62,6 +74,16 @@ public class ConsoleInputField extends JPanel implements HasClickable {
     }
 
     /**
+     * Adds the current input field content to the history
+     */
+    private void addHistory() {
+        if (!this.textField.getText().equals("")) {
+            this.history.add(this.textField.getText());
+            this.historyPos = 0;
+        }
+    }
+
+    /**
      * Returns the content of the input field
      * 
      * @return Input field content
@@ -74,6 +96,7 @@ public class ConsoleInputField extends JPanel implements HasClickable {
      * Clears the content of the input field
      */
     public void clear() {
+        this.addHistory();
         this.textField.setText(null);
     }
 
@@ -90,6 +113,10 @@ public class ConsoleInputField extends JPanel implements HasClickable {
     public void unlock() {
         this.textField.setEditable(true);
         this.textField.requestFocusInWindow();
+        
+        // clear the history
+        this.history.clear();
+        this.historyPos = 0;
     }
 
     /**
@@ -111,5 +138,54 @@ public class ConsoleInputField extends JPanel implements HasClickable {
             default:
                 break;
         }
+    }
+
+    /**
+     * Fired when a key was pressed, e.g. an arrow key.
+     * Used to "scroll" through the input history
+     * 
+     * @param event The key event that occured
+     */
+    @Override
+    public void keyPressed(KeyEvent event) {
+        int keyCode = event.getKeyCode();
+
+        switch (keyCode) {
+        case 38: // arrow up key
+            if (this.historyPos - 1 >= -this.history.size()) {
+                this.historyPos--;
+                this.textField.setText(this.history.get(this.history.size() + this.historyPos));
+            }
+
+            break;
+        case 40: // arrow down key
+            if (this.historyPos + 1 < 0) {
+                this.historyPos++;
+                this.textField.setText(this.history.get(this.history.size() + this.historyPos));
+            } else if (this.historyPos + 1 == 0) {
+                this.historyPos = 0;
+                this.textField.setText(null);
+            }
+
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
+     * Fired when a key was successfully typed, ignored here
+     * 
+     * @param e 
+     */
+    public void keyTyped(KeyEvent e) {
+    }
+
+    /**
+     * Fire when a key was released, ignored here
+     * 
+     * @param e 
+     */
+    public void keyReleased(KeyEvent e) {
     }
 }
