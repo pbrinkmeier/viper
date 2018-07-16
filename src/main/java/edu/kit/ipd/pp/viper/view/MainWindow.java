@@ -3,7 +3,6 @@ package edu.kit.ipd.pp.viper.view;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.function.Consumer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,11 +10,19 @@ import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import edu.kit.ipd.pp.viper.controller.CommandContinue;
 import edu.kit.ipd.pp.viper.controller.CommandExit;
+import edu.kit.ipd.pp.viper.controller.CommandFormat;
+import edu.kit.ipd.pp.viper.controller.CommandNew;
+import edu.kit.ipd.pp.viper.controller.CommandNextStep;
+import edu.kit.ipd.pp.viper.controller.CommandOpen;
+import edu.kit.ipd.pp.viper.controller.CommandParse;
+import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
+import edu.kit.ipd.pp.viper.controller.SaveType;
 
 public class MainWindow extends JFrame {
     /**
@@ -55,6 +62,14 @@ public class MainWindow extends JFrame {
     private final EditorPanel editorPanel;
     private final ConsolePanel consolePanel;
     private final VisualisationPanel visualisationPanel;
+    private final CommandExit commandExit;
+    private final CommandOpen commandOpen;
+    private final CommandSave commandSave;
+    private final CommandParse commandParse;
+    private final CommandFormat commandFormat;
+    private final CommandNextStep commandNextStep;
+    private final CommandContinue commandContinue;
+    private final CommandNew commandNew;
 
     private ToolBar toolbar;
     private MenuBar menubar;
@@ -63,7 +78,6 @@ public class MainWindow extends JFrame {
      * Preferences manager instance
      */
     private final PreferencesManager prefManager;
-    private Consumer<String> setWindowTitle;
 
     /**
      * Global instance of InterpreterManager
@@ -91,7 +105,20 @@ public class MainWindow extends JFrame {
         this.editorPanel = new EditorPanel();
         
         this.prefManager = new PreferencesManager(this.consolePanel);
-        this.setWindowTitle = this::setWindowTitle;
+
+        // Create command instances
+        this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle);
+        this.commandExit = new CommandExit(editorPanel, this.commandSave);
+        this.commandOpen = new CommandOpen(this.consolePanel, this.editorPanel,
+                this.visualisationPanel, this::setWindowTitle, this::switchClickableState);
+        this.commandNew = new CommandNew(this.consolePanel, this.editorPanel,
+                this.visualisationPanel, this::setWindowTitle, this::switchClickableState, this.commandSave);
+        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel,
+                this.visualisationPanel, this.manager, this::switchClickableState);
+        this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
+        this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel,
+                this::switchClickableState);
+        this.commandContinue = new CommandContinue(this.consolePanel, this.visualisationPanel, this.manager);
 
         // add menu bar and tool bar to window
         this.menubar = new MenuBar(this);
@@ -104,12 +131,12 @@ public class MainWindow extends JFrame {
         this.initLayout();
 
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        // use CommandExit on JFrame close, because the editor may still containt
+        // use CommandExit on JFrame close, because the editor may still contain
         // unsaved content
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                new CommandExit(consolePanel, editorPanel, setWindowTitle).execute();
+                commandExit.execute();
             }
         });
         this.setLocationRelativeTo(null);
@@ -251,5 +278,77 @@ public class MainWindow extends JFrame {
      */
     public PreferencesManager getPreferencesManager() {
         return this.prefManager;
+    }
+
+    /**
+     * Returns the initialized exit command
+     *
+     * @return CommandExit
+     */
+    public CommandExit getCommandExit() {
+        return this.commandExit;
+    }
+
+    /**
+     * Returns the initialized new command
+     *
+     * @return CommandNew
+     */
+    public CommandNew getCommandNew() {
+        return this.commandNew;
+    }
+
+    /**
+     * Returns the initialized open command
+     *
+     * @return CommandOpen
+     */
+    public CommandOpen getCommandOpen() {
+        return this.commandOpen;
+    }
+
+    /**
+     * Returns the initialized save command
+     *
+     * @return CommandSave
+     */
+    public CommandSave getCommandSave() {
+        return commandSave;
+    }
+
+    /**
+     * Returns the initialized parse command
+     *
+     * @return CommandParse
+     */
+    public CommandParse getCommandParse() {
+        return commandParse;
+    }
+    
+    /**
+     * Returns the initialized format command
+     *
+     * @return CommandFormat
+     */
+    public CommandFormat getCommandFormat() {
+        return commandFormat;
+    }
+    
+    /**
+     * Returns the initialized next step command
+     *
+     * @return CommandNextStep
+     */
+    public CommandNextStep getCommandNextStep() {
+        return commandNextStep;
+    }
+    
+    /**
+     * Returns the initialized continue command
+     *
+     * @return CommandContinue
+     */
+    public CommandContinue getCommandContinue() {
+        return commandContinue;
     }
 }

@@ -36,9 +36,10 @@ public class CommandNewTest {
     public void getsCleared() {
         this.editor.setSourceText("test");
         this.editor.setHasChanged(false);
+        CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE, this.gui::setWindowTitle);
         new CommandNew(this.console, this.editor, this.visualisation,
                 this.gui::setTitle,
-                this.gui::switchClickableState).execute();
+                this.gui::switchClickableState, save).execute();
 
         assertTrue(this.editor.getSourceText().equals(""));
     }
