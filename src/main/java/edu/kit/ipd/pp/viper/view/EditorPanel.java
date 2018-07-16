@@ -195,9 +195,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
 
         switch (keyCode) {
         case KeyEvent.VK_PLUS: // plus key
+        case KeyEvent.VK_ADD:  // numpad plus key
             this.increaseFont();
             break;
-        case KeyEvent.VK_MINUS: // minus key
+        case KeyEvent.VK_MINUS:    // minus key
+        case KeyEvent.VK_SUBTRACT: // numpad minus key
             this.decreaseFont();
             break;
         default:
