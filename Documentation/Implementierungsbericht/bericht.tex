@@ -32,6 +32,7 @@
 \usepackage{enumitem}
 \usepackage{dirtree}
 \usepackage{pgfplots}
+\usepackage{pgfgantt}
 \usepackage{multicol}
 \hypersetup{
 	pdftitle={Implementierungsbericht},
@@ -72,6 +73,119 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 % Welche Kann-Kriterien?
 
 \section{Implementierungsplan}
+
+\begin{ganttchart}[x unit = 1.5cm]{0}{4}
+	\gantttitle{Implementierungsplan}{5}\\
+	\gantttitlelist{0,..., 4}{1}\\
+	%%%%%%%% Woche 1
+	\ganttbar{Setup}{0}{0}\\
+	\ganttbar{Kommando-Sprint A}{1}{1}\\
+	\ganttbar{View-Sprint A}{1}{1}\\
+	\ganttbar{AST-Sprint A}{1}{1}\\
+		
+	\ganttmilestone{Milestone: Abschluss erste Woche}{1}\\
+	%%%%%%%% Woche 2 / 3
+	\ganttbar{Kommando-Sprint B}{2}{2}\\
+	\ganttbar{View-Sprint B}{2}{2}\\
+	\ganttbar{AST-Sprint B}{2}{2}\\
+	\ganttbar{Interpreter-Sprint A}{2}{2}\\
+	\ganttbar{Controller-Manager}{2}{2}\\
+	\ganttbar{Controller-Tests}{2}{3}\\
+	
+	\ganttmilestone{Milestone: Abschluss zweite Woche}{2}\\
+	%%%%%%%% Woche 3
+	\ganttbar{Interpreter-Sprint B}{3}{3}\\
+
+	\ganttmilestone{Milestone: Abschluss dritte Woche}{3}\ganttnewline
+	%%%%%%%% Woche 4
+	\ganttbar{Puffer}{4}{4}\\
+	%%%%%%%% Links
+	\ganttlink[link mid=0.5]{elem0}{elem1}
+	\ganttlink[link mid=0.25]{elem0}{elem2}
+	\ganttlink[link mid=0.17]{elem0}{elem3}
+	
+	\ganttlink[link mid=0.9]{elem1}{elem4}
+	\ganttlink[link mid=0.85]{elem2}{elem4}
+	\ganttlink[link mid=0.7]{elem3}{elem4}
+	
+	\ganttlink[link mid=0.5]{elem4}{elem5}
+	\ganttlink[link mid=0.25]{elem4}{elem6}
+	\ganttlink[link mid=0.17]{elem4}{elem7}
+	\ganttlink[link mid=0.125]{elem4}{elem8}
+	\ganttlink[link mid=0.1]{elem4}{elem9}
+	\ganttlink[link mid=0.085]{elem4}{elem10}
+	
+	
+	\ganttlink[link bulge=1.6, link mid=0.92]{elem5}{elem11}
+	\ganttlink[link bulge=1.6, link mid=0.9]{elem6}{elem11}
+	\ganttlink[link bulge=1.6, link mid=0.88]{elem7}{elem11}
+	\ganttlink[link bulge=1.6, link mid=0.84]{elem8}{elem11}
+	\ganttlink[link bulge=1.6, link mid=0.75]{elem9}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.5]{elem10}{elem11}
+
+	\ganttlink[link bulge=0.6, link mid=0.78]{elem10}{elem12}
+	\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
+	
+	\ganttlink[link bulge=0.2, link mid=0.5]{elem12}{elem13}
+	\ganttlink[link bulge=0.2, link mid=0.5]{elem13}{elem14}
+\end{ganttchart}
+\newpage
+Der Implementierungsstil teilt sich in Wochensprints ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich und bei dringendem Bedarf statt. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden kann und muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel sondern im Nachhinein entwickelt.
+
+Die Gantt-Chart entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspricht hierbei dem Vorgehen am ersten Tag der ersten Woche. Die zugehörigen Aufgaben setzen sich wie folgt zusammen:
+\begin{enumerate}
+	\item \textbf{Setup}: Generierung des Code-Gerüsts aus dem UML-Klassendiagramm des Entwurfs, Aufsetzen des Build-Systems (Gradle) sowie des Style-Prüfers (Checkstyle). Dieser Punkt baut eine gemeinsame Grundlage auf, von der aus die einzelnen Aufgabenbereiche in separaten Branches weiterarbeiten können.
+	
+	\item \textbf{Kommando-Sprint A}: Implementierung simpler Kommandos mit wenigen bis keinen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Eingabe-/Ausgabe-Kommandos sowie Kommandos, welche an den Interpreter-Manager und Language-Manager des Controller-Pakets delegieren, namentlich:
+	\begin{multicols}{3}
+		\begin{itemize}
+			\item CommandNew
+			\item CommandOpen
+			\item CommandSave
+			\item CommandZoom
+
+			\item CommandToggleLib
+			\item CommandSetLang
+			\item CommandExportTikZ
+			\item CommandExportImage
+
+			\item CommandParse
+			\item CommandExit
+		\end{itemize}
+	\end{multicols}
+
+	\item \textbf{View-Sprint A}: % TODO
+	
+	\item \textbf{AST-Sprint A}: % TODO
+
+	\item \textbf{Kommando-Sprint B}: Implementierung komplexerer Kommandos mit diversen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Kommandos, welche die Interpretation steuern. Weiter werden Kommandos fertig implementiert, die stärkere Abhängigkeiten zum Rest des Codes haben wie die Export-Funktionen:
+	\begin{multicols}{3}
+		\begin{itemize}
+			\item CommandNextStep
+			\item CommandPreviousStep
+			\item CommandContinue
+			\item CommandCancel
+			
+			\item CommandExportTikZ
+			\item CommandExportImage
+			\item CommandFormat
+		\end{itemize}
+	\end{multicols}
+
+	\item \textbf{View-Sprint B}: % TODO
+
+	\item \textbf{AST-Sprint B}: % TODO
+	
+	\item \textbf{Interpreter-Sprint A}: % TODO
+	
+	\item \textbf{Controller-Manager}: Implementierung der Manager-Klassen des Controllers, namentlich dem Language-Manager und dem Interpreter-Manager.
+	
+	\item \textbf{Controller-Tests}: Implementierung der Tests für das Controller-Paket. Dies beginnt in der zweiten Woche parallel zur Fertigstellung des Controllers und endet mit der dritten Woche.
+	
+	\item \textbf{Interpreter-Sprint B}: % TODO
+	
+	\item \textbf{Puffer}: % TODO
+\end{enumerate}
 
 % Abweichungen?
 
