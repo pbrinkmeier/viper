@@ -136,6 +136,9 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         case PARSED_QUERY:
             buttonSend.setEnabled(true);
             break;
+        case NO_MORE_SOLUTIONS:
+            buttonSend.setEnabled(true);
+            break;
         default:
             break;
         }

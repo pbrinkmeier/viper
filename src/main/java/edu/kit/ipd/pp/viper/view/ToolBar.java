@@ -108,6 +108,7 @@ public class ToolBar extends JToolBar implements HasClickable {
         switch (state) {
         case NOT_PARSED_YET:
         case PARSED_PROGRAM:
+        case NO_MORE_SOLUTIONS:
             this.buttonNew.setEnabled(true);
             this.buttonOpen.setEnabled(true);
             this.buttonSave.setEnabled(true);

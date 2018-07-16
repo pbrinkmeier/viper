@@ -280,6 +280,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
             this.itemToggleSTD.setEnabled(true);
             break;
         case PARSED_QUERY:
+        case NO_MORE_SOLUTIONS:
             this.itemNew.setEnabled(true);
             this.itemOpen.setEnabled(true);
             this.itemSave.setEnabled(true);

@@ -66,7 +66,7 @@ public class CommandNextStep extends Command {
         if (result == StepResult.NO_MORE_SOLUTIONS) {
             this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
                     LogType.INFO);
-            this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
+            this.toggleStateFunc.accept(ClickableState.NO_MORE_SOLUTIONS);
         }
 
         Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
