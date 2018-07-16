@@ -75,9 +75,207 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 
 % Abweichungen?
 
-\section{Tests und Abdeckung}
+\section{Unit-Tests}
 
-% Testabdeckung
+\subsection{Übersicht}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Paket:			& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		Gesamt:			& 84 	& 79 & 0 & 5\\
+		\hline
+		Controller: 	& 21	& 19 & 0 & 2\\
+		View:			& 0		& 0 & 0 & 0\\
+		Parser:			& 2		& 2 & 0 & 0\\
+		AST:			& 37	& 34 & 0 & 3\\
+		Interpreter:	& 23	& 23 & 0 & 0\\
+		Visualisation:	& 1		& 1 & 0 & 0\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: Controller}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:			& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		CommandExportImageTest 	& 2 & 0 & 0 & 2\\
+		CommandFormatTest		& 1 & 1 & 0 & 0\\
+		CommandNewTest			& 1 & 1 & 0 & 0\\
+		CommandOpenTest			& 3 & 3 & 0 & 0\\
+		CommandParseTest		& 3 & 3 & 0 & 0\\
+		CommandSaveTest			& 4 & 4 & 0 & 0\\
+		CommandSetLangTest		& 1 & 1 & 0 & 0\\
+		CommandToggleLibTest	& 1 & 1 & 0 & 0\\
+		FileFiltersTest			& 4 & 4 & 0 & 0\\
+		FileUtilitiesTest		& 1 & 1 & 0 & 0\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: View}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:		& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: Parser}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:		& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		ParserTest 	& 2 & 2 & 0 & 0\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: AST}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:						& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		AdditionOperationTest 		& 2 & 2 & 0 & 0\\		
+		BinaryOperationTest 		& 5 & 4 & 0 & 1\\
+		FunctorGoalTest 			& 2 & 2 & 0 & 0\\
+		FunctorTest 				& 9 & 8 & 0 & 1\\		
+		MultiplicationOperationTest & 2 & 2 & 0 & 0\\
+		NumberTest 					& 5 & 5 & 0 & 0\\
+		RuleTest 					& 3 & 3 & 0 & 0\\		
+		SubtractionOperationTest 	& 2 & 2 & 0 & 0\\
+		TermTest 					& 1 & 1 & 0 & 0\\
+		VariableTest 				& 6 & 5 & 0 & 1\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: Interpreter}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:						& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		IndexifierTest 			& 3 & 3 & 0 & 0\\		
+		InterpreterTest 		& 1 & 1 & 0 & 0\\
+		SubstitutionTest 		& 3 & 3 & 0 & 0\\
+		UnificationResultTest 	& 7 & 7 & 0 & 0\\		
+		UnificationTest 		& 8 & 8 & 0 & 0\\
+		VariableExtractorTest 	& 1 & 1 & 0 & 0\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: Visualisation}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:				& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		GraphvizMakerTest 	& 1 & 1 & 0 & 0\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\newpage
+\subsection{Abdeckung}
+\begin{figure}[!h]
+\centering
+\hspace*{-1cm}
+\begin{tikzpicture}[scale=1.2]
+	\begin{axis}[
+		xbar, 
+		y=-0.5cm,
+		bar width=0.3cm,
+		xmin = 0,
+		xmax = 100,
+		enlarge y limits={abs=0.45cm},
+		xlabel={Gesamtabdeckung in Prozent},
+		symbolic y coords={
+			Instruktions-Abdeckung,
+			Branch-Abdeckung
+		},
+		ytick=data,
+		nodes near coords, nodes near coords align={horizontal},
+		]
+		\addplot table[col sep=comma,header=false] {
+			77, Instruktions-Abdeckung
+			60, Branch-Abdeckung
+		};
+	\end{axis}
+\end{tikzpicture}\\\vspace*{1cm}\hspace*{1cm}
+\begin{tikzpicture}[scale=1.2]
+	\begin{axis}[
+		xbar, 
+		y=-0.5cm,
+		bar width=0.3cm,
+		xmin = 0,
+		enlarge y limits={abs=0.45cm},
+		xlabel={Abgedeckte Instruktionen in Prozent},
+		symbolic y coords={
+			Controller,
+			View,
+			Parser,
+			AST,
+			Interpreter,
+			Visualisation
+	    },
+		ytick=data,
+		nodes near coords, nodes near coords align={horizontal},
+		]
+		\addplot table[col sep=comma,header=false] {
+			65, Controller
+			77, View
+			70, Parser
+			92, AST
+			95, Interpreter
+			98, Visualisation
+		};
+	\end{axis}
+\end{tikzpicture}\\\vspace*{1cm}\hspace{1cm}
+\begin{tikzpicture}[scale=1.2]
+	\begin{axis}[
+		xbar, 
+		y=-0.5cm,
+		bar width=0.3cm,
+		xmin = 0,
+		enlarge y limits={abs=0.45cm},
+		xlabel={Abgedeckte Branches in Prozent},
+		symbolic y coords={
+			Controller,
+			View,
+			Parser,
+			AST,
+			Interpreter,
+			Visualisation,
+		},
+		ytick=data,
+		nodes near coords, nodes near coords align={horizontal},
+		]
+		\addplot table[col sep=comma,header=false] {
+			33, Controller
+			24, View
+			59, Parser
+			75, AST
+			92, Interpreter
+			83, Visualisation
+		};
+		\end{axis}
+	\end{tikzpicture}
+\end{figure}
+
 
 \section{Statistiken}
 
@@ -86,7 +284,7 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 \begin{figure}[!h]
 	\centering
 	%% Merge-Commits sind abgezählt, Rest via git rev-list <HASH> --count
-	Zahl der Commits nach Abschluss der Entwurfsphase (25. Juni 2018): 344
+	Zahl der Commits nach Abschluss der Entwurfsphase (25. Juni 2018): 344\\\vspace*{0.3cm}
 	\begin{tabular}{l | c | c | c | c}
 		\hline
 		Datum des Abrufs:	& 2. Juli 2018 & 9. Juli 2018 & 16. Juli 2018 & 23. Juli 2018\\
@@ -98,7 +296,7 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 		\hline
 	\end{tabular}
 \end{figure}
-
+\vspace*{1cm}
 \begin{minipage}{0.5\textwidth}
 		\centering
 		Commits pro Woche:\\
@@ -135,7 +333,7 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 \subsection{Codebase}
 \begin{figure}[!h]
 	\centering
-	Geschriebene Zeilen Code:\\
+	Geschriebene Zeilen Code:\\\vspace*{0.3cm}
 	\begin{tabular}{l | r | r | r | r}
 		\hline
 		%%% Berechnet via CLOC
