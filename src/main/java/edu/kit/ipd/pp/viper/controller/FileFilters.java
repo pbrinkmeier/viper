@@ -6,6 +6,9 @@ import javax.swing.filechooser.FileFilter;
 
 import org.apache.commons.io.FilenameUtils;
 
+/**
+ * Collection of file filters used across the project.
+ */
 public class FileFilters {
     /**
      * File filter used for Prolog files.

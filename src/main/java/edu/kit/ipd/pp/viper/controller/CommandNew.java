@@ -21,6 +21,8 @@ public class CommandNew extends Command {
     private Consumer<String> setTitle;
 
     /**
+     * Initializes a new "new"-command.
+     * 
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
      * @param editor Panel of the editor area

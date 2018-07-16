@@ -1,5 +1,9 @@
 package edu.kit.ipd.pp.viper.controller;
 
+/**
+ * Enumeration of key values that can be used to access the proper
+ * translation of a String in the GUI.
+ */
 public enum LanguageKey {
     // Menu
     /**
