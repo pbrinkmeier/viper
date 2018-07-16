@@ -39,7 +39,7 @@ public class CommandExit extends Command {
             Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),
                     langman.getString(LanguageKey.CANCEL)};
             final int rv = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
-                    langman.getString(LanguageKey.CONFIRMATION_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
+                    langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
             if (rv == 0) {
