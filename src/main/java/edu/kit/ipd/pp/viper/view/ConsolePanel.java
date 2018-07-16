@@ -54,7 +54,9 @@ public class ConsolePanel extends JPanel implements HasClickable {
         this.setLayout(new BorderLayout());
 
         this.outputArea = new ConsoleOutputArea();
-        this.scrollPane = new JScrollPane(this.outputArea);
+        JPanel noWrapPanel = new JPanel();
+        noWrapPanel.add(this.outputArea);
+        this.scrollPane = new JScrollPane(noWrapPanel);
         this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         this.scrollPane.setViewportView(this.outputArea);
