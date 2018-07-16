@@ -11,10 +11,15 @@ import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
 import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
+import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
+import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
+import guru.nidi.graphviz.model.Graph;
+
 import static java.util.stream.Collectors.toList;
 import java.util.Optional;
+import static java.util.stream.Collectors.joining;
 
 /**
  * Manager class for interpreters. This class holds references to all
@@ -29,6 +34,9 @@ public class InterpreterManager {
     private Optional<Interpreter> interpreter;
     private Optional<List<Variable>> variables;
     private boolean useStandardLibrary = false;
+    private boolean running = false;
+    private StepResult result;
+    private Thread continueThread;
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -45,6 +53,8 @@ public class InterpreterManager {
         this.query = Optional.empty();
         this.interpreter = Optional.empty();
         this.variables = Optional.empty();
+        this.result = null;
+        this.continueThread = null;
     }
 
     /**
@@ -110,16 +120,40 @@ public class InterpreterManager {
      * @param visualisation Panel of the visualisation area
      */
     public void runUntilNextSolution(ConsolePanel console, VisualisationPanel visualisation) {
-        /*
-         * if (!this.searchingForSolution) { this.searchingForSolution = true;
-         * this.continueThread = new Thread(() -> { StepResult result =
-         * StepResult.STEPS_REMAINING; while (this.searchingForSolution) { result =
-         * step(); this.searchingForSolution = result == StepResult.STEPS_REMAINING; }
-         * 
-         * Graph graph = GraphvizMaker.createGraph(getCurrentState());
-         * visualisation.setFromGraph(graph); searchingForSolution = false; });
-         * this.continueThread.start(); }
-         */
+        if (!this.interpreter.isPresent())
+            return;
+
+        if (!this.running) {
+            this.running = true;
+            (new Thread(() -> {
+                while (this.running) {
+                    this.result = this.interpreter.get().step();
+                    if (this.result != StepResult.STEPS_REMAINING)
+                        this.running = false;
+                }
+
+                if (this.result == StepResult.SOLUTION_FOUND) {
+                    String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
+                    List<Substitution> solution = this.getSolution();
+
+                    String solutionString = solution.size() == 0
+                            ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
+                            : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
+
+                    console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
+                }
+
+                if (this.result == StepResult.NO_MORE_SOLUTIONS) {
+                    console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
+                            LogType.INFO);
+                }
+
+                Graph graph = GraphvizMaker.createGraph(this.interpreter.get());
+                visualisation.setFromGraph(graph);
+                
+                return;
+            })).start();
+        }
     }
 
     /**
@@ -129,9 +163,7 @@ public class InterpreterManager {
      * visualisation gets updated to the respective current step.
      */
     public void cancel() {
-        /**
-         * this.searchingForSolution = false;
-         */
+        this.running = false;
     }
 
     /**
