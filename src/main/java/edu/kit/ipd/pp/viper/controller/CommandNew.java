@@ -19,6 +19,7 @@ public class CommandNew extends Command {
     private VisualisationPanel visualisation;
     private Consumer<ClickableState> toggleStateFunc;
     private Consumer<String> setTitle;
+    private CommandSave save;
 
     /**
      * Initializes a new "new"-command.
@@ -37,6 +38,7 @@ public class CommandNew extends Command {
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
         this.setTitle = setTitle;
+        save = new CommandSave(this.console, this.editor, SaveType.SAVE, this.setTitle);
     }
 
     /**
@@ -52,7 +54,6 @@ public class CommandNew extends Command {
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
             if (rv == 0) {
-                CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE, this.setTitle);
                 save.execute();
             }
 

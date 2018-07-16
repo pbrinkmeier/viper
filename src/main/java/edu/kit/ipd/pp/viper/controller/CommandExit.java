@@ -14,6 +14,7 @@ public class CommandExit extends Command {
     private ConsolePanel console;
     private EditorPanel editor;
     private Consumer<String> setTitle;
+    private CommandSave save;
 
     /**
      * Initializes a new exit command.
@@ -26,6 +27,7 @@ public class CommandExit extends Command {
         this.console = console;
         this.editor = editor;
         this.setTitle = setTitle;
+        save = new CommandSave(this.console, this.editor, SaveType.SAVE, this.setTitle);
     }
 
     /**
@@ -41,7 +43,6 @@ public class CommandExit extends Command {
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
             if (rv == 0) {
-                CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE, this.setTitle);
                 save.execute();
             }
             if (rv == 2) {
