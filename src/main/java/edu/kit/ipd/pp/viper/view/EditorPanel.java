@@ -43,6 +43,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     private final RTextScrollPane scrollPane;
 
     /**
+     * Main window reference
+     */
+    private MainWindow main;
+
+    /**
      * Indicates whether the document has changed since the last parsing
      */
     private boolean changed;
@@ -54,8 +59,12 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
 
     /**
      * Creates a new panel containing a text area with scroll support.
+     *
+     * @param gui Main window reference
      */
-    public EditorPanel() {
+    public EditorPanel(MainWindow gui) {
+        this.main = gui;
+
         this.changed = false;
 
         this.setLayout(new BorderLayout());
@@ -112,6 +121,10 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      *            content
      */
     public void setHasChanged(boolean changed) {
+        if (changed && !this.main.getConsolePanel().hasLockedInput()) {
+            this.main.getConsolePanel().lockInput();
+            this.main.switchClickableState(ClickableState.NOT_PARSED_YET);
+        }
         this.changed = changed;
     }
 
@@ -156,7 +169,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void insertUpdate(DocumentEvent event) {
-        this.changed = true;
+        setHasChanged(true);
     }
 
     /**
@@ -164,7 +177,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void removeUpdate(DocumentEvent event) {
-        this.changed = true;
+        setHasChanged(true);
     }
 
     private void increaseFont() {
