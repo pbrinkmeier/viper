@@ -45,6 +45,7 @@ public class CommandParse extends Command {
     public void execute() {
         this.console.clearAll();
         this.visualisation.clearVisualization();
+        this.console.lockInput();
 
         this.interpreterManager.reset();
 
