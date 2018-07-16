@@ -112,10 +112,14 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
             for (Node childNode : childNodes) {
                 resultBox = resultBox.link(
-                        to(previous.isPresent() ? childNode.link(to(previous.get()).with(Style.INVIS)) : childNode)
-                                .with(Style.DASHED));
+                    to(
+                        previous.isPresent()
+                        ? childNode.link(to(previous.get()).with(Style.INVIS))
+                        : childNode
+                    ).with(Style.DASHED)
+                );
 
-                previous = Optional.of(childNode);
+                previous = Optional.of(node(((MutableNode) childNode).name()));
             }
         }
 
