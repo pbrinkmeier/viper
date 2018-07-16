@@ -31,6 +31,7 @@
 \usepackage{courier}
 \usepackage{enumitem}
 \usepackage{dirtree}
+\usepackage{pgfplots}
 \usepackage{multicol}
 \hypersetup{
 	pdftitle={Implementierungsbericht},
@@ -81,5 +82,70 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 \section{Statistiken}
 
 % Commits, LoC, JavaDoc, ...
+\subsection{Commits}
+\begin{figure}[!h]
+	\centering
+	%% Merge-Commits sind abgezählt, Rest via git rev-list <HASH> --count
+	Zahl der Commits nach Abschluss der Entwurfsphase (25. Juni 2018): 344
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Datum des Abrufs:	& 2. Juli 2018 & 9. Juli 2018 & 16. Juli 2018 & 23. Juli 2018\\
+		\hline
+		Commit-Zahl insgesamt:		& 408 & 538 & TODO & TODO \\
+		Differenz zur vorigen Woche:	& 64 & 130 & TODO & TODO \\
+		Differenz zum Phasenbeginn: & 64 & 194 & TODO & TODO \\
+		Merge-Commits in Woche: & 10 & 14 & 16 & TODO \\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\begin{minipage}{0.5\textwidth}
+		\centering
+		Commits pro Woche:\\
+		\begin{tikzpicture}[scale=0.9]
+		\begin{axis}[
+		symbolic x coords = {1. Woche, 2. Woche, 3. Woche, 4. Woche}, xtick = data]
+		
+		\addplot[ybar, fill = blue] coordinates {
+			(1. Woche, 64)
+			(2. Woche, 194)
+			(3. Woche, 0)
+			(4. Woche, 0)
+		};
+		\end{axis}
+		\end{tikzpicture}
+\end{minipage}\hspace*{0.7cm}
+\begin{minipage}{0.5\textwidth}
+		\centering
+		Merge-Commits pro Woche:\\
+		\begin{tikzpicture}[scale=0.9]
+		\begin{axis}[
+		symbolic x coords = {1. Woche, 2. Woche, 3. Woche, 4. Woche}, xtick = data]
+		
+		\addplot[ybar, fill = blue] coordinates {
+			(1. Woche, 10)
+			(2. Woche, 14)
+			(3. Woche, 16)
+			(4. Woche, 0)
+		};
+		\end{axis}
+		\end{tikzpicture}
+\end{minipage}
+
+\subsection{Codebase}
+\begin{figure}[!h]
+	\centering
+	Geschriebene Zeilen Code:\\
+	\begin{tabular}{l | r | r | r | r}
+		\hline
+		%%% Berechnet via CLOC
+		Sprache & Dateien & Leerzeilen & Kommentare & Code\\
+		\hline
+		Java & 123 & 1327 & 3139 & 4761\\
+		Prolog & 2 & 3 & 0 & 14\\
+		\hline
+	\end{tabular}
+\end{figure}
+
 
 \end{document}
