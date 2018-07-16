@@ -50,11 +50,18 @@
 \sectionfont{\clearpage}
 
 \begin{document}
+\pagenumbering{roman}
 \maketitle
+\tableofcontents
 
 \section{Einleitung}
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
 % Anschluss an Entwurfsdokument
+Bei VIPER handelt es sich um ein grafisches Tool zur Unterstützung des Lernens und Lehrens der logischen Programmiersprache Prolog. Hierbei soll der Nutzer die Interpretation von Prolog-Abfragen durch eine Visualisierung in Form einer Baumstruktur nachvollziehen können. Weiter wird ein Editor zur Erstellung von Prolog-Quelltext sowie eine Konsole zur Eingabe von Abfragen und Ausgabe von Informationen für den Nutzer bereitgestellt.
+
+Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Model-View-Controller-Architekturstils. Hiernach wird die grafische Darstellungs-Komponente (View) von der internen Logik (Model) getrennt. Die Vermittlung zwischen diesen Komponenten erfolgt über den Controller. Die grafische View-Komponente ist hierbei für Desktop-Nutzung ausgelegt und mit Swing implementiert. Die Generierung der Visualisierung erfolgt mit Graphviz über die Graphviz-Java Implementation, das Darstellen der erzeugten Visualisierung nutzt die Apache Batik Bibliothek.
 
 \section{Änderungen zum Entwurf und Pflichtenheft}
 
