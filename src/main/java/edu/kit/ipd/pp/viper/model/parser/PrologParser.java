@@ -9,6 +9,7 @@ import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
+import edu.kit.ipd.pp.viper.model.ast.UnificationGoal;
 import edu.kit.ipd.pp.viper.model.parser.TokenType;
 
 import java.util.LinkedList;
@@ -131,24 +132,25 @@ public class PrologParser {
      */
     private Goal parseGoal() throws ParseException {
         switch (this.token.getType()) {
-        case IDENTIFIER:
-            Functor f = parseFunctor();
-            if (this.token.getType() == TokenType.COMMA || this.token.getType() == TokenType.DOT) {
-                return new FunctorGoal(f);
-            } else {
-                throw new ParseException(LanguageManager.getInstance().getString(LanguageKey.GOAL_NOT_SUPPORTED)
-                    + getTokenPositionString());
-                // return parseGoalRest(f);
-            }
-            /*
-             * case VARIABLE: case NUMBER: Object t = parseTerm(); return parseGoalRest(t);
-             * case EXCLAMATION: nextToken(); // TODO: Cut return new Object();
-             */
-        default:
-            throw new ParseException(
-                    String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
-                            LanguageManager.getInstance().getString(LanguageKey.TERM), this.token.getType().getString())
-                            + getTokenPositionString());
+            case IDENTIFIER:
+                Functor f = parseFunctor();
+                if (this.token.getType() == TokenType.COMMA || this.token.getType() == TokenType.DOT) {
+                    return new FunctorGoal(f);
+                } else {
+                    return parseGoalRest(f);
+                }
+            case VARIABLE:
+            case NUMBER:
+                Term t = parseTerm();
+                return parseGoalRest(t);
+                /*
+                * case EXCLAMATION: nextToken(); // TODO: Cut return new Object();
+                */
+            default:
+                throw new ParseException(String.format(
+                    LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
+                    LanguageManager.getInstance().getString(LanguageKey.TERM),
+                    this.token.getType().getString()) + getTokenPositionString());
         }
     }
 
@@ -194,6 +196,23 @@ public class PrologParser {
      * @return the resulting goal
      * @throws ParseException if a parser error occurs
      */
+
+    private Goal parseGoalRest(Term t) throws ParseException {
+        Term lhs = parseTerm(Optional.of(t));
+        TokenType op = token.getType();
+        nextToken();
+        Term rhs = parseTerm();
+
+        switch (op) {
+            case EQ:
+                return new UnificationGoal(lhs, rhs);
+            default:
+                throw new ParseException(String.format(
+                    LanguageManager.getInstance().getString(LanguageKey.EXPECTED_GOALREST),
+                    this.token.getType().getString()
+                ) + this.getTokenPositionString());
+        }
+    }
     /*
      * private Object parseGoalRest(Object t) throws ParseException { Term lhs =
      * parseTerm(Optional.of(t)); Term rhs; switch (token.getType()) { case IS:

@@ -279,6 +279,11 @@ public enum LanguageKey {
     /** "Expected * instead of" warnings for parser failures */
     EXPECTED_INSTEAD("expected_instead"),
 
+    /**
+     * Expected goalrest (i.e. =, is or arithmetic comparison)
+     */
+    EXPECTED_GOALREST("expected_goalrest"),
+
     /** The Goal not supported error for parser */
     GOAL_NOT_SUPPORTED("goal_not_supported"),
 
