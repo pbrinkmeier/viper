@@ -8,4 +8,12 @@ public interface ActivationRecordVisitor<T> {
      * @return result of the visit
      */
     T visit(FunctorActivationRecord far);
+
+    /**
+     * How to handle a visit of a functor activation record.
+     *
+     * @param uar unification activation record to visit
+     * @return result of this visit
+     */
+    T visit(UnificationActivationRecord uar);
 }

@@ -1,9 +1,13 @@
 package edu.kit.ipd.pp.viper.model.visualisation;
 
+import edu.kit.ipd.pp.viper.controller.LanguageKey;
+import edu.kit.ipd.pp.viper.controller.LanguageManager;
+
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecordVisitor;
 import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
+import edu.kit.ipd.pp.viper.model.interpreter.UnificationActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.UnificationResult;
 
 import static guru.nidi.graphviz.model.Factory.graph;
@@ -115,6 +119,42 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
                 previous = Optional.of(childNode);
             }
+        }
+
+        return node.link(resultBox);
+    }
+
+    @Override
+    public Node visit(UnificationActivationRecord uar) {
+        Node node = node(this.createUniqueNodeName())
+        .with(html(String.format("%s = %s", uar.getLhs().toHtml(), uar.getRhs().toHtml())));
+
+        // TODO: these things have been moved into there own methods over at code_cut
+        if (!uar.isVisited()) {
+            if (this.current.isPresent() && this.current.get() == uar && this.backtrackingNode.isPresent()) {
+                node = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(Color.RED)
+                        .with(attr("constraint", "false"))).with(Color.RED);
+            }
+
+            return node;
+        }
+
+        if (this.next.isPresent() && this.next.get() == uar) {
+            this.backtrackingNode = Optional.of(node);
+        }
+
+        Node resultBox = node(this.createUniqueNodeName())
+        .with(html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
+            LanguageManager.getInstance().getString(LanguageKey.UNIFICATION),
+            uar.getLhs(),
+            uar.getRhs(),
+            uar.getResult().toHtml()
+        )))
+        .with(attr("shape", "record"));
+
+        // TODO: after merge: create method isCurrent()
+        if (this.current.isPresent() && this.current.get() == uar) {
+            resultBox = resultBox.with(uar.getResult().isSuccess() ? Color.GREEN : Color.RED);
         }
 
         return node.link(resultBox);
