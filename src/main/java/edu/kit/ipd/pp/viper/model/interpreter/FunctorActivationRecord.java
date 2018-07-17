@@ -62,13 +62,7 @@ public class FunctorActivationRecord extends ActivationRecord {
      *         applied
      */
     public Term getFunctor() {
-        Term functor = this.getGoal().getFunctor();
-
-        if (this.getPrevious().isPresent()) {
-            functor = this.getPrevious().get().getEnvironment().applyAllSubstitutions(functor);
-        }
-
-        return functor;
+        return this.applyPreviousSubstitutions(this.getGoal().getFunctor());
     }
 
     /**

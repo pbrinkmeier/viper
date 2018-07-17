@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
 import edu.kit.ipd.pp.viper.model.ast.Goal;
+import edu.kit.ipd.pp.viper.model.ast.Term;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +70,22 @@ public abstract class ActivationRecord {
 
         // This can never be reached. Java compiler complains when it's missing tho.
         return null;
+    }
+
+    /**
+     * Applies all previous substitutions in a term.
+     * This method comes in handy for any AR that needs to apply previous substitutions,
+     * which is basically all of them.
+     *
+     * @param t term to apply substitutions in
+     * @return t but with all previous substitutions applied
+     */
+    protected Term applyPreviousSubstitutions(Term t) {
+        if (this.getPrevious().isPresent()) {
+            return this.getPrevious().get().getEnvironment().applyAllSubstitutions(t);
+        }
+
+        return t;
     }
 
     /**

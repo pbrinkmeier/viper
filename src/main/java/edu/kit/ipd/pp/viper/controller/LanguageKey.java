@@ -294,7 +294,12 @@ public enum LanguageKey {
     FUNCTOR("functor"),
 
     /** Lists unsupported error for parser */
-    UNSUPPORTED_LISTS("unsupported_lists");
+    UNSUPPORTED_LISTS("unsupported_lists"),
+
+    /**
+     * Translation of unification for visualisation.
+     */
+    UNIFICATION("unification");
 
     private String value;
 
