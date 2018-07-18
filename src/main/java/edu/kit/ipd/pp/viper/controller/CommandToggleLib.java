@@ -3,16 +3,13 @@ package edu.kit.ipd.pp.viper.controller;
 import java.util.function.Consumer;
 
 import edu.kit.ipd.pp.viper.view.ClickableState;
-import edu.kit.ipd.pp.viper.view.ConsolePanel;
-import edu.kit.ipd.pp.viper.view.VisualisationPanel;
+import edu.kit.ipd.pp.viper.view.MainWindow;
 
 /**
  * Command to toggle the usage of the standard library.
  */
 public class CommandToggleLib extends Command {
-    private ConsolePanel console;
-    private VisualisationPanel visualisation;
-    private InterpreterManager interpreterManager;
+    private MainWindow main;
     private Consumer<ClickableState> toggleStateFunc;
 
     /**
@@ -25,11 +22,8 @@ public class CommandToggleLib extends Command {
      * @param toggleStateFunc Consumer function that switches the state of clickable
      *            elements in the GUI
      */
-    public CommandToggleLib(ConsolePanel console, VisualisationPanel visualisation,
-            InterpreterManager interpreterManager, Consumer<ClickableState> toggleStateFunc) {
-        this.console = console;
-        this.visualisation = visualisation;
-        this.interpreterManager = interpreterManager;
+    public CommandToggleLib(MainWindow gui, Consumer<ClickableState> toggleStateFunc) {
+        this.main = gui;
         this.toggleStateFunc = toggleStateFunc;
     }
 
@@ -37,9 +31,12 @@ public class CommandToggleLib extends Command {
      * Executes the command.
      */
     public void execute() {
-        this.interpreterManager.toggleStandardLibrary();
-        this.console.clearAll();
-        this.visualisation.clearVisualization();
+        this.main.getInterpreterManager().toggleStandardLibrary();
+        this.main.getConsolePanel().clearAll();
+        this.main.getVisualisationPanel().clearVisualization();
         this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
+
+        this.main.getPreferencesManager().setStandardLibEnabled(
+                this.main.getPreferencesManager().isStandardLibEnabled() ? false : true);
     }
 }

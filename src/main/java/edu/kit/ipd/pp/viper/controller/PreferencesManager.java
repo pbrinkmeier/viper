@@ -26,11 +26,13 @@ public class PreferencesManager {
      * Keys used in properties file
      */
     private static final String KEY_LANGUAGE = "language";
+    private static final String KEY_STDLIB = "stdlib";
 
     /**
      * Default values in case the properties file does not exist
      */
     private static final String DEFAULT_LANGUAGE = "de";
+    private static final boolean DEFAULT_STDLIB = true;
 
     private final ConsolePanel console;
 
@@ -95,13 +97,30 @@ public class PreferencesManager {
     }
 
     /**
+     * Checks whether the standard lib is enabled or not
+     * 
+     * @return true if enabled, false otherwise
+     */
+    public boolean isStandardLibEnabled() {
+        boolean enabled;
+        if (this.properties == null) {
+            enabled = true;
+        } else {
+            String status = this.properties.getProperty(KEY_STDLIB, String.valueOf(DEFAULT_STDLIB));
+            enabled = Boolean.parseBoolean(status);
+        }
+
+        return enabled;
+    }
+
+    /**
      * Sets the selected language
      * 
      * @param locale Set locale
      */
     public void setLanguage(Locale locale) {
         String language = locale.getLanguage();
-        this.writeProperty("language", language);
+        this.writeProperty(KEY_LANGUAGE, language);
     }
 
     private Locale getLocaleByLanguage(String language) {
@@ -114,5 +133,15 @@ public class PreferencesManager {
         }
 
         return null;
+    }
+
+    /**
+     * Sets whether the standard lib is enabled or not
+     * 
+     * @param enabled true is enabled, false otherwise
+     */
+    public void setStandardLibEnabled(boolean enabled) {
+        String status = String.valueOf(enabled);
+        this.writeProperty(KEY_STDLIB, status);
     }
 }
