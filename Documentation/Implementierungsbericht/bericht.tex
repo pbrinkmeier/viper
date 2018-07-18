@@ -61,9 +61,9 @@
 \setcounter{page}{1}
 
 % Anschluss an Entwurfsdokument
-Bei VIPER handelt es sich um ein grafisches Tool zur Unterstützung des Lernens und Lehrens der logischen Programmiersprache Prolog. Hierbei soll der Nutzer die Interpretation von Prolog-Abfragen durch eine Visualisierung in Form einer Baumstruktur nachvollziehen können. Weiter wird ein Editor zur Erstellung von Prolog-Quelltext sowie eine Konsole zur Eingabe von Abfragen und Ausgabe von Informationen für den Nutzer bereitgestellt.
+Bei VIPER handelt es sich um ein grafisches Tool zur Unterstützung des Lernens und Lehrens der logischen Programmiersprache Prolog. Hierbei soll der Nutzer die Interpretation von Prolog-Abfragen nachvollziehen können. Dies wird durch die Visualisierung des Interpretationsvorgangs als Baumstruktur erreicht. Der integrierte Editor ermöglicht weiterhin das Schreiben von Prolog-Quelltext. Abfragen zur Interpretation können über ein Textfeld gestellt werden, Informationen an den Nutzer wie das Finden einer Lösung werden über ein Ausgabefeld dargestellt.
 
-Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Model-View-Controller-Architekturstils. Hiernach wird die grafische Darstellungs-Komponente (View) von der internen Logik (Model) getrennt. Die Vermittlung zwischen diesen Komponenten erfolgt über den Controller. Die grafische View-Komponente ist hierbei für Desktop-Nutzung ausgelegt und mit Swing implementiert. Die Generierung der Visualisierung erfolgt mit Graphviz über die Graphviz-Java Implementation, das Darstellen der erzeugten Visualisierung nutzt die Apache Batik Bibliothek.
+Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Model-View-Controller-Architekturstils. Hiernach wird die grafische Darstellungs-Komponente (View) von internen Datenstrukturen und deren Logik (Model) getrennt. Die Vermittlung zwischen diesen Komponenten erfolgt über den Controller. Die grafische View-Komponente ist hierbei für Desktop-Nutzung ausgelegt und mit Swing implementiert. Die Generierung der Visualisierung erfolgt mit Graphviz über die Graphviz-Java Implementierung, das Darstellen der erzeugten Visualisierung nutzt die Apache Batik Bibliothek.
 
 \section{Änderungen zum Entwurf und Pflichtenheft}
 
@@ -75,28 +75,28 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 \section{Implementierungsplan}
 
 \begin{ganttchart}[x unit = 1.5cm]{0}{4}
-	\gantttitle{Implementierungsplan}{5}\\
+	\gantttitle{Implementierungsplan (Schritte in Wochen)}{5}\\
 	\gantttitlelist{0,..., 4}{1}\\
 	%%%%%%%% Woche 1
 	\ganttbar{Setup}{0}{0}\\
-	\ganttbar{Kommando-Sprint A}{1}{1}\\
-	\ganttbar{View-Sprint A}{1}{1}\\
-	\ganttbar{AST-Sprint A}{1}{1}\\
+	\ganttbar{Kommando-Teilmenge A}{1}{1}\\
+	\ganttbar{View-Teilmenge A}{1}{1}\\
+	\ganttbar{AST-Teilmenge A}{1}{1}\\
 		
-	\ganttmilestone{Milestone: Abschluss erste Woche}{1}\\
+	\ganttmilestone{Meilenstein: Abschluss erste Woche}{1}\\
 	%%%%%%%% Woche 2 / 3
-	\ganttbar{Kommando-Sprint B}{2}{2}\\
-	\ganttbar{View-Sprint B}{2}{2}\\
-	\ganttbar{AST-Sprint B}{2}{2}\\
-	\ganttbar{Interpreter-Sprint A}{2}{2}\\
+	\ganttbar{Kommando-Teilmenge B}{2}{2}\\
+	\ganttbar{View-Teilmenge B}{2}{2}\\
+	\ganttbar{AST-Teilmenge B}{2}{2}\\
+	\ganttbar{Interpreter-Teilmenge A}{2}{2}\\
 	\ganttbar{Controller-Manager}{2}{2}\\
 	\ganttbar{Controller-Tests}{2}{3}\\
 	
-	\ganttmilestone{Milestone: Abschluss zweite Woche}{2}\\
+	\ganttmilestone{Meilenstein: Abschluss zweite Woche}{2}\\
 	%%%%%%%% Woche 3
-	\ganttbar{Interpreter-Sprint B}{3}{3}\\
+	\ganttbar{Interpreter-Teilmenge B}{3}{3}\\
 
-	\ganttmilestone{Milestone: Abschluss dritte Woche}{3}\ganttnewline
+	\ganttmilestone{Meilenstein: Abschluss dritte Woche}{3}\ganttnewline
 	%%%%%%%% Woche 4
 	\ganttbar{Puffer}{4}{4}\\
 	%%%%%%%% Links
@@ -132,11 +132,11 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 \newpage
 Der Implementierungsstil teilt sich in Wochensprints ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich und bei dringendem Bedarf statt. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden kann und muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel sondern im Nachhinein entwickelt.
 
-Die Gantt-Chart entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspricht hierbei dem Vorgehen am ersten Tag der ersten Woche. Die zugehörigen Aufgaben setzen sich wie folgt zusammen:
+Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspricht hierbei dem Vorgehen am ersten Tag der ersten Woche. Die zugehörigen Aufgaben setzen sich wie folgt zusammen:
 \begin{enumerate}
-	\item \textbf{Setup}: Generierung des Code-Gerüsts aus dem UML-Klassendiagramm des Entwurfs, Aufsetzen des Build-Systems (Gradle) sowie des Style-Prüfers (Checkstyle). Dieser Punkt baut eine gemeinsame Grundlage auf, von der aus die einzelnen Aufgabenbereiche in separaten Branches weiterarbeiten können.
+	\item \textbf{Setup}: Generierung des Code-Gerüsts aus dem UML-Klassendiagramm des Entwurfs, Aufsetzen des Build-Systems (Gradle) sowie des Code-Stil-Prüfers (Checkstyle). Dieser Punkt baut eine gemeinsame Grundlage auf, von der aus die einzelnen Aufgabenbereiche in separaten Branches weiterarbeiten können.
 	
-	\item \textbf{Kommando-Sprint A}: Implementierung simpler Kommandos mit wenigen bis keinen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Eingabe-/Ausgabe-Kommandos sowie Kommandos, welche an den Interpreter-Manager und Language-Manager des Controller-Pakets delegieren, namentlich:
+	\item \textbf{Kommando-Teilmenge A}: Implementierung simpler Kommandos mit wenigen bis keinen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Eingabe-/Ausgabe-Kommandos sowie Kommandos, welche an den Interpreter-Manager und Sprach-Manager des Controller-Pakets delegieren, namentlich:
 	\begin{multicols}{3}
 		\begin{itemize}
 			\item CommandNew
@@ -154,11 +154,11 @@ Die Gantt-Chart entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspricht 
 		\end{itemize}
 	\end{multicols}
 
-	\item \textbf{View-Sprint A}: % TODO
+	\item \textbf{View-Teilmenge A}: % TODO
 	
-	\item \textbf{AST-Sprint A}: % TODO
+	\item \textbf{AST-Teilmenge A}: % TODO
 
-	\item \textbf{Kommando-Sprint B}: Implementierung komplexerer Kommandos mit diversen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Kommandos, welche die Interpretation steuern. Weiter werden Kommandos fertig implementiert, die stärkere Abhängigkeiten zum Rest des Codes haben wie die Export-Funktionen:
+	\item \textbf{Kommando-Teilmenge B}: Implementierung komplexerer Kommandos mit diversen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Kommandos, welche die Interpretation steuern. Weiter werden Kommandos fertig implementiert, die stärkere Abhängigkeiten zum Rest des Codes haben wie die Export-Funktionen:
 	\begin{multicols}{3}
 		\begin{itemize}
 			\item CommandNextStep
@@ -172,17 +172,17 @@ Die Gantt-Chart entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspricht 
 		\end{itemize}
 	\end{multicols}
 
-	\item \textbf{View-Sprint B}: % TODO
+	\item \textbf{View-Teilmenge B}: % TODO
 
-	\item \textbf{AST-Sprint B}: % TODO
+	\item \textbf{AST-Teilmenge B}: % TODO
 	
-	\item \textbf{Interpreter-Sprint A}: % TODO
+	\item \textbf{Interpreter-Teilmenge A}: % TODO
 	
-	\item \textbf{Controller-Manager}: Implementierung der Manager-Klassen des Controllers, namentlich dem Language-Manager und dem Interpreter-Manager.
+	\item \textbf{Controller-Manager}: Implementierung der Manager-Klassen des Controllers, namentlich dem Sprach-Manager und dem Interpreter-Manager.
 	
 	\item \textbf{Controller-Tests}: Implementierung der Tests für das Controller-Paket. Dies beginnt in der zweiten Woche parallel zur Fertigstellung des Controllers und endet mit der dritten Woche.
 	
-	\item \textbf{Interpreter-Sprint B}: % TODO
+	\item \textbf{Interpreter-Teilmenge B}: % TODO
 	
 	\item \textbf{Puffer}: % TODO
 \end{enumerate}
@@ -448,13 +448,12 @@ Die Gantt-Chart entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspricht 
 \begin{figure}[!h]
 	\centering
 	Geschriebene Zeilen Code:\\\vspace*{0.3cm}
-	\begin{tabular}{l | r | r | r | r}
+	\begin{tabular}{c | c | c | c | c}
 		\hline
 		%%% Berechnet via CLOC
 		Sprache & Dateien & Leerzeilen & Kommentare & Code\\
 		\hline
 		Java & 123 & 1327 & 3139 & 4761\\
-		Prolog & 2 & 3 & 0 & 14\\
 		\hline
 	\end{tabular}
 \end{figure}
