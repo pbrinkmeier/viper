@@ -28,7 +28,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
 
     private static final int FONT_DEFAULT_SIZE = 14;
     private static final int FONT_MIN_SIZE = 10;
-    private static final int FONT_MAX_SIZE = 30;
+    private static final int FONT_MAX_SIZE = 40;
 
     private int fontSize;
 
@@ -194,6 +194,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, --this.fontSize));
     }
 
+    private void resetFont() {
+        this.fontSize = FONT_DEFAULT_SIZE;
+        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
+    }
+
     /**
      * Fired when a key was pressed
      * 
@@ -215,6 +220,10 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         case KeyEvent.VK_MINUS:    // minus key
         case KeyEvent.VK_SUBTRACT: // numpad minus key
             this.decreaseFont();
+            event.consume();
+            break;
+        case KeyEvent.VK_0: // 0 key
+            this.resetFont();
             event.consume();
             break;
         default:
