@@ -39,7 +39,7 @@ public class CommandNextStep extends Command {
      * Executes the command.
      */
     public void execute() {
-        StepResult result = this.interpreterManager.step();
+        StepResult result = this.interpreterManager.nextStep();
 
         if (result == null) {
             return;

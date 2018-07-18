@@ -2,7 +2,7 @@ package edu.kit.ipd.pp.viper.view;
 
 import javax.swing.JToolBar;
 
-import edu.kit.ipd.pp.viper.controller.CommandContinue;
+import edu.kit.ipd.pp.viper.controller.CommandNextSolution;
 import edu.kit.ipd.pp.viper.controller.CommandFormat;
 import edu.kit.ipd.pp.viper.controller.CommandNew;
 import edu.kit.ipd.pp.viper.controller.CommandNextStep;
@@ -34,8 +34,8 @@ public class ToolBar extends JToolBar implements HasClickable {
     private static final String ICON_SAVE = "/icons_png/icon_savefile.png";
     private static final String ICON_PARSE = "/icons_png/icon_parsefile.png";
     private static final String ICON_FORMAT = "/icons_png/icon_formatfile.png";
-    private static final String ICON_STEP = "/icons_png/icon_singlestep.png";
-    private static final String ICON_SOLUTION = "/icons_png/icon_continue.png";
+    private static final String ICON_STEP = "/icons_png/icon_nextstep.png";
+    private static final String ICON_SOLUTION = "/icons_png/icon_nextsolution.png";
 
     private ToolBarButton buttonNew;
     private ToolBarButton buttonOpen;
@@ -88,7 +88,7 @@ public class ToolBar extends JToolBar implements HasClickable {
 
         this.buttonStep = new ToolBarButton(ICON_STEP, LanguageKey.TOOLTIP_STEP, new CommandNextStep(
                 this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main.getConsolePanel()));
-        this.buttonSolution = new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT, new CommandContinue(
+        this.buttonSolution = new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT, new CommandNextSolution(
                 this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
 
         this.add(buttonNew);

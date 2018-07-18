@@ -8,7 +8,7 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * is found. Once a solution is found, it is printed out through the console and
  * the visualisation adapts to the respective interpreter state.
  */
-public class CommandContinue extends Command {
+public class CommandNextSolution extends Command {
     private ConsolePanel console;
     private VisualisationPanel visualisation;
     private InterpreterManager interpreterManager;
@@ -21,7 +21,7 @@ public class CommandContinue extends Command {
      * @param interpreterManager Interpreter manager with a reference to the current
      *            interpreter
      */
-    public CommandContinue(ConsolePanel console, VisualisationPanel visualisation,
+    public CommandNextSolution(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager) {
         this.console = console;
         this.visualisation = visualisation;
@@ -32,6 +32,6 @@ public class CommandContinue extends Command {
      * Executes the command.
      */
     public void execute() {
-        this.interpreterManager.runUntilNextSolution(this.console, this.visualisation);
+        this.interpreterManager.nextSolution(this.console, this.visualisation);
     }
 }

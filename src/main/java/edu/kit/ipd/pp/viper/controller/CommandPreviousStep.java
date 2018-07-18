@@ -27,7 +27,7 @@ public class CommandPreviousStep extends Command {
      * Executes the command.
      */
     public void execute() {
-        this.interpreterManager.stepBack();
+        this.interpreterManager.previousStep();
 
         Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
         this.visualisation.setFromGraph(graph);

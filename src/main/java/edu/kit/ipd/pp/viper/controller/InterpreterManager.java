@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.controller;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
@@ -32,11 +33,12 @@ public class InterpreterManager {
     private Optional<KnowledgeBase> knowledgeBase;
     private Optional<Goal> query;
     private Optional<Interpreter> interpreter;
+    private List<Graph> visualisations;
+    private int backsteps;
     private Optional<List<Variable>> variables;
     private boolean useStandardLibrary = false;
     private boolean running = false;
     private StepResult result;
-    private Thread continueThread;
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -54,7 +56,8 @@ public class InterpreterManager {
         this.interpreter = Optional.empty();
         this.variables = Optional.empty();
         this.result = null;
-        this.continueThread = null;
+        this.visualisations = new ArrayList<Graph>();
+        this.backsteps = 0;
     }
 
     /**
@@ -94,21 +97,26 @@ public class InterpreterManager {
      * 
      * @return Result of the step taken
      */
-    public StepResult step() {
+    public StepResult nextStep() {
         if (!this.interpreter.isPresent()) {
             return null;
         }
 
-        return this.interpreter.get().step();
+        this.result = this.interpreter.get().step();
+
+        this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
+
+        return result;
     }
 
     /**
-     * Takes an interpreter step back.
-     * 
-     * @return Result of the step taken
+     * Shows a previously generated and saved visualisation
      */
-    public StepResult stepBack() {
-        return null;
+    public void previousStep() {
+        if (this.backsteps >= this.visualisations.size())
+            return;
+
+        
     }
 
     /**
@@ -119,15 +127,12 @@ public class InterpreterManager {
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
      */
-    public void runUntilNextSolution(ConsolePanel console, VisualisationPanel visualisation) {
-        if (!this.interpreter.isPresent())
-            return;
-
+    public void nextSolution(ConsolePanel console, VisualisationPanel visualisation) {
         if (!this.running) {
             this.running = true;
             (new Thread(() -> {
                 while (this.running) {
-                    this.result = this.interpreter.get().step();
+                    this.nextStep();
                     if (this.result != StepResult.STEPS_REMAINING)
                         this.running = false;
                 }
@@ -164,6 +169,8 @@ public class InterpreterManager {
      */
     public void cancel() {
         this.running = false;
+
+
     }
 
     /**
