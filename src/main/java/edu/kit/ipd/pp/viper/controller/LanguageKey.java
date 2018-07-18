@@ -114,6 +114,11 @@ public enum LanguageKey {
     TOOLTIP_FORMAT("tooltip_format"),
 
     /**
+     * Tool bar "Previous step" tool tip
+     */
+    TOOLTIP_STEPBACK("tooltip_stepback"),
+
+    /**
      * Tool bar "Next Step" tool tip
      */
     TOOLTIP_STEP("tooltip_step"),
