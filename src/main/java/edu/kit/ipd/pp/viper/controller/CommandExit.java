@@ -35,7 +35,7 @@ public class CommandExit extends Command {
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
             if (rv == 0) {
-                commandSave.execute();
+                this.commandSave.execute();
             }
             if (rv == 2) {
                 return;

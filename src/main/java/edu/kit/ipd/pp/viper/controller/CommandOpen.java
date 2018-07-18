@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.function.Consumer;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
@@ -27,6 +28,7 @@ public class CommandOpen extends Command {
     private VisualisationPanel visualisation;
     private Consumer<ClickableState> toggleStateFunc;
     private Consumer<String> setTitle;
+    private CommandSave commandSave;
 
     /**
      * Initializes a new open command.
@@ -39,12 +41,13 @@ public class CommandOpen extends Command {
      *            elements in the GUI
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
-            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc) {
+            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
         this.setTitle = setTitle;
+        this.commandSave = commandSave;
     }
 
     /**
@@ -120,6 +123,22 @@ public class CommandOpen extends Command {
         int rv = chooser.showOpenDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {
+            if (this.editor.hasChanged()) {
+                LanguageManager langman = LanguageManager.getInstance();
+                Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),
+                        langman.getString(LanguageKey.CANCEL)};
+                final int rv2 = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
+                        langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+
+                if (rv2 == 0) {
+                    this.commandSave.execute();
+                }
+                if (rv2 == 2) {
+                    return;
+                }
+            }
+        	
             updateUI(chooser.getSelectedFile());
         }
     }

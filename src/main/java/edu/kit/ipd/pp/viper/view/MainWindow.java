@@ -110,7 +110,8 @@ public class MainWindow extends JFrame {
         this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle);
         this.commandExit = new CommandExit(editorPanel, this.commandSave);
         this.commandOpen = new CommandOpen(this.consolePanel, this.editorPanel,
-                this.visualisationPanel, this::setWindowTitle, this::switchClickableState);
+                this.visualisationPanel, this::setWindowTitle, this::switchClickableState,
+                this.commandSave);
         this.commandNew = new CommandNew(this.consolePanel, this.editorPanel,
                 this.visualisationPanel, this::setWindowTitle, this::switchClickableState, this.commandSave);
         this.commandParse = new CommandParse(this.consolePanel, this.editorPanel,
