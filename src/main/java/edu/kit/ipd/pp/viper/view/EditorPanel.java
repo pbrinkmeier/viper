@@ -121,7 +121,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      *            content
      */
     public void setHasChanged(boolean changed) {
-        if (changed && !this.main.getConsolePanel().hasLockedInput()) {
+        if (this.changed && !this.main.getConsolePanel().hasLockedInput()) {
             this.main.getConsolePanel().lockInput();
             this.main.switchClickableState(ClickableState.NOT_PARSED_YET);
         }
@@ -169,7 +169,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void insertUpdate(DocumentEvent event) {
-        setHasChanged(true);
+        this.setHasChanged(true);
     }
 
     /**
