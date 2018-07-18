@@ -16,23 +16,23 @@ import static java.util.stream.Collectors.joining;
  * Command for executing a single interpreter step.
  */
 public class CommandNextStep extends Command {
+    private final ConsolePanel console;
     private final VisualisationPanel visualisation;
     private final InterpreterManager interpreterManager;
-    private final ConsolePanel console;
 
     /**
      * Initializes a new step command.
      * 
+     * @param console ConsolePanel for output
      * @param visualisation Panel of the visualisation area
      * @param interpreterManager Interpreter manager with a reference to the current
      *            interpreter
-     * @param console ConsolePanel for output
      */
-    public CommandNextStep(VisualisationPanel visualisation, InterpreterManager interpreterManager,
-            ConsolePanel console) {
+    public CommandNextStep(ConsolePanel console, VisualisationPanel visualisation,
+            InterpreterManager interpreterManager) {
+        this.console = console;
         this.visualisation = visualisation;
         this.interpreterManager = interpreterManager;
-        this.console = console;
     }
 
     /**

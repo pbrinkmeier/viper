@@ -2,6 +2,7 @@ package edu.kit.ipd.pp.viper.view;
 
 import javax.swing.JToolBar;
 
+import edu.kit.ipd.pp.viper.controller.CommandCancel;
 import edu.kit.ipd.pp.viper.controller.CommandContinue;
 import edu.kit.ipd.pp.viper.controller.CommandFormat;
 import edu.kit.ipd.pp.viper.controller.CommandNew;
@@ -87,7 +88,7 @@ public class ToolBar extends JToolBar implements HasClickable {
                 new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel()));
 
         this.buttonStep = new ToolBarButton(ICON_STEP, LanguageKey.TOOLTIP_STEP, new CommandNextStep(
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main.getConsolePanel()));
+                this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
         this.buttonSolution = new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT, new CommandContinue(
                 this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
 
