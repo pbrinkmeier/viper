@@ -2,12 +2,9 @@ package edu.kit.ipd.pp.viper.controller;
 
 import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
 import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
-
-import guru.nidi.graphviz.model.Graph;
 
 import java.util.List;
 import static java.util.stream.Collectors.joining;
@@ -61,7 +58,6 @@ public class CommandNextStep extends Command {
                     LogType.INFO);
         }
 
-        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-        this.visualisation.setFromGraph(graph);
+        this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
     }
 }

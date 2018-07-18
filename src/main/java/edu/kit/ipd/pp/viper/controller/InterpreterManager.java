@@ -34,7 +34,7 @@ public class InterpreterManager {
     private Optional<Goal> query;
     private Optional<Interpreter> interpreter;
     private List<Graph> visualisations;
-    private int backsteps;
+    private int current;
     private Optional<List<Variable>> variables;
     private boolean useStandardLibrary = false;
     private boolean running = false;
@@ -57,7 +57,7 @@ public class InterpreterManager {
         this.variables = Optional.empty();
         this.result = null;
         this.visualisations = new ArrayList<Graph>();
-        this.backsteps = 0;
+        this.current = 0;
     }
 
     /**
@@ -98,7 +98,11 @@ public class InterpreterManager {
      * @return Result of the step taken
      */
     public StepResult nextStep() {
-        if (!this.interpreter.isPresent()) {
+        if (!this.interpreter.isPresent())
+            return null;
+
+        if (this.current < this.visualisations.size() - 1) {
+            this.current++;
             return null;
         }
 
@@ -106,6 +110,8 @@ public class InterpreterManager {
 
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
 
+        this.current++;
+        
         return result;
     }
 
@@ -113,10 +119,8 @@ public class InterpreterManager {
      * Shows a previously generated and saved visualisation
      */
     public void previousStep() {
-        if (this.backsteps >= this.visualisations.size())
-            return;
-
-        
+        if (this.current > 0)
+            this.current--;
     }
 
     /**
@@ -152,9 +156,8 @@ public class InterpreterManager {
                     console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
                             LogType.INFO);
                 }
-
-                Graph graph = GraphvizMaker.createGraph(this.interpreter.get());
-                visualisation.setFromGraph(graph);
+                
+                visualisation.setFromGraph(this.getCurrentVisualisation());
                 
                 return;
             })).start();
@@ -169,8 +172,6 @@ public class InterpreterManager {
      */
     public void cancel() {
         this.running = false;
-
-
     }
 
     /**
@@ -197,6 +198,15 @@ public class InterpreterManager {
      */
     public Interpreter getCurrentState() {
         return this.interpreter.get();
+    }
+    
+    /**
+     * Getter-Method for the current visualisation of the interpretation
+     * 
+     * @return Current visualisation of the interpretation
+     */
+    public Graph getCurrentVisualisation() {
+        return this.visualisations.get(this.current);
     }
 
     /**
