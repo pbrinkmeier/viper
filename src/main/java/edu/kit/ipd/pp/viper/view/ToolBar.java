@@ -2,15 +2,7 @@ package edu.kit.ipd.pp.viper.view;
 
 import javax.swing.JToolBar;
 
-import edu.kit.ipd.pp.viper.controller.CommandContinue;
-import edu.kit.ipd.pp.viper.controller.CommandFormat;
-import edu.kit.ipd.pp.viper.controller.CommandNew;
-import edu.kit.ipd.pp.viper.controller.CommandNextStep;
-import edu.kit.ipd.pp.viper.controller.CommandOpen;
-import edu.kit.ipd.pp.viper.controller.CommandParse;
-import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
-import edu.kit.ipd.pp.viper.controller.SaveType;
 
 /**
  * Represents a toolbar containing a bunch of button with icons. This toolbar
@@ -70,27 +62,16 @@ public class ToolBar extends JToolBar implements HasClickable {
      * Adds all buttons to the toolbar
      */
     private void addButtons() {
-        this.buttonNew = new ToolBarButton(ICON_NEW, LanguageKey.TOOLTIP_NEW,
-                new CommandNew(this.main.getConsolePanel(), this.main.getEditorPanel(),
-                        this.main.getVisualisationPanel(), this.main::setWindowTitle, this.main::switchClickableState));
-        this.buttonOpen = new ToolBarButton(ICON_OPEN, LanguageKey.TOOLTIP_OPEN,
-                new CommandOpen(this.main.getConsolePanel(), this.main.getEditorPanel(),
-                        this.main.getVisualisationPanel(), this.main::setWindowTitle, this.main::switchClickableState));
-        this.buttonSave = new ToolBarButton(ICON_SAVE, LanguageKey.TOOLTIP_SAVE, new CommandSave(
-                this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE, this.main::setWindowTitle));
+        this.buttonNew = new ToolBarButton(ICON_NEW, LanguageKey.TOOLTIP_NEW, this.main.getCommandNew());
+        this.buttonOpen = new ToolBarButton(ICON_OPEN, LanguageKey.TOOLTIP_OPEN, this.main.getCommandOpen());
+        this.buttonSave = new ToolBarButton(ICON_SAVE, LanguageKey.TOOLTIP_SAVE, this.main.getCommandSave());
 
-        this.buttonParse = new ToolBarButton(ICON_PARSE, LanguageKey.TOOLTIP_PARSE,
-                new CommandParse(this.main.getConsolePanel(), this.main.getEditorPanel(),
-                        this.main.getVisualisationPanel(), this.main.getInterpreterManager(),
-                        this.main::switchClickableState));
-        this.buttonFormat = new ToolBarButton(ICON_FORMAT, LanguageKey.TOOLTIP_FORMAT,
-                new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel()));
+        this.buttonParse = new ToolBarButton(ICON_PARSE, LanguageKey.TOOLTIP_PARSE, this.main.getCommandParse());
+        this.buttonFormat = new ToolBarButton(ICON_FORMAT, LanguageKey.TOOLTIP_FORMAT, this.main.getCommandFormat());
 
-        this.buttonStep = new ToolBarButton(ICON_STEP, LanguageKey.TOOLTIP_STEP, new CommandNextStep(
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main.getConsolePanel(),
-                this.main::switchClickableState));
-        this.buttonSolution = new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT, new CommandContinue(
-                this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
+        this.buttonStep = new ToolBarButton(ICON_STEP, LanguageKey.TOOLTIP_STEP, this.main.getCommandNextStep());
+        this.buttonSolution = new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT,
+                this.main.getCommandContinue());
 
         this.add(buttonNew);
         this.add(buttonOpen);

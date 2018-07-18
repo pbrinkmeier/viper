@@ -19,7 +19,7 @@ public class CommandNew extends Command {
     private VisualisationPanel visualisation;
     private Consumer<ClickableState> toggleStateFunc;
     private Consumer<String> setTitle;
-    private CommandSave save;
+    private final CommandSave commandSave;
 
     /**
      * Initializes a new "new"-command.
@@ -30,15 +30,16 @@ public class CommandNew extends Command {
      * @param toggleStateFunc Consumer function that switches the state of clickable
      *            elements in the GUI
      * @param setTitle Consumer function to change the window title
+     * @param save the CommandSave instance
      */
     public CommandNew(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
-            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc) {
+            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave save) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
         this.setTitle = setTitle;
-        save = new CommandSave(this.console, this.editor, SaveType.SAVE, this.setTitle);
+        this.commandSave = save;
     }
 
     /**
@@ -50,11 +51,11 @@ public class CommandNew extends Command {
             Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),
                     langman.getString(LanguageKey.CANCEL)};
             final int rv = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
-                    langman.getString(LanguageKey.CONFIRMATION_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
+                    langman.getString(LanguageKey.CONFIRMATION_NEW_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
             if (rv == 0) {
-                save.execute();
+                commandSave.execute();
             }
 
             if (rv != 2) {
