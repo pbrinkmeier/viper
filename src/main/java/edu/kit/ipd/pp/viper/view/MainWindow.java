@@ -10,6 +10,7 @@ import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import edu.kit.ipd.pp.viper.controller.CommandCancel;
 import edu.kit.ipd.pp.viper.controller.CommandContinue;
 import edu.kit.ipd.pp.viper.controller.CommandExit;
 import edu.kit.ipd.pp.viper.controller.CommandFormat;
@@ -17,6 +18,7 @@ import edu.kit.ipd.pp.viper.controller.CommandNew;
 import edu.kit.ipd.pp.viper.controller.CommandNextStep;
 import edu.kit.ipd.pp.viper.controller.CommandOpen;
 import edu.kit.ipd.pp.viper.controller.CommandParse;
+import edu.kit.ipd.pp.viper.controller.CommandPreviousStep;
 import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
@@ -62,14 +64,16 @@ public class MainWindow extends JFrame {
     private final EditorPanel editorPanel;
     private final ConsolePanel consolePanel;
     private final VisualisationPanel visualisationPanel;
-    private final CommandExit commandExit;
+    private final CommandNew commandNew;
     private final CommandOpen commandOpen;
     private final CommandSave commandSave;
+    private final CommandExit commandExit;
     private final CommandParse commandParse;
     private final CommandFormat commandFormat;
+    private final CommandPreviousStep commandPreviousStep;
     private final CommandNextStep commandNextStep;
     private final CommandContinue commandContinue;
-    private final CommandNew commandNew;
+    private final CommandCancel commandCancel;
 
     private ToolBar toolbar;
     private MenuBar menubar;
@@ -117,9 +121,11 @@ public class MainWindow extends JFrame {
         this.commandParse = new CommandParse(this.consolePanel, this.editorPanel,
                 this.visualisationPanel, this.manager, this::switchClickableState);
         this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
+        this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
         this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel,
                 this::switchClickableState);
         this.commandContinue = new CommandContinue(this.consolePanel, this.visualisationPanel, this.manager);
+        this.commandCancel = new CommandCancel(this.visualisationPanel, this.manager);
 
         // add menu bar and tool bar to window
         this.menubar = new MenuBar(this);
@@ -325,7 +331,7 @@ public class MainWindow extends JFrame {
     public CommandParse getCommandParse() {
         return commandParse;
     }
-    
+
     /**
      * Returns the initialized format command
      *
@@ -334,7 +340,16 @@ public class MainWindow extends JFrame {
     public CommandFormat getCommandFormat() {
         return commandFormat;
     }
-    
+
+    /**
+     * Returns the initialized previous step command
+     *
+     * @return CommandPreviousStep
+     */
+    public CommandPreviousStep getCommandPreviousStep() {
+        return commandPreviousStep;
+    }
+
     /**
      * Returns the initialized next step command
      *
@@ -343,7 +358,7 @@ public class MainWindow extends JFrame {
     public CommandNextStep getCommandNextStep() {
         return commandNextStep;
     }
-    
+
     /**
      * Returns the initialized continue command
      *
@@ -351,5 +366,14 @@ public class MainWindow extends JFrame {
      */
     public CommandContinue getCommandContinue() {
         return commandContinue;
+    }
+
+    /**
+     * Returns the initialized cancel command
+     *
+     * @return CommandCancel
+     */
+    public CommandCancel getCommandCancel() {
+        return commandCancel;
     }
 }

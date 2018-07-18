@@ -2,8 +2,6 @@ package edu.kit.ipd.pp.viper.view;
 
 import javax.swing.JToolBar;
 
-import edu.kit.ipd.pp.viper.controller.CommandCancel;
-import edu.kit.ipd.pp.viper.controller.CommandPreviousStep;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 
 /**
@@ -75,13 +73,11 @@ public class ToolBar extends JToolBar implements HasClickable {
         this.buttonParse = new ToolBarButton(ICON_PARSE, LanguageKey.TOOLTIP_PARSE, this.main.getCommandParse());
         this.buttonFormat = new ToolBarButton(ICON_FORMAT, LanguageKey.TOOLTIP_FORMAT, this.main.getCommandFormat());
 
-        this.buttonBack = new ToolBarButton(ICON_STEPBACK, LanguageKey.TOOLTIP_STEPBACK, new CommandPreviousStep(
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
+        this.buttonBack = new ToolBarButton(ICON_STEPBACK, LanguageKey.TOOLTIP_STEPBACK, this.main.getCommandPreviousStep());
         this.buttonStep = new ToolBarButton(ICON_STEP, LanguageKey.TOOLTIP_STEP, this.main.getCommandNextStep());
         this.buttonSolution = new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT,
                 this.main.getCommandContinue());
-        this.buttonCancel = new ToolBarButton(ICON_CANCEL, LanguageKey.TOOLTIP_CANCEL, new CommandCancel(
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
+        this.buttonCancel = new ToolBarButton(ICON_CANCEL, LanguageKey.TOOLTIP_CANCEL, this.main.getCommandCancel());
 
         this.add(buttonNew);
         this.add(buttonOpen);
