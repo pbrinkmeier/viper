@@ -8,19 +8,19 @@ import guru.nidi.graphviz.model.Graph;
  * Command for canceling the execution of the continue command.
  */
 public class CommandCancel extends Command {
-    private InterpreterManager interpreterManager;
     private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new cancel command.
      * 
+     * @param visualisation Panel of the visualisation
      * @param interpreterManager Interpreter manager with a reference to the current
      *            interpreter
-     * @param visualisation Panel of the visualisation
      */
-    public CommandCancel(InterpreterManager interpreterManager, VisualisationPanel visualisation) {
-        this.interpreterManager = interpreterManager;
+    public CommandCancel(VisualisationPanel visualisation, InterpreterManager interpreterManager) {
         this.visualisation = visualisation;
+        this.interpreterManager = interpreterManager;
     }
 
     /**

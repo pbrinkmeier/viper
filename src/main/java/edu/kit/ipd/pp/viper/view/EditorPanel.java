@@ -28,7 +28,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
 
     private static final int FONT_DEFAULT_SIZE = 14;
     private static final int FONT_MIN_SIZE = 10;
-    private static final int FONT_MAX_SIZE = 30;
+    private static final int FONT_MAX_SIZE = 40;
 
     private int fontSize;
 
@@ -43,6 +43,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     private final RTextScrollPane scrollPane;
 
     /**
+     * Main window reference
+     */
+    private MainWindow main;
+
+    /**
      * Indicates whether the document has changed since the last parsing
      */
     private boolean changed;
@@ -54,8 +59,12 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
 
     /**
      * Creates a new panel containing a text area with scroll support.
+     *
+     * @param gui Main window reference
      */
-    public EditorPanel() {
+    public EditorPanel(MainWindow gui) {
+        this.main = gui;
+
         this.changed = false;
 
         this.setLayout(new BorderLayout());
@@ -112,6 +121,10 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      *            content
      */
     public void setHasChanged(boolean changed) {
+        if (this.changed && !this.main.getConsolePanel().hasLockedInput()) {
+            this.main.getConsolePanel().lockInput();
+            this.main.switchClickableState(ClickableState.NOT_PARSED_YET);
+        }
         this.changed = changed;
     }
 
@@ -156,7 +169,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void insertUpdate(DocumentEvent event) {
-        this.changed = true;
+        this.setHasChanged(true);
     }
 
     /**
@@ -164,7 +177,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void removeUpdate(DocumentEvent event) {
-        this.changed = true;
+        setHasChanged(true);
     }
 
     private void increaseFont() {
@@ -181,6 +194,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, --this.fontSize));
     }
 
+    private void resetFont() {
+        this.fontSize = FONT_DEFAULT_SIZE;
+        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
+    }
+
     /**
      * Fired when a key was pressed
      * 
@@ -195,10 +213,18 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
 
         switch (keyCode) {
         case KeyEvent.VK_PLUS: // plus key
+        case KeyEvent.VK_ADD:  // numpad plus key
             this.increaseFont();
+            event.consume();
             break;
-        case KeyEvent.VK_MINUS: // minus key
+        case KeyEvent.VK_MINUS:    // minus key
+        case KeyEvent.VK_SUBTRACT: // numpad minus key
             this.decreaseFont();
+            event.consume();
+            break;
+        case KeyEvent.VK_0: // 0 key
+            this.resetFont();
+            event.consume();
             break;
         default:
             break;
