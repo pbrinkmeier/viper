@@ -247,14 +247,25 @@ public enum LanguageKey {
     NO_MORE_SOLUTIONS("no_more_solutions"),
 
     // Console output for editor changes
-    /** Console output message for formatting the editor content */
+    /**
+     * Console output message for formatting the editor content
+     */
     EDITOR_FORMATTED("editor_formatted"),
 
+    /**
+     * Console output message for editor content is already properly formatted
+     */
+    EDITOR_ALREADY_FORMATTED("editor_already_formatted"),
+
     // Console output for parsing
-    /** Console output message for failed parsing */
+    /**
+     * Console output message for failed parsing
+     */
     PARSER_SUCCESS("parser_success"),
 
-    /** Console output message for failed parsing */
+    /**
+     * Console output message for failed parsing
+     */
     PARSER_ERROR("parser_error"),
 
     /**
@@ -272,28 +283,44 @@ public enum LanguageKey {
      */
     VIPER_READY("viper_started"),
 
-    /** Line containing the error for an ParserException */
+    /**
+     * Line containing the error for an ParserException
+     */
     POSITION("position"),
 
-    /** Illegal Character Warning for Parser Failures */
+    /**
+     * Illegal Character Warning for Parser Failures
+     */
     ILLEGAL_CHAR("illegal_char"),
 
-    /** "Operator not recognized" warning for parser failures */
+    /**
+     * "Operator not recognized" warning for parser failures
+     */
     OPERATOR_NOT_RECOGNIZED("operator_not_recognized"),
 
-    /** "Expected * instead of" warnings for parser failures */
+    /**
+     * "Expected * instead of" warnings for parser failures
+     */
     EXPECTED_INSTEAD("expected_instead"),
 
-    /** The Goal not supported error for parser */
+    /**
+     * The Goal not supported error for parser
+     */
     GOAL_NOT_SUPPORTED("goal_not_supported"),
 
-    /** The Term translation */
+    /**
+     * The Term translation
+     */
     TERM("term"),
 
-    /** The Functor translation */
+    /**
+     * The Functor translation
+     */
     FUNCTOR("functor"),
 
-    /** Lists unsupported error for parser */
+    /**
+     * Lists unsupported error for parser
+     */
     UNSUPPORTED_LISTS("unsupported_lists");
 
     private String value;
