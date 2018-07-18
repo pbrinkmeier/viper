@@ -48,7 +48,7 @@ public class CommandParseQuery extends Command {
             this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
             this.console.clearInputField();
             this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_STARTED),
-                    LogType.SUCCESS);
+                    LogType.INFO);
         } catch (ParseException e) {
             String prefix = LanguageManager.getInstance().getString(LanguageKey.PARSER_QUERY_ERROR);
             String parserError = e.getMessage();
