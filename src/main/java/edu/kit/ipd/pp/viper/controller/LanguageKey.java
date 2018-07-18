@@ -124,6 +124,11 @@ public enum LanguageKey {
     TOOLTIP_NEXT("tooltip_next"),
 
     /**
+     * Tool bar "Cancel" tool tip
+     */
+    TOOLTIP_CANCEL("tooltip_cancel"),
+
+    /**
      * Tooltip for zoom in button
      */
     ZOOM_IN("zoom_in"),

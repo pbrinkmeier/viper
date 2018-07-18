@@ -30,13 +30,14 @@ public class ToolBar extends JToolBar implements HasClickable {
      * <code>edu.kit.ipd.pp.viper.view</code> package, not inside
      * <code>src/main/resources/</code>.
      */
-    private static final String ICON_NEW = "/icons_png/icon_newfile.png";
-    private static final String ICON_OPEN = "/icons_png/icon_openfile.png";
-    private static final String ICON_SAVE = "/icons_png/icon_savefile.png";
-    private static final String ICON_PARSE = "/icons_png/icon_parsefile.png";
-    private static final String ICON_FORMAT = "/icons_png/icon_formatfile.png";
-    private static final String ICON_STEP = "/icons_png/icon_singlestep.png";
+    private static final String ICON_NEW      = "/icons_png/icon_newfile.png";
+    private static final String ICON_OPEN     = "/icons_png/icon_openfile.png";
+    private static final String ICON_SAVE     = "/icons_png/icon_savefile.png";
+    private static final String ICON_PARSE    = "/icons_png/icon_parsefile.png";
+    private static final String ICON_FORMAT   = "/icons_png/icon_formatfile.png";
+    private static final String ICON_STEP     = "/icons_png/icon_singlestep.png";
     private static final String ICON_SOLUTION = "/icons_png/icon_continue.png";
+    private static final String ICON_CANCEL   = "/icons_png/icon_cancel.png";
 
     private ToolBarButton buttonNew;
     private ToolBarButton buttonOpen;
@@ -45,6 +46,7 @@ public class ToolBar extends JToolBar implements HasClickable {
     private ToolBarButton buttonFormat;
     private ToolBarButton buttonStep;
     private ToolBarButton buttonSolution;
+    private ToolBarButton buttonCancel;
 
     /**
      * Reference to main class
@@ -91,6 +93,8 @@ public class ToolBar extends JToolBar implements HasClickable {
                 this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
         this.buttonSolution = new ToolBarButton(ICON_SOLUTION, LanguageKey.TOOLTIP_NEXT, new CommandContinue(
                 this.main.getConsolePanel(), this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
+        this.buttonCancel = new ToolBarButton(ICON_CANCEL, LanguageKey.TOOLTIP_CANCEL, new CommandCancel(
+                this.main.getVisualisationPanel(), this.main.getInterpreterManager()));
 
         this.add(buttonNew);
         this.add(buttonOpen);
@@ -101,6 +105,7 @@ public class ToolBar extends JToolBar implements HasClickable {
         this.addSeparator();
         this.add(buttonStep);
         this.add(buttonSolution);
+        this.add(buttonCancel);
     }
 
     @Override
@@ -115,6 +120,7 @@ public class ToolBar extends JToolBar implements HasClickable {
             this.buttonFormat.setEnabled(true);
             this.buttonStep.setEnabled(false);
             this.buttonSolution.setEnabled(false);
+            this.buttonCancel.setEnabled(false);
             break;
         case PARSED_QUERY:
             this.buttonNew.setEnabled(true);
@@ -124,6 +130,7 @@ public class ToolBar extends JToolBar implements HasClickable {
             this.buttonFormat.setEnabled(true);
             this.buttonStep.setEnabled(true);
             this.buttonSolution.setEnabled(true);
+            this.buttonCancel.setEnabled(false);
             break;
         default:
             break;
