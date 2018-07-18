@@ -5,13 +5,8 @@ import java.util.Locale;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JMenuBar;
-import edu.kit.ipd.pp.viper.controller.CommandExit;
 import edu.kit.ipd.pp.viper.controller.CommandExportImage;
 import edu.kit.ipd.pp.viper.controller.CommandExportTikz;
-import edu.kit.ipd.pp.viper.controller.CommandFormat;
-import edu.kit.ipd.pp.viper.controller.CommandNew;
-import edu.kit.ipd.pp.viper.controller.CommandOpen;
-import edu.kit.ipd.pp.viper.controller.CommandParse;
 import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.CommandSetLang;
 import edu.kit.ipd.pp.viper.controller.CommandToggleLib;
@@ -85,9 +80,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addNewItem(Menu menu) {
-        itemNew = new MenuItem(LanguageKey.MENU_NEW,
-                new CommandNew(this.main.getConsolePanel(), this.main.getEditorPanel(),
-                        this.main.getVisualisationPanel(), this.main::setWindowTitle, this.main::switchClickableState));
+        itemNew = new MenuItem(LanguageKey.MENU_NEW, this.main.getCommandNew());
 
         menu.add(itemNew);
     }
@@ -98,9 +91,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addOpenItem(Menu menu) {
-        itemOpen = new MenuItem(LanguageKey.MENU_OPEN,
-                new CommandOpen(this.main.getConsolePanel(), this.main.getEditorPanel(),
-                        this.main.getVisualisationPanel(), this.main::setWindowTitle, this.main::switchClickableState));
+        itemOpen = new MenuItem(LanguageKey.MENU_OPEN, this.main.getCommandOpen());
 
         menu.add(itemOpen);
     }
@@ -111,8 +102,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addSaveItem(Menu menu) {
-        itemSave = new MenuItem(LanguageKey.MENU_SAVE, new CommandSave(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), SaveType.SAVE, this.main::setWindowTitle));
+        itemSave = new MenuItem(LanguageKey.MENU_SAVE, this.main.getCommandSave());
 
         menu.add(itemSave);
     }
@@ -125,6 +115,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addSaveAsItem(Menu menu) {
         itemSaveAs = new MenuItem(LanguageKey.MENU_SAVEAS, new CommandSave(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), SaveType.SAVE_AS, this.main::setWindowTitle));
+
 
         menu.add(itemSaveAs);
     }
@@ -149,8 +140,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addExitItem(Menu menu) {
-        itemExit = new MenuItem(LanguageKey.MENU_EXIT,
-                new CommandExit(this.main.getConsolePanel(), this.main.getEditorPanel(), this.main::setWindowTitle));
+        itemExit = new MenuItem(LanguageKey.MENU_EXIT, this.main.getCommandExit());
 
         menu.add(itemExit);
     }
@@ -173,10 +163,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addParseItem(Menu menu) {
-        itemParse = new MenuItem(LanguageKey.MENU_PARSE,
-                new CommandParse(this.main.getConsolePanel(), this.main.getEditorPanel(),
-                        this.main.getVisualisationPanel(), this.main.getInterpreterManager(),
-                        this.main::switchClickableState));
+        itemParse = new MenuItem(LanguageKey.MENU_PARSE, this.main.getCommandParse());
 
         menu.add(itemParse);
     }
@@ -187,8 +174,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addFormatItem(Menu menu) {
-        itemFormat = new MenuItem(LanguageKey.MENU_FORMAT,
-                new CommandFormat(this.main.getConsolePanel(), this.main.getEditorPanel()));
+        itemFormat = new MenuItem(LanguageKey.MENU_FORMAT, this.main.getCommandFormat());
 
         menu.add(itemFormat);
     }
@@ -281,6 +267,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
             this.itemToggleSTD.setEnabled(true);
             break;
         case PARSED_QUERY:
+        case NO_MORE_SOLUTIONS:
             this.itemNew.setEnabled(true);
             this.itemOpen.setEnabled(true);
             this.itemSave.setEnabled(true);

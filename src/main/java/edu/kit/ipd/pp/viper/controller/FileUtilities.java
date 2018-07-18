@@ -2,6 +2,9 @@ package edu.kit.ipd.pp.viper.controller;
 
 import java.io.File;
 
+/**
+ * Miscellaneous utility functions for working with files.
+ */
 public class FileUtilities {
     /**
      * Optional concatenation of the file extension routine. This should only be

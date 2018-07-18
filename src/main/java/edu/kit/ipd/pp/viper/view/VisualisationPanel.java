@@ -149,6 +149,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
             this.zoomOut.setEnabled(false);
             break;
         case PARSED_QUERY:
+        case NO_MORE_SOLUTIONS:
             this.zoomIn.setEnabled(true);
             this.zoomOut.setEnabled(true);
             break;

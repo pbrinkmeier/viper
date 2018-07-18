@@ -1,5 +1,9 @@
 package edu.kit.ipd.pp.viper.controller;
 
+/**
+ * Enumeration of key values that can be used to access the proper
+ * translation of a String in the GUI.
+ */
 public enum LanguageKey {
     // Menu
     /**
@@ -175,7 +179,13 @@ public enum LanguageKey {
      * Title of the new file confirmation dialog asking whether unsaved changes
      * should be saved to disk
      */
-    CONFIRMATION_TITLE("confirm_new_title"),
+    CONFIRMATION_NEW_TITLE("confirm_new_title"),
+
+    /**
+     * Title of the exit confirmation dialog asking whether unsaved changes
+     * should be saved to disk
+     */
+    CONFIRMATION_CLOSE_TITLE("confirm_close_title"),
 
     // File types
     /**
