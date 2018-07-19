@@ -15,10 +15,7 @@ public class CommandToggleLib extends Command {
     /**
      * Initializes a new toggle library command.
      * 
-     * @param console Panel of the console area
-     * @param visualisation Panel of the visualisation area
-     * @param interpreterManager Interpreter manager with a reference to the current
-     *            interpreter
+     * @param gui The main window containing all panels, as well as the interpreter manager
      * @param toggleStateFunc Consumer function that switches the state of clickable
      *            elements in the GUI
      */

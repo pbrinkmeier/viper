@@ -39,6 +39,7 @@ public class CommandOpen extends Command {
      * @param setTitle Consumer function that can change the window title
      * @param toggleStateFunc Consumer function that switches the state of clickable
      *            elements in the GUI
+     * @param commandSave Save command in case the currently opened program has been changed
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave) {
@@ -138,7 +139,7 @@ public class CommandOpen extends Command {
                     return;
                 }
             }
-        	
+
             updateUI(chooser.getSelectedFile());
         }
     }
