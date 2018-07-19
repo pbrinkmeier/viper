@@ -43,6 +43,6 @@ public class RuleTest {
      */
     @Test
     public void toStringTest() {
-        assertEquals("grandfather(X, Y) :- \n  father(X, Z),\n  father(Z, Y).", this.testRule.toString());
+        assertEquals("grandfather(X, Y) :-\n  father(X, Z),\n  father(Z, Y).", this.testRule.toString());
     }
 }
