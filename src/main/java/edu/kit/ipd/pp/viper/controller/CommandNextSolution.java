@@ -34,8 +34,6 @@ public class CommandNextSolution extends Command {
     public void execute() {
         this.interpreterManager.cancel();
 
-        this.interpreterManager.nextSolution();
-
-        this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
+        this.interpreterManager.nextSolution(console, visualisation);
     }
 }

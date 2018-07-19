@@ -13,8 +13,12 @@ import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
+import edu.kit.ipd.pp.viper.view.ConsolePanel;
+import edu.kit.ipd.pp.viper.view.LogType;
+import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 import guru.nidi.graphviz.model.Graph;
 
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import java.util.Optional;
 
@@ -56,7 +60,6 @@ public class InterpreterManager {
         this.result = null;
         this.visualisations = new ArrayList<Graph>();
         this.current = 0;
-        this.nextSolutionThread = Optional.empty();
     }
 
     /**
@@ -109,7 +112,6 @@ public class InterpreterManager {
         this.result = this.interpreter.get().step();
 
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
-
         this.current++;
         
         return result;
@@ -126,28 +128,56 @@ public class InterpreterManager {
     /**
      * Runs the interpreter until a new solution is found. This is done in a
      * separate thread to ensure the GUI is still responsive and the execution can
-     * be canceled if it's going on for too long.
+     * be canceled if it's going on for too long. Because of that the Thread has to set the
+     * visualisation and the console output
+     * 
+     * @param console The console panel of the gui
+     * @param visualisation The visualisation panel of the gui
      */
-    public void nextSolution() {
+    public void nextSolution(ConsolePanel console, VisualisationPanel visualisation) {
         if (!this.running) {
             this.running = true;
-            this.assignThread();
+            this.assignThread(console, visualisation);
         }
     }
     
     /**
-     * Actually initializes and starts the Thread
+     * Actually initializes and starts the thread and also takes care of the console output
+     * and the visualization inside the thread
+     * 
+     * @param console The console panel of the gui
+     * @param visualisation The visualisation panel of the gui
      */
-    private void assignThread() {
-        if (!this.nextSolutionThread.isPresent())
+    private void assignThread(ConsolePanel console, VisualisationPanel visualisation) {
+        if (this.nextSolutionThread.isPresent()) {
             return;
-
+        }
+        
         this.nextSolutionThread = Optional.of(new Thread(() -> {
             while (this.running) {
                 this.nextStep();
                 if (this.result != StepResult.STEPS_REMAINING)
                     this.running = false;
             }
+            
+            if (result == StepResult.SOLUTION_FOUND) {
+                String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
+                List<Substitution> solution = this.getSolution();
+
+                String solutionString = solution.size() == 0
+                        ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
+                        : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
+
+                console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
+            }
+
+            if (result == StepResult.NO_MORE_SOLUTIONS) {
+                console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
+                        LogType.INFO);
+            }
+
+            visualisation.setFromGraph(this.getCurrentVisualisation());
+            
             return;
         }));
         
@@ -161,16 +191,18 @@ public class InterpreterManager {
      * visualisation gets updated to the respective current step.
      */
     public void cancel() {
+        this.running = false;
+        
         if (!this.nextSolutionThread.isPresent())
             return;
-
-        this.running = false;
 
         try {
             this.nextSolutionThread.get().join();
         } catch (InterruptedException e) {
             
         }
+        
+        this.nextSolutionThread = Optional.empty();
     }
 
     /**
