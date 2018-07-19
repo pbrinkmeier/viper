@@ -19,6 +19,7 @@ public class CommandNextStep extends Command {
     private final ConsolePanel console;
     private final VisualisationPanel visualisation;
     private final Consumer<ClickableState> toggleStateFunc;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new step command.
@@ -42,6 +43,8 @@ public class CommandNextStep extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+
         StepResult result = this.interpreterManager.nextStep();
 
         if (result == null) {

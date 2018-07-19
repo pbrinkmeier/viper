@@ -20,6 +20,7 @@ public class CommandSave extends Command {
     private EditorPanel editor;
     private SaveType saveType;
     private Consumer<String> setTitle;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new save command.
@@ -44,8 +45,10 @@ public class CommandSave extends Command {
     public void execute() {
         if (this.saveType == SaveType.SAVE && this.editor.hasFileReference())
             save();
-        else
+        else {
+            this.interpreterManager.cancel();
             saveAs();
+        }
     }
 
     /**

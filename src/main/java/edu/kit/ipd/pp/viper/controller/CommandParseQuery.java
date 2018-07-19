@@ -17,7 +17,7 @@ public class CommandParseQuery extends Command {
     private ConsolePanel console;
     private VisualisationPanel visualisation;
     private Consumer<ClickableState> toggleStateFunc;
-
+    private InterpreterManager interpreterManager;
     /**
      * Initializes a new parse query command.
      * 
@@ -40,10 +40,11 @@ public class CommandParseQuery extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+
         try {
             this.interpreterManager.parseQuery(this.console.getInputFieldText());
-            Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-            this.visualisation.setFromGraph(graph);
+            this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
             this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
             this.console.clearInputField();
             this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_STARTED),

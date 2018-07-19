@@ -7,6 +7,7 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  */
 public class CommandPreviousStep extends Command {
     private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new previous step command.
@@ -24,6 +25,8 @@ public class CommandPreviousStep extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+
         this.interpreterManager.previousStep();
 
         visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());

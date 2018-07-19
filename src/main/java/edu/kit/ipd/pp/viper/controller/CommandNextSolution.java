@@ -11,6 +11,7 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 public class CommandNextSolution extends Command {
     private ConsolePanel console;
     private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new continue command.
@@ -31,6 +32,10 @@ public class CommandNextSolution extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+
         this.interpreterManager.nextSolution();
+
+        this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
     }
 }

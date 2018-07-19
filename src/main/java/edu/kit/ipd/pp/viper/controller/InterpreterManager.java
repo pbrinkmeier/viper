@@ -39,7 +39,7 @@ public class InterpreterManager {
     private boolean useStandardLibrary = false;
     private boolean running = false;
     private StepResult result;
-    private Optional<Thread> nextSolutionThread;
+    private Optional<Thread> nextSolutionThread = Optional.empty();
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -52,6 +52,7 @@ public class InterpreterManager {
      * Resets the instance to make it ready for a new interpreter.
      */
     public void reset() {
+        this.cancel();
         this.knowledgeBase = Optional.empty();
         this.query = Optional.empty();
         this.interpreter = Optional.empty();
@@ -162,7 +163,16 @@ public class InterpreterManager {
      * visualisation gets updated to the respective current step.
      */
     public void cancel() {
+        if (!this.nextSolutionThread.isPresent())
+            return;
+
         this.running = false;
+
+        try {
+            this.nextSolutionThread.get().join();
+        } catch (InterruptedException e) {
+            
+        }
     }
 
     /**
@@ -173,7 +183,7 @@ public class InterpreterManager {
      * @return string list of substitutions that form a solution
      */
     public List<Substitution> getSolution() {
-        Environment currentEnv = this.getCurrentState().getCurrent().get().getEnvironment();
+        Environment currentEnv = this.interpreter.get().getCurrent().get().getEnvironment();
 
         List<Substitution> solution = this.variables.get().stream().map(variable -> {
             return new Substitution(variable, currentEnv.applyAllSubstitutions(variable));
@@ -182,15 +192,6 @@ public class InterpreterManager {
         return solution;
     }
 
-    /**
-     * Getter-Method for the current state of the interpretation.
-     * 
-     * @return Current state of the interpretation
-     */
-    public Interpreter getCurrentState() {
-        return this.interpreter.get();
-    }
-    
     /**
      * Getter-Method for the current visualisation of the interpretation
      * 

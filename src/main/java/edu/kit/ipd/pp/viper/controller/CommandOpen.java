@@ -29,6 +29,7 @@ public class CommandOpen extends Command {
     private Consumer<ClickableState> toggleStateFunc;
     private Consumer<String> setTitle;
     private CommandSave commandSave;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new open command.
@@ -121,6 +122,8 @@ public class CommandOpen extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(FileFilters.PL_FILTER);
         int rv = chooser.showOpenDialog(null);

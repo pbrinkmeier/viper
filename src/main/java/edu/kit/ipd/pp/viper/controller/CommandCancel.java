@@ -7,6 +7,7 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  */
 public class CommandCancel extends Command {
     private VisualisationPanel visualisation;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new cancel command.
@@ -24,7 +25,7 @@ public class CommandCancel extends Command {
      * Executes the command.
      */
     public void execute() {
-        this.cancelThread();
+        this.interpreterManager.cancel();
 
         this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
     }

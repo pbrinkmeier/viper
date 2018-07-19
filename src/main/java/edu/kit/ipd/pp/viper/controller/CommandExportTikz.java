@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
-import edu.kit.ipd.pp.viper.model.visualisation.LatexMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.MainWindow;
@@ -15,6 +14,7 @@ import edu.kit.ipd.pp.viper.view.MainWindow;
  */
 public class CommandExportTikz extends Command {
     private ConsolePanel console;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new TikZ export command.
@@ -32,6 +32,8 @@ public class CommandExportTikz extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+        /*
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(FileFilters.TIKZ_FILTER);
         int rv = chooser.showSaveDialog(null);
@@ -39,7 +41,7 @@ public class CommandExportTikz extends Command {
         if (rv == JFileChooser.APPROVE_OPTION) {
             try {
                 FileOutputStream out = new FileOutputStream(chooser.getSelectedFile());
-                final String code = LatexMaker.createLatex(this.interpreterManager.getCurrentState());
+                final String code = LatexMaker.createLatex(this.interpreterManager.getCurrentVisualisation());
                 out.write(code.getBytes());
                 out.flush();
                 out.close();
@@ -55,5 +57,6 @@ public class CommandExportTikz extends Command {
                 }
             }
         }
+        */
     }
 }

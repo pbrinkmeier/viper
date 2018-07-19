@@ -20,6 +20,7 @@ public class CommandNew extends Command {
     private Consumer<ClickableState> toggleStateFunc;
     private Consumer<String> setTitle;
     private final CommandSave commandSave;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new "new"-command.
@@ -48,6 +49,7 @@ public class CommandNew extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
         if (this.editor.hasChanged()) {
             LanguageManager langman = LanguageManager.getInstance();
             Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),

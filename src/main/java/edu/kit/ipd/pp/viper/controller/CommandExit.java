@@ -10,6 +10,7 @@ import edu.kit.ipd.pp.viper.view.EditorPanel;
 public class CommandExit extends Command {
     private EditorPanel editor;
     private final CommandSave commandSave;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new exit command.
@@ -42,6 +43,7 @@ public class CommandExit extends Command {
                 return;
             }
         }
+        this.interpreterManager.cancel();
         System.exit(0);
     }
 }

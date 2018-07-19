@@ -13,6 +13,7 @@ public class CommandSetLang extends Command {
     private ConsolePanel console;
     private VisualisationPanel visualisation;
     private Locale lang;
+    private InterpreterManager interpreterManager;
     private PreferencesManager prefManager;
 
     /**
@@ -38,6 +39,8 @@ public class CommandSetLang extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+
         LanguageManager.getInstance().setLocale(this.lang);
         this.prefManager.setLanguage(this.lang);
 
@@ -45,8 +48,7 @@ public class CommandSetLang extends Command {
         this.console.clearAll();
 
         if (hasGraph) {
-            Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-            this.visualisation.setFromGraph(graph);
+            this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
         }
     }
 }
