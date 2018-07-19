@@ -29,18 +29,23 @@ public class KnowledgeBase {
     @Override
     public String toString() {
         String source = "";
+        String lastHead = "";
+        int lastArity = -1;
         for (final Rule r : getRules()) {
-            List<Goal> subGoals = r.getSubgoals();
-            if (subGoals.size() == 0) {
-                source += r.getHead() + ".\n";
+            String currentHead = r.getHead().getName();
+            int currentArity = r.getHead().getArity();
+            if (source.isEmpty()) {
+                lastHead = currentHead;
+                lastArity = currentArity;
             } else {
-                source += "\n" + r.getHead() + " :-\n";
-                for (int i = 0; i < subGoals.size(); i++) {
-                    final Goal g = subGoals.get(i);
-                    source += "  " + g.toString();
-                    source += i == subGoals.size() - 1 ? ".\n" : ",\n";
+                // Add empty line if previous Name was different
+                if (!lastHead.equals(currentHead) || lastArity != currentArity) {
+                    lastHead = currentHead;
+                    lastArity = currentArity;
+                    source += "\n";
                 }
             }
+            source += r.toString() + "\n";
         }
 
         return source;

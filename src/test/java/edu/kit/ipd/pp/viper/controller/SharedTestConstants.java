@@ -8,8 +8,8 @@ public class SharedTestConstants {
 
     /** The formatted simpsons.pl example program */
     public static final String SIMPSONS_FORMATTED = "father(abe, homer).\n" + "father(homer, bart).\n"
-            + "father(homer, lisa).\n" + "mother(marge, bart).\n\n" + "grandfather(X, Y) :-\n" + "  father(X, Z),\n"
-            + "  parent(Z, Y).\n\n" + "parent(X, Y) :-\n" + "  mother(X, Y).\n\n" + "parent(X, Y) :-\n"
+            + "father(homer, lisa).\n\n" + "mother(marge, bart).\n\n" + "grandfather(X, Y) :-\n" + "  father(X, Z),\n"
+            + "  parent(Z, Y).\n\n" + "parent(X, Y) :-\n" + "  mother(X, Y).\n" + "parent(X, Y) :-\n"
             + "  father(X, Y).\n";
 
     /** An exemplary query */
