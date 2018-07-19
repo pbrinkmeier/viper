@@ -11,7 +11,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import edu.kit.ipd.pp.viper.controller.CommandCancel;
-import edu.kit.ipd.pp.viper.controller.CommandContinue;
+import edu.kit.ipd.pp.viper.controller.CommandNextSolution;
 import edu.kit.ipd.pp.viper.controller.CommandExit;
 import edu.kit.ipd.pp.viper.controller.CommandFormat;
 import edu.kit.ipd.pp.viper.controller.CommandNew;
@@ -72,7 +72,7 @@ public class MainWindow extends JFrame {
     private final CommandFormat commandFormat;
     private final CommandPreviousStep commandPreviousStep;
     private final CommandNextStep commandNextStep;
-    private final CommandContinue commandContinue;
+    private final CommandNextSolution commandNextSolution;
     private final CommandCancel commandCancel;
 
     private ToolBar toolbar;
@@ -124,7 +124,7 @@ public class MainWindow extends JFrame {
         this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
         this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel,
                 this::switchClickableState);
-        this.commandContinue = new CommandContinue(this.consolePanel, this.visualisationPanel, this.manager);
+        this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
         this.commandCancel = new CommandCancel(this.visualisationPanel, this.manager);
 
         // add menu bar and tool bar to window
@@ -364,8 +364,8 @@ public class MainWindow extends JFrame {
      *
      * @return CommandContinue
      */
-    public CommandContinue getCommandContinue() {
-        return commandContinue;
+    public CommandNextSolution getCommandContinue() {
+        return commandNextSolution;
     }
 
     /**

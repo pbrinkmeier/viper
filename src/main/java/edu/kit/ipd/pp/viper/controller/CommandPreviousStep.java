@@ -1,8 +1,6 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
-import guru.nidi.graphviz.model.Graph;
 
 /**
  * Command for returning to the interpreter step before the current one.
@@ -27,9 +25,8 @@ public class CommandPreviousStep extends Command {
      * Executes the command.
      */
     public void execute() {
-        this.interpreterManager.stepBack();
+        this.interpreterManager.previousStep();
 
-        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-        this.visualisation.setFromGraph(graph);
+        visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
     }
 }

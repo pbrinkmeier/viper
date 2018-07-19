@@ -1,8 +1,6 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
-import guru.nidi.graphviz.model.Graph;
 
 /**
  * Command for canceling the execution of the continue command.
@@ -28,7 +26,7 @@ public class CommandCancel extends Command {
      */
     public void execute() {
         this.interpreterManager.cancel();
-        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-        this.visualisation.setFromGraph(graph);
+        
+        visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
     }
 }

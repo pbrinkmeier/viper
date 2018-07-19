@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.controller;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
@@ -11,10 +12,15 @@ import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
 import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
+import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
+import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
+import guru.nidi.graphviz.model.Graph;
+
 import static java.util.stream.Collectors.toList;
 import java.util.Optional;
+import static java.util.stream.Collectors.joining;
 
 /**
  * Manager class for interpreters. This class holds references to all
@@ -27,8 +33,12 @@ public class InterpreterManager {
     private Optional<KnowledgeBase> knowledgeBase;
     private Optional<Goal> query;
     private Optional<Interpreter> interpreter;
+    private List<Graph> visualisations;
+    private int current;
     private Optional<List<Variable>> variables;
     private boolean useStandardLibrary = false;
+    private boolean running = false;
+    private StepResult result;
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -45,6 +55,9 @@ public class InterpreterManager {
         this.query = Optional.empty();
         this.interpreter = Optional.empty();
         this.variables = Optional.empty();
+        this.result = null;
+        this.visualisations = new ArrayList<Graph>();
+        this.current = 0;
     }
 
     /**
@@ -73,6 +86,7 @@ public class InterpreterManager {
 
         this.interpreter = Optional.of(new Interpreter(this.knowledgeBase.get(), this.query.get()));
         this.variables = Optional.of(this.query.get().getVariables());
+        this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
     }
 
     /**
@@ -84,21 +98,30 @@ public class InterpreterManager {
      * 
      * @return Result of the step taken
      */
-    public StepResult step() {
-        if (!this.interpreter.isPresent()) {
+    public StepResult nextStep() {
+        if (!this.interpreter.isPresent())
             return null;
+
+        if (this.current < this.visualisations.size() - 1) {
+            this.current++;
+            return StepResult.STEPS_REMAINING;
         }
 
-        return this.interpreter.get().step();
+        this.result = this.interpreter.get().step();
+
+        this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
+
+        this.current++;
+        
+        return result;
     }
 
     /**
-     * Takes an interpreter step back.
-     * 
-     * @return Result of the step taken
+     * Shows a previously generated and saved visualisation
      */
-    public StepResult stepBack() {
-        return null;
+    public void previousStep() {
+        if (this.current > 0)
+            this.current--;
     }
 
     /**
@@ -109,17 +132,37 @@ public class InterpreterManager {
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
      */
-    public void runUntilNextSolution(ConsolePanel console, VisualisationPanel visualisation) {
-        /*
-         * if (!this.searchingForSolution) { this.searchingForSolution = true;
-         * this.continueThread = new Thread(() -> { StepResult result =
-         * StepResult.STEPS_REMAINING; while (this.searchingForSolution) { result =
-         * step(); this.searchingForSolution = result == StepResult.STEPS_REMAINING; }
-         * 
-         * Graph graph = GraphvizMaker.createGraph(getCurrentState());
-         * visualisation.setFromGraph(graph); searchingForSolution = false; });
-         * this.continueThread.start(); }
-         */
+    public void nextSolution(ConsolePanel console, VisualisationPanel visualisation) {
+        if (!this.running) {
+            this.running = true;
+            (new Thread(() -> {
+                while (this.running) {
+                    this.nextStep();
+                    if (this.result != StepResult.STEPS_REMAINING)
+                        this.running = false;
+                }
+
+                if (this.result == StepResult.SOLUTION_FOUND) {
+                    String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
+                    List<Substitution> solution = this.getSolution();
+
+                    String solutionString = solution.size() == 0
+                            ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
+                            : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
+
+                    console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
+                }
+
+                if (this.result == StepResult.NO_MORE_SOLUTIONS) {
+                    console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
+                            LogType.INFO);
+                }
+                
+                visualisation.setFromGraph(this.getCurrentVisualisation());
+                
+                return;
+            })).start();
+        }
     }
 
     /**
@@ -129,9 +172,7 @@ public class InterpreterManager {
      * visualisation gets updated to the respective current step.
      */
     public void cancel() {
-        /**
-         * this.searchingForSolution = false;
-         */
+        this.running = false;
     }
 
     /**
@@ -158,6 +199,15 @@ public class InterpreterManager {
      */
     public Interpreter getCurrentState() {
         return this.interpreter.get();
+    }
+    
+    /**
+     * Getter-Method for the current visualisation of the interpretation
+     * 
+     * @return Current visualisation of the interpretation
+     */
+    public Graph getCurrentVisualisation() {
+        return this.visualisations.get(this.current);
     }
 
     /**

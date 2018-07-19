@@ -2,13 +2,10 @@ package edu.kit.ipd.pp.viper.controller;
 
 import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
 import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
-
-import guru.nidi.graphviz.model.Graph;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -46,7 +43,7 @@ public class CommandNextStep extends Command {
      * Executes the command.
      */
     public void execute() {
-        StepResult result = this.interpreterManager.step();
+        StepResult result = this.interpreterManager.nextStep();
 
         if (result == null) {
             return;
@@ -69,7 +66,6 @@ public class CommandNextStep extends Command {
             this.toggleStateFunc.accept(ClickableState.NO_MORE_SOLUTIONS);
         }
 
-        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-        this.visualisation.setFromGraph(graph);
+        this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
     }
 }
