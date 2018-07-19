@@ -1,13 +1,14 @@
 package edu.kit.ipd.pp.viper.controller;
-
+/*
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
-import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.MainWindow;
+*/
+import edu.kit.ipd.pp.viper.view.ConsolePanel;
 
 /**
  * Command for exporting the visualisation to TikZ for LaTex.

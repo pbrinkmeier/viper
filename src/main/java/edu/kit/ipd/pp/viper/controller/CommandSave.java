@@ -29,6 +29,7 @@ public class CommandSave extends Command {
      * @param editor Panel of the editor area
      * @param saveType Save type (either save or save as new)
      * @param setTitle Consumer function to set the window title
+     * @param manager The InterpreterManager instance
      */
     public CommandSave(ConsolePanel console, EditorPanel editor, SaveType saveType, Consumer<String> setTitle,
             InterpreterManager manager) {

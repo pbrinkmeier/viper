@@ -32,6 +32,7 @@ public class CommandNew extends Command {
      *            elements in the GUI
      * @param setTitle Consumer function to change the window title
      * @param save the CommandSave instance
+     * @param manager The InterpreterManager instance
      */
     public CommandNew(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave save,

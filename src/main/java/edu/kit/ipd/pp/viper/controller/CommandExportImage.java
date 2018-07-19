@@ -5,13 +5,11 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.MainWindow;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
-import guru.nidi.graphviz.model.Graph;
 
 /**
  * Command for exporting the visualisation to a supported image format (PNG or

@@ -3,12 +3,10 @@ package edu.kit.ipd.pp.viper.controller;
 import java.util.function.Consumer;
 
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
-import guru.nidi.graphviz.model.Graph;
 
 /**
  * Command for parsing the entered Prolog code.

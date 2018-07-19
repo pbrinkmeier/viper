@@ -1,10 +1,8 @@
 package edu.kit.ipd.pp.viper.controller;
 
 import java.util.Locale;
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
-import guru.nidi.graphviz.model.Graph;
 
 /**
  * Command for setting the GUI language.

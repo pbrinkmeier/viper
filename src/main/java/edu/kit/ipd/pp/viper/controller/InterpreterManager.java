@@ -13,14 +13,10 @@ import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
-import edu.kit.ipd.pp.viper.view.ConsolePanel;
-import edu.kit.ipd.pp.viper.view.LogType;
-import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 import guru.nidi.graphviz.model.Graph;
 
 import static java.util.stream.Collectors.toList;
 import java.util.Optional;
-import static java.util.stream.Collectors.joining;
 
 /**
  * Manager class for interpreters. This class holds references to all
@@ -131,9 +127,6 @@ public class InterpreterManager {
      * Runs the interpreter until a new solution is found. This is done in a
      * separate thread to ensure the GUI is still responsive and the execution can
      * be canceled if it's going on for too long.
-     * 
-     * @param console Panel of the console area
-     * @param visualisation Panel of the visualisation area
      */
     public void nextSolution() {
         if (!this.running) {
@@ -141,7 +134,10 @@ public class InterpreterManager {
             this.assignThread();
         }
     }
-
+    
+    /**
+     * Actually initializes and starts the Thread
+     */
     private void assignThread() {
         if (!this.nextSolutionThread.isPresent())
             return;
@@ -154,6 +150,8 @@ public class InterpreterManager {
             }
             return;
         }));
+        
+        this.nextSolutionThread.get().start();
     }
 
     /**
@@ -199,10 +197,6 @@ public class InterpreterManager {
      */
     public Graph getCurrentVisualisation() {
         return this.visualisations.get(this.current);
-    }
-
-    public Optional<Thread> getThread() {
-        return this.nextSolutionThread;
     }
 
     /**

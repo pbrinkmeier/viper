@@ -17,6 +17,7 @@ public class CommandExit extends Command {
      * 
      * @param editor The Editor window
      * @param save the CommandSave instance
+     * @param manager The InterpreterManager instance
      */
     public CommandExit(EditorPanel editor, CommandSave save, InterpreterManager manager) {
         this.editor = editor;
@@ -28,6 +29,8 @@ public class CommandExit extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+        
         if (this.editor.hasChanged()) {
             LanguageManager langman = LanguageManager.getInstance();
             Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),
@@ -43,7 +46,7 @@ public class CommandExit extends Command {
                 return;
             }
         }
-        this.interpreterManager.cancel();
+        
         System.exit(0);
     }
 }

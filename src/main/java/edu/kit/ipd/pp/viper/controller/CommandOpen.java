@@ -41,6 +41,7 @@ public class CommandOpen extends Command {
      * @param toggleStateFunc Consumer function that switches the state of clickable
      *            elements in the GUI
      * @param commandSave Save command in case the currently opened program has been changed
+     * @param manager The InterpreterManager instance
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
