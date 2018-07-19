@@ -8,6 +8,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
@@ -56,6 +59,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * Holds a reference to the file that the editor content was loaded from
      */
     private File reference;
+    
+    /**
+     * List of files referenced in the past
+     */
+    private ArrayList<File> referenceList;
 
     /**
      * Creates a new panel containing a text area with scroll support.
@@ -78,8 +86,8 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.textArea.addMouseWheelListener(this);
         this.scrollPane = new RTextScrollPane(this.textArea);
         this.scrollPane.setPreferredSize(new Dimension(400, 600));
-        this.add(this.scrollPane, BorderLayout.CENTER);
-
+        this.add(this.scrollPane, BorderLayout.CENTER);        
+        this.referenceList = new ArrayList<File>();
         this.textArea.getDocument().addDocumentListener(this);
     }
 
@@ -154,6 +162,36 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     public void setFileReference(File reference) {
         this.reference = reference;
+        
+        if (!referenceList.contains(reference)) {
+        	// Trim the list down to 4 elements if necessary before
+        	// adding another item.
+        	if (referenceList.size() > 4) {
+        		referenceList.remove(0);
+        	}
+        	referenceList.add(reference);
+        	this.main.getInternalMenuBar().resetRecentlyOpenedMenu();
+        } else {
+        	// Rearrange items so the requested item is at the back of the list.
+        	// This makes the least recently used file the first one to be deleted
+        	// if the list grows too big.
+        	ArrayList<File> copy = new ArrayList<File>(this.referenceList.size());
+        	int index = 0;
+        	for (int i = 0; i < this.referenceList.size(); i++) {
+        		if (this.referenceList.get(i).equals(reference))
+        			index = i;
+        		else
+        			copy.add(this.referenceList.get(i));
+        	}
+        	
+        	copy.add(this.referenceList.get(index));
+        	this.referenceList = copy;
+        	this.main.getInternalMenuBar().resetRecentlyOpenedMenu();
+        }
+    }
+    
+    public List<File> getFileReferenceList() {
+    	return Collections.unmodifiableList(referenceList);
     }
 
     /**

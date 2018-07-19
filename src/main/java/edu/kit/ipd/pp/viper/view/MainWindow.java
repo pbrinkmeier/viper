@@ -286,6 +286,11 @@ public class MainWindow extends JFrame {
     public PreferencesManager getPreferencesManager() {
         return this.prefManager;
     }
+    
+    
+    public MenuBar getInternalMenuBar() {
+    	return this.menubar;
+    }
 
     /**
      * Returns the initialized exit command

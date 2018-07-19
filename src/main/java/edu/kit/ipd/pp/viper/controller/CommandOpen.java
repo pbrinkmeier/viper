@@ -23,6 +23,7 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * file.
  */
 public class CommandOpen extends Command {
+	private final String path;
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
@@ -31,7 +32,7 @@ public class CommandOpen extends Command {
     private CommandSave commandSave;
 
     /**
-     * Initializes a new open command.
+     * Initializes a new open command. A command constructed this way selects the file using a dialog.
      * 
      * @param console Panel of the console area
      * @param editor Panel of the editor area
@@ -43,7 +44,8 @@ public class CommandOpen extends Command {
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave) {
-        this.console = console;
+    	this.path = "";
+    	this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
@@ -51,6 +53,28 @@ public class CommandOpen extends Command {
         this.commandSave = commandSave;
     }
 
+    /**
+     * Initializes a new open command. A command constructed this way tries to open a file from a given path.
+     * 
+     * @param console Panel of the console area
+     * @param editor Panel of the editor area
+     * @param visualisation Panel of the visualisation area
+     * @param setTitle Consumer function that can change the window title
+     * @param toggleStateFunc Consumer function that switches the state of clickable
+     *            elements in the GUI
+     * @param commandSave Save command in case the currently opened program has been changed
+     */
+    public CommandOpen(String path, ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
+            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave) {
+        this.path = path;
+    	this.console = console;
+        this.editor = editor;
+        this.visualisation = visualisation;
+        this.toggleStateFunc = toggleStateFunc;
+        this.setTitle = setTitle;
+        this.commandSave = commandSave;
+    }
+    
     /**
      * File to String reading routine. This should only be called internally, but
      * it's public for testing purposes.
@@ -114,33 +138,47 @@ public class CommandOpen extends Command {
         this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
         this.setTitle.accept(file.getAbsolutePath());
     }
+    
+    private void handleUnsavedChanges() {
+    	LanguageManager langman = LanguageManager.getInstance();
+        Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),
+                langman.getString(LanguageKey.CANCEL)};
+        final int rv2 = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
+                langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
-    /**
-     * Executes the command.
-     */
-    public void execute() {
+        if (rv2 == 0) {
+            this.commandSave.execute();
+        }
+        if (rv2 == 2) {
+            return;
+        }
+    }
+    
+    private void openByDialog() {
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(FileFilters.PL_FILTER);
         int rv = chooser.showOpenDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {
-            if (this.editor.hasChanged()) {
-                LanguageManager langman = LanguageManager.getInstance();
-                Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),
-                        langman.getString(LanguageKey.CANCEL)};
-                final int rv2 = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
-                        langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
-                        JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
-
-                if (rv2 == 0) {
-                    this.commandSave.execute();
-                }
-                if (rv2 == 2) {
-                    return;
-                }
-            }
-
+            if (this.editor.hasChanged())
+            	handleUnsavedChanges();
             updateUI(chooser.getSelectedFile());
         }
+    }
+    
+    private void openDirectly() {
+    	if (this.editor.hasChanged())
+    		handleUnsavedChanges();
+        updateUI(new File(this.path));
+    }
+
+    /**
+     * Executes the command.
+     */
+    public void execute() {
+    	if (this.path.isEmpty()) {
+    		openByDialog();
+    	} else openDirectly();
     }
 }
