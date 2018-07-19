@@ -16,7 +16,6 @@ import guru.nidi.graphviz.model.Graph;
 public class CommandParseQuery extends Command {
     private ConsolePanel console;
     private VisualisationPanel visualisation;
-    private InterpreterManager interpreterManager;
     private Consumer<ClickableState> toggleStateFunc;
 
     /**

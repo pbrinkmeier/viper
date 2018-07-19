@@ -114,7 +114,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
      */
     private void addSaveAsItem(Menu menu) {
         itemSaveAs = new MenuItem(LanguageKey.MENU_SAVEAS, new CommandSave(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), SaveType.SAVE_AS, this.main::setWindowTitle));
+                this.main.getEditorPanel(), SaveType.SAVE_AS, this.main::setWindowTitle,
+                this.main.getInterpreterManager()));
 
 
         menu.add(itemSaveAs);

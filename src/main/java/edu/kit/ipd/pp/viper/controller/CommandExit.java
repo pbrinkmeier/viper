@@ -17,9 +17,10 @@ public class CommandExit extends Command {
      * @param editor The Editor window
      * @param save the CommandSave instance
      */
-    public CommandExit(EditorPanel editor, CommandSave save) {
+    public CommandExit(EditorPanel editor, CommandSave save, InterpreterManager manager) {
         this.editor = editor;
         this.commandSave = save;
+        this.interpreterManager = manager;
     }
 
     /**

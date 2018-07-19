@@ -20,7 +20,6 @@ import guru.nidi.graphviz.model.Graph;
 public class CommandExportImage extends Command {
     private ConsolePanel console;
     private ImageFormat format;
-    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new image export command.

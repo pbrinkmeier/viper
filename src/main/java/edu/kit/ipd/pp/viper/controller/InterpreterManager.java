@@ -39,6 +39,7 @@ public class InterpreterManager {
     private boolean useStandardLibrary = false;
     private boolean running = false;
     private StepResult result;
+    private Optional<Thread> nextSolutionThread;
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -58,6 +59,7 @@ public class InterpreterManager {
         this.result = null;
         this.visualisations = new ArrayList<Graph>();
         this.current = 0;
+        this.nextSolutionThread = Optional.empty();
     }
 
     /**
@@ -132,37 +134,25 @@ public class InterpreterManager {
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
      */
-    public void nextSolution(ConsolePanel console, VisualisationPanel visualisation) {
+    public void nextSolution() {
         if (!this.running) {
             this.running = true;
-            (new Thread(() -> {
-                while (this.running) {
-                    this.nextStep();
-                    if (this.result != StepResult.STEPS_REMAINING)
-                        this.running = false;
-                }
-
-                if (this.result == StepResult.SOLUTION_FOUND) {
-                    String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
-                    List<Substitution> solution = this.getSolution();
-
-                    String solutionString = solution.size() == 0
-                            ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
-                            : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
-
-                    console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
-                }
-
-                if (this.result == StepResult.NO_MORE_SOLUTIONS) {
-                    console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
-                            LogType.INFO);
-                }
-                
-                visualisation.setFromGraph(this.getCurrentVisualisation());
-                
-                return;
-            })).start();
+            this.assignThread();
         }
+    }
+
+    private void assignThread() {
+        if (!this.nextSolutionThread.isPresent())
+            return;
+
+        this.nextSolutionThread = Optional.of(new Thread(() -> {
+            while (this.running) {
+                this.nextStep();
+                if (this.result != StepResult.STEPS_REMAINING)
+                    this.running = false;
+            }
+            return;
+        }));
     }
 
     /**
@@ -208,6 +198,10 @@ public class InterpreterManager {
      */
     public Graph getCurrentVisualisation() {
         return this.visualisations.get(this.current);
+    }
+
+    public Optional<Thread> getThread() {
+        return this.nextSolutionThread;
     }
 
     /**

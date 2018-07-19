@@ -15,7 +15,6 @@ import edu.kit.ipd.pp.viper.view.MainWindow;
  */
 public class CommandExportTikz extends Command {
     private ConsolePanel console;
-    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new TikZ export command.

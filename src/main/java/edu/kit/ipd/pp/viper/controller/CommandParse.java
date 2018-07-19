@@ -17,7 +17,6 @@ public class CommandParse extends Command {
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
-    private InterpreterManager interpreterManager;
     private Consumer<ClickableState> toggleStateFunc;
 
     /**

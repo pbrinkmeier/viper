@@ -42,13 +42,15 @@ public class CommandOpen extends Command {
      * @param commandSave Save command in case the currently opened program has been changed
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
-            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave) {
+            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
+            InterpreterManager manager) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
         this.setTitle = setTitle;
         this.commandSave = commandSave;
+        this.interpreterManager = manager;
     }
 
     /**

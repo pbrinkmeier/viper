@@ -33,13 +33,15 @@ public class CommandNew extends Command {
      * @param save the CommandSave instance
      */
     public CommandNew(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
-            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave save) {
+            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave save,
+            InterpreterManager manager) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
         this.setTitle = setTitle;
         this.commandSave = save;
+        this.interpreterManager = manager;
     }
 
     /**

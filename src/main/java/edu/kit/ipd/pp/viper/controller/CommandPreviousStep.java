@@ -7,7 +7,6 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  */
 public class CommandPreviousStep extends Command {
     private VisualisationPanel visualisation;
-    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new previous step command.

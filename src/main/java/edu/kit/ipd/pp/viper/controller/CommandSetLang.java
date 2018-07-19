@@ -13,7 +13,6 @@ public class CommandSetLang extends Command {
     private ConsolePanel console;
     private VisualisationPanel visualisation;
     private Locale lang;
-    private InterpreterManager interpreterManager;
     private PreferencesManager prefManager;
 
     /**

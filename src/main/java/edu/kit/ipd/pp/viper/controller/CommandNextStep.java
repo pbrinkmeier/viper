@@ -18,7 +18,6 @@ import static java.util.stream.Collectors.joining;
 public class CommandNextStep extends Command {
     private final ConsolePanel console;
     private final VisualisationPanel visualisation;
-    private final InterpreterManager interpreterManager;
     private final Consumer<ClickableState> toggleStateFunc;
 
     /**

@@ -29,11 +29,13 @@ public class CommandSave extends Command {
      * @param saveType Save type (either save or save as new)
      * @param setTitle Consumer function to set the window title
      */
-    public CommandSave(ConsolePanel console, EditorPanel editor, SaveType saveType, Consumer<String> setTitle) {
+    public CommandSave(ConsolePanel console, EditorPanel editor, SaveType saveType, Consumer<String> setTitle,
+            InterpreterManager manager) {
         this.console = console;
         this.editor = editor;
         this.saveType = saveType;
         this.setTitle = setTitle;
+        this.interpreterManager = manager;
     }
 
     /**
