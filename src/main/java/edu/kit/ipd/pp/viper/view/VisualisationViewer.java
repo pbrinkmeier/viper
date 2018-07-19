@@ -74,7 +74,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     /**
      * Implements zooming of the displayed image using the mouse wheel
      * 
-     * @param event
+     * @param event mouse wheel event that occurred
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {

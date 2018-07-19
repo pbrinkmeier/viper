@@ -3,7 +3,22 @@ package edu.kit.ipd.pp.viper.model.ast;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import static java.util.stream.Collectors.joining;
 
+/**
+ * Represents a functor in an AST.
+ * A functor has a "name" with is just a string and a list of terms which are called its "parameters".
+ * 
+ * A thing to note about functors is that {@link BinaryOperation}s behave like functors with exactly
+ * two parameters in most cases, which is why the {@link TermVisitor} and {@link TermTransformationVisitor}
+ * interfaces do not have special "visit" methods for them. This leads to the following peculiar situation:
+ * when visiting a BinaryOperation with an Unifier or any kind of {@link TermTransformationVisitor},
+ * we will need to create a new instance with the modified parameters. But even though we are visiting a
+ * functor object, we can't just create a new functor, since we would lose the information that the visited
+ * object was an arithmetic operation. This is why the Functor class provides the createNew
+ * method, which is used to create a new instance of the exact same class. Subclasses of BinaryOperation are forced
+ * to override this method in order to create an instance of the correct class.
+ */
 public class Functor extends Term {
     private final String name;
     private final List<Term> parameters;
@@ -53,11 +68,11 @@ public class Functor extends Term {
 
     /**
      * Creates a new functor with different parameters. This method is supposed to
-     * be overwritten in subclasses for use in TermTransformationVisitors, which
+     * be overwritten in subclasses for use in Unifiers and TermTransformationVisitors, which
      * only have a visit(Functor) method.
      *
      * @param parameters parameters of the new functor
-     * @return a newly created functor of exactly same class as this one
+     * @return a newly created functor of exactly the same class as this one
      */
     public Functor createNew(List<Term> parameters) {
         return new Functor(this.getName(), parameters);
@@ -99,13 +114,9 @@ public class Functor extends Term {
         if (this.getArity() > 0) {
             repr += "(";
 
-            for (int index = 0; index < this.getArity(); index++) {
-                repr += this.getParameters().get(index).toString();
-
-                if (index != this.getArity() - 1) {
-                    repr += ", ";
-                }
-            }
+            repr += this.getParameters().stream()
+            .map(parameter -> parameter.toString())
+            .collect(joining(", "));
 
             repr += ")";
         }
@@ -116,19 +127,16 @@ public class Functor extends Term {
     /**
      * @return a GraphViz-compatible HTML representation of this functor
      */
+    @Override
     public String toHtml() {
         String repr = this.getName();
 
         if (this.getArity() > 0) {
             repr += "(";
 
-            for (int index = 0; index < this.getArity(); index++) {
-                repr += this.getParameters().get(index).toHtml();
-
-                if (index != this.getArity() - 1) {
-                    repr += ", ";
-                }
-            }
+            repr += this.getParameters().stream()
+            .map(parameter -> parameter.toHtml())
+            .collect(joining(", "));
 
             repr += ")";
         }
@@ -143,6 +151,7 @@ public class Functor extends Term {
      * @param other other Object
      * @return whether this is equal to object according to the rules defined above
      */
+    @Override
     public boolean equals(Object other) {
         if (other == null) {
             return false;

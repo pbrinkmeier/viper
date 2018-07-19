@@ -4,6 +4,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Represents a rule in an AST.
+ * A rule has a functor as its head and a list of goals as its subgoals.
+ * In Prolog code a rule is expressed as <code>H :- G.</code> where H is the head
+ * and G is the subgoals.
+ */
 public class Rule {
     private final Functor head;
     private final List<Goal> subgoals;

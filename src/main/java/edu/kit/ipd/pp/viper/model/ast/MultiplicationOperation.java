@@ -2,6 +2,9 @@ package edu.kit.ipd.pp.viper.model.ast;
 
 import java.util.List;
 
+/**
+ * Represents an arithmetic multiplication operation in an AST.
+ */
 public class MultiplicationOperation extends BinaryOperation {
     /**
      * Initializes a new MultiplicationOperation with a left and right hand side.
