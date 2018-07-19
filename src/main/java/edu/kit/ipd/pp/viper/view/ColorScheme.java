@@ -21,7 +21,7 @@ public class ColorScheme {
     /**
      * Green color in console (used for solutions)
      */
-    public static final java.awt.Color CONSOLE_GREEN = java.awt.Color.GREEN;
+    public static final java.awt.Color CONSOLE_GREEN = new java.awt.Color(0, 204, 0);
 
     /**
      * Red color in console (used for errors)
@@ -31,7 +31,7 @@ public class ColorScheme {
     /**
      * White color in GUI (used for background)
      */
-    public static final java.awt.Color GUI_WHITE = java.awt.Color.WHITE;
+    public static final java.awt.Color GUI_WHITE = new java.awt.Color(250, 250, 250);
 
     /**
      * Red color in visualisation (used for unsuccessful unification)
