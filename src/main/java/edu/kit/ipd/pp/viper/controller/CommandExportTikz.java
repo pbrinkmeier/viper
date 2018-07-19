@@ -1,5 +1,6 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -38,18 +39,19 @@ public class CommandExportTikz extends Command {
         int rv = chooser.showSaveDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {
-            try {
-                FileOutputStream out = new FileOutputStream(chooser.getSelectedFile());
+        	File file = FileUtilities.checkForMissingExtension(chooser.getSelectedFile(), ".tikz");
+        	try {
+                FileOutputStream out = new FileOutputStream(file);
                 final String code = LatexMaker.createLatex(this.interpreterManager.getCurrentState());
                 out.write(code.getBytes());
                 out.flush();
                 out.close();
 
                 String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
-                console.printLine(msg + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.INFO);
+                console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
             } catch (IOException e) {
                 String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-                this.console.printLine(err + ": " + chooser.getSelectedFile().getAbsolutePath(), LogType.ERROR);
+                this.console.printLine(err + ": " + file.getAbsolutePath(), LogType.ERROR);
 
                 if (MainWindow.inDebugMode()) {
                     e.printStackTrace();
