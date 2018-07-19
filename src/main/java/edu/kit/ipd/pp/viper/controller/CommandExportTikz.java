@@ -40,22 +40,32 @@ public class CommandExportTikz extends Command {
 
         if (rv == JFileChooser.APPROVE_OPTION) {
         	File file = FileUtilities.checkForMissingExtension(chooser.getSelectedFile(), ".tikz");
-        	try {
-                FileOutputStream out = new FileOutputStream(file);
-                final String code = LatexMaker.createLatex(this.interpreterManager.getCurrentState());
-                out.write(code.getBytes());
-                out.flush();
-                out.close();
+        	exportTikZ(file);
+        }
+    }
+    
+    /**
+     * TikZ export routine. This should only be used internally, but is public for
+     * testing purposes.
+     * 
+     * @param f file to export the TikZ graph to
+     */
+    public void exportTikZ(File f) {
+    	try {
+            FileOutputStream out = new FileOutputStream(f);
+            final String code = LatexMaker.createLatex(this.interpreterManager.getCurrentState());
+            out.write(code.getBytes());
+            out.flush();
+            out.close();
 
-                String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
-                console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
-            } catch (IOException e) {
-                String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-                this.console.printLine(err + ": " + file.getAbsolutePath(), LogType.ERROR);
+            String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
+            console.printLine(msg + ": " + f.getAbsolutePath(), LogType.INFO);
+        } catch (IOException e) {
+            String err = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
+            this.console.printLine(err + ": " + f.getAbsolutePath(), LogType.ERROR);
 
-                if (MainWindow.inDebugMode()) {
-                    e.printStackTrace();
-                }
+            if (MainWindow.inDebugMode()) {
+                e.printStackTrace();
             }
         }
     }
