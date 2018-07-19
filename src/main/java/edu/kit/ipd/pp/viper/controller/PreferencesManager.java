@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -34,6 +35,8 @@ public class PreferencesManager {
     private static final String DEFAULT_LANGUAGE = "de";
     private static final boolean DEFAULT_STDLIB = true;
 
+    private static final int MAX_RECENTLY_USED = 5;
+    
     private final ConsolePanel console;
 
     private File propertiesFile;
@@ -134,7 +137,7 @@ public class PreferencesManager {
 
         return null;
     }
-
+    
     /**
      * Sets whether the standard lib is enabled or not
      * 
@@ -143,5 +146,35 @@ public class PreferencesManager {
     public void setStandardLibEnabled(boolean enabled) {
         String status = String.valueOf(enabled);
         this.writeProperty(KEY_STDLIB, status);
+    }
+    
+    /**
+     * Sets the list of file references in the properties file.
+     * 
+     * @param references the references to be set
+     */
+    public void setFileReferences(List<File> references) {
+        for (int i = 0; i < references.size(); i++)
+            writeProperty("recentlyUsedFile" + i, references.get(i).getAbsolutePath());
+    }
+
+    /**
+     * Returns the list of file references in the properties file.
+     * 
+     * @return the list of file references in the properties file
+     */
+    public ArrayList<File> getFileReferences() {
+        ArrayList<File> list = new ArrayList<File>();
+
+        for (int i = 0; i < MAX_RECENTLY_USED; i++) {
+            final String path = this.properties.getProperty("recentlyUsedFile" + i);
+            if (path != null) {
+                File f = new File(path);
+                if (f.exists() && f.isFile() && !list.contains(f))
+                    list.add(f);
+            }
+        }
+
+        return list;
     }
 }

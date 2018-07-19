@@ -79,6 +79,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
         menu.addSeparator();
         this.addExitItem(menu);
 
+        this.resetRecentlyOpenedMenu();
         this.add(menu);
     }
 
@@ -138,21 +139,24 @@ public class MenuBar extends JMenuBar implements HasClickable {
         menu.add(recentlyUsedMenu);
     }
     
+    /**
+     * Clears the recently used menu and adds the current items to it
+     */
     public void resetRecentlyOpenedMenu() {
-    	recentlyUsedMenu.removeAll();
-    	for (File f : this.main.getEditorPanel().getFileReferenceList()) {
-        	JMenuItem item = new JMenuItem(f.getAbsolutePath());
-        	CommandOpen command = new CommandOpen(f.getAbsolutePath(), this.main.getConsolePanel(), this.main.getEditorPanel(),
-	                this.main.getVisualisationPanel(), this.main::setWindowTitle, this.main::switchClickableState,
-	                this.main.getCommandSave());
-        	
-        	item.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					command.execute();
-				}
-        	});
-        	recentlyUsedMenu.add(item);
+        recentlyUsedMenu.removeAll();
+        for (File f : this.main.getEditorPanel().getFileReferenceList()) {
+            JMenuItem item = new JMenuItem(f.getAbsolutePath());
+            CommandOpen command = new CommandOpen(f.getAbsolutePath(), this.main.getConsolePanel(),
+                    this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::setWindowTitle,
+                    this.main::switchClickableState, this.main.getCommandSave());
+
+            item.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    command.execute();
+                }
+            });
+            recentlyUsedMenu.add(item);
         }
     }
 

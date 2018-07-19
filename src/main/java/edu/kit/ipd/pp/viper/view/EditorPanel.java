@@ -87,8 +87,9 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.scrollPane = new RTextScrollPane(this.textArea);
         this.scrollPane.setPreferredSize(new Dimension(400, 600));
         this.add(this.scrollPane, BorderLayout.CENTER);        
-        this.referenceList = new ArrayList<File>();
         this.textArea.getDocument().addDocumentListener(this);
+
+        this.referenceList = gui.getPreferencesManager().getFileReferences();
     }
 
     /**
@@ -162,36 +163,43 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     public void setFileReference(File reference) {
         this.reference = reference;
-        
+
         if (!referenceList.contains(reference)) {
-        	// Trim the list down to 4 elements if necessary before
-        	// adding another item.
-        	if (referenceList.size() > 4) {
-        		referenceList.remove(0);
-        	}
-        	referenceList.add(reference);
-        	this.main.getInternalMenuBar().resetRecentlyOpenedMenu();
+            // Trim the list down to 4 elements if necessary before
+            // adding another item.
+            if (referenceList.size() > 4) {
+                referenceList.remove(0);
+            }
+            referenceList.add(reference);
+            this.main.getInternalMenuBar().resetRecentlyOpenedMenu();
         } else {
-        	// Rearrange items so the requested item is at the back of the list.
-        	// This makes the least recently used file the first one to be deleted
-        	// if the list grows too big.
-        	ArrayList<File> copy = new ArrayList<File>(this.referenceList.size());
-        	int index = 0;
-        	for (int i = 0; i < this.referenceList.size(); i++) {
-        		if (this.referenceList.get(i).equals(reference))
-        			index = i;
-        		else
-        			copy.add(this.referenceList.get(i));
-        	}
-        	
-        	copy.add(this.referenceList.get(index));
-        	this.referenceList = copy;
-        	this.main.getInternalMenuBar().resetRecentlyOpenedMenu();
+            // Rearrange items so the requested item is at the back of the list.
+            // This makes the least recently used file the first one to be deleted
+            // if the list grows too big.
+            ArrayList<File> copy = new ArrayList<File>(this.referenceList.size());
+            int index = 0;
+            for (int i = 0; i < this.referenceList.size(); i++) {
+                if (this.referenceList.get(i).equals(reference))
+                    index = i;
+                else
+                    copy.add(this.referenceList.get(i));
+            }
+
+            copy.add(this.referenceList.get(index));
+            this.referenceList = copy;
+            this.main.getInternalMenuBar().resetRecentlyOpenedMenu();
         }
+
+        this.main.getPreferencesManager().setFileReferences(Collections.unmodifiableList(this.referenceList));
     }
-    
+
+    /**
+     * Getter-Method for the list of file references.
+     * 
+     * @return the list of file references
+     */
     public List<File> getFileReferenceList() {
-    	return Collections.unmodifiableList(referenceList);
+        return Collections.unmodifiableList(referenceList);
     }
 
     /**

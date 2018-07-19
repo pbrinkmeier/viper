@@ -106,9 +106,8 @@ public class MainWindow extends JFrame {
         this.manager = new InterpreterManager();
         this.visualisationPanel = new VisualisationPanel(this);
         this.consolePanel = new ConsolePanel(this);
-        this.editorPanel = new EditorPanel(this);
-        
         this.prefManager = new PreferencesManager(this.consolePanel);
+        this.editorPanel = new EditorPanel(this);       
 
         // Create command instances
         this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle);
@@ -287,9 +286,13 @@ public class MainWindow extends JFrame {
         return this.prefManager;
     }
     
-    
+    /**
+     * Returns the menu bar (the one used internally, not the implicit AWT menu bar)
+     * 
+     * @return MenuBar
+     */
     public MenuBar getInternalMenuBar() {
-    	return this.menubar;
+        return this.menubar;
     }
 
     /**

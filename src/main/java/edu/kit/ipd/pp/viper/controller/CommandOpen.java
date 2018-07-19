@@ -23,7 +23,7 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * file.
  */
 public class CommandOpen extends Command {
-	private final String path;
+    private final String path;
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
@@ -44,8 +44,8 @@ public class CommandOpen extends Command {
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave) {
-    	this.path = "";
-    	this.console = console;
+        this.path = "";
+        this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
@@ -56,6 +56,7 @@ public class CommandOpen extends Command {
     /**
      * Initializes a new open command. A command constructed this way tries to open a file from a given path.
      * 
+     * @param path The file path to read from
      * @param console Panel of the console area
      * @param editor Panel of the editor area
      * @param visualisation Panel of the visualisation area
@@ -67,7 +68,7 @@ public class CommandOpen extends Command {
     public CommandOpen(String path, ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave) {
         this.path = path;
-    	this.console = console;
+        this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
@@ -140,7 +141,7 @@ public class CommandOpen extends Command {
     }
     
     private void handleUnsavedChanges() {
-    	LanguageManager langman = LanguageManager.getInstance();
+        LanguageManager langman = LanguageManager.getInstance();
         Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),
                 langman.getString(LanguageKey.CANCEL)};
         final int rv2 = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
@@ -154,7 +155,7 @@ public class CommandOpen extends Command {
             return;
         }
     }
-    
+
     private void openByDialog() {
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(FileFilters.PL_FILTER);
@@ -162,14 +163,14 @@ public class CommandOpen extends Command {
 
         if (rv == JFileChooser.APPROVE_OPTION) {
             if (this.editor.hasChanged())
-            	handleUnsavedChanges();
+                handleUnsavedChanges();
             updateUI(chooser.getSelectedFile());
         }
     }
-    
+
     private void openDirectly() {
-    	if (this.editor.hasChanged())
-    		handleUnsavedChanges();
+        if (this.editor.hasChanged())
+            handleUnsavedChanges();
         updateUI(new File(this.path));
     }
 
@@ -177,8 +178,9 @@ public class CommandOpen extends Command {
      * Executes the command.
      */
     public void execute() {
-    	if (this.path.isEmpty()) {
-    		openByDialog();
-    	} else openDirectly();
+        if (this.path.isEmpty()) {
+            openByDialog();
+        } else
+            openDirectly();
     }
 }
