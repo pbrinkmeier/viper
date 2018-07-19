@@ -206,7 +206,7 @@ public class InterpreterManager {
      * @return Current visualisation of the interpretation
      */
     public Graph getCurrentVisualisation() {
-        return this.visualisations.get(this.current);
+        return this.visualisations.get((this.current - 1) < 0 ? 0 : (this.current - 1));
     }
 
     /**
