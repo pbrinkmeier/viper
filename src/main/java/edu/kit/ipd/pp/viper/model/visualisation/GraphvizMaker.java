@@ -6,6 +6,7 @@ import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecordVisitor;
 import edu.kit.ipd.pp.viper.model.interpreter.ArithmeticActivationRecord;
+import edu.kit.ipd.pp.viper.model.interpreter.ComparisonActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.UnificationActivationRecord;
@@ -203,6 +204,12 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         }
 
         return node.link(resultBox);
+    }
+
+    @Override
+    public Node visit(ComparisonActivationRecord car) {
+        // TODO
+        return node(this.createUniqueNodeName());
     }
 
     /**

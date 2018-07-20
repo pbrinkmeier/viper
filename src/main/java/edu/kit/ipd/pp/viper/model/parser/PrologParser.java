@@ -5,11 +5,17 @@ import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 import edu.kit.ipd.pp.viper.model.ast.AdditionOperation;
 import edu.kit.ipd.pp.viper.model.ast.ArithmeticGoal;
+import edu.kit.ipd.pp.viper.model.ast.EqualGoal;
 import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
 import edu.kit.ipd.pp.viper.model.ast.Goal;
+import edu.kit.ipd.pp.viper.model.ast.GreaterThanEqualGoal;
+import edu.kit.ipd.pp.viper.model.ast.GreaterThanGoal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
+import edu.kit.ipd.pp.viper.model.ast.LessThanEqualGoal;
+import edu.kit.ipd.pp.viper.model.ast.LessThanGoal;
 import edu.kit.ipd.pp.viper.model.ast.MultiplicationOperation;
+import edu.kit.ipd.pp.viper.model.ast.NotEqualGoal;
 import edu.kit.ipd.pp.viper.model.ast.Number;
 import edu.kit.ipd.pp.viper.model.ast.Rule;
 import edu.kit.ipd.pp.viper.model.ast.SubtractionOperation;
@@ -214,6 +220,18 @@ public class PrologParser {
                 return new UnificationGoal(lhs, rhs);
             case IS:
                 return new ArithmeticGoal(lhs, rhs);
+            case LESS:
+                return new LessThanGoal(lhs, rhs);
+            case EQ_LESS:
+                return new LessThanEqualGoal(lhs, rhs);
+            case GREATER:
+                return new GreaterThanGoal(lhs, rhs);
+            case GREATER_EQ:
+                return new GreaterThanEqualGoal(lhs, rhs);
+            case EQ_COLON_EQ:
+                return new EqualGoal(lhs, rhs);
+            case EQ_BS_EQ:
+                return new NotEqualGoal(lhs, rhs);
             default:
                 throw new ParseException(String.format(
                     LanguageManager.getInstance().getString(LanguageKey.EXPECTED_GOALREST),
