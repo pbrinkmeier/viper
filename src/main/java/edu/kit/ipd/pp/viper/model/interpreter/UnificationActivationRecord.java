@@ -74,9 +74,7 @@ public class UnificationActivationRecord extends ActivationRecord {
 
         this.result = rhs.accept(lhs.accept(new UnifierCreator()));
 
-        /**
-         * Re-visit this AR and fail
-         */
+        // Re-visit this AR and fail
         if (!this.result.isSuccess()) {
             return Optional.of(this);
         }

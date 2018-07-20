@@ -163,8 +163,46 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(ArithmeticActivationRecord aar) {
-        // TODO
-        return node(this.createUniqueNodeName());
+        Node node = node(this.createUniqueNodeName())
+        .with(html(String.format("%s is %s", aar.getLhs().toHtml(), aar.getRhs().toHtml())));
+
+        // TODO: these things have been moved into their own methods over at code_cut
+        if (!aar.isVisited()) {
+            if (this.current.isPresent() && this.current.get() == aar && this.backtrackingNode.isPresent()) {
+                node = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(Color.RED)
+                        .with(attr("constraint", "false"))).with(Color.RED);
+            }
+
+            return node;
+        }
+
+        if (this.next.isPresent() && this.next.get() == aar) {
+            this.backtrackingNode = Optional.of(node);
+        }
+
+        Node resultBox = node(this.createUniqueNodeName())
+        .with(attr("shape", "record"));
+
+        if (aar.getResult().isError()) {
+            resultBox = resultBox
+            .with(html(aar.getResult().toHtml()));
+        } else {
+            resultBox = resultBox
+            .with(html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
+                LanguageManager.getInstance().getString(LanguageKey.UNIFICATION),
+                aar.getLhs(),
+                aar.getRhs(),
+                aar.getResult().toHtml()
+            )));
+        }
+
+
+        // TODO: after merge: create method isCurrent()
+        if (this.current.isPresent() && this.current.get() == aar) {
+            resultBox = resultBox.with(aar.getResult().isSuccess() ? Color.GREEN : Color.RED);
+        }
+
+        return node.link(resultBox);
     }
 
     /**

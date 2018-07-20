@@ -269,14 +269,10 @@ public class PrologParser {
             nextToken();
             Term rhs = parseSummand(Optional.empty());
 
-            switch (op) {
-                case PLUS:
-                    t = new AdditionOperation(t, rhs);
-                    break;
-
-                case MINUS:
-                    t = new SubtractionOperation(t, rhs);
-                    break;
+            if (op == TokenType.PLUS) {
+                t = new AdditionOperation(t, rhs);
+            } else if (op == TokenType.MINUS) {
+                t = new SubtractionOperation(t, rhs);
             }
         }
          
@@ -338,10 +334,10 @@ public class PrologParser {
                 return t;
 
             default:
-                throw new ParseException(
-                        String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
-                                LanguageManager.getInstance().getString(LanguageKey.TERM), this.token.getType().getString())
-                                + getTokenPositionString());
+                throw new ParseException(String.format(
+                    LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
+                    LanguageManager.getInstance().getString(LanguageKey.TERM), this.token.getType().getString()
+                ) + getTokenPositionString());
         }
     }
 

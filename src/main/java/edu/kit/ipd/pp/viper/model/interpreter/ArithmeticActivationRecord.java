@@ -1,7 +1,8 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
-import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.ArithmeticGoal;
+import edu.kit.ipd.pp.viper.model.ast.Term;
+import edu.kit.ipd.pp.viper.model.ast.TermEvaluationException;
 
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ import java.util.Optional;
  */
 public class ArithmeticActivationRecord extends ActivationRecord {
     private final ArithmeticGoal goal;
+    private Term evaluatedRhs;
     private UnificationResult result;
 
     /**
@@ -62,8 +64,32 @@ public class ArithmeticActivationRecord extends ActivationRecord {
 
     @Override
     public Optional<ActivationRecord> step() {
-        // TODO
-        return Optional.empty();
+        // If the AR has been visited before, backtrack
+        if (this.isVisited()) {
+            this.setVisited(false);
+            return this.getPrevious();
+        }
+
+        this.setVisited(true);
+
+        Term lhs = this.getLhs();
+        Term rhs = this.getRhs();
+
+        try {
+            this.evaluatedRhs = rhs.evaluate();
+            this.result = this.evaluatedRhs.accept(lhs.accept(new UnifierCreator()));
+        } catch (TermEvaluationException e) {
+            this.result = UnificationResult.error(e.getMessage());
+        }
+
+        // Re-visit this AR and fail
+        if (!this.result.isSuccess()) {
+            return Optional.of(this);
+        }
+
+        this.setEnvironment(new Environment(this, this.result.getSubstitutions()));
+
+        return Optional.of(this.getNext());
     }
 
     /**
@@ -78,7 +104,10 @@ public class ArithmeticActivationRecord extends ActivationRecord {
 
     @Override
     public boolean isFulfilled() {
-        // TODO
-        return false;
+        if (!this.isVisited()) {
+            return false;
+        }
+
+        return this.getResult().isSuccess();
     }
 }
