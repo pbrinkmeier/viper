@@ -89,12 +89,14 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 	\ganttbar{View-Teilmenge B}{2}{2}\\
 	\ganttbar{AST-Teilmenge B}{2}{2}\\
 	\ganttbar{Interpreter-Teilmenge A}{2}{2}\\
-	\ganttbar{Controller-Manager}{2}{2}\\
-	\ganttbar{Controller-Tests}{2}{3}\\
+	\ganttbar{Manager-Klassen}{2}{2}\\
+	\ganttbar{Controller-Tests}{2}{2}\\
 	
 	\ganttmilestone{Meilenstein: Abschluss zweite Woche}{2}\\
 	%%%%%%%% Woche 3
+	\ganttbar{Controller-Tests}{3}{3}\\
 	\ganttbar{Interpreter-Teilmenge B}{3}{3}\\
+	\ganttbar{Kann-Kriterien}{3}{3}\\
 
 	\ganttmilestone{Meilenstein: Abschluss dritte Woche}{3}\ganttnewline
 	%%%%%%%% Woche 4
@@ -115,22 +117,24 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 	\ganttlink[link mid=0.1]{elem4}{elem9}
 	\ganttlink[link mid=0.085]{elem4}{elem10}
 	
+	\ganttlink[link bulge=1.0, link mid=0.92]{elem5}{elem11}
+	\ganttlink[link bulge=1.0, link mid=0.9]{elem6}{elem11}
+	\ganttlink[link bulge=1.0, link mid=0.88]{elem7}{elem11}
+	\ganttlink[link bulge=1.0, link mid=0.84]{elem8}{elem11}
+	\ganttlink[link bulge=1.0, link mid=0.75]{elem9}{elem11}
+	\ganttlink[link bulge=1.0, link mid=0.51]{elem10}{elem11}
 	
-	\ganttlink[link bulge=1.6, link mid=0.92]{elem5}{elem11}
-	\ganttlink[link bulge=1.6, link mid=0.9]{elem6}{elem11}
-	\ganttlink[link bulge=1.6, link mid=0.88]{elem7}{elem11}
-	\ganttlink[link bulge=1.6, link mid=0.84]{elem8}{elem11}
-	\ganttlink[link bulge=1.6, link mid=0.75]{elem9}{elem11}
-	\ganttlink[link bulge=0.6, link mid=0.5]{elem10}{elem11}
-
-	\ganttlink[link bulge=0.6, link mid=0.78]{elem10}{elem12}
 	\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
+	\ganttlink[link bulge=0.6, link mid=0.27]{elem11}{elem13}
+	\ganttlink[link bulge=0.6, link mid=0.18]{elem11}{elem14}
 	
-	\ganttlink[link bulge=0.2, link mid=0.5]{elem12}{elem13}
-	\ganttlink[link bulge=0.2, link mid=0.5]{elem13}{elem14}
+	\ganttlink[link bulge=0.2, link mid=0.83]{elem12}{elem15}
+	\ganttlink[link bulge=0.2, link mid=0.75]{elem13}{elem15}
+	\ganttlink[link bulge=0.2, link mid=0.5]{elem14}{elem15}
+	\ganttlink[link bulge=0.2, link mid=0.5]{elem15}{elem16}
 \end{ganttchart}
 \newpage
-Der Implementierungsstil teilt sich in Wochensprints ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich und bei dringendem Bedarf statt. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden kann und muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel sondern im Nachhinein entwickelt.
+Der Implementierungsstil teilt sich in wöchentliche Aufgabenbereiche ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich und bei dringendem Bedarf statt. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel sondern im Nachhinein entwickelt.
 
 Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspricht hierbei dem Vorgehen am ersten Tag der ersten Woche. Die zugehörigen Aufgaben setzen sich wie folgt zusammen:
 \begin{enumerate}
@@ -154,9 +158,11 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspric
 		\end{itemize}
 	\end{multicols}
 
-	\item \textbf{View-Teilmenge A}: % TODO
+	\item \textbf{View-Teilmenge A}: Implementierung der wichtigsten GUI-Komponenten. Hierzu gehört das Hauptfenster, der Editor sowie Menü- und Werkzeugleiste.
 	
-	\item \textbf{AST-Teilmenge A}: % TODO
+	\item \textbf{AST-Teilmenge A}: Implementierung und Testen von der Term-Klasse und ihren Subklassen.
+	
+	\item \textbf{Meilenstein: Abschluss erste Woche}: Das Projekt ist aufgesetzt. Beim Ausführen wird die GUI erfolgreich angezeigt, ein Editor ist vorhanden, Texteingaben sind möglich. Simple Dateioperationen wie Öffnen und Speichern funktionieren. Der grundlegende Term-Baustein des Models ist implementiert und getestet.
 
 	\item \textbf{Kommando-Teilmenge B}: Implementierung komplexerer Kommandos mit diversen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Kommandos, welche die Interpretation steuern. Weiter werden Kommandos fertig implementiert, die stärkere Abhängigkeiten zum Rest des Codes haben wie die Export-Funktionen:
 	\begin{multicols}{3}
@@ -172,19 +178,37 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspric
 		\end{itemize}
 	\end{multicols}
 
-	\item \textbf{View-Teilmenge B}: % TODO
+	\item \textbf{View-Teilmenge B}: Implementierung des Konsolen-Bereichs, des Visualisierungs-Bereichs sowie erster Tests. Weiter werden erste Icons für die Schaltflächen erstellt.
 
-	\item \textbf{AST-Teilmenge B}: % TODO
+	\item \textbf{AST-Teilmenge B}: Implementierung der KnowledgeBase, Ziele und Regeln sowie Einfügen und Anpassen des gegebenen Parsers. Hierzu gehört ebenfalls das parallele Entwickeln von Unit-Tests.
 	
-	\item \textbf{Interpreter-Teilmenge A}: % TODO
+	\item \textbf{Interpreter-Teilmenge A}: Implementierung des ActivationRecords sowie des spezifischen FunctorActivationRecords, der Visitor-Klassen sowie der Unifikations-Klassen. Hierzu gehört ebenfalls das parallele Entwickeln von Unit-Tests.
 	
-	\item \textbf{Controller-Manager}: Implementierung der Manager-Klassen des Controllers, namentlich dem Sprach-Manager und dem Interpreter-Manager.
+	\item \textbf{Manager-Klassen}: Implementierung der Manager-Klassen des Controllers, namentlich dem Sprach-Manager und dem Interpreter-Manager.
 	
 	\item \textbf{Controller-Tests}: Implementierung der Tests für das Controller-Paket. Dies beginnt in der zweiten Woche parallel zur Fertigstellung des Controllers und endet mit der dritten Woche.
 	
-	\item \textbf{Interpreter-Teilmenge B}: % TODO
+	\item \textbf{Meilenstein: Abschluss zweite Woche}: Die Controller-Komponente ist vollständig implementiert und zu Teilen getestet. Die grafische Benutzeroberfläche ist ebenfalls vollständig und an die Kommandos angebunden. Das Parsen von Quellcode und das Parsen sowie Interpretieren von simplen Abfragen (ohne Nutzung von Features der Kann-Kriterien) ist möglich.
 	
-	\item \textbf{Puffer}: % TODO
+	\item \textbf{Interpreter-Teilmenge B}: Implementierung und Testen der Visualisierungs-Klassen des Models.
+	
+	\item \textbf{Kann-Kriterien}: Implementierung und Testen einer Teilmenge der im Pflichtenheft beschriebenen Kann-Kriterien, dazu gehören:
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item Zurückschreiten
+			\item Arithmetik
+			\item Cut
+			\item Ausführung bis zur nächsten Lösung
+			\item Unterstützung einer Standardbibliothek
+			\item Export als TikZ-Code für LaTeX
+			\item Export als Bild-Datei (PNG, SVG)
+			\item Pretty-Printing für Listen
+		\end{itemize}
+	\end{multicols}
+	
+	\item \textbf{Meilenstein: Abschluss dritte Woche}: Die Controller-Komponente ist vollständig getestet. Die Visualisierung bei der Interpretation ist verfügbar und wird korrekt angezeigt. Eine Teilmenge der Kann-Kriterien des Pflichtenhefts wurde erfolgreich implementiert und getestet.
+	
+	\item \textbf{Puffer}: Puffer-Woche für finales Testen und Reparatur von entstandenen Bugs.
 \end{enumerate}
 
 % Abweichungen?
@@ -447,7 +471,6 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspric
 \subsection{Codebase}
 \begin{figure}[!h]
 	\centering
-	Geschriebene Zeilen Code:\\\vspace*{0.3cm}
 	\begin{tabular}{c | c | c | c | c}
 		\hline
 		%%% Berechnet via CLOC
