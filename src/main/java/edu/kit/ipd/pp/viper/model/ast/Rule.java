@@ -47,7 +47,7 @@ public class Rule {
         List<Goal> subgoals = this.getSubgoals();
 
         if (subgoals.size() != 0) {
-            repr += " :- \n";
+            repr += " :-\n";
 
             for (int index = 0; index < subgoals.size(); index++) {
                 repr += "  " + subgoals.get(index);

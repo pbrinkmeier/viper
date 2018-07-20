@@ -5,9 +5,9 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.MainWindow;
 
@@ -26,16 +26,19 @@ public class CommandExportImageTest {
         this.console = this.gui.getConsolePanel();
         this.interpreterManager = this.gui.getInterpreterManager();
 
-        // final String program = SharedTestConstants.SIMPSONS_FORMATTED;
-        // final String query = SharedTestConstants.TEST_QUERY;
-        // this.interpreterManager.createNew(program, query, this.console);
-        this.interpreterManager.nextSolution(this.console, this.gui.getVisualisationPanel());
+        final String program = SharedTestConstants.SIMPSONS_FORMATTED;
+        final String query = SharedTestConstants.TEST_QUERY;
+        try {
+            this.interpreterManager.parseKnowledgeBase(program);
+        	this.interpreterManager.parseQuery(query);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
     }
 
     /**
      * Tests the PNG export functionality of the command.
      */
-    @Ignore
     @Test
     public void pngTestWithExtension() {
         CommandExportImage command = new CommandExportImage(this.console, ImageFormat.PNG, this.interpreterManager);
@@ -57,7 +60,6 @@ public class CommandExportImageTest {
     /**
      * Tests the SVG export functionality of the command.
      */
-    @Ignore
     @Test
     public void svgTestWithExtension() {
         CommandExportImage command = new CommandExportImage(this.console, ImageFormat.SVG, this.interpreterManager);
