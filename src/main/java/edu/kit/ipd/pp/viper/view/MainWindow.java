@@ -103,11 +103,11 @@ public class MainWindow extends JFrame {
         // use system built-in look and feel instead of default swing look
         this.setDesign();
 
-        this.manager = new InterpreterManager();
+        this.manager = new InterpreterManager(this::switchClickableState);
         this.visualisationPanel = new VisualisationPanel(this);
         this.consolePanel = new ConsolePanel(this);
         this.prefManager = new PreferencesManager(this.consolePanel);
-        this.editorPanel = new EditorPanel(this);       
+        this.editorPanel = new EditorPanel(this);
 
         // Create command instances
         this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle);

@@ -45,7 +45,7 @@ public class CommandParseQuery extends Command {
             this.interpreterManager.parseQuery(this.console.getInputFieldText());
             Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
             this.visualisation.setFromGraph(graph);
-            this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
+            this.toggleStateFunc.accept(ClickableState.FIRST_STEP);
             this.console.clearInputField();
             this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_STARTED),
                     LogType.INFO);

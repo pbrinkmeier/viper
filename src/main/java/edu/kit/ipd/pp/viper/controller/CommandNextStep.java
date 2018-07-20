@@ -48,6 +48,8 @@ public class CommandNextStep extends Command {
         if (result == null) {
             return;
         }
+        
+        this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
 
         if (result == StepResult.SOLUTION_FOUND) {
             String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
@@ -63,7 +65,7 @@ public class CommandNextStep extends Command {
         if (result == StepResult.NO_MORE_SOLUTIONS) {
             this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
                     LogType.INFO);
-            this.toggleStateFunc.accept(ClickableState.NO_MORE_SOLUTIONS);
+            this.toggleStateFunc.accept(ClickableState.LAST_STEP);
         }
 
         this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());

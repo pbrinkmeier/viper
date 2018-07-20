@@ -21,6 +21,16 @@ public enum ClickableState {
     PARSED_QUERY,
 
     /**
+     * State when the interpreter is in the first step
+     */
+    FIRST_STEP,
+
+    /**
+     * State when the interpreter is in the last step
+     */
+    LAST_STEP,
+
+    /**
      * State in which there are no more solutions to a query
      */
     NO_MORE_SOLUTIONS

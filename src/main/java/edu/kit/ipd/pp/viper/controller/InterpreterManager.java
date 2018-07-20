@@ -13,6 +13,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
+import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
@@ -20,6 +21,8 @@ import guru.nidi.graphviz.model.Graph;
 
 import static java.util.stream.Collectors.toList;
 import java.util.Optional;
+import java.util.function.Consumer;
+
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -39,11 +42,16 @@ public class InterpreterManager {
     private boolean useStandardLibrary = false;
     private boolean running = false;
     private StepResult result;
+    private Consumer<ClickableState> toggleStateFunc;
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
+     * 
+     * @param toggleStateFunc Consumer function that switches the state of clickable
+     *            elements in the GUI
      */
-    public InterpreterManager() {
+    public InterpreterManager(Consumer<ClickableState> toggleStateFunc) {
+        this.toggleStateFunc = toggleStateFunc;
         this.reset();
     }
 
@@ -106,13 +114,11 @@ public class InterpreterManager {
             this.current++;
             return StepResult.STEPS_REMAINING;
         }
-
         this.result = this.interpreter.get().step();
 
+        this.current++;
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
 
-        this.current++;
-        
         return result;
     }
 
@@ -122,6 +128,10 @@ public class InterpreterManager {
     public void previousStep() {
         if (this.current > 0)
             this.current--;
+
+        this.toggleStateFunc.accept(this.current == 0
+            ? ClickableState.FIRST_STEP
+            : ClickableState.PARSED_QUERY);
     }
 
     /**

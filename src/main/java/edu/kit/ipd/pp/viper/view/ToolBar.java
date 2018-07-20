@@ -120,6 +120,28 @@ public class ToolBar extends JToolBar implements HasClickable {
             this.buttonSolution.setEnabled(true);
             this.buttonCancel.setEnabled(false);
             break;
+        case FIRST_STEP:
+            this.buttonNew.setEnabled(true);
+            this.buttonOpen.setEnabled(true);
+            this.buttonSave.setEnabled(true);
+            this.buttonParse.setEnabled(true);
+            this.buttonFormat.setEnabled(true);
+            this.buttonBack.setEnabled(false);
+            this.buttonStep.setEnabled(true);
+            this.buttonSolution.setEnabled(true);
+            this.buttonCancel.setEnabled(false);
+            break;
+        case LAST_STEP:
+            this.buttonNew.setEnabled(true);
+            this.buttonOpen.setEnabled(true);
+            this.buttonSave.setEnabled(true);
+            this.buttonParse.setEnabled(true);
+            this.buttonFormat.setEnabled(true);
+            this.buttonBack.setEnabled(true);
+            this.buttonStep.setEnabled(false);
+            this.buttonSolution.setEnabled(false);
+            this.buttonCancel.setEnabled(false);
+            break;
         default:
             break;
         }
