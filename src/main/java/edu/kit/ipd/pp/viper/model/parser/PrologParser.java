@@ -5,6 +5,7 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
+import edu.kit.ipd.pp.viper.model.ast.CutGoal;
 import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
 import edu.kit.ipd.pp.viper.model.ast.Goal;
@@ -139,18 +140,23 @@ public class PrologParser {
                 } else {
                     return parseGoalRest(f);
                 }
+
             case VARIABLE:
             case NUMBER:
                 Term t = parseTerm();
                 return parseGoalRest(t);
-                /*
-                * case EXCLAMATION: nextToken(); // TODO: Cut return new Object();
-                */
+
+            case EXCLAMATION:
+                this.nextToken();
+                return new CutGoal();
+
             default:
                 throw new ParseException(String.format(
-                    LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
-                    LanguageManager.getInstance().getString(LanguageKey.TERM),
-                    this.token.getType().getString()) + getTokenPositionString());
+                    "%s: %s %s",
+                    LanguageManager.getInstance().getString(LanguageKey.GOAL_NOT_SUPPORTED),
+                    this.token.getType().getString(),
+                    this.getTokenPositionString()
+                ));
         }
     }
 

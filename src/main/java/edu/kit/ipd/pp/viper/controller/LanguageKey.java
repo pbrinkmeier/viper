@@ -300,6 +300,13 @@ public enum LanguageKey {
 
     /**
      * Line containing the error for an ParserException
+     *
+     * Note that describes what happens when you backtrack into a cut
+     */
+    VISUALISATION_CUT_NOTE("visualisation_cut_note"),
+
+    /**
+     * Line containing the error for an ParserException
      */
     POSITION("position"),
 

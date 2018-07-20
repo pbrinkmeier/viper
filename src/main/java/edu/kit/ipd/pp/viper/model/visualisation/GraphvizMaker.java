@@ -5,6 +5,7 @@ import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecordVisitor;
+import edu.kit.ipd.pp.viper.model.interpreter.CutActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.UnificationActivationRecord;
@@ -60,10 +61,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         Node node = node(this.createUniqueNodeName()).with(html(far.getFunctor().toHtml()));
 
         if (!far.isVisited()) {
-            if (this.current.isPresent() && this.current.get() == far && this.backtrackingNode.isPresent()) {
-                node = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(ColorScheme.VIS_RED)
-                        .with(attr("constraint", "false"))).with(ColorScheme.VIS_RED);
-            }
+            node = this.addBacktrackingEdge(far, node);
 
             return node;
         }
@@ -114,10 +112,14 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
             for (Node childNode : childNodes) {
                 resultBox = resultBox.link(
-                        to(previous.isPresent() ? childNode.link(to(previous.get()).with(Style.INVIS)) : childNode)
-                                .with(Style.DASHED));
+                    to(
+                        previous.isPresent()
+                        ? childNode.link(to(previous.get()).with(Style.INVIS))
+                        : childNode
+                    ).with(Style.DASHED)
+                );
 
-                previous = Optional.of(childNode);
+                previous = Optional.of(node(((MutableNode) childNode).name()));
             }
         }
 
@@ -131,10 +133,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         // TODO: these things have been moved into there own methods over at code_cut
         if (!uar.isVisited()) {
-            if (this.current.isPresent() && this.current.get() == uar && this.backtrackingNode.isPresent()) {
-                node = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(ColorScheme.VIS_RED)
-                        .with(attr("constraint", "false"))).with(ColorScheme.VIS_RED);
-            }
+            node = this.addBacktrackingEdge(uar, node);
 
             return node;
         }
@@ -158,6 +157,54 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         }
 
         return node.link(resultBox);
+    }
+
+    @Override
+    public Node visit(CutActivationRecord cutAr) {
+        Node node = node(this.createUniqueNodeName()).with(html("!"));
+
+        if (!cutAr.isVisited()) {
+            node = this.addBacktrackingEdge(cutAr, node);
+
+            return node;
+        }
+
+        if (this.next.isPresent() && this.next.get() == cutAr) {
+            this.backtrackingNode = Optional.of(node);
+        }
+
+        String parentHtml
+            = cutAr.getParent().isPresent()
+            ? cutAr.getParent().get().getFunctor().toHtml()
+            : "[no parent]";
+        Node cutNoteBox = node(this.createUniqueNodeName())
+        .with(html(String.format(
+            LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_CUT_NOTE),
+            parentHtml
+        )))
+        .with(attr("shape", "record"));
+
+        if (this.current.isPresent() && this.current.get() == cutAr) {
+            cutNoteBox = cutNoteBox.with(ColorScheme.VIS_GREEN);
+        }
+
+        return node.link(cutNoteBox);
+    }
+
+    private Node addBacktrackingEdge(ActivationRecord ar, Node node) {
+        if (this.current.isPresent() && this.current.get() == ar && this.backtrackingNode.isPresent()) {
+            Node withEdge = node
+            .link(
+                to(this.backtrackingNode.get())
+                .with(Style.DOTTED)
+                .with(ColorScheme.VIS_RED)
+                .with(attr("constraint", "false"))
+            );
+
+            return withEdge;
+        }
+
+        return node;
     }
 
     /**

@@ -146,7 +146,7 @@ public abstract class ActivationRecord {
      *
      * @return this ARs optional parent
      */
-    protected Optional<FunctorActivationRecord> getParent() {
+    public Optional<FunctorActivationRecord> getParent() {
         return this.parent;
     }
 
