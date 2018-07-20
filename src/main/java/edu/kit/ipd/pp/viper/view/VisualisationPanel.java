@@ -1,7 +1,6 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -57,7 +56,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
 
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(400, 400));
-        this.setBackground(Color.WHITE);
+        this.setBackground(ColorScheme.GUI_WHITE);
 
         // use a layered pane here, so that the zoom buttons can float above
         // the visualisation viewer
@@ -149,6 +148,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
             this.zoomOut.setEnabled(false);
             break;
         case PARSED_QUERY:
+        case FIRST_STEP:
+        case LAST_STEP:
         case NO_MORE_SOLUTIONS:
             this.zoomIn.setEnabled(true);
             this.zoomOut.setEnabled(true);

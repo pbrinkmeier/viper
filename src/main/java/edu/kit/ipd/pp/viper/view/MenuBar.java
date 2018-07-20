@@ -1,12 +1,18 @@
 package edu.kit.ipd.pp.viper.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Iterator;
 import java.util.Locale;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
 import edu.kit.ipd.pp.viper.controller.CommandExportImage;
 import edu.kit.ipd.pp.viper.controller.CommandExportTikz;
+import edu.kit.ipd.pp.viper.controller.CommandOpen;
 import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.CommandSetLang;
 import edu.kit.ipd.pp.viper.controller.CommandToggleLib;
@@ -41,6 +47,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private MenuItem itemExportSVG;
     private MenuItem itemExportTikZ;
     private CheckBoxMenuItem itemToggleSTD;
+    
+    private Menu recentlyUsedMenu;
 
     /**
      * The constructor initialises all menus in the menu bar
@@ -71,6 +79,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
         menu.addSeparator();
         this.addExitItem(menu);
 
+        this.resetRecentlyOpenedMenu();
         this.add(menu);
     }
 
@@ -126,12 +135,29 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addRecentlyOpenedMenu(Menu menu) {
-        Menu usedMenu = new Menu(LanguageKey.MENU_RECENT);
+        recentlyUsedMenu = new Menu(LanguageKey.MENU_RECENT);
+        menu.add(recentlyUsedMenu);
+    }
+    
+    /**
+     * Clears the recently used menu and adds the current items to it
+     */
+    public void resetRecentlyOpenedMenu() {
+        recentlyUsedMenu.removeAll();
+        for (File f : this.main.getEditorPanel().getFileReferenceList()) {
+            JMenuItem item = new JMenuItem(f.getAbsolutePath());
+            CommandOpen command = new CommandOpen(f.getAbsolutePath(), this.main.getConsolePanel(),
+                    this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::setWindowTitle,
+                    this.main::switchClickableState, this.main.getCommandSave());
 
-        // TODO: loop all recently used files, for each: create MenuItem with
-        // CommandOpen
-
-        menu.add(usedMenu);
+            item.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    command.execute();
+                }
+            });
+            recentlyUsedMenu.add(item);
+        }
     }
 
     /**
@@ -267,6 +293,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
             this.itemToggleSTD.setEnabled(true);
             break;
         case PARSED_QUERY:
+        case FIRST_STEP:
+        case LAST_STEP:
         case NO_MORE_SOLUTIONS:
             this.itemNew.setEnabled(true);
             this.itemOpen.setEnabled(true);

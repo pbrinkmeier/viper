@@ -9,6 +9,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.UnificationActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.UnificationResult;
+import edu.kit.ipd.pp.viper.view.ColorScheme;
 
 import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
@@ -16,7 +17,6 @@ import static guru.nidi.graphviz.model.Factory.to;
 import static guru.nidi.graphviz.attribute.Attributes.attr;
 import static guru.nidi.graphviz.attribute.Label.html;
 
-import guru.nidi.graphviz.attribute.Color;
 import guru.nidi.graphviz.attribute.Rank;
 import guru.nidi.graphviz.attribute.Style;
 import guru.nidi.graphviz.attribute.Font;
@@ -61,8 +61,8 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         if (!far.isVisited()) {
             if (this.current.isPresent() && this.current.get() == far && this.backtrackingNode.isPresent()) {
-                node = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(Color.RED)
-                        .with(attr("constraint", "false"))).with(Color.RED);
+                node = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(ColorScheme.VIS_RED)
+                        .with(attr("constraint", "false"))).with(ColorScheme.VIS_RED);
             }
 
             return node;
@@ -94,7 +94,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
                 .with(attr("shape", "record"));
 
         if (this.current.isPresent() && this.current.get() == far) {
-            resultBox = resultBox.with(result.isSuccess() ? Color.GREEN : Color.RED);
+            resultBox = resultBox.with(result.isSuccess() ? ColorScheme.VIS_GREEN : ColorScheme.VIS_RED);
         }
 
         // if the unification was a success there definitely will be child nodes
@@ -132,8 +132,8 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         // TODO: these things have been moved into there own methods over at code_cut
         if (!uar.isVisited()) {
             if (this.current.isPresent() && this.current.get() == uar && this.backtrackingNode.isPresent()) {
-                node = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(Color.RED)
-                        .with(attr("constraint", "false"))).with(Color.RED);
+                node = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(ColorScheme.VIS_RED)
+                        .with(attr("constraint", "false"))).with(ColorScheme.VIS_RED);
             }
 
             return node;
@@ -154,7 +154,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         // TODO: after merge: create method isCurrent()
         if (this.current.isPresent() && this.current.get() == uar) {
-            resultBox = resultBox.with(uar.getResult().isSuccess() ? Color.GREEN : Color.RED);
+            resultBox = resultBox.with(uar.getResult().isSuccess() ? ColorScheme.VIS_GREEN : ColorScheme.VIS_RED);
         }
 
         return node.link(resultBox);
