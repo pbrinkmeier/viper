@@ -11,7 +11,7 @@ public class EqualGoal extends ComparisonGoal {
      * @param rhs right hand side of this comparison
      */
     public EqualGoal(Term lhs, Term rhs) {
-        super("=:=", lhs, rhs);
+        super("=:=", "=:=", lhs, rhs);
     }
 
     @Override

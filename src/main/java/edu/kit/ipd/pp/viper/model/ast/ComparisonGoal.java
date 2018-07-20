@@ -14,6 +14,7 @@ import java.util.Optional;
  */
 public abstract class ComparisonGoal extends Goal {
     private final String symbol;
+    private final String htmlSymbol;
     private final Term lhs;
     private final Term rhs;
 
@@ -21,13 +22,24 @@ public abstract class ComparisonGoal extends Goal {
      * Initializes a comparison goal with a left and right hand side.
      *
      * @param symbol symbol of this comparison (e.g. =:=, &gt;=)
+     * @param htmlSymbol HTML version of the symbol
      * @param lhs left hand side of this comparison
      * @param rhs right hand side of this comparison
      */
-    public ComparisonGoal(String symbol, Term lhs, Term rhs) {
+    public ComparisonGoal(String symbol, String htmlSymbol, Term lhs, Term rhs) {
         this.symbol = symbol;
+        this.htmlSymbol = htmlSymbol;
         this.lhs = lhs;
         this.rhs = rhs;
+    }
+
+    /**
+     * Getter-method for this comparisons symbol as Graphviz-compatible HTML.
+     *
+     * @return symbol of this comparison
+     */
+    public String getHtmlSymbol() {
+        return this.htmlSymbol;
     }
 
     /**

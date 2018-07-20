@@ -11,7 +11,7 @@ public class LessThanGoal extends ComparisonGoal {
      * @param rhs right hand side of this comparison
      */
     public LessThanGoal(Term lhs, Term rhs) {
-        super("<", lhs, rhs);
+        super("<", "&lt;", lhs, rhs);
     }
 
     @Override

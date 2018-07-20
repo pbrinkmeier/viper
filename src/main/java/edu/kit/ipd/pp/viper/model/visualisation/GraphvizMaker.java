@@ -208,8 +208,42 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(ComparisonActivationRecord car) {
-        // TODO
-        return node(this.createUniqueNodeName());
+        Node node = node(this.createUniqueNodeName())
+        .with(html(String.format(
+            "%s %s %s",
+            car.getLhs().toHtml(),
+            car.getGoal().getHtmlSymbol(),
+            car.getRhs().toHtml()
+        )));
+
+        // TODO: these things have been moved into their own methods over at code_cut
+        if (!car.isVisited()) {
+            if (this.current.isPresent() && this.current.get() == car && this.backtrackingNode.isPresent()) {
+                node = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(Color.RED)
+                        .with(attr("constraint", "false"))).with(Color.RED);
+            }
+
+            return node;
+        }
+
+        if (this.next.isPresent() && this.next.get() == car) {
+            this.backtrackingNode = Optional.of(node);
+        }
+
+        Node resultBox = node(this.createUniqueNodeName())
+        .with(attr("shape", "record"));
+
+        if (!car.getErrorMessage().isPresent()) {
+            resultBox = resultBox
+            .with(html(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_COMPARISON_SUCCEEDED)))
+            .with(Color.GREEN);
+        } else {
+            resultBox = resultBox
+            .with(html(car.getErrorMessage().get()))
+            .with(Color.RED);
+        }
+
+        return node.link(resultBox);
     }
 
     /**
