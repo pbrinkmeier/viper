@@ -1,15 +1,21 @@
 package edu.kit.ipd.pp.viper.model.parser;
 
-import edu.kit.ipd.pp.viper.model.ast.Rule;
-import edu.kit.ipd.pp.viper.model.ast.Term;
-import edu.kit.ipd.pp.viper.model.ast.Variable;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
+
+import edu.kit.ipd.pp.viper.model.ast.AdditionOperation;
+import edu.kit.ipd.pp.viper.model.ast.ArithmeticGoal;
 import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
+import edu.kit.ipd.pp.viper.model.ast.MultiplicationOperation;
+import edu.kit.ipd.pp.viper.model.ast.Number;
+import edu.kit.ipd.pp.viper.model.ast.Rule;
+import edu.kit.ipd.pp.viper.model.ast.SubtractionOperation;
+import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.UnificationGoal;
+import edu.kit.ipd.pp.viper.model.ast.Variable;
 import edu.kit.ipd.pp.viper.model.parser.TokenType;
 
 import java.util.LinkedList;
@@ -206,6 +212,8 @@ public class PrologParser {
         switch (op) {
             case EQ:
                 return new UnificationGoal(lhs, rhs);
+            case IS:
+                return new ArithmeticGoal(lhs, rhs);
             default:
                 throw new ParseException(String.format(
                     LanguageManager.getInstance().getString(LanguageKey.EXPECTED_GOALREST),
@@ -256,15 +264,22 @@ public class PrologParser {
      */
     private Term parseTerm(Optional<Term> maybeTerm) throws ParseException {
         Term t = parseSummand(maybeTerm);
-        /*
-         * while (token.getType() == TokenType.PLUS || token.getType() ==
-         * TokenType.MINUS) { if (token.getType() == TokenType.PLUS) { nextToken();
-         * Object t2 = parseSummand(Optional.empty()); // TODO: Addition: zweistelliger
-         * Funktor mit speziellem Namen "+" und Subtermen "t" und "rhs" t = new
-         * Object(); } else { nextToken(); Object t2 = parseSummand(Optional.empty());
-         * // TODO: Subtraktion: zweistelliger Funktor mit speziellem Namen "-" und
-         * Subtermen "t" und "rhs" t = new Object(); } }
-         */
+        while (token.getType() == TokenType.PLUS || token.getType() == TokenType.MINUS) {
+            TokenType op = token.getType();
+            nextToken();
+            Term rhs = parseSummand(Optional.empty());
+
+            switch (op) {
+                case PLUS:
+                    t = new AdditionOperation(t, rhs);
+                    break;
+
+                case MINUS:
+                    t = new SubtractionOperation(t, rhs);
+                    break;
+            }
+        }
+         
         return t;
     }
 
@@ -280,11 +295,13 @@ public class PrologParser {
      */
     private Term parseSummand(Optional<Term> maybeTerm) throws ParseException {
         Term t = parseFactor(maybeTerm);
-        /*
-         * while (token.getType() == TokenType.STAR) { nextToken(); Object t2 =
-         * parseFactor(Optional.empty()); // TODO: Multiplikation: zweistelliger Funktor
-         * mit speziellem Namen "*" und Subtermen "t" und "rhs" t = new Object(); }
-         */
+
+        while (token.getType() == TokenType.STAR) {
+            nextToken();
+            Term t2 = parseFactor(Optional.empty());
+            t = new MultiplicationOperation(t, t2);
+        }
+        
         return t;
     }
 
@@ -302,24 +319,29 @@ public class PrologParser {
             return maybeTerm.get();
         }
         switch (this.token.getType()) {
-        case IDENTIFIER:
-            // case LB:
-            return parseFunctor();
-        /*
-         * case NUMBER: return parseNumber();
-         */
-        case VARIABLE:
-            String name = this.token.getText();
-            nextToken();
-            return new Variable(name);
-        /*
-         * case LP: nextToken(); Object t = parseTerm(); expect(TokenType.RP); return t;
-         */
-        default:
-            throw new ParseException(
-                    String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
-                            LanguageManager.getInstance().getString(LanguageKey.TERM), this.token.getType().getString())
-                            + getTokenPositionString());
+            case IDENTIFIER:
+                // case LB: list literals
+                return parseFunctor();
+
+            case NUMBER:
+                return parseNumber();
+
+            case VARIABLE:
+                String name = this.token.getText();
+                nextToken();
+                return new Variable(name);
+
+            case LP:
+                nextToken();
+                Term t = parseTerm();
+                expect(TokenType.RP);
+                return t;
+
+            default:
+                throw new ParseException(
+                        String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
+                                LanguageManager.getInstance().getString(LanguageKey.TERM), this.token.getType().getString())
+                                + getTokenPositionString());
         }
     }
 
@@ -329,11 +351,11 @@ public class PrologParser {
      * @return the number literal
      * @throws ParseException if a parser error occurs
      */
-    /*
-     * private Object parseNumber() throws ParseException { int n =
-     * Integer.parseInt(token.getText()); nextToken(); // TODO: Neue Zahl mit Wert
-     * "n" return new Object(); }
-     */
+    private Number parseNumber() throws ParseException {
+        int n = Integer.parseInt(token.getText());
+        nextToken();
+        return new Number(n);
+    }
 
     /**
      * Parses a list functor.
