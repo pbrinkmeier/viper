@@ -33,6 +33,7 @@
 \usepackage{dirtree}
 \usepackage{pgfplots}
 \usepackage{pgfgantt}
+\usepackage{pifont}
 \usepackage{multicol}
 \hypersetup{
 	pdftitle={Implementierungsbericht},
@@ -41,6 +42,8 @@
 \usepackage{csquotes}
 
 \newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
 
 \lstset{basicstyle=\ttfamily,breaklines=true}
 
@@ -65,16 +68,51 @@ Bei VIPER handelt es sich um ein grafisches Tool zur Unterstützung des Lernens 
 
 Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Model-View-Controller-Architekturstils. Hiernach wird die grafische Darstellungs-Komponente (View) von internen Datenstrukturen und deren Logik (Model) getrennt. Die Vermittlung zwischen diesen Komponenten erfolgt über den Controller. Die grafische View-Komponente ist hierbei für Desktop-Nutzung ausgelegt und mit Swing implementiert. Die Generierung der Visualisierung erfolgt mit Graphviz über die Graphviz-Java Implementierung, das Darstellen der erzeugten Visualisierung nutzt die Apache Batik Bibliothek.
 
-\section{Änderungen zum Entwurf und Pflichtenheft}
+\section{Übersicht: Implementierte Kriterien}
 
-\section{Fortschritt der Implementierung}
+\subsection{Implementierte Muss-Kriterien}
+	\textbf{Erfüllungsrate: 10/10 (100\%)}
+	\begin{enumerate}[label=\textbf{M\arabic*}]
+		\item Erstellen eines neuen Prolog-Programms\hfill\cmark
+		\item Öffnen eines Prolog-Programms\hfill\cmark
+		\item Bearbeiten eines Prolog-Programms\hfill\cmark
+		\item Speichern eines Prolog-Programms\hfill\cmark
+		\item Parsen eines Prolog-Programms mit begrenztem Sprachumfang\hfill\cmark
+		\item Eingabe von Abfragen\hfill\cmark
+		\item Einzelschritt-Interpretation von Abfragen\hfill\cmark
+		\item Visualisierung als Graph\hfill\cmark
+		\item Ausgabe von Lösungen zu einer Abfrage\hfill\cmark
+		\item Navigation in der Visualisierung\hfill\cmark
+	\end{enumerate}
 
-% Muss-Kriterien alle drin?
-% Welche Kann-Kriterien?
+\subsection{Implementierte Kann-Kriterien}
+	\textbf{Erfüllungsrate: 8/12 (66,67\%)}
+	\begin{enumerate}[label=\textbf{K\arabic*}]
+		\item Zurückschreiten\hfill\cmark
+		\item Ausführung bis zur nächsten Lösung\hfill\cmark
+		\item Cut\hfill\cmark
+		\item Arithmetik\hfill\xmark
+		\item Standardbibliothek\hfill\xmark
+		\item Standardbibliothek deaktivieren und aktivieren\hfill\cmark
+		\item Export der Visualisierung als LaTeX-Code\hfill\xmark
+		\item Export der Visualisierung als Bilddatei\hfill\cmark
+		\item \enquote{Pretty-Printing} von Listen\hfill\xmark
+		\item Formatierung von Quelltext\hfill\cmark
+		\item Wechsel der Sprache zwischen Deutsch und Englisch\hfill\cmark
+		\item Schnellzugriffsleiste\hfill\cmark
+	\end{enumerate}
 
+\subsection{Zusätzliche Features}
+	\subsubsection{Automatische Anpassung des Fenstertitels}
+		Zur Übersicht wird beim Öffnen einer Datei der Fenstertitel automatisch an den absoluten Pfad der geöffneten Datei angepasst.
+	
+	\subsubsection{History-Funktion des Eingabefelds}
+		Gestelle Abfragen werden für die aktuelle Sitzung gespeichert. Dies ermöglicht das Scrollen durch bisher gestellte Abfragen im Eingabefeld durch Nutzung der Pfeiltasten. Die gespeicherten Abfragen gehen beim Schließen des Fensters verloren.
+		
+	\subsubsection{Zoom-Funktion des Editors}
+		Die Textgröße im Editor-Fenster kann über das Bewegen des Mausrads bei gedrückter Steuerungs-Taste angepasst werden.
 \section{Implementierungsplan}
-
-\begin{ganttchart}[x unit = 1.5cm]{0}{4}
+\begin{ganttchart}[x unit = 1.4cm, y unit chart = 0.95cm]{0}{4}
 	\gantttitle{Implementierungsplan (Schritte in Wochen)}{5}\\
 	\gantttitlelist{0,..., 4}{1}\\
 	%%%%%%%% Woche 1
@@ -106,31 +144,32 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 	\ganttlink[link mid=0.25]{elem0}{elem2}
 	\ganttlink[link mid=0.17]{elem0}{elem3}
 	
-	\ganttlink[link mid=0.9]{elem1}{elem4}
-	\ganttlink[link mid=0.85]{elem2}{elem4}
-	\ganttlink[link mid=0.7]{elem3}{elem4}
+	\ganttlink[link mid=0.85]{elem1}{elem4}
+	\ganttlink[link mid=0.78]{elem2}{elem4}
+	\ganttlink[link mid=0.56]{elem3}{elem4}
 	
-	\ganttlink[link mid=0.5]{elem4}{elem5}
-	\ganttlink[link mid=0.25]{elem4}{elem6}
-	\ganttlink[link mid=0.17]{elem4}{elem7}
-	\ganttlink[link mid=0.125]{elem4}{elem8}
-	\ganttlink[link mid=0.1]{elem4}{elem9}
-	\ganttlink[link mid=0.085]{elem4}{elem10}
+	\ganttlink[link bulge=0.6,link mid=0.5]{elem4}{elem5}
+	\ganttlink[link bulge=0.6,link mid=0.25]{elem4}{elem6}
+	\ganttlink[link bulge=0.6,link mid=0.17]{elem4}{elem7}
+	\ganttlink[link bulge=0.6,link mid=0.125]{elem4}{elem8}
+	\ganttlink[link bulge=0.6,link mid=0.1]{elem4}{elem9}
+	\ganttlink[link bulge=0.6,link mid=0.085]{elem4}{elem10}
 	
-	\ganttlink[link bulge=1.0, link mid=0.92]{elem5}{elem11}
-	\ganttlink[link bulge=1.0, link mid=0.9]{elem6}{elem11}
-	\ganttlink[link bulge=1.0, link mid=0.88]{elem7}{elem11}
-	\ganttlink[link bulge=1.0, link mid=0.84]{elem8}{elem11}
-	\ganttlink[link bulge=1.0, link mid=0.75]{elem9}{elem11}
-	\ganttlink[link bulge=1.0, link mid=0.51]{elem10}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.92]{elem5}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.9]{elem6}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.88]{elem7}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.84]{elem8}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.75]{elem9}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.51]{elem10}{elem11}
 	
 	\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
 	\ganttlink[link bulge=0.6, link mid=0.27]{elem11}{elem13}
 	\ganttlink[link bulge=0.6, link mid=0.18]{elem11}{elem14}
 	
-	\ganttlink[link bulge=0.2, link mid=0.83]{elem12}{elem15}
-	\ganttlink[link bulge=0.2, link mid=0.75]{elem13}{elem15}
-	\ganttlink[link bulge=0.2, link mid=0.5]{elem14}{elem15}
+	\ganttlink[link bulge=0.6, link mid=0.83]{elem12}{elem15}
+	\ganttlink[link bulge=0.6, link mid=0.75]{elem13}{elem15}
+	\ganttlink[link bulge=0.6, link mid=0.5]{elem14}{elem15}
+
 	\ganttlink[link bulge=0.2, link mid=0.5]{elem15}{elem16}
 \end{ganttchart}
 \newpage
@@ -211,7 +250,9 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspric
 	\item \textbf{Puffer}: Puffer-Woche für finales Testen und Reparatur von entstandenen Bugs.
 \end{enumerate}
 
-% Abweichungen?
+\section{Abweichungen vom Implementierungsplan}
+
+\section{Änderungen zum Entwurf und Pflichtenheft}
 
 \section{Unit-Tests}
 
@@ -328,7 +369,7 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspric
 \end{figure}
 
 \newpage
-\subsection{Abdeckung}
+\subsection{Code-Abdeckung}
 \begin{figure}[!h]
 \centering
 \hspace*{-1cm}
