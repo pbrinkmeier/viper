@@ -207,7 +207,11 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addSettingsMenu() {
         Menu menu = new Menu(LanguageKey.MENU_SETTINGS);
 
-        itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB, new CommandToggleLib(this.main,
+        itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB, new CommandToggleLib(
+                this.main.getConsolePanel(),
+                this.main.getVisualisationPanel(),
+                this.main.getInterpreterManager(),
+                this.main.getPreferencesManager(),
                 this.main::switchClickableState));
         if (this.main.getPreferencesManager().isStandardLibEnabled())
             itemToggleSTD.setSelected(true);
