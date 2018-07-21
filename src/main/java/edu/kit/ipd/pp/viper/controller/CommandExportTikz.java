@@ -39,11 +39,11 @@ public class CommandExportTikz extends Command {
         int rv = chooser.showSaveDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {
-        	File file = FileUtilities.checkForMissingExtension(chooser.getSelectedFile(), ".tikz");
-        	exportTikZ(file);
+            File file = FileUtilities.checkForMissingExtension(chooser.getSelectedFile(), ".tikz");
+            exportTikZ(file);
         }
     }
-    
+
     /**
      * TikZ export routine. This should only be used internally, but is public for
      * testing purposes.
@@ -51,7 +51,7 @@ public class CommandExportTikz extends Command {
      * @param f file to export the TikZ graph to
      */
     public void exportTikZ(File f) {
-    	try {
+        try {
             FileOutputStream out = new FileOutputStream(f);
             final String code = LatexMaker.createLatex(this.interpreterManager.getCurrentState());
             out.write(code.getBytes());
