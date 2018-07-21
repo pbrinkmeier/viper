@@ -254,6 +254,55 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspric
 
 \section{Änderungen zum Entwurf und Pflichtenheft}
 
+\subsection{Paket: Model}
+
+\subsection{Paket: View}
+
+\subsection{Paket: Controller}
+\textbf{Neue Klassen:}\\
+\begin{itemize}
+	\item \textbf{CommandExit}:\\
+	Schließt das Programm und fragt bei ungesicherten Änderungen, ob diese gespeichert werden sollen. Dieses Kommando wurde für bessere Konsistenz sowie das Menü-Element "Schließen" hinzugefügt.
+	\item \textbf{CommandParseQuery}:\\
+	Verarbeitet eine gestellte Abfrage durch den Parser und schaltet bei Erfolg die Interpretation frei. Dies ist zu trennen von CommandParse, welches sich nun auf den Quellcode im Editor beschränkt. Besagte Trennung vereinfacht das Parsen-Kommando, welches nun keine interne Fallunterscheidung mehr durchführen muss.
+	\item \textbf{FileFilters}:\\
+	Sammelklasse für oft genutzte, konstante, statische Dateifilter, welche in Kommandos mit Dateidialogen genutzt werden.
+	\item \textbf{FileUtilities}:\\
+	Sammelklasse für oft genutzte statische Dateioperationen, welche in Kommandos mit Dateidialogen genutzt werden. Dies umfasst das Anfügen einer Dateiendung, falls nötig.
+	\item \textbf{LanguageKey}:\\
+	Enumeration aller möglichen Schlüsselwerte, über die eine Übersetzung durch den LanguageManager angefordert werden kann. Dies verhindert die Übergabe von nicht definierten Schlüsselwerten.
+	\item \textbf{PreferencesManager}:\\
+	Manager-Klasse für das Speichern und Laden von Produktdaten.
+\end{itemize}
+
+\textbf{Geänderte Konstruktoren:}\\
+Aufgrund von Schnittstellen-Anpassungen haben sich die Konstruktoren in diversen Kommandos des Controllers verändert. Die meist vertretenen Anpassungen umfassen hierbei die Übergabe von Consumer-Funktionen, über die einzelne isolierte Funktionen des Hauptfensters ausgeführt werden können. Diese Funktionsparameter werden im folgenden abgekürzt als:
+
+\begin{itemize}
+	\item \textbf{CT}: Consumer-Funktion für das Ändern des Fenstertitels
+	\item \textbf{CS}: Consumer-Funktion für das Ändern des internen Clickable-Zustands
+\end{itemize}
+
+Die Anpassung der Konstruktoren ist wie folgt:
+\begin{itemize}
+	\item \textbf{CommandNew}\\\hspace*{1cm}erhält zusätzlich: CT, CS\hfill \texttt{+}
+	\item \textbf{CommandOpen}\\\hspace*{1cm}erhält zusätzlich: CT, CS, ein Speichern-Kommando\hfill\texttt{+}
+	\item \textbf{CommandSave}\\\hspace*{1cm}erhält zusätzlich: CT\hfill\texttt{+}
+	\item \textbf{CommandParse}\\\hspace*{1cm}erhält zusätzlich: CS\hfill\texttt{+}
+	\item \textbf{CommandNextStep}\\\hspace*{1cm}erhält zusätzlich: CS\hfill\texttt{+}
+	\item \textbf{CommandPreviousStep}\\\hspace*{1cm}erhält nicht mehr: ConsolePanel\hfill\texttt{-}
+	\item \textbf{CommandContinue}\\\hspace*{1cm}heißt nun CommandNextSolution,
+								  \\\hspace*{1cm}erhält nicht mehr: boolean running\hfill\texttt{-}
+	\item \textbf{CommandCancel}\\\hspace*{1cm}erhält nicht mehr: boolean running,\hfill\texttt{-}
+								\\\hspace*{1cm}erhält zusätzlich: VisualisationPanel\hfill\texttt{+}
+	\item \textbf{CommandToggleLib}\\\hspace*{1cm}erhält zusätzlich: CS, PreferencesManager\hfill\texttt{+}
+	\item \textbf{CommandSetLang}\\\hspace*{1cm}erhält zusätzlich: PreferencesManager\hfill\texttt{+}
+	\item \textbf{CommandExportImage}\\\hspace*{1cm}erhält nicht mehr: VisualisationPanel\hfill\texttt{-}
+	\item \textbf{CommandExportTikZ}\\\hspace*{1cm}erhält nicht mehr: VisualisationPanel\hfill\texttt{-}
+\end{itemize}
+
+Zusatz: Die öffentlichen execute()-Methoden der Kommandos teilen die Ausführungsschritte in intern definierte Funktionen zur Vereinfachung des Programmcodes. Diese sind ausschließlich zu Testzwecken als \texttt{public} deklariert und werden dementsprechend nicht zusätzlich dokumentiert.
+
 \section{Unit-Tests}
 
 \subsection{Übersicht}
