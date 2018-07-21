@@ -179,7 +179,7 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspric
 \begin{enumerate}
 	\item \textbf{Setup}: Generierung des Code-Gerüsts aus dem UML-Klassendiagramm des Entwurfs, Aufsetzen des Build-Systems (Gradle) sowie des Code-Stil-Prüfers (Checkstyle). Dieser Punkt baut eine gemeinsame Grundlage auf, von der aus die einzelnen Aufgabenbereiche in separaten Branches weiterarbeiten können.
 	
-	\item \textbf{Kommando-Teilmenge A}: Implementierung simpler Kommandos mit wenigen bis keinen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Eingabe-/Ausgabe-Kommandos sowie Kommandos, welche an den Interpreter-Manager und Sprach-Manager des Controller-Pakets delegieren, namentlich:
+	\item \textbf{Kommando-Teilmenge A}: Implementierung simpler Kommandos mit wenigen bis keinen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Eingabe-/Ausgabe-Kommandos sowie Kommandos, welche an den Interpreter-Manager und Sprachen-Manager des Controller-Pakets delegieren, namentlich:
 	\begin{multicols}{3}
 		\begin{itemize}
 			\item CommandNew
@@ -223,7 +223,7 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspric
 	
 	\item \textbf{Interpreter-Teilmenge A}: Implementierung des ActivationRecords sowie des spezifischen FunctorActivationRecords, der Visitor-Klassen sowie der Unifikations-Klassen. Hierzu gehört ebenfalls das parallele Entwickeln von Unit-Tests.
 	
-	\item \textbf{Manager-Klassen}: Implementierung der Manager-Klassen des Controllers, namentlich dem Sprach-Manager und dem Interpreter-Manager.
+	\item \textbf{Manager-Klassen}: Implementierung der Manager-Klassen des Controllers, namentlich dem Sprachen-Manager und dem Interpreter-Manager.
 	
 	\item \textbf{Controller-Tests}: Implementierung der Tests für das Controller-Paket. Dies beginnt in der zweiten Woche parallel zur Fertigstellung des Controllers und endet mit der dritten Woche.
 	
@@ -250,7 +250,199 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspric
 	\item \textbf{Puffer}: Puffer-Woche für finales Testen und Reparatur von entstandenen Bugs.
 \end{enumerate}
 
-\section{Abweichungen vom Implementierungsplan}
+\section{Implementierungsverlauf und Plan-Abweichungen}
+
+\subsection{Abschluss erste Woche}
+Die erste Woche wurde plangemäß erfüllt. Es wurden keine zusätzlichen Implementierungsschritte erledigt.
+
+\begin{itemize}
+	\item \textbf{Setup}\hfill\cmark
+	\item \textbf{Kommando-Teilmenge A}\hfill\cmark
+	\item \textbf{View-Teilmenge A}\hfill\cmark
+	\item \textbf{AST-Teilmenge A}\hfill\cmark
+\end{itemize}
+
+\subsection{Abschluss zweite Woche}
+Die zweite Woche wurde zu großen Teilen plangemäß erfüllt. Aufgrund der unvollständigen Implementierung des Interpreter-Managers war der geplante Implementierungsfortschritt jedoch nicht erreicht.
+
+\begin{itemize}
+	\item \textbf{Kommando-Teilmenge B}\hfill\cmark
+	\item \textbf{View-Teilmenge B}\hfill\cmark
+	\item \textbf{AST-Teilmenge B}\hfill\cmark
+	\item \textbf{Interpreter-Teilmenge A}\hfill\cmark
+	\item Manager-Klassen\hfill\xmark
+		\begin{itemize}
+			\item \textbf{Sprachen-Manager}\hfill\cmark
+			\item Interpreter-Manager\hfill\xmark
+		\end{itemize}
+	\item \textbf{Controller-Tests}\hfill\cmark
+\end{itemize}
+
+\subsection{Abschluss dritte Woche}
+Die dritte Woche wurde zu großen Teilen plangemäß erfüllt. Die Testabdeckung des Controllers durch Unit-Tests wurde in den 70\%-Bereich vorangetrieben.
+
+\begin{itemize}
+	\item \textbf{Interpreter-Manager}\hfill\cmark
+	\item \textbf{Controller-Tests}\hfill\cmark
+	\item \textbf{Interpreter-Teilmenge B}\hfill\xmark
+	\item Kann-Kriterien
+		\begin{itemize}
+			\item Zurückschreiten\hfill\xmark
+			\item Ausführung bis zur nächsten Lösung\hfill\xmark
+			\item \textbf{Cut}\hfill\cmark
+			\item Arithmetik\hfill\xmark
+			\item Standardbibliothek\hfill\xmark
+			\item \textbf{Standardbibliothek aktivieren und deaktivieren}\hfill\cmark
+			\item Export der Visualisierung als LaTeX-Code\hfill\xmark
+			\item \textbf{Export der Visualisierung als Bilddatei}\hfill\cmark
+			\item \enquote{Pretty-Printing} von Listen\hfill\xmark
+			\item \textbf{Formatierung von Quelltext}\hfill\cmark
+			\item \textbf{Wechsel der Sprache zwischen Deutsch und Englisch}\hfill\cmark
+			\item \textbf{Schnellzugriffsleiste}\hfill\cmark
+		\end{itemize}
+\end{itemize}
+
+\newpage
+\subsection{Abschluss vierte Woche}
+Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs und der restlichen Erfüllung von Kann-Kriterien. Diese wurden folgendermaßen abgedeckt:
+
+\begin{itemize}
+	\item \textbf{Zurückschreiten}\hfill\cmark
+	\item \textbf{Ausführung bis zur nächsten Lösung}\hfill\cmark
+	\item Arithmetik\hfill\xmark
+	\item \textbf{Standardbibliothek}\hfill\cmark
+	\item Export der Visualisierung als LaTeX-Code\hfill\xmark
+	\item \enquote{Pretty-Printing von Listen}\hfill\xmark
+\end{itemize}
+
+\subsection{Vergleich der Implementierungsverläufe}
+\hspace*{-1cm}
+\begin{minipage}{0.5\textwidth}
+\begin{ganttchart}[x unit = 1.0cm, y unit chart = 0.7cm]{0}{4}
+	\gantttitle{Implementierungsplan}{5}\\
+	\gantttitlelist{0,..., 4}{1}\\
+	%%%%%%%% Woche 1
+	\ganttbar{Setup}{0}{0}\\
+	\ganttbar{Kommando-Teilmenge A}{1}{1}\\
+	\ganttbar{View-Teilmenge A}{1}{1}\\
+	\ganttbar{AST-Teilmenge A}{1}{1}\\
+	
+	\ganttmilestone{Meilenstein: Abschluss erste Woche}{1}\\
+	%%%%%%%% Woche 2 / 3
+	\ganttbar{Kommando-Teilmenge B}{2}{2}\\
+	\ganttbar{View-Teilmenge B}{2}{2}\\
+	\ganttbar{AST-Teilmenge B}{2}{2}\\
+	\ganttbar{Interpreter-Teilmenge A}{2}{2}\\
+	\ganttbar{Manager-Klassen}{2}{2}\\
+	\ganttbar{Controller-Tests}{2}{2}\\
+	
+	\ganttmilestone{Meilenstein: Abschluss zweite Woche}{2}\\
+	%%%%%%%% Woche 3
+	\ganttbar{Controller-Tests}{3}{3}\\
+	\ganttbar{Interpreter-Teilmenge B}{3}{3}\\
+	\ganttbar{Kann-Kriterien}{3}{3}\\
+	
+	\ganttmilestone{Meilenstein: Abschluss dritte Woche}{3}\ganttnewline
+	%%%%%%%% Woche 4
+	\ganttbar{Puffer}{4}{4}\\
+	%%%%%%%% Links
+	\ganttlink[link mid=0.5]{elem0}{elem1}
+	\ganttlink[link mid=0.25]{elem0}{elem2}
+	\ganttlink[link mid=0.17]{elem0}{elem3}
+	
+	\ganttlink[link mid=0.85]{elem1}{elem4}
+	\ganttlink[link mid=0.78]{elem2}{elem4}
+	\ganttlink[link mid=0.56]{elem3}{elem4}
+	
+	\ganttlink[link bulge=0.6,link mid=0.5]{elem4}{elem5}
+	\ganttlink[link bulge=0.6,link mid=0.25]{elem4}{elem6}
+	\ganttlink[link bulge=0.6,link mid=0.17]{elem4}{elem7}
+	\ganttlink[link bulge=0.6,link mid=0.125]{elem4}{elem8}
+	\ganttlink[link bulge=0.6,link mid=0.1]{elem4}{elem9}
+	\ganttlink[link bulge=0.6,link mid=0.085]{elem4}{elem10}
+	
+	\ganttlink[link bulge=0.6, link mid=0.92]{elem5}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.9]{elem6}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.88]{elem7}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.84]{elem8}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.75]{elem9}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.51]{elem10}{elem11}
+	
+	\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
+	\ganttlink[link bulge=0.6, link mid=0.27]{elem11}{elem13}
+	\ganttlink[link bulge=0.6, link mid=0.18]{elem11}{elem14}
+	
+	\ganttlink[link bulge=0.6, link mid=0.83]{elem12}{elem15}
+	\ganttlink[link bulge=0.6, link mid=0.75]{elem13}{elem15}
+	\ganttlink[link bulge=0.6, link mid=0.5]{elem14}{elem15}
+	
+	\ganttlink[link bulge=0.2, link mid=0.5]{elem15}{elem16}
+\end{ganttchart}
+\end{minipage}%
+\hspace*{5cm}
+\begin{minipage}{0.5\textwidth}
+	\begin{ganttchart}[x unit = 1.0cm, y unit chart = 0.7cm]{0}{4}
+		\gantttitle{Tatsächlicher Verlauf}{5}\\
+		\gantttitlelist{0,..., 4}{1}\\
+		%%%%%%%% Woche 1
+		\ganttbar{}{0}{0}\\
+		\ganttbar{}{1}{1}\\
+		\ganttbar{}{1}{1}\\
+		\ganttbar{}{1}{1}\\
+		
+		\ganttmilestone{}{1}\\
+		%%%%%%%% Woche 2 / 3
+		\ganttbar{}{2}{2}\\
+		\ganttbar{}{2}{2}\\
+		\ganttbar{}{2}{2}\\
+		\ganttbar{}{2}{2}\\
+		\ganttbar{}{2}{3}\\
+		\ganttbar{}{2}{2}\\
+		
+		\ganttmilestone{}{2}\\
+		%%%%%%%% Woche 3
+		\ganttbar{}{3}{3}\\
+		\ganttbar{}{3}{3}\\
+		\ganttbar{}{3}{3}\\
+		
+		\ganttmilestone{}{3}\ganttnewline
+		%%%%%%%% Woche 4
+		\ganttbar{}{4}{4}\\
+		%%%%%%%% Links
+		\ganttlink[link mid=0.5]{elem0}{elem1}
+		\ganttlink[link mid=0.25]{elem0}{elem2}
+		\ganttlink[link mid=0.17]{elem0}{elem3}
+		
+		\ganttlink[link mid=0.85]{elem1}{elem4}
+		\ganttlink[link mid=0.78]{elem2}{elem4}
+		\ganttlink[link mid=0.56]{elem3}{elem4}
+		
+		\ganttlink[link bulge=0.6,link mid=0.5]{elem4}{elem5}
+		\ganttlink[link bulge=0.6,link mid=0.25]{elem4}{elem6}
+		\ganttlink[link bulge=0.6,link mid=0.17]{elem4}{elem7}
+		\ganttlink[link bulge=0.6,link mid=0.125]{elem4}{elem8}
+		\ganttlink[link bulge=0.6,link mid=0.1]{elem4}{elem9}
+		\ganttlink[link bulge=0.6,link mid=0.085]{elem4}{elem10}
+		
+		\ganttlink[link bulge=1.4, link mid=0.92]{elem5}{elem11}
+		\ganttlink[link bulge=1.4, link mid=0.9]{elem6}{elem11}
+		\ganttlink[link bulge=1.4, link mid=0.88]{elem7}{elem11}
+		\ganttlink[link bulge=1.4, link mid=0.84]{elem8}{elem11}
+		\ganttlink[link bulge=0.6, link mid=0.75]{elem9}{elem11}
+		\ganttlink[link bulge=1.4, link mid=0.51]{elem10}{elem11}
+		
+		\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
+		\ganttlink[link bulge=0.6, link mid=0.27]{elem11}{elem13}
+		\ganttlink[link bulge=0.6, link mid=0.18]{elem11}{elem14}
+
+		\ganttlink[link bulge=0.6, link mid=0.92]{elem9}{elem15}		
+		\ganttlink[link bulge=0.6, link mid=0.83]{elem12}{elem15}
+		\ganttlink[link bulge=0.6, link mid=0.75]{elem13}{elem15}
+		\ganttlink[link bulge=0.6, link mid=0.5]{elem14}{elem15}
+		
+		\ganttlink[link bulge=0.2, link mid=0.5]{elem15}{elem16}
+	\end{ganttchart}
+\end{minipage}
 
 \section{Änderungen zum Entwurf und Pflichtenheft}
 
