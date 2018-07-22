@@ -143,8 +143,8 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         Node resultBox = node(this.createUniqueNodeName())
         .with(html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
             LanguageManager.getInstance().getString(LanguageKey.UNIFICATION),
-            uar.getLhs(),
-            uar.getRhs(),
+            uar.getLhs().toHtml(),
+            uar.getRhs().toHtml(),
             uar.getResult().toHtml()
         )))
         .with(attr("shape", "record"));

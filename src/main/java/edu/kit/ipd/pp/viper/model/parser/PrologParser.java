@@ -155,6 +155,7 @@ public class PrologParser {
 
             case VARIABLE:
             case NUMBER:
+            case LB:
                 Term t = parseTerm();
                 return parseGoalRest(t);
 
