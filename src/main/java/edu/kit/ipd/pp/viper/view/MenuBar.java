@@ -237,6 +237,9 @@ public class MenuBar extends JMenuBar implements HasClickable {
                 this.main::switchClickableState));
         if (this.main.getPreferencesManager().isStandardLibEnabled())
             itemToggleSTD.setSelected(true);
+        else
+            // standard lib is set to enabled by default, turn off here
+            this.main.getInterpreterManager().toggleStandardLibrary();
 
         menu.add(itemToggleSTD);
         this.addLanguageSwitchMenu(menu);
