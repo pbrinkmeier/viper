@@ -16,11 +16,6 @@ public class FileFilters {
     public static final FileFilter PL_FILTER = createFilter(LanguageKey.PROLOG_FILES, "pl");
 
     /**
-     * File filter used for TikZ files.
-     */
-    public static final FileFilter TIKZ_FILTER = createFilter(LanguageKey.TIKZ_FILES, "tikz");
-
-    /**
      * File filter used for PNG files.
      */
     public static final FileFilter PNG_FILTER = createFilter(LanguageKey.PNG_FILES, "png");

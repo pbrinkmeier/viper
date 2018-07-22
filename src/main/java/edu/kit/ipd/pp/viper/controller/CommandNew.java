@@ -51,8 +51,8 @@ public class CommandNew extends Command {
         this.interpreterManager.cancel();
         if (this.editor.hasChanged()) {
             LanguageManager langman = LanguageManager.getInstance();
-            Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),
-                    langman.getString(LanguageKey.CANCEL)};
+            Object options[] = {langman.getString(LanguageKey.DIALOG_YES), langman.getString(LanguageKey.DIALOG_NO),
+                    langman.getString(LanguageKey.DIALOG_CANCEL)};
             final int rv = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
                     langman.getString(LanguageKey.CONFIRMATION_NEW_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);

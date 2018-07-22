@@ -196,8 +196,7 @@ public class PrologParser {
             nextToken();
             return new Functor(name, terms);
         case LB:
-            throw new ParseException(
-                    LanguageManager.getInstance().getString(LanguageKey.UNSUPPORTED_LISTS) + getTokenPositionString());
+            // todo
             // return parseList();
         default:
             throw new ParseException(

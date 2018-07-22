@@ -72,11 +72,6 @@ public enum LanguageKey {
     MENU_EXPORT_SVG("menu_export_svg"),
 
     /**
-     * Menu "Export as TikZ" option
-     */
-    MENU_EXPORT_TIKZ("menu_export_tikz"),
-
-    /**
      * Menu "Settings" option
      */
     MENU_SETTINGS("menu_settings"),
@@ -120,17 +115,17 @@ public enum LanguageKey {
     /**
      * Tool bar "Previous step" tool tip
      */
-    TOOLTIP_STEPBACK("tooltip_stepback"),
+    TOOLTIP_PREVIOUSSTEP("tooltip_previousstep"),
 
     /**
      * Tool bar "Next Step" tool tip
      */
-    TOOLTIP_STEP("tooltip_step"),
+    TOOLTIP_NEXTSTEP("tooltip_nextstep"),
 
     /**
      * Tool bar "Next Solution" tool tip
      */
-    TOOLTIP_NEXT("tooltip_next"),
+    TOOLTIP_NEXTSOLUTION("tooltip_nextsolution"),
 
     /**
      * Tool bar "Cancel" tool tip
@@ -157,17 +152,17 @@ public enum LanguageKey {
     /**
      * "Yes" dialog option
      */
-    YES("yes"),
+    DIALOG_YES("dialog_yes"),
 
     /**
      * "No" dialog option
      */
-    NO("no"),
+    DIALOG_NO("dialog_no"),
 
     /**
      * "Cancel" dialog option
      */
-    CANCEL("cancel"),
+    DIALOG_CANCEL("dialog_cancel"),
 
     /**
      * Message of the new file confirmation dialog asking whether unsaved changes
@@ -197,11 +192,6 @@ public enum LanguageKey {
      * SVG files export dialog filter description
      */
     SVG_FILES("svg_files"),
-
-    /**
-     * TikZ files export dialog filter description
-     */
-    TIKZ_FILES("tikz_files"),
 
     /**
      * Prolog files save dialog filter description
@@ -364,9 +354,6 @@ public enum LanguageKey {
      * The Functor translation
      */
     FUNCTOR("functor"),
-
-    /** Lists unsupported error for parser */
-    UNSUPPORTED_LISTS("unsupported_lists"),
 
     /**
      * Translation of unification for visualisation.
