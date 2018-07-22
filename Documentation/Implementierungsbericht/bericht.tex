@@ -1,0 +1,789 @@
+\documentclass[parskip=full,11pt,twoside]{scrartcl}
+\usepackage[utf8]{inputenc}
+
+\title{VIPER Interactive Prolog Education Runtime}
+\subtitle{Implementierungsbericht}
+\author{Paul Brinkmeier, Lukas Brocke, Jannik Koch, Aaron Maier, Christian Oder}
+
+% section numbers in margins:
+\renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
+
+% header & footer
+\usepackage{scrlayer-scrpage}
+\lofoot{\today}
+\refoot{\today}
+\pagestyle{scrheadings}
+
+\usepackage{amsmath} % for $\text{}$
+
+\usepackage[sfdefault,light]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[yyyymmdd]{datetime} % must be after babel
+\renewcommand{\dateseparator}{-} % ISO8601 date format
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\crefname{figure}{Abb}{Abb}
+\usepackage[section]{placeins}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{enumitem}
+\usepackage{dirtree}
+\usepackage{pgfplots}
+\usepackage{pgfgantt}
+\usepackage{pifont}
+\usepackage{multicol}
+\hypersetup{
+	pdftitle={Implementierungsbericht},
+}
+
+\usepackage{csquotes}
+
+\newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\lstset{basicstyle=\ttfamily,breaklines=true}
+
+% Don't strech across whole page
+\raggedbottom
+
+% Start new page with each section
+\usepackage{sectsty}
+\sectionfont{\clearpage}
+
+\begin{document}
+\pagenumbering{roman}
+\maketitle
+\tableofcontents
+
+\section{Einleitung}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% Anschluss an Entwurfsdokument
+Bei VIPER handelt es sich um ein grafisches Tool zur Unterstützung des Lernens und Lehrens der logischen Programmiersprache Prolog. Hierbei soll der Nutzer die Interpretation von Prolog-Abfragen nachvollziehen können. Dies wird durch die Visualisierung des Interpretationsvorgangs als Baumstruktur erreicht. Der integrierte Editor ermöglicht weiterhin das Schreiben von Prolog-Quelltext. Abfragen zur Interpretation können über ein Textfeld gestellt werden, Informationen an den Nutzer wie das Finden einer Lösung werden über ein Ausgabefeld dargestellt.
+
+Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Model-View-Controller-Architekturstils. Hiernach wird die grafische Darstellungs-Komponente (View) von internen Datenstrukturen und deren Logik (Model) getrennt. Die Vermittlung zwischen diesen Komponenten erfolgt über den Controller. Die grafische View-Komponente ist hierbei für Desktop-Nutzung ausgelegt und mit Swing implementiert. Die Generierung der Visualisierung erfolgt mit Graphviz über die Graphviz-Java Implementierung, die Darstellung der erzeugten Visualisierung nutzt die Apache Batik Bibliothek.
+
+\section{Übersicht: Implementierte Kriterien}
+
+\subsection{Implementierte Muss-Kriterien}
+	\textbf{Erfüllungsrate: 10/10 (100\%)}
+	\begin{enumerate}[label=\textbf{M\arabic*}]
+		\item Erstellen eines neuen Prolog-Programms\hfill\cmark
+		\item Öffnen eines Prolog-Programms\hfill\cmark
+		\item Bearbeiten eines Prolog-Programms\hfill\cmark
+		\item Speichern eines Prolog-Programms\hfill\cmark
+		\item Parsen eines Prolog-Programms mit begrenztem Sprachumfang\hfill\cmark
+		\item Eingabe von Abfragen\hfill\cmark
+		\item Einzelschritt-Interpretation von Abfragen\hfill\cmark
+		\item Visualisierung als Graph\hfill\cmark
+		\item Ausgabe von Lösungen zu einer Abfrage\hfill\cmark
+		\item Navigation in der Visualisierung\hfill\cmark
+	\end{enumerate}
+
+\subsection{Implementierte Kann-Kriterien}
+	\textbf{Erfüllungsrate: 11/12 (91,67\%)}
+	\begin{enumerate}[label=\textbf{K\arabic*}]
+		\item Zurückschreiten\hfill\cmark
+		\item Ausführung bis zur nächsten Lösung\hfill\cmark
+		\item Cut\hfill\cmark
+		\item Arithmetik\hfill\cmark
+		\item Standardbibliothek\hfill\cmark
+		\item Standardbibliothek deaktivieren und aktivieren\hfill\cmark
+		\item Export der Visualisierung als LaTeX-Code\hfill\xmark
+		\item Export der Visualisierung als Bilddatei\hfill\cmark
+		\item \enquote{Pretty-Printing} von Listen\hfill\cmark
+		\item Formatierung von Quelltext\hfill\cmark
+		\item Wechsel der Sprache zwischen Deutsch und Englisch\hfill\cmark
+		\item Schnellzugriffsleiste\hfill\cmark
+	\end{enumerate}
+
+\subsection{Zusätzliche Features}
+	\subsubsection{Automatische Anpassung des Fenstertitels}
+		Beim Öffnen einer Datei wird der absolute Pfad der geöffneten Datei im Fenstertitel angezeigt.
+	
+	\subsubsection{History-Funktion des Eingabefelds}
+		Gestellte Abfragen im Eingabefeld werden bis zu einem erneuten Parsen gespeichert. Dies ermöglicht das \enquote{Scrollen} durch bisher gestellte Abfragen mittels der der Pfeiltasten.
+		
+	\subsubsection{Zoom-Funktion des Editors}
+		Die Textgröße im Editor-Fenster kann über das Bewegen des Mausrads bei gedrückter Steuerungs-Taste, oder durch Drücken der Plus und Minus Tasten in Kombination mit der Steuerungs-Taste angepasst werden.
+\section{Implementierungsplan}
+\begin{ganttchart}[x unit = 1.4cm, y unit chart = 0.95cm]{0}{4}
+	\gantttitle{Implementierungsplan (Schritte in Wochen)}{5}\\
+	\gantttitlelist{0,..., 4}{1}\\
+	%%%%%%%% Woche 1
+	\ganttbar{Setup}{0}{0}\\
+	\ganttbar{Kommando-Teilmenge A}{1}{1}\\
+	\ganttbar{View-Teilmenge A}{1}{1}\\
+	\ganttbar{AST-Teilmenge A}{1}{1}\\
+		
+	\ganttmilestone{Meilenstein: Abschluss erste Woche}{1}\\
+	%%%%%%%% Woche 2 / 3
+	\ganttbar{Kommando-Teilmenge B}{2}{2}\\
+	\ganttbar{View-Teilmenge B}{2}{2}\\
+	\ganttbar{AST-Teilmenge B}{2}{2}\\
+	\ganttbar{Interpreter-Teilmenge A}{2}{2}\\
+	\ganttbar{Manager-Klassen}{2}{2}\\
+	\ganttbar{Controller-Tests}{2}{2}\\
+	
+	\ganttmilestone{Meilenstein: Abschluss zweite Woche}{2}\\
+	%%%%%%%% Woche 3
+	\ganttbar{Controller-Tests}{3}{3}\\
+	\ganttbar{Interpreter-Teilmenge B}{3}{3}\\
+	\ganttbar{Kann-Kriterien}{3}{3}\\
+
+	\ganttmilestone{Meilenstein: Abschluss dritte Woche}{3}\ganttnewline
+	%%%%%%%% Woche 4
+	\ganttbar{Puffer}{4}{4}\\
+	%%%%%%%% Links
+	\ganttlink[link mid=0.5]{elem0}{elem1}
+	\ganttlink[link mid=0.25]{elem0}{elem2}
+	\ganttlink[link mid=0.17]{elem0}{elem3}
+	
+	\ganttlink[link mid=0.85]{elem1}{elem4}
+	\ganttlink[link mid=0.78]{elem2}{elem4}
+	\ganttlink[link mid=0.56]{elem3}{elem4}
+	
+	\ganttlink[link bulge=0.6,link mid=0.5]{elem4}{elem5}
+	\ganttlink[link bulge=0.6,link mid=0.25]{elem4}{elem6}
+	\ganttlink[link bulge=0.6,link mid=0.17]{elem4}{elem7}
+	\ganttlink[link bulge=0.6,link mid=0.125]{elem4}{elem8}
+	\ganttlink[link bulge=0.6,link mid=0.1]{elem4}{elem9}
+	\ganttlink[link bulge=0.6,link mid=0.085]{elem4}{elem10}
+	
+	\ganttlink[link bulge=0.6, link mid=0.92]{elem5}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.9]{elem6}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.88]{elem7}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.84]{elem8}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.75]{elem9}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.51]{elem10}{elem11}
+	
+	\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
+	\ganttlink[link bulge=0.6, link mid=0.27]{elem11}{elem13}
+	\ganttlink[link bulge=0.6, link mid=0.18]{elem11}{elem14}
+	
+	\ganttlink[link bulge=0.6, link mid=0.83]{elem12}{elem15}
+	\ganttlink[link bulge=0.6, link mid=0.75]{elem13}{elem15}
+	\ganttlink[link bulge=0.6, link mid=0.5]{elem14}{elem15}
+
+	\ganttlink[link bulge=0.2, link mid=0.5]{elem15}{elem16}
+\end{ganttchart}
+\newpage
+Der Implementierungs-Arbeit teilt sich in wöchentliche Aufgabenbereiche ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich und bei dringendem Bedarf statt. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel, sondern im Nachhinein entwickelt.
+
+Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0 entspricht hierbei dem Vorgehen am ersten Tag der ersten Woche. Die zugehörigen Aufgaben setzen sich wie folgt zusammen:
+\begin{enumerate}
+	\item \textbf{Setup}: Generierung des Code-Gerüsts aus dem UML-Klassendiagramm des Entwurfs, Aufsetzen des Build-Systems (Gradle) sowie des Code-Stil-Prüfers (Checkstyle). Dieser Punkt baut eine gemeinsame Grundlage auf, von der aus die einzelnen Aufgabenbereiche in separaten Branches weiterarbeiten können.
+	
+	\item \textbf{Kommando-Teilmenge A}: Implementierung simpler Kommandos mit wenigen bis keinen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Eingabe-/Ausgabe-Kommandos sowie Kommandos, welche an den Interpreter-Manager und Sprachen-Manager des Controller-Pakets delegieren, namentlich:
+	\begin{multicols}{3}
+		\begin{itemize}
+			\item CommandNew
+			\item CommandOpen
+			\item CommandSave
+			\item CommandZoom
+
+			\item CommandToggleLib
+			\item CommandSetLang
+			\item CommandExportTikZ
+			\item CommandExportImage
+
+			\item CommandParse
+			\item CommandExit
+		\end{itemize}
+	\end{multicols}
+
+	\item \textbf{View-Teilmenge A}: Implementierung der wichtigsten GUI-Komponenten. Hierzu gehört das Hauptfenster, der Editor sowie Menü- und Werkzeugleiste.
+	
+	\item \textbf{AST-Teilmenge A}: Implementierung und Testen von der Term-Klasse und ihren Subklassen.
+	
+	\item \textbf{Meilenstein: Abschluss erste Woche}: Das Projekt ist aufgesetzt. Beim Ausführen wird die GUI erfolgreich angezeigt, ein Editor ist vorhanden, Texteingaben sind möglich. Simple Dateioperationen wie Öffnen und Speichern funktionieren. Der grundlegende Term-Baustein des Models ist implementiert und getestet.
+
+	\item \textbf{Kommando-Teilmenge B}: Implementierung komplexerer Kommandos mit diversen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Kommandos, welche die Interpretation steuern. Weiter werden Kommandos fertig implementiert, die stärkere Abhängigkeiten zum Rest des Codes haben wie die Export-Funktionen:
+	\begin{multicols}{3}
+		\begin{itemize}
+			\item CommandNextStep
+			\item CommandPreviousStep
+			\item CommandContinue
+			\item CommandCancel
+			
+			\item CommandExportTikZ
+			\item CommandExportImage
+			\item CommandFormat
+		\end{itemize}
+	\end{multicols}
+
+	\item \textbf{View-Teilmenge B}: Implementierung des Konsolen-Bereichs, des Visualisierungs-Bereichs sowie erster Tests. Weiter werden erste Icons für die Schaltflächen erstellt.
+
+	\item \textbf{AST-Teilmenge B}: Implementierung der KnowledgeBase, Ziele und Regeln sowie Einfügen und Anpassen des gegebenen Parsers. Hierzu gehört ebenfalls das parallele Entwickeln von Unit-Tests.
+	
+	\item \textbf{Interpreter-Teilmenge A}: Implementierung des ActivationRecords sowie des spezifischen FunctorActivationRecords, der Visitor-Klassen sowie der Unifikations-Klassen. Hierzu gehört ebenfalls das parallele Entwickeln von Unit-Tests.
+	
+	\item \textbf{Manager-Klassen}: Implementierung der Manager-Klassen des Controllers, namentlich dem Sprachen-Manager und dem Interpreter-Manager.
+	
+	\item \textbf{Controller-Tests}: Implementierung der Tests für das Controller-Paket. Dies beginnt in der zweiten Woche parallel zur Fertigstellung des Controllers und endet mit der dritten Woche.
+	
+	\item \textbf{Meilenstein: Abschluss zweite Woche}: Die Controller-Komponente ist vollständig implementiert und zu Teilen getestet. Die grafische Benutzeroberfläche ist ebenfalls vollständig und an die Kommandos angebunden. Das Parsen von Quellcode und das Parsen sowie Interpretieren von simplen Abfragen (ohne Nutzung von Features der Kann-Kriterien) ist möglich.
+	
+	\item \textbf{Interpreter-Teilmenge B}: Implementierung und Testen der Visualisierungs-Klassen des Models.
+	
+	\item \textbf{Kann-Kriterien}: Implementierung und Testen einer Teilmenge der im Pflichtenheft beschriebenen Kann-Kriterien, dazu gehören:
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item Zurückschreiten
+			\item Arithmetik
+			\item Cut
+			\item Ausführung bis zur nächsten Lösung
+			\item Unterstützung einer Standardbibliothek
+			\item Export als TikZ-Code für LaTeX
+			\item Export als Bild-Datei (PNG, SVG)
+			\item Pretty-Printing für Listen
+		\end{itemize}
+	\end{multicols}
+	
+	\item \textbf{Meilenstein: Abschluss dritte Woche}: Die Controller-Komponente ist vollständig getestet. Die Visualisierung bei der Interpretation ist verfügbar und wird korrekt angezeigt. Eine Teilmenge der Kann-Kriterien des Pflichtenhefts wurde erfolgreich implementiert und getestet.
+	
+	\item \textbf{Puffer}: Puffer-Woche für finales Testen und Reparatur von entstandenen Bugs.
+\end{enumerate}
+
+\section{Implementierungsverlauf und Plan-Abweichungen}
+
+\subsection{Abschluss erste Woche}
+Die erste Woche wurde plangemäß erfüllt. Es wurden keine zusätzlichen Implementierungsschritte erledigt.
+
+\begin{itemize}
+	\item \textbf{Setup}\hfill\cmark
+	\item \textbf{Kommando-Teilmenge A}\hfill\cmark
+	\item \textbf{View-Teilmenge A}\hfill\cmark
+	\item \textbf{AST-Teilmenge A}\hfill\cmark
+\end{itemize}
+
+\subsection{Abschluss zweite Woche}
+Die zweite Woche wurde zu großen Teilen plangemäß erfüllt. Aufgrund der unvollständigen Implementierung des Interpreter-Managers war der geplante Implementierungsfortschritt jedoch nicht erreicht.
+
+\begin{itemize}
+	\item \textbf{Kommando-Teilmenge B}\hfill\cmark
+	\item \textbf{View-Teilmenge B}\hfill\cmark
+	\item \textbf{AST-Teilmenge B}\hfill\cmark
+	\item \textbf{Interpreter-Teilmenge A}\hfill\cmark
+	\item Manager-Klassen\hfill\xmark
+		\begin{itemize}
+			\item \textbf{Sprachen-Manager}\hfill\cmark
+			\item Interpreter-Manager\hfill\xmark
+		\end{itemize}
+	\item \textbf{Controller-Tests}\hfill\cmark
+\end{itemize}
+
+\subsection{Abschluss dritte Woche}
+Die dritte Woche wurde zu großen Teilen plangemäß erfüllt. Die Testabdeckung des Controllers durch Unit-Tests wurde in den 70\%-Bereich vorangetrieben.
+
+\begin{itemize}
+	\item \textbf{Interpreter-Manager}\hfill\cmark
+	\item \textbf{Controller-Tests}\hfill\cmark
+	\item \textbf{Interpreter-Teilmenge B}\hfill\xmark
+	\item Kann-Kriterien
+		\begin{itemize}
+			\item Zurückschreiten\hfill\xmark
+			\item Ausführung bis zur nächsten Lösung\hfill\xmark
+			\item \textbf{Cut}\hfill\cmark
+			\item Arithmetik\hfill\xmark
+			\item Standardbibliothek\hfill\xmark
+			\item \textbf{Standardbibliothek aktivieren und deaktivieren}\hfill\cmark
+			\item Export der Visualisierung als LaTeX-Code\hfill\xmark
+			\item \textbf{Export der Visualisierung als Bilddatei}\hfill\cmark
+			\item \enquote{Pretty-Printing} von Listen\hfill\xmark
+			\item \textbf{Formatierung von Quelltext}\hfill\cmark
+			\item \textbf{Wechsel der Sprache zwischen Deutsch und Englisch}\hfill\cmark
+			\item \textbf{Schnellzugriffsleiste}\hfill\cmark
+		\end{itemize}
+\end{itemize}
+
+\newpage
+\subsection{Abschluss vierte Woche}
+Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs und der restlichen Erfüllung von Kann-Kriterien. Diese wurden folgendermaßen abgedeckt:
+
+\begin{itemize}
+	\item \textbf{Zurückschreiten}\hfill\cmark
+	\item \textbf{Ausführung bis zur nächsten Lösung}\hfill\cmark
+	\item \textbf{Arithmetik}\hfill\cmark
+	\item \textbf{Standardbibliothek}\hfill\cmark
+	\item Export der Visualisierung als LaTeX-Code\hfill\xmark
+	\item \textbf{\enquote{Pretty-Printing von Listen}}\hfill\cmark
+\end{itemize}
+
+\subsection{Vergleich der Implementierungsverläufe}
+\hspace*{-1cm}
+\begin{minipage}{0.5\textwidth}
+\begin{ganttchart}[x unit = 1.0cm, y unit chart = 0.7cm]{0}{4}
+	\gantttitle{Implementierungsplan}{5}\\
+	\gantttitlelist{0,..., 4}{1}\\
+	%%%%%%%% Woche 1
+	\ganttbar{Setup}{0}{0}\\
+	\ganttbar{Kommando-Teilmenge A}{1}{1}\\
+	\ganttbar{View-Teilmenge A}{1}{1}\\
+	\ganttbar{AST-Teilmenge A}{1}{1}\\
+	
+	\ganttmilestone{Meilenstein: Abschluss erste Woche}{1}\\
+	%%%%%%%% Woche 2 / 3
+	\ganttbar{Kommando-Teilmenge B}{2}{2}\\
+	\ganttbar{View-Teilmenge B}{2}{2}\\
+	\ganttbar{AST-Teilmenge B}{2}{2}\\
+	\ganttbar{Interpreter-Teilmenge A}{2}{2}\\
+	\ganttbar{Manager-Klassen}{2}{2}\\
+	\ganttbar{Controller-Tests}{2}{2}\\
+	
+	\ganttmilestone{Meilenstein: Abschluss zweite Woche}{2}\\
+	%%%%%%%% Woche 3
+	\ganttbar{Controller-Tests}{3}{3}\\
+	\ganttbar{Interpreter-Teilmenge B}{3}{3}\\
+	\ganttbar{Kann-Kriterien}{3}{3}\\
+	
+	\ganttmilestone{Meilenstein: Abschluss dritte Woche}{3}\ganttnewline
+	%%%%%%%% Woche 4
+	\ganttbar{Puffer}{4}{4}\\
+	%%%%%%%% Links
+	\ganttlink[link mid=0.5]{elem0}{elem1}
+	\ganttlink[link mid=0.25]{elem0}{elem2}
+	\ganttlink[link mid=0.17]{elem0}{elem3}
+	
+	\ganttlink[link mid=0.85]{elem1}{elem4}
+	\ganttlink[link mid=0.78]{elem2}{elem4}
+	\ganttlink[link mid=0.56]{elem3}{elem4}
+	
+	\ganttlink[link bulge=0.6,link mid=0.5]{elem4}{elem5}
+	\ganttlink[link bulge=0.6,link mid=0.25]{elem4}{elem6}
+	\ganttlink[link bulge=0.6,link mid=0.17]{elem4}{elem7}
+	\ganttlink[link bulge=0.6,link mid=0.125]{elem4}{elem8}
+	\ganttlink[link bulge=0.6,link mid=0.1]{elem4}{elem9}
+	\ganttlink[link bulge=0.6,link mid=0.085]{elem4}{elem10}
+	
+	\ganttlink[link bulge=0.6, link mid=0.92]{elem5}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.9]{elem6}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.88]{elem7}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.84]{elem8}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.75]{elem9}{elem11}
+	\ganttlink[link bulge=0.6, link mid=0.51]{elem10}{elem11}
+	
+	\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
+	\ganttlink[link bulge=0.6, link mid=0.27]{elem11}{elem13}
+	\ganttlink[link bulge=0.6, link mid=0.18]{elem11}{elem14}
+	
+	\ganttlink[link bulge=0.6, link mid=0.83]{elem12}{elem15}
+	\ganttlink[link bulge=0.6, link mid=0.75]{elem13}{elem15}
+	\ganttlink[link bulge=0.6, link mid=0.5]{elem14}{elem15}
+	
+	\ganttlink[link bulge=0.2, link mid=0.5]{elem15}{elem16}
+\end{ganttchart}
+\end{minipage}%
+\hspace*{5cm}
+\begin{minipage}{0.5\textwidth}
+	\begin{ganttchart}[x unit = 1.0cm, y unit chart = 0.7cm]{0}{4}
+		\gantttitle{Tatsächlicher Verlauf}{5}\\
+		\gantttitlelist{0,..., 4}{1}\\
+		%%%%%%%% Woche 1
+		\ganttbar{}{0}{0}\\
+		\ganttbar{}{1}{1}\\
+		\ganttbar{}{1}{1}\\
+		\ganttbar{}{1}{1}\\
+		
+		\ganttmilestone{}{1}\\
+		%%%%%%%% Woche 2 / 3
+		\ganttbar{}{2}{2}\\
+		\ganttbar{}{2}{2}\\
+		\ganttbar{}{2}{2}\\
+		\ganttbar{}{2}{2}\\
+		\ganttbar{}{2}{3}\\
+		\ganttbar{}{2}{2}\\
+		
+		\ganttmilestone{}{2}\\
+		%%%%%%%% Woche 3
+		\ganttbar{}{3}{3}\\
+		\ganttbar{}{3}{3}\\
+		\ganttbar{}{3}{3}\\
+		
+		\ganttmilestone{}{3}\ganttnewline
+		%%%%%%%% Woche 4
+		\ganttbar{}{4}{4}\\
+		%%%%%%%% Links
+		\ganttlink[link mid=0.5]{elem0}{elem1}
+		\ganttlink[link mid=0.25]{elem0}{elem2}
+		\ganttlink[link mid=0.17]{elem0}{elem3}
+		
+		\ganttlink[link mid=0.85]{elem1}{elem4}
+		\ganttlink[link mid=0.78]{elem2}{elem4}
+		\ganttlink[link mid=0.56]{elem3}{elem4}
+		
+		\ganttlink[link bulge=0.6,link mid=0.5]{elem4}{elem5}
+		\ganttlink[link bulge=0.6,link mid=0.25]{elem4}{elem6}
+		\ganttlink[link bulge=0.6,link mid=0.17]{elem4}{elem7}
+		\ganttlink[link bulge=0.6,link mid=0.125]{elem4}{elem8}
+		\ganttlink[link bulge=0.6,link mid=0.1]{elem4}{elem9}
+		\ganttlink[link bulge=0.6,link mid=0.085]{elem4}{elem10}
+		
+		\ganttlink[link bulge=1.4, link mid=0.92]{elem5}{elem11}
+		\ganttlink[link bulge=1.4, link mid=0.9]{elem6}{elem11}
+		\ganttlink[link bulge=1.4, link mid=0.88]{elem7}{elem11}
+		\ganttlink[link bulge=1.4, link mid=0.84]{elem8}{elem11}
+		\ganttlink[link bulge=0.6, link mid=0.85]{elem9}{elem11}
+		\ganttlink[link bulge=1.4, link mid=0.51]{elem10}{elem11}
+		
+		\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
+		\ganttlink[link bulge=0.6, link mid=0.27]{elem11}{elem13}
+		\ganttlink[link bulge=0.6, link mid=0.18]{elem11}{elem14}
+
+		\ganttlink[link bulge=0.6, link mid=0.92]{elem9}{elem15}		
+		\ganttlink[link bulge=0.6, link mid=0.83]{elem12}{elem15}
+		\ganttlink[link bulge=0.6, link mid=0.75]{elem13}{elem15}
+		\ganttlink[link bulge=0.6, link mid=0.5]{elem14}{elem15}
+		
+		\ganttlink[link bulge=0.2, link mid=0.5]{elem15}{elem16}
+	\end{ganttchart}
+\end{minipage}
+
+\section{Änderungen zum Entwurf und Pflichtenheft}
+
+\subsection{Paket: Model}
+TODO
+
+\subsection{Paket: View}
+
+\textbf{Neue Klassen:}\\
+\begin{itemize}
+	\item \textbf{Menu}:\\
+	Unterklasse von JMenu. Diese eigene Implementierung des Menü-Elements ist vereinbar mit dem Observer-Pattern welches für den Sprachwechsel genutzt wird.
+	\item \textbf{ToolBarButton}:\\
+	Unterklasse von JButton. Diese Klasse ist spezifisch für die Toolbar und nutzt im Gegensatz zur bisher verfügbaren Button-Klasse automatisch ein Icon.
+	\item \textbf{CheckBoxMenuItem}:\\
+	Unterklasse von JCheckBoxMenuItem. Diese wird für Menü-Elemente genutzt, welche sich umschalten lassen (Aktivieren und Deaktivieren der Standardbibliothek).
+	\item \textbf{LanguageKey}:\\
+	Sammelklasse für valide Sprachschlüssel. Diese werden nun als zentrale Enumeration verwaltet, um das Übergeben invalider Sprachschlüssel an den Sprachen-Manager zu verhindern.
+	\item \textbf{ColorScheme}:\\
+	Sammelklasse für valide Farbwerte. Diese werden nun als zentrale Enumeration verwaltet, um die Farbwahl zu vereinheitlichen.
+	\item \textbf{LogType}:\\
+	Sammelklasse für Ausgabetypen im Ausgabebereich der Konsole. Diese werden als zentrale Enumeration verwaltet, um die Wahl über die farbliche Darstellung der Ausgabe der Konsole zu überlassen.
+	\item \textbf{ClickableState} und \textbf{HasClickable}:\\
+	Alle Elemente der grafischen Oberfläche, welche Schaltflächen besitzen, implementieren fortan das Interface \texttt{HasClickable}. Dieses verlangt die Implementierung einer Funktion zum Wechsel des \texttt{ClickableState}. Letzterer ist eine Enumeration aller möglichen Zustände die Einfluss auf die Aktivierung der Schaltflächen nehmen. Sollte dieser Zustand sich ändern werden automatisch alle betroffenen Klassen aufgerufen und die Schaltflächen einzeln aktiviert oder deaktiviert. Dies ermöglicht bspw. die Deaktivierung der Schaltfläche für den nächsten Schritt einer Interpretation bevor eine Abfrage gestellt wurde. Diese Schaltfläche wird nach dem erfolgreichen Stellen einer Abfrage dann automatisch aktiviert.
+\end{itemize}
+
+\textbf{Änderungen an bestehenden Klassen:}\\
+TODO
+
+\subsection{Paket: Controller}
+\textbf{Neue Klassen:}\\
+\begin{itemize}
+	\item \textbf{CommandExit}:\\
+	Schließt das Programm und fragt bei ungesicherten Änderungen, ob diese gespeichert werden sollen. Dieses Kommando wurde für bessere Konsistenz sowie das Menü-Element \enquote{Schließen} hinzugefügt.
+	\item \textbf{CommandParseQuery}:\\
+	Verarbeitet eine gestellte Abfrage durch den Parser und schaltet bei Erfolg die Interpretation frei. Dies ist zu trennen von CommandParse, welches sich nun auf den Quellcode im Editor beschränkt. Besagte Trennung vereinfacht das Parsen-Kommando, welches nun keine interne Fallunterscheidung mehr durchführen muss.
+	\item \textbf{FileFilters}:\\
+	Sammelklasse für oft genutzte, konstante, statische Dateifilter, welche in Kommandos mit Dateidialogen genutzt werden.
+	\item \textbf{FileUtilities}:\\
+	Sammelklasse für oft genutzte statische Dateioperationen, welche in Kommandos mit Dateidialogen genutzt werden. Dies umfasst das Anfügen einer Dateiendung, falls nötig.
+	\item \textbf{LanguageKey}:\\
+	Enumeration aller möglichen Schlüsselwerte, über die eine Übersetzung durch den LanguageManager angefordert werden kann. Dies verhindert die Übergabe von nicht definierten Schlüsselwerten.
+	\item \textbf{PreferencesManager}:\\
+	Manager-Klasse für das Speichern und Laden von Produktdaten.
+\end{itemize}
+
+\textbf{Änderungen an bestehenden Klassen:}\\
+Aufgrund von Schnittstellen-Anpassungen haben sich die Konstruktoren in diversen Kommandos des Controllers verändert. Die meist vertretenen Anpassungen umfassen hierbei die Übergabe von Consumer-Funktionen, über die einzelne isolierte Funktionen des Hauptfensters ausgeführt werden können. Zusätzlich wird der InterpreterManager (\textbf{IM}) nun häufiger übergeben, da einige Commands den \enquote{Nächste Lösung}-Thread beenden und auf dessen tatsächliche Terminierung warten müssen. Die Funktionen des Hauptfensters werden im folgenden abgekürzt als:
+
+\begin{itemize}
+	\item \textbf{CT}: Consumer-Funktion für das Ändern des Fenstertitels
+	\item \textbf{CS}: Consumer-Funktion für das Ändern des internen Clickable-Zustands
+\end{itemize}
+
+Die Anpassung der Konstruktoren ist wie folgt:
+\begin{itemize}
+	\item \textbf{CommandNew}\\\hspace*{1cm}erhält zusätzlich: CT, CS, IM\hfill \texttt{+}
+	\item \textbf{CommandOpen}\\\hspace*{1cm}erhält zusätzlich: CT, CS, IM, ein Speichern-Kommando\hfill\texttt{+}
+	\item \textbf{CommandSave}\\\hspace*{1cm}erhält zusätzlich: CT, IM\hfill\texttt{+}
+	\item \textbf{CommandParse}\\\hspace*{1cm}erhält zusätzlich: CS\hfill\texttt{+}
+	\item \textbf{CommandNextStep}\\\hspace*{1cm}erhält zusätzlich: CS\hfill\texttt{+}
+	\item \textbf{CommandPreviousStep}\\\hspace*{1cm}erhält nicht mehr: ConsolePanel\hfill\texttt{-}
+	\item \textbf{CommandContinue}\\\hspace*{1cm}heißt nun CommandNextSolution,
+								  \\\hspace*{1cm}erhält nicht mehr: boolean running\hfill\texttt{-}
+	\item \textbf{CommandCancel}\\\hspace*{1cm}erhält nicht mehr: boolean running,\hfill\texttt{-}
+								\\\hspace*{1cm}erhält zusätzlich: VisualisationPanel\hfill\texttt{+}
+	\item \textbf{CommandToggleLib}\\\hspace*{1cm}erhält zusätzlich: CS, PreferencesManager\hfill\texttt{+}
+	\item \textbf{CommandSetLang}\\\hspace*{1cm}erhält zusätzlich: PreferencesManager\hfill\texttt{+}
+	\item \textbf{CommandExportImage}\\\hspace*{1cm}erhält nicht mehr: VisualisationPanel\hfill\texttt{-}
+	\item \textbf{CommandExportTikZ}\\\hspace*{1cm}erhält nicht mehr: VisualisationPanel\hfill\texttt{-}
+\end{itemize}
+
+Zusatz: Die öffentlichen execute()-Methoden der Kommandos teilen die Ausführungsschritte in intern definierte Funktionen zur Vereinfachung des Programmcodes. Diese sind ausschließlich zu Testzwecken als \texttt{public} deklariert und werden dementsprechend nicht zusätzlich dokumentiert.
+
+\section{Unit-Tests}
+
+\subsection{Übersicht}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Paket:			& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		Gesamt:			& 84 	& 79 & 0 & 5\\
+		\hline
+		Controller: 	& 21	& 19 & 0 & 2\\
+		View:			& 0		& 0 & 0 & 0\\
+		Parser:			& 2		& 2 & 0 & 0\\
+		AST:			& 37	& 34 & 0 & 3\\
+		Interpreter:	& 23	& 23 & 0 & 0\\
+		Visualisation:	& 1		& 1 & 0 & 0\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: Controller}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:			& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		CommandExportImageTest 	& 2 & 0 & 0 & 2\\
+		CommandFormatTest		& 1 & 1 & 0 & 0\\
+		CommandNewTest			& 1 & 1 & 0 & 0\\
+		CommandOpenTest			& 3 & 3 & 0 & 0\\
+		CommandParseTest		& 3 & 3 & 0 & 0\\
+		CommandSaveTest			& 4 & 4 & 0 & 0\\
+		CommandSetLangTest		& 1 & 1 & 0 & 0\\
+		CommandToggleLibTest	& 1 & 1 & 0 & 0\\
+		FileFiltersTest			& 4 & 4 & 0 & 0\\
+		FileUtilitiesTest		& 1 & 1 & 0 & 0\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: View}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:		& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: Parser}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:		& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		ParserTest 	& 2 & 2 & 0 & 0\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: AST}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:						& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		AdditionOperationTest 		& 2 & 2 & 0 & 0\\		
+		BinaryOperationTest 		& 5 & 4 & 0 & 1\\
+		FunctorGoalTest 			& 2 & 2 & 0 & 0\\
+		FunctorTest 				& 9 & 8 & 0 & 1\\		
+		MultiplicationOperationTest & 2 & 2 & 0 & 0\\
+		NumberTest 					& 5 & 5 & 0 & 0\\
+		RuleTest 					& 3 & 3 & 0 & 0\\		
+		SubtractionOperationTest 	& 2 & 2 & 0 & 0\\
+		TermTest 					& 1 & 1 & 0 & 0\\
+		VariableTest 				& 6 & 5 & 0 & 1\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: Interpreter}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:						& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		IndexifierTest 			& 3 & 3 & 0 & 0\\		
+		InterpreterTest 		& 1 & 1 & 0 & 0\\
+		SubstitutionTest 		& 3 & 3 & 0 & 0\\
+		UnificationResultTest 	& 7 & 7 & 0 & 0\\		
+		UnificationTest 		& 8 & 8 & 0 & 0\\
+		VariableExtractorTest 	& 1 & 1 & 0 & 0\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\subsubsection{Unit-Tests: Visualisation}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Klasse:				& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
+		\hline
+		GraphvizMakerTest 	& 1 & 1 & 0 & 0\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+\newpage
+\subsection{Code-Abdeckung}
+\begin{figure}[!h]
+\centering
+\hspace*{-1cm}
+\begin{tikzpicture}[scale=1.2]
+	\begin{axis}[
+		xbar, 
+		y=-0.5cm,
+		bar width=0.3cm,
+		xmin = 0,
+		xmax = 100,
+		enlarge y limits={abs=0.45cm},
+		xlabel={Gesamtabdeckung in Prozent},
+		symbolic y coords={
+			Instruktions-Abdeckung,
+			Branch-Abdeckung
+		},
+		ytick=data,
+		nodes near coords, nodes near coords align={horizontal},
+		]
+		\addplot table[col sep=comma,header=false] {
+			77, Instruktions-Abdeckung
+			60, Branch-Abdeckung
+		};
+	\end{axis}
+\end{tikzpicture}\\\vspace*{1cm}\hspace*{1cm}
+\begin{tikzpicture}[scale=1.2]
+	\begin{axis}[
+		xbar, 
+		y=-0.5cm,
+		bar width=0.3cm,
+		xmin = 0,
+		enlarge y limits={abs=0.45cm},
+		xlabel={Abgedeckte Instruktionen in Prozent},
+		symbolic y coords={
+			Controller,
+			View,
+			Parser,
+			AST,
+			Interpreter,
+			Visualisation
+	    },
+		ytick=data,
+		nodes near coords, nodes near coords align={horizontal},
+		]
+		\addplot table[col sep=comma,header=false] {
+			65, Controller
+			77, View
+			70, Parser
+			92, AST
+			95, Interpreter
+			98, Visualisation
+		};
+	\end{axis}
+\end{tikzpicture}\\\vspace*{1cm}\hspace{1cm}
+\begin{tikzpicture}[scale=1.2]
+	\begin{axis}[
+		xbar, 
+		y=-0.5cm,
+		bar width=0.3cm,
+		xmin = 0,
+		enlarge y limits={abs=0.45cm},
+		xlabel={Abgedeckte Branches in Prozent},
+		symbolic y coords={
+			Controller,
+			View,
+			Parser,
+			AST,
+			Interpreter,
+			Visualisation,
+		},
+		ytick=data,
+		nodes near coords, nodes near coords align={horizontal},
+		]
+		\addplot table[col sep=comma,header=false] {
+			33, Controller
+			24, View
+			59, Parser
+			75, AST
+			92, Interpreter
+			83, Visualisation
+		};
+		\end{axis}
+	\end{tikzpicture}
+\end{figure}
+
+
+\section{Statistiken}
+
+% Commits, LoC, JavaDoc, ...
+\subsection{Commits}
+\begin{figure}[!h]
+	\centering
+	%% Merge-Commits sind abgezählt, Rest via git rev-list <HASH> --count
+	Zahl der Commits nach Abschluss der Entwurfsphase (25. Juni 2018): 344\\\vspace*{0.3cm}
+	\begin{tabular}{l | c | c | c | c}
+		\hline
+		Datum des Abrufs:	& 2. Juli 2018 & 9. Juli 2018 & 16. Juli 2018 & 23. Juli 2018\\
+		\hline
+		Commit-Zahl insgesamt:		& 408 & 538 & TODO & TODO \\
+		Differenz zur vorigen Woche:	& 64 & 130 & TODO & TODO \\
+		Differenz zum Phasenbeginn: & 64 & 194 & TODO & TODO \\
+		Merge-Commits in Woche: & 10 & 14 & 16 & TODO \\
+		\hline
+	\end{tabular}
+\end{figure}
+\vspace*{1cm}
+\begin{minipage}{0.5\textwidth}
+		\centering
+		Commits pro Woche:\\
+		\begin{tikzpicture}[scale=0.9]
+		\begin{axis}[
+		symbolic x coords = {1. Woche, 2. Woche, 3. Woche, 4. Woche}, xtick = data]
+		
+		\addplot[ybar, fill = blue] coordinates {
+			(1. Woche, 64)
+			(2. Woche, 194)
+			(3. Woche, 0)
+			(4. Woche, 0)
+		};
+		\end{axis}
+		\end{tikzpicture}
+\end{minipage}\hspace*{0.7cm}
+\begin{minipage}{0.5\textwidth}
+		\centering
+		Merge-Commits pro Woche:\\
+		\begin{tikzpicture}[scale=0.9]
+		\begin{axis}[
+		symbolic x coords = {1. Woche, 2. Woche, 3. Woche, 4. Woche}, xtick = data]
+		
+		\addplot[ybar, fill = blue] coordinates {
+			(1. Woche, 10)
+			(2. Woche, 14)
+			(3. Woche, 16)
+			(4. Woche, 0)
+		};
+		\end{axis}
+		\end{tikzpicture}
+\end{minipage}
+
+\subsection{Codebase}
+\begin{figure}[!h]
+	\centering
+	\begin{tabular}{c | c | c | c | c}
+		\hline
+		%%% Berechnet via CLOC
+		Sprache & Dateien & Leerzeilen & Kommentare & Code\\
+		\hline
+		Java & 123 & 1327 & 3139 & 4761\\
+		\hline
+	\end{tabular}
+\end{figure}
+
+
+\end{document}
