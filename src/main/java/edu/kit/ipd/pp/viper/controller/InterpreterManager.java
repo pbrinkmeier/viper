@@ -21,6 +21,11 @@ import guru.nidi.graphviz.model.Graph;
 
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -34,13 +39,16 @@ import static java.util.stream.Collectors.joining;
  * be one instance which can be accessed by reference passed as a parameter.
  */
 public class InterpreterManager {
+    private static final String STANDARD_LIBRARY_PATH = "/stdlib.pl";
+
     private Optional<KnowledgeBase> knowledgeBase;
     private Optional<Goal> query;
     private Optional<Interpreter> interpreter;
     private List<Graph> visualisations;
     private int current;
     private Optional<List<Variable>> variables;
-    private boolean useStandardLibrary = false;
+    private boolean useStandardLibrary = true;
+    private String standardLibrary;
     private boolean running = false;
     private StepResult result;
     private Consumer<ClickableState> toggleStateFunc;
@@ -72,13 +80,46 @@ public class InterpreterManager {
     }
 
     /**
+     * Loads the standard library from a file into a String.
+     */
+    private void loadStandardLibrary() {
+        StringBuffer buf = new StringBuffer();
+
+        try {
+            InputStream in = this.getClass().getResource(STANDARD_LIBRARY_PATH).openStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+            String str = "";
+            while ((str = reader.readLine()) != null)
+                buf.append(str);
+
+            in.close();
+            reader.close();
+        } catch (IOException e) {
+            // should never happen, this means the standard library code was moved from its original position
+        }
+
+        this.standardLibrary = buf.toString();
+    }
+
+    /**
      * Parses a knowledgebase and remembers it.
      *
      * @param kbSource source code to parse
      * @throws ParseException if the source code is malformed
      */
     public void parseKnowledgeBase(String kbSource) throws ParseException {
-        this.knowledgeBase = Optional.of(new PrologParser(kbSource).parse());
+        String source = "";
+
+        if (this.useStandardLibrary) {
+            if (this.standardLibrary == null)
+                this.loadStandardLibrary();
+
+            source += this.standardLibrary + "\n";
+        }
+
+        source += kbSource;
+        this.knowledgeBase = Optional.of(new PrologParser(source).parse());
     }
 
     /**
