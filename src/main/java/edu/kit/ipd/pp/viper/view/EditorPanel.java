@@ -162,9 +162,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @param reference File reference
      */
     public void setFileReference(File reference) {
-        if (reference == null)
+        if (reference == null) {
+            this.reference = null;
             return;
-        
+        }
+
         this.reference = reference;
 
         if (!this.referenceList.contains(reference)) {
