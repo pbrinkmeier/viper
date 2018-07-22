@@ -175,7 +175,7 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 \newpage
 Der Implementierungsstil teilt sich in wöchentliche Aufgabenbereiche ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich und bei dringendem Bedarf statt. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel sondern im Nachhinein entwickelt.
 
-Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0. entspricht hierbei dem Vorgehen am ersten Tag der ersten Woche. Die zugehörigen Aufgaben setzen sich wie folgt zusammen:
+Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0 entspricht hierbei dem Vorgehen am ersten Tag der ersten Woche. Die zugehörigen Aufgaben setzen sich wie folgt zusammen:
 \begin{enumerate}
 	\item \textbf{Setup}: Generierung des Code-Gerüsts aus dem UML-Klassendiagramm des Entwurfs, Aufsetzen des Build-Systems (Gradle) sowie des Code-Stil-Prüfers (Checkstyle). Dieser Punkt baut eine gemeinsame Grundlage auf, von der aus die einzelnen Aufgabenbereiche in separaten Branches weiterarbeiten können.
 	
@@ -454,7 +454,7 @@ Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs und
 \textbf{Neue Klassen:}\\
 \begin{itemize}
 	\item \textbf{CommandExit}:\\
-	Schließt das Programm und fragt bei ungesicherten Änderungen, ob diese gespeichert werden sollen. Dieses Kommando wurde für bessere Konsistenz sowie das Menü-Element "Schließen" hinzugefügt.
+	Schließt das Programm und fragt bei ungesicherten Änderungen, ob diese gespeichert werden sollen. Dieses Kommando wurde für bessere Konsistenz sowie das Menü-Element \enquote{Schließen} hinzugefügt.
 	\item \textbf{CommandParseQuery}:\\
 	Verarbeitet eine gestellte Abfrage durch den Parser und schaltet bei Erfolg die Interpretation frei. Dies ist zu trennen von CommandParse, welches sich nun auf den Quellcode im Editor beschränkt. Besagte Trennung vereinfacht das Parsen-Kommando, welches nun keine interne Fallunterscheidung mehr durchführen muss.
 	\item \textbf{FileFilters}:\\
@@ -468,18 +468,19 @@ Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs und
 \end{itemize}
 
 \textbf{Geänderte Konstruktoren:}\\
-Aufgrund von Schnittstellen-Anpassungen haben sich die Konstruktoren in diversen Kommandos des Controllers verändert. Die meist vertretenen Anpassungen umfassen hierbei die Übergabe von Consumer-Funktionen, über die einzelne isolierte Funktionen des Hauptfensters ausgeführt werden können. Diese Funktionsparameter werden im folgenden abgekürzt als:
+Aufgrund von Schnittstellen-Anpassungen haben sich die Konstruktoren in diversen Kommandos des Controllers verändert. Die meist vertretenen Anpassungen umfassen hierbei die Übergabe von Consumer-Funktionen, über die einzelne isolierte Funktionen des Hauptfensters ausgeführt werden können. Zusätzlich wird der InterpreterManager nun häufiger übergeben, da einige Commands den \enquote{Nächste Lösung}-Thread beenden und auf dessen tatsächliche Terminierung warten müssen. Diese Funktionsparameter werden im folgenden abgekürzt als:
 
 \begin{itemize}
 	\item \textbf{CT}: Consumer-Funktion für das Ändern des Fenstertitels
 	\item \textbf{CS}: Consumer-Funktion für das Ändern des internen Clickable-Zustands
+	\item \textbf{IM}: Der InterpreterManager
 \end{itemize}
 
 Die Anpassung der Konstruktoren ist wie folgt:
 \begin{itemize}
-	\item \textbf{CommandNew}\\\hspace*{1cm}erhält zusätzlich: CT, CS\hfill \texttt{+}
-	\item \textbf{CommandOpen}\\\hspace*{1cm}erhält zusätzlich: CT, CS, ein Speichern-Kommando\hfill\texttt{+}
-	\item \textbf{CommandSave}\\\hspace*{1cm}erhält zusätzlich: CT\hfill\texttt{+}
+	\item \textbf{CommandNew}\\\hspace*{1cm}erhält zusätzlich: CT, CS, IM\hfill \texttt{+}
+	\item \textbf{CommandOpen}\\\hspace*{1cm}erhält zusätzlich: CT, CS, IM, ein Speichern-Kommando\hfill\texttt{+}
+	\item \textbf{CommandSave}\\\hspace*{1cm}erhält zusätzlich: CT, IM\hfill\texttt{+}
 	\item \textbf{CommandParse}\\\hspace*{1cm}erhält zusätzlich: CS\hfill\texttt{+}
 	\item \textbf{CommandNextStep}\\\hspace*{1cm}erhält zusätzlich: CS\hfill\texttt{+}
 	\item \textbf{CommandPreviousStep}\\\hspace*{1cm}erhält nicht mehr: ConsolePanel\hfill\texttt{-}
