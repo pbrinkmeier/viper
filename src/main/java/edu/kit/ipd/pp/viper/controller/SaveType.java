@@ -6,8 +6,13 @@ package edu.kit.ipd.pp.viper.controller;
  * (e.g. after opening it), and saving as a new file.
  */
 public enum SaveType {
-    /** Save using the reference to a previously saved/opened file */
+    /**
+     * Save using the reference to a previously saved/opened file
+     */
     SAVE,
-    /** Save as new file */
+
+    /**
+     * Save as new file
+     */
     SAVE_AS
 }

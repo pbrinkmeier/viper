@@ -18,7 +18,6 @@ import java.util.Optional;
 public class ComparisonActivationRecord extends ActivationRecord {
     private final ComparisonGoal goal;
     private Optional<String> errorMessage;
-    private boolean fulfilled;
 
     /**
      * Initializes a comparison AR with an interpreter a parent, and a comparison goal.

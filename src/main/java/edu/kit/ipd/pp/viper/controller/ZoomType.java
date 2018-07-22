@@ -5,8 +5,13 @@ package edu.kit.ipd.pp.viper.controller;
  * and zooming out.
  */
 public enum ZoomType {
-    /** Zoom into the visualisation */
+    /**
+     * Zoom into the visualisation
+     */
     ZOOM_IN,
-    /** Zoom out of the visualisation */
+
+    /**
+     * Zoom out of the visualisation
+     */
     ZOOM_OUT
 }

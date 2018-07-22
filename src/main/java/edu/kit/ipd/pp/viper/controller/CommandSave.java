@@ -73,11 +73,14 @@ public class CommandSave extends Command {
      * @param file the file to be written
      * @throws IOException when the writing fails
      */
-    public void writeFile(File file) throws IOException {
-        FileOutputStream out = new FileOutputStream(file);
-        out.write(this.editor.getSourceText().getBytes());
-        out.flush();
-        out.close();
+    public void writeFile(File file) {
+        try (FileOutputStream out = new FileOutputStream(file);) {
+            out.write(this.editor.getSourceText().getBytes());
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            printSaveError(e, file.getAbsolutePath());
+        }
         this.editor.setHasChanged(false);
         this.editor.setFileReference(file);
         this.setTitle.accept(file.getAbsolutePath());
@@ -88,11 +91,7 @@ public class CommandSave extends Command {
 
     private void save() {
         File file = this.editor.getFileReference();
-        try {
-            writeFile(file);
-        } catch (IOException e) {
-            printSaveError(e, file.getAbsolutePath());
-        }
+        writeFile(file);
     }
 
     private void saveAs() {
@@ -102,11 +101,7 @@ public class CommandSave extends Command {
 
         if (rv == JFileChooser.APPROVE_OPTION) {
             File file = FileUtilities.checkForMissingExtension(chooser.getSelectedFile(), ".pl");
-            try {
-                writeFile(file);
-            } catch (IOException e) {
-                printSaveError(e, file.getAbsolutePath());
-            }
+            writeFile(file);
         }
     }
 }

@@ -27,6 +27,9 @@ import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 import edu.kit.ipd.pp.viper.controller.SaveType;
 
+/**
+ * Represents the main window containing all the panel elements.
+ */
 public class MainWindow extends JFrame {
     /**
      * VIPER version number

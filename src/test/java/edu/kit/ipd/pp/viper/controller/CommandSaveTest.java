@@ -105,11 +105,7 @@ public class CommandSaveTest {
     public void testWrite() {
         File testFile = new File("testfile.pl");
         this.console.clearAll();
-        try {
-            this.commandSave.writeFile(testFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.commandSave.writeFile(testFile);
 
         final String expected = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_SUCCESS) + ": "
                 + testFile.getAbsolutePath();

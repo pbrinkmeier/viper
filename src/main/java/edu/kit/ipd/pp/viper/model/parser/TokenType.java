@@ -4,53 +4,124 @@ package edu.kit.ipd.pp.viper.model.parser;
  * Enumeration of all possible types of token a prolog program can contain
  */
 public enum TokenType {
-    /** The separator of a rule head and it's goals */
+    /**
+     * The separator of a rule head and it's goals
+     */
     COLON_MINUS(":-"),
-    /** An equals sign (=) */
+
+    /**
+     * An equals sign (=) 
+     */
     EQ("="),
-    /** A less than sign (&lt;) */
+
+    /**
+     * A less than sign (&lt;)
+     */
     LESS("<"),
-    /** A less than and equal sign (=&lt;) */
+
+    /**
+     * A less than and equal sign (=&lt;)
+     */
     EQ_LESS("=<"),
-    /** A greater than sign (&gt;) */
+
+    /**
+     * A greater than sign (&gt;)
+     */
     GREATER(">"),
-    /** A greater than and equal sign (&gt;=) */
+
+    /**
+     * A greater than and equal sign (&gt;=)
+     */
     GREATER_EQ(">="),
-    /** Arithmetic equality (=:=) */
+
+    /**
+     * Arithmetic equality (=:=)
+     */
     EQ_COLON_EQ("=:="),
-    /** Not equal (=\=) */
+
+    /**
+     * Not equal (=\=)
+     */
     EQ_BS_EQ("=\\="),
-    /** End of File */
+
+    /** 
+     * End of File
+     */
     EOF("End of File"),
-    /** End of rule */
+
+    /**
+     * End of rule 
+     */
     DOT("."),
-    /** Separates two goals of a rule */
+
+    /**
+     * Separates two goals of a rule
+     */
     COMMA(","),
-    /** Left parentheses */
+
+    /**
+     * Left parentheses
+     */
     LP("("),
-    /** Right parentheses */
+
+    /**
+     * Right parentheses
+     */
     RP(")"),
-    /** Left bracket */
+
+    /**
+     * Left bracket
+     */
     LB("["),
-    /** Right bracket */
+
+    /**
+     * Right bracket
+     */
     RB("]"),
-    /** Pipe sign, that separates list entries (|) */
+
+    /**
+     * Pipe sign, that separates list entries (|)
+     */
     BAR("|"),
-    /** Plus sign */
+
+    /**
+     * Plus sign
+     */
     PLUS("+"),
-    /** Minus sign */
+
+    /**
+     * Minus sign
+     */
     MINUS("-"),
-    /** Star sign (*) */
+
+    /**
+     * Star sign (*)
+     */
     STAR("*"),
-    /** Exclamation mark */
+
+    /**
+     * Exclamation mark
+     */
     EXCLAMATION("!"),
-    /** Arithmetically evaluates the right side and unifies it with the left side */
+
+    /**
+     * Arithmetically evaluates the right side and unifies it with the left side
+     */
     IS("is"),
-    /** A variable (can be anything that starts with an upper case letter) */
+
+    /**
+     * A variable (can be anything that starts with an upper case letter)
+     */
     VARIABLE("Variable"),
-    /** An identifier (can be anything that starts with a lower case letter) */
+
+    /**
+     * An identifier (can be anything that starts with a lower case letter)
+     */
     IDENTIFIER("Identifier"),
-    /** A regular number */
+
+    /**
+     * A regular number
+     */
     NUMBER("Number");
 
     private String value;
