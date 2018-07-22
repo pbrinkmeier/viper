@@ -46,9 +46,7 @@ public class CommandNew extends Command {
         this.interpreterManager = manager;
     }
 
-    /**
-     * Executes the command.
-     */
+    @Override
     public void execute() {
         this.interpreterManager.cancel();
         if (this.editor.hasChanged()) {

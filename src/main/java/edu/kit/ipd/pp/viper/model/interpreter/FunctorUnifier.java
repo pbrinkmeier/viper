@@ -34,6 +34,7 @@ public class FunctorUnifier extends Unifier {
      * @param functor functor to unify with
      * @return an UnificationResult according to the rules stated above
      */
+    @Override
     public UnificationResult visit(Functor functor) {
         Functor me = this.getTerm();
 

@@ -26,9 +26,7 @@ public class CommandFormat extends Command {
         this.editor = editor;
     }
 
-    /**
-     * Executes the command.
-     */
+    @Override
     public void execute() {
         final String source = this.editor.getSourceText();
 

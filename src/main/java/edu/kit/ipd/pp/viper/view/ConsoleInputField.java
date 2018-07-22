@@ -184,6 +184,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      * 
      * @param e The issued event
      */
+    @Override
     public void keyTyped(KeyEvent e) {
     }
 
@@ -192,6 +193,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      * 
      * @param e The issued event
      */
+    @Override
     public void keyReleased(KeyEvent e) {
     }
 }

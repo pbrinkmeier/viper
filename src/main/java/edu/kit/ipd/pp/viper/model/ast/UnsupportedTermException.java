@@ -30,6 +30,7 @@ public class UnsupportedTermException extends TermEvaluationException {
      *
      * @return error message in the currently selected language
      */
+    @Override
     public String getMessage() {
         return String.format(
             LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_UNSUPPORTED_TERM),

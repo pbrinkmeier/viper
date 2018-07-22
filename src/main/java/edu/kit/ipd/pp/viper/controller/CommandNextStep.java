@@ -39,9 +39,7 @@ public class CommandNextStep extends Command {
         this.toggleStateFunc = toggleStateFunc;
     }
 
-    /**
-     * Executes the command.
-     */
+    @Override
     public void execute() {
         this.interpreterManager.cancel();
 

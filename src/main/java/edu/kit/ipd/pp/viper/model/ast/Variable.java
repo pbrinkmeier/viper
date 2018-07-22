@@ -57,6 +57,7 @@ public final class Variable extends Term {
      *         that it hasnt been set)
      * @throws UnsetVariableException whenever this method is called
      */
+    @Override
     public Number evaluate() throws UnsetVariableException {
         throw new UnsetVariableException(this);
     }
@@ -64,6 +65,7 @@ public final class Variable extends Term {
     /**
      * @return a string representation of this variable
      */
+    @Override
     public String toString() {
         return this.getName() + (this.getIndex().isPresent() ? String.format("_%d", this.getIndex().get()) : "");
     }
@@ -71,6 +73,7 @@ public final class Variable extends Term {
     /**
      * @return a GraphViz-compatible HTML representation of this variable
      */
+    @Override
     public String toHtml() {
         /*
          * return this.getName() + (this.getIndex().isPresent() ?

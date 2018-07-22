@@ -48,6 +48,7 @@ public class Rule {
      *
      * @return string representation of this rule
      */
+    @Override
     public String toString() {
         String repr = this.getHead().toString();
         List<Goal> subgoals = this.getSubgoals();

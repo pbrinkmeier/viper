@@ -20,6 +20,7 @@ public class SubtractionOperation extends BinaryOperation {
      * @param b right hand side
      * @return the result of the expression a - b
      */
+    @Override
     protected int calculate(int a, int b) {
         return a - b;
     }
@@ -32,6 +33,7 @@ public class SubtractionOperation extends BinaryOperation {
      *            to have exactly two elements)
      * @return new SubtractionOperation object
      */
+    @Override
     public BinaryOperation createNew(List<Term> parameters) {
         return new SubtractionOperation(parameters.get(0), parameters.get(1));
     }

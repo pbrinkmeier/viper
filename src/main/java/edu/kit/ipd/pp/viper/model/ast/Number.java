@@ -37,6 +37,7 @@ public final class Number extends Term {
     /**
      * @return just this number
      */
+    @Override
     public Number evaluate() {
         return this;
     }
@@ -44,6 +45,7 @@ public final class Number extends Term {
     /**
      * @return a string representation of this number
      */
+    @Override
     public String toString() {
         return String.format("%d", this.getNumber());
     }
@@ -51,6 +53,7 @@ public final class Number extends Term {
     /**
      * @return a GraphViz-compatible HTML representation of this number
      */
+    @Override
     public String toHtml() {
         return this.toString();
     }

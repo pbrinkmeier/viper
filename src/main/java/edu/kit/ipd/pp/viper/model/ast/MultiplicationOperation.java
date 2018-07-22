@@ -23,6 +23,7 @@ public class MultiplicationOperation extends BinaryOperation {
      * @param b right hand side
      * @return a times b
      */
+    @Override
     protected int calculate(int a, int b) {
         return a * b;
     }
@@ -33,6 +34,7 @@ public class MultiplicationOperation extends BinaryOperation {
      * @param parameters parameters of the new operation
      * @return a new MultiplicationOperation instance
      */
+    @Override
     public MultiplicationOperation createNew(List<Term> parameters) {
         return new MultiplicationOperation(parameters.get(0), parameters.get(1));
     }

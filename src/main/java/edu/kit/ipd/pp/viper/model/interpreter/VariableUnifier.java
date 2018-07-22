@@ -28,6 +28,7 @@ public class VariableUnifier extends Unifier {
      * @param functor functor to substitute with
      * @return a success-result with a single substitution
      */
+    @Override
     public UnificationResult visit(Functor functor) {
         return this.createSubstitution(this.getTerm(), functor);
     }
@@ -40,6 +41,7 @@ public class VariableUnifier extends Unifier {
      * @param variable variable substitute
      * @return a success-result with a single substitution
      */
+    @Override
     public UnificationResult visit(Variable variable) {
         return this.createSubstitution(variable, this.getTerm());
     }
@@ -50,6 +52,7 @@ public class VariableUnifier extends Unifier {
      * @param number number to substitute with
      * @return a success-result with a single substitution
      */
+    @Override
     public UnificationResult visit(Number number) {
         return this.createSubstitution(this.getTerm(), number);
     }

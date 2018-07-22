@@ -33,9 +33,7 @@ public class CommandSetLang extends Command {
         this.prefManager = prefManager;
     }
 
-    /**
-     * Executes the command.
-     */
+    @Override
     public void execute() {
         this.interpreterManager.cancel();
 

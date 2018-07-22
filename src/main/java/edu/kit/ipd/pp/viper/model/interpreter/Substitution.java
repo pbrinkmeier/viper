@@ -49,6 +49,7 @@ public class Substitution {
      * @param other Object to check equality to
      * @return whether this is equal to other
      */
+    @Override
     public boolean equals(Object other) {
         if (other == null) {
             return false;

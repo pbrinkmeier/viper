@@ -285,6 +285,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * 
      * @param e The issued event
      */
+    @Override
     public void keyTyped(KeyEvent e) {
     }
 
@@ -293,6 +294,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * 
      * @param e The issued event
      */
+    @Override
     public void keyReleased(KeyEvent e) {
     }
 

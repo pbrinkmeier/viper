@@ -39,9 +39,7 @@ public class CommandParse extends Command {
         this.interpreterManager = interpreterManager;
     }
 
-    /**
-     * Executes the command.
-     */
+    @Override
     public void execute() {
         this.interpreterManager.reset();
 

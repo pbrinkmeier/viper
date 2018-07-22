@@ -30,6 +30,7 @@ public class UnsetVariableException extends TermEvaluationException {
      *
      * @return a message in the currently selected language
      */
+    @Override
     public String getMessage() {
         return String.format(
             LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_UNSET_VARIABLE),

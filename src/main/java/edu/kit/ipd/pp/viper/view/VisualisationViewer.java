@@ -61,6 +61,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
         // add new iteractor that moves the image when left-clicking and holding the
         // mouse
         Interactor panInteractor = new AbstractPanInteractor() {
+            @Override
             public boolean startInteraction(InputEvent ie) {
                 int mods = ie.getModifiers();
                 return ie.getID() == MouseEvent.MOUSE_PRESSED && (mods & InputEvent.BUTTON1_MASK) != 0;

@@ -167,9 +167,7 @@ public class CommandOpen extends Command {
         updateUI(new File(this.path));
     }
 
-    /**
-     * Executes the command.
-     */
+    @Override
     public void execute() {
         this.interpreterManager.cancel();
         if (this.path.isEmpty())

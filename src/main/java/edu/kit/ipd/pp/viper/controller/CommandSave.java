@@ -40,9 +40,7 @@ public class CommandSave extends Command {
         this.interpreterManager = manager;
     }
 
-    /**
-     * Executes the command.
-     */
+    @Override
     public void execute() {
         if (this.saveType == SaveType.SAVE && this.editor.hasFileReference())
             save();

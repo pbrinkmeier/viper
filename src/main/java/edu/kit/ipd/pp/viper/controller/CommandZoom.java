@@ -20,9 +20,7 @@ public class CommandZoom extends Command {
         this.direction = direction;
     }
 
-    /**
-     * Executes the command.
-     */
+    @Override
     public void execute() {
         this.visualisation.zoom(this.direction);
     }

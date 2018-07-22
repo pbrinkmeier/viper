@@ -36,9 +36,7 @@ public class CommandToggleLib extends Command {
         this.toggleStateFunc = toggleStateFunc;
     }
 
-    /**
-     * Executes the command.
-     */
+    @Override
     public void execute() {
         this.interpreterManager.toggleStandardLibrary();
         this.console.clearAll();

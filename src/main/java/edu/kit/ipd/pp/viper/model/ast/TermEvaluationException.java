@@ -14,5 +14,6 @@ public abstract class TermEvaluationException extends Exception {
      *
      * @return error message of the exception
      */
+    @Override
     public abstract String getMessage();
 }

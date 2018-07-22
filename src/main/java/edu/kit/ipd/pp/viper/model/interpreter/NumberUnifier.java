@@ -29,6 +29,7 @@ public class NumberUnifier extends Unifier {
      * @param number number to unify with
      * @return an UnificationResult according to the rules stated above
      */
+    @Override
     public UnificationResult visit(Number number) {
         if (number.equals(this.getTerm())) {
             return UnificationResult.success(Arrays.asList());
