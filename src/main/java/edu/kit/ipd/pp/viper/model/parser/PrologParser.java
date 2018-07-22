@@ -155,6 +155,7 @@ public class PrologParser {
 
             case VARIABLE:
             case NUMBER:
+            case LB:
                 Term t = parseTerm();
                 return parseGoalRest(t);
 
@@ -196,13 +197,13 @@ public class PrologParser {
             nextToken();
             return new Functor(name, terms);
         case LB:
-            // todo
-            // return parseList();
+            return parseList();
         default:
-            throw new ParseException(
-                    String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
-                            LanguageManager.getInstance().getString(LanguageKey.FUNCTOR),
-                            this.token.getType().getString()) + getTokenPositionString());
+            throw new ParseException(String.format(
+                LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
+                LanguageManager.getInstance().getString(LanguageKey.FUNCTOR),
+                this.token.getType().getString()
+            ) + this.getTokenPositionString());
         }
     }
 
@@ -213,7 +214,6 @@ public class PrologParser {
      * @return the resulting goal
      * @throws ParseException if a parser error occurs
      */
-
     private Goal parseGoalRest(Term t) throws ParseException {
         Term lhs = parseTerm(Optional.of(t));
         TokenType op = this.token.getType();
@@ -339,7 +339,7 @@ public class PrologParser {
         }
         switch (this.token.getType()) {
             case IDENTIFIER:
-                // case LB: list literals
+            case LB:
                 return parseFunctor();
 
             case NUMBER:
@@ -359,7 +359,8 @@ public class PrologParser {
             default:
                 throw new ParseException(String.format(
                     LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
-                    LanguageManager.getInstance().getString(LanguageKey.TERM), this.token.getType().getString()
+                    LanguageManager.getInstance().getString(LanguageKey.TERM),
+                    this.token.getType().getString()
                 ) + getTokenPositionString());
         }
     }
@@ -382,14 +383,29 @@ public class PrologParser {
      * @return the list
      * @throws ParseException if a parser error occurs
      */
-    /*
-     * private Object parseList() throws ParseException { expect(TokenType.LB);
-     * switch (token.getType()) { case RB: nextToken(); // TODO: Leere Liste:
-     * nullstelliger Funktor mit speziellem Namen "[]" return new Object(); case
-     * IDENTIFIER: case NUMBER: case VARIABLE: case LB: Object t = parseTerm();
-     * return parseListRest(t); default: throw new
-     * ParseException("Expected a list, got '" + token + "'"); } }
-     */
+    private Functor parseList() throws ParseException {
+        this.expect(TokenType.LB);
+
+        switch (this.token.getType()) {
+            case RB:
+                this.nextToken();
+
+                return Functor.atom("[]");
+
+            case IDENTIFIER:
+            case NUMBER:
+            case VARIABLE:
+            case LB:
+                Term t = this.parseTerm();
+                return this.parseListRest(t);
+
+            default:
+                throw new ParseException(String.format(
+                    LanguageManager.getInstance().getString(LanguageKey.EXPECTED_LIST),
+                    this.token.toString()
+                ) + this.getTokenPositionString());
+        }
+    }
 
     /**
      * Parses the remainder of a list functor.
@@ -398,16 +414,38 @@ public class PrologParser {
      * @return the resulting list
      * @throws ParseException if a parser error occurs
      */
-    /*
-     * private Object parseListRest(Object t) throws ParseException { Object rhs;
-     * switch (token.getType()) { case RB: nextToken(); // TODO: Leere Liste:
-     * nullstelliger Funktor mit speziellem Namen "[]" rhs = new Object(); break;
-     * case COMMA: nextToken(); Object t2 = parseTerm(); rhs = parseListRest(t2);
-     * break; case BAR: nextToken(); rhs = parseTerm(); expect(TokenType.RB); break;
-     * default: throw new ParseException("Expected a list remainder, got '" + token
-     * + "'"); } // TODO: Liste "[t|rhs]": zweistelliger Funktor mit speziellem
-     * Namen "'[|]'" und Subtermen "t" und "rhs" return new Object(); }
-     */
+    private Functor parseListRest(Term t) throws ParseException {
+        Term rest;
+
+        switch (this.token.getType()) {
+            case RB:
+                this.nextToken();
+                rest = Functor.atom("[]");
+
+                break;
+
+            case COMMA:
+                this.nextToken();
+                rest = this.parseListRest(this.parseTerm());
+
+                break;
+            
+            case BAR:
+                this.nextToken();
+                rest = this.parseTerm();
+                this.expect(TokenType.RB);
+
+                break;
+
+            default:
+                throw new ParseException(String.format(
+                    LanguageManager.getInstance().getString(LanguageKey.EXPECTED_LIST_REST),
+                    this.token.toString()
+                ) + this.getTokenPositionString());
+        }
+
+        return new Functor("[|]", Arrays.asList(t, rest));
+    }
 
     private String getTokenPositionString() {
         return " " + String.format(LanguageManager.getInstance().getString(LanguageKey.POSITION),

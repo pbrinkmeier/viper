@@ -1,5 +1,4 @@
 package edu.kit.ipd.pp.viper.model.ast;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -109,12 +108,20 @@ public class Functor extends Term {
      */
     @Override
     public String toString() {
-        String repr = this.getName();
+        if (this.name.equals("[|]") && this.getArity() == 2) {
+            return ListFormatter.asString(this).orElse(String.format(
+                "[%s | %s]",
+                this.parameters.get(0),
+                this.parameters.get(1)
+            ));
+        }
+
+        String repr = this.name;
 
         if (this.getArity() > 0) {
             repr += "(";
 
-            repr += this.getParameters().stream()
+            repr += this.parameters.stream()
             .map(parameter -> parameter.toString())
             .collect(joining(", "));
 
@@ -129,6 +136,14 @@ public class Functor extends Term {
      */
     @Override
     public String toHtml() {
+        if (this.name.equals("[|]") && this.getArity() == 2) {
+            return ListFormatter.asHtml(this).orElse(String.format(
+                "[%s &#124; %s]",
+                this.parameters.get(0).toHtml(),
+                this.parameters.get(1).toHtml()
+            ));
+        }
+
         String repr = this.getName();
 
         if (this.getArity() > 0) {

@@ -75,12 +75,26 @@ public final class Variable extends Term {
      */
     @Override
     public String toHtml() {
-        /*
-         * return this.getName() + (this.getIndex().isPresent() ?
-         * String.format("<sub>%d</sub>", this.getIndex().get()) : "");
-         */
+        return this.name + this.index.map(Variable::toHtmlSubscript).orElse("");
+    }
 
-        return this.toString();
+    /**
+     * Returns an HTML subscript representation of a number.
+     * Optimally, this would be done using <code><sub></code> but graphviz-java does not really support that.
+     *
+     * @param number number 
+     * @return HTML subscript representation of the number
+     */
+    public static String toHtmlSubscript(int number) {
+        int currentNumber = number;
+        String repr = "";
+
+        while (currentNumber != 0) {
+            repr = String.format("&#%d;", 0x2080 + (currentNumber % 10)) + repr;
+            currentNumber /= 10;
+        }
+
+        return repr;
     }
 
     /**

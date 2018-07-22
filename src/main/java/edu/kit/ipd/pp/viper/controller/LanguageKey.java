@@ -341,6 +341,16 @@ public enum LanguageKey {
     EXPECTED_GOALREST("expected_goalrest"),
 
     /**
+     * "Expected list" warning.
+     */
+    EXPECTED_LIST("expected_list"),
+
+    /**
+     * "Expected list remainder" warning.
+     */
+    EXPECTED_LIST_REST("expected_list_rest"),
+
+    /**
      * The Goal not supported error for parser
      */
     GOAL_NOT_SUPPORTED("goal_not_supported"),
