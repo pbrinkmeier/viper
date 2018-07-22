@@ -33,6 +33,14 @@ import java.util.List;
 import java.util.Optional;
 import static java.util.stream.Collectors.joining;
 
+/**
+ * Creates a new graph from an interpreters given current and next activation record using Graphviz-Java.
+ * Contains visit methods for all the possible activation records and recursively creates
+ * Graphviz nodes and links accordingly.
+ *
+ * Specific nodes are linked differently (e.g. backtracking links).
+ * Successful and failed unification boxes are colored green or red accordingly.
+ */
 public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     private final Optional<ActivationRecord> current;
     private final Optional<ActivationRecord> next;
