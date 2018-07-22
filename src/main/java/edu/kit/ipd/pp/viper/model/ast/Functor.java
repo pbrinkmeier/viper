@@ -139,8 +139,8 @@ public class Functor extends Term {
         if (this.name.equals("[|]") && this.getArity() == 2) {
             return ListFormatter.asHtml(this).orElse(String.format(
                 "[%s &#124; %s]",
-                this.parameters.get(0),
-                this.parameters.get(1)
+                this.parameters.get(0).toHtml(),
+                this.parameters.get(1).toHtml()
             ));
         }
 

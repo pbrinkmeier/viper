@@ -3,6 +3,8 @@ package edu.kit.ipd.pp.viper.model.visualisation;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
+import edu.kit.ipd.pp.viper.model.ast.Variable;
+
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecordVisitor;
 import edu.kit.ipd.pp.viper.model.interpreter.ArithmeticActivationRecord;
@@ -79,7 +81,10 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         UnificationResult result = far.getUnificationResult();
 
         // Add rule index to matching rules head
-        String ruleRepr = String.format("%s_%d", far.getMatchingRuleHead().getName(), far.getRuleIndex());
+        String ruleRepr = String.format("%s%s",
+            far.getMatchingRuleHead().getName(),
+            Variable.toHtmlSubscript(far.getRuleIndex())
+        );
 
         if (far.getMatchingRuleHead().getParameters().size() != 0) {
             ruleRepr += "(";
