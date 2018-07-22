@@ -28,7 +28,7 @@ public class CommandExit extends Command {
     @Override
     public void execute() {
         this.interpreterManager.cancel();
-        
+
         if (this.editor.hasChanged()) {
             LanguageManager langman = LanguageManager.getInstance();
             Object options[] = {langman.getString(LanguageKey.DIALOG_YES), langman.getString(LanguageKey.DIALOG_NO),
@@ -44,7 +44,7 @@ public class CommandExit extends Command {
                 return;
             }
         }
-        
+
         System.exit(0);
     }
 }

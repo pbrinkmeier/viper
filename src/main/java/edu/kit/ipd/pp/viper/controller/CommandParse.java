@@ -28,7 +28,7 @@ public class CommandParse extends Command {
      * @param visualisation Panel of the visualisation area
      * @param interpreterManager interpreter manager
      * @param toggleStateFunc Consumer function that switches the state of clickable
-     *            elements in the GUI
+     *        elements in the GUI
      */
     public CommandParse(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             InterpreterManager interpreterManager, Consumer<ClickableState> toggleStateFunc) {

@@ -1,11 +1,12 @@
 package edu.kit.ipd.pp.viper.view;
 
 /**
- * This class holds all colors that are used in VIPER. Therefore changing the color scheme (e.g. a darker green for
- * successful unifications and solutions) can be done here, without touching multiple files.
+ * This class holds all colors that are used in VIPER. Therefore changing the
+ * color scheme (e.g. a darker green for successful unifications and solutions)
+ * can be done here, without touching multiple files.
  * 
- * Unfortunately, the visualisation using the graphviz-java library requires a Color object from the graphviz
- * package, not the common java.awt.Color object.
+ * Unfortunately, the visualisation using the graphviz-java library requires a
+ * Color object from the graphviz package, not the common java.awt.Color object.
  */
 public class ColorScheme {
     /**

@@ -79,10 +79,11 @@ public final class Variable extends Term {
     }
 
     /**
-     * Returns an HTML subscript representation of a number.
-     * Optimally, this would be done using <code><sub></code> but graphviz-java does not really support that.
+     * Returns an HTML subscript representation of a number. Optimally, this would
+     * be done using <code>&lt;sub&gt;</code> but graphviz-java does not really
+     * support that.
      *
-     * @param number number 
+     * @param number number
      * @return HTML subscript representation of the number
      */
     public static String toHtmlSubscript(int number) {

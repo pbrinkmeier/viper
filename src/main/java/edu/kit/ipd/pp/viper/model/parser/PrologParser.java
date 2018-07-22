@@ -68,7 +68,7 @@ public class PrologParser {
      * 
      * @param type the token type to compare the current token type to
      * @throws ParseException if the token type of the current token does not match
-     *             the one given as parameter
+     *         the one given as parameter
      */
     private void expect(TokenType type) throws ParseException {
         if (this.token.getType() != type) {
@@ -145,31 +145,28 @@ public class PrologParser {
      */
     private Goal parseGoal() throws ParseException {
         switch (this.token.getType()) {
-            case IDENTIFIER:
-                Functor f = parseFunctor();
-                if (this.token.getType() == TokenType.COMMA || this.token.getType() == TokenType.DOT) {
-                    return new FunctorGoal(f);
-                } else {
-                    return parseGoalRest(f);
-                }
+        case IDENTIFIER:
+            Functor f = parseFunctor();
+            if (this.token.getType() == TokenType.COMMA || this.token.getType() == TokenType.DOT) {
+                return new FunctorGoal(f);
+            } else {
+                return parseGoalRest(f);
+            }
 
-            case VARIABLE:
-            case NUMBER:
-            case LB:
-                Term t = parseTerm();
-                return parseGoalRest(t);
+        case VARIABLE:
+        case NUMBER:
+        case LB:
+            Term t = parseTerm();
+            return parseGoalRest(t);
 
-            case EXCLAMATION:
-                this.nextToken();
-                return new CutGoal();
+        case EXCLAMATION:
+            this.nextToken();
+            return new CutGoal();
 
-            default:
-                throw new ParseException(String.format(
-                    "%s: %s %s",
-                    LanguageManager.getInstance().getString(LanguageKey.GOAL_NOT_SUPPORTED),
-                    this.token.getType().getString(),
-                    this.getTokenPositionString()
-                ));
+        default:
+            throw new ParseException(
+                    String.format("%s: %s %s", LanguageManager.getInstance().getString(LanguageKey.GOAL_NOT_SUPPORTED),
+                            this.token.getType().getString(), this.getTokenPositionString()));
         }
     }
 
@@ -199,11 +196,10 @@ public class PrologParser {
         case LB:
             return parseList();
         default:
-            throw new ParseException(String.format(
-                LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
-                LanguageManager.getInstance().getString(LanguageKey.FUNCTOR),
-                this.token.getType().getString()
-            ) + this.getTokenPositionString());
+            throw new ParseException(
+                    String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
+                            LanguageManager.getInstance().getString(LanguageKey.FUNCTOR),
+                            this.token.getType().getString()) + this.getTokenPositionString());
         }
     }
 
@@ -221,29 +217,29 @@ public class PrologParser {
         Term rhs = parseTerm();
 
         switch (op) {
-            case EQ:
-                return new UnificationGoal(lhs, rhs);
-            case IS:
-                return new ArithmeticGoal(lhs, rhs);
-            case LESS:
-                return new LessThanGoal(lhs, rhs);
-            case EQ_LESS:
-                return new LessThanEqualGoal(lhs, rhs);
-            case GREATER:
-                return new GreaterThanGoal(lhs, rhs);
-            case GREATER_EQ:
-                return new GreaterThanEqualGoal(lhs, rhs);
-            case EQ_COLON_EQ:
-                return new EqualGoal(lhs, rhs);
-            case EQ_BS_EQ:
-                return new NotEqualGoal(lhs, rhs);
-            default:
-                throw new ParseException(String.format(
-                    LanguageManager.getInstance().getString(LanguageKey.EXPECTED_GOALREST),
-                    this.token.getType().getString()
-                ) + this.getTokenPositionString());
+        case EQ:
+            return new UnificationGoal(lhs, rhs);
+        case IS:
+            return new ArithmeticGoal(lhs, rhs);
+        case LESS:
+            return new LessThanGoal(lhs, rhs);
+        case EQ_LESS:
+            return new LessThanEqualGoal(lhs, rhs);
+        case GREATER:
+            return new GreaterThanGoal(lhs, rhs);
+        case GREATER_EQ:
+            return new GreaterThanEqualGoal(lhs, rhs);
+        case EQ_COLON_EQ:
+            return new EqualGoal(lhs, rhs);
+        case EQ_BS_EQ:
+            return new NotEqualGoal(lhs, rhs);
+        default:
+            throw new ParseException(
+                    String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_GOALREST),
+                            this.token.getType().getString()) + this.getTokenPositionString());
         }
     }
+
     /*
      * private Object parseGoalRest(Object t) throws ParseException { Term lhs =
      * parseTerm(Optional.of(t)); Term rhs; switch (token.getType()) { case IS:
@@ -280,8 +276,8 @@ public class PrologParser {
      * Parses a term, with possibly the first part given as an Optional parameter.
      * 
      * @param maybeTerm Optional term signifying the first part of the term. When
-     *            present, it is the first part of the term, which will not be
-     *            parsed again. When empty, the full term is parsed.
+     *        present, it is the first part of the term, which will not be parsed
+     *        again. When empty, the full term is parsed.
      * @return the resulting term
      * @throws ParseException if a parser error occurs
      */
@@ -298,7 +294,7 @@ public class PrologParser {
                 t = new SubtractionOperation(t, rhs);
             }
         }
-         
+
         return t;
     }
 
@@ -307,8 +303,8 @@ public class PrologParser {
      * Parses only operators with higher precedence than '+'/'-'.
      * 
      * @param maybeTerm Optional term signifying the first part of the term. When
-     *            present, it is the first part of the term, which will not be
-     *            parsed again. When empty, the full term is part.
+     *        present, it is the first part of the term, which will not be parsed
+     *        again. When empty, the full term is part.
      * @return the resulting term
      * @throws ParseException if a parser error occurs
      */
@@ -320,7 +316,7 @@ public class PrologParser {
             Term t2 = parseFactor(Optional.empty());
             t = new MultiplicationOperation(t, t2);
         }
-        
+
         return t;
     }
 
@@ -329,7 +325,7 @@ public class PrologParser {
      * Parses only functors, numbers, variables and terms in parentheses.
      * 
      * @param maybeTerm Optional term. When present, it is simply returned. When
-     *            empty, the full term is part.
+     *        empty, the full term is part.
      * @return the resulting term
      * @throws ParseException if a parser error occurs
      */
@@ -338,30 +334,29 @@ public class PrologParser {
             return maybeTerm.get();
         }
         switch (this.token.getType()) {
-            case IDENTIFIER:
-            case LB:
-                return parseFunctor();
+        case IDENTIFIER:
+        case LB:
+            return parseFunctor();
 
-            case NUMBER:
-                return parseNumber();
+        case NUMBER:
+            return parseNumber();
 
-            case VARIABLE:
-                String name = this.token.getText();
-                nextToken();
-                return new Variable(name);
+        case VARIABLE:
+            String name = this.token.getText();
+            nextToken();
+            return new Variable(name);
 
-            case LP:
-                nextToken();
-                Term t = parseTerm();
-                expect(TokenType.RP);
-                return t;
+        case LP:
+            nextToken();
+            Term t = parseTerm();
+            expect(TokenType.RP);
+            return t;
 
-            default:
-                throw new ParseException(String.format(
-                    LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
-                    LanguageManager.getInstance().getString(LanguageKey.TERM),
-                    this.token.getType().getString()
-                ) + getTokenPositionString());
+        default:
+            throw new ParseException(
+                    String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
+                            LanguageManager.getInstance().getString(LanguageKey.TERM), this.token.getType().getString())
+                            + getTokenPositionString());
         }
     }
 
@@ -387,23 +382,21 @@ public class PrologParser {
         this.expect(TokenType.LB);
 
         switch (this.token.getType()) {
-            case RB:
-                this.nextToken();
+        case RB:
+            this.nextToken();
 
-                return Functor.atom("[]");
+            return Functor.atom("[]");
 
-            case IDENTIFIER:
-            case NUMBER:
-            case VARIABLE:
-            case LB:
-                Term t = this.parseTerm();
-                return this.parseListRest(t);
+        case IDENTIFIER:
+        case NUMBER:
+        case VARIABLE:
+        case LB:
+            Term t = this.parseTerm();
+            return this.parseListRest(t);
 
-            default:
-                throw new ParseException(String.format(
-                    LanguageManager.getInstance().getString(LanguageKey.EXPECTED_LIST),
-                    this.token.toString()
-                ) + this.getTokenPositionString());
+        default:
+            throw new ParseException(String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_LIST),
+                    this.token.toString()) + this.getTokenPositionString());
         }
     }
 
@@ -418,30 +411,29 @@ public class PrologParser {
         Term rest;
 
         switch (this.token.getType()) {
-            case RB:
-                this.nextToken();
-                rest = Functor.atom("[]");
+        case RB:
+            this.nextToken();
+            rest = Functor.atom("[]");
 
-                break;
+            break;
 
-            case COMMA:
-                this.nextToken();
-                rest = this.parseListRest(this.parseTerm());
+        case COMMA:
+            this.nextToken();
+            rest = this.parseListRest(this.parseTerm());
 
-                break;
-            
-            case BAR:
-                this.nextToken();
-                rest = this.parseTerm();
-                this.expect(TokenType.RB);
+            break;
 
-                break;
+        case BAR:
+            this.nextToken();
+            rest = this.parseTerm();
+            this.expect(TokenType.RB);
 
-            default:
-                throw new ParseException(String.format(
-                    LanguageManager.getInstance().getString(LanguageKey.EXPECTED_LIST_REST),
-                    this.token.toString()
-                ) + this.getTokenPositionString());
+            break;
+
+        default:
+            throw new ParseException(
+                    String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_LIST_REST),
+                            this.token.toString()) + this.getTokenPositionString());
         }
 
         return new Functor("[|]", Arrays.asList(t, rest));

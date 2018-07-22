@@ -34,7 +34,8 @@ public class MainWindow extends JFrame {
     /**
      * VIPER version number
      * 
-     * The version number follows the MAJOR.MINOR scheme, change this on each new release!
+     * The version number follows the MAJOR.MINOR scheme, change this on each new
+     * release!
      */
     public static final String VERSION = "1.0";
 
@@ -68,7 +69,7 @@ public class MainWindow extends JFrame {
     private final EditorPanel editorPanel;
     private final ConsolePanel consolePanel;
     private final VisualisationPanel visualisationPanel;
-    
+
     private final CommandNew commandNew;
     private final CommandOpen commandOpen;
     private final CommandSave commandSave;
@@ -117,13 +118,12 @@ public class MainWindow extends JFrame {
         // Create command instances
         this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle,
                 this.manager);
-        this.commandOpen = new CommandOpen(this.consolePanel, this.editorPanel,
-                this.visualisationPanel, this::setWindowTitle, this::switchClickableState,
-                this.commandSave, this.manager);
+        this.commandOpen = new CommandOpen(this.consolePanel, this.editorPanel, this.visualisationPanel,
+                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
         this.commandNew = new CommandNew(this.consolePanel, this.editorPanel, this.visualisationPanel,
                 this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
-        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel,
-                this.visualisationPanel, this.manager, this::switchClickableState);
+        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel, this.visualisationPanel, this.manager,
+                this::switchClickableState);
         this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
         this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
         this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel,
@@ -158,8 +158,8 @@ public class MainWindow extends JFrame {
 
         // load language from config and set it
         LanguageManager.getInstance().setLocale(this.prefManager.getLanguage());
-        this.consolePanel.printLine(String.format(LanguageManager.getInstance().getString(LanguageKey.VIPER_READY),
-                VERSION), LogType.INFO);
+        this.consolePanel.printLine(
+                String.format(LanguageManager.getInstance().getString(LanguageKey.VIPER_READY), VERSION), LogType.INFO);
     }
 
     /**
@@ -291,7 +291,7 @@ public class MainWindow extends JFrame {
     public PreferencesManager getPreferencesManager() {
         return this.prefManager;
     }
-    
+
     /**
      * Returns the menu bar (the one used internally, not the implicit AWT menu bar)
      * 

@@ -4,8 +4,8 @@ import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
- * Occurs when an unsupported term is evaluated arithmetically.
- * For example, functors carry no arithmetic meaning and throw this exception when evaluated.
+ * Occurs when an unsupported term is evaluated arithmetically. For example,
+ * functors carry no arithmetic meaning and throw this exception when evaluated.
  */
 public class UnsupportedTermException extends TermEvaluationException {
     /**
@@ -32,9 +32,7 @@ public class UnsupportedTermException extends TermEvaluationException {
      */
     @Override
     public String getMessage() {
-        return String.format(
-            LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_UNSUPPORTED_TERM),
-            this.term
-        );
+        return String.format(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_UNSUPPORTED_TERM),
+                this.term);
     }
 }

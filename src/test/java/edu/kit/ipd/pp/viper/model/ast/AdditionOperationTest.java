@@ -32,8 +32,8 @@ public class AdditionOperationTest {
     }
 
     /**
-     * Tests the creation of a new addition operation from an already
-     * instantiated addition operation object.
+     * Tests the creation of a new addition operation from an already instantiated
+     * addition operation object.
      */
     @Test
     public void createNewTest() {

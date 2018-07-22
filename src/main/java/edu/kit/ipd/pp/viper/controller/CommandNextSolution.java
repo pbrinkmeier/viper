@@ -19,7 +19,7 @@ public class CommandNextSolution extends Command {
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
      * @param interpreterManager Interpreter manager with a reference to the current
-     *            interpreter
+     *        interpreter
      */
     public CommandNextSolution(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager) {

@@ -108,7 +108,8 @@ public class UnificationTest {
 
     // Unifying a variable with itself should not yield any substitutions
     /**
-     * Tests whether self-substitution (unification of a variable with itself) is avoided properly.
+     * Tests whether self-substitution (unification of a variable with itself) is
+     * avoided properly.
      */
     @Test
     public void avoidSelfSubstitutionTest() {

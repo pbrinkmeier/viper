@@ -23,7 +23,8 @@ public class VariableUnifier extends Unifier {
     }
 
     /**
-     * Returns a substitution as described in {@link Unifier#createSubstitution(Variable, Term)}.
+     * Returns a substitution as described in
+     * {@link Unifier#createSubstitution(Variable, Term)}.
      *
      * @param functor functor to substitute with
      * @return a success-result with a single substitution
@@ -47,7 +48,8 @@ public class VariableUnifier extends Unifier {
     }
 
     /**
-     * Returns a substitution as described in {@link Unifier#createSubstitution(Variable, Term)}.
+     * Returns a substitution as described in
+     * {@link Unifier#createSubstitution(Variable, Term)}.
      *
      * @param number number to substitute with
      * @return a success-result with a single substitution

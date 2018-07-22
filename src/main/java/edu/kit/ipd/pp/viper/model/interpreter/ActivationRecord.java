@@ -73,9 +73,9 @@ public abstract class ActivationRecord {
     }
 
     /**
-     * Applies all previous substitutions in a term.
-     * This method comes in handy for any AR that needs to apply previous substitutions,
-     * which is basically all of them.
+     * Applies all previous substitutions in a term. This method comes in handy for
+     * any AR that needs to apply previous substitutions, which is basically all of
+     * them.
      *
      * @param t term to apply substitutions in
      * @return t but with all previous substitutions applied
@@ -160,8 +160,8 @@ public abstract class ActivationRecord {
     }
 
     /**
-     * Setter-method for visited attribute.
-     * If visited will be set to false, the environment of this AR will be reset too.
+     * Setter-method for visited attribute. If visited will be set to false, the
+     * environment of this AR will be reset too.
      *
      * @param visited new visited value to set
      */

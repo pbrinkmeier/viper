@@ -36,7 +36,7 @@ public class PreferencesManager {
     private static final boolean DEFAULT_STDLIB = true;
 
     private static final int MAX_RECENTLY_USED = 5;
-    
+
     private final ConsolePanel console;
 
     private File propertiesFile;
@@ -136,7 +136,7 @@ public class PreferencesManager {
 
         return null;
     }
-    
+
     /**
      * Sets whether the standard lib is enabled or not
      * 
@@ -146,7 +146,7 @@ public class PreferencesManager {
         String status = String.valueOf(enabled);
         this.writeProperty(KEY_STDLIB, status);
     }
-    
+
     /**
      * Sets the list of file references in the properties file.
      * 

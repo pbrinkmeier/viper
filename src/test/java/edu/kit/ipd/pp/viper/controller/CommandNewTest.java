@@ -40,8 +40,7 @@ public class CommandNewTest {
         this.editor.setHasChanged(false);
         CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE, this.gui::setWindowTitle,
                 this.manager);
-        new CommandNew(this.console, this.editor, this.visualisation,
-                this.gui::setTitle,
+        new CommandNew(this.console, this.editor, this.visualisation, this.gui::setTitle,
                 this.gui::switchClickableState, save, this.manager).execute();
 
         assertTrue(this.editor.getSourceText().equals(""));

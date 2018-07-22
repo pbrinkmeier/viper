@@ -1,8 +1,8 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
 /**
- * Implementation of the visitor pattern for activation record visitors.
- * This visitor is used to externalize the visualisation of execution trees.
+ * Implementation of the visitor pattern for activation record visitors. This
+ * visitor is used to externalize the visualisation of execution trees.
  */
 public interface ActivationRecordVisitor<T> {
     /**
@@ -39,6 +39,7 @@ public interface ActivationRecordVisitor<T> {
 
     /**
      * How to handle a visit of an arithmetic comparison record.
+     * 
      * @param car comparison activation record to visit
      * @return result of this visit
      */

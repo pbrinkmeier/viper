@@ -14,7 +14,7 @@ public class CommandPreviousStep extends Command {
      * 
      * @param visualisation Panel of the visualisation area
      * @param interpreterManager Interpreter manager with a reference to the current
-     *            interpreter
+     *        interpreter
      */
     public CommandPreviousStep(VisualisationPanel visualisation, InterpreterManager interpreterManager) {
         this.visualisation = visualisation;

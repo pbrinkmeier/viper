@@ -63,8 +63,7 @@ public class FunctorTest {
     }
 
     /**
-     * Tests whether the getParameters()-Method actually returns an
-     * immutable list.
+     * Tests whether the getParameters()-Method actually returns an immutable list.
      */
     @Test(expected = UnsupportedOperationException.class)
     public void getParametersImmutableTest() {
@@ -128,8 +127,8 @@ public class FunctorTest {
     }
 
     /**
-     * Tests the creation of a new Functor via an already
-     * instantiated Functor object.
+     * Tests the creation of a new Functor via an already instantiated Functor
+     * object.
      */
     @Test
     public void createNewTest() {

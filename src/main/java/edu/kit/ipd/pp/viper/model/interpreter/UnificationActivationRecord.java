@@ -6,10 +6,10 @@ import edu.kit.ipd.pp.viper.model.ast.UnificationGoal;
 import java.util.Optional;
 
 /**
- * Execution state of an unification goal.
- * If an unification record has not been visited, it is not fulfilled.
- * If an unification record has been visited, but unification was unsuccessful, it is not fulfilled.
- * If an unification record has been visited and unification was successful, it is fulfilled.
+ * Execution state of an unification goal. If an unification record has not been
+ * visited, it is not fulfilled. If an unification record has been visited, but
+ * unification was unsuccessful, it is not fulfilled. If an unification record
+ * has been visited and unification was successful, it is fulfilled.
  */
 public class UnificationActivationRecord extends ActivationRecord {
     private final UnificationGoal goal;
@@ -22,11 +22,8 @@ public class UnificationActivationRecord extends ActivationRecord {
      * @param interpreter interpreter this AR belongs to
      * @param parent optional parent functor AR
      */
-    public UnificationActivationRecord(
-        UnificationGoal goal,
-        Interpreter interpreter,
-        Optional<FunctorActivationRecord> parent
-    ) {
+    public UnificationActivationRecord(UnificationGoal goal, Interpreter interpreter,
+            Optional<FunctorActivationRecord> parent) {
         super(interpreter, parent);
         this.goal = goal;
     }
@@ -37,7 +34,8 @@ public class UnificationActivationRecord extends ActivationRecord {
     }
 
     /**
-     * Getter-method for the left hand side of this unification with all previous substitutions applied.
+     * Getter-method for the left hand side of this unification with all previous
+     * substitutions applied.
      *
      * @return left hand side of this unification
      */
@@ -46,7 +44,8 @@ public class UnificationActivationRecord extends ActivationRecord {
     }
 
     /**
-     * Getter-method for the right hand side of this unification with all previous substitutions applied.
+     * Getter-method for the right hand side of this unification with all previous
+     * substitutions applied.
      *
      * @return right hand side of this unification
      */
@@ -85,8 +84,8 @@ public class UnificationActivationRecord extends ActivationRecord {
     }
 
     /**
-     * Getter-method for the result of the unification.
-     * This may return null if isVisited() == false.
+     * Getter-method for the result of the unification. This may return null if
+     * isVisited() == false.
      *
      * @return result of the unification
      */

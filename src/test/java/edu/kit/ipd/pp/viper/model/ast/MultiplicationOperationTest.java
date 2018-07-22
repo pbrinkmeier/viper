@@ -32,8 +32,8 @@ public class MultiplicationOperationTest {
     }
 
     /**
-     * Tests the creation of a new multiplication operation from an
-     * already instantiated multiplication operation object.
+     * Tests the creation of a new multiplication operation from an already
+     * instantiated multiplication operation object.
      */
     @Test
     public void createNewTest() {

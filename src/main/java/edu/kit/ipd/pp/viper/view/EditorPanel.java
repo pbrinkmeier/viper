@@ -59,7 +59,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * Holds a reference to the file that the editor content was loaded from
      */
     private File reference;
-    
+
     /**
      * List of files referenced in the past
      */
@@ -86,7 +86,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.textArea.addMouseWheelListener(this);
         this.scrollPane = new RTextScrollPane(this.textArea);
         this.scrollPane.setPreferredSize(new Dimension(400, 600));
-        this.add(this.scrollPane, BorderLayout.CENTER);        
+        this.add(this.scrollPane, BorderLayout.CENTER);
         this.textArea.getDocument().addDocumentListener(this);
 
         this.referenceList = gui.getPreferencesManager().getFileReferences();
@@ -127,7 +127,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * Sets the internal status whether the editor has unsaved changes.
      * 
      * @param changed Boolean value describing whether the editor has unsaved
-     *            content
+     *        content
      */
     public void setHasChanged(boolean changed) {
         if (this.changed && !this.main.getConsolePanel().hasLockedInput()) {
@@ -264,11 +264,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
 
         switch (keyCode) {
         case KeyEvent.VK_PLUS: // plus key
-        case KeyEvent.VK_ADD:  // numpad plus key
+        case KeyEvent.VK_ADD: // numpad plus key
             this.increaseFont();
             event.consume();
             break;
-        case KeyEvent.VK_MINUS:    // minus key
+        case KeyEvent.VK_MINUS: // minus key
         case KeyEvent.VK_SUBTRACT: // numpad minus key
             this.decreaseFont();
             event.consume();

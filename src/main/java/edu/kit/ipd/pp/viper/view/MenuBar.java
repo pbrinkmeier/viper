@@ -45,7 +45,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private MenuItem itemExportPNG;
     private MenuItem itemExportSVG;
     private CheckBoxMenuItem itemToggleSTD;
-    
+
     private Menu recentlyUsedMenu;
 
     /**
@@ -117,10 +117,9 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addSaveAsItem(Menu menu) {
-        this.itemSaveAs = new MenuItem(LanguageKey.MENU_SAVEAS, new CommandSave(this.main.getConsolePanel(),
-                this.main.getEditorPanel(), SaveType.SAVE_AS, this.main::setWindowTitle,
-                this.main.getInterpreterManager()));
-
+        this.itemSaveAs = new MenuItem(LanguageKey.MENU_SAVEAS,
+                new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE_AS,
+                        this.main::setWindowTitle, this.main.getInterpreterManager()));
 
         menu.add(this.itemSaveAs);
     }
@@ -134,7 +133,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
         this.recentlyUsedMenu = new Menu(LanguageKey.MENU_RECENT);
         menu.add(this.recentlyUsedMenu);
     }
-    
+
     /**
      * Clears the recently used menu and adds the current items to it
      */
@@ -204,13 +203,11 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addExportMenu() {
         Menu menu = new Menu(LanguageKey.MENU_EXPORT);
 
-        this.itemExportPNG = new MenuItem(LanguageKey.MENU_EXPORT_PNG,
-                new CommandExportImage(this.main.getConsolePanel(),
-                ImageFormat.PNG, this.main.getInterpreterManager()));
+        this.itemExportPNG = new MenuItem(LanguageKey.MENU_EXPORT_PNG, new CommandExportImage(
+                this.main.getConsolePanel(), ImageFormat.PNG, this.main.getInterpreterManager()));
 
-        this.itemExportSVG = new MenuItem(LanguageKey.MENU_EXPORT_SVG,
-                new CommandExportImage(this.main.getConsolePanel(),
-                ImageFormat.SVG, this.main.getInterpreterManager()));
+        this.itemExportSVG = new MenuItem(LanguageKey.MENU_EXPORT_SVG, new CommandExportImage(
+                this.main.getConsolePanel(), ImageFormat.SVG, this.main.getInterpreterManager()));
 
         menu.add(this.itemExportPNG);
         menu.add(this.itemExportSVG);
@@ -224,12 +221,10 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addSettingsMenu() {
         Menu menu = new Menu(LanguageKey.MENU_SETTINGS);
 
-        this.itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB, new CommandToggleLib(
-                this.main.getConsolePanel(),
-                this.main.getVisualisationPanel(),
-                this.main.getInterpreterManager(),
-                this.main.getPreferencesManager(),
-                this.main::switchClickableState));
+        this.itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB,
+                new CommandToggleLib(this.main.getConsolePanel(), this.main.getVisualisationPanel(),
+                        this.main.getInterpreterManager(), this.main.getPreferencesManager(),
+                        this.main::switchClickableState));
         if (this.main.getPreferencesManager().isStandardLibEnabled())
             this.itemToggleSTD.setSelected(true);
         else

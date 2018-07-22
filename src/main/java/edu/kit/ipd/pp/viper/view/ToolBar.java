@@ -21,13 +21,13 @@ public class ToolBar extends JToolBar implements HasClickable {
      * <code>edu.kit.ipd.pp.viper.view</code> package, not inside
      * <code>src/main/resources/</code>.
      */
-    private static final String ICON_NEW          = "/icons_png/icon_newfile.png";
-    private static final String ICON_OPEN         = "/icons_png/icon_openfile.png";
-    private static final String ICON_SAVE         = "/icons_png/icon_savefile.png";
-    private static final String ICON_PARSE        = "/icons_png/icon_parsefile.png";
-    private static final String ICON_FORMAT       = "/icons_png/icon_formatfile.png";
-    private static final String ICON_CANCEL       = "/icons_png/icon_cancel.png";
-    private static final String ICON_NEXTSTEP     = "/icons_png/icon_nextstep.png";
+    private static final String ICON_NEW = "/icons_png/icon_newfile.png";
+    private static final String ICON_OPEN = "/icons_png/icon_openfile.png";
+    private static final String ICON_SAVE = "/icons_png/icon_savefile.png";
+    private static final String ICON_PARSE = "/icons_png/icon_parsefile.png";
+    private static final String ICON_FORMAT = "/icons_png/icon_formatfile.png";
+    private static final String ICON_CANCEL = "/icons_png/icon_cancel.png";
+    private static final String ICON_NEXTSTEP = "/icons_png/icon_nextstep.png";
     private static final String ICON_NEXTSOLUTION = "/icons_png/icon_nextsolution.png";
     private static final String ICON_PREVIOUSSTEP = "/icons_png/icon_previousstep.png";
 
@@ -50,8 +50,8 @@ public class ToolBar extends JToolBar implements HasClickable {
      * Creates a new toolbar that can be added to the main window
      * 
      * @param gui Reference to main window. Necessary because the commands executed
-     *            by clicking on buttons in this toolbar need the different panels
-     *            available via getters in the main class.
+     *        by clicking on buttons in this toolbar need the different panels
+     *        available via getters in the main class.
      */
     public ToolBar(MainWindow gui) {
         this.main = gui;

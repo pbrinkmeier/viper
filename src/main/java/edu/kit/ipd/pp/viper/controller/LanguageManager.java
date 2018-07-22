@@ -49,7 +49,7 @@ public final class LanguageManager extends Observable {
      * supported languages.
      * 
      * @param key Unique identifier to find the translated string for the current
-     *            language
+     *        language
      * @return Translated string according to the respective unique identifier
      */
     public String getString(LanguageKey key) {

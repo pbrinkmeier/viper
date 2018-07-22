@@ -36,12 +36,13 @@ import java.util.Optional;
 import static java.util.stream.Collectors.joining;
 
 /**
- * Creates a new graph from an interpreters given current and next activation record using Graphviz-Java.
- * Contains visit methods for all the possible activation records and recursively creates
- * Graphviz nodes and links accordingly.
+ * Creates a new graph from an interpreters given current and next activation
+ * record using Graphviz-Java. Contains visit methods for all the possible
+ * activation records and recursively creates Graphviz nodes and links
+ * accordingly.
  *
- * Specific nodes are linked differently (e.g. backtracking links).
- * Successful and failed unification boxes are colored green or red accordingly.
+ * Specific nodes are linked differently (e.g. backtracking links). Successful
+ * and failed unification boxes are colored green or red accordingly.
  */
 public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     private final Optional<ActivationRecord> current;
@@ -89,10 +90,8 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         UnificationResult result = far.getUnificationResult();
 
         // Add rule index to matching rules head
-        String ruleRepr = String.format("%s%s",
-            far.getMatchingRuleHead().getName(),
-            Variable.toHtmlSubscript(far.getRuleIndex())
-        );
+        String ruleRepr = String.format("%s%s", far.getMatchingRuleHead().getName(),
+                Variable.toHtmlSubscript(far.getRuleIndex()));
 
         if (far.getMatchingRuleHead().getParameters().size() != 0) {
             ruleRepr += "(";
@@ -126,12 +125,8 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
             for (Node childNode : childNodes) {
                 resultBox = resultBox.link(
-                    to(
-                        previous.isPresent()
-                        ? childNode.link(to(previous.get()).with(Style.INVIS))
-                        : childNode
-                    ).with(Style.DASHED)
-                );
+                        to(previous.isPresent() ? childNode.link(to(previous.get()).with(Style.INVIS)) : childNode)
+                                .with(Style.DASHED));
 
                 previous = Optional.of(node(((MutableNode) childNode).name()));
             }
@@ -143,7 +138,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     @Override
     public Node visit(UnificationActivationRecord uar) {
         Node node = node(this.createUniqueNodeName())
-        .with(html(String.format("%s = %s", uar.getLhs().toHtml(), uar.getRhs().toHtml())));
+                .with(html(String.format("%s = %s", uar.getLhs().toHtml(), uar.getRhs().toHtml())));
 
         if (!uar.isVisited()) {
             return this.addBacktrackingEdge(uar, node);
@@ -154,13 +149,10 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         }
 
         Node resultBox = node(this.createUniqueNodeName())
-        .with(html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
-            LanguageManager.getInstance().getString(LanguageKey.UNIFICATION),
-            uar.getLhs().toHtml(),
-            uar.getRhs().toHtml(),
-            uar.getResult().toHtml()
-        )))
-        .with(attr("shape", "record"));
+                .with(html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
+                        LanguageManager.getInstance().getString(LanguageKey.UNIFICATION), uar.getLhs().toHtml(),
+                        uar.getRhs().toHtml(), uar.getResult().toHtml())))
+                .with(attr("shape", "record"));
 
         // TODO: after merge: create method isCurrent()
         if (this.current.isPresent() && this.current.get() == uar) {
@@ -182,16 +174,11 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
             this.backtrackingNode = Optional.of(node);
         }
 
-        String parentHtml
-            = cutAr.getParent().isPresent()
-            ? cutAr.getParent().get().getFunctor().toHtml()
-            : "[no parent]";
-        Node cutNoteBox = node(this.createUniqueNodeName())
-        .with(html(String.format(
-            LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_CUT_NOTE),
-            parentHtml
-        )))
-        .with(attr("shape", "record"));
+        String parentHtml = cutAr.getParent().isPresent() ? cutAr.getParent().get().getFunctor().toHtml()
+                : "[no parent]";
+        Node cutNoteBox = node(this.createUniqueNodeName()).with(html(
+                String.format(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_CUT_NOTE), parentHtml)))
+                .with(attr("shape", "record"));
 
         if (this.current.isPresent() && this.current.get() == cutAr) {
             cutNoteBox = cutNoteBox.with(ColorScheme.VIS_GREEN);
@@ -203,7 +190,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     @Override
     public Node visit(ArithmeticActivationRecord aar) {
         Node node = node(this.createUniqueNodeName())
-        .with(html(String.format("%s is %s", aar.getLhs().toHtml(), aar.getRhs().toHtml())));
+                .with(html(String.format("%s is %s", aar.getLhs().toHtml(), aar.getRhs().toHtml())));
 
         if (!aar.isVisited()) {
             return this.addBacktrackingEdge(aar, node);
@@ -213,23 +200,16 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
             this.backtrackingNode = Optional.of(node);
         }
 
-        Node resultBox = node(this.createUniqueNodeName())
-        .with(attr("shape", "record"));
+        Node resultBox = node(this.createUniqueNodeName()).with(attr("shape", "record"));
 
         if (aar.getResult().isError()) {
-            resultBox = resultBox
-            .with(html(aar.getResult().toHtml()));
+            resultBox = resultBox.with(html(aar.getResult().toHtml()));
         } else {
-            resultBox = resultBox
-            .with(html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
-                LanguageManager.getInstance().getString(LanguageKey.UNIFICATION),
-                aar.getLhs().toHtml(),
-                // evaluated rhs is guaranteed to be set because the result was not an error
-                aar.getEvaluatedRhs().toHtml(),
-                aar.getResult().toHtml()
-            )));
+            resultBox = resultBox.with(html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
+                    LanguageManager.getInstance().getString(LanguageKey.UNIFICATION), aar.getLhs().toHtml(),
+                    // evaluated rhs is guaranteed to be set because the result was not an error
+                    aar.getEvaluatedRhs().toHtml(), aar.getResult().toHtml())));
         }
-
 
         // TODO: after merge: create method isCurrent()
         if (this.current.isPresent() && this.current.get() == aar) {
@@ -241,13 +221,8 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(ComparisonActivationRecord car) {
-        Node node = node(this.createUniqueNodeName())
-        .with(html(String.format(
-            "%s %s %s",
-            car.getLhs().toHtml(),
-            car.getGoal().getHtmlSymbol(),
-            car.getRhs().toHtml()
-        )));
+        Node node = node(this.createUniqueNodeName()).with(html(String.format("%s %s %s", car.getLhs().toHtml(),
+                car.getGoal().getHtmlSymbol(), car.getRhs().toHtml())));
 
         // TODO: these things have been moved into their own methods over at code_cut
         if (!car.isVisited()) {
@@ -258,17 +233,14 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
             this.backtrackingNode = Optional.of(node);
         }
 
-        Node resultBox = node(this.createUniqueNodeName())
-        .with(attr("shape", "record"));
+        Node resultBox = node(this.createUniqueNodeName()).with(attr("shape", "record"));
 
         if (!car.getErrorMessage().isPresent()) {
             resultBox = resultBox
-            .with(html(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_COMPARISON_SUCCEEDED)))
-            .with(ColorScheme.VIS_GREEN);
+                    .with(html(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_COMPARISON_SUCCEEDED)))
+                    .with(ColorScheme.VIS_GREEN);
         } else {
-            resultBox = resultBox
-            .with(html(car.getErrorMessage().get()))
-            .with(ColorScheme.VIS_RED);
+            resultBox = resultBox.with(html(car.getErrorMessage().get())).with(ColorScheme.VIS_RED);
         }
 
         return node.link(resultBox);
@@ -276,20 +248,14 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     private Node addBacktrackingEdge(ActivationRecord ar, Node node) {
         if (this.current.isPresent() && this.current.get() == ar && this.backtrackingNode.isPresent()) {
-            Node withEdge = node
-            .link(
-                to(this.backtrackingNode.get())
-                .with(Style.DOTTED)
-                .with(ColorScheme.VIS_RED)
-                .with(attr("constraint", "false"))
-            );
+            Node withEdge = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(ColorScheme.VIS_RED)
+                    .with(attr("constraint", "false")));
 
             return withEdge;
         }
 
         return node;
     }
-
 
     /**
      * Calls the private constructor to create an new instance and creates a graph

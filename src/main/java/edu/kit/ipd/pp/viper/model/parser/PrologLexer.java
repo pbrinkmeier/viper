@@ -100,8 +100,7 @@ public class PrologLexer {
      */
     public Token nextToken() throws ParseException {
         while (this.pos < this.program.length()
-           && (Character.isWhitespace(this.program.charAt(this.pos))
-           || this.program.charAt(this.pos) == '%')) {
+                && (Character.isWhitespace(this.program.charAt(this.pos)) || this.program.charAt(this.pos) == '%')) {
             // ignore whitespace and comments
             if (this.program.charAt(this.pos) == '%') {
                 lexComment();

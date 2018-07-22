@@ -10,7 +10,7 @@ public enum TokenType {
     COLON_MINUS(":-"),
 
     /**
-     * An equals sign (=) 
+     * An equals sign (=)
      */
     EQ("="),
 
@@ -44,13 +44,13 @@ public enum TokenType {
      */
     EQ_BS_EQ("=\\="),
 
-    /** 
+    /**
      * End of File
      */
     EOF("End of File"),
 
     /**
-     * End of rule 
+     * End of rule
      */
     DOT("."),
 

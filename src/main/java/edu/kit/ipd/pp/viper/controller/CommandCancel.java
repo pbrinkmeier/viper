@@ -14,7 +14,7 @@ public class CommandCancel extends Command {
      * 
      * @param visualisation Panel of the visualisation
      * @param interpreterManager Interpreter manager with a reference to the current
-     *            interpreter
+     *        interpreter
      */
     public CommandCancel(VisualisationPanel visualisation, InterpreterManager interpreterManager) {
         this.visualisation = visualisation;

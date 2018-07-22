@@ -27,9 +27,9 @@ public class CommandNextStep extends Command {
      * @param console ConsolePanel for output
      * @param visualisation Panel of the visualisation area
      * @param interpreterManager Interpreter manager with a reference to the current
-     *            interpreter
+     *        interpreter
      * @param toggleStateFunc Consumer function that switches the state of clickable
-     *            elements in the GUI
+     *        elements in the GUI
      */
     public CommandNextStep(VisualisationPanel visualisation, InterpreterManager interpreterManager,
             ConsolePanel console, Consumer<ClickableState> toggleStateFunc) {
@@ -48,7 +48,7 @@ public class CommandNextStep extends Command {
         if (result == null) {
             return;
         }
-        
+
         this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
 
         if (result == StepResult.SOLUTION_FOUND) {

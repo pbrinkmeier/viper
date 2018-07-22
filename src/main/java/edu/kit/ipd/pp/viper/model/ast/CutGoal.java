@@ -16,10 +16,8 @@ public class CutGoal extends Goal {
     }
 
     @Override
-    public CutActivationRecord createActivationRecord(
-        Interpreter interpreter,
-        Optional<FunctorActivationRecord> parent
-    ) {
+    public CutActivationRecord createActivationRecord(Interpreter interpreter,
+            Optional<FunctorActivationRecord> parent) {
         return new CutActivationRecord(interpreter, parent, this);
     }
 

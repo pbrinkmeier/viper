@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Represents a binary arithmetic operation in an AST.
- * The template method {@link #calculate(int, int)} must be overwritten by subclasses
- * with the respective arithmetic operation.
+ * Represents a binary arithmetic operation in an AST. The template method
+ * {@link #calculate(int, int)} must be overwritten by subclasses with the
+ * respective arithmetic operation.
  */
 public abstract class BinaryOperation extends Functor {
     /**

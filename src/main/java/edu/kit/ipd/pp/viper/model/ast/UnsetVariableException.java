@@ -4,8 +4,8 @@ import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
- * Arithmetic evaluation exception that occurs when a variable has not been set during evaluation.
- * Variables always need to be substituted before evaluation.
+ * Arithmetic evaluation exception that occurs when a variable has not been set
+ * during evaluation. Variables always need to be substituted before evaluation.
  */
 public class UnsetVariableException extends TermEvaluationException {
     /**
@@ -32,9 +32,7 @@ public class UnsetVariableException extends TermEvaluationException {
      */
     @Override
     public String getMessage() {
-        return String.format(
-            LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_UNSET_VARIABLE),
-            this.var.toString()
-        );
+        return String.format(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_UNSET_VARIABLE),
+                this.var.toString());
     }
 }

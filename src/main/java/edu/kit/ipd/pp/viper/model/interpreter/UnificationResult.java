@@ -5,12 +5,11 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 import java.util.List;
 
 /**
- * Result of an unification.
- * There are three kinds of unification results:
+ * Result of an unification. There are three kinds of unification results:
  *
- * - success is a successful unification that yielded a list of substitutions
- * - fail is a failed unification
- * - error is an error that prevented the unification to be tried in the first place
+ * - success is a successful unification that yielded a list of substitutions -
+ * fail is a failed unification - error is an error that prevented the
+ * unification to be tried in the first place
  */
 public abstract class UnificationResult {
     /**
@@ -65,7 +64,7 @@ public abstract class UnificationResult {
      *
      * @return list of substitutions in this result (immutable)
      * @throws UnsupportedOperationException when trying to get the substitutions of
-     *             a fail-result
+     *         a fail-result
      */
     public abstract List<Substitution> getSubstitutions() throws UnsupportedOperationException;
 
@@ -74,7 +73,7 @@ public abstract class UnificationResult {
      *
      * @return error message describing how the unification went wrong
      * @throws UnsupportedOperationException when trying to get the error message of
-     *             a success-result
+     *         a success-result
      */
     public abstract String getErrorMessage() throws UnsupportedOperationException;
 

@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Represents a functor goal in an AST.
- * A functor goal is a single functor that the interpreter tries to resolve in its knowledge base.
- * See {@link edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord} for more information
- * on how this kind of goal is treated during execution.
+ * Represents a functor goal in an AST. A functor goal is a single functor that
+ * the interpreter tries to resolve in its knowledge base. See
+ * {@link edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord} for
+ * more information on how this kind of goal is treated during execution.
  */
 public class FunctorGoal extends Goal {
     private final Functor functor;

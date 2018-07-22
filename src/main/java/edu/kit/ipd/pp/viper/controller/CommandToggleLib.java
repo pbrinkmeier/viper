@@ -21,10 +21,11 @@ public class CommandToggleLib extends Command {
      * 
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
-     * @param interpreterManager Interpreter manager with a reference to the current interpreter
+     * @param interpreterManager Interpreter manager with a reference to the current
+     *        interpreter
      * @param preferencesManager Preferences manager
      * @param toggleStateFunc Consumer function that switches the state of clickable
-     *            elements in the GUI
+     *        elements in the GUI
      */
     public CommandToggleLib(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager, PreferencesManager preferencesManager,
@@ -43,8 +44,6 @@ public class CommandToggleLib extends Command {
         this.visualisation.clearVisualization();
         this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
 
-        this.preferencesManager.setStandardLibEnabled(
-                this.preferencesManager.isStandardLibEnabled() ? false : true
-        );
+        this.preferencesManager.setStandardLibEnabled(this.preferencesManager.isStandardLibEnabled() ? false : true);
     }
 }

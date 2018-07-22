@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Represents an arithmetic goal in an AST of the form A is B.
- * Before unifying the left and right hand sides, the right hand side is evaluated arithmetically.
- * See ArithmeticActivationRecord for more information on how this kind of goal is executed.
+ * Represents an arithmetic goal in an AST of the form A is B. Before unifying
+ * the left and right hand sides, the right hand side is evaluated
+ * arithmetically. See ArithmeticActivationRecord for more information on how
+ * this kind of goal is executed.
  */
 public class ArithmeticGoal extends Goal {
     private final Term lhs;
@@ -49,10 +50,7 @@ public class ArithmeticGoal extends Goal {
 
     @Override
     public ArithmeticGoal transform(TermTransformationVisitor visitor) {
-        return new ArithmeticGoal(
-            this.lhs.transform(visitor),
-            this.rhs.transform(visitor)
-        );
+        return new ArithmeticGoal(this.lhs.transform(visitor), this.rhs.transform(visitor));
     }
 
     @Override
@@ -76,10 +74,8 @@ public class ArithmeticGoal extends Goal {
     }
 
     @Override
-    public ArithmeticActivationRecord createActivationRecord(
-        Interpreter interpreter, 
-        Optional<FunctorActivationRecord> parent
-    ) {
+    public ArithmeticActivationRecord createActivationRecord(Interpreter interpreter,
+            Optional<FunctorActivationRecord> parent) {
         return new ArithmeticActivationRecord(this, interpreter, parent);
     }
 

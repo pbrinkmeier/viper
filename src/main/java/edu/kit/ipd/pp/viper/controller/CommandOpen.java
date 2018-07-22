@@ -32,15 +32,17 @@ public class CommandOpen extends Command {
     private InterpreterManager interpreterManager;
 
     /**
-     * Initializes a new open command. A command constructed this way selects the file using a dialog.
+     * Initializes a new open command. A command constructed this way selects the
+     * file using a dialog.
      * 
      * @param console Panel of the console area
      * @param editor Panel of the editor area
      * @param visualisation Panel of the visualisation area
      * @param setTitle Consumer function that can change the window title
      * @param toggleStateFunc Consumer function that switches the state of clickable
-     *            elements in the GUI
-     * @param commandSave Save command in case the currently opened program has been changed
+     *        elements in the GUI
+     * @param commandSave Save command in case the currently opened program has been
+     *        changed
      * @param manager The InterpreterManager instance
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
@@ -57,7 +59,8 @@ public class CommandOpen extends Command {
     }
 
     /**
-     * Initializes a new open command. A command constructed this way tries to open a file from a given path.
+     * Initializes a new open command. A command constructed this way tries to open
+     * a file from a given path.
      * 
      * @param path The file path to read from
      * @param console Panel of the console area
@@ -65,8 +68,9 @@ public class CommandOpen extends Command {
      * @param visualisation Panel of the visualisation area
      * @param setTitle Consumer function that can change the window title
      * @param toggleStateFunc Consumer function that switches the state of clickable
-     *            elements in the GUI
-     * @param commandSave Save command in case the currently opened program has been changed
+     *        elements in the GUI
+     * @param commandSave Save command in case the currently opened program has been
+     *        changed
      */
     public CommandOpen(String path, ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave) {
@@ -78,7 +82,7 @@ public class CommandOpen extends Command {
         this.setTitle = setTitle;
         this.commandSave = commandSave;
     }
-    
+
     /**
      * File to String reading routine. This should only be called internally, but
      * it's public for testing purposes.
@@ -93,7 +97,7 @@ public class CommandOpen extends Command {
         } catch (IOException e) {
             printOpenError(e, file.getAbsolutePath());
         }
-        
+
         return source;
     }
 
@@ -132,7 +136,7 @@ public class CommandOpen extends Command {
         this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
         this.setTitle.accept(file.getAbsolutePath());
     }
-    
+
     private void handleUnsavedChanges() {
         LanguageManager langman = LanguageManager.getInstance();
         Object options[] = {langman.getString(LanguageKey.DIALOG_YES), langman.getString(LanguageKey.DIALOG_NO),

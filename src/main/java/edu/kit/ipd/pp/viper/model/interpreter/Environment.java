@@ -16,7 +16,7 @@ public class Environment {
      *
      * @param activationRecord activation record this environment belongs to
      * @param substitutions local substitutions this environment stores for the
-     *            activation record
+     *        activation record
      */
     public Environment(ActivationRecord activationRecord, List<Substitution> substitutions) {
         this.activationRecord = activationRecord;

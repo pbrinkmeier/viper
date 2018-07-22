@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Represents a goal in an AST.
- * Subclasses must provide a means to create a respective activation record for execution
- * via createActivationRecord.
+ * Represents a goal in an AST. Subclasses must provide a means to create a
+ * respective activation record for execution via createActivationRecord.
  */
 public abstract class Goal {
     /**

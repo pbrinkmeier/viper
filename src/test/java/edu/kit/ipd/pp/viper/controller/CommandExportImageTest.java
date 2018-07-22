@@ -34,8 +34,7 @@ public class CommandExportImageTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        this.interpreterManager.nextSolution(this.console,
-                this.gui.getVisualisationPanel());
+        this.interpreterManager.nextSolution(this.console, this.gui.getVisualisationPanel());
     }
 
     /**

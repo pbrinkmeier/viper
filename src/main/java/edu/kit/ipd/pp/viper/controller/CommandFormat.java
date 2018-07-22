@@ -49,8 +49,7 @@ public class CommandFormat extends Command {
         if (!source.equals(newSource)) {
             this.editor.setSourceText(newSource);
             this.editor.setHasChanged(true);
-            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.EDITOR_FORMATTED),
-                    LogType.INFO);
+            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.EDITOR_FORMATTED), LogType.INFO);
         } else {
             if (!source.equals(""))
                 this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.EDITOR_ALREADY_FORMATTED),

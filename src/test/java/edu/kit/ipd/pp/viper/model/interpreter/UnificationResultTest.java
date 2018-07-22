@@ -46,10 +46,11 @@ public class UnificationResultTest {
     }
 
     /**
-     * Tests whether the substitutions returned by a unification result
-     * are properly immutable.
+     * Tests whether the substitutions returned by a unification result are properly
+     * immutable.
      * 
-     * @throws UnsupportedOperationException if the returned substitution list is immutable
+     * @throws UnsupportedOperationException if the returned substitution list is
+     *         immutable
      */
     @Test(expected = UnsupportedOperationException.class)
     public void getSubstitutionsImmutableTest() {
@@ -59,9 +60,11 @@ public class UnificationResultTest {
     }
 
     /**
-     * Tests whether getting the substitutions of a failed unification properly throws an exception.
+     * Tests whether getting the substitutions of a failed unification properly
+     * throws an exception.
      * 
-     * @throws UnsupportedOperationException if the failed unification can't return any substitutions
+     * @throws UnsupportedOperationException if the failed unification can't return
+     *         any substitutions
      */
     @Test(expected = UnsupportedOperationException.class)
     public void getSubstitutionsFailTest() {
@@ -69,9 +72,11 @@ public class UnificationResultTest {
     }
 
     /**
-     * Tests whether a successful unification properly raises an exception when asked for an error message.
+     * Tests whether a successful unification properly raises an exception when
+     * asked for an error message.
      * 
-     * @throws UnsupportedOperationException if the succesful unification can't return an error message
+     * @throws UnsupportedOperationException if the succesful unification can't
+     *         return an error message
      */
     @Test(expected = UnsupportedOperationException.class)
     public void getErrorMessageSuccessTest() {

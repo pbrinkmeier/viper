@@ -32,8 +32,7 @@ public class CommandSaveTest {
         this.editor = this.gui.getEditorPanel();
         this.console = this.gui.getConsolePanel();
         this.manager = this.gui.getInterpreterManager();
-        this.commandSave = new CommandSave(this.console, this.editor, SaveType.SAVE,
-                this.gui::setTitle, this.manager);
+        this.commandSave = new CommandSave(this.console, this.editor, SaveType.SAVE, this.gui::setTitle, this.manager);
     }
 
     /**

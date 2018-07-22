@@ -8,7 +8,7 @@ public enum ImageFormat {
      * SVG Export-Type (Vector graphic)
      */
     SVG,
-    
+
     /**
      * PNG Export-Type (Pixel graphic)
      */

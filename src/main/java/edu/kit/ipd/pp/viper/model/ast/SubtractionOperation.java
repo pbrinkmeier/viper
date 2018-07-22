@@ -30,7 +30,7 @@ public class SubtractionOperation extends BinaryOperation {
      * do not explcitly visit Operations.
      *
      * @param parameters new parameters for the new SubstractionOperation (expected
-     *            to have exactly two elements)
+     *        to have exactly two elements)
      * @return new SubtractionOperation object
      */
     @Override

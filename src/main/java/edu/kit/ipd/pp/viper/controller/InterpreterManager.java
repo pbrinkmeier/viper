@@ -55,7 +55,7 @@ public class InterpreterManager {
      * Initializes an interpreter manager. This method calls reset() internally.
      * 
      * @param toggleStateFunc Consumer function that switches the state of clickable
-     *            elements in the GUI
+     *        elements in the GUI
      */
     public InterpreterManager(Consumer<ClickableState> toggleStateFunc) {
         this.toggleStateFunc = toggleStateFunc;
@@ -83,7 +83,7 @@ public class InterpreterManager {
         StringBuffer buf = new StringBuffer();
 
         try (InputStream in = this.getClass().getResource(STANDARD_LIBRARY_PATH).openStream();
-             BufferedReader reader = new BufferedReader(new InputStreamReader(in));) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));) {
             String str = "";
             while ((str = reader.readLine()) != null)
                 buf.append(str);
@@ -91,7 +91,8 @@ public class InterpreterManager {
             in.close();
             reader.close();
         } catch (IOException e) {
-            // should never happen, this means the standard library code was moved from its original position
+            // should never happen, this means the standard library code was moved from its
+            // original position
         }
 
         this.standardLibrary = buf.toString();
@@ -171,16 +172,14 @@ public class InterpreterManager {
         if (this.current > 0)
             this.current--;
 
-        this.toggleStateFunc.accept(this.current == 0
-            ? ClickableState.FIRST_STEP
-            : ClickableState.PARSED_QUERY);
+        this.toggleStateFunc.accept(this.current == 0 ? ClickableState.FIRST_STEP : ClickableState.PARSED_QUERY);
     }
 
     /**
      * Runs the interpreter until a new solution is found. This is done in a
      * separate thread to ensure the GUI is still responsive and the execution can
-     * be canceled if it's going on for too long. Because of that the Thread has to set the
-     * visualisation and the console output
+     * be canceled if it's going on for too long. Because of that the Thread has to
+     * set the visualisation and the console output
      * 
      * @param console The console panel of the gui
      * @param visualisation The visualisation panel of the gui
@@ -191,10 +190,10 @@ public class InterpreterManager {
             this.assignThread(console, visualisation);
         }
     }
-    
+
     /**
-     * Actually initializes and starts the thread and also takes care of the console output
-     * and the visualization inside the thread
+     * Actually initializes and starts the thread and also takes care of the console
+     * output and the visualization inside the thread
      * 
      * @param console The console panel of the gui
      * @param visualisation The visualisation panel of the gui
@@ -203,15 +202,14 @@ public class InterpreterManager {
         if (this.nextSolutionThread.isPresent()) {
             return;
         }
-        
+
         this.nextSolutionThread = Optional.of(new Thread(() -> {
             while (this.running) {
                 this.nextStep();
-                if (this.result != StepResult.STEPS_REMAINING 
-                        && this.current == this.visualisations.size() - 1)
+                if (this.result != StepResult.STEPS_REMAINING && this.current == this.visualisations.size() - 1)
                     this.running = false;
             }
-            
+
             if (this.result != StepResult.FROM_STEPBACK) {
                 if (this.result == StepResult.SOLUTION_FOUND) {
                     String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
@@ -229,9 +227,9 @@ public class InterpreterManager {
                             LogType.INFO);
                 }
             }
-    
+
             visualisation.setFromGraph(this.getCurrentVisualisation());
-            
+
             return;
         }));
 
@@ -246,16 +244,16 @@ public class InterpreterManager {
      */
     public void cancel() {
         this.running = false;
-        
+
         if (!this.nextSolutionThread.isPresent())
             return;
 
         try {
             this.nextSolutionThread.get().join();
         } catch (InterruptedException e) {
-            
+
         }
-        
+
         this.nextSolutionThread = Optional.empty();
     }
 

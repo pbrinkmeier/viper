@@ -24,7 +24,7 @@ public abstract class Term {
      *
      * @return a number term containing the result of the evaluation
      * @throws TermEvaluationException when evaluation fails (for example when
-     *             trying to evaluate a functor)
+     *         trying to evaluate a functor)
      */
     public abstract Number evaluate() throws TermEvaluationException;
 

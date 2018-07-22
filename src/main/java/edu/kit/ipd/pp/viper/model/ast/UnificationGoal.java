@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * An unification goal.
- * This represent a Prolog goal of the form A = B.
+ * An unification goal. This represent a Prolog goal of the form A = B.
  */
 public class UnificationGoal extends Goal {
     private final Term lhs;
@@ -48,10 +47,7 @@ public class UnificationGoal extends Goal {
 
     @Override
     public UnificationGoal transform(TermTransformationVisitor visitor) {
-        return new UnificationGoal(
-            this.lhs.transform(visitor),
-            this.rhs.transform(visitor)
-        );
+        return new UnificationGoal(this.lhs.transform(visitor), this.rhs.transform(visitor));
     }
 
     @Override
@@ -75,10 +71,8 @@ public class UnificationGoal extends Goal {
     }
 
     @Override
-    public UnificationActivationRecord createActivationRecord(
-        Interpreter interpreter, 
-        Optional<FunctorActivationRecord> parent
-    ) {
+    public UnificationActivationRecord createActivationRecord(Interpreter interpreter,
+            Optional<FunctorActivationRecord> parent) {
         return new UnificationActivationRecord(this, interpreter, parent);
     }
 

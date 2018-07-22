@@ -61,8 +61,8 @@ public class ConsolePanel extends JPanel implements HasClickable {
         this.scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         this.scrollPane.setViewportView(this.outputArea);
 
-        this.inputField = new ConsoleInputField(new CommandParseQuery(this,
-                this.main.getVisualisationPanel(), this.main.getInterpreterManager(), this.main::switchClickableState));
+        this.inputField = new ConsoleInputField(new CommandParseQuery(this, this.main.getVisualisationPanel(),
+                this.main.getInterpreterManager(), this.main::switchClickableState));
 
         this.add(this.scrollPane, BorderLayout.CENTER);
         this.add(this.inputField, BorderLayout.PAGE_END);

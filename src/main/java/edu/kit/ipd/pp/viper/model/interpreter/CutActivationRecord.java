@@ -8,7 +8,8 @@ public class CutActivationRecord extends ActivationRecord {
     private CutGoal goal;
 
     /**
-     * Initializes a cut activation record with an interpreter, an optional parent and its corresponding cut goal.
+     * Initializes a cut activation record with an interpreter, an optional parent
+     * and its corresponding cut goal.
      *
      * @param interpreter interpreter this AR belongs to
      * @param parent optional parent FAR
@@ -56,7 +57,8 @@ public class CutActivationRecord extends ActivationRecord {
                 return Optional.empty();
             }
 
-            // if a previous subgoal exists, mark all subgoals until that one as not visited and continue exection there
+            // if a previous subgoal exists, mark all subgoals until that one as not visited
+            // and continue exection there
             ActivationRecord toUnvisit = this;
             while (toUnvisit != this.getParent().get().getPrevious().get()) {
                 toUnvisit.setVisited(false);

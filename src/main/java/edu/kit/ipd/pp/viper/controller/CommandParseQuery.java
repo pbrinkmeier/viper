@@ -16,15 +16,16 @@ public class CommandParseQuery extends Command {
     private VisualisationPanel visualisation;
     private Consumer<ClickableState> toggleStateFunc;
     private InterpreterManager interpreterManager;
+
     /**
      * Initializes a new parse query command.
      * 
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
      * @param interpreterManager Interpreter manager with a reference to the current
-     *            interpreter
+     *        interpreter
      * @param toggleStateFunc Consumer function that switches the state of clickable
-     *            elements in the GUI
+     *        elements in the GUI
      */
     public CommandParseQuery(ConsolePanel console, VisualisationPanel visualisation,
             InterpreterManager interpreterManager, Consumer<ClickableState> toggleStateFunc) {

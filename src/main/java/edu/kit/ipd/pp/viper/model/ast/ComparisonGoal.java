@@ -61,12 +61,10 @@ public abstract class ComparisonGoal extends Goal {
     }
 
     // ---
-    
+
     @Override
-    public ComparisonActivationRecord createActivationRecord(
-        Interpreter interpreter,
-        Optional<FunctorActivationRecord> parent
-    ) {
+    public ComparisonActivationRecord createActivationRecord(Interpreter interpreter,
+            Optional<FunctorActivationRecord> parent) {
         return new ComparisonActivationRecord(interpreter, parent, this);
     }
 
@@ -99,7 +97,8 @@ public abstract class ComparisonGoal extends Goal {
     public abstract boolean compareNumbers(int lhs, int rhs);
 
     /**
-     * Two comparison goals are equal if they are of the same class and their lhs and rhs are equal.
+     * Two comparison goals are equal if they are of the same class and their lhs
+     * and rhs are equal.
      *
      * @param other object to compare to
      * @return whether this equals other

@@ -32,8 +32,8 @@ public class SubtractionOperationTest {
     }
 
     /**
-     * Tests the creation of a new subtraction operation from an
-     * already instantiated subtraction operation object.
+     * Tests the creation of a new subtraction operation from an already
+     * instantiated subtraction operation object.
      */
     @Test
     public void createNewTest() {
