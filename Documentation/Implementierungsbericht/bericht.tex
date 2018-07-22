@@ -309,10 +309,10 @@ Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs und
 \begin{itemize}
 	\item \textbf{Zurückschreiten}\hfill\cmark
 	\item \textbf{Ausführung bis zur nächsten Lösung}\hfill\cmark
-	\item Arithmetik\hfill\xmark
+	\item \textbf{Arithmetik}\hfill\cmark
 	\item \textbf{Standardbibliothek}\hfill\cmark
 	\item Export der Visualisierung als LaTeX-Code\hfill\xmark
-	\item \enquote{Pretty-Printing von Listen}\hfill\xmark
+	\item \textbf{\enquote{Pretty-Printing von Listen}}\hfill\cmark
 \end{itemize}
 
 \subsection{Vergleich der Implementierungsverläufe}
@@ -428,7 +428,7 @@ Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs und
 		\ganttlink[link bulge=1.4, link mid=0.9]{elem6}{elem11}
 		\ganttlink[link bulge=1.4, link mid=0.88]{elem7}{elem11}
 		\ganttlink[link bulge=1.4, link mid=0.84]{elem8}{elem11}
-		\ganttlink[link bulge=0.6, link mid=0.75]{elem9}{elem11}
+		\ganttlink[link bulge=0.6, link mid=0.85]{elem9}{elem11}
 		\ganttlink[link bulge=1.4, link mid=0.51]{elem10}{elem11}
 		
 		\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
@@ -447,8 +447,30 @@ Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs und
 \section{Änderungen zum Entwurf und Pflichtenheft}
 
 \subsection{Paket: Model}
+TODO
 
 \subsection{Paket: View}
+
+\textbf{Neue Klassen:}\\
+\begin{itemize}
+	\item \textbf{Menu}:\\
+	Unterklasse von JMenu. Diese eigene Implementierung des Menü-Elements ist vereinbar mit dem Observer-Pattern welches für den Sprachwechsel genutzt wird.
+	\item \textbf{ToolBarButton}:\\
+	Unterklasse von JButton. Diese Klasse ist spezifisch für die Toolbar und nutzt im Gegensatz zur bisher verfügbaren Button-Klasse automatisch ein Icon.
+	\item \textbf{CheckBoxMenuItem}:\\
+	Unterklasse von JCheckBoxMenuItem. Diese wird für Menü-Elemente genutzt, welche sich umschalten lassen (Aktivieren und Deaktivieren der Standardbibliothek).
+	\item \textbf{LanguageKey}:\\
+	Sammelklasse für valide Sprachschlüssel. Diese werden nun als zentrale Enumeration verwaltet, um das Übergeben invalider Sprachschlüssel an den Sprachen-Manager zu verhindern.
+	\item \textbf{ColorScheme}:\\
+	Sammelklasse für valide Farbwerte. Diese werden nun als zentrale Enumeration verwaltet, um die Farbwahl zu vereinheitlichen.
+	\item \textbf{LogType}:\\
+	Sammelklasse für Ausgabetypen im Ausgabebereich der Konsole. Diese werden als zentrale Enumeration verwaltet, um die Wahl über die farbliche Darstellung der Ausgabe der Konsole zu überlassen.
+	\item \textbf{ClickableState} und \textbf{HasClickable}:\\
+	Alle Elemente der grafischen Oberfläche, welche Schaltflächen besitzen, implementieren fortan das Interface \texttt{HasClickable}. Dieses verlangt die Implementierung einer Funktion zum Wechsel des \texttt{ClickableState}. Letzterer ist eine Enumeration aller möglichen Zustände die Einfluss auf die Aktivierung der Schaltflächen nehmen. Sollte dieser Zustand sich ändern werden automatisch alle betroffenen Klassen aufgerufen und die Schaltflächen einzeln aktiviert oder deaktiviert. Dies ermöglicht bspw. die Deaktivierung der Schaltfläche für den nächsten Schritt einer Interpretation bevor eine Abfrage gestellt wurde. Diese Schaltfläche wird nach dem erfolgreichen Stellen einer Abfrage dann automatisch aktiviert.
+\end{itemize}
+
+\textbf{Änderungen an bestehenden Klassen:}\\
+TODO
 
 \subsection{Paket: Controller}
 \textbf{Neue Klassen:}\\
@@ -467,13 +489,12 @@ Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs und
 	Manager-Klasse für das Speichern und Laden von Produktdaten.
 \end{itemize}
 
-\textbf{Geänderte Konstruktoren:}\\
-Aufgrund von Schnittstellen-Anpassungen haben sich die Konstruktoren in diversen Kommandos des Controllers verändert. Die meist vertretenen Anpassungen umfassen hierbei die Übergabe von Consumer-Funktionen, über die einzelne isolierte Funktionen des Hauptfensters ausgeführt werden können. Zusätzlich wird der InterpreterManager nun häufiger übergeben, da einige Commands den \enquote{Nächste Lösung}-Thread beenden und auf dessen tatsächliche Terminierung warten müssen. Diese Funktionsparameter werden im folgenden abgekürzt als:
+\textbf{Änderungen an bestehenden Klassen:}\\
+Aufgrund von Schnittstellen-Anpassungen haben sich die Konstruktoren in diversen Kommandos des Controllers verändert. Die meist vertretenen Anpassungen umfassen hierbei die Übergabe von Consumer-Funktionen, über die einzelne isolierte Funktionen des Hauptfensters ausgeführt werden können. Zusätzlich wird der InterpreterManager (\textbf{IM}) nun häufiger übergeben, da einige Commands den \enquote{Nächste Lösung}-Thread beenden und auf dessen tatsächliche Terminierung warten müssen. Die Funktionen des Hauptfensters werden im folgenden abgekürzt als:
 
 \begin{itemize}
 	\item \textbf{CT}: Consumer-Funktion für das Ändern des Fenstertitels
 	\item \textbf{CS}: Consumer-Funktion für das Ändern des internen Clickable-Zustands
-	\item \textbf{IM}: Der InterpreterManager
 \end{itemize}
 
 Die Anpassung der Konstruktoren ist wie folgt:
