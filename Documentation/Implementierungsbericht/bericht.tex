@@ -66,7 +66,7 @@
 % Anschluss an Entwurfsdokument
 Bei VIPER handelt es sich um ein grafisches Tool zur Unterstützung des Lernens und Lehrens der logischen Programmiersprache Prolog. Hierbei soll der Nutzer die Interpretation von Prolog-Abfragen nachvollziehen können. Dies wird durch die Visualisierung des Interpretationsvorgangs als Baumstruktur erreicht. Der integrierte Editor ermöglicht weiterhin das Schreiben von Prolog-Quelltext. Abfragen zur Interpretation können über ein Textfeld gestellt werden, Informationen an den Nutzer wie das Finden einer Lösung werden über ein Ausgabefeld dargestellt.
 
-Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Model-View-Controller-Architekturstils. Hiernach wird die grafische Darstellungs-Komponente (View) von internen Datenstrukturen und deren Logik (Model) getrennt. Die Vermittlung zwischen diesen Komponenten erfolgt über den Controller. Die grafische View-Komponente ist hierbei für Desktop-Nutzung ausgelegt und mit Swing implementiert. Die Generierung der Visualisierung erfolgt mit Graphviz über die Graphviz-Java Implementierung, das Darstellen der erzeugten Visualisierung nutzt die Apache Batik Bibliothek.
+Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Model-View-Controller-Architekturstils. Hiernach wird die grafische Darstellungs-Komponente (View) von internen Datenstrukturen und deren Logik (Model) getrennt. Die Vermittlung zwischen diesen Komponenten erfolgt über den Controller. Die grafische View-Komponente ist hierbei für Desktop-Nutzung ausgelegt und mit Swing implementiert. Die Generierung der Visualisierung erfolgt mit Graphviz über die Graphviz-Java Implementierung, die Darstellung der erzeugten Visualisierung nutzt die Apache Batik Bibliothek.
 
 \section{Übersicht: Implementierte Kriterien}
 
@@ -86,17 +86,17 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 	\end{enumerate}
 
 \subsection{Implementierte Kann-Kriterien}
-	\textbf{Erfüllungsrate: 8/12 (66,67\%)}
+	\textbf{Erfüllungsrate: 11/12 (91,67\%)}
 	\begin{enumerate}[label=\textbf{K\arabic*}]
 		\item Zurückschreiten\hfill\cmark
 		\item Ausführung bis zur nächsten Lösung\hfill\cmark
 		\item Cut\hfill\cmark
-		\item Arithmetik\hfill\xmark
-		\item Standardbibliothek\hfill\xmark
+		\item Arithmetik\hfill\cmark
+		\item Standardbibliothek\hfill\cmark
 		\item Standardbibliothek deaktivieren und aktivieren\hfill\cmark
 		\item Export der Visualisierung als LaTeX-Code\hfill\xmark
 		\item Export der Visualisierung als Bilddatei\hfill\cmark
-		\item \enquote{Pretty-Printing} von Listen\hfill\xmark
+		\item \enquote{Pretty-Printing} von Listen\hfill\cmark
 		\item Formatierung von Quelltext\hfill\cmark
 		\item Wechsel der Sprache zwischen Deutsch und Englisch\hfill\cmark
 		\item Schnellzugriffsleiste\hfill\cmark
@@ -104,13 +104,13 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 
 \subsection{Zusätzliche Features}
 	\subsubsection{Automatische Anpassung des Fenstertitels}
-		Zur Übersicht wird beim Öffnen einer Datei der Fenstertitel automatisch an den absoluten Pfad der geöffneten Datei angepasst.
+		Beim Öffnen einer Datei wird der absolute Pfad der geöffneten Datei im Fenstertitel angezeigt.
 	
 	\subsubsection{History-Funktion des Eingabefelds}
-		Gestelle Abfragen werden für die aktuelle Sitzung gespeichert. Dies ermöglicht das Scrollen durch bisher gestellte Abfragen im Eingabefeld durch Nutzung der Pfeiltasten. Die gespeicherten Abfragen gehen beim Schließen des Fensters verloren.
+		Gestellte Abfragen im Eingabefeld werden bis zu einem erneuten Parsen gespeichert. Dies ermöglicht das \enquote{Scrollen} durch bisher gestellte Abfragen mittels der der Pfeiltasten.
 		
 	\subsubsection{Zoom-Funktion des Editors}
-		Die Textgröße im Editor-Fenster kann über das Bewegen des Mausrads bei gedrückter Steuerungs-Taste angepasst werden.
+		Die Textgröße im Editor-Fenster kann über das Bewegen des Mausrads bei gedrückter Steuerungs-Taste, oder durch Drücken der Plus und Minus Tasten in Kombination mit der Steuerungs-Taste angepasst werden.
 \section{Implementierungsplan}
 \begin{ganttchart}[x unit = 1.4cm, y unit chart = 0.95cm]{0}{4}
 	\gantttitle{Implementierungsplan (Schritte in Wochen)}{5}\\
@@ -173,7 +173,7 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 	\ganttlink[link bulge=0.2, link mid=0.5]{elem15}{elem16}
 \end{ganttchart}
 \newpage
-Der Implementierungsstil teilt sich in wöchentliche Aufgabenbereiche ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich und bei dringendem Bedarf statt. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel sondern im Nachhinein entwickelt.
+Der Implementierungs-Arbeit teilt sich in wöchentliche Aufgabenbereiche ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich und bei dringendem Bedarf statt. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel, sondern im Nachhinein entwickelt.
 
 Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0 entspricht hierbei dem Vorgehen am ersten Tag der ersten Woche. Die zugehörigen Aufgaben setzen sich wie folgt zusammen:
 \begin{enumerate}
