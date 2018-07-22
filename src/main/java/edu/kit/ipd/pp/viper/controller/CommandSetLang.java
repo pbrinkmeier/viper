@@ -1,10 +1,8 @@
 package edu.kit.ipd.pp.viper.controller;
 
 import java.util.Locale;
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
-import guru.nidi.graphviz.model.Graph;
 
 /**
  * Command for setting the GUI language.
@@ -39,6 +37,8 @@ public class CommandSetLang extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+
         LanguageManager.getInstance().setLocale(this.lang);
         this.prefManager.setLanguage(this.lang);
 
@@ -46,8 +46,7 @@ public class CommandSetLang extends Command {
         this.console.clearAll();
 
         if (hasGraph) {
-            Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-            this.visualisation.setFromGraph(graph);
+            this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
         }
     }
 }

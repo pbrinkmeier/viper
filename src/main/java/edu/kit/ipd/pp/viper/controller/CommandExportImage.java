@@ -5,13 +5,11 @@ import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.MainWindow;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
-import guru.nidi.graphviz.model.Graph;
 
 /**
  * Command for exporting the visualisation to a supported image format (PNG or
@@ -40,6 +38,8 @@ public class CommandExportImage extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+
         JFileChooser chooser = new JFileChooser();
 
         if (format == ImageFormat.PNG) {
@@ -71,8 +71,7 @@ public class CommandExportImage extends Command {
      * @param f file to export the SVG graph to
      */
     public void exportSVG(File f) {
-        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-        Graphviz viz = Graphviz.fromGraph(graph);
+        Graphviz viz = Graphviz.fromGraph(this.interpreterManager.getCurrentVisualisation());
 
         File file = FileUtilities.checkForMissingExtension(f, ".svg");
         try {
@@ -96,8 +95,7 @@ public class CommandExportImage extends Command {
      * @param f file to export the PNG graph to
      */
     public void exportPNG(File f) {
-        Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-        Graphviz viz = Graphviz.fromGraph(graph);
+        Graphviz viz = Graphviz.fromGraph(this.interpreterManager.getCurrentVisualisation());
 
         File file = FileUtilities.checkForMissingExtension(f, ".png");
         try {

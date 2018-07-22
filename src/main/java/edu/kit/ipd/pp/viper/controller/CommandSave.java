@@ -20,6 +20,7 @@ public class CommandSave extends Command {
     private EditorPanel editor;
     private SaveType saveType;
     private Consumer<String> setTitle;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new save command.
@@ -28,12 +29,15 @@ public class CommandSave extends Command {
      * @param editor Panel of the editor area
      * @param saveType Save type (either save or save as new)
      * @param setTitle Consumer function to set the window title
+     * @param manager The InterpreterManager instance
      */
-    public CommandSave(ConsolePanel console, EditorPanel editor, SaveType saveType, Consumer<String> setTitle) {
+    public CommandSave(ConsolePanel console, EditorPanel editor, SaveType saveType, Consumer<String> setTitle,
+            InterpreterManager manager) {
         this.console = console;
         this.editor = editor;
         this.saveType = saveType;
         this.setTitle = setTitle;
+        this.interpreterManager = manager;
     }
 
     /**
@@ -42,8 +46,10 @@ public class CommandSave extends Command {
     public void execute() {
         if (this.saveType == SaveType.SAVE && this.editor.hasFileReference())
             save();
-        else
+        else {
+            this.interpreterManager.cancel();
             saveAs();
+        }
     }
 
     /**

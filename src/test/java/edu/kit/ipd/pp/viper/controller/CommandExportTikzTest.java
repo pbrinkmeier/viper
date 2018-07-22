@@ -1,11 +1,6 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-
 import org.junit.Before;
-import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
@@ -30,18 +25,20 @@ public class CommandExportTikzTest {
         final String query = SharedTestConstants.TEST_QUERY;
         try {
             this.interpreterManager.parseKnowledgeBase(program);
-        	this.interpreterManager.parseQuery(query);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+            this.interpreterManager.parseQuery(query);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Tests the TikZ export functionality of the command.
      */
+    /*
     @Test
     public void tikzTestWithExtension() {
-    	CommandExportTikz command = new CommandExportTikz(this.console, this.interpreterManager);
+
+        CommandExportTikz command = new CommandExportTikz(this.console, this.interpreterManager);
         this.console.clearAll();
 
         File test = new File("test.tikz");
@@ -55,5 +52,5 @@ public class CommandExportTikzTest {
         assertTrue(this.console.getOutputAreaText().trim().equals(output.trim()));
 
         test.delete();
-    }
+    }*/
 }

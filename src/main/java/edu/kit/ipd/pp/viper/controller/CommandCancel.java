@@ -26,7 +26,7 @@ public class CommandCancel extends Command {
      */
     public void execute() {
         this.interpreterManager.cancel();
-        
-        visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
+
+        this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
     }
 }

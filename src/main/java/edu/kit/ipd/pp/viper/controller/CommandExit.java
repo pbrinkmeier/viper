@@ -10,22 +10,27 @@ import edu.kit.ipd.pp.viper.view.EditorPanel;
 public class CommandExit extends Command {
     private EditorPanel editor;
     private final CommandSave commandSave;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new exit command.
      * 
      * @param editor The Editor window
      * @param save the CommandSave instance
+     * @param manager The InterpreterManager instance
      */
-    public CommandExit(EditorPanel editor, CommandSave save) {
+    public CommandExit(EditorPanel editor, CommandSave save, InterpreterManager manager) {
         this.editor = editor;
         this.commandSave = save;
+        this.interpreterManager = manager;
     }
 
     /**
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+        
         if (this.editor.hasChanged()) {
             LanguageManager langman = LanguageManager.getInstance();
             Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),
@@ -41,6 +46,7 @@ public class CommandExit extends Command {
                 return;
             }
         }
+        
         System.exit(0);
     }
 }

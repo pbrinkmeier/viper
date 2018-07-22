@@ -17,8 +17,8 @@ public class CommandParse extends Command {
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
-    private InterpreterManager interpreterManager;
     private Consumer<ClickableState> toggleStateFunc;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new parse command.
@@ -43,12 +43,12 @@ public class CommandParse extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.reset();
+
         this.console.clearInputField();
         this.visualisation.clearVisualization();
         this.console.lockInput();
         this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
-
-        this.interpreterManager.reset();
 
         try {
             this.interpreterManager.parseKnowledgeBase(editor.getSourceText());

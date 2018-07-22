@@ -20,6 +20,7 @@ public class CommandNew extends Command {
     private Consumer<ClickableState> toggleStateFunc;
     private Consumer<String> setTitle;
     private final CommandSave commandSave;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new "new"-command.
@@ -31,21 +32,25 @@ public class CommandNew extends Command {
      *            elements in the GUI
      * @param setTitle Consumer function to change the window title
      * @param save the CommandSave instance
+     * @param manager The InterpreterManager instance
      */
     public CommandNew(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
-            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave save) {
+            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave save,
+            InterpreterManager manager) {
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
         this.setTitle = setTitle;
         this.commandSave = save;
+        this.interpreterManager = manager;
     }
 
     /**
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
         if (this.editor.hasChanged()) {
             LanguageManager langman = LanguageManager.getInstance();
             Object options[] = {langman.getString(LanguageKey.YES), langman.getString(LanguageKey.NO),

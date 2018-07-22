@@ -30,6 +30,7 @@ public class CommandOpen extends Command {
     private Consumer<ClickableState> toggleStateFunc;
     private Consumer<String> setTitle;
     private CommandSave commandSave;
+    private InterpreterManager interpreterManager;
 
     /**
      * Initializes a new open command. A command constructed this way selects the file using a dialog.
@@ -41,9 +42,11 @@ public class CommandOpen extends Command {
      * @param toggleStateFunc Consumer function that switches the state of clickable
      *            elements in the GUI
      * @param commandSave Save command in case the currently opened program has been changed
+     * @param manager The InterpreterManager instance
      */
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
-            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave) {
+            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
+            InterpreterManager manager) {
         this.path = "";
         this.console = console;
         this.editor = editor;
@@ -51,6 +54,7 @@ public class CommandOpen extends Command {
         this.toggleStateFunc = toggleStateFunc;
         this.setTitle = setTitle;
         this.commandSave = commandSave;
+        this.interpreterManager = manager;
     }
 
     /**
@@ -178,9 +182,10 @@ public class CommandOpen extends Command {
      * Executes the command.
      */
     public void execute() {
-        if (this.path.isEmpty()) {
+        this.interpreterManager.cancel();
+        if (this.path.isEmpty())
             openByDialog();
-        } else
+        else
             openDirectly();
     }
 }

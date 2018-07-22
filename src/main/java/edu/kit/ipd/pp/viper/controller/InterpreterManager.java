@@ -19,6 +19,7 @@ import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 import guru.nidi.graphviz.model.Graph;
 
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -43,6 +44,7 @@ public class InterpreterManager {
     private boolean running = false;
     private StepResult result;
     private Consumer<ClickableState> toggleStateFunc;
+    private Optional<Thread> nextSolutionThread = Optional.empty();
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -59,6 +61,7 @@ public class InterpreterManager {
      * Resets the instance to make it ready for a new interpreter.
      */
     public void reset() {
+        this.cancel();
         this.knowledgeBase = Optional.empty();
         this.query = Optional.empty();
         this.interpreter = Optional.empty();
@@ -112,12 +115,15 @@ public class InterpreterManager {
 
         if (this.current < this.visualisations.size() - 1) {
             this.current++;
-            return StepResult.STEPS_REMAINING;
+            this.result = StepResult.FROM_STEPBACK;
+            return this.result;
         }
+
         this.result = this.interpreter.get().step();
 
-        this.current++;
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
+
+        this.current++;
 
         return result;
     }
@@ -137,22 +143,41 @@ public class InterpreterManager {
     /**
      * Runs the interpreter until a new solution is found. This is done in a
      * separate thread to ensure the GUI is still responsive and the execution can
-     * be canceled if it's going on for too long.
+     * be canceled if it's going on for too long. Because of that the Thread has to set the
+     * visualisation and the console output
      * 
-     * @param console Panel of the console area
-     * @param visualisation Panel of the visualisation area
+     * @param console The console panel of the gui
+     * @param visualisation The visualisation panel of the gui
      */
     public void nextSolution(ConsolePanel console, VisualisationPanel visualisation) {
         if (!this.running) {
             this.running = true;
-            (new Thread(() -> {
-                while (this.running) {
-                    this.nextStep();
-                    if (this.result != StepResult.STEPS_REMAINING)
-                        this.running = false;
-                }
-
-                if (this.result == StepResult.SOLUTION_FOUND) {
+            this.assignThread(console, visualisation);
+        }
+    }
+    
+    /**
+     * Actually initializes and starts the thread and also takes care of the console output
+     * and the visualization inside the thread
+     * 
+     * @param console The console panel of the gui
+     * @param visualisation The visualisation panel of the gui
+     */
+    private void assignThread(ConsolePanel console, VisualisationPanel visualisation) {
+        if (this.nextSolutionThread.isPresent()) {
+            return;
+        }
+        
+        this.nextSolutionThread = Optional.of(new Thread(() -> {
+            while (this.running) {
+                this.nextStep();
+                if (this.result != StepResult.STEPS_REMAINING 
+                        && this.current == this.visualisations.size() - 1)
+                    this.running = false;
+            }
+            
+            if (this.result != StepResult.FROM_STEPBACK) {
+                if (result == StepResult.SOLUTION_FOUND) {
                     String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
                     List<Substitution> solution = this.getSolution();
 
@@ -163,16 +188,18 @@ public class InterpreterManager {
                     console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
                 }
 
-                if (this.result == StepResult.NO_MORE_SOLUTIONS) {
+                if (result == StepResult.NO_MORE_SOLUTIONS) {
                     console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
                             LogType.INFO);
                 }
-                
-                visualisation.setFromGraph(this.getCurrentVisualisation());
-                
-                return;
-            })).start();
-        }
+            }
+    
+            visualisation.setFromGraph(this.getCurrentVisualisation());
+            
+            return;
+        }));
+
+        this.nextSolutionThread.get().start();
     }
 
     /**
@@ -183,6 +210,17 @@ public class InterpreterManager {
      */
     public void cancel() {
         this.running = false;
+        
+        if (!this.nextSolutionThread.isPresent())
+            return;
+
+        try {
+            this.nextSolutionThread.get().join();
+        } catch (InterruptedException e) {
+            
+        }
+        
+        this.nextSolutionThread = Optional.empty();
     }
 
     /**
@@ -193,7 +231,7 @@ public class InterpreterManager {
      * @return string list of substitutions that form a solution
      */
     public List<Substitution> getSolution() {
-        Environment currentEnv = this.getCurrentState().getCurrent().get().getEnvironment();
+        Environment currentEnv = this.interpreter.get().getCurrent().get().getEnvironment();
 
         List<Substitution> solution = this.variables.get().stream().map(variable -> {
             return new Substitution(variable, currentEnv.applyAllSubstitutions(variable));
@@ -202,15 +240,6 @@ public class InterpreterManager {
         return solution;
     }
 
-    /**
-     * Getter-Method for the current state of the interpretation.
-     * 
-     * @return Current state of the interpretation
-     */
-    public Interpreter getCurrentState() {
-        return this.interpreter.get();
-    }
-    
     /**
      * Getter-Method for the current visualisation of the interpretation
      * 

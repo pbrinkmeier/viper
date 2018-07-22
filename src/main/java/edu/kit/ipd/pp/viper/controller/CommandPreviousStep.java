@@ -25,6 +25,8 @@ public class CommandPreviousStep extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+
         this.interpreterManager.previousStep();
 
         visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());

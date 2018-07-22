@@ -32,6 +32,8 @@ public class CommandNextSolution extends Command {
      * Executes the command.
      */
     public void execute() {
-        this.interpreterManager.nextSolution(this.console, this.visualisation);
+        this.interpreterManager.cancel();
+
+        this.interpreterManager.nextSolution(console, visualisation);
     }
 }

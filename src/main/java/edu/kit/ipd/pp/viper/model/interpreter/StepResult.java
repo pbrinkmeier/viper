@@ -9,5 +9,7 @@ public enum StepResult {
     /** Step result when a solution was found */
     SOLUTION_FOUND,
     /** Step result when there are steps remaining */
-    STEPS_REMAINING
+    STEPS_REMAINING,
+    /** Step result when a step has been redone */
+    FROM_STEPBACK
 }

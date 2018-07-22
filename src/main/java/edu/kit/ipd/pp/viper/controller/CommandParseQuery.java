@@ -3,12 +3,10 @@ package edu.kit.ipd.pp.viper.controller;
 import java.util.function.Consumer;
 
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
-import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
-import guru.nidi.graphviz.model.Graph;
 
 /**
  * Command for parsing the entered Prolog code.
@@ -16,9 +14,8 @@ import guru.nidi.graphviz.model.Graph;
 public class CommandParseQuery extends Command {
     private ConsolePanel console;
     private VisualisationPanel visualisation;
-    private InterpreterManager interpreterManager;
     private Consumer<ClickableState> toggleStateFunc;
-
+    private InterpreterManager interpreterManager;
     /**
      * Initializes a new parse query command.
      * 
@@ -41,12 +38,16 @@ public class CommandParseQuery extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+
         try {
             this.interpreterManager.parseQuery(this.console.getInputFieldText());
-            Graph graph = GraphvizMaker.createGraph(this.interpreterManager.getCurrentState());
-            this.visualisation.setFromGraph(graph);
+            this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
+
             this.toggleStateFunc.accept(ClickableState.FIRST_STEP);
+
             this.console.clearInputField();
+
             this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_STARTED),
                     LogType.INFO);
         } catch (ParseException e) {

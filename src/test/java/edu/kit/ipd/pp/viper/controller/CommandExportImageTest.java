@@ -30,10 +30,12 @@ public class CommandExportImageTest {
         final String query = SharedTestConstants.TEST_QUERY;
         try {
             this.interpreterManager.parseKnowledgeBase(program);
-        	this.interpreterManager.parseQuery(query);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+            this.interpreterManager.parseQuery(query);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.interpreterManager.nextSolution(this.console,
+                this.gui.getVisualisationPanel());
     }
 
     /**

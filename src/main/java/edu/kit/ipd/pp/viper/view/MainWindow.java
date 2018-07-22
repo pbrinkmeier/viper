@@ -110,13 +110,13 @@ public class MainWindow extends JFrame {
         this.editorPanel = new EditorPanel(this);
 
         // Create command instances
-        this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle);
-        this.commandExit = new CommandExit(editorPanel, this.commandSave);
+        this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle,
+                this.manager);
         this.commandOpen = new CommandOpen(this.consolePanel, this.editorPanel,
                 this.visualisationPanel, this::setWindowTitle, this::switchClickableState,
-                this.commandSave);
-        this.commandNew = new CommandNew(this.consolePanel, this.editorPanel,
-                this.visualisationPanel, this::setWindowTitle, this::switchClickableState, this.commandSave);
+                this.commandSave, this.manager);
+        this.commandNew = new CommandNew(this.consolePanel, this.editorPanel, this.visualisationPanel,
+                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
         this.commandParse = new CommandParse(this.consolePanel, this.editorPanel,
                 this.visualisationPanel, this.manager, this::switchClickableState);
         this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
@@ -125,6 +125,7 @@ public class MainWindow extends JFrame {
                 this::switchClickableState);
         this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
         this.commandCancel = new CommandCancel(this.visualisationPanel, this.manager);
+        this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);
 
         // add menu bar and tool bar to window
         this.menubar = new MenuBar(this);

@@ -1,15 +1,14 @@
 package edu.kit.ipd.pp.viper.controller;
-
-import java.io.File;
+/*
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
-import edu.kit.ipd.pp.viper.model.visualisation.LatexMaker;
-import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.MainWindow;
+*/
+import edu.kit.ipd.pp.viper.view.ConsolePanel;
 
 /**
  * Command for exporting the visualisation to TikZ for LaTex.
@@ -34,14 +33,16 @@ public class CommandExportTikz extends Command {
      * Executes the command.
      */
     public void execute() {
+        this.interpreterManager.cancel();
+        /*
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(FileFilters.TIKZ_FILTER);
         int rv = chooser.showSaveDialog(null);
 
         if (rv == JFileChooser.APPROVE_OPTION) {
-        	File file = FileUtilities.checkForMissingExtension(chooser.getSelectedFile(), ".tikz");
-        	exportTikZ(file);
-        }
+            File file = FileUtilities.checkForMissingExtension(chooser.getSelectedFile(), ".tikz");
+            exportTikZ(file);
+        }*/
     }
     
     /**
@@ -50,10 +51,11 @@ public class CommandExportTikz extends Command {
      * 
      * @param f file to export the TikZ graph to
      */
+    /*
     public void exportTikZ(File f) {
-    	try {
+        try {
             FileOutputStream out = new FileOutputStream(f);
-            final String code = LatexMaker.createLatex(this.interpreterManager.getCurrentState());
+            final String code = LatexMaker.createLatex(this.interpreterManager.getCurrentVisualisation());
             out.write(code.getBytes());
             out.flush();
             out.close();
@@ -68,5 +70,5 @@ public class CommandExportTikz extends Command {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 }
