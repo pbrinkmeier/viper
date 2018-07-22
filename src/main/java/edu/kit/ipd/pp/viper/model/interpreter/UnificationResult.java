@@ -4,6 +4,14 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 
 import java.util.List;
 
+/**
+ * Result of an unification.
+ * There are three kinds of unification results:
+ *
+ * - success is a successful unification that yielded a list of substitutions
+ * - fail is a failed unification
+ * - error is an error that prevented the unification to be tried in the first place
+ */
 public abstract class UnificationResult {
     /**
      * Initializes a success-result with a list of substitutions.
@@ -11,7 +19,7 @@ public abstract class UnificationResult {
      * @param substitutions list of substitutions in this result
      * @return an UnificationResult object
      */
-    public static UnificationResult success(List<Substitution> substitutions) {
+    public static SuccessUnificationResult success(List<Substitution> substitutions) {
         return new SuccessUnificationResult(substitutions);
     }
 
@@ -22,8 +30,18 @@ public abstract class UnificationResult {
      * @param rhs right hand side of the failed unification
      * @return an UnificationResult object
      */
-    public static UnificationResult fail(Term lhs, Term rhs) {
+    public static FailUnificationResult fail(Term lhs, Term rhs) {
         return new FailUnificationResult(lhs, rhs);
+    }
+
+    /**
+     * Initializes an error-result with an error message.
+     *
+     * @param message error message describing what went wrong
+     * @return an UnificationResult object
+     */
+    public static ErrorUnificationResult error(String message) {
+        return new ErrorUnificationResult(message);
     }
 
     /**
@@ -32,6 +50,15 @@ public abstract class UnificationResult {
      * @return whether this result is a success-result
      */
     public abstract boolean isSuccess();
+
+    /**
+     * Whether this result is an error-result.
+     *
+     * @return whether this result is an error-result
+     */
+    public boolean isError() {
+        return false;
+    }
 
     /**
      * Getter-method for the substitutions of a success-result.

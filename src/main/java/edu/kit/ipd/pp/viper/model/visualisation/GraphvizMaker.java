@@ -5,6 +5,8 @@ import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecordVisitor;
+import edu.kit.ipd.pp.viper.model.interpreter.ArithmeticActivationRecord;
+import edu.kit.ipd.pp.viper.model.interpreter.ComparisonActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.CutActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
@@ -61,9 +63,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         Node node = node(this.createUniqueNodeName()).with(html(far.getFunctor().toHtml()));
 
         if (!far.isVisited()) {
-            node = this.addBacktrackingEdge(far, node);
-
-            return node;
+            return this.addBacktrackingEdge(far, node);
         }
 
         /*
@@ -71,8 +71,9 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
          * "current" node so we have to save the information that backtracking has to be
          * done for later
          */
-        if (this.next.isPresent() && this.next.get() == far)
+        if (this.next.isPresent() && this.next.get() == far) {
             this.backtrackingNode = Optional.of(node);
+        }
 
         // Create box with the unification status and message
         UnificationResult result = far.getUnificationResult();
@@ -131,11 +132,8 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         Node node = node(this.createUniqueNodeName())
         .with(html(String.format("%s = %s", uar.getLhs().toHtml(), uar.getRhs().toHtml())));
 
-        // TODO: these things have been moved into there own methods over at code_cut
         if (!uar.isVisited()) {
-            node = this.addBacktrackingEdge(uar, node);
-
-            return node;
+            return this.addBacktrackingEdge(uar, node);
         }
 
         if (this.next.isPresent() && this.next.get() == uar) {
@@ -164,9 +162,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         Node node = node(this.createUniqueNodeName()).with(html("!"));
 
         if (!cutAr.isVisited()) {
-            node = this.addBacktrackingEdge(cutAr, node);
-
-            return node;
+            return this.addBacktrackingEdge(cutAr, node);
         }
 
         if (this.next.isPresent() && this.next.get() == cutAr) {
@@ -191,6 +187,80 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         return node.link(cutNoteBox);
     }
 
+    @Override
+    public Node visit(ArithmeticActivationRecord aar) {
+        Node node = node(this.createUniqueNodeName())
+        .with(html(String.format("%s is %s", aar.getLhs().toHtml(), aar.getRhs().toHtml())));
+
+        if (!aar.isVisited()) {
+            return this.addBacktrackingEdge(aar, node);
+        }
+
+        if (this.next.isPresent() && this.next.get() == aar) {
+            this.backtrackingNode = Optional.of(node);
+        }
+
+        Node resultBox = node(this.createUniqueNodeName())
+        .with(attr("shape", "record"));
+
+        if (aar.getResult().isError()) {
+            resultBox = resultBox
+            .with(html(aar.getResult().toHtml()));
+        } else {
+            resultBox = resultBox
+            .with(html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
+                LanguageManager.getInstance().getString(LanguageKey.UNIFICATION),
+                aar.getLhs().toHtml(),
+                // evaluated rhs is guaranteed to be set because the result was not an error
+                aar.getEvaluatedRhs().toHtml(),
+                aar.getResult().toHtml()
+            )));
+        }
+
+
+        // TODO: after merge: create method isCurrent()
+        if (this.current.isPresent() && this.current.get() == aar) {
+            resultBox = resultBox.with(aar.getResult().isSuccess() ? ColorScheme.VIS_GREEN : ColorScheme.VIS_RED);
+        }
+
+        return node.link(resultBox);
+    }
+
+    @Override
+    public Node visit(ComparisonActivationRecord car) {
+        Node node = node(this.createUniqueNodeName())
+        .with(html(String.format(
+            "%s %s %s",
+            car.getLhs().toHtml(),
+            car.getGoal().getHtmlSymbol(),
+            car.getRhs().toHtml()
+        )));
+
+        // TODO: these things have been moved into their own methods over at code_cut
+        if (!car.isVisited()) {
+            return this.addBacktrackingEdge(car, node);
+        }
+
+        if (this.next.isPresent() && this.next.get() == car) {
+            this.backtrackingNode = Optional.of(node);
+        }
+
+        Node resultBox = node(this.createUniqueNodeName())
+        .with(attr("shape", "record"));
+
+        if (!car.getErrorMessage().isPresent()) {
+            resultBox = resultBox
+            .with(html(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_COMPARISON_SUCCEEDED)))
+            .with(ColorScheme.VIS_GREEN);
+        } else {
+            resultBox = resultBox
+            .with(html(car.getErrorMessage().get()))
+            .with(ColorScheme.VIS_RED);
+        }
+
+        return node.link(resultBox);
+    }
+
     private Node addBacktrackingEdge(ActivationRecord ar, Node node) {
         if (this.current.isPresent() && this.current.get() == ar && this.backtrackingNode.isPresent()) {
             Node withEdge = node
@@ -206,6 +276,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         return node;
     }
+
 
     /**
      * Calls the private constructor to create an new instance and creates a graph

@@ -1,29 +1,32 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
+import edu.kit.ipd.pp.viper.model.ast.ArithmeticGoal;
 import edu.kit.ipd.pp.viper.model.ast.Term;
-import edu.kit.ipd.pp.viper.model.ast.UnificationGoal;
+import edu.kit.ipd.pp.viper.model.ast.TermEvaluationException;
 
 import java.util.Optional;
 
 /**
- * Execution state of an unification goal.
- * If an unification record has not been visited, it is not fulfilled.
- * If an unification record has been visited, but unification was unsuccessful, it is not fulfilled.
+ * Execution state of an arithmetic goal.
+ * If an arithmetic AR has not been visited, it is not fulfilled.
+ * If an arithmetic AR has been visited, but an error occurred during evaluation of the rhs, it is not fulfilled.
+ * If an arithmetic AR has been visited, but unification was unsuccessful, it is not fulfilled.
  * If an unification record has been visited and unification was successful, it is fulfilled.
  */
-public class UnificationActivationRecord extends ActivationRecord {
-    private final UnificationGoal goal;
+public class ArithmeticActivationRecord extends ActivationRecord {
+    private final ArithmeticGoal goal;
+    private Term evaluatedRhs;
     private UnificationResult result;
 
     /**
-     * Initializes an unification activation record.
+     * Initializes an arithmetic activation record.
      *
-     * @param goal respective unification goal
+     * @param goal respective arithmetic goal
      * @param interpreter interpreter this AR belongs to
      * @param parent optional parent functor AR
      */
-    public UnificationActivationRecord(
-        UnificationGoal goal,
+    public ArithmeticActivationRecord(
+        ArithmeticGoal goal,
         Interpreter interpreter,
         Optional<FunctorActivationRecord> parent
     ) {
@@ -32,23 +35,23 @@ public class UnificationActivationRecord extends ActivationRecord {
     }
 
     @Override
-    public UnificationGoal getGoal() {
+    public ArithmeticGoal getGoal() {
         return this.goal;
     }
 
     /**
-     * Getter-method for the left hand side of this unification with all previous substitutions applied.
+     * Getter-method for the left hand side of the unification with all previous substitutions applied.
      *
-     * @return left hand side of this unification
+     * @return left hand side
      */
     public Term getLhs() {
         return this.applyPreviousSubstitutions(this.getGoal().getLhs());
     }
 
     /**
-     * Getter-method for the right hand side of this unification with all previous substitutions applied.
+     * Getter-method for the right hand side before evaluation with all previous substitutions applied.
      *
-     * @return right hand side of this unification
+     * @return right hand side
      */
     public Term getRhs() {
         return this.applyPreviousSubstitutions(this.getGoal().getRhs());
@@ -61,7 +64,7 @@ public class UnificationActivationRecord extends ActivationRecord {
 
     @Override
     public Optional<ActivationRecord> step() {
-        // if this AR has been visited before, backtrack
+        // If the AR has been visited before, backtrack
         if (this.isVisited()) {
             this.setVisited(false);
             return this.getPrevious();
@@ -72,7 +75,12 @@ public class UnificationActivationRecord extends ActivationRecord {
         Term lhs = this.getLhs();
         Term rhs = this.getRhs();
 
-        this.result = rhs.accept(lhs.accept(new UnifierCreator()));
+        try {
+            this.evaluatedRhs = rhs.evaluate();
+            this.result = this.evaluatedRhs.accept(lhs.accept(new UnifierCreator()));
+        } catch (TermEvaluationException e) {
+            this.result = UnificationResult.error(e.getMessage());
+        }
 
         // Re-visit this AR and fail
         if (!this.result.isSuccess()) {
@@ -94,12 +102,22 @@ public class UnificationActivationRecord extends ActivationRecord {
         return this.result;
     }
 
+    /**
+     * Getter-method for the arithmetically evaluated right hand side.
+     * This may return null if getResult().isError() == true
+     *
+     * @return evaluated right hand side, i.e. the actual right hand side of the unification
+     */
+    public Term getEvaluatedRhs() {
+        return this.evaluatedRhs;
+    }
+
     @Override
     public boolean isFulfilled() {
         if (!this.isVisited()) {
             return false;
         }
 
-        return this.result.isSuccess();
+        return this.getResult().isSuccess();
     }
 }

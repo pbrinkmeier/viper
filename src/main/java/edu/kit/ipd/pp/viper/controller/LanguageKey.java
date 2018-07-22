@@ -294,6 +294,26 @@ public enum LanguageKey {
     VISUALISATION_STARTED("visualisation_started"),
 
     /**
+     * Arithmetic evaluation error for unset variables.
+     */
+    ARITHMETIC_UNSET_VARIABLE("arithmetic_unset_variable"),
+
+    /**
+     * Arithmetic evaluation error for unsupported terms.
+     */
+    ARITHMETIC_UNSUPPORTED_TERM("arithmetic_unsupported_term"),
+
+    /**
+     * Message for failed comparisons.
+     */
+    ARITHMETIC_COMPARISON_FAILED("arithmetic_comparison_failed"),
+
+    /**
+     * Message for successful comparisons.
+     */
+    ARITHMETIC_COMPARISON_SUCCEEDED("arithmetic_comparison_succeeded"),
+
+    /**
      * Console output when program starts
      */
     VIPER_READY("viper_started"),

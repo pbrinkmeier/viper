@@ -161,10 +161,13 @@ public abstract class ActivationRecord {
 
     /**
      * Setter-method for visited attribute.
+     * If visited will be set to false, the environment of this AR will be reset too.
      *
      * @param visited new visited value to set
      */
     protected void setVisited(boolean visited) {
+        this.environment = new Environment(this, Arrays.asList());
+
         this.visited = visited;
     }
 
