@@ -122,7 +122,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     public void setFromGraph(Graph graph) {
         this.clear();
 
-        String tmp = this.getTempDir();
+        String tmp = VisualisationViewer.getTempDir();
         if (tmp.equals("")) {
             this.main.getConsolePanel().printLine("Could not access tmp directory", LogType.DEBUG);
             return;
@@ -145,7 +145,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * 
      * @return Path to temp directory
      */
-    private String getTempDir() {
+    private static String getTempDir() {
         String dir;
 
         try {

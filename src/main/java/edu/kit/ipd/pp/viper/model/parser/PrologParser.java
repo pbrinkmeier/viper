@@ -59,7 +59,7 @@ public class PrologParser {
      * @throws ParseException if the next token is invalid
      */
     private void nextToken() throws ParseException {
-        this.token = lexer.nextToken();
+        this.token = this.lexer.nextToken();
     }
 
     /**
@@ -217,7 +217,7 @@ public class PrologParser {
 
     private Goal parseGoalRest(Term t) throws ParseException {
         Term lhs = parseTerm(Optional.of(t));
-        TokenType op = token.getType();
+        TokenType op = this.token.getType();
         nextToken();
         Term rhs = parseTerm();
 
@@ -288,8 +288,8 @@ public class PrologParser {
      */
     private Term parseTerm(Optional<Term> maybeTerm) throws ParseException {
         Term t = parseSummand(maybeTerm);
-        while (token.getType() == TokenType.PLUS || token.getType() == TokenType.MINUS) {
-            TokenType op = token.getType();
+        while (this.token.getType() == TokenType.PLUS || this.token.getType() == TokenType.MINUS) {
+            TokenType op = this.token.getType();
             nextToken();
             Term rhs = parseSummand(Optional.empty());
 
@@ -316,7 +316,7 @@ public class PrologParser {
     private Term parseSummand(Optional<Term> maybeTerm) throws ParseException {
         Term t = parseFactor(maybeTerm);
 
-        while (token.getType() == TokenType.STAR) {
+        while (this.token.getType() == TokenType.STAR) {
             nextToken();
             Term t2 = parseFactor(Optional.empty());
             t = new MultiplicationOperation(t, t2);
@@ -372,7 +372,7 @@ public class PrologParser {
      * @throws ParseException if a parser error occurs
      */
     private Number parseNumber() throws ParseException {
-        int n = Integer.parseInt(token.getText());
+        int n = Integer.parseInt(this.token.getText());
         nextToken();
         return new Number(n);
     }

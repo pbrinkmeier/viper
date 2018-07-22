@@ -54,7 +54,7 @@ public final class LanguageManager extends Observable {
      */
     public String getString(LanguageKey key) {
         try {
-            return bundle.getString(key.getString());
+            return this.bundle.getString(key.getString());
         } catch (NullPointerException | MissingResourceException | ClassCastException e) {
             // show empty string instead of an error message
             return "";
@@ -98,7 +98,7 @@ public final class LanguageManager extends Observable {
      * @return Immutable list of all supported languages
      */
     public List<Locale> getSupportedLocales() {
-        return Collections.unmodifiableList(Arrays.asList(supportedLocales));
+        return Collections.unmodifiableList(Arrays.asList(this.supportedLocales));
     }
 
     /**

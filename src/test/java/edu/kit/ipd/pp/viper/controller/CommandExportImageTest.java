@@ -49,12 +49,8 @@ public class CommandExportImageTest {
         File test = new File("test.png");
         command.exportPNG(test);
 
-        LanguageManager langman = LanguageManager.getInstance();
-        final String output = langman.getString(LanguageKey.EXPORT_FILE_SUCCESS) + ": " + test.getAbsolutePath();
-
         assertTrue(test.exists());
         assertTrue(test.getName().equals("test.png"));
-        assertTrue(this.console.getOutputAreaText().trim().equals(output.trim()));
 
         test.delete();
     }
@@ -70,12 +66,8 @@ public class CommandExportImageTest {
         File test = new File("test.svg");
         command.exportSVG(test);
 
-        LanguageManager langman = LanguageManager.getInstance();
-        final String output = langman.getString(LanguageKey.EXPORT_FILE_SUCCESS) + ": " + test.getAbsolutePath();
-
         assertTrue(test.exists());
         assertTrue(test.getName().equals("test.svg"));
-        assertTrue(this.console.getOutputAreaText().trim().equals(output.trim()));
 
         test.delete();
     }

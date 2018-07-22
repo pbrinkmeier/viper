@@ -26,14 +26,14 @@ public class CommandToggleLibTest {
      */
     @Test
     public void switchOnAndOffTest() {
-        boolean firstState = interpreterManager.isStandardEnabled();
-        new CommandToggleLib(gui.getConsolePanel(), gui.getVisualisationPanel(),
-                gui.getInterpreterManager(), gui.getPreferencesManager(),
-                gui::switchClickableState).execute();
-        assertTrue(interpreterManager.isStandardEnabled() == !firstState);
-        new CommandToggleLib(gui.getConsolePanel(), gui.getVisualisationPanel(),
-                gui.getInterpreterManager(), gui.getPreferencesManager(),
-                gui::switchClickableState).execute();
-        assertTrue(interpreterManager.isStandardEnabled() == firstState);
+        boolean firstState = this.interpreterManager.isStandardEnabled();
+        new CommandToggleLib(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(), this.gui.getPreferencesManager(),
+                this.gui::switchClickableState).execute();
+        assertTrue(this.interpreterManager.isStandardEnabled() == !firstState);
+        new CommandToggleLib(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(), this.gui.getPreferencesManager(),
+                this.gui::switchClickableState).execute();
+        assertTrue(this.interpreterManager.isStandardEnabled() == firstState);
     }
 }

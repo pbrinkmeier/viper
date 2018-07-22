@@ -73,8 +73,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
 
         // viewer is on level 1, both buttons on level 2 and therefore appear above the viewer
         contentPane.add(this.viewer, new Integer(1));
-        contentPane.add(zoomIn, new Integer(2));
-        contentPane.add(zoomOut, new Integer(2));
+        contentPane.add(this.zoomIn, new Integer(2));
+        contentPane.add(this.zoomOut, new Integer(2));
 
         this.add(contentPane, BorderLayout.CENTER);
         this.hasGraph = false;

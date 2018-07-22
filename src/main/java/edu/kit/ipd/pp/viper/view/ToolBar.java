@@ -80,17 +80,17 @@ public class ToolBar extends JToolBar implements HasClickable {
                 this.main.getCommandContinue());
         this.buttonCancel = new ToolBarButton(ICON_CANCEL, LanguageKey.TOOLTIP_CANCEL, this.main.getCommandCancel());
 
-        this.add(buttonNew);
-        this.add(buttonOpen);
-        this.add(buttonSave);
+        this.add(this.buttonNew);
+        this.add(this.buttonOpen);
+        this.add(this.buttonSave);
         this.addSeparator();
-        this.add(buttonParse);
-        this.add(buttonFormat);
+        this.add(this.buttonParse);
+        this.add(this.buttonFormat);
         this.addSeparator();
-        this.add(buttonBack);
-        this.add(buttonStep);
-        this.add(buttonSolution);
-        this.add(buttonCancel);
+        this.add(this.buttonBack);
+        this.add(this.buttonStep);
+        this.add(this.buttonSolution);
+        this.add(this.buttonCancel);
     }
 
     @Override

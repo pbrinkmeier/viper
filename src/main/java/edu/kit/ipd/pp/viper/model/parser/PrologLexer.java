@@ -70,24 +70,24 @@ public class PrologLexer {
      * column number accordingly.
      */
     private void advance() {
-        if (program.charAt(pos) == '\n') {
-            line += 1;
-            col = 1;
+        if (this.program.charAt(this.pos) == '\n') {
+            this.line += 1;
+            this.col = 1;
         } else {
-            col += 1;
+            this.col += 1;
         }
-        pos += 1;
+        this.pos += 1;
     }
 
     /**
      * Lexes a comment: Ignores characters until the end of the line.
      */
     private void lexComment() {
-        while (pos < program.length() && program.charAt(pos) != '\n') {
-            pos += 1;
-            col += 1;
+        while (this.pos < this.program.length() && this.program.charAt(this.pos) != '\n') {
+            this.pos += 1;
+            this.col += 1;
         }
-        if (pos < program.length()) {
+        if (this.pos < this.program.length()) {
             advance();
         }
     }
@@ -99,20 +99,22 @@ public class PrologLexer {
      * @throws ParseException if the next token is invalid
      */
     public Token nextToken() throws ParseException {
-        while (pos < program.length() && (Character.isWhitespace(program.charAt(pos)) || program.charAt(pos) == '%')) {
+        while (this.pos < this.program.length()
+           && (Character.isWhitespace(this.program.charAt(this.pos))
+           || this.program.charAt(this.pos) == '%')) {
             // ignore whitespace and comments
-            if (program.charAt(pos) == '%') {
+            if (this.program.charAt(this.pos) == '%') {
                 lexComment();
             } else {
                 advance();
             }
         }
-        if (pos >= program.length()) {
+        if (this.pos >= this.program.length()) {
             // program ended, return EOF
-            return new Token(TokenType.EOF, "", line, col);
+            return new Token(TokenType.EOF, "", this.line, this.col);
         }
         Token t;
-        char c = program.charAt(pos);
+        char c = this.program.charAt(this.pos);
         switch (c) {
         case ':':
         case '=':
@@ -121,47 +123,47 @@ public class PrologLexer {
             return handleMultiSimOperators();
         // bunch of single-character tokens
         case '.':
-            t = new Token(TokenType.DOT, ".", line, col);
+            t = new Token(TokenType.DOT, ".", this.line, this.col);
             advance();
             return t;
         case ',':
-            t = new Token(TokenType.COMMA, ",", line, col);
+            t = new Token(TokenType.COMMA, ",", this.line, this.col);
             advance();
             return t;
         case '(':
-            t = new Token(TokenType.LP, "(", line, col);
+            t = new Token(TokenType.LP, "(", this.line, this.col);
             advance();
             return t;
         case ')':
-            t = new Token(TokenType.RP, ")", line, col);
+            t = new Token(TokenType.RP, ")", this.line, this.col);
             advance();
             return t;
         case '[':
-            t = new Token(TokenType.LB, "[", line, col);
+            t = new Token(TokenType.LB, "[", this.line, this.col);
             advance();
             return t;
         case ']':
-            t = new Token(TokenType.RB, "]", line, col);
+            t = new Token(TokenType.RB, "]", this.line, this.col);
             advance();
             return t;
         case '|':
-            t = new Token(TokenType.BAR, "|", line, col);
+            t = new Token(TokenType.BAR, "|", this.line, this.col);
             advance();
             return t;
         case '+':
-            t = new Token(TokenType.PLUS, "+", line, col);
+            t = new Token(TokenType.PLUS, "+", this.line, this.col);
             advance();
             return t;
         case '-':
-            t = new Token(TokenType.MINUS, "-", line, col);
+            t = new Token(TokenType.MINUS, "-", this.line, this.col);
             advance();
             return t;
         case '*':
-            t = new Token(TokenType.STAR, "*", line, col);
+            t = new Token(TokenType.STAR, "*", this.line, this.col);
             advance();
             return t;
         case '!':
-            t = new Token(TokenType.EXCLAMATION, "!", line, col);
+            t = new Token(TokenType.EXCLAMATION, "!", this.line, this.col);
             advance();
             return t;
         default:
@@ -171,30 +173,30 @@ public class PrologLexer {
 
     private Token handleMultiSimOperators() throws ParseException {
         // these operators may consist of multiple SYMBOLS
-        int colStart = col;
+        int colStart = this.col;
         StringBuilder sb = new StringBuilder();
         do {
-            sb.append(program.charAt(pos));
+            sb.append(this.program.charAt(this.pos));
             advance();
-        } while (pos < program.length() && SYMBOLS.indexOf(program.charAt(pos)) > -1);
+        } while (this.pos < this.program.length() && SYMBOLS.indexOf(this.program.charAt(this.pos)) > -1);
         TokenType type = SYMBOL_STRING_TO_TOKEN.get(sb.toString());
         if (type == null) {
             throw new ParseException(
                     String.format(LanguageManager.getInstance().getString(LanguageKey.OPERATOR_NOT_RECOGNIZED),
                             sb.toString()) + getTokenPositionString());
         }
-        return new Token(type, sb.toString(), line, colStart);
+        return new Token(type, sb.toString(), this.line, colStart);
     }
 
     private Token handleDefault(char c) throws ParseException {
-        int colStart = col;
+        int colStart = this.col;
         if (Character.isLetter(c)) {
             // variable, identifier or the special token "is"
             StringBuilder sb = new StringBuilder();
             do {
-                sb.append(program.charAt(pos));
+                sb.append(this.program.charAt(this.pos));
                 advance();
-            } while (pos < program.length() && Character.isLetterOrDigit(program.charAt(pos)));
+            } while (this.pos < this.program.length() && Character.isLetterOrDigit(this.program.charAt(this.pos)));
             String s = sb.toString();
             TokenType type;
             if ("is".equals(s)) {
@@ -204,18 +206,18 @@ public class PrologLexer {
             } else {
                 type = TokenType.IDENTIFIER;
             }
-            return new Token(type, s, line, colStart);
+            return new Token(type, s, this.line, colStart);
         } else if (Character.isDigit(c)) {
             // number literal
             StringBuilder sb = new StringBuilder();
             do {
-                sb.append(program.charAt(pos));
+                sb.append(this.program.charAt(this.pos));
                 advance();
-            } while (pos < program.length() && Character.isDigit(program.charAt(pos)));
-            return new Token(TokenType.NUMBER, sb.toString(), line, colStart);
+            } while (this.pos < this.program.length() && Character.isDigit(this.program.charAt(this.pos)));
+            return new Token(TokenType.NUMBER, sb.toString(), this.line, colStart);
         } else {
             throw new ParseException(LanguageManager.getInstance().getString(LanguageKey.ILLEGAL_CHAR) + " '"
-                    + program.charAt(pos) + "'" + getTokenPositionString());
+                    + this.program.charAt(this.pos) + "'" + getTokenPositionString());
         }
     }
 
@@ -232,6 +234,6 @@ public class PrologLexer {
 
     private String getTokenPositionString() {
         return " " + String.format(LanguageManager.getInstance().getString(LanguageKey.POSITION),
-                getCodeBeforeCurrentPos(), line, col);
+                getCodeBeforeCurrentPos(), this.line, this.col);
     }
 }

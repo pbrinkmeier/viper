@@ -26,9 +26,9 @@ public class AdditionOperationTest {
      */
     @Test
     public void calculateTest() throws TermEvaluationException {
-        assertEquals(fortyTwo.evaluate(), new Number(42));
-        assertNotEquals(notFortyTwo.evaluate(), new Number(42));
-        assertEquals(notFortyTwo.evaluate(), new Number(41));
+        assertEquals(this.fortyTwo.evaluate(), new Number(42));
+        assertNotEquals(this.notFortyTwo.evaluate(), new Number(42));
+        assertEquals(this.notFortyTwo.evaluate(), new Number(41));
     }
 
     /**

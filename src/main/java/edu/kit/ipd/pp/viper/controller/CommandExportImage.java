@@ -42,9 +42,9 @@ public class CommandExportImage extends Command {
 
         JFileChooser chooser = new JFileChooser();
 
-        if (format == ImageFormat.PNG) {
+        if (this.format == ImageFormat.PNG) {
             chooser.setFileFilter(FileFilters.PNG_FILTER);
-        } else if (format == ImageFormat.SVG) {
+        } else if (this.format == ImageFormat.SVG) {
             chooser.setFileFilter(FileFilters.SVG_FILTER);
         }
 
@@ -59,7 +59,7 @@ public class CommandExportImage extends Command {
                 break;
             default:
                 String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_UNSUPPORTED_FORMAT);
-                console.printLine(msg, LogType.ERROR);
+                this.console.printLine(msg, LogType.ERROR);
             }
         }
     }

@@ -53,8 +53,7 @@ public class PreferencesManager {
         this.properties = new Properties();
         this.propertiesFile = new File(PreferencesManager.getUserDirectory() + PreferencesManager.FILE_NAME);
 
-        try {
-            FileReader reader = new FileReader(this.propertiesFile);
+        try (FileReader reader = new FileReader(this.propertiesFile);) {
             this.properties.load(reader);
             reader.close();
         } catch (IOException e) {
@@ -96,7 +95,7 @@ public class PreferencesManager {
             language = this.properties.getProperty(KEY_LANGUAGE, DEFAULT_LANGUAGE);
         }
 
-        return this.getLocaleByLanguage(language);
+        return PreferencesManager.getLocaleByLanguage(language);
     }
 
     /**
@@ -126,7 +125,7 @@ public class PreferencesManager {
         this.writeProperty(KEY_LANGUAGE, language);
     }
 
-    private Locale getLocaleByLanguage(String language) {
+    private static Locale getLocaleByLanguage(String language) {
         List<Locale> supportedLocales = LanguageManager.getInstance().getSupportedLocales();
         Iterator<Locale> iter = supportedLocales.iterator();
         while (iter.hasNext()) {

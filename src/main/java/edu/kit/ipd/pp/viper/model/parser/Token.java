@@ -36,7 +36,7 @@ public class Token {
      * @return token type
      */
     public TokenType getType() {
-        return type;
+        return this.type;
     }
 
     /**
@@ -45,7 +45,7 @@ public class Token {
      * @return text of this token in the source code
      */
     public String getText() {
-        return text;
+        return this.text;
     }
 
     /**
@@ -54,7 +54,7 @@ public class Token {
      * @return line this token is in
      */
     public int getLine() {
-        return line;
+        return this.line;
     }
 
     /**
@@ -63,11 +63,11 @@ public class Token {
      * @return column this token begins
      */
     public int getCol() {
-        return col;
+        return this.col;
     }
 
     @Override
     public String toString() {
-        return type + "(\"" + text + "\")";
+        return this.type + "(\"" + this.text + "\")";
     }
 }

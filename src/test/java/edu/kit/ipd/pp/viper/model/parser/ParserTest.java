@@ -54,7 +54,7 @@ public class ParserTest {
      */
     @Test
     public void parseTest() throws ParseException {
-        KnowledgeBase parsed = kbParser.parse();
+        KnowledgeBase parsed = this.kbParser.parse();
         assertEquals(parsed, this.testBase);
         assertNotEquals(parsed, this.emptyBase);
     }

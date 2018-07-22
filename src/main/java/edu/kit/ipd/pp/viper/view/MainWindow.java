@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 
 import edu.kit.ipd.pp.viper.controller.CommandCancel;
 import edu.kit.ipd.pp.viper.controller.CommandNextSolution;
@@ -64,6 +65,7 @@ public class MainWindow extends JFrame {
     private final EditorPanel editorPanel;
     private final ConsolePanel consolePanel;
     private final VisualisationPanel visualisationPanel;
+    
     private final CommandNew commandNew;
     private final CommandOpen commandOpen;
     private final CommandSave commandSave;
@@ -101,7 +103,7 @@ public class MainWindow extends JFrame {
         this.setIconImage(new ImageIcon(this.getClass().getResource(WINDOW_ICON)).getImage());
 
         // use system built-in look and feel instead of default swing look
-        this.setDesign();
+        MainWindow.setDesign();
 
         this.manager = new InterpreterManager(this::switchClickableState);
         this.visualisationPanel = new VisualisationPanel(this);
@@ -137,7 +139,7 @@ public class MainWindow extends JFrame {
         // set up layout using two split panes
         this.initLayout();
 
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         // use CommandExit on JFrame close, because the editor may still contain
         // unsaved content
         this.addWindowListener(new WindowAdapter() {
@@ -174,7 +176,7 @@ public class MainWindow extends JFrame {
      * Sets the "look and feel" of the application by using the system default
      * theme.
      */
-    private void setDesign() {
+    private static void setDesign() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
@@ -329,7 +331,7 @@ public class MainWindow extends JFrame {
      * @return CommandSave
      */
     public CommandSave getCommandSave() {
-        return commandSave;
+        return this.commandSave;
     }
 
     /**
@@ -338,7 +340,7 @@ public class MainWindow extends JFrame {
      * @return CommandParse
      */
     public CommandParse getCommandParse() {
-        return commandParse;
+        return this.commandParse;
     }
 
     /**
@@ -347,7 +349,7 @@ public class MainWindow extends JFrame {
      * @return CommandFormat
      */
     public CommandFormat getCommandFormat() {
-        return commandFormat;
+        return this.commandFormat;
     }
 
     /**
@@ -356,7 +358,7 @@ public class MainWindow extends JFrame {
      * @return CommandPreviousStep
      */
     public CommandPreviousStep getCommandPreviousStep() {
-        return commandPreviousStep;
+        return this.commandPreviousStep;
     }
 
     /**
@@ -365,7 +367,7 @@ public class MainWindow extends JFrame {
      * @return CommandNextStep
      */
     public CommandNextStep getCommandNextStep() {
-        return commandNextStep;
+        return this.commandNextStep;
     }
 
     /**
@@ -374,7 +376,7 @@ public class MainWindow extends JFrame {
      * @return CommandContinue
      */
     public CommandNextSolution getCommandContinue() {
-        return commandNextSolution;
+        return this.commandNextSolution;
     }
 
     /**
@@ -383,6 +385,6 @@ public class MainWindow extends JFrame {
      * @return CommandCancel
      */
     public CommandCancel getCommandCancel() {
-        return commandCancel;
+        return this.commandCancel;
     }
 }

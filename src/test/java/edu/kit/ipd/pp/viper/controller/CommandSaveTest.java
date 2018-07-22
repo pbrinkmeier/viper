@@ -56,7 +56,7 @@ public class CommandSaveTest {
             e.printStackTrace();
         }
 
-        assertTrue(fileContents.trim().equals(editor.getSourceText().trim()));
+        assertTrue(fileContents.trim().equals(this.editor.getSourceText().trim()));
         test.delete();
     }
 
@@ -81,7 +81,7 @@ public class CommandSaveTest {
             e.printStackTrace();
         }
 
-        assertTrue(fileContents.trim().equals(editor.getSourceText().trim()));
+        assertTrue(fileContents.trim().equals(this.editor.getSourceText().trim()));
         test.delete();
     }
 

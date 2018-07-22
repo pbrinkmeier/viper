@@ -130,16 +130,16 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
     public void switchClickableState(ClickableState state) {
         switch (state) {
         case NOT_PARSED_YET:
-            buttonSend.setEnabled(false);
+            this.buttonSend.setEnabled(false);
             break;
         case PARSED_PROGRAM:
         case PARSED_QUERY:
         case FIRST_STEP:
         case LAST_STEP:
-            buttonSend.setEnabled(true);
+            this.buttonSend.setEnabled(true);
             break;
         case NO_MORE_SOLUTIONS:
-            buttonSend.setEnabled(true);
+            this.buttonSend.setEnabled(true);
             break;
         default:
             break;

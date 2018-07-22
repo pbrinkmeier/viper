@@ -101,7 +101,7 @@ public class ConsolePanel extends JPanel implements HasClickable {
      * @return boolean value describing whether the input field is locked
      */
     public boolean hasLockedInput() {
-        return inputLocked;
+        return this.inputLocked;
     }
 
     /**

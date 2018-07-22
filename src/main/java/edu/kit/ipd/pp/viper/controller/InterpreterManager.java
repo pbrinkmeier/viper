@@ -1,7 +1,16 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.util.List;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
@@ -18,18 +27,6 @@ import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 import guru.nidi.graphviz.model.Graph;
-
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Optional;
-import java.util.function.Consumer;
-
-import static java.util.stream.Collectors.joining;
 
 /**
  * Manager class for interpreters. This class holds references to all
@@ -85,10 +82,8 @@ public class InterpreterManager {
     private void loadStandardLibrary() {
         StringBuffer buf = new StringBuffer();
 
-        try {
-            InputStream in = this.getClass().getResource(STANDARD_LIBRARY_PATH).openStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
+        try (InputStream in = this.getClass().getResource(STANDARD_LIBRARY_PATH).openStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(in));) {
             String str = "";
             while ((str = reader.readLine()) != null)
                 buf.append(str);
@@ -166,7 +161,7 @@ public class InterpreterManager {
 
         this.current++;
 
-        return result;
+        return this.result;
     }
 
     /**
@@ -218,7 +213,7 @@ public class InterpreterManager {
             }
             
             if (this.result != StepResult.FROM_STEPBACK) {
-                if (result == StepResult.SOLUTION_FOUND) {
+                if (this.result == StepResult.SOLUTION_FOUND) {
                     String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
                     List<Substitution> solution = this.getSolution();
 
@@ -229,7 +224,7 @@ public class InterpreterManager {
                     console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
                 }
 
-                if (result == StepResult.NO_MORE_SOLUTIONS) {
+                if (this.result == StepResult.NO_MORE_SOLUTIONS) {
                     console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
                             LogType.INFO);
                 }

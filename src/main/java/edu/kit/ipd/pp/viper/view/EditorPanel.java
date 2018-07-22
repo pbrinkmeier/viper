@@ -164,13 +164,13 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     public void setFileReference(File reference) {
         this.reference = reference;
 
-        if (!referenceList.contains(reference)) {
+        if (!this.referenceList.contains(reference)) {
             // Trim the list down to 4 elements if necessary before
             // adding another item.
-            if (referenceList.size() > 4) {
-                referenceList.remove(0);
+            if (this.referenceList.size() > 4) {
+                this.referenceList.remove(0);
             }
-            referenceList.add(reference);
+            this.referenceList.add(reference);
             this.main.getInternalMenuBar().resetRecentlyOpenedMenu();
         } else {
             // Rearrange items so the requested item is at the back of the list.
@@ -199,7 +199,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @return the list of file references
      */
     public List<File> getFileReferenceList() {
-        return Collections.unmodifiableList(referenceList);
+        return Collections.unmodifiableList(this.referenceList);
     }
 
     /**

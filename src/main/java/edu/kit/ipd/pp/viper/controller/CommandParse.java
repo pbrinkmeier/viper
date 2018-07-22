@@ -51,7 +51,7 @@ public class CommandParse extends Command {
         this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
 
         try {
-            this.interpreterManager.parseKnowledgeBase(editor.getSourceText());
+            this.interpreterManager.parseKnowledgeBase(this.editor.getSourceText());
 
             this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_SUCCESS),
                     LogType.SUCCESS);

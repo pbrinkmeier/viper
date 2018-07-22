@@ -87,9 +87,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addNewItem(Menu menu) {
-        itemNew = new MenuItem(LanguageKey.MENU_NEW, this.main.getCommandNew());
-
-        menu.add(itemNew);
+        this.itemNew = new MenuItem(LanguageKey.MENU_NEW, this.main.getCommandNew());
+        menu.add(this.itemNew);
     }
 
     /**
@@ -98,9 +97,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addOpenItem(Menu menu) {
-        itemOpen = new MenuItem(LanguageKey.MENU_OPEN, this.main.getCommandOpen());
-
-        menu.add(itemOpen);
+        this.itemOpen = new MenuItem(LanguageKey.MENU_OPEN, this.main.getCommandOpen());
+        menu.add(this.itemOpen);
     }
 
     /**
@@ -109,9 +107,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addSaveItem(Menu menu) {
-        itemSave = new MenuItem(LanguageKey.MENU_SAVE, this.main.getCommandSave());
-
-        menu.add(itemSave);
+        this.itemSave = new MenuItem(LanguageKey.MENU_SAVE, this.main.getCommandSave());
+        menu.add(this.itemSave);
     }
 
     /**
@@ -120,12 +117,12 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addSaveAsItem(Menu menu) {
-        itemSaveAs = new MenuItem(LanguageKey.MENU_SAVEAS, new CommandSave(this.main.getConsolePanel(),
+        this.itemSaveAs = new MenuItem(LanguageKey.MENU_SAVEAS, new CommandSave(this.main.getConsolePanel(),
                 this.main.getEditorPanel(), SaveType.SAVE_AS, this.main::setWindowTitle,
                 this.main.getInterpreterManager()));
 
 
-        menu.add(itemSaveAs);
+        menu.add(this.itemSaveAs);
     }
 
     /**
@@ -134,15 +131,15 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addRecentlyOpenedMenu(Menu menu) {
-        recentlyUsedMenu = new Menu(LanguageKey.MENU_RECENT);
-        menu.add(recentlyUsedMenu);
+        this.recentlyUsedMenu = new Menu(LanguageKey.MENU_RECENT);
+        menu.add(this.recentlyUsedMenu);
     }
     
     /**
      * Clears the recently used menu and adds the current items to it
      */
     public void resetRecentlyOpenedMenu() {
-        recentlyUsedMenu.removeAll();
+        this.recentlyUsedMenu.removeAll();
         for (File f : this.main.getEditorPanel().getFileReferenceList()) {
             JMenuItem item = new JMenuItem(f.getAbsolutePath());
             CommandOpen command = new CommandOpen(f.getAbsolutePath(), this.main.getConsolePanel(),
@@ -155,7 +152,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
                     command.execute();
                 }
             });
-            recentlyUsedMenu.add(item);
+            this.recentlyUsedMenu.add(item);
         }
     }
 
@@ -165,9 +162,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addExitItem(Menu menu) {
-        itemExit = new MenuItem(LanguageKey.MENU_EXIT, this.main.getCommandExit());
-
-        menu.add(itemExit);
+        this.itemExit = new MenuItem(LanguageKey.MENU_EXIT, this.main.getCommandExit());
+        menu.add(this.itemExit);
     }
 
     /**
@@ -188,9 +184,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addParseItem(Menu menu) {
-        itemParse = new MenuItem(LanguageKey.MENU_PARSE, this.main.getCommandParse());
-
-        menu.add(itemParse);
+        this.itemParse = new MenuItem(LanguageKey.MENU_PARSE, this.main.getCommandParse());
+        menu.add(this.itemParse);
     }
 
     /**
@@ -199,9 +194,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addFormatItem(Menu menu) {
-        itemFormat = new MenuItem(LanguageKey.MENU_FORMAT, this.main.getCommandFormat());
-
-        menu.add(itemFormat);
+        this.itemFormat = new MenuItem(LanguageKey.MENU_FORMAT, this.main.getCommandFormat());
+        menu.add(this.itemFormat);
     }
 
     /**
@@ -210,14 +204,16 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addExportMenu() {
         Menu menu = new Menu(LanguageKey.MENU_EXPORT);
 
-        itemExportPNG = new MenuItem(LanguageKey.MENU_EXPORT_PNG, new CommandExportImage(this.main.getConsolePanel(),
+        this.itemExportPNG = new MenuItem(LanguageKey.MENU_EXPORT_PNG,
+                new CommandExportImage(this.main.getConsolePanel(),
                 ImageFormat.PNG, this.main.getInterpreterManager()));
 
-        itemExportSVG = new MenuItem(LanguageKey.MENU_EXPORT_SVG, new CommandExportImage(this.main.getConsolePanel(),
+        this.itemExportSVG = new MenuItem(LanguageKey.MENU_EXPORT_SVG,
+                new CommandExportImage(this.main.getConsolePanel(),
                 ImageFormat.SVG, this.main.getInterpreterManager()));
 
-        menu.add(itemExportPNG);
-        menu.add(itemExportSVG);
+        menu.add(this.itemExportPNG);
+        menu.add(this.itemExportSVG);
 
         this.add(menu);
     }
@@ -228,19 +224,19 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addSettingsMenu() {
         Menu menu = new Menu(LanguageKey.MENU_SETTINGS);
 
-        itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB, new CommandToggleLib(
+        this.itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB, new CommandToggleLib(
                 this.main.getConsolePanel(),
                 this.main.getVisualisationPanel(),
                 this.main.getInterpreterManager(),
                 this.main.getPreferencesManager(),
                 this.main::switchClickableState));
         if (this.main.getPreferencesManager().isStandardLibEnabled())
-            itemToggleSTD.setSelected(true);
+            this.itemToggleSTD.setSelected(true);
         else
             // standard lib is set to enabled by default, turn off here
             this.main.getInterpreterManager().toggleStandardLibrary();
 
-        menu.add(itemToggleSTD);
+        menu.add(this.itemToggleSTD);
         this.addLanguageSwitchMenu(menu);
 
         this.add(menu);

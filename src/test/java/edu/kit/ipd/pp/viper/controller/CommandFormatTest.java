@@ -30,8 +30,8 @@ public class CommandFormatTest {
      */
     @Test
     public void testSimpsons() {
-        editor.setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
-        new CommandFormat(console, editor).execute();
-        assertTrue(editor.getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
+        this.editor.setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
+        new CommandFormat(this.console, this.editor).execute();
+        assertTrue(this.editor.getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
     }
 }
