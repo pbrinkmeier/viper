@@ -1,10 +1,9 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.function.Consumer;
 
 import javax.swing.JFileChooser;
@@ -88,24 +87,14 @@ public class CommandOpen extends Command {
      * @return the file content as a string
      */
     public String getFileText(File file) {
-        StringBuffer buf = new StringBuffer();
-
+        String source = "";
         try {
-            FileInputStream in = new FileInputStream(file);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-            String str = "";
-            while ((str = reader.readLine()) != null) {
-                buf.append(str + '\n');
-            }
-
-            in.close();
-            reader.close();
+            source = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
         } catch (IOException e) {
             printOpenError(e, file.getAbsolutePath());
         }
-
-        return buf.toString();
+        
+        return source;
     }
 
     /**

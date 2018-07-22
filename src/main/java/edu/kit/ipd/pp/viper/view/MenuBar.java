@@ -11,7 +11,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import edu.kit.ipd.pp.viper.controller.CommandExportImage;
-import edu.kit.ipd.pp.viper.controller.CommandExportTikz;
 import edu.kit.ipd.pp.viper.controller.CommandOpen;
 import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.CommandSetLang;
@@ -45,7 +44,6 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private MenuItem itemFormat;
     private MenuItem itemExportPNG;
     private MenuItem itemExportSVG;
-    private MenuItem itemExportTikZ;
     private CheckBoxMenuItem itemToggleSTD;
     
     private Menu recentlyUsedMenu;
@@ -218,12 +216,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
         itemExportSVG = new MenuItem(LanguageKey.MENU_EXPORT_SVG, new CommandExportImage(this.main.getConsolePanel(),
                 ImageFormat.SVG, this.main.getInterpreterManager()));
 
-        itemExportTikZ = new MenuItem(LanguageKey.MENU_EXPORT_TIKZ,
-                new CommandExportTikz(this.main.getConsolePanel(), this.main.getInterpreterManager()));
-
         menu.add(itemExportPNG);
         menu.add(itemExportSVG);
-        menu.add(itemExportTikZ);
 
         this.add(menu);
     }
@@ -234,7 +228,11 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addSettingsMenu() {
         Menu menu = new Menu(LanguageKey.MENU_SETTINGS);
 
-        itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB, new CommandToggleLib(this.main,
+        itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB, new CommandToggleLib(
+                this.main.getConsolePanel(),
+                this.main.getVisualisationPanel(),
+                this.main.getInterpreterManager(),
+                this.main.getPreferencesManager(),
                 this.main::switchClickableState));
         if (this.main.getPreferencesManager().isStandardLibEnabled())
             itemToggleSTD.setSelected(true);
@@ -290,7 +288,6 @@ public class MenuBar extends JMenuBar implements HasClickable {
             this.itemFormat.setEnabled(true);
             this.itemExportPNG.setEnabled(false);
             this.itemExportSVG.setEnabled(false);
-            this.itemExportTikZ.setEnabled(false);
             this.itemToggleSTD.setEnabled(true);
             break;
         case PARSED_QUERY:
@@ -306,7 +303,6 @@ public class MenuBar extends JMenuBar implements HasClickable {
             this.itemFormat.setEnabled(true);
             this.itemExportPNG.setEnabled(true);
             this.itemExportSVG.setEnabled(true);
-            this.itemExportTikZ.setEnabled(true);
             this.itemToggleSTD.setEnabled(true);
             break;
         default:
