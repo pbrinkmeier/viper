@@ -15,6 +15,7 @@ public class CommandNewTest {
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
+    private InterpreterManager manager;
 
     /**
      * Constructs the GUI.
@@ -26,6 +27,7 @@ public class CommandNewTest {
         this.editor = this.gui.getEditorPanel();
         this.console = this.gui.getConsolePanel();
         this.visualisation = this.gui.getVisualisationPanel();
+        this.manager = this.gui.getInterpreterManager();
     }
 
     /**
@@ -36,10 +38,11 @@ public class CommandNewTest {
     public void getsCleared() {
         this.editor.setSourceText("test");
         this.editor.setHasChanged(false);
-        CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE, this.gui::setWindowTitle);
+        CommandSave save = new CommandSave(this.console, this.editor, SaveType.SAVE, this.gui::setWindowTitle,
+                this.manager);
         new CommandNew(this.console, this.editor, this.visualisation,
                 this.gui::setTitle,
-                this.gui::switchClickableState, save).execute();
+                this.gui::switchClickableState, save, this.manager).execute();
 
         assertTrue(this.editor.getSourceText().equals(""));
     }

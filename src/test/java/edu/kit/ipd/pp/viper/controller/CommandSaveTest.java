@@ -19,6 +19,8 @@ public class CommandSaveTest {
     private MainWindow gui;
     private ConsolePanel console;
     private EditorPanel editor;
+    private InterpreterManager manager;
+    private CommandSave commandSave;
 
     /**
      * Constructs the GUI.
@@ -29,6 +31,9 @@ public class CommandSaveTest {
         this.gui.setVisible(false);
         this.editor = this.gui.getEditorPanel();
         this.console = this.gui.getConsolePanel();
+        this.manager = this.gui.getInterpreterManager();
+        this.commandSave = new CommandSave(this.console, this.editor, SaveType.SAVE,
+                this.gui::setTitle, this.manager);
     }
 
     /**
@@ -39,7 +44,7 @@ public class CommandSaveTest {
         File test = new File("testEmpty.pl");
         this.editor.setFileReference(test);
         this.editor.setHasChanged(false);
-        new CommandSave(this.console, this.editor, SaveType.SAVE, this.gui::setTitle).execute();
+        this.commandSave.execute();
 
         assertTrue(test.exists());
         assertTrue(test.getName().equals("testEmpty.pl"));
@@ -64,7 +69,7 @@ public class CommandSaveTest {
         this.editor.setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
         this.editor.setFileReference(test);
         this.editor.setHasChanged(false);
-        new CommandSave(this.console, this.editor, SaveType.SAVE, this.gui::setTitle).execute();
+        this.commandSave.execute();
 
         assertTrue(test.exists());
         assertTrue(test.getName().equals("testSimpsons.pl"));
@@ -87,7 +92,7 @@ public class CommandSaveTest {
     public void testErrorOutput() {
         final String testPath = "/test/testfile.pl";
         this.console.clearAll();
-        new CommandSave(this.console, this.editor, SaveType.SAVE, this.gui::setTitle).printSaveError(null, testPath);
+        this.commandSave.printSaveError(null, testPath);
 
         final String expected = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR) + ": " + testPath;
         assertTrue(this.console.getOutputAreaText().trim().equals(expected.trim()));
@@ -101,7 +106,7 @@ public class CommandSaveTest {
         File testFile = new File("testfile.pl");
         this.console.clearAll();
         try {
-            new CommandSave(this.console, this.editor, SaveType.SAVE, this.gui::setTitle).writeFile(testFile);
+            this.commandSave.writeFile(testFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
