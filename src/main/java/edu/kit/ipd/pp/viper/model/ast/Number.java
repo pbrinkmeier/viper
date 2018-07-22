@@ -1,5 +1,8 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+/**
+ * Represents a number in an AST.
+ */
 public final class Number extends Term {
     private final int number;
 

@@ -3,6 +3,11 @@ package edu.kit.ipd.pp.viper.model.ast;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a binary arithmetic operation in an AST.
+ * The template method {@link #calculate(int, int)} must be overwritten by subclasses
+ * with the respective arithmetic operation.
+ */
 public abstract class BinaryOperation extends Functor {
     /**
      * Initializes a binary operation with a symbol, a left and right hand side.

@@ -5,6 +5,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Represents an AST, also called a "Prolog program" or "knowledge base" in our nomenclature.
+ * This is basically just a wrapper around a list of rules.
+ * Using {@link #getMatchingRules}, you can get a list of rule whose heads have the same name and arity as
+ * a given functor.
+ */
 public class KnowledgeBase {
     private final List<Rule> rules;
 
