@@ -106,7 +106,8 @@ public class InterpreterManager {
 
         if (this.current < this.visualisations.size() - 1) {
             this.current++;
-            return StepResult.STEPS_REMAINING;
+            this.result = StepResult.FROM_STEPBACK;
+            return this.result;
         }
 
         this.result = this.interpreter.get().step();
@@ -156,31 +157,34 @@ public class InterpreterManager {
         this.nextSolutionThread = Optional.of(new Thread(() -> {
             while (this.running) {
                 this.nextStep();
-                if (this.result != StepResult.STEPS_REMAINING)
+                if (this.result != StepResult.STEPS_REMAINING 
+                        && this.current == this.visualisations.size() - 1)
                     this.running = false;
             }
             
-            if (result == StepResult.SOLUTION_FOUND) {
-                String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
-                List<Substitution> solution = this.getSolution();
+            if (this.result != StepResult.FROM_STEPBACK) {
+                if (result == StepResult.SOLUTION_FOUND) {
+                    String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
+                    List<Substitution> solution = this.getSolution();
 
-                String solutionString = solution.size() == 0
-                        ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
-                        : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
+                    String solutionString = solution.size() == 0
+                            ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
+                            : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
 
-                console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
+                    console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
+                }
+
+                if (result == StepResult.NO_MORE_SOLUTIONS) {
+                    console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
+                            LogType.INFO);
+                }
             }
-
-            if (result == StepResult.NO_MORE_SOLUTIONS) {
-                console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
-                        LogType.INFO);
-            }
-
+    
             visualisation.setFromGraph(this.getCurrentVisualisation());
             
             return;
         }));
-        
+
         this.nextSolutionThread.get().start();
     }
 
