@@ -179,9 +179,10 @@ public class InterpreterManager {
      * {@link #reset()} (that includes the constructor) and before calls to
      * {@link #parseKnowledgeBase(String)} and {@link #parseQuery(String)}, i.e.
      * before an interpreter instance has been created, it will have no effect and
-     * return null.
-     * 
-     * @return Result of the step taken
+     * return.
+     * Also takes care of the console output.
+     *
+     * @param console The console panel of the main window
      */
     public void nextStep(ConsolePanel console) {
         if (!this.interpreter.isPresent())
