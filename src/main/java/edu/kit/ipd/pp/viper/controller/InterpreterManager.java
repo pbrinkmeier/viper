@@ -3,10 +3,10 @@ package edu.kit.ipd.pp.viper.controller;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -76,24 +76,23 @@ public class InterpreterManager {
 
     /**
      * Loads the standard library from a file into a String.
+     *
+     * @return whether the standard library could be loaded successfully
      */
-    private void loadStandardLibrary() {
-        StringBuffer buf = new StringBuffer();
+    private boolean loadStandardLibrary() {
+        try {
+            this.standardLibrary = new String(Files.readAllBytes(Paths.get(
+                this.getClass().getResource(InterpreterManager.STANDARD_LIBRARY_PATH).toURI()
+            )));
 
-        try (InputStream in = this.getClass().getResource(STANDARD_LIBRARY_PATH).openStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));) {
-            String str = "";
-            while ((str = reader.readLine()) != null)
-                buf.append(str);
+            System.out.println(this.getClass().getResource(InterpreterManager.STANDARD_LIBRARY_PATH));
 
-            in.close();
-            reader.close();
+            return true;
+        } catch (URISyntaxException e) {
+            return false;
         } catch (IOException e) {
-            // should never happen, this means the standard library code was moved from its
-            // original position
+            return false;
         }
-
-        this.standardLibrary = buf.toString();
     }
 
     /**
@@ -105,14 +104,19 @@ public class InterpreterManager {
     public void parseKnowledgeBase(String kbSource) throws ParseException {
         String source = "";
 
+        // Failing to load the stdlib should probably result in an error on the console
         if (this.useStandardLibrary) {
-            if (this.standardLibrary == null)
-                this.loadStandardLibrary();
-
+            if (this.standardLibrary == null) {
+                if (!this.loadStandardLibrary()) {
+                    this.standardLibrary = "";
+                }
+            }
+            
             source += this.standardLibrary + "\n";
         }
 
         source += kbSource;
+
         this.knowledgeBase = Optional.of(new PrologParser(source).parse());
     }
 
