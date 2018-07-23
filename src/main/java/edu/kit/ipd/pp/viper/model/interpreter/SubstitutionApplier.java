@@ -9,6 +9,9 @@ import edu.kit.ipd.pp.viper.model.ast.Variable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Visitor that applies a single substitution in a term.
+ */
 public class SubstitutionApplier implements TermVisitor<Term> {
     private Substitution substitution;
 

@@ -3,6 +3,11 @@ package edu.kit.ipd.pp.viper.model.interpreter;
 import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 
+/**
+ * A single substitutions.
+ * A substitution has a variable that should be replaced and term to replace it by.
+ * A substituions can be applied to a term using a {@link SubstitutionApplier}.
+ */
 public class Substitution {
     private final Variable replace;
     private final Term by;

@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Represents the execution state of a functor goal.
+ * There is a detailed description of how this how works at {@link #step()}.
+ */
 public class FunctorActivationRecord extends ActivationRecord {
     private final FunctorGoal goal;
     private final List<Rule> matchingRules;

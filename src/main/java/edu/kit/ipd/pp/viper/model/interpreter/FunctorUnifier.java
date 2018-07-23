@@ -6,6 +6,9 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Tries to unify a functor with a term.
+ */
 public class FunctorUnifier extends Unifier {
     private final Functor functor;
 

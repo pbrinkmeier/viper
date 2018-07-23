@@ -5,6 +5,10 @@ import edu.kit.ipd.pp.viper.model.ast.Number;
 import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 
+/**
+ * Unifies a variable with another term.
+ * This always yields a single substitution.
+ */
 public class VariableUnifier extends Unifier {
     private final Variable variable;
 

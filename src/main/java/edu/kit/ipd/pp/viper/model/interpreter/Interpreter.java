@@ -5,6 +5,11 @@ import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
 
 import java.util.Optional;
 
+/**
+ * Interpreter object that exposes a step method to run a single step on the current activation record.
+ * An interpreter has a knowledgebase, a query, a current and a next acitvation record.
+ * It also keeps track of how many unifications have been done in the context of this interpreter.
+ */
 public class Interpreter {
     private final KnowledgeBase knowledgeBase;
     private final ActivationRecord query;

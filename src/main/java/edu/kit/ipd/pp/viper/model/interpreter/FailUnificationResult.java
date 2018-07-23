@@ -4,6 +4,10 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 
 import java.util.List;
 
+/**
+ * Represents a failed unification.
+ * Contains two terms that could not be unified.
+ */
 class FailUnificationResult extends UnificationResult {
     private final Term lhs;
     private final Term rhs;

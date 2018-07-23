@@ -71,7 +71,6 @@ public class CommandSave extends Command {
      * for testing purposes.
      * 
      * @param file the file to be written
-     * @throws IOException when the writing fails
      */
     public void writeFile(File file) {
         try (FileOutputStream out = new FileOutputStream(file);) {

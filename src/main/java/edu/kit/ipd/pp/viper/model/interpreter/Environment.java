@@ -6,6 +6,10 @@ import java.util.Optional;
 
 import edu.kit.ipd.pp.viper.model.ast.Term;
 
+/**
+ * Environment of an activation record.
+ * Consists of a reference to its activation record and a list of substitutions.
+ */
 public class Environment {
     private final ActivationRecord activationRecord;
     private final List<Substitution> substitutions;

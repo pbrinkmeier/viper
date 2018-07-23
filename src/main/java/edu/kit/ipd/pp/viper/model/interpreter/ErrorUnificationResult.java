@@ -2,6 +2,11 @@ package edu.kit.ipd.pp.viper.model.interpreter;
 
 import java.util.List;
 
+/**
+ * Represents a unification that could not be completed because of an error.
+ * Other than a fail-result this represents not a failed unification itself
+ * but an unification that failed because something else was wrong.
+ */
 public class ErrorUnificationResult extends UnificationResult {
     private final String errorMessage;
 
