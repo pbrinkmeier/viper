@@ -52,6 +52,7 @@ public class InterpreterManager {
     private StepResult result;
     private Consumer<ClickableState> toggleStateFunc;
     private Optional<Thread> nextSolutionThread = Optional.empty();
+    private boolean noMoreSolutions;
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -76,6 +77,7 @@ public class InterpreterManager {
         this.result = null;
         this.visualisations = new ArrayList<Graph>();
         this.current = 0;
+        this.noMoreSolutions = false;
     }
 
     /**
@@ -178,14 +180,23 @@ public class InterpreterManager {
      * 
      * @return Result of the step taken
      */
-    public StepResult nextStep() {
+    public void nextStep(ConsolePanel console) {
         if (!this.interpreter.isPresent())
-            return null;
+            return;
+
+        this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
+
+        if (this.noMoreSolutions) {
+            this.toggleStateFunc.accept(ClickableState.LAST_STEP);
+            this.current++;
+            this.result = StepResult.NO_MORE_SOLUTIONS;
+            return;
+        }
 
         if (this.current < this.visualisations.size() - 1) {
             this.current++;
             this.result = StepResult.FROM_STEPBACK;
-            return this.result;
+            return;
         }
 
         this.result = this.interpreter.get().step();
@@ -194,7 +205,23 @@ public class InterpreterManager {
 
         this.current++;
 
-        return this.result;
+        if (this.result == StepResult.SOLUTION_FOUND) {
+            String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
+            List<Substitution> solution = this.getSolution();
+
+            String solutionString = solution.size() == 0
+                    ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
+                    : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
+
+            console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
+        }
+
+        if (this.result == StepResult.NO_MORE_SOLUTIONS) {
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
+                    LogType.INFO);
+            this.toggleStateFunc.accept(ClickableState.LAST_STEP);
+            this.noMoreSolutions = true;
+        }
     }
 
     /**
@@ -241,32 +268,14 @@ public class InterpreterManager {
                 return;
 
             while (this.running) {
-                this.nextStep();
+                this.nextStep(console);
                 if ((this.result == StepResult.NO_MORE_SOLUTIONS 
                             || this.result == StepResult.SOLUTION_FOUND)
                             && this.current == this.visualisations.size() - 1)
                     this.running = false;
             }
 
-            if (this.result != StepResult.FROM_STEPBACK) {
-                if (this.result == StepResult.SOLUTION_FOUND) {
-                    String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
-                    List<Substitution> solution = this.getSolution();
-
-                    String solutionString = solution.size() == 0
-                            ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
-                            : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
-
-                    console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
-                }
-
-                if (this.result == StepResult.NO_MORE_SOLUTIONS) {
-                    console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
-                            LogType.INFO);
-                }
-
-                visualisation.setFromGraph(this.getCurrentVisualisation());
-            }
+            visualisation.setFromGraph(this.getCurrentVisualisation());
 
             return;
         }));
