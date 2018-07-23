@@ -68,6 +68,8 @@ Bei VIPER handelt es sich um ein grafisches Tool zur Unterstützung des Lernens 
 
 Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Model-View-Controller-Architekturstils. Hiernach wird die grafische Darstellungs-Komponente (View) von internen Datenstrukturen und deren Logik (Model) getrennt. Die Vermittlung zwischen diesen Komponenten erfolgt über den Controller. Die grafische View-Komponente ist hierbei für Desktop-Nutzung ausgelegt und mit Swing implementiert. Die Generierung der Visualisierung erfolgt mit Graphviz über die Graphviz-Java Implementierung, die Darstellung der erzeugten Visualisierung nutzt die Apache Batik Bibliothek.
 
+Der folgende Bericht beschreibt den Verlauf sowie die Ergebnisse der Implementierung. Zu Beginn folgt eine Beschreibung der Erfüllungsrate der Kriterien des Pflichtenhefts. Ebenfalls dokumentiert ist der zu Beginn der Phase angesetzte Implementierungsplan und die Abweichungen von diesem. Dazu kommen notwendige Rückkopplungen zum Entwurf sowie eine Übersicht der Unit-Tests und der Statistiken der Implementierung.
+
 \section{Übersicht: Implementierte Kriterien}
 
 \subsection{Implementierte Muss-Kriterien}
@@ -118,62 +120,26 @@ Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Mode
 	%%%%%%%% Woche 1
 	\ganttbar{Setup}{0}{0}\\
 	\ganttbar{Kommando-Teilmenge A}{1}{1}\\
-	\ganttbar{View-Teilmenge A}{1}{1}\\
-	\ganttbar{AST-Teilmenge A}{1}{1}\\
-		
-	\ganttmilestone{Meilenstein: Abschluss erste Woche}{1}\\
+	\ganttbar{GUI-Grundgerüst}{1}{1}\\
+	\ganttbar{Terme und Subklassen}{1}{1}\\
+
 	%%%%%%%% Woche 2 / 3
 	\ganttbar{Kommando-Teilmenge B}{2}{2}\\
-	\ganttbar{View-Teilmenge B}{2}{2}\\
-	\ganttbar{AST-Teilmenge B}{2}{2}\\
-	\ganttbar{Interpreter-Teilmenge A}{2}{2}\\
+	\ganttbar{Konsole und Visualisierungsbereich}{2}{2}\\
+	\ganttbar{Parser, KnowledgeBase, Ziele und Regeln}{2}{2}\\
+	\ganttbar{ActivationRecords, Visitors und Unifikation}{2}{2}\\
 	\ganttbar{Manager-Klassen}{2}{2}\\
-	\ganttbar{Controller-Tests}{2}{2}\\
-	
-	\ganttmilestone{Meilenstein: Abschluss zweite Woche}{2}\\
+	\ganttbar{Controller-Tests}{2}{3}\\
+
 	%%%%%%%% Woche 3
-	\ganttbar{Controller-Tests}{3}{3}\\
-	\ganttbar{Interpreter-Teilmenge B}{3}{3}\\
+	\ganttbar{Visualisierung}{3}{3}\\
 	\ganttbar{Kann-Kriterien}{3}{3}\\
 
-	\ganttmilestone{Meilenstein: Abschluss dritte Woche}{3}\ganttnewline
 	%%%%%%%% Woche 4
 	\ganttbar{Puffer}{4}{4}\\
-	%%%%%%%% Links
-	\ganttlink[link mid=0.5]{elem0}{elem1}
-	\ganttlink[link mid=0.25]{elem0}{elem2}
-	\ganttlink[link mid=0.17]{elem0}{elem3}
-	
-	\ganttlink[link mid=0.85]{elem1}{elem4}
-	\ganttlink[link mid=0.78]{elem2}{elem4}
-	\ganttlink[link mid=0.56]{elem3}{elem4}
-	
-	\ganttlink[link bulge=0.6,link mid=0.5]{elem4}{elem5}
-	\ganttlink[link bulge=0.6,link mid=0.25]{elem4}{elem6}
-	\ganttlink[link bulge=0.6,link mid=0.17]{elem4}{elem7}
-	\ganttlink[link bulge=0.6,link mid=0.125]{elem4}{elem8}
-	\ganttlink[link bulge=0.6,link mid=0.1]{elem4}{elem9}
-	\ganttlink[link bulge=0.6,link mid=0.085]{elem4}{elem10}
-	
-	\ganttlink[link bulge=0.6, link mid=0.92]{elem5}{elem11}
-	\ganttlink[link bulge=0.6, link mid=0.9]{elem6}{elem11}
-	\ganttlink[link bulge=0.6, link mid=0.88]{elem7}{elem11}
-	\ganttlink[link bulge=0.6, link mid=0.84]{elem8}{elem11}
-	\ganttlink[link bulge=0.6, link mid=0.75]{elem9}{elem11}
-	\ganttlink[link bulge=0.6, link mid=0.51]{elem10}{elem11}
-	
-	\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
-	\ganttlink[link bulge=0.6, link mid=0.27]{elem11}{elem13}
-	\ganttlink[link bulge=0.6, link mid=0.18]{elem11}{elem14}
-	
-	\ganttlink[link bulge=0.6, link mid=0.83]{elem12}{elem15}
-	\ganttlink[link bulge=0.6, link mid=0.75]{elem13}{elem15}
-	\ganttlink[link bulge=0.6, link mid=0.5]{elem14}{elem15}
-
-	\ganttlink[link bulge=0.2, link mid=0.5]{elem15}{elem16}
 \end{ganttchart}
 \newpage
-Der Implementierungs-Arbeit teilt sich in wöchentliche Aufgabenbereiche ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich und bei dringendem Bedarf statt. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel, sondern im Nachhinein entwickelt.
+Der Implementierungs-Arbeit teilt sich in wöchentliche Aufgabenbereiche ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich statt. Sollte ein Merge dringend nötig sein, weil Abhängigkeiten zu anderen Code-Komponenten bestehen, so können auch Merges abseits des Zeitplans auftreten. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel, sondern im Nachhinein entwickelt.
 
 Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0 entspricht hierbei dem Vorgehen am ersten Tag der ersten Woche. Die zugehörigen Aufgaben setzen sich wie folgt zusammen:
 \begin{enumerate}
@@ -197,11 +163,11 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0 entsprich
 		\end{itemize}
 	\end{multicols}
 
-	\item \textbf{View-Teilmenge A}: Implementierung der wichtigsten GUI-Komponenten. Hierzu gehört das Hauptfenster, der Editor sowie Menü- und Werkzeugleiste.
+	\item \textbf{GUI-Grundgerüst}: Implementierung der wichtigsten GUI-Komponenten. Hierzu gehört das Hauptfenster, der Editor sowie Menü- und Werkzeugleiste.
 	
-	\item \textbf{AST-Teilmenge A}: Implementierung und Testen von der Term-Klasse und ihren Subklassen.
+	\item \textbf{Terme und Subklassen}: Implementierung und Testen von der Term-Klasse und ihren Subklassen.
 	
-	\item \textbf{Meilenstein: Abschluss erste Woche}: Das Projekt ist aufgesetzt. Beim Ausführen wird die GUI erfolgreich angezeigt, ein Editor ist vorhanden, Texteingaben sind möglich. Simple Dateioperationen wie Öffnen und Speichern funktionieren. Der grundlegende Term-Baustein des Models ist implementiert und getestet.
+	\item \textbf{Abschluss der ersten Woche}: Das Projekt ist aufgesetzt. Beim Ausführen wird die GUI erfolgreich angezeigt, ein Editor ist vorhanden, Texteingaben sind möglich. Simple Dateioperationen wie Öffnen und Speichern funktionieren. Der grundlegende Term-Baustein des Models ist implementiert und getestet.
 
 	\item \textbf{Kommando-Teilmenge B}: Implementierung komplexerer Kommandos mit diversen Abhängigkeiten zum Rest des Codes. Dies umfasst in erster Linie Kommandos, welche die Interpretation steuern. Weiter werden Kommandos fertig implementiert, die stärkere Abhängigkeiten zum Rest des Codes haben wie die Export-Funktionen:
 	\begin{multicols}{3}
@@ -217,21 +183,21 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0 entsprich
 		\end{itemize}
 	\end{multicols}
 
-	\item \textbf{View-Teilmenge B}: Implementierung des Konsolen-Bereichs, des Visualisierungs-Bereichs sowie erster Tests. Weiter werden erste Icons für die Schaltflächen erstellt.
+	\item \textbf{Konsole und Visualisierungsbereich}: Implementierung des Konsolen-Bereichs, des Visualisierungs-Bereichs sowie erster Tests. Weiter werden erste Icons für die Schaltflächen erstellt.
 
-	\item \textbf{AST-Teilmenge B}: Implementierung der KnowledgeBase, Ziele und Regeln sowie Einfügen und Anpassen des gegebenen Parsers. Hierzu gehört ebenfalls das parallele Entwickeln von Unit-Tests.
+	\item \textbf{Parser, KnowledgeBase, Ziele und Regeln}: Implementierung der KnowledgeBase, Ziele und Regeln sowie Einfügen und Anpassen des gegebenen Parsers. Hierzu gehört ebenfalls das parallele Entwickeln von Unit-Tests.
 	
-	\item \textbf{Interpreter-Teilmenge A}: Implementierung des ActivationRecords sowie des spezifischen FunctorActivationRecords, der Visitor-Klassen sowie der Unifikations-Klassen. Hierzu gehört ebenfalls das parallele Entwickeln von Unit-Tests.
+	\item \textbf{ActivationRecords, Visitors und Unifikation}: Implementierung des ActivationRecords sowie des spezifischen FunctorActivationRecords, der Visitor-Klassen sowie der Unifikations-Klassen. Hierzu gehört ebenfalls das parallele Entwickeln von Unit-Tests.
 	
 	\item \textbf{Manager-Klassen}: Implementierung der Manager-Klassen des Controllers, namentlich dem Sprachen-Manager und dem Interpreter-Manager.
 	
 	\item \textbf{Controller-Tests}: Implementierung der Tests für das Controller-Paket. Dies beginnt in der zweiten Woche parallel zur Fertigstellung des Controllers und endet mit der dritten Woche.
 	
-	\item \textbf{Meilenstein: Abschluss zweite Woche}: Die Controller-Komponente ist vollständig implementiert und zu Teilen getestet. Die grafische Benutzeroberfläche ist ebenfalls vollständig und an die Kommandos angebunden. Das Parsen von Quellcode und das Parsen sowie Interpretieren von simplen Abfragen (ohne Nutzung von Features der Kann-Kriterien) ist möglich.
+	\item \textbf{Abschluss der zweiten Woche}: Die Controller-Komponente ist vollständig implementiert und zu Teilen getestet. Die grafische Benutzeroberfläche ist ebenfalls vollständig und an die Kommandos angebunden. Das Parsen von Quellcode und das Parsen sowie Interpretieren von simplen Abfragen (ohne Nutzung von Features der Kann-Kriterien) ist möglich.
 	
-	\item \textbf{Interpreter-Teilmenge B}: Implementierung und Testen der Visualisierungs-Klassen des Models.
-	
-	\item \textbf{Kann-Kriterien}: Implementierung und Testen einer Teilmenge der im Pflichtenheft beschriebenen Kann-Kriterien, dazu gehören:
+	\item \textbf{Visualisierung}: Implementierung und Testen der Visualisierungs-Klassen des Models.
+	\newpage
+	\item \textbf{Kann-Kriterien}: Implementierung und Testen der im Pflichtenheft beschriebenen Kann-Kriterien, dazu gehören:
 	\begin{multicols}{2}
 		\begin{itemize}
 			\item Zurückschreiten
@@ -245,7 +211,7 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0 entsprich
 		\end{itemize}
 	\end{multicols}
 	
-	\item \textbf{Meilenstein: Abschluss dritte Woche}: Die Controller-Komponente ist vollständig getestet. Die Visualisierung bei der Interpretation ist verfügbar und wird korrekt angezeigt. Eine Teilmenge der Kann-Kriterien des Pflichtenhefts wurde erfolgreich implementiert und getestet.
+	\item \textbf{Abschluss der dritten Woche}: Die Controller-Komponente ist vollständig getestet. Die Visualisierung bei der Interpretation ist verfügbar und wird korrekt angezeigt. Die Kann-Kriterien des Pflichtenhefts wurden erfolgreich implementiert und getestet.
 	
 	\item \textbf{Puffer}: Puffer-Woche für finales Testen und Reparatur von entstandenen Bugs.
 \end{enumerate}
@@ -253,23 +219,28 @@ Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0 entsprich
 \section{Implementierungsverlauf und Plan-Abweichungen}
 
 \subsection{Abschluss erste Woche}
-Die erste Woche wurde plangemäß erfüllt. Es wurden keine zusätzlichen Implementierungsschritte erledigt.
+Da der Implementierungsplan im Lauf der ersten Woche entstanden ist, ist der Planungsinhalt auf den Fortschritt dieser zugeschnitten. Damit sind die Punkte bzgl. der Muss-Kriterien in der ersten Woche zwangsweise erfüllt worden. Zusätzlich wurden die Kann-Kriterien für den Sprachenwechsel und die Schnellzugriffsleiste bei der Erstellung des GUI-Grundgerüsts erledigt (Anmerkung: diese zusätzlich erfüllten Kann-Kriterien wurden in dem ursprünglich eingereichten Implementierungsplan übersehen, dies wurde hier verbessert).
 
 \begin{itemize}
 	\item \textbf{Setup}\hfill\cmark
 	\item \textbf{Kommando-Teilmenge A}\hfill\cmark
-	\item \textbf{View-Teilmenge A}\hfill\cmark
-	\item \textbf{AST-Teilmenge A}\hfill\cmark
+	\item \textbf{GUI-Grundgerüst}\hfill\cmark
+	\item \textbf{Terme und Subklassen}\hfill\cmark
+	\item \textbf{Kann-Kriterien}
+	\begin{itemize}
+		\item \textbf{Wechsel der Sprache zwischen Deutsch und Englisch}\hfill\cmark
+		\item \textbf{Schnellzugriffsleiste}\hfill\cmark
+	\end{itemize}
 \end{itemize}
 
 \subsection{Abschluss zweite Woche}
-Die zweite Woche wurde zu großen Teilen plangemäß erfüllt. Aufgrund der unvollständigen Implementierung des Interpreter-Managers war der geplante Implementierungsfortschritt jedoch nicht erreicht.
+Alle Kriterien der zweiten Woche abseits des Interpreter-Managers wurden plangemäß erfüllt. Dieser wurde aufgrund interner Unstimmigkeiten zur Implementierung, verspäteter Verfügbarkeit der wichtigen Schnittstellen und damit zeitlichen Problemen verzögert und in der dritten Woche implementiert.
 
 \begin{itemize}
 	\item \textbf{Kommando-Teilmenge B}\hfill\cmark
-	\item \textbf{View-Teilmenge B}\hfill\cmark
-	\item \textbf{AST-Teilmenge B}\hfill\cmark
-	\item \textbf{Interpreter-Teilmenge A}\hfill\cmark
+	\item \textbf{Konsolen und Visualisierungsbereich}\hfill\cmark
+	\item \textbf{Parser, KnowledgeBase, Ziele und Regeln}\hfill\cmark
+	\item \textbf{ActivationRecords, Visitors und Unifikation}\hfill\cmark
 	\item Manager-Klassen\hfill\xmark
 		\begin{itemize}
 			\item \textbf{Sprachen-Manager}\hfill\cmark
@@ -279,12 +250,12 @@ Die zweite Woche wurde zu großen Teilen plangemäß erfüllt. Aufgrund der unvo
 \end{itemize}
 
 \subsection{Abschluss dritte Woche}
-Die dritte Woche wurde zu großen Teilen plangemäß erfüllt. Die Testabdeckung des Controllers durch Unit-Tests wurde in den 70\%-Bereich vorangetrieben.
+Die Muss-Kriterien wurden in der dritten Woche fertiggestellt. Die Testabdeckung des Controllers durch Unit-Tests wurde in den 70\%-Bereich vorangetrieben und gilt damit als erledigt. Zusätzlich wurde eine Teilmenge der Kann-Kriterien erfolgreich implementiert, übrige Kann-Kriterien wurden in die Puffer-Woche verschoben.
 
 \begin{itemize}
 	\item \textbf{Interpreter-Manager}\hfill\cmark
 	\item \textbf{Controller-Tests}\hfill\cmark
-	\item \textbf{Interpreter-Teilmenge B}\hfill\xmark
+	\item \textbf{Visualisierung}\hfill\xmark
 	\item Kann-Kriterien
 		\begin{itemize}
 			\item Zurückschreiten\hfill\xmark
@@ -297,14 +268,11 @@ Die dritte Woche wurde zu großen Teilen plangemäß erfüllt. Die Testabdeckung
 			\item \textbf{Export der Visualisierung als Bilddatei}\hfill\cmark
 			\item \enquote{Pretty-Printing} von Listen\hfill\xmark
 			\item \textbf{Formatierung von Quelltext}\hfill\cmark
-			\item \textbf{Wechsel der Sprache zwischen Deutsch und Englisch}\hfill\cmark
-			\item \textbf{Schnellzugriffsleiste}\hfill\cmark
 		\end{itemize}
 \end{itemize}
 
-\newpage
 \subsection{Abschluss vierte Woche}
-Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs und der restlichen Erfüllung von Kann-Kriterien. Diese wurden folgendermaßen abgedeckt:
+Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs. Zusätzlich wurden Kann-Kriterien, welche in der dritten Woche nicht erfüllt wurden, in diese Puffer-Woche geschoben. Dies führte zur Erfüllung aller übrigen Kann-Kriterien abseits des Exports als TikZ-Datei. Dieses Kriterium wurde aus Zeitmangel und u großem Arbeitsaufwand verworfen. Die Abdeckung der Kann-Kriterien entspricht damit:
 
 \begin{itemize}
 	\item \textbf{Zurückschreiten}\hfill\cmark
@@ -320,128 +288,55 @@ Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs und
 \begin{minipage}{0.5\textwidth}
 \begin{ganttchart}[x unit = 1.0cm, y unit chart = 0.7cm]{0}{4}
 	\gantttitle{Implementierungsplan}{5}\\
-	\gantttitlelist{0,..., 4}{1}\\
-	%%%%%%%% Woche 1
-	\ganttbar{Setup}{0}{0}\\
-	\ganttbar{Kommando-Teilmenge A}{1}{1}\\
-	\ganttbar{View-Teilmenge A}{1}{1}\\
-	\ganttbar{AST-Teilmenge A}{1}{1}\\
-	
-	\ganttmilestone{Meilenstein: Abschluss erste Woche}{1}\\
-	%%%%%%%% Woche 2 / 3
-	\ganttbar{Kommando-Teilmenge B}{2}{2}\\
-	\ganttbar{View-Teilmenge B}{2}{2}\\
-	\ganttbar{AST-Teilmenge B}{2}{2}\\
-	\ganttbar{Interpreter-Teilmenge A}{2}{2}\\
-	\ganttbar{Manager-Klassen}{2}{2}\\
-	\ganttbar{Controller-Tests}{2}{2}\\
-	
-	\ganttmilestone{Meilenstein: Abschluss zweite Woche}{2}\\
-	%%%%%%%% Woche 3
-	\ganttbar{Controller-Tests}{3}{3}\\
-	\ganttbar{Interpreter-Teilmenge B}{3}{3}\\
-	\ganttbar{Kann-Kriterien}{3}{3}\\
-	
-	\ganttmilestone{Meilenstein: Abschluss dritte Woche}{3}\ganttnewline
-	%%%%%%%% Woche 4
-	\ganttbar{Puffer}{4}{4}\\
-	%%%%%%%% Links
-	\ganttlink[link mid=0.5]{elem0}{elem1}
-	\ganttlink[link mid=0.25]{elem0}{elem2}
-	\ganttlink[link mid=0.17]{elem0}{elem3}
-	
-	\ganttlink[link mid=0.85]{elem1}{elem4}
-	\ganttlink[link mid=0.78]{elem2}{elem4}
-	\ganttlink[link mid=0.56]{elem3}{elem4}
-	
-	\ganttlink[link bulge=0.6,link mid=0.5]{elem4}{elem5}
-	\ganttlink[link bulge=0.6,link mid=0.25]{elem4}{elem6}
-	\ganttlink[link bulge=0.6,link mid=0.17]{elem4}{elem7}
-	\ganttlink[link bulge=0.6,link mid=0.125]{elem4}{elem8}
-	\ganttlink[link bulge=0.6,link mid=0.1]{elem4}{elem9}
-	\ganttlink[link bulge=0.6,link mid=0.085]{elem4}{elem10}
-	
-	\ganttlink[link bulge=0.6, link mid=0.92]{elem5}{elem11}
-	\ganttlink[link bulge=0.6, link mid=0.9]{elem6}{elem11}
-	\ganttlink[link bulge=0.6, link mid=0.88]{elem7}{elem11}
-	\ganttlink[link bulge=0.6, link mid=0.84]{elem8}{elem11}
-	\ganttlink[link bulge=0.6, link mid=0.75]{elem9}{elem11}
-	\ganttlink[link bulge=0.6, link mid=0.51]{elem10}{elem11}
-	
-	\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
-	\ganttlink[link bulge=0.6, link mid=0.27]{elem11}{elem13}
-	\ganttlink[link bulge=0.6, link mid=0.18]{elem11}{elem14}
-	
-	\ganttlink[link bulge=0.6, link mid=0.83]{elem12}{elem15}
-	\ganttlink[link bulge=0.6, link mid=0.75]{elem13}{elem15}
-	\ganttlink[link bulge=0.6, link mid=0.5]{elem14}{elem15}
-	
-	\ganttlink[link bulge=0.2, link mid=0.5]{elem15}{elem16}
+\gantttitlelist{0,..., 4}{1}\\
+%%%%%%%% Woche 1
+\ganttbar{Setup}{0}{0}\\
+\ganttbar{Kommando-Teilmenge A}{1}{1}\\
+\ganttbar{GUI-Grundgerüst}{1}{1}\\
+\ganttbar{Terme und Subklassen}{1}{1}\\
+
+%%%%%%%% Woche 2 / 3
+\ganttbar{Kommando-Teilmenge B}{2}{2}\\
+\ganttbar{Konsole und Visualisierungsbereich}{2}{2}\\
+\ganttbar{Parser, KnowledgeBase, Ziele und Regeln}{2}{2}\\
+\ganttbar{ActivationRecords, Visitors und Unifikation}{2}{2}\\
+\ganttbar{Manager-Klassen}{2}{2}\\
+\ganttbar{Controller-Tests}{2}{3}\\
+
+%%%%%%%% Woche 3
+\ganttbar{Visualisierung}{3}{3}\\
+\ganttbar{Kann-Kriterien}{3}{3}\\
+
+%%%%%%%% Woche 4
+\ganttbar{Puffer}{4}{4}\\	
 \end{ganttchart}
 \end{minipage}%
-\hspace*{5cm}
+\hspace*{6cm}
 \begin{minipage}{0.5\textwidth}
-	\begin{ganttchart}[x unit = 1.0cm, y unit chart = 0.7cm]{0}{4}
-		\gantttitle{Tatsächlicher Verlauf}{5}\\
-		\gantttitlelist{0,..., 4}{1}\\
-		%%%%%%%% Woche 1
-		\ganttbar{}{0}{0}\\
-		\ganttbar{}{1}{1}\\
-		\ganttbar{}{1}{1}\\
-		\ganttbar{}{1}{1}\\
-		
-		\ganttmilestone{}{1}\\
-		%%%%%%%% Woche 2 / 3
-		\ganttbar{}{2}{2}\\
-		\ganttbar{}{2}{2}\\
-		\ganttbar{}{2}{2}\\
-		\ganttbar{}{2}{2}\\
-		\ganttbar{}{2}{3}\\
-		\ganttbar{}{2}{2}\\
-		
-		\ganttmilestone{}{2}\\
-		%%%%%%%% Woche 3
-		\ganttbar{}{3}{3}\\
-		\ganttbar{}{3}{3}\\
-		\ganttbar{}{3}{3}\\
-		
-		\ganttmilestone{}{3}\ganttnewline
-		%%%%%%%% Woche 4
-		\ganttbar{}{4}{4}\\
-		%%%%%%%% Links
-		\ganttlink[link mid=0.5]{elem0}{elem1}
-		\ganttlink[link mid=0.25]{elem0}{elem2}
-		\ganttlink[link mid=0.17]{elem0}{elem3}
-		
-		\ganttlink[link mid=0.85]{elem1}{elem4}
-		\ganttlink[link mid=0.78]{elem2}{elem4}
-		\ganttlink[link mid=0.56]{elem3}{elem4}
-		
-		\ganttlink[link bulge=0.6,link mid=0.5]{elem4}{elem5}
-		\ganttlink[link bulge=0.6,link mid=0.25]{elem4}{elem6}
-		\ganttlink[link bulge=0.6,link mid=0.17]{elem4}{elem7}
-		\ganttlink[link bulge=0.6,link mid=0.125]{elem4}{elem8}
-		\ganttlink[link bulge=0.6,link mid=0.1]{elem4}{elem9}
-		\ganttlink[link bulge=0.6,link mid=0.085]{elem4}{elem10}
-		
-		\ganttlink[link bulge=1.4, link mid=0.92]{elem5}{elem11}
-		\ganttlink[link bulge=1.4, link mid=0.9]{elem6}{elem11}
-		\ganttlink[link bulge=1.4, link mid=0.88]{elem7}{elem11}
-		\ganttlink[link bulge=1.4, link mid=0.84]{elem8}{elem11}
-		\ganttlink[link bulge=0.6, link mid=0.85]{elem9}{elem11}
-		\ganttlink[link bulge=1.4, link mid=0.51]{elem10}{elem11}
-		
-		\ganttlink[link bulge=0.6, link mid=0.55]{elem11}{elem12}
-		\ganttlink[link bulge=0.6, link mid=0.27]{elem11}{elem13}
-		\ganttlink[link bulge=0.6, link mid=0.18]{elem11}{elem14}
+\begin{ganttchart}[x unit = 1.0cm, y unit chart = 0.7cm]{0}{4}
+	\gantttitle{Tatsächlicher Verlauf}{5}\\
+\gantttitlelist{0,..., 4}{1}\\
+%%%%%%%% Woche 1
+\ganttbar{}{0}{0}\\
+\ganttbar{}{1}{1}\\
+\ganttbar{}{1}{1}\\
+\ganttbar{}{1}{1}\\
 
-		\ganttlink[link bulge=0.6, link mid=0.92]{elem9}{elem15}		
-		\ganttlink[link bulge=0.6, link mid=0.83]{elem12}{elem15}
-		\ganttlink[link bulge=0.6, link mid=0.75]{elem13}{elem15}
-		\ganttlink[link bulge=0.6, link mid=0.5]{elem14}{elem15}
-		
-		\ganttlink[link bulge=0.2, link mid=0.5]{elem15}{elem16}
-	\end{ganttchart}
+%%%%%%%% Woche 2 / 3
+\ganttbar{}{2}{2}\\
+\ganttbar{}{2}{2}\\
+\ganttbar{}{2}{2}\\
+\ganttbar{}{2}{2}\\
+\ganttbar{}{2}{3}\\
+\ganttbar{}{2}{3}\\
+
+%%%%%%%% Woche 3
+\ganttbar{}{3}{3}\\
+\ganttbar{}{3}{4}\\
+
+%%%%%%%% Woche 4
+\ganttbar{}{4}{4}\\
+\end{ganttchart}
 \end{minipage}
 
 \section{Änderungen zum Entwurf und Pflichtenheft}
@@ -453,24 +348,22 @@ TODO
 
 \textbf{Neue Klassen:}\\
 \begin{itemize}
-	\item \textbf{Menu}:\\
-	Unterklasse von JMenu. Diese eigene Implementierung des Menü-Elements ist vereinbar mit dem Observer-Pattern welches für den Sprachwechsel genutzt wird.
-	\item \textbf{ToolBarButton}:\\
-	Unterklasse von JButton. Diese Klasse ist spezifisch für die Toolbar und nutzt im Gegensatz zur bisher verfügbaren Button-Klasse automatisch ein Icon.
-	\item \textbf{CheckBoxMenuItem}:\\
-	Unterklasse von JCheckBoxMenuItem. Diese wird für Menü-Elemente genutzt, welche sich umschalten lassen (Aktivieren und Deaktivieren der Standardbibliothek).
+	\item \textbf{Subklassen von Swing-Elementen}
+	Es wurden eigene Implementierungen von Swing-Elementen angefertigt, darunter \textbf{Menu} (erbt von JMenu), \textbf{ToolBarButton} (erbt von JButton) und \textbf{CheckBoxMenuItem} (erbt von JCheckBoxMenuItem). Diese dienen der Anbindung von Swing-Elementen an die intern genutzten Entwurfsentscheidungen (Observer für Sprachen-Manager, Umschalten des ClickableState).
 	\item \textbf{LanguageKey}:\\
 	Sammelklasse für valide Sprachschlüssel. Diese werden nun als zentrale Enumeration verwaltet, um das Übergeben invalider Sprachschlüssel an den Sprachen-Manager zu verhindern.
 	\item \textbf{ColorScheme}:\\
-	Sammelklasse für valide Farbwerte. Diese werden nun als zentrale Enumeration verwaltet, um die Farbwahl zu vereinheitlichen.
+	Sammelklasse für die genutzten Farbwerte (vor allem für die Ausgabe im Konsolenbereich). Diese werden nun als zentrale Enumeration verwaltet, um die Farbwahl zu vereinheitlichen.
 	\item \textbf{LogType}:\\
 	Sammelklasse für Ausgabetypen im Ausgabebereich der Konsole. Diese werden als zentrale Enumeration verwaltet, um die Wahl über die farbliche Darstellung der Ausgabe der Konsole zu überlassen.
 	\item \textbf{ClickableState} und \textbf{HasClickable}:\\
-	Alle Elemente der grafischen Oberfläche, welche Schaltflächen besitzen, implementieren fortan das Interface \texttt{HasClickable}. Dieses verlangt die Implementierung einer Funktion zum Wechsel des \texttt{ClickableState}. Letzterer ist eine Enumeration aller möglichen Zustände die Einfluss auf die Aktivierung der Schaltflächen nehmen. Sollte dieser Zustand sich ändern werden automatisch alle betroffenen Klassen aufgerufen und die Schaltflächen einzeln aktiviert oder deaktiviert. Dies ermöglicht bspw. die Deaktivierung der Schaltfläche für den nächsten Schritt einer Interpretation bevor eine Abfrage gestellt wurde. Diese Schaltfläche wird nach dem erfolgreichen Stellen einer Abfrage dann automatisch aktiviert.
+	Alle Elemente der grafischen Oberfläche, welche Schaltflächen besitzen, implementieren fortan das Interface \textbf{HasClickable} und haben damit die Methode \textbf{switchClickableState(ClickableState state)}. Der \textbf{ClickableState}-Parameter entspricht einer Enumeration aller möglichen Zustände, die Einfluss auf die Aktivierung/Deaktivierung der Schaltflächen nehmen. Beim Aufruf der Methode werden somit anhand des ClickableState alle Schaltflächen des GUI-Elements jeweils aktiviert oder deaktiviert. Kommando-Klassen erhalten eine zentrale Methode des Hauptfensters, welches den ClickableState für alle Unterelemente die HasClickable implementieren aktualisiert. Dies ermöglicht bspw. die Deaktivierung der Schaltfläche für den nächsten Schritt einer Interpretation bevor eine Abfrage gestellt wurde. Diese Schaltfläche wird nach dem erfolgreichen Stellen einer Abfrage dann automatisch aktiviert und kann betätigt werden.
 \end{itemize}
 
 \textbf{Änderungen an bestehenden Klassen:}\\
-TODO
+Buttons besitzen nun Tooltips, welche im Konstruktor als String übergeben werden. Das ConsoleInputField ist nun nicht mehr nur ein selbst implementiertes JTextField, sondern ein JPanel, welches ein JTextField enthält. Dies wurde geändert, um einen Button zur Verarbeitung der eingegebenen Abfrage und ein Text-Label mit einem Fragezeichen an das Eingabefeld anzuhängen. Zusätzlich hat das Eingabefeld nun eine History-Funktion und speichert bereits eingegebene Abfragen bis zum Schließen des Programms.
+
+Die printLine-Methode des Konsolenbereichs erhält nun keine beliebige Java-Color als Parameter, sondern delegiert die Farbwahl an die Konsole und erhält stattdessen eine LogType-Enumeration. Das EditorPanel erlaubt nun die Skalierung des Texts über die Tastenkombination STRG und \enquote{+} bzw. \enquote{-}. Zuletzt wird nun auch automatisch beim Ändern der aktuell geöffneten Datei der Fenstertitel angepasst, um den absoluten Pfad der Datei anzuzeigen.
 
 \subsection{Paket: Controller}
 \textbf{Neue Klassen:}\\
@@ -490,32 +383,40 @@ TODO
 \end{itemize}
 
 \textbf{Änderungen an bestehenden Klassen:}\\
-Aufgrund von Schnittstellen-Anpassungen haben sich die Konstruktoren in diversen Kommandos des Controllers verändert. Die meist vertretenen Anpassungen umfassen hierbei die Übergabe von Consumer-Funktionen, über die einzelne isolierte Funktionen des Hauptfensters ausgeführt werden können. Zusätzlich wird der InterpreterManager (\textbf{IM}) nun häufiger übergeben, da einige Commands den \enquote{Nächste Lösung}-Thread beenden und auf dessen tatsächliche Terminierung warten müssen. Die Funktionen des Hauptfensters werden im folgenden abgekürzt als:
+Die öffentlichen execute()-Methoden der Kommandos teilen die Ausführungsschritte in intern definierte Funktionen zur Vereinfachung des Programmcodes. Diese sind ausschließlich zu Testzwecken als \texttt{public} deklariert und werden dementsprechend nicht zusätzlich dokumentiert. Aufgrund von Schnittstellen-Anpassungen haben sich die Konstruktoren in diversen Kommandos des Controllers verändert. Die meist vertretenen Anpassungen umfassen hierbei die Übergabe von Consumer-Funktionen, über die einzelne isolierte Funktionen des Hauptfensters ausgeführt werden können.
 
-\begin{itemize}
-	\item \textbf{CT}: Consumer-Funktion für das Ändern des Fenstertitels
-	\item \textbf{CS}: Consumer-Funktion für das Ändern des internen Clickable-Zustands
-\end{itemize}
+Dies umfasst einerseits die Consumer-Funktion für das Ändern des Fenstertitels, welche nun an Kommandos übergeben wird, welche die aktuell geöffnete Datei beeinflussen:
+\begin{multicols}{3}
+	\begin{itemize}
+		\item CommandNew
+		\item CommandOpen
+		\item CommandSave
+	\end{itemize}
+\end{multicols}
 
-Die Anpassung der Konstruktoren ist wie folgt:
-\begin{itemize}
-	\item \textbf{CommandNew}\\\hspace*{1cm}erhält zusätzlich: CT, CS, IM\hfill \texttt{+}
-	\item \textbf{CommandOpen}\\\hspace*{1cm}erhält zusätzlich: CT, CS, IM, ein Speichern-Kommando\hfill\texttt{+}
-	\item \textbf{CommandSave}\\\hspace*{1cm}erhält zusätzlich: CT, IM\hfill\texttt{+}
-	\item \textbf{CommandParse}\\\hspace*{1cm}erhält zusätzlich: CS\hfill\texttt{+}
-	\item \textbf{CommandNextStep}\\\hspace*{1cm}erhält zusätzlich: CS\hfill\texttt{+}
-	\item \textbf{CommandPreviousStep}\\\hspace*{1cm}erhält nicht mehr: ConsolePanel\hfill\texttt{-}
-	\item \textbf{CommandContinue}\\\hspace*{1cm}heißt nun CommandNextSolution,
-								  \\\hspace*{1cm}erhält nicht mehr: boolean running\hfill\texttt{-}
-	\item \textbf{CommandCancel}\\\hspace*{1cm}erhält nicht mehr: boolean running,\hfill\texttt{-}
-								\\\hspace*{1cm}erhält zusätzlich: VisualisationPanel\hfill\texttt{+}
-	\item \textbf{CommandToggleLib}\\\hspace*{1cm}erhält zusätzlich: CS, PreferencesManager\hfill\texttt{+}
-	\item \textbf{CommandSetLang}\\\hspace*{1cm}erhält zusätzlich: PreferencesManager\hfill\texttt{+}
-	\item \textbf{CommandExportImage}\\\hspace*{1cm}erhält nicht mehr: VisualisationPanel\hfill\texttt{-}
-	\item \textbf{CommandExportTikZ}\\\hspace*{1cm}erhält nicht mehr: VisualisationPanel\hfill\texttt{-}
-\end{itemize}
+Andererseits existiert eine Consumer-Funktion für das globale Ändern des ClickableStates, welche nun an Kommandos übergeben wird, welche diesen beeinflussen:
+\begin{multicols}{3}
+	\begin{itemize}
+		\item CommandNew
+		\item CommandOpen
+		\item CommandParse
+		\item CommandNextStep
+		\item CommandToggleLib
+	\end{itemize}
+\end{multicols}
 
-Zusatz: Die öffentlichen execute()-Methoden der Kommandos teilen die Ausführungsschritte in intern definierte Funktionen zur Vereinfachung des Programmcodes. Diese sind ausschließlich zu Testzwecken als \texttt{public} deklariert und werden dementsprechend nicht zusätzlich dokumentiert.
+Zusätzlich wird der InterpreterManager nun häufiger übergeben, da einige Commands den \enquote{Nächste Lösung}-Thread beenden und auf dessen tatsächliche Terminierung warten müssen. Durch die Delegation des Threadings für das \enquote{Nächste Lösung}-Kommando und das \enquote{Abbrechen}-Kommando an den InterpreterManager fallen auch die boolschen running-Parameter für diese weg. Diese Änderung betrifft:
+\begin{multicols}{3}
+	\begin{itemize}
+		\item CommandNew
+		\item CommandOpen
+		\item CommandSave
+		\item CommandContinue
+		\item CommandCancel
+	\end{itemize}
+\end{multicols}
+
+Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich erhält das CommandPreviousStep nicht mehr das ConsolePanel, da dieses keine Ausgabe machen muss. Da das VisualisationPanel keinen Getter für die Visualisierung mehr besitzt und diese stattdessen selbstständig per GraphvizMaker erstellt wird, wurde dieses als Parameter in den Export-Kommandos entfernt. Der hinzugefügte PreferenceManager ist nun weiterhin ein Parameter von CommandToggleLib und CommandSetLang, da diese Produktdaten ändern welche gesichert werden müssen. Zuletzt erhält CommandOpen ein Speichern-Kommando per Konstruktor, sodass dieses nicht dupliziert werden muss.
 
 \section{Unit-Tests}
 
@@ -559,16 +460,6 @@ Zusatz: Die öffentlichen execute()-Methoden der Kommandos teilen die Ausführun
 	\end{tabular}
 \end{figure}
 
-\subsubsection{Unit-Tests: View}
-\begin{figure}[!h]
-	\centering
-	\begin{tabular}{l | c | c | c | c}
-		\hline
-		Klasse:		& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
-		\hline
-	\end{tabular}
-\end{figure}
-
 \subsubsection{Unit-Tests: Parser}
 \begin{figure}[!h]
 	\centering
@@ -580,6 +471,7 @@ Zusatz: Die öffentlichen execute()-Methoden der Kommandos teilen die Ausführun
 		\hline
 	\end{tabular}
 \end{figure}
+\newpage
 
 \subsubsection{Unit-Tests: AST}
 \begin{figure}[!h]
@@ -726,12 +618,11 @@ Zusatz: Die öffentlichen execute()-Methoden der Kommandos teilen die Ausführun
 \begin{figure}[!h]
 	\centering
 	%% Merge-Commits sind abgezählt, Rest via git rev-list <HASH> --count
-	Zahl der Commits nach Abschluss der Entwurfsphase (25. Juni 2018): 344\\\vspace*{0.3cm}
+	Verlauf der Commit-Zahlen\\\vspace*{0.3cm}
 	\begin{tabular}{l | c | c | c | c}
 		\hline
 		Datum des Abrufs:	& 2. Juli 2018 & 9. Juli 2018 & 16. Juli 2018 & 23. Juli 2018\\
 		\hline
-		Commit-Zahl insgesamt:		& 408 & 538 & TODO & TODO \\
 		Differenz zur vorigen Woche:	& 64 & 130 & TODO & TODO \\
 		Differenz zum Phasenbeginn: & 64 & 194 & TODO & TODO \\
 		Merge-Commits in Woche: & 10 & 14 & 16 & TODO \\
@@ -778,10 +669,13 @@ Zusatz: Die öffentlichen execute()-Methoden der Kommandos teilen die Ausführun
 	\begin{tabular}{c | c | c | c | c}
 		\hline
 		%%% Berechnet via CLOC
-		Sprache & Dateien & Leerzeilen & Kommentare & Code\\
+		     & Dateien & Leerzeilen & Kommentare & Code\\
 		\hline
-		Java & 123 & 1327 & 3139 & 4761\\
+		Hauptcode & X & X & X & X\\
 		\hline
+		Testcode & X & X & X & X\\
+		\hline
+		Gesamt & 123 & 1327 & 3139 & 4761\\
 	\end{tabular}
 \end{figure}
 
