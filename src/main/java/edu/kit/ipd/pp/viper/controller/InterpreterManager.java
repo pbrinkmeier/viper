@@ -165,6 +165,9 @@ public class InterpreterManager {
 
         // Reset visualisations from previous query
         this.visualisations = new ArrayList<Graph>();
+        this.current = 0;
+        this.noMoreSolutions = false;
+        this.result = null;
 
         this.interpreter = Optional.of(new Interpreter(knowledgeBase, this.query.get()));
         this.variables = Optional.of(this.query.get().getVariables());
