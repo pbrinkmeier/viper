@@ -129,7 +129,7 @@ public class MainWindow extends JFrame {
         this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel,
                 this::switchClickableState);
         this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
-        this.commandCancel = new CommandCancel(this.visualisationPanel, this.manager);
+        this.commandCancel = new CommandCancel(this.manager);
         this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);
 
         // add menu bar and tool bar to window
