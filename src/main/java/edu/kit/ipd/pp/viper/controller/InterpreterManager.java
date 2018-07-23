@@ -12,8 +12,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import edu.kit.ipd.pp.viper.model.ast.Functor;
+import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
+import edu.kit.ipd.pp.viper.model.ast.Rule;
+import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 import edu.kit.ipd.pp.viper.model.interpreter.Environment;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
@@ -128,13 +132,36 @@ public class InterpreterManager {
      * @throws ParseException if the source code is malformed
      */
     public void parseQuery(String querySource) throws ParseException {
-        this.query = Optional.of(new PrologParser(querySource).parseGoalList().get(0));
-
         if (!this.knowledgeBase.isPresent()) {
             return;
         }
 
-        this.interpreter = Optional.of(new Interpreter(this.knowledgeBase.get(), this.query.get()));
+        KnowledgeBase knowledgeBase = this.knowledgeBase.get();
+
+        List<Goal> goals = new PrologParser(querySource).parseGoalList();
+
+        // goals.size may never be 0 at this point
+        // if that were to happen the parser would fail
+        if (goals.size() == 1) {
+            this.query = Optional.of(goals.get(0));
+        } else {
+            // TODO: use a Set for this
+            List<Term> solveFor = new ArrayList<>();
+
+            for (Goal goal : goals) {
+                for (Variable var : goal.getVariables()) {
+                    if (!solveFor.contains(var)) {
+                        solveFor.add(var);
+                    }
+                }
+            }
+
+            Functor head = new Functor("main", solveFor);
+            this.query = Optional.of(new FunctorGoal(head));
+            knowledgeBase = knowledgeBase.withRule(new Rule(head, goals));
+        }
+
+        this.interpreter = Optional.of(new Interpreter(knowledgeBase, this.query.get()));
         this.variables = Optional.of(this.query.get().getVariables());
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
     }
