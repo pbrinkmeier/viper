@@ -64,7 +64,7 @@
 \setcounter{page}{1}
 
 % Anschluss an Entwurfsdokument
-Bei VIPER handelt es sich um ein grafisches Tool zur Unterstützung des Lernens und Lehrens der logischen Programmiersprache Prolog. Hierbei soll der Nutzer die Interpretation von Prolog-Abfragen nachvollziehen können. Dies wird durch die Visualisierung des Interpretationsvorgangs als Baumstruktur erreicht. Der integrierte Editor ermöglicht weiterhin das Schreiben von Prolog-Quelltext. Abfragen zur Interpretation können über ein Textfeld gestellt werden, Informationen an den Nutzer wie das Finden einer Lösung werden über ein Ausgabefeld dargestellt.
+Bei VIPER handelt es sich um ein grafisches Tool zur Unterstützung des Lernens und Lehrens der logischen Programmiersprache Prolog. Hierbei soll der Nutzer die Interpretation von Prolog-Abfragen nachvollziehen können. Dies wird durch die Visualisierung des Interpretationsvorgangs als Baumstruktur erreicht. Der integrierte Editor ermöglicht weiterhin das Schreiben von Prolog-Quelltext. Abfragen zur Interpretation können über ein Textfeld gestellt werden. Informationen an den Nutzer wie das Finden einer Lösung werden über ein Ausgabefeld dargestellt.
 
 Die Entwicklung von VIPER erfolgt in der Programmiersprache Java anhand des Model-View-Controller-Architekturstils. Hiernach wird die grafische Darstellungs-Komponente (View) von internen Datenstrukturen und deren Logik (Model) getrennt. Die Vermittlung zwischen diesen Komponenten erfolgt über den Controller. Die grafische View-Komponente ist hierbei für Desktop-Nutzung ausgelegt und mit Swing implementiert. Die Generierung der Visualisierung erfolgt mit Graphviz über die Graphviz-Java Implementierung, die Darstellung der erzeugten Visualisierung nutzt die Apache Batik Bibliothek.
 
@@ -109,7 +109,7 @@ Der folgende Bericht beschreibt den Verlauf sowie die Ergebnisse der Implementie
 		Beim Öffnen einer Datei wird der absolute Pfad der geöffneten Datei im Fenstertitel angezeigt.
 	
 	\subsubsection{History-Funktion des Eingabefelds}
-		Gestellte Abfragen im Eingabefeld werden bis zum Schließen des Programms gespeichert. Dies ermöglicht das \enquote{Scrollen} durch bisher gestellte Abfragen mittels der der Pfeiltasten.
+		Gestellte Abfragen im Eingabefeld werden bis zum Schließen des Programms gespeichert. Dies ermöglicht das Navigieren durch bisher gestellte Abfragen über die Pfeiltasten.
 		
 	\subsubsection{Zoom-Funktion des Editors}
 		Die Textgröße im Editor-Fenster kann über das Bewegen des Mausrads bei gedrückter Steuerungs-Taste, oder durch Drücken der Plus und Minus Tasten in Kombination mit der Steuerungs-Taste angepasst werden.
@@ -139,7 +139,7 @@ Der folgende Bericht beschreibt den Verlauf sowie die Ergebnisse der Implementie
 	\ganttbar{Puffer}{4}{4}\\
 \end{ganttchart}
 \newpage
-Der Implementierungs-Arbeit teilt sich in wöchentliche Aufgabenbereiche ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich statt. Sollte ein Merge dringend nötig sein, weil Abhängigkeiten zu anderen Code-Komponenten bestehen, so können auch Merges abseits des Zeitplans auftreten. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel, sondern im Nachhinein entwickelt.
+Die Implementierungs-Arbeit teilt sich in wöchentliche Aufgabenbereiche ein. Hierbei werden die Komponenten der Software soweit wie möglich separat entwickelt, ein Mergen in den Master-Branch findet halbwöchentlich statt. Sollte ein Merge dringend nötig sein, weil Abhängigkeiten zu anderen Code-Komponenten bestehen, so können auch Merges abseits des Zeitplans auftreten. Die Unterteilung der Aufgabenbereiche orientiert sich grob an der Paketstruktur und unterteilt diese ggf. bei größeren Aufgabenfeldern wie dem Interpreter-Manager. Dokumentation in Form von JavaDoc wird parallel zur Entwicklung geschrieben. Dies gilt analog für die Tests des Models, da dieses frühzeitig getestet werden muss. Aufgrund der Abhängigkeiten zum Rest der Software werden Tests für die View- und Controller-Komponente nicht parallel, sondern im Nachhinein entwickelt.
 
 Das Gantt-Diagramm entspricht dem Zeitplan in Wocheneinheiten. Woche 0 entspricht hierbei dem Vorgehen am ersten Tag der ersten Woche. Die zugehörigen Aufgaben setzen sich wie folgt zusammen:
 \begin{enumerate}
@@ -250,6 +250,7 @@ Alle Kriterien der zweiten Woche abseits des Interpreter-Managers wurden plangem
 \end{itemize}
 
 \subsection{Abschluss dritte Woche}
+\vspace*{-0.5cm}
 Die Muss-Kriterien wurden in der dritten Woche fertiggestellt. Die Testabdeckung des Controllers durch Unit-Tests wurde in den 70\%-Bereich vorangetrieben und gilt damit als erledigt. Zusätzlich wurde eine Teilmenge der Kann-Kriterien erfolgreich implementiert, übrige Kann-Kriterien wurden in die Puffer-Woche verschoben.
 
 \begin{itemize}
@@ -272,7 +273,7 @@ Die Muss-Kriterien wurden in der dritten Woche fertiggestellt. Die Testabdeckung
 \end{itemize}
 
 \subsection{Abschluss vierte Woche}
-Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs. Zusätzlich wurden Kann-Kriterien, welche in der dritten Woche nicht erfüllt wurden, in diese Puffer-Woche geschoben. Dies führte zur Erfüllung aller übrigen Kann-Kriterien abseits des Exports als TikZ-Datei. Dieses Kriterium wurde aus Zeitmangel und u großem Arbeitsaufwand verworfen. Die Abdeckung der Kann-Kriterien entspricht damit:
+Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs. Zusätzlich wurden Kann-Kriterien, welche in der dritten Woche nicht erfüllt wurden, in diese Puffer-Woche geschoben. Dies führte zur Erfüllung aller übrigen Kann-Kriterien abseits des Exports als TikZ-Datei. Dieses Kriterium wurde aus Zeitmangel und zu großem Arbeitsaufwand verworfen. Die Abdeckung der Kann-Kriterien entspricht damit:
 
 \begin{itemize}
 	\item \textbf{Zurückschreiten}\hfill\cmark
@@ -347,54 +348,69 @@ Allgemein wurde im Vergleich zum Entwurf jeder generische Template-Type von \enq
 
 \subsection{Paket: Model - AST}
 
-\textbf{Neue Klassen:}\\
+\textbf{Neue Klassen:}
 \begin{itemize}
 	\item \textbf{ListFormatter}:\\
 	Formatiert einen Term (wenn möglich) als Liste.
 \end{itemize}
 
-\textbf{Änderungen an bestehenden Klassen:}\\
+\textbf{Änderungen an bestehenden Klassen:}
 \begin{itemize}
 	\item \textbf{Anpassungen für BinaryOperation}:\\
-	Die BinaryOperation-Klasse stellt nun Getter-Methoden für die beiden Seiten der Operation zur Verfügung (\textbf{getLhs()} und \textbf{getRhs()}). Weiterhin erhält die evaluate()-Methode keine Parameter mehr.
+	Die BinaryOperation-Klasse stellt nun Getter-Methoden für die beiden Seiten der Operation zur Verfügung (\textit{getLhs()} und \textit{getRhs()}). Weiterhin erhält die \textit{evaluate()}-Methode keine Parameter mehr.
 	\item \textbf{Abfragen mit mehreren Regeln:}\\
-	Zur Implementierung von Abfragen mit mehreren Regeln hat die KnowledgeBase fortan eine Methode \textbf{withRule(Rule)}.
+	Zur Implementierung von Abfragen mit mehreren Regeln hat die KnowledgeBase fortan eine Methode \textit{withRule(Rule)}.
 	\item \textbf{Anpassungen für Goal und Subklassen}:\\
-	Die Goal-Klasse hat fortan eine Getter-Methode für die enthaltenen Variablen (\textbf{get-Variables()}). Der Konstruktor des spezifischen \textbf{ComparisonGoal} erhält nun zusätzlich zu zwei Termen nun zwei Strings, um das Symbol des Vergleichs zu setzen. Dies ist für die Ausgabe der Konsole und als HTML für Graphviz notwendig. Die Getter-Methoden für diese Symbol-Strings wurden ebenfalls hinzugefügt (\textbf{getSymbol()} und \textbf{getHtmlSymbol()}).
+	Die Goal-Klasse hat fortan eine Getter-Methode für die enthaltenen Variablen (\textit{get-Variables()}). Der Konstruktor des spezifischen \textit{ComparisonGoal} erhält nun zusätzlich zu zwei Termen nun zwei Strings, um das Symbol des Vergleichs zu setzen. Dies ist für die Ausgabe der Konsole und als HTML für Graphviz notwendig. Die Getter-Methoden für diese Symbol-Strings wurden ebenfalls hinzugefügt (\textit{getSymbol()} und \textit{getHtmlSymbol()}).
 	\item \textbf{Konstruktor der Variable-Klasse}\\
-	Die Variable-Klasse besitzt nun einen Konstruktor der Form \textbf{Variable(String)} mit einer textuellen Repräsentation der Variable als Parameter.
+	Die Variable-Klasse besitzt nun einen Konstruktor der Form \textit{Variable(String)} mit einer textuellen Repräsentation der Variable als Parameter.
+	\newpage
 	\item \textbf{Statische atom(String)-Methode in Functor}\\
-	Die Functor-Klasse besitzt fortan eine statische \textbf{atom(String)}-Methode zur Erzeugung eines Atoms (parameterloser Funktor). Diese dient lediglich der einfacheren Konstruktion.
+	Die Functor-Klasse besitzt fortan eine statische \textit{atom(String)}-Methode zur Erzeugung eines Atoms (parameterloser Funktor). Diese dient lediglich der einfacheren Konstruktion.
 	\item \textbf{equals(Object)-Methode für alle AST-Klassen}\\
 	Die equals(Object)-Methode wurde in allen AST-Klassen implementiert um das Testen zu vereinfachen.
 \end{itemize}
 
 \subsection{Paket: Model - Interpreter}
 
-\textbf{Neue Klassen:}\\
+\textbf{Neue Klassen:}
 \begin{itemize}
 	\item \textbf{Unifikationsergebnisse als eigene Klassen}\\
-	Die UnificationResult-Klasse wurde zu eigenen Klassen der Form \textbf{\{Success|Fail| Error\}UnificationResult} spezialisiert. UnificationResult besitzt nun eine \textbf{error(String)}"=Fabrikmethode für ErrorUnificationResult-Objekte.
+	Die UnificationResult-Klasse wurde zu eigenen Klassen der Form \textit{\{Success|Fail| Error\}UnificationResult} spezialisiert. UnificationResult besitzt nun eine \textit{error(String)}"=Fabrikmethode für ErrorUnificationResult-Objekte.
 \end{itemize}
 
-\textbf{Änderungen an bestehenden Klassen:}\\
+\textbf{Änderungen an bestehenden Klassen:}
 \begin{itemize}
 	\item \textbf{Methoden des Interpreters}:\\
-	Die \textbf{step()}-Methode der Interpreter-Klasse gibt fortan ein StepResult zurück. Weiter wurde der Rückgabewert in \textbf{getCurrent()} und \textbf{getNext()} von \textbf{ActivationRecord} zu \textbf{Optional<ActivationRecord>} geändert, da dieser null sein kann. Die Methode \textbf{getResult()} ist aufgrund des Rückgabetyps der step()-Methode hinfällig und wurde gelöscht, ebenso wurde die Methoden \textbf{copy()} gelöscht. Die \textbf{copy()}-Methode ist nicht mehr notwendig, da fortan die Visualisierung selbst kopiert wird. Die \textbf{getAndIncrementUnificationIndex()}-Methode wurde zu \textbf{getUnificationIndex()} und \textbf{incrementUnificationIndex()} aufgespalten, damit diese Funktionalitäten unabhängig voneinander sind. Weiter wurde eine \textbf{getKnowledgeBase()}-Methode hinzugefügt.
+	Die \textit{step()}-Methode der Interpreter-Klasse gibt fortan ein StepResult zurück. Weiter wurde der Rückgabewert in \textit{getCurrent()} und \textit{getNext()} von \textit{ActivationRecord} zu \textit{Optional<ActivationRecord>} geändert, da dieser null sein kann.
+	
+	Die Methode \textit{getResult()} ist aufgrund des Rückgabetyps der step()-Methode hinfällig und wurde gelöscht, ebenso wurde die Methode \textit{copy()} gelöscht. Die \textit{copy()}-Methode ist nicht mehr notwendig, da fortan die Visualisierung selbst kopiert wird.
+	
+	Die \textit{getAndIncrementUnificationIndex()}-Methode wurde zu \textit{getUnificationIndex()} und \textit{incrementUnificationIndex()} aufgespalten, damit diese Funktionalitäten unabhängig voneinander sind. Weiter wurde eine \textit{getKnowledgeBase()}-Methode hinzugefügt.
 	\item \textbf{Anpassungen an der Unifikation}:\\
-	Zur Erzeugung und automatischen Prüfung auf Korrektheit existiert nun in \textbf{Unifier} die Methode \textbf{createSubstitutionResult(Variable, Term)}. Weiter wurde eine abstrakte Getter-Methode für den Term der Form \textbf{getTerm()} eingefügt. Weiter muss nun nicht mehr jede Subklasse von Unifier alle visit-Methoden überschreiben, stattdessen wird eine einzelne visit-Methode der Form \textbf{visit(\{Number|Variable|Functor\})} angeboten.
+	Zur Erzeugung und automatischen Prüfung auf Korrektheit existiert nun in \textit{Unifier} die Methode \textit{createSubstitutionResult(Variable, Term)}. Weiter wurde eine abstrakte Getter-Methode für den Term der Form \textit{getTerm()} eingefügt.
+	
+	Weiter muss nun nicht mehr jede Subklasse von Unifier alle visit-Methoden überschreiben, stattdessen wird eine einzelne visit-Methode der Form \textit{visit(\{Number| Variable|Functor\})} angeboten.
 	\item \textbf{Enumerationselement in StepResult}:\\
-	StepResult besitzt nun das Element \textbf{FROM\_STEPBACK} für die Zurückschreiten-Funktionalität.
+	StepResult besitzt nun das Element \textit{FROM\_STEPBACK} für die Zurückschreiten"=Funktionalität.
 	\item \textbf{Änderung der Oberklasse von SubstitutionApplier}:\\
-	Die Oberklasse von \textbf{SubstitutionApplier} ist fortan kein TermTransformationVisitor mehr sondern ein allgemeinerer \textbf{TermVisitor}.
+	Die Oberklasse von \textit{SubstitutionApplier} ist fortan kein \textit{TermTransformationVisitor} mehr sondern ein \textit{TermVisitor}.
 	\item \textbf{Neue Methode des Environments}:\\
-	Die Environment-Klasse besitzt nun eine Getter-Methode für die enthaltenen Substitutionen namens \textbf{getSubstitutions()}.
+	Die Environment-Klasse besitzt nun eine Getter-Methode für die enthaltenen Substitutionen namens \textit{getSubstitutions()}.
 	\item \textbf{Methoden der ActivationRecords}:\\
-	Die \textbf{getPrevious()}-Methode gibt nun einen \textbf{optionalen} ActivationRecord zurück, da dieser null sein kann. Weiter wurde eine Methode zur Anwendung bisheriger Substitutionen eingefügt (\textbf{applyPreviousSubstitutions(Term)}), sowie Getter-Methoden für das Ziel (\textbf{getGoal()}), den ActivationRecord, der in einem Baum am weitesten rechts liegt (\textbf{getRightmost()}) sowie für einen boolschen Wert, ob der ActivationRecord erfüllt wurde (\textbf{isFulfilled()}). Die \textbf{step()}-Methode des ActivationRecords gibt nun auch einen \textbf{optionalen} ActivationRecord zurück. Die Methode \textbf{hasBeenVisited()} wurde weiterhin umbenannt zu \textbf{isVisited()}.
+	Die \textit{getPrevious()}-Methode gibt nun einen \textit{optionalen} ActivationRecord zurück, da dieser null sein kann.
+	
+	Weiter wurde eine Methode zur Anwendung bisheriger Substitutionen eingefügt (\textit{applyPreviousSubstitutions(Term)}), sowie Getter-Methoden für das Ziel (\textit{getGoal()}), den ActivationRecord, der in einem Baum am weitesten rechts liegt (\textit{getRightmost()}) sowie für einen boolschen Wert, ob der ActivationRecord erfüllt wurde (\textit{isFulfilled()}).
+	
+	Die \textit{step()}-Methode des ActivationRecords gibt nun auch einen \textit{optionalen} ActivationRecord zurück. Die Methode \textit{hasBeenVisited()} wurde weiterhin umbenannt zu \textit{isVisited()}.
 	\item \textbf{Geänderte Methodennamen spezifischer ActivationRecords}:\\
-	Die \textbf{getSubSteps()}-Methode des FunctorActivationRecords wurde umbenannt zu \textbf{getChildren()}. Die \textbf{getUnificationResult()}-Methode des UnificationActivationRecords und des ArithmetikUnificationRecords wurde umbenannt zu \textbf{getResult()}. Die \textbf{getEvaluationError()}-Methode des ComparisonActivationRecords wurde umbenannt zu \textbf{getErrorMessage()}.
+	Die \textit{getSubSteps()}-Methode des FunctorActivationRecords wurde umbenannt zu \textit{getChildren()}.
+	
+	Die \textit{getUnificationResult()}-Methode des UnificationActivationRecords und des ArithmetikUnificationRecords wurde umbenannt zu \textit{getResult()}.
+	
+	Die \textit{getEvaluationError()}-Methode des ComparisonActivationRecords wurde umbenannt zu \textit{getErrorMessage()}.
 	\item \textbf{Geänderte Methoden des ArithmeticActivationRecords}:\\
-	Die \textbf{getEvaluationError()}-Methode in ArithmeticActivationRecord wird nicht benötigt und wurde gelöscht. Um die arithmetisch ausgewertete rechte Seite auslesen zu können wurde die \textbf{getEvaluatedRhs()}-Methode eingefügt.
+	Die \textit{getEvaluationError()}-Methode in ArithmeticActivationRecord wird nicht benötigt und wurde gelöscht. Um die arithmetisch ausgewertete rechte Seite auslesen zu können wurde die \textit{getEvaluatedRhs()}-Methode eingefügt.
 \end{itemize}
 
 \subsection{Paket: Model - Parser}
@@ -415,10 +431,12 @@ Die Klasse LatexMaker wurde gelöscht, da das Kann-Kriterium für den LaTeX-Expo
 
 \subsection{Paket: View}
 
-\textbf{Neue Klassen:}\\
+\textbf{Neue Klassen:}
 \begin{itemize}
-	\item \textbf{Subklassen von Swing-Elementen}
-	Es wurden eigene Implementierungen von Swing-Elementen angefertigt, darunter \textbf{Menu} (erbt von JMenu), \textbf{ToolBarButton} (erbt von JButton) und \textbf{CheckBoxMenuItem} (erbt von JCheckBoxMenuItem). Diese dienen der Anbindung von Swing-Elementen an die intern genutzten Entwurfsentscheidungen (Observer für Sprachen-Manager, Umschalten des ClickableState).
+	\item \textbf{Subklassen von Swing-Elementen}:\\
+	Es wurden eigene Implementierungen von Swing-Elementen angefertigt, darunter \textit{Menu} (erbt von JMenu), \textit{ToolBarButton} (erbt von JButton) und \textit{CheckBoxMenuItem} (erbt von JCheckBoxMenuItem).
+	
+	Diese dienen der Anbindung von Swing"=Elementen an die intern genutzten Entwurfsentscheidungen (Observer für Sprachen-Manager, Umschalten des ClickableState).
 	\item \textbf{LanguageKey}:\\
 	Sammelklasse für valide Sprachschlüssel. Diese werden nun als zentrale Enumeration verwaltet, um das Übergeben invalider Sprachschlüssel an den Sprachen-Manager zu verhindern.
 	\item \textbf{ColorScheme}:\\
@@ -426,16 +444,26 @@ Die Klasse LatexMaker wurde gelöscht, da das Kann-Kriterium für den LaTeX-Expo
 	\item \textbf{LogType}:\\
 	Sammelklasse für Ausgabetypen im Ausgabebereich der Konsole. Diese werden als zentrale Enumeration verwaltet, um die Wahl über die farbliche Darstellung der Ausgabe der Konsole zu überlassen.
 	\item \textbf{ClickableState} und \textbf{HasClickable}:\\
-	Alle Elemente der grafischen Oberfläche, welche Schaltflächen besitzen, implementieren fortan das Interface \textbf{HasClickable} und haben damit die Methode \textbf{switchClickableState(ClickableState state)}. Der \textbf{ClickableState}-Parameter entspricht einer Enumeration aller möglichen Zustände, die Einfluss auf die Aktivierung/Deaktivierung der Schaltflächen nehmen. Beim Aufruf der Methode werden somit anhand des ClickableState alle Schaltflächen des GUI-Elements jeweils aktiviert oder deaktiviert. Kommando-Klassen erhalten eine zentrale Methode des Hauptfensters, welches den ClickableState für alle Unterelemente die HasClickable implementieren aktualisiert. Dies ermöglicht bspw. die Deaktivierung der Schaltfläche für den nächsten Schritt einer Interpretation bevor eine Abfrage gestellt wurde. Diese Schaltfläche wird nach dem erfolgreichen Stellen einer Abfrage dann automatisch aktiviert und kann betätigt werden.
+	Alle Elemente der grafischen Oberfläche, welche Schaltflächen besitzen, implementieren fortan das Interface \textit{HasClickable} und haben damit die Methode \textit{switchClickableState(ClickableState state)}.
+	
+	Der \textit{ClickableState}-Parameter entspricht einer Enumeration aller möglichen Zustände, die Einfluss auf die Aktivierung/Deaktivierung der Schaltflächen nehmen.
+	
+	Beim Aufruf der Methode werden somit anhand des ClickableState alle Schaltflächen des GUI-Elements jeweils aktiviert oder deaktiviert. Kommando-Klassen erhalten eine zentrale Methode des Hauptfensters, welches den ClickableState für alle Unterelemente die HasClickable implementieren aktualisiert.
+	
+	Dies ermöglicht bspw. die Deaktivierung der Schaltfläche für den nächsten Schritt einer Interpretation bevor eine Abfrage gestellt wurde. Diese Schaltfläche wird nach dem erfolgreichen Stellen einer Abfrage dann automatisch aktiviert und kann betätigt werden.
 \end{itemize}
 
-\textbf{Änderungen an bestehenden Klassen:}\\
-Buttons besitzen nun Tooltips, welche im Konstruktor als String übergeben werden. Das ConsoleInputField ist nun nicht mehr nur ein selbst implementiertes JTextField, sondern ein JPanel, welches ein JTextField enthält. Dies wurde geändert, um einen Button zur Verarbeitung der eingegebenen Abfrage und ein Text-Label mit einem Fragezeichen an das Eingabefeld anzuhängen. Zusätzlich hat das Eingabefeld nun eine History-Funktion und speichert bereits eingegebene Abfragen bis zum Schließen des Programms.
+\textbf{Änderungen an bestehenden Klassen}:\\
+Buttons besitzen nun Tooltips, welche im Konstruktor als String übergeben werden. Das ConsoleInputField ist nun nicht mehr nur ein selbst implementiertes JTextField, sondern ein JPanel, welches ein JTextField enthält. Dies wurde geändert, um einen Button zur Verarbeitung der eingegebenen Abfrage und ein Text-Label mit einem Fragezeichen an das Eingabefeld anzuhängen.
 
-Die printLine-Methode des Konsolenbereichs erhält nun keine beliebige Java-Color als Parameter, sondern delegiert die Farbwahl an die Konsole und erhält stattdessen eine LogType-Enumeration. Das EditorPanel erlaubt nun die Skalierung des Texts über die Tastenkombination STRG und \enquote{+} bzw. \enquote{-}. Zuletzt wird nun auch automatisch beim Ändern der aktuell geöffneten Datei der Fenstertitel angepasst, um den absoluten Pfad der Datei anzuzeigen.
+Zusätzlich hat das Eingabefeld nun eine History-Funktion und speichert bereits eingegebene Abfragen bis zum Schließen des Programms.
+
+Die printLine-Methode des Konsolenbereichs erhält nun keine beliebige Java-Color als Parameter, sondern delegiert die Farbwahl an die Konsole und erhält stattdessen eine LogType-Enumeration.
+
+Das EditorPanel erlaubt nun die Skalierung des Texts über die Tastenkombination STRG und \enquote{+} bzw. \enquote{-}. Zuletzt wird nun auch automatisch beim Ändern der aktuell geöffneten Datei der Fenstertitel angepasst, um den absoluten Pfad der Datei anzuzeigen.
 
 \subsection{Paket: Controller}
-\textbf{Neue Klassen:}\\
+\textbf{Neue Klassen:}
 \begin{itemize}
 	\item \textbf{CommandExit}:\\
 	Schließt das Programm und fragt bei ungesicherten Änderungen, ob diese gespeichert werden sollen. Dieses Kommando wurde für bessere Konsistenz sowie das Menü-Element \enquote{Schließen} hinzugefügt.
@@ -451,8 +479,10 @@ Die printLine-Methode des Konsolenbereichs erhält nun keine beliebige Java-Colo
 	Manager-Klasse für das Speichern und Laden von Produktdaten.
 \end{itemize}
 
-\textbf{Änderungen an bestehenden Klassen:}\\
-Die öffentlichen execute()-Methoden der Kommandos teilen die Ausführungsschritte in intern definierte Funktionen zur Vereinfachung des Programmcodes. Diese sind ausschließlich zu Testzwecken als \texttt{public} deklariert und werden dementsprechend nicht zusätzlich dokumentiert. Aufgrund von Schnittstellen-Anpassungen haben sich die Konstruktoren in diversen Kommandos des Controllers verändert. Die meist vertretenen Anpassungen umfassen hierbei die Übergabe von Consumer-Funktionen, über die einzelne isolierte Funktionen des Hauptfensters ausgeführt werden können.
+\textbf{Änderungen an bestehenden Klassen}:\\
+Die öffentlichen execute()-Methoden der Kommandos teilen die Ausführungsschritte in intern definierte Funktionen zur Vereinfachung des Programmcodes. Diese sind ausschließlich zu Testzwecken als \texttt{public} deklariert und werden dementsprechend nicht zusätzlich dokumentiert.
+
+Aufgrund von Schnittstellen-Anpassungen haben sich die Konstruktoren in diversen Kommandos des Controllers verändert. Die meist vertretenen Anpassungen umfassen hierbei die Übergabe von Consumer-Funktionen, über die einzelne isolierte Funktionen des Hauptfensters ausgeführt werden können.
 
 Dies umfasst einerseits die Consumer-Funktion für das Ändern des Fenstertitels, welche nun an Kommandos übergeben wird, welche die aktuell geöffnete Datei beeinflussen:
 \begin{multicols}{3}
@@ -462,7 +492,7 @@ Dies umfasst einerseits die Consumer-Funktion für das Ändern des Fenstertitels
 		\item CommandSave
 	\end{itemize}
 \end{multicols}
-
+\vspace*{-0.5cm}
 Andererseits existiert eine Consumer-Funktion für das globale Ändern des ClickableStates, welche nun an Kommandos übergeben wird, welche diesen beeinflussen:
 \begin{multicols}{3}
 	\begin{itemize}
@@ -473,7 +503,7 @@ Andererseits existiert eine Consumer-Funktion für das globale Ändern des Click
 		\item CommandToggleLib
 	\end{itemize}
 \end{multicols}
-
+\vspace*{-0.5cm}
 Zusätzlich wird der InterpreterManager nun häufiger übergeben, da einige Commands den \enquote{Nächste Lösung}-Thread beenden und auf dessen tatsächliche Terminierung warten müssen. Durch die Delegation des Threadings für das \enquote{Nächste Lösung}-Kommando und das \enquote{Abbrechen}-Kommando an den InterpreterManager fallen auch die boolschen running-Parameter für diese weg. Diese Änderung betrifft:
 \begin{multicols}{3}
 	\begin{itemize}
@@ -485,7 +515,9 @@ Zusätzlich wird der InterpreterManager nun häufiger übergeben, da einige Comm
 	\end{itemize}
 \end{multicols}
 
-Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich erhält das CommandPreviousStep nicht mehr das ConsolePanel, da dieses keine Ausgabe machen muss. Da das VisualisationPanel keinen Getter für die Visualisierung mehr besitzt und diese stattdessen selbstständig per GraphvizMaker erstellt wird, wurde dieses als Parameter in den Export-Kommandos entfernt. Der hinzugefügte PreferenceManager ist nun weiterhin ein Parameter von CommandToggleLib und CommandSetLang, da diese Produktdaten ändern welche gesichert werden müssen. Zuletzt erhält CommandOpen ein Speichern-Kommando per Konstruktor, sodass dieses nicht dupliziert werden muss.
+Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich erhält das CommandPreviousStep nicht mehr das ConsolePanel, da dieses keine Ausgabe machen muss. Da das VisualisationPanel keinen Getter für die Visualisierung mehr besitzt und diese stattdessen selbstständig per GraphvizMaker erstellt wird, wurde dieses als Parameter in den Export-Kommandos entfernt.
+
+Der hinzugefügte PreferenceManager ist nun weiterhin ein Parameter von CommandToggleLib und CommandSetLang, da diese Produktdaten ändern, welche gesichert werden müssen. Zuletzt erhält CommandOpen ein Speichern-Kommando per Konstruktor, sodass dieses nicht dupliziert werden muss.
 
 \section{Unit-Tests}
 
@@ -496,9 +528,9 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 		\hline
 		Paket:			& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
 		\hline
-		Gesamt:			& 84 	& 79 & 0 & 5\\
+		Gesamt:			& 83 	& 80 & 0 & 3\\
 		\hline
-		Controller: 	& 21	& 19 & 0 & 2\\
+		Controller: 	& 20	& 20 & 0 & 0\\
 		View:			& 0		& 0 & 0 & 0\\
 		Parser:			& 2		& 2 & 0 & 0\\
 		AST:			& 37	& 34 & 0 & 3\\
@@ -515,7 +547,7 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 		\hline
 		Klasse:			& Testzahl & Erfüllt & Fehlschlagend & Ignoriert \\
 		\hline
-		CommandExportImageTest 	& 2 & 0 & 0 & 2\\
+		CommandExportImageTest 	& 2 & 2 & 0 & 0\\
 		CommandFormatTest		& 1 & 1 & 0 & 0\\
 		CommandNewTest			& 1 & 1 & 0 & 0\\
 		CommandOpenTest			& 3 & 3 & 0 & 0\\
@@ -523,7 +555,7 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 		CommandSaveTest			& 4 & 4 & 0 & 0\\
 		CommandSetLangTest		& 1 & 1 & 0 & 0\\
 		CommandToggleLibTest	& 1 & 1 & 0 & 0\\
-		FileFiltersTest			& 4 & 4 & 0 & 0\\
+		FileFiltersTest			& 3 & 4 & 0 & 0\\
 		FileUtilitiesTest		& 1 & 1 & 0 & 0\\
 		\hline
 	\end{tabular}
@@ -614,8 +646,8 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 		nodes near coords, nodes near coords align={horizontal},
 		]
 		\addplot table[col sep=comma,header=false] {
-			77, Instruktions-Abdeckung
-			60, Branch-Abdeckung
+			70, Instruktions-Abdeckung
+			47, Branch-Abdeckung
 		};
 	\end{axis}
 \end{tikzpicture}\\\vspace*{1cm}\hspace*{1cm}
@@ -625,6 +657,7 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 		y=-0.5cm,
 		bar width=0.3cm,
 		xmin = 0,
+		xmax = 100,
 		enlarge y limits={abs=0.45cm},
 		xlabel={Abgedeckte Instruktionen in Prozent},
 		symbolic y coords={
@@ -639,12 +672,12 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 		nodes near coords, nodes near coords align={horizontal},
 		]
 		\addplot table[col sep=comma,header=false] {
-			65, Controller
-			77, View
-			70, Parser
-			92, AST
-			95, Interpreter
-			98, Visualisation
+			74, Controller
+			82, View
+			76, Parser
+			50, AST
+			69, Interpreter
+			48, Visualisation
 		};
 	\end{axis}
 \end{tikzpicture}\\\vspace*{1cm}\hspace{1cm}
@@ -654,6 +687,7 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 		y=-0.5cm,
 		bar width=0.3cm,
 		xmin = 0,
+		xmax = 100,
 		enlarge y limits={abs=0.45cm},
 		xlabel={Abgedeckte Branches in Prozent},
 		symbolic y coords={
@@ -668,12 +702,12 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 		nodes near coords, nodes near coords align={horizontal},
 		]
 		\addplot table[col sep=comma,header=false] {
-			33, Controller
-			24, View
-			59, Parser
-			75, AST
-			92, Interpreter
-			83, Visualisation
+			37, Controller
+			38, View
+			68, Parser
+			38, AST
+			67, Interpreter
+			36, Visualisation
 		};
 		\end{axis}
 	\end{tikzpicture}
@@ -687,14 +721,19 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 \begin{figure}[!h]
 	\centering
 	%% Merge-Commits sind abgezählt, Rest via git rev-list <HASH> --count
+	%% Letzter Hash des Entwurfs: bc557d507ae95a05513785eedfa6333e2ad112e6
+	%% Nach Woche 1: 1992e1022e66c29a3dfb23247fb7fa442573b071
+	%% Nach Woche 2: 9448ee02076bb68d7da6189603b666a31495080e
+	%% Nach Woche 3: 368f81c949b8871f0ed7e0dec6dbf4b64188a7a6
+	%% Nach Woche 4 (+1 Commit): 373f19d108b38214ea1c429a902c60ca351d9525
 	Verlauf der Commit-Zahlen\\\vspace*{0.3cm}
 	\begin{tabular}{l | c | c | c | c}
 		\hline
 		Datum des Abrufs:	& 2. Juli 2018 & 9. Juli 2018 & 16. Juli 2018 & 23. Juli 2018\\
 		\hline
-		Differenz zur vorigen Woche:	& 64 & 130 & TODO & TODO \\
-		Differenz zum Phasenbeginn: & 64 & 194 & TODO & TODO \\
-		Merge-Commits in Woche: & 10 & 14 & 16 & TODO \\
+		Differenz zur vorigen Woche:	& 64 & 130 & 78 & 128 \\
+		Differenz zum Phasenbeginn: & 64 & 194 & 272 & 400 \\
+		Merge-Commits in Woche: & 10 & 14 & 16 & 21 \\
 		\hline
 	\end{tabular}
 \end{figure}
@@ -704,13 +743,13 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 		Commits pro Woche:\\
 		\begin{tikzpicture}[scale=0.9]
 		\begin{axis}[
-		symbolic x coords = {1. Woche, 2. Woche, 3. Woche, 4. Woche}, xtick = data]
+		symbolic x coords = {1. Woche, 2. Woche, 3. Woche, 4. Woche}, xtick = data, ymin = 0, ymax = 150]
 		
 		\addplot[ybar, fill = blue] coordinates {
 			(1. Woche, 64)
-			(2. Woche, 194)
-			(3. Woche, 0)
-			(4. Woche, 0)
+			(2. Woche, 130)
+			(3. Woche, 78)
+			(4. Woche, 128)
 		};
 		\end{axis}
 		\end{tikzpicture}
@@ -720,13 +759,13 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 		Merge-Commits pro Woche:\\
 		\begin{tikzpicture}[scale=0.9]
 		\begin{axis}[
-		symbolic x coords = {1. Woche, 2. Woche, 3. Woche, 4. Woche}, xtick = data]
+		symbolic x coords = {1. Woche, 2. Woche, 3. Woche, 4. Woche}, xtick = data, ymin = 0, ymax = 25]
 		
 		\addplot[ybar, fill = blue] coordinates {
 			(1. Woche, 10)
 			(2. Woche, 14)
 			(3. Woche, 16)
-			(4. Woche, 0)
+			(4. Woche, 21)
 		};
 		\end{axis}
 		\end{tikzpicture}
@@ -740,11 +779,11 @@ Weiter wurde das CommandContinue zu CommandNextSolution umbenannt. Zusätzlich e
 		%%% Berechnet via CLOC
 		     & Dateien & Leerzeilen & Kommentare & Code\\
 		\hline
-		Hauptcode & X & X & X & X\\
+		Hauptcode & 108 & 1353 & 3345 & 4795\\
 		\hline
-		Testcode & X & X & X & X\\
+		Testcode & 32 & 292 & 389 & 1145\\
 		\hline
-		Gesamt & 123 & 1327 & 3139 & 4761\\
+		Gesamt & 140 & 1645 & 3843 & 5940\\
 	\end{tabular}
 \end{figure}
 
