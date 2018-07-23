@@ -161,6 +161,9 @@ public class InterpreterManager {
             knowledgeBase = knowledgeBase.withRule(new Rule(head, goals));
         }
 
+        // Reset visualisations from previous query
+        this.visualisations = new ArrayList<Graph>();
+
         this.interpreter = Optional.of(new Interpreter(knowledgeBase, this.query.get()));
         this.variables = Optional.of(this.query.get().getVariables());
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
@@ -233,9 +236,15 @@ public class InterpreterManager {
         }
 
         this.nextSolutionThread = Optional.of(new Thread(() -> {
+            if (this.result == StepResult.NO_MORE_SOLUTIONS
+                    && this.current == this.visualisations.size() - 1)
+                return;
+
             while (this.running) {
                 this.nextStep();
-                if (this.result != StepResult.STEPS_REMAINING && this.current == this.visualisations.size() - 1)
+                if ((this.result == StepResult.NO_MORE_SOLUTIONS 
+                            || this.result == StepResult.SOLUTION_FOUND)
+                            && this.current == this.visualisations.size() - 1)
                     this.running = false;
             }
 
@@ -255,9 +264,9 @@ public class InterpreterManager {
                     console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
                             LogType.INFO);
                 }
-            }
 
-            visualisation.setFromGraph(this.getCurrentVisualisation());
+                visualisation.setFromGraph(this.getCurrentVisualisation());
+            }
 
             return;
         }));
