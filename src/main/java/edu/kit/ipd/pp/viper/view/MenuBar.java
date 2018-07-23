@@ -143,7 +143,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
             JMenuItem item = new JMenuItem(f.getAbsolutePath());
             CommandOpen command = new CommandOpen(f.getAbsolutePath(), this.main.getConsolePanel(),
                     this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::setWindowTitle,
-                    this.main::switchClickableState, this.main.getCommandSave());
+                    this.main::switchClickableState, this.main.getCommandSave(), this.main.getInterpreterManager());
 
             item.addActionListener(new ActionListener() {
                 @Override

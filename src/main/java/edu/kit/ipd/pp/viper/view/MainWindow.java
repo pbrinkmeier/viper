@@ -126,8 +126,7 @@ public class MainWindow extends JFrame {
                 this::switchClickableState);
         this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
         this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
-        this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel,
-                this::switchClickableState);
+        this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel);
         this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
         this.commandCancel = new CommandCancel(this.manager);
         this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);

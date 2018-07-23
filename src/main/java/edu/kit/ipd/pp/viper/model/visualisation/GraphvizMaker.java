@@ -104,7 +104,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         Node resultBox = node(this.createUniqueNodeName()).with(html("{" + ruleRepr + "|" + result.toHtml() + "}"))
                 .with(attr("shape", "record"));
 
-        if (this.current.isPresent() && this.current.get() == far) {
+        if (this.isCurrent(far)) {
             resultBox = resultBox.with(result.isSuccess() ? ColorScheme.VIS_GREEN : ColorScheme.VIS_RED);
         }
 
@@ -154,8 +154,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
                         uar.getRhs().toHtml(), uar.getResult().toHtml())))
                 .with(attr("shape", "record"));
 
-        // TODO: after merge: create method isCurrent()
-        if (this.current.isPresent() && this.current.get() == uar) {
+        if (this.isCurrent(uar)) {
             resultBox = resultBox.with(uar.getResult().isSuccess() ? ColorScheme.VIS_GREEN : ColorScheme.VIS_RED);
         }
 
@@ -180,7 +179,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
                 String.format(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_CUT_NOTE), parentHtml)))
                 .with(attr("shape", "record"));
 
-        if (this.current.isPresent() && this.current.get() == cutAr) {
+        if (this.isCurrent(cutAr)) {
             cutNoteBox = cutNoteBox.with(ColorScheme.VIS_GREEN);
         }
 
@@ -211,8 +210,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
                     aar.getEvaluatedRhs().toHtml(), aar.getResult().toHtml())));
         }
 
-        // TODO: after merge: create method isCurrent()
-        if (this.current.isPresent() && this.current.get() == aar) {
+        if (this.isCurrent(aar)) {
             resultBox = resultBox.with(aar.getResult().isSuccess() ? ColorScheme.VIS_GREEN : ColorScheme.VIS_RED);
         }
 
@@ -237,13 +235,22 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         if (!car.getErrorMessage().isPresent()) {
             resultBox = resultBox
-                    .with(html(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_COMPARISON_SUCCEEDED)))
-                    .with(ColorScheme.VIS_GREEN);
+            .with(html(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_COMPARISON_SUCCEEDED)));
         } else {
-            resultBox = resultBox.with(html(car.getErrorMessage().get())).with(ColorScheme.VIS_RED);
+            resultBox = resultBox
+            .with(html(car.getErrorMessage().get()));
+        }
+
+        if (this.isCurrent(car)) {
+            resultBox = resultBox
+            .with(!car.getErrorMessage().isPresent() ? ColorScheme.VIS_GREEN : ColorScheme.VIS_RED);
         }
 
         return node.link(resultBox);
+    }
+
+    private boolean isCurrent(ActivationRecord ar) {
+        return this.current.isPresent() && this.current.get() == ar;
     }
 
     private Node addBacktrackingEdge(ActivationRecord ar, Node node) {

@@ -9,6 +9,9 @@ import edu.kit.ipd.pp.viper.model.ast.TermVisitor;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A unifier tries to unify a term with another term.
+ */
 public abstract class Unifier implements TermVisitor<UnificationResult> {
     /**
      * Getter-method for the term this unififer will try to unify with.

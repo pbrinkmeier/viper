@@ -2,7 +2,6 @@ package edu.kit.ipd.pp.viper.model.ast;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -23,21 +22,12 @@ public class KnowledgeBase {
         this.rules = rules;
     }
 
-    /**
-     * Getter-method for all rules in this knowledgebase.
-     *
-     * @return all rules in this knowledgebase
-     */
-    private List<Rule> getRules() {
-        return this.rules;
-    }
-
     @Override
     public String toString() {
         String source = "";
         String lastHead = "";
         int lastArity = -1;
-        for (final Rule r : getRules()) {
+        for (Rule r : this.rules) {
             String currentHead = r.getHead().getName();
             int currentArity = r.getHead().getArity();
             if (source.isEmpty()) {
@@ -67,7 +57,7 @@ public class KnowledgeBase {
     public List<Rule> getMatchingRules(Functor head) {
         List<Rule> matchingRules = new ArrayList<>();
 
-        for (Rule rule : this.getRules()) {
+        for (Rule rule : this.rules) {
             Functor otherHead = rule.getHead();
 
             if (otherHead.getName().equals(head.getName()) && otherHead.getArity() == head.getArity()) {
@@ -76,6 +66,24 @@ public class KnowledgeBase {
         }
 
         return Collections.unmodifiableList(matchingRules);
+    }
+
+    /**
+     * Creates a new knowledgebase that contains an additional rule.
+     * 
+     * @param rule rule to include in the new knowledgebase
+     * @return new knowledgebase including all rules of this and the additional rule
+     */
+    public KnowledgeBase withRule(Rule rule) {
+        List<Rule> newRules = new ArrayList<>();
+        newRules.addAll(this.rules);
+        newRules.add(rule);
+
+        return new KnowledgeBase(newRules);
+    }
+
+    private List<Rule> getRules() {
+        return this.rules;
     }
 
     /**
@@ -95,22 +103,7 @@ public class KnowledgeBase {
             return false;
         }
 
-        List<Rule> otherRules = ((KnowledgeBase) other).getRules();
-
-        if (this.rules.isEmpty() && otherRules.isEmpty())
-            return true;
-
-        if (this.rules.size() != otherRules.size())
-            return false;
-
-        Iterator<Rule> otherIter = otherRules.iterator();
-        Iterator<Rule> thisIter = this.rules.iterator();
-
-        while (thisIter.hasNext()) {
-            if (!thisIter.next().equals(otherIter.next()))
-                return false;
-        }
-
-        return true;
+        List<Rule> otherRules = ((KnowledgeBase) other).rules;
+        return this.rules.equals(otherRules);
     }
 }

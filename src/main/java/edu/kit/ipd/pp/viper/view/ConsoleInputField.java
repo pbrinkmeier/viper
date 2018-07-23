@@ -114,10 +114,6 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
     public void unlock() {
         this.textField.setEditable(true);
         this.textField.requestFocusInWindow();
-
-        // clear the history
-        this.history.clear();
-        this.historyPos = 0;
     }
 
     /**

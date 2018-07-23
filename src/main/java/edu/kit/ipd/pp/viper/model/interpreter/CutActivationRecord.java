@@ -4,6 +4,11 @@ import edu.kit.ipd.pp.viper.model.ast.CutGoal;
 
 import java.util.Optional;
 
+/**
+ * Represents the state of a cut goal during execution.
+ * When visiting a cut goal that has been visited before, backtrack before its parent AR.
+ * If it hasnt been visited, it always is fulfilled.
+ */
 public class CutActivationRecord extends ActivationRecord {
     private CutGoal goal;
 

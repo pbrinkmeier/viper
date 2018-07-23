@@ -9,6 +9,9 @@ import edu.kit.ipd.pp.viper.model.ast.Variable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Visitor that gives every variable in a term an index.
+ */
 public class Indexifier implements TermTransformationVisitor {
     private final int index;
 

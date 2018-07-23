@@ -4,6 +4,9 @@ import edu.kit.ipd.pp.viper.model.ast.Number;
 
 import java.util.Arrays;
 
+/**
+ * Tries to unify number with another term.
+ */
 public class NumberUnifier extends Unifier {
     private final Number number;
 

@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Extracts all variables from a term.
+ * For example, this is used to determine what variables to solve for in a query.
+ */
 public class VariableExtractor implements TermVisitor<List<Variable>> {
     /**
      * Extracts variables from a functor. Loops through parameters and extracts

@@ -3,17 +3,21 @@ package edu.kit.ipd.pp.viper.controller;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import edu.kit.ipd.pp.viper.model.ast.Functor;
+import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
+import edu.kit.ipd.pp.viper.model.ast.Rule;
+import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 import edu.kit.ipd.pp.viper.model.interpreter.Environment;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
@@ -30,10 +34,8 @@ import guru.nidi.graphviz.model.Graph;
 
 /**
  * Manager class for interpreters. This class holds references to all
- * interpreters created and serves as an interface for commands to control the
- * interpretation and create new interpreters. In practice, this manager should
- * be treated like a singleton without global state, meaning there should only
- * be one instance which can be accessed by reference passed as a parameter.
+ * visualisation graphs created and serves as an interface for commands to control the
+ * interpretation and parse new programs.
  */
 public class InterpreterManager {
     private static final String STANDARD_LIBRARY_PATH = "/stdlib.pl";
@@ -50,6 +52,7 @@ public class InterpreterManager {
     private StepResult result;
     private Consumer<ClickableState> toggleStateFunc;
     private Optional<Thread> nextSolutionThread = Optional.empty();
+    private boolean noMoreSolutions;
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -74,28 +77,28 @@ public class InterpreterManager {
         this.result = null;
         this.visualisations = new ArrayList<Graph>();
         this.current = 0;
+        this.noMoreSolutions = false;
     }
 
     /**
      * Loads the standard library from a file into a String.
+     *
+     * @return whether the standard library could be loaded successfully
      */
-    private void loadStandardLibrary() {
-        StringBuffer buf = new StringBuffer();
+    private boolean loadStandardLibrary() {
+        try {
+            this.standardLibrary = new String(Files.readAllBytes(Paths.get(
+                this.getClass().getResource(InterpreterManager.STANDARD_LIBRARY_PATH).toURI()
+            )));
 
-        try (InputStream in = this.getClass().getResource(STANDARD_LIBRARY_PATH).openStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));) {
-            String str = "";
-            while ((str = reader.readLine()) != null)
-                buf.append(str);
+            System.out.println(this.getClass().getResource(InterpreterManager.STANDARD_LIBRARY_PATH));
 
-            in.close();
-            reader.close();
+            return true;
+        } catch (URISyntaxException e) {
+            return false;
         } catch (IOException e) {
-            // should never happen, this means the standard library code was moved from its
-            // original position
+            return false;
         }
-
-        this.standardLibrary = buf.toString();
     }
 
     /**
@@ -107,14 +110,19 @@ public class InterpreterManager {
     public void parseKnowledgeBase(String kbSource) throws ParseException {
         String source = "";
 
+        // Failing to load the stdlib should probably result in an error on the console
         if (this.useStandardLibrary) {
-            if (this.standardLibrary == null)
-                this.loadStandardLibrary();
-
+            if (this.standardLibrary == null) {
+                if (!this.loadStandardLibrary()) {
+                    this.standardLibrary = "";
+                }
+            }
+            
             source += this.standardLibrary + "\n";
         }
 
         source += kbSource;
+
         this.knowledgeBase = Optional.of(new PrologParser(source).parse());
     }
 
@@ -126,13 +134,42 @@ public class InterpreterManager {
      * @throws ParseException if the source code is malformed
      */
     public void parseQuery(String querySource) throws ParseException {
-        this.query = Optional.of(new PrologParser(querySource).parseGoalList().get(0));
-
         if (!this.knowledgeBase.isPresent()) {
             return;
         }
 
-        this.interpreter = Optional.of(new Interpreter(this.knowledgeBase.get(), this.query.get()));
+        KnowledgeBase knowledgeBase = this.knowledgeBase.get();
+
+        List<Goal> goals = new PrologParser(querySource).parseGoalList();
+
+        // goals.size may never be 0 at this point
+        // if that were to happen the parser would fail
+        if (goals.size() == 1) {
+            this.query = Optional.of(goals.get(0));
+        } else {
+            // TODO: use a Set for this
+            List<Term> solveFor = new ArrayList<>();
+
+            for (Goal goal : goals) {
+                for (Variable var : goal.getVariables()) {
+                    if (!solveFor.contains(var)) {
+                        solveFor.add(var);
+                    }
+                }
+            }
+
+            Functor head = new Functor("main", solveFor);
+            this.query = Optional.of(new FunctorGoal(head));
+            knowledgeBase = knowledgeBase.withRule(new Rule(head, goals));
+        }
+
+        // Reset visualisations from previous query
+        this.visualisations = new ArrayList<Graph>();
+        this.current = 0;
+        this.noMoreSolutions = false;
+        this.result = null;
+
+        this.interpreter = Optional.of(new Interpreter(knowledgeBase, this.query.get()));
         this.variables = Optional.of(this.query.get().getVariables());
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
     }
@@ -142,18 +179,28 @@ public class InterpreterManager {
      * {@link #reset()} (that includes the constructor) and before calls to
      * {@link #parseKnowledgeBase(String)} and {@link #parseQuery(String)}, i.e.
      * before an interpreter instance has been created, it will have no effect and
-     * return null.
-     * 
-     * @return Result of the step taken
+     * return.
+     * Also takes care of the console output.
+     *
+     * @param console The console panel of the main window
      */
-    public StepResult nextStep() {
+    public void nextStep(ConsolePanel console) {
         if (!this.interpreter.isPresent())
-            return null;
+            return;
+
+        this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
+
+        if (this.noMoreSolutions) {
+            this.toggleStateFunc.accept(ClickableState.LAST_STEP);
+            this.current++;
+            this.result = StepResult.NO_MORE_SOLUTIONS;
+            return;
+        }
 
         if (this.current < this.visualisations.size() - 1) {
             this.current++;
             this.result = StepResult.FROM_STEPBACK;
-            return this.result;
+            return;
         }
 
         this.result = this.interpreter.get().step();
@@ -162,7 +209,23 @@ public class InterpreterManager {
 
         this.current++;
 
-        return this.result;
+        if (this.result == StepResult.SOLUTION_FOUND) {
+            String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
+            List<Substitution> solution = this.getSolution();
+
+            String solutionString = solution.size() == 0
+                    ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
+                    : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
+
+            console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
+        }
+
+        if (this.result == StepResult.NO_MORE_SOLUTIONS) {
+            console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
+                    LogType.INFO);
+            this.toggleStateFunc.accept(ClickableState.LAST_STEP);
+            this.noMoreSolutions = true;
+        }
     }
 
     /**
@@ -204,28 +267,16 @@ public class InterpreterManager {
         }
 
         this.nextSolutionThread = Optional.of(new Thread(() -> {
+            if (this.result == StepResult.NO_MORE_SOLUTIONS
+                    && this.current == this.visualisations.size() - 1)
+                return;
+
             while (this.running) {
-                this.nextStep();
-                if (this.result != StepResult.STEPS_REMAINING && this.current == this.visualisations.size() - 1)
+                this.nextStep(console);
+                if ((this.result == StepResult.NO_MORE_SOLUTIONS 
+                            || this.result == StepResult.SOLUTION_FOUND)
+                            && this.current == this.visualisations.size() - 1)
                     this.running = false;
-            }
-
-            if (this.result != StepResult.FROM_STEPBACK) {
-                if (this.result == StepResult.SOLUTION_FOUND) {
-                    String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
-                    List<Substitution> solution = this.getSolution();
-
-                    String solutionString = solution.size() == 0
-                            ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
-                            : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
-
-                    console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
-                }
-
-                if (this.result == StepResult.NO_MORE_SOLUTIONS) {
-                    console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
-                            LogType.INFO);
-                }
             }
 
             visualisation.setFromGraph(this.getCurrentVisualisation());
