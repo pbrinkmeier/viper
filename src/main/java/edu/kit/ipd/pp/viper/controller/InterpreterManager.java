@@ -30,10 +30,8 @@ import guru.nidi.graphviz.model.Graph;
 
 /**
  * Manager class for interpreters. This class holds references to all
- * interpreters created and serves as an interface for commands to control the
- * interpretation and create new interpreters. In practice, this manager should
- * be treated like a singleton without global state, meaning there should only
- * be one instance which can be accessed by reference passed as a parameter.
+ * visualisation graphs created and serves as an interface for commands to control the
+ * interpretation and parse new programs.
  */
 public class InterpreterManager {
     private static final String STANDARD_LIBRARY_PATH = "/stdlib.pl";
