@@ -339,10 +339,79 @@ Die vierte Woche diente als allgemeine Puffer-Woche zur Reduzierung von Bugs. Zu
 \end{ganttchart}
 \end{minipage}
 
-\section{Änderungen zum Entwurf und Pflichtenheft}
+\section{Änderungen zum Entwurf}
 
-\subsection{Paket: Model}
-TODO
+\subsection{Paket: Model - Allgemein}
+
+Allgemein wurde im Vergleich zum Entwurf jeder generische Template-Type von \enquote{ResultType} zu \enquote{T} bzw. \enquote{R} umbenannt, um Java-konformen Codestil zu gewährleisten.
+
+\subsection{Paket: Model - AST}
+
+\textbf{Neue Klassen:}\\
+\begin{itemize}
+	\item \textbf{ListFormatter}:\\
+	Formatiert einen Term (wenn möglich) als Liste.
+\end{itemize}
+
+\textbf{Änderungen an bestehenden Klassen:}\\
+\begin{itemize}
+	\item \textbf{Anpassungen für BinaryOperation}:\\
+	Die BinaryOperation-Klasse stellt nun Getter-Methoden für die beiden Seiten der Operation zur Verfügung (\textbf{getLhs()} und \textbf{getRhs()}). Weiterhin erhält die evaluate()-Methode keine Parameter mehr.
+	\item \textbf{Abfragen mit mehreren Regeln:}\\
+	Zur Implementierung von Abfragen mit mehreren Regeln hat die KnowledgeBase fortan eine Methode \textbf{withRule(Rule)}.
+	\item \textbf{Anpassungen für Goal und Subklassen}:\\
+	Die Goal-Klasse hat fortan eine Getter-Methode für die enthaltenen Variablen (\textbf{get-Variables()}). Der Konstruktor des spezifischen \textbf{ComparisonGoal} erhält nun zusätzlich zu zwei Termen nun zwei Strings, um das Symbol des Vergleichs zu setzen. Dies ist für die Ausgabe der Konsole und als HTML für Graphviz notwendig. Die Getter-Methoden für diese Symbol-Strings wurden ebenfalls hinzugefügt (\textbf{getSymbol()} und \textbf{getHtmlSymbol()}).
+	\item \textbf{Konstruktor der Variable-Klasse}\\
+	Die Variable-Klasse besitzt nun einen Konstruktor der Form \textbf{Variable(String)} mit einer textuellen Repräsentation der Variable als Parameter.
+	\item \textbf{Statische atom(String)-Methode in Functor}\\
+	Die Functor-Klasse besitzt fortan eine statische \textbf{atom(String)}-Methode zur Erzeugung eines Atoms (parameterloser Funktor). Diese dient lediglich der einfacheren Konstruktion.
+	\item \textbf{equals(Object)-Methode für alle AST-Klassen}\\
+	Die equals(Object)-Methode wurde in allen AST-Klassen implementiert um das Testen zu vereinfachen.
+\end{itemize}
+
+\subsection{Paket: Model - Interpreter}
+
+\textbf{Neue Klassen:}\\
+\begin{itemize}
+	\item \textbf{Unifikationsergebnisse als eigene Klassen}\\
+	Die UnificationResult-Klasse wurde zu eigenen Klassen der Form \textbf{\{Success|Fail| Error\}UnificationResult} spezialisiert. UnificationResult besitzt nun eine \textbf{error(String)}"=Fabrikmethode für ErrorUnificationResult-Objekte.
+\end{itemize}
+
+\textbf{Änderungen an bestehenden Klassen:}\\
+\begin{itemize}
+	\item \textbf{Methoden des Interpreters}:\\
+	Die \textbf{step()}-Methode der Interpreter-Klasse gibt fortan ein StepResult zurück. Weiter wurde der Rückgabewert in \textbf{getCurrent()} und \textbf{getNext()} von \textbf{ActivationRecord} zu \textbf{Optional<ActivationRecord>} geändert, da dieser null sein kann. Die Methode \textbf{getResult()} ist aufgrund des Rückgabetyps der step()-Methode hinfällig und wurde gelöscht, ebenso wurde die Methoden \textbf{copy()} gelöscht. Die \textbf{copy()}-Methode ist nicht mehr notwendig, da fortan die Visualisierung selbst kopiert wird. Die \textbf{getAndIncrementUnificationIndex()}-Methode wurde zu \textbf{getUnificationIndex()} und \textbf{incrementUnificationIndex()} aufgespalten, damit diese Funktionalitäten unabhängig voneinander sind. Weiter wurde eine \textbf{getKnowledgeBase()}-Methode hinzugefügt.
+	\item \textbf{Anpassungen an der Unifikation}:\\
+	Zur Erzeugung und automatischen Prüfung auf Korrektheit existiert nun in \textbf{Unifier} die Methode \textbf{createSubstitutionResult(Variable, Term)}. Weiter wurde eine abstrakte Getter-Methode für den Term der Form \textbf{getTerm()} eingefügt. Weiter muss nun nicht mehr jede Subklasse von Unifier alle visit-Methoden überschreiben, stattdessen wird eine einzelne visit-Methode der Form \textbf{visit(\{Number|Variable|Functor\})} angeboten.
+	\item \textbf{Enumerationselement in StepResult}:\\
+	StepResult besitzt nun das Element \textbf{FROM\_STEPBACK} für die Zurückschreiten-Funktionalität.
+	\item \textbf{Änderung der Oberklasse von SubstitutionApplier}:\\
+	Die Oberklasse von \textbf{SubstitutionApplier} ist fortan kein TermTransformationVisitor mehr sondern ein allgemeinerer \textbf{TermVisitor}.
+	\item \textbf{Neue Methode des Environments}:\\
+	Die Environment-Klasse besitzt nun eine Getter-Methode für die enthaltenen Substitutionen namens \textbf{getSubstitutions()}.
+	\item \textbf{Methoden der ActivationRecords}:\\
+	Die \textbf{getPrevious()}-Methode gibt nun einen \textbf{optionalen} ActivationRecord zurück, da dieser null sein kann. Weiter wurde eine Methode zur Anwendung bisheriger Substitutionen eingefügt (\textbf{applyPreviousSubstitutions(Term)}), sowie Getter-Methoden für das Ziel (\textbf{getGoal()}), den ActivationRecord, der in einem Baum am weitesten rechts liegt (\textbf{getRightmost()}) sowie für einen boolschen Wert, ob der ActivationRecord erfüllt wurde (\textbf{isFulfilled()}). Die \textbf{step()}-Methode des ActivationRecords gibt nun auch einen \textbf{optionalen} ActivationRecord zurück. Die Methode \textbf{hasBeenVisited()} wurde weiterhin umbenannt zu \textbf{isVisited()}.
+	\item \textbf{Geänderte Methodennamen spezifischer ActivationRecords}:\\
+	Die \textbf{getSubSteps()}-Methode des FunctorActivationRecords wurde umbenannt zu \textbf{getChildren()}. Die \textbf{getUnificationResult()}-Methode des UnificationActivationRecords und des ArithmetikUnificationRecords wurde umbenannt zu \textbf{getResult()}. Die \textbf{getEvaluationError()}-Methode des ComparisonActivationRecords wurde umbenannt zu \textbf{getErrorMessage()}.
+	\item \textbf{Geänderte Methoden des ArithmeticActivationRecords}:\\
+	Die \textbf{getEvaluationError()}-Methode in ArithmeticActivationRecord wird nicht benötigt und wurde gelöscht. Um die arithmetisch ausgewertete rechte Seite auslesen zu können wurde die \textbf{getEvaluatedRhs()}-Methode eingefügt.
+\end{itemize}
+
+\subsection{Paket: Model - Parser}
+
+\textbf{Neue Klassen:}\\
+Keine.
+
+\textbf{Änderungen an bestehenden Klassen:}\\
+Keine (die Anpassung an die eigenen Datenstrukturen des AST sind keine Änderung zum Entwurf, da diese bereits in letzterem dokumentiert sind).
+
+\subsection{Paket: Model - Visualisation}
+
+\textbf{Neue Klassen:}\\
+Keine.
+
+\textbf{Änderungen an bestehenden Klassen:}\\
+Die Klasse LatexMaker wurde gelöscht, da das Kann-Kriterium für den LaTeX-Export verworfen wurde.
 
 \subsection{Paket: View}
 
