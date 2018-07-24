@@ -56,6 +56,7 @@ public class InterpreterManager {
     private Optional<Goal> query;
     private Optional<Interpreter> interpreter;
     private List<Graph> visualisations;
+    private List<StepResult> results;
     private int current;
     private Optional<List<Variable>> variables;
     private boolean useStandardLibrary = true;
@@ -63,7 +64,6 @@ public class InterpreterManager {
     private StepResult result;
     private Consumer<ClickableState> toggleStateFunc;
     private Optional<Thread> nextSolutionThread = Optional.empty();
-    private boolean noMoreSolutions;
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -87,8 +87,8 @@ public class InterpreterManager {
         this.variables = Optional.empty();
         this.result = null;
         this.visualisations = new ArrayList<Graph>();
+        this.results = new ArrayList<StepResult>();
         this.current = 0;
-        this.noMoreSolutions = false;
     }
 
     /**
@@ -146,13 +146,14 @@ public class InterpreterManager {
 
         // Reset visualisations from previous query
         this.visualisations = new ArrayList<Graph>();
+        this.results = new ArrayList<StepResult>();
         this.current = 0;
-        this.noMoreSolutions = false;
         this.result = null;
 
         this.interpreter = Optional.of(new Interpreter(knowledgeBase, this.query.get()));
         this.variables = Optional.of(this.query.get().getVariables());
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
+        this.results.add(StepResult.STEPS_REMAINING);
     }
 
     /**
@@ -171,20 +172,23 @@ public class InterpreterManager {
 
         this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
 
-        if (this.noMoreSolutions) {
-            this.toggleStateFunc.accept(ClickableState.LAST_STEP);
-            this.current++;
-            this.result = StepResult.NO_MORE_SOLUTIONS;
-            return;
-        }
-
         if (this.current < this.visualisations.size() - 1) {
+            if (this.result == StepResult.FROM_STEPBACK
+                    && this.results.get(this.current + 1) == StepResult.NO_MORE_SOLUTIONS) {
+                this.toggleStateFunc.accept(ClickableState.LAST_STEP);
+                this.current++;
+                return;
+            } 
+
             this.current++;
             this.result = StepResult.FROM_STEPBACK;
+
             return;
         }
 
         this.result = this.interpreter.get().step();
+
+        this.results.add(this.result);
 
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
 
@@ -201,11 +205,11 @@ public class InterpreterManager {
             console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
         }
 
-        if (this.result == StepResult.NO_MORE_SOLUTIONS) {
+        if (this.result == StepResult.NO_MORE_SOLUTIONS
+                || this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
             console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
                     LogType.INFO);
             this.toggleStateFunc.accept(ClickableState.LAST_STEP);
-            this.noMoreSolutions = true;
         }
     }
 
@@ -213,8 +217,10 @@ public class InterpreterManager {
      * Shows a previously generated and saved visualisation
      */
     public void previousStep() {
-        if (this.current > 0)
+        if (this.current > 0) {
             this.current--;
+            this.result = StepResult.FROM_STEPBACK;
+        }
 
         this.toggleStateFunc.accept(this.current == 0 ? ClickableState.FIRST_STEP : ClickableState.PARSED_QUERY);
     }
@@ -248,15 +254,13 @@ public class InterpreterManager {
         }
 
         this.nextSolutionThread = Optional.of(new Thread(() -> {
-            if (this.result == StepResult.NO_MORE_SOLUTIONS
-                    && this.current == this.visualisations.size() - 1)
+            if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS)
                 return;
 
             while (this.running) {
                 this.nextStep(console);
-                if ((this.result == StepResult.NO_MORE_SOLUTIONS 
-                            || this.result == StepResult.SOLUTION_FOUND)
-                            && this.current == this.visualisations.size() - 1)
+                if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS
+                        || this.result == StepResult.SOLUTION_FOUND)
                     this.running = false;
             }
 
