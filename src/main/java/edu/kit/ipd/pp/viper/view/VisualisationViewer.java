@@ -9,9 +9,6 @@ import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.Action;
-import javax.swing.ActionMap;
-
 import org.apache.batik.bridge.UserAgent;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.AbstractPanInteractor;
@@ -36,6 +33,11 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * Name of temp file to save the graph to
      */
     private static final String TMP_NAME = "viper_tmp.svg";
+
+    /**
+     * Factor for image scaling, 1.15 seems to be the sweet spot
+     */
+    private static final double ZOOM_FACTOR = 1.15;
 
     /**
      * Reference of main window
@@ -79,10 +81,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
-        if (event.getPreciseWheelRotation() > 0.0)
-            this.zoom(ZoomType.ZOOM_OUT);
-        else
-            this.zoom(ZoomType.ZOOM_IN);
+        this.zoom(event.getPreciseWheelRotation() > 0.0 ? ZoomType.ZOOM_OUT : ZoomType.ZOOM_IN);
     }
 
     /**
@@ -91,21 +90,20 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * @param type Zoom type (in or out)
      */
     public void zoom(ZoomType type) {
-        ActionMap map = this.getActionMap();
-        Action action = null;
+        double scale;
 
         switch (type) {
         case ZOOM_IN:
-            action = map.get(JSVGCanvas.ZOOM_IN_ACTION);
+            scale = ZOOM_FACTOR;
             break;
         case ZOOM_OUT:
-            action = map.get(JSVGCanvas.ZOOM_OUT_ACTION);
+            scale = 1 / ZOOM_FACTOR;
             break;
         default:
-            break;
+            return;
         }
 
-        action.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+        (new JSVGCanvas.ZoomAction(scale)).actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
     }
 
     /**
