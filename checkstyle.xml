@@ -138,7 +138,10 @@
         <!-- Checks that each variable declaration is in its own statement and on its own line. !-->
         <!-- See http://checkstyle.sf.net/config_coding.html !-->
         <module name="com.puppycrawl.tools.checkstyle.checks.coding.MultipleVariableDeclarations"/>
-        
+
+        <module name="com.puppycrawl.tools.checkstyle.checks.coding.RequireThis">
+            <property name="validateOnlyOverlapping" value="false"/>
+        </module>
     </module>
     
     <!-- Checks that there are no tabs in the source file !-->
