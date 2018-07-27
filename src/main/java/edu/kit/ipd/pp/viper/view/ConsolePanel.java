@@ -108,6 +108,7 @@ public class ConsolePanel extends JPanel implements HasClickable {
      * Makes the input field un-editable
      */
     public void lockInput() {
+        this.inputField.clear();
         this.inputField.lock();
         this.inputLocked = true;
     }
