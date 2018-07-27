@@ -9,9 +9,6 @@ import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.Action;
-import javax.swing.ActionMap;
-
 import org.apache.batik.bridge.UserAgent;
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.AbstractPanInteractor;
@@ -36,6 +33,11 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * Name of temp file to save the graph to
      */
     private static final String TMP_NAME = "viper_tmp.svg";
+
+    /**
+     * Factor for image scaling, 1.15 seems to be the sweet spot
+     */
+    private static final double ZOOM_FACTOR = 1.15;
 
     /**
      * Reference of main window
@@ -79,11 +81,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
-        double mouseWheel = event.getPreciseWheelRotation();
-        if (mouseWheel > 0.0)
-            this.zoom(ZoomType.ZOOM_OUT);
-        else
-            this.zoom(ZoomType.ZOOM_IN);
+        this.zoom(event.getPreciseWheelRotation() > 0.0 ? ZoomType.ZOOM_OUT : ZoomType.ZOOM_IN);
     }
 
     /**
@@ -92,21 +90,17 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * @param type Zoom type (in or out)
      */
     public void zoom(ZoomType type) {
-        ActionMap map = this.getActionMap();
         double scale;
 
         switch (type) {
         case ZOOM_IN:
-            // scale by factor 1.15, which seems to  be the sweet spot
-            scale = 1.15;
+            scale = ZOOM_FACTOR;
             break;
         case ZOOM_OUT:
-            // scale by the exact opposite of ZOOM_IN
-            scale = 1/1.15;
+            scale = 1 / ZOOM_FACTOR;
             break;
         default:
-            scale = 1;
-            break;
+            return;
         }
 
         (new JSVGCanvas.ZoomAction(scale)).actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
