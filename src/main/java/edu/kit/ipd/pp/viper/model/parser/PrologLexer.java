@@ -88,7 +88,7 @@ public class PrologLexer {
             this.col += 1;
         }
         if (this.pos < this.program.length()) {
-            advance();
+            this.advance();
         }
     }
 
@@ -103,9 +103,9 @@ public class PrologLexer {
                 && (Character.isWhitespace(this.program.charAt(this.pos)) || this.program.charAt(this.pos) == '%')) {
             // ignore whitespace and comments
             if (this.program.charAt(this.pos) == '%') {
-                lexComment();
+                this.lexComment();
             } else {
-                advance();
+                this.advance();
             }
         }
         if (this.pos >= this.program.length()) {
@@ -119,54 +119,54 @@ public class PrologLexer {
         case '=':
         case '<':
         case '>':
-            return handleMultiSimOperators();
+            return this.handleMultiSimOperators();
         // bunch of single-character tokens
         case '.':
             t = new Token(TokenType.DOT, ".", this.line, this.col);
-            advance();
+            this.advance();
             return t;
         case ',':
             t = new Token(TokenType.COMMA, ",", this.line, this.col);
-            advance();
+            this.advance();
             return t;
         case '(':
             t = new Token(TokenType.LP, "(", this.line, this.col);
-            advance();
+            this.advance();
             return t;
         case ')':
             t = new Token(TokenType.RP, ")", this.line, this.col);
-            advance();
+            this.advance();
             return t;
         case '[':
             t = new Token(TokenType.LB, "[", this.line, this.col);
-            advance();
+            this.advance();
             return t;
         case ']':
             t = new Token(TokenType.RB, "]", this.line, this.col);
-            advance();
+            this.advance();
             return t;
         case '|':
             t = new Token(TokenType.BAR, "|", this.line, this.col);
-            advance();
+            this.advance();
             return t;
         case '+':
             t = new Token(TokenType.PLUS, "+", this.line, this.col);
-            advance();
+            this.advance();
             return t;
         case '-':
             t = new Token(TokenType.MINUS, "-", this.line, this.col);
-            advance();
+            this.advance();
             return t;
         case '*':
             t = new Token(TokenType.STAR, "*", this.line, this.col);
-            advance();
+            this.advance();
             return t;
         case '!':
             t = new Token(TokenType.EXCLAMATION, "!", this.line, this.col);
-            advance();
+            this.advance();
             return t;
         default:
-            return handleDefault(c);
+            return this.handleDefault(c);
         }
     }
 
@@ -176,13 +176,13 @@ public class PrologLexer {
         StringBuilder sb = new StringBuilder();
         do {
             sb.append(this.program.charAt(this.pos));
-            advance();
+            this.advance();
         } while (this.pos < this.program.length() && SYMBOLS.indexOf(this.program.charAt(this.pos)) > -1);
         TokenType type = SYMBOL_STRING_TO_TOKEN.get(sb.toString());
         if (type == null) {
             throw new ParseException(
                     String.format(LanguageManager.getInstance().getString(LanguageKey.OPERATOR_NOT_RECOGNIZED),
-                            sb.toString()) + getTokenPositionString());
+                            sb.toString()) + this.getTokenPositionString());
         }
         return new Token(type, sb.toString(), this.line, colStart);
     }
@@ -194,7 +194,7 @@ public class PrologLexer {
             StringBuilder sb = new StringBuilder();
             do {
                 sb.append(this.program.charAt(this.pos));
-                advance();
+                this.advance();
             } while (this.pos < this.program.length() && Character.isLetterOrDigit(this.program.charAt(this.pos)));
             String s = sb.toString();
             TokenType type;
@@ -211,12 +211,12 @@ public class PrologLexer {
             StringBuilder sb = new StringBuilder();
             do {
                 sb.append(this.program.charAt(this.pos));
-                advance();
+                this.advance();
             } while (this.pos < this.program.length() && Character.isDigit(this.program.charAt(this.pos)));
             return new Token(TokenType.NUMBER, sb.toString(), this.line, colStart);
         } else {
             throw new ParseException(LanguageManager.getInstance().getString(LanguageKey.ILLEGAL_CHAR) + " '"
-                    + this.program.charAt(this.pos) + "'" + getTokenPositionString());
+                    + this.program.charAt(this.pos) + "'" + this.getTokenPositionString());
         }
     }
 
@@ -233,6 +233,6 @@ public class PrologLexer {
 
     private String getTokenPositionString() {
         return " " + String.format(LanguageManager.getInstance().getString(LanguageKey.POSITION),
-                getCodeBeforeCurrentPos(), this.line, this.col);
+                this.getCodeBeforeCurrentPos(), this.line, this.col);
     }
 }

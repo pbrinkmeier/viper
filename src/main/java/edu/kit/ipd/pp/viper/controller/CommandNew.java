@@ -62,10 +62,10 @@ public class CommandNew extends Command {
             }
 
             if (rv != 2) {
-                clear();
+                this.clear();
             }
         } else {
-            clear();
+            this.clear();
         }
     }
 

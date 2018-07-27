@@ -228,7 +228,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void removeUpdate(DocumentEvent event) {
-        setHasChanged(true);
+        this.setHasChanged(true);
     }
 
     private void increaseFont() {

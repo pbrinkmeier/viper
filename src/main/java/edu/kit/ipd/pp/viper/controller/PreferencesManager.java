@@ -154,7 +154,7 @@ public class PreferencesManager {
      */
     public void setFileReferences(List<File> references) {
         for (int i = 0; i < references.size(); i++)
-            writeProperty("recentlyUsedFile" + i, references.get(i).getAbsolutePath());
+            this.writeProperty("recentlyUsedFile" + i, references.get(i).getAbsolutePath());
     }
 
     /**

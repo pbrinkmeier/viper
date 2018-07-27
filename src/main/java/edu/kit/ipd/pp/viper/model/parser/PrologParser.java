@@ -50,7 +50,7 @@ public class PrologParser {
      */
     public PrologParser(String program) throws ParseException {
         this.lexer = new PrologLexer(program);
-        nextToken();
+        this.nextToken();
     }
 
     /**
@@ -74,9 +74,10 @@ public class PrologParser {
         if (this.token.getType() != type) {
             throw new ParseException(
                     String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
-                            "'" + type.getString() + "'", this.token.getType().getString()) + getTokenPositionString());
+                            "'" + type.getString() + "'", this.token.getType().getString())
+                            + this.getTokenPositionString());
         }
-        nextToken();
+        this.nextToken();
     }
 
     /**
@@ -86,7 +87,7 @@ public class PrologParser {
      * @throws ParseException if the program String is not syntactically valid
      */
     public KnowledgeBase parse() throws ParseException {
-        return parseProgram();
+        return this.parseProgram();
     }
 
     /**
@@ -98,7 +99,7 @@ public class PrologParser {
     private KnowledgeBase parseProgram() throws ParseException {
         List<Rule> rules = new LinkedList<>();
         while (this.token.getType() != TokenType.EOF) {
-            rules.add(parseRule());
+            rules.add(this.parseRule());
         }
         return new KnowledgeBase(rules);
     }
@@ -110,13 +111,13 @@ public class PrologParser {
      * @throws ParseException if a rule is syntactically incorrect
      */
     private Rule parseRule() throws ParseException {
-        Functor lhs = parseFunctor();
+        Functor lhs = this.parseFunctor();
         if (this.token.getType() == TokenType.DOT) {
-            nextToken();
+            this.nextToken();
             return new Rule(lhs, Arrays.asList());
         }
-        expect(TokenType.COLON_MINUS);
-        List<Goal> goals = parseGoalList();
+        this.expect(TokenType.COLON_MINUS);
+        List<Goal> goals = this.parseGoalList();
         return new Rule(lhs, goals);
     }
 
@@ -128,12 +129,12 @@ public class PrologParser {
      */
     public List<Goal> parseGoalList() throws ParseException {
         List<Goal> goals = new LinkedList<>();
-        goals.add(parseGoal());
+        goals.add(this.parseGoal());
         while (this.token.getType() != TokenType.DOT) {
-            expect(TokenType.COMMA);
-            goals.add(parseGoal());
+            this.expect(TokenType.COMMA);
+            goals.add(this.parseGoal());
         }
-        nextToken();
+        this.nextToken();
         return goals;
     }
 
@@ -146,18 +147,18 @@ public class PrologParser {
     private Goal parseGoal() throws ParseException {
         switch (this.token.getType()) {
         case IDENTIFIER:
-            Functor f = parseFunctor();
+            Functor f = this.parseFunctor();
             if (this.token.getType() == TokenType.COMMA || this.token.getType() == TokenType.DOT) {
                 return new FunctorGoal(f);
             } else {
-                return parseGoalRest(f);
+                return this.parseGoalRest(f);
             }
 
         case VARIABLE:
         case NUMBER:
         case LB:
-            Term t = parseTerm();
-            return parseGoalRest(t);
+            Term t = this.parseTerm();
+            return this.parseGoalRest(t);
 
         case EXCLAMATION:
             this.nextToken();
@@ -180,21 +181,21 @@ public class PrologParser {
         switch (this.token.getType()) {
         case IDENTIFIER:
             String name = this.token.getText();
-            nextToken();
+            this.nextToken();
             if (this.token.getType() != TokenType.LP) {
                 return Functor.atom(name);
             }
-            expect(TokenType.LP);
+            this.expect(TokenType.LP);
             List<Term> terms = new LinkedList<>();
-            terms.add(parseTerm());
+            terms.add(this.parseTerm());
             while (this.token.getType() != TokenType.RP) {
-                expect(TokenType.COMMA);
-                terms.add(parseTerm());
+                this.expect(TokenType.COMMA);
+                terms.add(this.parseTerm());
             }
-            nextToken();
+            this.nextToken();
             return new Functor(name, terms);
         case LB:
-            return parseList();
+            return this.parseList();
         default:
             throw new ParseException(
                     String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
@@ -211,10 +212,10 @@ public class PrologParser {
      * @throws ParseException if a parser error occurs
      */
     private Goal parseGoalRest(Term t) throws ParseException {
-        Term lhs = parseTerm(Optional.of(t));
+        Term lhs = this.parseTerm(Optional.of(t));
         TokenType op = this.token.getType();
-        nextToken();
-        Term rhs = parseTerm();
+        this.nextToken();
+        Term rhs = this.parseTerm();
 
         switch (op) {
         case EQ:
@@ -269,7 +270,7 @@ public class PrologParser {
      * @throws ParseException if a parser error occurs
      */
     private Term parseTerm() throws ParseException {
-        return parseTerm(Optional.empty());
+        return this.parseTerm(Optional.empty());
     }
 
     /**
@@ -282,11 +283,11 @@ public class PrologParser {
      * @throws ParseException if a parser error occurs
      */
     private Term parseTerm(Optional<Term> maybeTerm) throws ParseException {
-        Term t = parseSummand(maybeTerm);
+        Term t = this.parseSummand(maybeTerm);
         while (this.token.getType() == TokenType.PLUS || this.token.getType() == TokenType.MINUS) {
             TokenType op = this.token.getType();
-            nextToken();
-            Term rhs = parseSummand(Optional.empty());
+            this.nextToken();
+            Term rhs = this.parseSummand(Optional.empty());
 
             if (op == TokenType.PLUS) {
                 t = new AdditionOperation(t, rhs);
@@ -309,11 +310,11 @@ public class PrologParser {
      * @throws ParseException if a parser error occurs
      */
     private Term parseSummand(Optional<Term> maybeTerm) throws ParseException {
-        Term t = parseFactor(maybeTerm);
+        Term t = this.parseFactor(maybeTerm);
 
         while (this.token.getType() == TokenType.STAR) {
-            nextToken();
-            Term t2 = parseFactor(Optional.empty());
+            this.nextToken();
+            Term t2 = this.parseFactor(Optional.empty());
             t = new MultiplicationOperation(t, t2);
         }
 
@@ -336,27 +337,27 @@ public class PrologParser {
         switch (this.token.getType()) {
         case IDENTIFIER:
         case LB:
-            return parseFunctor();
+            return this.parseFunctor();
 
         case NUMBER:
-            return parseNumber();
+            return this.parseNumber();
 
         case VARIABLE:
             String name = this.token.getText();
-            nextToken();
+            this.nextToken();
             return new Variable(name);
 
         case LP:
-            nextToken();
-            Term t = parseTerm();
-            expect(TokenType.RP);
+            this.nextToken();
+            Term t = this.parseTerm();
+            this.expect(TokenType.RP);
             return t;
 
         default:
             throw new ParseException(
                     String.format(LanguageManager.getInstance().getString(LanguageKey.EXPECTED_INSTEAD),
                             LanguageManager.getInstance().getString(LanguageKey.TERM), this.token.getType().getString())
-                            + getTokenPositionString());
+                            + this.getTokenPositionString());
         }
     }
 
@@ -368,7 +369,7 @@ public class PrologParser {
      */
     private Number parseNumber() throws ParseException {
         int n = Integer.parseInt(this.token.getText());
-        nextToken();
+        this.nextToken();
         return new Number(n);
     }
 

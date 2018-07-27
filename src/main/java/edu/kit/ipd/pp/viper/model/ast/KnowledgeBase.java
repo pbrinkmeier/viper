@@ -82,10 +82,6 @@ public class KnowledgeBase {
         return new KnowledgeBase(newRules);
     }
 
-    private List<Rule> getRules() {
-        return this.rules;
-    }
-
     /**
      * Checks whether this equals another object. Will only return true for functors
      * of the same name and parameters.
