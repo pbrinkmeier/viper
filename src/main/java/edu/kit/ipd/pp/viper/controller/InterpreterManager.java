@@ -76,7 +76,9 @@ public class InterpreterManager {
      * Resets the instance to make it ready for a new interpreter.
      */
     public void reset() {
-        this.cancel();
+        if (this.running) {
+            this.cancel();
+        }
         this.knowledgeBase = Optional.empty();
         this.query = Optional.empty();
         this.interpreter = Optional.empty();
@@ -164,8 +166,10 @@ public class InterpreterManager {
     public void nextStep(ConsolePanel console) {
         if (!this.interpreter.isPresent())
             return;
-
-        this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
+        
+        if (!this.running) {
+            this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
+        }
 
         if (this.noMoreSolutions) {
             this.toggleStateFunc.accept(ClickableState.LAST_STEP);
@@ -226,7 +230,7 @@ public class InterpreterManager {
      */
     public void nextSolution(ConsolePanel console, VisualisationPanel visualisation) {
         if (!this.running) {
-            this.running = true;
+            this.setThreadRunning(true);
             this.assignThread(console, visualisation);
         }
     }
@@ -253,7 +257,7 @@ public class InterpreterManager {
                 if ((this.result == StepResult.NO_MORE_SOLUTIONS 
                             || this.result == StepResult.SOLUTION_FOUND)
                             && this.current == this.visualisations.size() - 1)
-                    this.running = false;
+                    this.setThreadRunning(false);
             }
 
             visualisation.setFromGraph(this.getCurrentVisualisation());
@@ -271,7 +275,7 @@ public class InterpreterManager {
      * visualisation gets updated to the respective current step.
      */
     public void cancel() {
-        this.running = false;
+        this.setThreadRunning(false);
 
         if (!this.nextSolutionThread.isPresent())
             return;
@@ -325,5 +329,18 @@ public class InterpreterManager {
      */
     public boolean isStandardEnabled() {
         return this.useStandardLibrary;
+    }
+
+    /**
+     * Handles thread start/stop actions and disables/enables the pause button accordingly.
+     * @param running describing whether the thread is running
+     */
+    private void setThreadRunning(boolean running) {
+        this.running = running;
+        if (running) {
+            this.toggleStateFunc.accept(ClickableState.NEXT_SOLUTION_RUNNING);
+        } else {
+            this.toggleStateFunc.accept(ClickableState.NEXT_SOLUTION_ABORTED);
+        }
     }
 }
