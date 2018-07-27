@@ -50,10 +50,10 @@ public class CommandExportImage extends Command {
         if (rv == JFileChooser.APPROVE_OPTION) {
             switch (this.format) {
             case SVG:
-                exportSVG(chooser.getSelectedFile());
+                this.exportSVG(chooser.getSelectedFile());
                 break;
             case PNG:
-                exportPNG(chooser.getSelectedFile());
+                this.exportPNG(chooser.getSelectedFile());
                 break;
             default:
                 String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_UNSUPPORTED_FORMAT);

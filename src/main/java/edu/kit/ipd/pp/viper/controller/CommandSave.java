@@ -43,10 +43,10 @@ public class CommandSave extends Command {
     @Override
     public void execute() {
         if (this.saveType == SaveType.SAVE && this.editor.hasFileReference())
-            save();
+            this.save();
         else {
             this.interpreterManager.cancel();
-            saveAs();
+            this.saveAs();
         }
     }
 
@@ -78,7 +78,7 @@ public class CommandSave extends Command {
             out.flush();
             out.close();
         } catch (IOException e) {
-            printSaveError(e, file.getAbsolutePath());
+            this.printSaveError(e, file.getAbsolutePath());
         }
         this.editor.setHasChanged(false);
         this.editor.setFileReference(file);
@@ -90,7 +90,7 @@ public class CommandSave extends Command {
 
     private void save() {
         File file = this.editor.getFileReference();
-        writeFile(file);
+        this.writeFile(file);
     }
 
     private void saveAs() {
@@ -100,7 +100,7 @@ public class CommandSave extends Command {
 
         if (rv == JFileChooser.APPROVE_OPTION) {
             File file = FileUtilities.checkForMissingExtension(chooser.getSelectedFile(), ".pl");
-            writeFile(file);
+            this.writeFile(file);
         }
     }
 }

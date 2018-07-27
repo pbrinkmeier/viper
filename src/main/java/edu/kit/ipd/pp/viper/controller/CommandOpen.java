@@ -91,7 +91,7 @@ public class CommandOpen extends Command {
         try {
             source = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
         } catch (IOException e) {
-            printOpenError(e, file.getAbsolutePath());
+            this.printOpenError(e, file.getAbsolutePath());
         }
 
         return source;
@@ -120,7 +120,7 @@ public class CommandOpen extends Command {
      * @param file the file that was read
      */
     public void updateUI(File file) {
-        this.editor.setSourceText(getFileText(file));
+        this.editor.setSourceText(this.getFileText(file));
         this.editor.setHasChanged(false);
         this.editor.setFileReference(file);
         this.visualisation.clearVisualization();
@@ -156,23 +156,23 @@ public class CommandOpen extends Command {
 
         if (rv == JFileChooser.APPROVE_OPTION) {
             if (this.editor.hasChanged())
-                handleUnsavedChanges();
-            updateUI(chooser.getSelectedFile());
+                this.handleUnsavedChanges();
+            this.updateUI(chooser.getSelectedFile());
         }
     }
 
     private void openDirectly() {
         if (this.editor.hasChanged())
-            handleUnsavedChanges();
-        updateUI(new File(this.path));
+            this.handleUnsavedChanges();
+        this.updateUI(new File(this.path));
     }
 
     @Override
     public void execute() {
         this.interpreterManager.cancel();
         if (this.path.isEmpty())
-            openByDialog();
+            this.openByDialog();
         else
-            openDirectly();
+            this.openDirectly();
     }
 }
