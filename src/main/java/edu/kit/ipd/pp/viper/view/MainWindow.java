@@ -93,6 +93,11 @@ public class MainWindow extends JFrame {
      * Global instance of InterpreterManager
      */
     private InterpreterManager manager;
+    
+    /**
+     * Global Window Title
+     */
+    private String windowTitle;
 
     /**
      * The constructor sets up the {@link JFrame} and initialises all three panels
@@ -225,16 +230,40 @@ public class MainWindow extends JFrame {
     }
 
     /**
+     * Sets the {@link #windowTitle} and calls {@link #changeWindowTitle(String)}.
+     * 
+     * @param title String to set for {@link #windowTitle}
+     */
+    public void setWindowTitle(String title) {
+        this.windowTitle = title;
+        this.changeWindowTitle(this.windowTitle);
+    }
+    
+    /**
      * Sets the window title to '{title} - VIPER'. This can be used to include the
      * currently opened file in the title.
      * 
      * @param title String to display, using "" or null removes the title
      */
-    public void setWindowTitle(String title) {
+    private void changeWindowTitle(String title) {
         if (title == null || title.equals(""))
             this.setTitle(WINDOW_TITLE);
         else
             this.setTitle(title + " - " + WINDOW_TITLE);
+    }
+    
+    /** 
+     * Appends an asterix to the window title
+     * can be used when editor entry is changed
+     * @param asterix boolean if * should be appended to title
+     */
+    public void setAppendAsterixToTitle(boolean asterix) {
+        if (asterix) {
+            if (!(this.windowTitle == null || this.windowTitle.equals("")))
+                this.changeWindowTitle(this.windowTitle + "*"); 
+        } else {
+           this.changeWindowTitle(this.windowTitle);
+        }
     }
 
     /**
