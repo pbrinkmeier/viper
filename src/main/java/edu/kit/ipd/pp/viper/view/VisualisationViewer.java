@@ -79,7 +79,8 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
-        if (event.getPreciseWheelRotation() > 0.0)
+        double mouseWheel = event.getPreciseWheelRotation();
+        if (mouseWheel > 0.0)
             this.zoom(ZoomType.ZOOM_OUT);
         else
             this.zoom(ZoomType.ZOOM_IN);
@@ -92,20 +93,23 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      */
     public void zoom(ZoomType type) {
         ActionMap map = this.getActionMap();
-        Action action = null;
+        double scale;
 
         switch (type) {
         case ZOOM_IN:
-            action = map.get(JSVGCanvas.ZOOM_IN_ACTION);
+            // scale by factor 1.15, which seems to  be the sweet spot
+            scale = 1.15;
             break;
         case ZOOM_OUT:
-            action = map.get(JSVGCanvas.ZOOM_OUT_ACTION);
+            // scale by the exact opposite of ZOOM_IN
+            scale = 1/1.15;
             break;
         default:
+            scale = 1;
             break;
         }
 
-        action.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+        (new JSVGCanvas.ZoomAction(scale)).actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
     }
 
     /**
