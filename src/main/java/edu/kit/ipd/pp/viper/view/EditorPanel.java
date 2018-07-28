@@ -134,6 +134,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
             this.main.getConsolePanel().lockInput();
             this.main.switchClickableState(ClickableState.NOT_PARSED_YET);
         }
+        this.main.setAppendAsterixToTitle(changed);
         this.changed = changed;
     }
 
