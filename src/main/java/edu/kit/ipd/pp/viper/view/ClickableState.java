@@ -33,5 +33,13 @@ public enum ClickableState {
     /**
      * State in which there are no more solutions to a query
      */
-    NO_MORE_SOLUTIONS
+    NO_MORE_SOLUTIONS,
+    /**
+     * State in which the NextSolution Thread is running
+     */
+    NEXT_SOLUTION_RUNNING,
+    /**
+     * State in which the NextSolution Thread is getting stopped
+     */
+    NEXT_SOLUTION_ABORTED
 }
