@@ -1,0 +1,68 @@
+\documentclass[parskip=full,11pt,twoside]{scrartcl}
+\usepackage[utf8]{inputenc}
+
+\title{VIPER Interactive Prolog Education Runtime}
+\subtitle{Testbericht}
+\author{Paul Brinkmeier, Lukas Brocke, Jannik Koch, Aaron Maier, Christian Oder}
+
+% section numbers in margins:
+\renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
+
+% header & footer
+\usepackage{scrlayer-scrpage}
+\lofoot{\today}
+\refoot{\today}
+\pagestyle{scrheadings}
+
+\usepackage{amsmath} % for $\text{}$
+
+\usepackage[sfdefault,light]{roboto}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[yyyymmdd]{datetime} % must be after babel
+\renewcommand{\dateseparator}{-} % ISO8601 date format
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\crefname{figure}{Abb}{Abb}
+\usepackage[section]{placeins}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{enumitem}
+\usepackage{dirtree}
+\usepackage{pgfplots}
+\usepackage{pgfgantt}
+\usepackage{pifont}
+\usepackage{multicol}
+\hypersetup{
+	pdftitle={Testbericht},
+}
+
+\usepackage{csquotes}
+
+\newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\lstset{basicstyle=\ttfamily,breaklines=true}
+
+% Don't strech across whole page
+\raggedbottom
+
+% Start new page with each section
+\usepackage{sectsty}
+\sectionfont{\clearpage}
+
+\begin{document}
+\pagenumbering{roman}
+\maketitle
+\tableofcontents
+
+\section{Einleitung}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% Anschluss an Implementierungsbericht
+
+\end{document}
