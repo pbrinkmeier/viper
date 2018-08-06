@@ -44,6 +44,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private MenuItem itemFormat;
     private MenuItem itemExportPNG;
     private MenuItem itemExportSVG;
+    private MenuItem itemAbout;
     private CheckBoxMenuItem itemToggleSTD;
 
     private Menu recentlyUsedMenu;
@@ -60,6 +61,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
         this.addProgramMenu();
         this.addExportMenu();
         this.addSettingsMenu();
+        this.addHelpMenu();
     }
 
     /**
@@ -238,7 +240,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
     }
 
     /**
-     * Adds the "swttings > language" item
+     * Adds the "settings > language" item
      * 
      * @param menu Menu to attach to
      */
@@ -267,6 +269,16 @@ public class MenuBar extends JMenuBar implements HasClickable {
 
         menu.add(languageMenu);
     }
+    
+    /**
+     * Adds the "help" menu
+     */
+    private void addHelpMenu() {
+        Menu helpMenu = new Menu(LanguageKey.MENU_HELP);
+        this.itemAbout = new MenuItem(LanguageKey.MENU_ABOUT, this.main.getCommandShowAbout());
+        helpMenu.add(this.itemAbout);
+        this.add(helpMenu);
+    }
 
     @Override
     public void switchClickableState(ClickableState state) {
@@ -283,6 +295,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
             this.itemExportPNG.setEnabled(false);
             this.itemExportSVG.setEnabled(false);
             this.itemToggleSTD.setEnabled(true);
+            this.itemAbout.setEnabled(true);
             break;
         case PARSED_QUERY:
         case FIRST_STEP:
@@ -298,6 +311,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
             this.itemExportPNG.setEnabled(true);
             this.itemExportSVG.setEnabled(true);
             this.itemToggleSTD.setEnabled(true);
+            this.itemAbout.setEnabled(true);
             break;
         default:
             break;

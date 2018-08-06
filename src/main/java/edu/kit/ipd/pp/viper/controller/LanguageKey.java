@@ -85,7 +85,17 @@ public enum LanguageKey {
      * Menu "Language" option
      */
     MENU_LANGUAGE("menu_language"),
-
+    
+    /**
+     * Menu "Help" option
+     */
+    MENU_HELP("menu_help"),
+    
+    /**
+     * Menu "About" option
+     */
+    MENU_ABOUT("menu_about"),
+    
     // Tool tips
     /**
      * Tool bar "New" tool tip
@@ -182,6 +192,21 @@ public enum LanguageKey {
      */
     CONFIRMATION_CLOSE_TITLE("confirm_close_title"),
 
+    /**
+     * Name of the project displayed in the about popup
+     */
+    ABOUT_NAME("about_name"),
+
+    /**
+     * Name of the project authors displayed in the about popup
+     */
+    ABOUT_AUTHORS("about_authors"),
+    
+    /**
+     * Name of the used libraries displayed in the about popup
+     */
+    ABOUT_LIBRARIES("about_libraries"),
+    
     // File types
     /**
      * PNG files export dialog filter description

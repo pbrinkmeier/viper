@@ -21,6 +21,7 @@ import edu.kit.ipd.pp.viper.controller.CommandOpen;
 import edu.kit.ipd.pp.viper.controller.CommandParse;
 import edu.kit.ipd.pp.viper.controller.CommandPreviousStep;
 import edu.kit.ipd.pp.viper.controller.CommandSave;
+import edu.kit.ipd.pp.viper.controller.CommandShowAbout;
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
@@ -80,6 +81,7 @@ public class MainWindow extends JFrame {
     private final CommandNextStep commandNextStep;
     private final CommandNextSolution commandNextSolution;
     private final CommandCancel commandCancel;
+    private final CommandShowAbout commandShowAbout;
 
     private ToolBar toolbar;
     private MenuBar menubar;
@@ -135,7 +137,8 @@ public class MainWindow extends JFrame {
         this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
         this.commandCancel = new CommandCancel(this.manager);
         this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);
-
+        this.commandShowAbout = new CommandShowAbout();
+        
         // add menu bar and tool bar to window
         this.menubar = new MenuBar(this);
         this.toolbar = new ToolBar(this);
@@ -417,5 +420,14 @@ public class MainWindow extends JFrame {
      */
     public CommandCancel getCommandCancel() {
         return this.commandCancel;
+    }
+    
+    /**
+     * Returns the show about command
+     * 
+     * @return CommandShowAbout
+     */
+    public CommandShowAbout getCommandShowAbout() {
+        return this.commandShowAbout;
     }
 }
