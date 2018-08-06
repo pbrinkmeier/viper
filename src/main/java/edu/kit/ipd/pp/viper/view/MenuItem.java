@@ -36,8 +36,9 @@ public class MenuItem extends JMenuItem implements ActionListener, Observer {
      * 
      * @param textKey Key used for translation
      * @param command Command to execute when item was checked/unchecked
+     * @param shortcut An optional keyboard shortcut (null is fine too)
      */
-    public MenuItem(LanguageKey textKey, Command command) {
+    public MenuItem(LanguageKey textKey, Command command, KeyboardShortcut shortcut) {
         super(LanguageManager.getInstance().getString(textKey));
 
         LanguageManager.getInstance().addObserver(this);
@@ -46,6 +47,10 @@ public class MenuItem extends JMenuItem implements ActionListener, Observer {
         this.command = command;
 
         this.addActionListener(this);
+        
+        if (shortcut != null) {
+            this.setAccelerator(shortcut.getKeyStroke());
+        }
     }
 
     /**
