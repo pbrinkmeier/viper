@@ -45,6 +45,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private MenuItem itemExportPNG;
     private MenuItem itemExportSVG;
     private MenuItem itemAbout;
+    private MenuItem itemShowStandard;
     private CheckBoxMenuItem itemToggleSTD;
 
     private Menu recentlyUsedMenu;
@@ -275,8 +276,13 @@ public class MenuBar extends JMenuBar implements HasClickable {
      */
     private void addHelpMenu() {
         Menu helpMenu = new Menu(LanguageKey.MENU_HELP);
+        
         this.itemAbout = new MenuItem(LanguageKey.MENU_ABOUT, this.main.getCommandShowAbout());
         helpMenu.add(this.itemAbout);
+        
+        this.itemShowStandard = new MenuItem(LanguageKey.MENU_SHOW_STANDARD, this.main.getCommandShowStandard());
+        helpMenu.add(this.itemShowStandard);
+        
         this.add(helpMenu);
     }
 
@@ -296,6 +302,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
             this.itemExportSVG.setEnabled(false);
             this.itemToggleSTD.setEnabled(true);
             this.itemAbout.setEnabled(true);
+            this.itemShowStandard.setEnabled(true);
             break;
         case PARSED_QUERY:
         case FIRST_STEP:
@@ -312,6 +319,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
             this.itemExportSVG.setEnabled(true);
             this.itemToggleSTD.setEnabled(true);
             this.itemAbout.setEnabled(true);
+            this.itemShowStandard.setEnabled(true);
             break;
         default:
             break;

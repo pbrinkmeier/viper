@@ -96,6 +96,11 @@ public enum LanguageKey {
      */
     MENU_ABOUT("menu_about"),
     
+    /**
+     * Menu "Show standard library" option
+     */
+    MENU_SHOW_STANDARD("menu_show_standard"),
+    
     // Tool tips
     /**
      * Tool bar "New" tool tip
@@ -393,7 +398,12 @@ public enum LanguageKey {
     /**
      * Translation of unification for visualisation.
      */
-    UNIFICATION("unification");
+    UNIFICATION("unification"),
+    
+    /**
+     * Translation of standard library
+     */
+    STANDARD_LIBRARY("standard_library");
 
     private String value;
 

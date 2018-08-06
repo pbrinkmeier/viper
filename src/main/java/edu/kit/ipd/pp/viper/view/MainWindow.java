@@ -12,16 +12,17 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 import edu.kit.ipd.pp.viper.controller.CommandCancel;
-import edu.kit.ipd.pp.viper.controller.CommandNextSolution;
 import edu.kit.ipd.pp.viper.controller.CommandExit;
 import edu.kit.ipd.pp.viper.controller.CommandFormat;
 import edu.kit.ipd.pp.viper.controller.CommandNew;
+import edu.kit.ipd.pp.viper.controller.CommandNextSolution;
 import edu.kit.ipd.pp.viper.controller.CommandNextStep;
 import edu.kit.ipd.pp.viper.controller.CommandOpen;
 import edu.kit.ipd.pp.viper.controller.CommandParse;
 import edu.kit.ipd.pp.viper.controller.CommandPreviousStep;
 import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.CommandShowAbout;
+import edu.kit.ipd.pp.viper.controller.CommandShowStandard;
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
@@ -82,6 +83,7 @@ public class MainWindow extends JFrame {
     private final CommandNextSolution commandNextSolution;
     private final CommandCancel commandCancel;
     private final CommandShowAbout commandShowAbout;
+    private final CommandShowStandard commandShowStandard;
 
     private ToolBar toolbar;
     private MenuBar menubar;
@@ -138,6 +140,7 @@ public class MainWindow extends JFrame {
         this.commandCancel = new CommandCancel(this.manager);
         this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);
         this.commandShowAbout = new CommandShowAbout();
+        this.commandShowStandard = new CommandShowStandard(this.manager);
         
         // add menu bar and tool bar to window
         this.menubar = new MenuBar(this);
@@ -429,5 +432,14 @@ public class MainWindow extends JFrame {
      */
     public CommandShowAbout getCommandShowAbout() {
         return this.commandShowAbout;
+    }
+
+    /**
+     * Returns the show standard library command
+     * 
+     * @return CommandShowStandard
+     */
+    public CommandShowStandard getCommandShowStandard() {
+        return this.commandShowStandard;
     }
 }
