@@ -4,10 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.kit.ipd.pp.viper.controller.Command;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
+import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
  * Represents a panel contaning an input field for prolog queries, as well as a
@@ -29,7 +34,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
     /**
      * Input field
      */
-    private final JTextField textField;
+    private final HintedTextField textField;
 
     private Button buttonSend;
     private List<String> history;
@@ -50,7 +55,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         // initialise text field and add listener for [ENTER] key press
-        this.textField = new JTextField();
+        this.textField = new HintedTextField(LanguageKey.INPUT_HINT);
         this.textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -58,8 +63,10 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
                 clear();
             }
         });
+        
+        
+        
         this.textField.addKeyListener(this);
-
         this.textField.setFont(new Font("monospaced", Font.PLAIN, 14));
 
         JLabel text = new JLabel("?-");
@@ -127,8 +134,12 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         switch (state) {
         case NOT_PARSED_YET:
             this.buttonSend.setEnabled(false);
+            this.textField.setEditable(false);
+            this.textField.setEnabled(false);
             break;
         case PARSED_PROGRAM:
+            this.textField.setEditable(true);
+            this.textField.setEnabled(true);
         case PARSED_QUERY:
         case FIRST_STEP:
         case LAST_STEP:
@@ -191,5 +202,52 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      */
     @Override
     public void keyReleased(KeyEvent e) {
+    }
+    
+    private class HintedTextField extends JTextField implements FocusListener, Observer {
+        private static final long serialVersionUID = 1805984011473862039L;
+
+        private String hintText;
+        private final LanguageKey hint;
+        
+        public HintedTextField(LanguageKey hint) {
+            this.hint = hint;
+            this.hintText = "";
+            this.addFocusListener(this);
+            LanguageManager.getInstance().addObserver(this);
+        }
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            if (this.getText().equals(this.hintText)) {
+                this.setText("");
+            }
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            if (this.getText().isEmpty() && this.isEditable()) {
+                this.hintText = LanguageManager.getInstance().getString(this.hint);
+                this.setText(this.hintText);
+            }
+        }
+
+        @Override
+        public void update(Observable o, Object arg) {
+            if (this.getText().equals(this.hintText) && this.isEditable()) {
+                this.hintText = LanguageManager.getInstance().getString(this.hint);
+                this.setText(this.hintText);
+            }
+        }
+        
+        @Override
+        public void setEditable(boolean editable) {
+            super.setEditable(editable);
+            
+            if (!editable) {
+                this.hintText = "";
+                this.setText(this.hintText);
+            }
+        }
     }
 }

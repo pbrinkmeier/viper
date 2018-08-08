@@ -41,7 +41,7 @@ public class CommandSetLang extends Command {
         this.prefManager.setLanguage(this.lang);
 
         boolean hasGraph = this.visualisation.hasGraph();
-        this.console.clearAll();
+        this.console.clearOutputArea();
 
         if (hasGraph) {
             this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());

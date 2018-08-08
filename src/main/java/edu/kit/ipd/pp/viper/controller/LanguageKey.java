@@ -198,6 +198,11 @@ public enum LanguageKey {
     CONFIRMATION_CLOSE_TITLE("confirm_close_title"),
 
     /**
+     * Hint text displayed when the console input field is empty
+     */
+    INPUT_HINT("input_hint"),
+    
+    /**
      * Name of the project displayed in the about popup
      */
     ABOUT_NAME("about_name"),
