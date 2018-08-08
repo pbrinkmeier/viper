@@ -87,7 +87,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addNewItem(Menu menu) {
-        this.itemNew = new MenuItem(LanguageKey.MENU_NEW, this.main.getCommandNew());
+        this.itemNew = new MenuItem(LanguageKey.MENU_NEW, this.main.getCommandNew(), KeyboardShortcut.NEW);
         menu.add(this.itemNew);
     }
 
@@ -97,7 +97,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addOpenItem(Menu menu) {
-        this.itemOpen = new MenuItem(LanguageKey.MENU_OPEN, this.main.getCommandOpen());
+        this.itemOpen = new MenuItem(LanguageKey.MENU_OPEN, this.main.getCommandOpen(), KeyboardShortcut.OPEN);
         menu.add(this.itemOpen);
     }
 
@@ -107,7 +107,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addSaveItem(Menu menu) {
-        this.itemSave = new MenuItem(LanguageKey.MENU_SAVE, this.main.getCommandSave());
+        this.itemSave = new MenuItem(LanguageKey.MENU_SAVE, this.main.getCommandSave(), KeyboardShortcut.SAVE);
         menu.add(this.itemSave);
     }
 
@@ -119,8 +119,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addSaveAsItem(Menu menu) {
         this.itemSaveAs = new MenuItem(LanguageKey.MENU_SAVEAS,
                 new CommandSave(this.main.getConsolePanel(), this.main.getEditorPanel(), SaveType.SAVE_AS,
-                        this.main::setWindowTitle, this.main.getInterpreterManager()));
-
+                        this.main::setWindowTitle, this.main.getInterpreterManager()),
+                KeyboardShortcut.SAVE_AS);
         menu.add(this.itemSaveAs);
     }
 
@@ -161,7 +161,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addExitItem(Menu menu) {
-        this.itemExit = new MenuItem(LanguageKey.MENU_EXIT, this.main.getCommandExit());
+        this.itemExit = new MenuItem(LanguageKey.MENU_EXIT, this.main.getCommandExit(), KeyboardShortcut.EXIT);
         menu.add(this.itemExit);
     }
 
@@ -183,7 +183,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addParseItem(Menu menu) {
-        this.itemParse = new MenuItem(LanguageKey.MENU_PARSE, this.main.getCommandParse());
+        this.itemParse = new MenuItem(LanguageKey.MENU_PARSE, this.main.getCommandParse(), KeyboardShortcut.PARSE);
         menu.add(this.itemParse);
     }
 
@@ -193,7 +193,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param menu Menu to attach to
      */
     private void addFormatItem(Menu menu) {
-        this.itemFormat = new MenuItem(LanguageKey.MENU_FORMAT, this.main.getCommandFormat());
+        this.itemFormat = new MenuItem(LanguageKey.MENU_FORMAT, this.main.getCommandFormat(), KeyboardShortcut.FORMAT);
         menu.add(this.itemFormat);
     }
 
@@ -204,10 +204,10 @@ public class MenuBar extends JMenuBar implements HasClickable {
         Menu menu = new Menu(LanguageKey.MENU_EXPORT);
 
         this.itemExportPNG = new MenuItem(LanguageKey.MENU_EXPORT_PNG, new CommandExportImage(
-                this.main.getConsolePanel(), ImageFormat.PNG, this.main.getInterpreterManager()));
+                this.main.getConsolePanel(), ImageFormat.PNG, this.main.getInterpreterManager()), null);
 
         this.itemExportSVG = new MenuItem(LanguageKey.MENU_EXPORT_SVG, new CommandExportImage(
-                this.main.getConsolePanel(), ImageFormat.SVG, this.main.getInterpreterManager()));
+                this.main.getConsolePanel(), ImageFormat.SVG, this.main.getInterpreterManager()), null);
 
         menu.add(this.itemExportPNG);
         menu.add(this.itemExportSVG);
