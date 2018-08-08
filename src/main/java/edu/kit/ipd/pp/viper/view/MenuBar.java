@@ -277,10 +277,10 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addHelpMenu() {
         Menu helpMenu = new Menu(LanguageKey.MENU_HELP);
         
-        this.itemAbout = new MenuItem(LanguageKey.MENU_ABOUT, this.main.getCommandShowAbout());
+        this.itemAbout = new MenuItem(LanguageKey.MENU_ABOUT, this.main.getCommandShowAbout(), null);
         helpMenu.add(this.itemAbout);
         
-        this.itemShowStandard = new MenuItem(LanguageKey.MENU_SHOW_STANDARD, this.main.getCommandShowStandard());
+        this.itemShowStandard = new MenuItem(LanguageKey.MENU_SHOW_STANDARD, this.main.getCommandShowStandard(), null);
         helpMenu.add(this.itemShowStandard);
         
         this.add(helpMenu);

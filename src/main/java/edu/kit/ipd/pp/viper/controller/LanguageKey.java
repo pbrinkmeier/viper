@@ -212,6 +212,11 @@ public enum LanguageKey {
      */
     ABOUT_LIBRARIES("about_libraries"),
     
+    /**
+     * Project description displayed in the about popup
+     */
+    ABOUT_DESCRIPTION("about_description"),
+    
     // File types
     /**
      * PNG files export dialog filter description
