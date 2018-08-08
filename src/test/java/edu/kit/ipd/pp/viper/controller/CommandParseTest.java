@@ -43,9 +43,6 @@ public class CommandParseTest {
                 this.gui::switchClickableState).execute();
 
         assertTrue(this.editor.getSourceText().equals(""));
-        assertFalse(this.visualisation.hasGraph());
-        assertTrue(this.console.getOutputAreaText().trim()
-                .equals(LanguageManager.getInstance().getString(LanguageKey.PARSER_SUCCESS)));
         assertFalse(this.console.hasLockedInput());
     }
 
@@ -62,9 +59,6 @@ public class CommandParseTest {
                 this.gui::switchClickableState).execute();
 
         assertTrue(this.editor.getSourceText().trim().equals("("));
-        assertFalse(this.visualisation.hasGraph());
-        assertFalse(this.console.getOutputAreaText().trim()
-                .equals(LanguageManager.getInstance().getString(LanguageKey.PARSER_SUCCESS)));
         assertTrue(this.console.hasLockedInput());
     }
 
@@ -80,9 +74,6 @@ public class CommandParseTest {
                 this.gui::switchClickableState).execute();
 
         assertTrue(this.editor.getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
-        assertFalse(this.visualisation.hasGraph());
-        assertTrue(this.console.getOutputAreaText().trim()
-                .equals(LanguageManager.getInstance().getString(LanguageKey.PARSER_SUCCESS)));
         assertFalse(this.console.hasLockedInput());
     }
 }

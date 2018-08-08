@@ -139,7 +139,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         if (graph == this.placeholderGraph)
             this.showsPlaceholder = true;
         
-        this.clearVisualization();
         this.viewer.setFromGraph(graph);
         this.hasGraph = true;
     }
@@ -206,10 +205,10 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        this.buildPlaceholderGraph();
-        
-        if (this.showsPlaceholder)
+    public void update(Observable o, Object arg) {        
+        if (this.showsPlaceholder) {
+            this.buildPlaceholderGraph();
             this.setFromGraph(this.placeholderGraph);
+        }
     }
 }

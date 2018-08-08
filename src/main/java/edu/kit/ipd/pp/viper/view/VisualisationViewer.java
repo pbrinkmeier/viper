@@ -54,6 +54,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * 
      * @param gui Reference to main window
      */
+    @SuppressWarnings("unchecked")
     public VisualisationViewer(MainWindow gui) {
         super();
 
