@@ -43,4 +43,9 @@ public class ColorScheme {
      * Green color in visualisation (used for successful unification)
      */
     public static final guru.nidi.graphviz.attribute.Color VIS_GREEN = guru.nidi.graphviz.attribute.Color.GREEN;
+    
+    /**
+     * Grey color in placeholder visualisation
+     */
+    public static final guru.nidi.graphviz.attribute.Color PLACEHOLDER_COLOR = guru.nidi.graphviz.attribute.Color.GREY;
 }

@@ -203,6 +203,11 @@ public enum LanguageKey {
     INPUT_HINT("input_hint"),
     
     /**
+     * Hint text displayed when the visualisation doesn't have a graph
+     */
+    VISUALISATION_HINT("visualisation_hint"),
+    
+    /**
      * Name of the project displayed in the about popup
      */
     ABOUT_NAME("about_name"),
