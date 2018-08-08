@@ -220,6 +220,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         @Override
         public void focusGained(FocusEvent e) {
             if (this.getText().equals(this.hintText)) {
+                this.setForeground(ColorScheme.CONSOLE_BLACK);
                 this.setText("");
             }
         }
@@ -228,6 +229,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         public void focusLost(FocusEvent e) {
             if (this.getText().isEmpty() && this.isEditable()) {
                 this.hintText = LanguageManager.getInstance().getString(this.hint);
+                this.setForeground(ColorScheme.PLACEHOLDER_TEXT_COLOR);
                 this.setText(this.hintText);
             }
         }
@@ -235,6 +237,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         @Override
         public void update(Observable o, Object arg) {
             if (this.getText().equals(this.hintText) && this.isEditable()) {
+                this.setForeground(ColorScheme.PLACEHOLDER_TEXT_COLOR);
                 this.hintText = LanguageManager.getInstance().getString(this.hint);
                 this.setText(this.hintText);
             }
@@ -245,8 +248,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
             super.setEditable(editable);
             
             if (!editable) {
-                this.hintText = "";
-                this.setText(this.hintText);
+                this.setText("");
             }
         }
     }

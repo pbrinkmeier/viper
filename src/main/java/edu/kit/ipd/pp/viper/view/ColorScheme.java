@@ -33,6 +33,11 @@ public class ColorScheme {
      * White color in GUI (used for background)
      */
     public static final java.awt.Color GUI_WHITE = new java.awt.Color(250, 250, 250);
+    
+    /**
+     * Gray color used for placeholder text
+     */
+    public static final java.awt.Color PLACEHOLDER_TEXT_COLOR = java.awt.Color.GRAY;
 
     /**
      * Red color in visualisation (used for unsuccessful unification)
@@ -47,5 +52,5 @@ public class ColorScheme {
     /**
      * Grey color in placeholder visualisation
      */
-    public static final guru.nidi.graphviz.attribute.Color PLACEHOLDER_COLOR = guru.nidi.graphviz.attribute.Color.GREY;
+    public static final guru.nidi.graphviz.attribute.Color PLACEHOLDER_VIS_COLOR = guru.nidi.graphviz.attribute.Color.GREY;
 }
