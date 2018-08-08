@@ -22,7 +22,7 @@ public class CommandShowAbout extends Command implements Observer {
     private boolean isOpened;
 
     private JFrame frame;
-    private JLabel labelName;
+    private JLabel labelTitle;
     private JLabel labelAuthors;
     private JLabel labelLibraries;
     private JLabel labelIcon;
@@ -34,7 +34,7 @@ public class CommandShowAbout extends Command implements Observer {
         this.isOpened = false;
         
         ImageIcon icon = new ImageIcon(this.getClass().getResource(ICON_PATH));
-        icon.setImage(icon.getImage().getScaledInstance(160, 160, Image.SCALE_SMOOTH));
+        icon.setImage(icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
         this.labelIcon = new JLabel(icon);
         
         LanguageManager.getInstance().addObserver(this);
@@ -45,45 +45,57 @@ public class CommandShowAbout extends Command implements Observer {
 
         this.frame.setTitle(langman.getString(LanguageKey.MENU_ABOUT));
         
-        this.labelName.setText("<html><b>" + langman.getString(LanguageKey.ABOUT_NAME)
-                + "</b></html>");
+        this.labelTitle.setText(""
+                + "<html>"
+                + "<center>"
+                + "<b>" + langman.getString(LanguageKey.ABOUT_NAME) + "</b><br/>"
+                + langman.getString(LanguageKey.ABOUT_DESCRIPTION)
+                + "</center><br/>"
+                + "</html>");
         
-        this.labelAuthors.setText("<html><b>" + langman.getString(LanguageKey.ABOUT_AUTHORS)
-                + "</b><br/>"
-                + "Lukas Brocke<br/"
-                + "Paul Brinkmeier<br/>"
-                + "Jannik Koch<br/"
-                + "Aaron Maier<br/"
-                + "Christian Oder" + "</html>");
-
-        this.labelLibraries.setText("<html><b>" + langman.getString(LanguageKey.ABOUT_LIBRARIES)
-                + "</b><br/>"
-                + "Fifesoft RSyntaxTextArea<br/>"
-                + "Apache Batik<br/>"
-                + "Graphviz-Java" + "</html>");
+        this.labelAuthors.setText(""
+                + "<html>"
+                + "<b>" + langman.getString(LanguageKey.ABOUT_AUTHORS) + "</b>"
+                + "<ul>"
+                + "  <li>Lukas Brocke</li>"
+                + "  <li>Paul Brinkmeier</li>"
+                + "  <li>Jannik Koch</li>"
+                + "  <li>Aaron Maier</li>"
+                + "  <li>Christian Oder</li>"
+                + "</ul>"
+                + "</html>");
+        
+        this.labelLibraries.setText(""
+                + "<html>"
+                + "<b>" + langman.getString(LanguageKey.ABOUT_LIBRARIES) + "</b>"
+                + "<ul>"
+                + "  <li><b>Apache Batik:</b><br/>https://xmlgraphics.apache.org/batik/</li>"
+                + "  <li><b>Graphviz-Java:</b><br/>https://github.com/nidi3/graphviz-java</li>"
+                + "  <li><b>Fifesoft RSyntaxTextArea:</b><br/>https://github.com/bobbylight/RSyntaxTextArea</li>"
+                + "</ul>"
+                + "</html>");
     }
     
     @Override
     public void execute() {
         if (!this.isOpened) {
             this.frame = new JFrame();
-            this.frame.setSize(400, 300);
             this.frame.setLocationRelativeTo(null);
             this.frame.setResizable(false);
             this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             this.frame.setVisible(true);
 
-            this.labelName = new JLabel();
-            this.labelName.setVisible(true);
-            this.labelName.setHorizontalAlignment(SwingConstants.CENTER);
+            this.labelTitle = new JLabel();
+            this.labelTitle.setVisible(true);
+            this.labelTitle.setHorizontalAlignment(SwingConstants.CENTER);
 
             this.labelAuthors = new JLabel();
             this.labelAuthors.setVisible(true);
             this.labelAuthors.setHorizontalAlignment(SwingConstants.LEFT);
-
+            
             this.labelLibraries = new JLabel();
             this.labelLibraries.setVisible(true);
-            this.labelLibraries.setHorizontalAlignment(SwingConstants.LEFT);
+            this.labelLibraries.setHorizontalAlignment(SwingConstants.LEFT);            
 
             this.setText();
             
@@ -93,24 +105,21 @@ public class CommandShowAbout extends Command implements Observer {
             
             layout.setHorizontalGroup(
                 layout.createParallelGroup()
-                  .addComponent(this.labelName)
+                  .addComponent(this.labelTitle)
                   .addGroup(layout.createSequentialGroup()
                       .addComponent(this.labelIcon)
-                      .addGroup(layout.createParallelGroup()
-                              .addComponent(this.labelAuthors)
-                              .addComponent(this.labelLibraries)))
+                      .addComponent(this.labelAuthors)
+                      .addComponent(this.labelLibraries))
             );
             
             layout.setVerticalGroup(
                 layout.createSequentialGroup()
-                    .addComponent(this.labelName)
+                    .addComponent(this.labelTitle)
                     .addGroup(layout.createParallelGroup()
                             .addComponent(this.labelIcon)
-                            .addGroup(layout.createSequentialGroup()
-                                    .addComponent(this.labelAuthors)
-                                    .addComponent(this.labelLibraries)))
+                            .addComponent(this.labelAuthors)
+                            .addComponent(this.labelLibraries))
             );
-            
             
             this.frame.getContentPane().setLayout(layout);
             this.frame.pack();
