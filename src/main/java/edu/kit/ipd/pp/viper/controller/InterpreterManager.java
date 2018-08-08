@@ -349,4 +349,13 @@ public class InterpreterManager {
             this.toggleStateFunc.accept(ClickableState.NEXT_SOLUTION_ABORTED);
         }
     }
+    
+    /**
+     * Getter-Method for the code used in the standard library
+     * 
+     * @return the standard library code
+     */
+    public String getStandardLibraryCode() {
+        return InterpreterManager.STANDARD_LIB;
+    }
 }
