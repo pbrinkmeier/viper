@@ -177,8 +177,8 @@ public class PrologLexer {
         do {
             sb.append(this.program.charAt(this.pos));
             this.advance();
-        } while (this.pos < this.program.length() && SYMBOLS.indexOf(this.program.charAt(this.pos)) > -1);
-        TokenType type = SYMBOL_STRING_TO_TOKEN.get(sb.toString());
+        } while (this.pos < this.program.length() && PrologLexer.SYMBOLS.indexOf(this.program.charAt(this.pos)) > -1);
+        TokenType type = PrologLexer.SYMBOL_STRING_TO_TOKEN.get(sb.toString());
         if (type == null) {
             throw new ParseException(
                     String.format(LanguageManager.getInstance().getString(LanguageKey.OPERATOR_NOT_RECOGNIZED),

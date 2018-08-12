@@ -66,9 +66,11 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         this.viewer = new VisualisationViewer(this.main);
         this.componentResized(null);
 
-        this.zoomIn = new ToolBarButton(ICON_ZOOM_IN, LanguageKey.ZOOM_IN, new CommandZoom(this, ZoomType.ZOOM_IN));
+        this.zoomIn = new ToolBarButton(VisualisationPanel.ICON_ZOOM_IN, LanguageKey.ZOOM_IN, new CommandZoom(this,
+                ZoomType.ZOOM_IN));
         this.zoomIn.setBounds(10, 10, 30, 30);
-        this.zoomOut = new ToolBarButton(ICON_ZOOM_OUT, LanguageKey.ZOOM_OUT, new CommandZoom(this, ZoomType.ZOOM_OUT));
+        this.zoomOut = new ToolBarButton(VisualisationPanel.ICON_ZOOM_OUT, LanguageKey.ZOOM_OUT, new CommandZoom(this,
+                ZoomType.ZOOM_OUT));
         this.zoomOut.setBounds(10, 40, 30, 30);
 
         // viewer is on level 1, both buttons on level 2 and therefore appear above the

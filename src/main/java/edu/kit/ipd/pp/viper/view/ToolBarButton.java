@@ -63,7 +63,7 @@ public class ToolBarButton extends JButton implements ActionListener, Observer {
 
         // load icon and resize it
         ImageIcon icon = new ImageIcon(this.getClass().getResource(iconPath));
-        icon.setImage(icon.getImage().getScaledInstance(ICON_WIDTH, ICON_HEIGHT, Image.SCALE_SMOOTH));
+        icon.setImage(icon.getImage().getScaledInstance(this.ICON_WIDTH, this.ICON_HEIGHT, Image.SCALE_SMOOTH));
         this.setIcon(icon);
     }
 

@@ -79,7 +79,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.fontSize = FONT_DEFAULT_SIZE;
 
         this.textArea = new RSyntaxTextArea();
-        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, FONT_DEFAULT_SIZE));
+        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, EditorPanel.FONT_DEFAULT_SIZE));
         this.textArea.setTabSize(2);
         this.textArea.setTabsEmulated(true);
         this.textArea.addKeyListener(this);

@@ -33,7 +33,7 @@ public class CommandShowAbout extends Command implements Observer {
     public CommandShowAbout() {
         this.isOpened = false;
         
-        ImageIcon icon = new ImageIcon(this.getClass().getResource(ICON_PATH));
+        ImageIcon icon = new ImageIcon(this.getClass().getResource(this.ICON_PATH));
         icon.setImage(icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
         this.labelIcon = new JLabel(icon);
         

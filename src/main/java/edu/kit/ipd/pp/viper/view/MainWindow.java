@@ -111,9 +111,9 @@ public class MainWindow extends JFrame {
     public MainWindow(boolean debug) {
         MainWindow.debug = debug;
 
-        this.setTitle(WINDOW_TITLE);
+        this.setTitle(this.WINDOW_TITLE);
         this.setResizable(true);
-        this.setIconImage(new ImageIcon(this.getClass().getResource(WINDOW_ICON)).getImage());
+        this.setIconImage(new ImageIcon(this.getClass().getResource(this.WINDOW_ICON)).getImage());
 
         // use system built-in look and feel instead of default swing look
         MainWindow.setDesign();
@@ -169,7 +169,8 @@ public class MainWindow extends JFrame {
         // load language from config and set it
         LanguageManager.getInstance().setLocale(this.prefManager.getLanguage());
         this.consolePanel.printLine(
-                String.format(LanguageManager.getInstance().getString(LanguageKey.VIPER_READY), VERSION), LogType.INFO);
+                String.format(LanguageManager.getInstance().getString(LanguageKey.VIPER_READY), MainWindow.VERSION),
+                LogType.INFO);
     }
 
     /**
@@ -253,7 +254,7 @@ public class MainWindow extends JFrame {
      */
     private void changeWindowTitle(String title) {
         if (title == null || title.equals(""))
-            this.setTitle(WINDOW_TITLE);
+            this.setTitle(MainWindow.WINDOW_TITLE);
         else
             this.setTitle(title + " - " + WINDOW_TITLE);
     }
