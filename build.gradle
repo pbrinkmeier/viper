@@ -2,6 +2,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
 
 mainClassName = 'edu.kit.ipd.pp.viper.view.MainWindow'
 
@@ -29,6 +30,10 @@ jacocoTestReport {
         html.enabled true
         html.destination file("${buildDir}/reports/coverage")
     }
+}
+
+checkstyle {
+    configFile = rootProject.file('checkstyle.xml')
 }
 
 jar {
