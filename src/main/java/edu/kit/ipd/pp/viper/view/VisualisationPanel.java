@@ -146,7 +146,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     private void buildPlaceholderGraph() {
         Node rootNode = node(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_HINT)).with(
                 Shape.RECTANGLE,
-                ColorScheme.PLACEHOLDER_VIS_COLOR,
+                ColorScheme.VIS_WHITE,
                 ColorScheme.PLACEHOLDER_VIS_COLOR.font());
         this.placeholderGraph = graph("placeholder")
                 .directed()
