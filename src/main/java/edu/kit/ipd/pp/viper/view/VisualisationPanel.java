@@ -1,22 +1,31 @@
 package edu.kit.ipd.pp.viper.view;
 
+import static guru.nidi.graphviz.model.Factory.graph;
+import static guru.nidi.graphviz.model.Factory.node;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import edu.kit.ipd.pp.viper.controller.CommandZoom;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
+import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
+import guru.nidi.graphviz.attribute.Font;
+import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.model.Graph;
+import guru.nidi.graphviz.model.Node;
 
 /**
  * Represents a panel containing a SVG viewer
  */
-public class VisualisationPanel extends JPanel implements ComponentListener, HasClickable {
+public class VisualisationPanel extends JPanel implements ComponentListener, HasClickable, Observer {
     /**
      * Serial UID
      */
@@ -42,7 +51,9 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     private ToolBarButton zoomOut;
 
     private boolean hasGraph;
-
+    private boolean showsPlaceholder;
+    private Graph placeholderGraph;
+    
     /**
      * Creates a new viewer panel
      * 
@@ -81,6 +92,9 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
 
         this.add(contentPane, BorderLayout.CENTER);
         this.hasGraph = false;
+        this.showsPlaceholder = true;
+        
+        LanguageManager.getInstance().addObserver(this);
     }
 
     /**
@@ -90,6 +104,15 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      */
     public boolean hasGraph() {
         return this.hasGraph;
+    }
+    
+    /**
+     * Returns whether the graph currently shown in the panel is the placeholder graph.
+     * 
+     * @return boolean value whether the set graph is the placeholder graph
+     */
+    public boolean showsPlaceholder() {
+        return this.showsPlaceholder;
     }
 
     /**
@@ -115,9 +138,23 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * @param graph The graph to show
      */
     public void setFromGraph(Graph graph) {
-        this.clearVisualization();
+        if (graph == this.placeholderGraph)
+            this.showsPlaceholder = true;
+        
         this.viewer.setFromGraph(graph);
         this.hasGraph = true;
+    }
+    
+    private void buildPlaceholderGraph() {
+        Node rootNode = node(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_HINT)).with(
+                Shape.RECTANGLE,
+                ColorScheme.VIS_WHITE,
+                ColorScheme.PLACEHOLDER_VIS_COLOR.font());
+        this.placeholderGraph = graph("placeholder")
+                .directed()
+                .with(rootNode)
+                .nodeAttr()
+                .with(Font.name("Times New Roman"));
     }
 
     /**
@@ -149,6 +186,12 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         case PARSED_PROGRAM:
             this.zoomIn.setEnabled(false);
             this.zoomOut.setEnabled(false);
+            
+            if (this.placeholderGraph == null)
+                this.buildPlaceholderGraph();
+            
+            this.setFromGraph(this.placeholderGraph);
+            this.viewer.disableNavigation();
             break;
         case PARSED_QUERY:
         case FIRST_STEP:
@@ -156,9 +199,18 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         case NO_MORE_SOLUTIONS:
             this.zoomIn.setEnabled(true);
             this.zoomOut.setEnabled(true);
+            this.viewer.enableNavigation();
             break;
         default:
             break;
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {        
+        if (this.showsPlaceholder) {
+            this.buildPlaceholderGraph();
+            this.setFromGraph(this.placeholderGraph);
         }
     }
 }

@@ -43,12 +43,18 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * Reference of main window
      */
     private final MainWindow main;
+    
+    /**
+     * Boolean flag deciding whether the viewer can be navigated
+     */
+    private boolean navigationEnabled = true;
 
     /**
      * Creates a new interactive viewer
      * 
      * @param gui Reference to main window
      */
+    @SuppressWarnings("unchecked")
     public VisualisationViewer(MainWindow gui) {
         super();
 
@@ -66,11 +72,13 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             @Override
             public boolean startInteraction(InputEvent ie) {
                 int mods = ie.getModifiers();
-                return ie.getID() == MouseEvent.MOUSE_PRESSED && (mods & InputEvent.BUTTON1_MASK) != 0;
+                return ie.getID() == MouseEvent.MOUSE_PRESSED
+                                  && (mods & InputEvent.BUTTON1_MASK) != 0
+                                  && navigationEnabled;
             }
         };
-        this.getInteractors().add(panInteractor);
 
+        this.getInteractors().add(panInteractor);
         this.addMouseWheelListener(this);
     }
 
@@ -81,7 +89,8 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
-        this.zoom(event.getPreciseWheelRotation() > 0.0 ? ZoomType.ZOOM_OUT : ZoomType.ZOOM_IN);
+        if (this.navigationEnabled)
+            this.zoom(event.getPreciseWheelRotation() > 0.0 ? ZoomType.ZOOM_OUT : ZoomType.ZOOM_IN);
     }
 
     /**
@@ -159,6 +168,20 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     }
 
     /**
+     * Enables the navigation (zooming and scrolling)
+     */
+    public void enableNavigation() {
+        this.navigationEnabled = true;
+    }
+
+    /**
+     * Disables the navigation (zooming and scrolling)
+     */
+    public void disableNavigation() {
+        this.navigationEnabled = false;        
+    }
+    
+    /**
      * This method must be overriden to use our custom user agent. That user agent
      * is used to suppress SVG warnings, because the default behavior is to display
      * a dialog instead of throwing an exception.
@@ -167,7 +190,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     protected UserAgent createUserAgent() {
         return new CustomUserAgent(this);
     }
-
+    
     private class CustomUserAgent extends BridgeUserAgent {
         private VisualisationViewer viewer;
 
