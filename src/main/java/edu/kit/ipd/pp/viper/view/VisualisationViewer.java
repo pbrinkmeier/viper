@@ -145,14 +145,15 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
 
         ConsolePanel console = this.main.getConsolePanel();
         File tmpFile = new File(tmp + "/" + VisualisationViewer.TMP_NAME);
+        final String path = tmpFile.getAbsolutePath();
         try {
             Graphviz.fromGraph(graph).render(Format.SVG).toFile(tmpFile);
 
             if (console != null)           
-                this.main.getConsolePanel().printLine("Saved graph to " + tmpFile.getAbsolutePath(), LogType.DEBUG);
+                this.main.getConsolePanel().printLine("Saved graph to " + path, LogType.DEBUG);
         } catch (IOException e) {
             if (console != null)
-                this.main.getConsolePanel().printLine("Couldn't save graph to " + tmpFile.getAbsolutePath(), LogType.DEBUG);
+                this.main.getConsolePanel().printLine("Couldn't save graph to " + path, LogType.DEBUG);
             return;
         }
 
