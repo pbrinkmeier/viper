@@ -96,6 +96,9 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
 
         this.add(contentPane, BorderLayout.CENTER);
         this.hasGraph = false;
+
+        this.buildPlaceholderGraph();
+        this.setFromGraph(this.placeholderGraph);
         this.showsPlaceholder = true;
         
         LanguageManager.getInstance().addObserver(this);

@@ -119,7 +119,14 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * Clears the displayed SVG
      */
     public void clear() {
-        this.setURI(null);
+        try {
+            this.setURI(null);            
+        } catch (NullPointerException e) {
+            ConsolePanel panel = this.main.getConsolePanel();
+            if (panel != null)
+                panel.printLine("Failed to clear visualisation. This should only happen during testing as"
+                        + "a result of bad threading in Batik", LogType.DEBUG);
+        }
     }
 
     /**
@@ -136,16 +143,27 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             return;
         }
 
+        ConsolePanel console = this.main.getConsolePanel();
         File tmpFile = new File(tmp + "/" + VisualisationViewer.TMP_NAME);
         try {
             Graphviz.fromGraph(graph).render(Format.SVG).toFile(tmpFile);
-            this.main.getConsolePanel().printLine("Saved graph to " + tmpFile.getAbsolutePath(), LogType.DEBUG);
+
+            if (console != null)           
+                this.main.getConsolePanel().printLine("Saved graph to " + tmpFile.getAbsolutePath(), LogType.DEBUG);
         } catch (IOException e) {
-            this.main.getConsolePanel().printLine("Couldn't save graph to " + tmpFile.getAbsolutePath(), LogType.DEBUG);
+            if (console != null)
+                this.main.getConsolePanel().printLine("Couldn't save graph to " + tmpFile.getAbsolutePath(), LogType.DEBUG);
             return;
         }
 
-        this.setURI(tmpFile.toURI().toString());
+        try {
+            this.setURI(tmpFile.toURI().toString());            
+        } catch (NullPointerException e) {
+            ConsolePanel panel = this.main.getConsolePanel();
+            if (panel != null)
+                panel.printLine("Failed to set visualisation. This should only happen during testing"
+                        + "as a result of bad threading in Batik", LogType.DEBUG);
+        }
     }
 
     /**
