@@ -4,6 +4,7 @@ apply plugin: 'eclipse'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 
+version = '1.0'
 mainClassName = 'edu.kit.ipd.pp.viper.view.MainWindow'
 
 repositories {
