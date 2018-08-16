@@ -43,7 +43,6 @@ public class CommandToggleLib extends Command {
         this.console.clearAll();
         this.visualisation.clearVisualization();
         this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
-
         this.preferencesManager.setStandardLibEnabled(this.preferencesManager.isStandardLibEnabled() ? false : true);
     }
 }

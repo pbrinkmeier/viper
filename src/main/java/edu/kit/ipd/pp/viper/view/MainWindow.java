@@ -111,9 +111,10 @@ public class MainWindow extends JFrame {
     public MainWindow(boolean debug) {
         MainWindow.debug = debug;
 
-        this.setTitle(this.WINDOW_TITLE);
+        this.setName(GUIComponentID.FRAME_MAIN.toString());
+        this.setTitle(MainWindow.WINDOW_TITLE);
         this.setResizable(true);
-        this.setIconImage(new ImageIcon(this.getClass().getResource(this.WINDOW_ICON)).getImage());
+        this.setIconImage(new ImageIcon(this.getClass().getResource(MainWindow.WINDOW_ICON)).getImage());
 
         // use system built-in look and feel instead of default swing look
         MainWindow.setDesign();
@@ -158,7 +159,7 @@ public class MainWindow extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                commandExit.execute();
+                MainWindow.this.commandExit.execute();
             }
         });
         this.setLocationRelativeTo(null);

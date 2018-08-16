@@ -47,13 +47,15 @@ public class ToolBarButton extends JButton implements ActionListener, Observer {
      * language key for translation of the tooltip, as well as command to execute on
      * click.
      * 
+     * @param id the GUI component id to identify the button in test cases
      * @param iconPath Path to the icon that will be displayed on the button
      * @param tooltipKey Key used for translation of the button tooltip
      * @param command Command to execute on click
      */
-    public ToolBarButton(String iconPath, LanguageKey tooltipKey, Command command) {
+    public ToolBarButton(GUIComponentID id, String iconPath, LanguageKey tooltipKey, Command command) {
         super();
 
+        this.setName(id.toString());
         this.tooltipKey = tooltipKey;
         this.command = command;
 
@@ -63,7 +65,9 @@ public class ToolBarButton extends JButton implements ActionListener, Observer {
 
         // load icon and resize it
         ImageIcon icon = new ImageIcon(this.getClass().getResource(iconPath));
-        icon.setImage(icon.getImage().getScaledInstance(this.ICON_WIDTH, this.ICON_HEIGHT, Image.SCALE_SMOOTH));
+        icon.setImage(icon.getImage().getScaledInstance(ToolBarButton.ICON_WIDTH,
+                                                        ToolBarButton.ICON_HEIGHT,
+                                                        Image.SCALE_SMOOTH));
         this.setIcon(icon);
     }
 

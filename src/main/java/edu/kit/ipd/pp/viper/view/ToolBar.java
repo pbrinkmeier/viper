@@ -66,22 +66,41 @@ public class ToolBar extends JToolBar implements HasClickable {
      * Adds all buttons to the toolbar
      */
     private void addButtons() {
-        this.buttonNew = new ToolBarButton(this.ICON_NEW, LanguageKey.TOOLTIP_NEW, this.main.getCommandNew());
-        this.buttonOpen = new ToolBarButton(this.ICON_OPEN, LanguageKey.TOOLTIP_OPEN, this.main.getCommandOpen());
-        this.buttonSave = new ToolBarButton(this.ICON_SAVE, LanguageKey.TOOLTIP_SAVE, this.main.getCommandSave());
+        this.buttonNew = new ToolBarButton(GUIComponentID.BUTTON_NEW,
+                                           ToolBar.ICON_NEW, LanguageKey.TOOLTIP_NEW,
+                                           this.main.getCommandNew());
+        
+        this.buttonOpen = new ToolBarButton(GUIComponentID.BUTTON_OPEN,
+                                           ToolBar.ICON_OPEN, LanguageKey.TOOLTIP_OPEN,
+                                           this.main.getCommandOpen());
+        
+        this.buttonSave = new ToolBarButton(GUIComponentID.BUTTON_SAVE,
+                                           ToolBar.ICON_SAVE, LanguageKey.TOOLTIP_SAVE,
+                                           this.main.getCommandSave());
 
-        this.buttonParse = new ToolBarButton(this.ICON_PARSE, LanguageKey.TOOLTIP_PARSE, this.main.getCommandParse());
-        this.buttonFormat = new ToolBarButton(this.ICON_FORMAT, LanguageKey.TOOLTIP_FORMAT,
-                this.main.getCommandFormat());
+        this.buttonParse = new ToolBarButton(GUIComponentID.BUTTON_PARSE,
+                                           ToolBar.ICON_PARSE, LanguageKey.TOOLTIP_PARSE,
+                                           this.main.getCommandParse());
+        
+        this.buttonFormat = new ToolBarButton(GUIComponentID.BUTTON_FORMAT,
+                                           ToolBar.ICON_FORMAT, LanguageKey.TOOLTIP_FORMAT,
+                                           this.main.getCommandFormat());
 
-        this.buttonBack = new ToolBarButton(this.ICON_PREVIOUSSTEP, LanguageKey.TOOLTIP_PREVIOUSSTEP,
-                this.main.getCommandPreviousStep());
-        this.buttonStep = new ToolBarButton(this.ICON_NEXTSTEP, LanguageKey.TOOLTIP_NEXTSTEP,
-                this.main.getCommandNextStep());
-        this.buttonSolution = new ToolBarButton(this.ICON_NEXTSOLUTION, LanguageKey.TOOLTIP_NEXTSOLUTION,
-                this.main.getCommandContinue());
-        this.buttonCancel = new ToolBarButton(this.ICON_CANCEL, LanguageKey.TOOLTIP_CANCEL,
-                this.main.getCommandCancel());
+        this.buttonBack = new ToolBarButton(GUIComponentID.BUTTON_STEPBACK,
+                                           ToolBar.ICON_PREVIOUSSTEP, LanguageKey.TOOLTIP_PREVIOUSSTEP,
+                                           this.main.getCommandPreviousStep());
+        
+        this.buttonStep = new ToolBarButton(GUIComponentID.BUTTON_STEP,
+                                           ToolBar.ICON_NEXTSTEP, LanguageKey.TOOLTIP_NEXTSTEP,
+                                           this.main.getCommandNextStep());
+        
+        this.buttonSolution = new ToolBarButton(GUIComponentID.BUTTON_NEXT_SOLUTION,
+                                           ToolBar.ICON_NEXTSOLUTION, LanguageKey.TOOLTIP_NEXTSOLUTION,
+                                           this.main.getCommandContinue());
+        
+        this.buttonCancel = new ToolBarButton(GUIComponentID.BUTTON_CANCEL,
+                                           ToolBar.ICON_CANCEL, LanguageKey.TOOLTIP_CANCEL,
+                                           this.main.getCommandCancel());
 
         this.add(this.buttonNew);
         this.add(this.buttonOpen);

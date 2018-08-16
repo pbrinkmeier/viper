@@ -60,7 +60,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
             @Override
             public void actionPerformed(ActionEvent event) {
                 command.execute();
-                clear();
+                ConsoleInputField.this.clear();
             }
         });
         

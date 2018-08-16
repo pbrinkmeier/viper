@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import edu.kit.ipd.pp.viper.view.GUIComponentID;
+
 /**
  * Command for showing an about window for further information about the project.
  */
@@ -33,7 +35,7 @@ public class CommandShowAbout extends Command implements Observer {
     public CommandShowAbout() {
         this.isOpened = false;
         
-        ImageIcon icon = new ImageIcon(this.getClass().getResource(this.ICON_PATH));
+        ImageIcon icon = new ImageIcon(this.getClass().getResource(CommandShowAbout.ICON_PATH));
         icon.setImage(icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
         this.labelIcon = new JLabel(icon);
         
@@ -80,6 +82,7 @@ public class CommandShowAbout extends Command implements Observer {
     public void execute() {
         if (!this.isOpened) {
             this.frame = new JFrame();
+            this.frame.setName(GUIComponentID.FRAME_ABOUT.toString());
             this.frame.setLocationRelativeTo(null);
             this.frame.setResizable(false);
             this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -127,7 +130,7 @@ public class CommandShowAbout extends Command implements Observer {
             this.frame.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent windowEvent) {
-                    isOpened = false;
+                    CommandShowAbout.this.isOpened = false;
                 }
             });
             

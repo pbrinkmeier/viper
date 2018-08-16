@@ -39,20 +39,16 @@ public class CommandParseQuery extends Command {
     public void execute() {
         this.interpreterManager.cancel();
 
+        LanguageManager langman = LanguageManager.getInstance();
         try {
             this.interpreterManager.parseQuery(this.console.getInputFieldText());
             this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
-
             this.toggleStateFunc.accept(ClickableState.FIRST_STEP);
-
             this.console.clearInputField();
-
-            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_STARTED),
-                    LogType.INFO);
+            this.console.printLine(langman.getString(LanguageKey.VISUALISATION_STARTED), LogType.INFO);
         } catch (ParseException e) {
-            String prefix = LanguageManager.getInstance().getString(LanguageKey.PARSER_QUERY_ERROR);
+            String prefix = langman.getString(LanguageKey.PARSER_QUERY_ERROR);
             String parserError = e.getMessage();
-
             this.console.printLine(String.format("%s: %s", prefix, parserError), LogType.ERROR);
         }
     }

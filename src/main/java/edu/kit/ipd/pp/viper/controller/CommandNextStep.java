@@ -30,9 +30,7 @@ public class CommandNextStep extends Command {
     @Override
     public void execute() {
         this.interpreterManager.cancel();
-
         this.interpreterManager.nextStep(this.console);
-
         this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
     }
 }

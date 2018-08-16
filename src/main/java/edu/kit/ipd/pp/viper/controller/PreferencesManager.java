@@ -90,9 +90,10 @@ public class PreferencesManager {
     public Locale getLanguage() {
         String language;
         if (this.properties == null) {
-            language = this.DEFAULT_LANGUAGE;
+            language = PreferencesManager.DEFAULT_LANGUAGE;
         } else {
-            language = this.properties.getProperty(this.KEY_LANGUAGE, this.DEFAULT_LANGUAGE);
+            language = this.properties.getProperty(PreferencesManager.KEY_LANGUAGE,
+                    PreferencesManager.DEFAULT_LANGUAGE);
         }
 
         return PreferencesManager.getLocaleByLanguage(language);
@@ -108,7 +109,8 @@ public class PreferencesManager {
         if (this.properties == null) {
             enabled = true;
         } else {
-            String status = this.properties.getProperty(this.KEY_STDLIB, String.valueOf(this.DEFAULT_STDLIB));
+            String status = this.properties.getProperty(PreferencesManager.KEY_STDLIB,
+                    String.valueOf(PreferencesManager.DEFAULT_STDLIB));
             enabled = Boolean.parseBoolean(status);
         }
 
@@ -122,7 +124,7 @@ public class PreferencesManager {
      */
     public void setLanguage(Locale locale) {
         String language = locale.getLanguage();
-        this.writeProperty(this.KEY_LANGUAGE, language);
+        this.writeProperty(PreferencesManager.KEY_LANGUAGE, language);
     }
 
     private static Locale getLocaleByLanguage(String language) {
@@ -144,7 +146,7 @@ public class PreferencesManager {
      */
     public void setStandardLibEnabled(boolean enabled) {
         String status = String.valueOf(enabled);
-        this.writeProperty(this.KEY_STDLIB, status);
+        this.writeProperty(PreferencesManager.KEY_STDLIB, status);
     }
 
     /**
