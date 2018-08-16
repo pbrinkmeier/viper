@@ -48,17 +48,15 @@ public class CommandParse extends Command {
         this.console.lockInput();
         this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
 
+        LanguageManager langman = LanguageManager.getInstance();
         try {
             this.interpreterManager.parseKnowledgeBase(this.editor.getSourceText());
-
-            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.PARSER_SUCCESS),
-                    LogType.SUCCESS);
+            this.console.printLine(langman.getString(LanguageKey.PARSER_SUCCESS), LogType.SUCCESS);
             this.console.unlockInput();
             this.toggleStateFunc.accept(ClickableState.PARSED_PROGRAM);
         } catch (ParseException e) {
-            String prefix = LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR);
+            String prefix = langman.getString(LanguageKey.PARSER_ERROR);
             String parserError = e.getMessage();
-
             this.console.printLine(String.format("%s: %s", prefix, parserError), LogType.ERROR);
 
             if (MainWindow.inDebugMode()) {

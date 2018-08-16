@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
+import edu.kit.ipd.pp.viper.view.GUIComponentID;
+
 /**
  * Command for showing a popup with the standard library code used.
  */
@@ -38,6 +40,7 @@ public class CommandShowStandard extends Command {
             final Dimension dim = new Dimension(400, 300);
             
             this.frame = new JFrame();
+            this.frame.setName(GUIComponentID.FRAME_SHOW_STD.toString());
             this.frame.setSize(dim);
             this.frame.setMinimumSize(dim);
             this.frame.setTitle(LanguageManager.getInstance().getString(LanguageKey.STANDARD_LIBRARY));
@@ -56,7 +59,7 @@ public class CommandShowStandard extends Command {
             this.frame.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent windowEvent) {
-                    isOpened = false;
+                    CommandShowStandard.this.isOpened = false;
                 }
             });
         }
