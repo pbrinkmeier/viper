@@ -148,6 +148,41 @@ public enum LanguageKey {
     TOOLTIP_CANCEL("tooltip_cancel"),
 
     /**
+     * Tool bar "Zoom in" tool tip
+     */
+    TOOLTIP_ZOOM_IN("tooltip_zoom_in"),
+    
+    /**
+     * Tool bar "Zoom out" tool tip
+     */
+    TOOLTIP_ZOOM_OUT("tooltip_zoom_out"),
+
+    /**
+     * Zoom target: visualisation
+     */
+    ZOOM_TARGET_VIS("zoom_target_visualisation"),
+
+    /**
+     * Zoom target: editor
+     */
+    ZOOM_TARGET_ED("zoom_target_editor"),
+
+    /**
+     * Zoom target: console
+     */
+    ZOOM_TARGET_CO("zoom_target_console"),
+    
+    /**
+     * Zoom target: editor & console
+     */
+    ZOOM_TARGET_EDCO("zoom_target_editor_console"),
+    
+    /**
+     * Zoom target: all
+     */
+    ZOOM_TARGET_ALL("zoom_target_all"),
+    
+    /**
      * Tooltip for zoom in button
      */
     ZOOM_IN("zoom_in"),

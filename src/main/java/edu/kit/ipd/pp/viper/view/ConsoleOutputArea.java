@@ -1,6 +1,9 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+
 import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
@@ -16,12 +19,22 @@ public class ConsoleOutputArea extends JTextPane {
      */
     private static final long serialVersionUID = -2469735720829687714L;
 
+    private static final int FONT_DEFAULT_SIZE = 14;
+    private static final int FONT_MIN_SIZE = 10;
+    private static final int FONT_MAX_SIZE = 40;
+
+    private int fontSize;
+    private ArrayList<HistoryEntry> history;
+    
     /**
      * Initialises the output area
      */
     public ConsoleOutputArea() {
         super();
 
+        this.fontSize = FONT_DEFAULT_SIZE;
+        this.history = new ArrayList<HistoryEntry>();
+        this.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
         this.setEditable(false);
     }
 
@@ -30,6 +43,7 @@ public class ConsoleOutputArea extends JTextPane {
      */
     public void clear() {
         this.setText(null);
+        this.history.clear();
     }
 
     /**
@@ -41,47 +55,88 @@ public class ConsoleOutputArea extends JTextPane {
      * @param type Type of message
      */
     public void printLine(String line, LogType type) {
-        Color color;
-
-        switch (type) {
-        case SUCCESS:
-            color = ColorScheme.CONSOLE_GREEN;
-            break;
-        case ERROR:
-            color = ColorScheme.CONSOLE_RED;
-            break;
-        case DEBUG:
-            if (!MainWindow.inDebugMode())
-                return;
-            color = ColorScheme.CONSOLE_GRAY;
-            break;
-        default:
-        case INFO:
-            color = ColorScheme.CONSOLE_BLACK;
-            break;
-        }
-
-        // using setEnabled(false) grays out the entire console, removing all colors.
-        // therefore, we're using
-        // setEditable(false). this however not only disables input from the user, but
-        // also input from the
-        // program itself. to work around this, the text pane is set editable before a
-        // print and set un-editable
-        // again after a print
+        this.history.add(new HistoryEntry(line, type));
+        this.updateContent();
+    }
+    
+    private void updateContent() {
+        this.setText(null);
+        this.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
         this.setEditable(true);
+        
+        for (final HistoryEntry entry : this.history) {
+            Color color = ColorScheme.CONSOLE_BLACK;
+            switch (entry.getType()) {
+            case SUCCESS:
+                color = ColorScheme.CONSOLE_GREEN;
+                break;
+            case ERROR:
+                color = ColorScheme.CONSOLE_RED;
+                break;
+            case DEBUG:
+                if (!MainWindow.inDebugMode())
+                    continue;
+                color = ColorScheme.CONSOLE_GRAY;
+                break;
+            case INFO:
+            default:
+                color = ColorScheme.CONSOLE_BLACK;
+                break;
+            }
+            
+            System.out.println(this.fontSize);
 
-        StyleContext context = StyleContext.getDefaultStyleContext();
+            StyleContext context = StyleContext.getDefaultStyleContext();
+            AttributeSet set = context.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
+            set = context.addAttribute(set, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+            set = context.addAttribute(set, StyleConstants.FontFamily, "monospaced");
+            set = context.addAttribute(set, StyleConstants.FontSize, this.fontSize);
 
-        // set some attributes for font, alignment etc.
-        AttributeSet set = context.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
-        set = context.addAttribute(set, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-        set = context.addAttribute(set, StyleConstants.FontFamily, "monospaced");
-        set = context.addAttribute(set, StyleConstants.FontSize, 14);
-
-        this.setCaretPosition(this.getDocument().getLength());
-        this.setCharacterAttributes(set, false);
-        this.replaceSelection(line + "\n");
-
+            this.setCaretPosition(this.getDocument().getLength());
+            this.setCharacterAttributes(set, false);
+            this.replaceSelection(entry.getLine() + "\n");
+        }
+        
         this.setEditable(false);
+    }
+    
+    /**
+     * Increases the font size
+     */
+    public void increaseFont() {
+        if (this.fontSize > FONT_MAX_SIZE)
+            return;
+
+        this.fontSize++;
+        this.updateContent();
+    }
+
+    /**
+     * Decreases the font size
+     */
+    public void decreaseFont() {
+        if (this.fontSize < FONT_MIN_SIZE)
+            return;
+
+        this.fontSize--;
+        this.updateContent();
+    }
+    
+    private class HistoryEntry {
+        private final String line;
+        private final LogType type;
+        
+        public HistoryEntry(String line, LogType type) {
+            this.line = line;
+            this.type = type;
+        }
+        
+        public String getLine() {
+            return this.line;
+        }
+        
+        public LogType getType() {
+            return this.type;
+        }
     }
 }

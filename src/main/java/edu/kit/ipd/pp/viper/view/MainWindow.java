@@ -24,11 +24,13 @@ import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.CommandShowAbout;
 import edu.kit.ipd.pp.viper.controller.CommandShowWelcome;
 import edu.kit.ipd.pp.viper.controller.CommandShowStandard;
+import edu.kit.ipd.pp.viper.controller.CommandZoom;
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 import edu.kit.ipd.pp.viper.controller.SaveType;
+import edu.kit.ipd.pp.viper.controller.ZoomType;
 
 /**
  * Represents the main window containing all the panel elements.
@@ -87,6 +89,9 @@ public class MainWindow extends JFrame {
     private final CommandShowStandard commandShowStandard;
     private final CommandShowWelcome commandShowWelcome;
     
+    private final CommandZoom commandZoomIn;
+    private final CommandZoom commandZoomOut;
+
     private ToolBar toolbar;
     private MenuBar menubar;
 
@@ -134,8 +139,12 @@ public class MainWindow extends JFrame {
                 this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
         this.commandNew = new CommandNew(this.consolePanel, this.editorPanel, this.visualisationPanel,
                 this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
-        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel, this.visualisationPanel, this.manager,
-                this::switchClickableState);
+        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel, this.visualisationPanel,
+                this.manager, this::switchClickableState);
+        this.commandZoomIn = new CommandZoom(this.visualisationPanel, this.consolePanel,
+                this.editorPanel, this::getToolbarComboBoxValue, ZoomType.ZOOM_IN);
+        this.commandZoomOut = new CommandZoom(this.visualisationPanel, this.consolePanel,
+                this.editorPanel, this::getToolbarComboBoxValue, ZoomType.ZOOM_OUT);
         this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
         this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
         this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel);
@@ -275,6 +284,10 @@ public class MainWindow extends JFrame {
         } else {
            this.changeWindowTitle(this.windowTitle);
         }
+    }
+    
+    private String getToolbarComboBoxValue() {
+        return this.toolbar.getComboBoxValue();
     }
 
     /**
@@ -455,5 +468,22 @@ public class MainWindow extends JFrame {
      */
     public CommandShowWelcome getCommandShowWelcome() {
         return this.commandShowWelcome;
+    }
+     
+    /** Returns the zoom in command
+     * 
+     * @return CommandZoom (zoom-in-version)
+     */
+    public CommandZoom getCommandZoomIn() {
+        return this.commandZoomIn;
+    }
+
+    /**
+     * Returns the zoom out command
+     * 
+     * @return CommandZoom (zoom-out-version)
+     */
+    public CommandZoom getCommandZoomOut() {
+        return this.commandZoomOut;
     }
 }

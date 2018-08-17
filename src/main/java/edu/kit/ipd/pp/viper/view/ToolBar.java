@@ -1,15 +1,22 @@
 package edu.kit.ipd.pp.viper.view;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.Box;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JToolBar;
 
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
+import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
  * Represents a toolbar containing a bunch of button with icons. This toolbar
  * can be attached to the main window of the program to represent "shortcuts"
  * for different menu options.
  */
-public class ToolBar extends JToolBar implements HasClickable {
+public class ToolBar extends JToolBar implements HasClickable, Observer {
     /**
      * Serial UID
      */
@@ -30,7 +37,9 @@ public class ToolBar extends JToolBar implements HasClickable {
     private static final String ICON_NEXTSTEP = "/icons_png/icon_nextstep.png";
     private static final String ICON_NEXTSOLUTION = "/icons_png/icon_nextsolution.png";
     private static final String ICON_PREVIOUSSTEP = "/icons_png/icon_previousstep.png";
-
+    private static final String ICON_ZOOM_IN = "/icons_png/icon_zoom_in.png";
+    private static final String ICON_ZOOM_OUT = "/icons_png/icon_zoom_out.png";
+    
     private ToolBarButton buttonNew;
     private ToolBarButton buttonOpen;
     private ToolBarButton buttonSave;
@@ -40,6 +49,10 @@ public class ToolBar extends JToolBar implements HasClickable {
     private ToolBarButton buttonStep;
     private ToolBarButton buttonSolution;
     private ToolBarButton buttonCancel;
+    
+    private JComboBox<String> comboBoxZoomTarget;
+    private ToolBarButton buttonZoomIn;
+    private ToolBarButton buttonZoomOut;
 
     /**
      * Reference to main class
@@ -58,8 +71,8 @@ public class ToolBar extends JToolBar implements HasClickable {
 
         this.setFloatable(false);
         this.setRollover(true);
-
         this.addButtons();
+        LanguageManager.getInstance().addObserver(this);
     }
 
     /**
@@ -102,6 +115,17 @@ public class ToolBar extends JToolBar implements HasClickable {
                                            ToolBar.ICON_CANCEL, LanguageKey.TOOLTIP_CANCEL,
                                            this.main.getCommandCancel());
 
+        this.buttonZoomIn = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_IN,
+                                           ToolBar.ICON_ZOOM_IN, LanguageKey.TOOLTIP_ZOOM_IN,
+                                           this.main.getCommandZoomIn());
+
+        this.buttonZoomOut = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_OUT,
+                                           ToolBar.ICON_ZOOM_OUT, LanguageKey.TOOLTIP_ZOOM_OUT,
+                                           this.main.getCommandZoomOut());
+        
+        this.comboBoxZoomTarget = new JComboBox<String>();
+        this.updateComboBoxItems();
+        
         this.add(this.buttonNew);
         this.add(this.buttonOpen);
         this.add(this.buttonSave);
@@ -113,6 +137,12 @@ public class ToolBar extends JToolBar implements HasClickable {
         this.add(this.buttonStep);
         this.add(this.buttonSolution);
         this.add(this.buttonCancel);
+
+        this.add(Box.createHorizontalGlue());
+
+        this.add(this.buttonZoomIn);
+        this.add(this.comboBoxZoomTarget);
+        this.add(this.buttonZoomOut);
     }
 
     @Override
@@ -173,5 +203,34 @@ public class ToolBar extends JToolBar implements HasClickable {
         default:
             break;
         }
+    }
+    
+    /**
+     * Returns the value of the zoom target combo box
+     * 
+     * @return the value of the zoom target combo box
+     */
+    public String getComboBoxValue() {
+        return this.comboBoxZoomTarget.getItemAt(this.comboBoxZoomTarget.getSelectedIndex());
+    }
+
+    private void updateComboBoxItems() {
+        this.comboBoxZoomTarget.removeAll();
+        
+        LanguageManager langman = LanguageManager.getInstance();
+        String targets[] = {
+                langman.getString(LanguageKey.ZOOM_TARGET_VIS),
+                langman.getString(LanguageKey.ZOOM_TARGET_ED),
+                langman.getString(LanguageKey.ZOOM_TARGET_CO),
+                langman.getString(LanguageKey.ZOOM_TARGET_EDCO),
+                langman.getString(LanguageKey.ZOOM_TARGET_ALL)                
+        };
+        
+        this.comboBoxZoomTarget.setModel(new DefaultComboBoxModel<String>(targets));
+    }
+    
+    @Override
+    public void update(Observable o, Object arg) {
+        this.updateComboBoxItems();
     }
 }
