@@ -20,6 +20,8 @@ import javax.swing.text.Document;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
+import edu.kit.ipd.pp.viper.controller.ZoomType;
+
 /**
  * Represents a panel containing an editor
  */
@@ -230,6 +232,18 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     @Override
     public void removeUpdate(DocumentEvent event) {
         this.setHasChanged(true);
+    }
+    
+    /**
+     * Zooms inside the editor panel
+     * 
+     * @param type The direction to zoom in
+     */
+    public void zoom(ZoomType type) {
+        if (type == ZoomType.ZOOM_IN)
+            this.increaseFont();
+        else
+            this.decreaseFont();
     }
 
     private void increaseFont() {

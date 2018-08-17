@@ -13,7 +13,6 @@ import java.util.Observer;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-import edu.kit.ipd.pp.viper.controller.CommandZoom;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
@@ -32,12 +31,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     private static final long serialVersionUID = 6723362475925553655L;
 
     /**
-     * Icons for zoom buttons
-     */
-    private static final String ICON_ZOOM_IN = "/icons_png/icon_zoom_in.png";
-    private static final String ICON_ZOOM_OUT = "/icons_png/icon_zoom_out.png";
-
-    /**
      * Main window
      */
     private final MainWindow main;
@@ -46,9 +39,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * Viewer to use
      */
     private final VisualisationViewer viewer;
-
-    private ToolBarButton zoomIn;
-    private ToolBarButton zoomOut;
 
     private boolean hasGraph;
     private boolean showsPlaceholder;
@@ -77,22 +67,9 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         this.viewer = new VisualisationViewer(this.main);
         this.componentResized(null);
 
-        this.zoomIn = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_IN,
-                                        VisualisationPanel.ICON_ZOOM_IN,
-                                        LanguageKey.ZOOM_IN, new CommandZoom(this, ZoomType.ZOOM_IN));
-
-        this.zoomOut = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_OUT,
-                                        VisualisationPanel.ICON_ZOOM_OUT,
-                                        LanguageKey.ZOOM_OUT, new CommandZoom(this, ZoomType.ZOOM_OUT));
-
-        this.zoomIn.setBounds(10, 10, 30, 30);
-        this.zoomOut.setBounds(10, 40, 30, 30);
-
         // viewer is on level 1, both buttons on level 2 and therefore appear above the
         // viewer
         contentPane.add(this.viewer, new Integer(1));
-        contentPane.add(this.zoomIn, new Integer(2));
-        contentPane.add(this.zoomOut, new Integer(2));
 
         this.add(contentPane, BorderLayout.CENTER);
         this.hasGraph = false;
@@ -136,7 +113,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * @param direction Direction to zoom (in or out)
      */
     public void zoom(ZoomType direction) {
-        this.viewer.zoom(direction);
+        if (!this.showsPlaceholder)
+            this.viewer.zoom(direction);
     }
 
     /**
@@ -147,10 +125,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     public void setFromGraph(Graph graph) {
         if (graph == null)
             return;
-        
-        if (graph == this.placeholderGraph)
-            this.showsPlaceholder = true;
-        
+
+        this.showsPlaceholder = graph == this.placeholderGraph;
         this.viewer.setFromGraph(graph);
         this.hasGraph = true;
     }
@@ -194,9 +170,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         switch (state) {
         case NOT_PARSED_YET:
         case PARSED_PROGRAM:
-            this.zoomIn.setEnabled(false);
-            this.zoomOut.setEnabled(false);
-            
             if (this.placeholderGraph == null)
                 this.buildPlaceholderGraph();
             
@@ -207,8 +180,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         case FIRST_STEP:
         case LAST_STEP:
         case NO_MORE_SOLUTIONS:
-            this.zoomIn.setEnabled(true);
-            this.zoomOut.setEnabled(true);
             this.viewer.enableNavigation();
             break;
         default:

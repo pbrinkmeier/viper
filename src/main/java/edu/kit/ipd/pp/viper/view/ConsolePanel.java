@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import edu.kit.ipd.pp.viper.controller.CommandParseQuery;
+import edu.kit.ipd.pp.viper.controller.ZoomType;
 
 /**
  * Represents a panel containing a console-like output field, as well as an
@@ -133,6 +134,18 @@ public class ConsolePanel extends JPanel implements HasClickable {
      */
     public void clearOutputArea() {
         this.outputArea.clear();
+    }
+    
+    /**
+     * Zooms inside the output area
+     * 
+     * @param type The direction to zoom in
+     */
+    public void zoomOutputArea(ZoomType type) {
+        if (type == ZoomType.ZOOM_IN)
+            this.outputArea.increaseFont();
+        else
+            this.outputArea.decreaseFont();
     }
 
     /**
