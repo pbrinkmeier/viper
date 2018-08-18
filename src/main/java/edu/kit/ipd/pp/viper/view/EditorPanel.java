@@ -308,12 +308,13 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
-        if (!event.isControlDown())
-            return;
-
-        if (event.getPreciseWheelRotation() > 0.0)
-            this.decreaseFont();
-        else
-            this.increaseFont();
+        if (event.isControlDown()) {
+            if (event.getPreciseWheelRotation() > 0.0)
+                this.decreaseFont();
+            else
+                this.increaseFont();   
+        }
+        
+        this.scrollPane.dispatchEvent(event);
     }
 }
