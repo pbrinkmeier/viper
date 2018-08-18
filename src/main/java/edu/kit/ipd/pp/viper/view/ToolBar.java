@@ -223,7 +223,7 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
     }
 
     private void updateComboBoxItems() {
-        this.comboBoxZoomTarget.removeAll();
+        this.comboBoxZoomTarget.removeAllItems();
         
         LanguageManager langman = LanguageManager.getInstance();
         String targets[] = {
