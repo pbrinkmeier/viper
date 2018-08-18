@@ -3,10 +3,14 @@ package edu.kit.ipd.pp.viper.controller;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+
+import org.apache.commons.io.IOUtils;
 
 import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
@@ -34,19 +38,7 @@ import guru.nidi.graphviz.model.Graph;
  * interpretation and parse new programs.
  */
 public class InterpreterManager {
-    private static final String STANDARD_LIB
-        = "% append list with another list and return the new list\n"
-        + "append([], L, L).\n"
-        + "append([H|T], L, [H|R]) :-\n"
-        + "  append(T, L, R).\n"
-        + "\n"
-        + "% length of empty list is zero\n"
-        + "length([], 0).\n"
-        + "% length of non-empty list is 1 + rest of list\n"
-        + "length([First | Rest], N) :-\n"
-        + "  length(Rest, M),\n"
-        + "  N is M + 1.\n"
-        + "\n";
+    private static final String STANDARD_LIBRARY_PATH = "/stdlib.pl";
 
     private Optional<KnowledgeBase> knowledgeBase;
     private Optional<Goal> query;
@@ -56,6 +48,7 @@ public class InterpreterManager {
     private int current;
     private Optional<List<Variable>> variables;
     private boolean useStandardLibrary = true;
+    private String standardLibrary;
     private boolean running = false;
     private StepResult result;
     private Consumer<ClickableState> toggleStateFunc;
@@ -90,6 +83,24 @@ public class InterpreterManager {
     }
 
     /**
+     * Loads the standard library from a file into a String.
+     *
+     * @return whether the standard library could be loaded successfully
+     */
+    private boolean loadStandardLibrary() {
+        try {
+            InputStream input = this.getClass().getResourceAsStream(InterpreterManager.STANDARD_LIBRARY_PATH);
+            byte[] data = IOUtils.toByteArray(input);
+
+            this.standardLibrary = new String(data);
+
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
      * Parses a knowledgebase and remembers it.
      *
      * @param kbSource source code to parse
@@ -98,8 +109,16 @@ public class InterpreterManager {
     public void parseKnowledgeBase(String kbSource) throws ParseException {
         String source = "";
 
-        if (this.useStandardLibrary)
-            source += STANDARD_LIB;
+        if (this.useStandardLibrary) {
+            if (this.standardLibrary == null) {
+                if (!this.loadStandardLibrary()) {
+                    this.standardLibrary = "";
+                }
+            }
+            
+            source += this.standardLibrary + "\n";
+        }
+
         source += kbSource;
 
         this.knowledgeBase = Optional.of(new PrologParser(source).parse());
@@ -356,6 +375,6 @@ public class InterpreterManager {
      * @return the standard library code
      */
     public String getStandardLibraryCode() {
-        return InterpreterManager.STANDARD_LIB;
+        return this.standardLibrary;
     }
 }
