@@ -1,23 +1,17 @@
 package edu.kit.ipd.pp.viper.view;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import javax.swing.Box;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
-import edu.kit.ipd.pp.viper.controller.LanguageManager;
 
 /**
  * Represents a toolbar containing a bunch of button with icons. This toolbar
  * can be attached to the main window of the program to represent "shortcuts"
  * for different menu options.
  */
-public class ToolBar extends JToolBar implements HasClickable, Observer {
+public class ToolBar extends JToolBar implements HasClickable {
     /**
      * Serial UID
      */
@@ -52,7 +46,6 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
     private ToolBarButton buttonCancel;
     
     private JLabel labelZoom;
-    private JComboBox<String> comboBoxZoomTarget;
     private ToolBarButton buttonZoomIn;
     private ToolBarButton buttonZoomOut;
 
@@ -74,7 +67,6 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
         this.setFloatable(false);
         this.setRollover(true);
         this.addButtons();
-        LanguageManager.getInstance().addObserver(this);
     }
 
     /**
@@ -119,15 +111,13 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
 
         this.buttonZoomIn = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_IN,
                                            ToolBar.ICON_ZOOM_IN, LanguageKey.TOOLTIP_ZOOM_IN,
-                                           this.main.getCommandZoomIn());
+                                           this.main.getCommandZoomTextIn());
 
         this.buttonZoomOut = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_OUT,
                                            ToolBar.ICON_ZOOM_OUT, LanguageKey.TOOLTIP_ZOOM_OUT,
-                                           this.main.getCommandZoomOut());
+                                           this.main.getCommandZoomTextOut());
         
-        this.comboBoxZoomTarget = new JComboBox<String>();
-        this.labelZoom = new JLabel("Zoom:");
-        
+        this.labelZoom = new JLabel("Text-Zoom:");
         this.add(this.buttonNew);
         this.add(this.buttonOpen);
         this.add(this.buttonSave);
@@ -148,7 +138,6 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
         this.add(this.labelZoom);
         this.add(Box.createHorizontalStrut(padding));
         this.add(this.buttonZoomIn);
-        this.add(this.comboBoxZoomTarget);
         this.add(this.buttonZoomOut);
     }
 
@@ -210,37 +199,5 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
         default:
             break;
         }
-    }
-    
-    /**
-     * Returns the value of the zoom target combo box
-     * 
-     * @return the value of the zoom target combo box
-     */
-    public String getComboBoxValue() {
-        return this.comboBoxZoomTarget.getItemAt(this.comboBoxZoomTarget.getSelectedIndex());
-    }
-
-    private void updateComboBoxItems() {
-        this.comboBoxZoomTarget.removeAllItems();
-        
-        LanguageManager langman = LanguageManager.getInstance();
-        String targets[] = {
-                langman.getString(LanguageKey.ZOOM_TARGET_VIS),
-                langman.getString(LanguageKey.ZOOM_TARGET_ED),
-                langman.getString(LanguageKey.ZOOM_TARGET_CO),
-                langman.getString(LanguageKey.ZOOM_TARGET_EDCO),
-                langman.getString(LanguageKey.ZOOM_TARGET_ALL)                
-        };
-        
-        this.comboBoxZoomTarget.setModel(new DefaultComboBoxModel<String>(targets));
-    }
-    
-    @Override
-    public void update(Observable o, Object arg) {
-        int previousValue = this.comboBoxZoomTarget.getSelectedIndex();
-        this.updateComboBoxItems();
-        this.comboBoxZoomTarget
-            .setSelectedItem(previousValue == -1 ? 0 : this.comboBoxZoomTarget.getItemAt(previousValue));
     }
 }

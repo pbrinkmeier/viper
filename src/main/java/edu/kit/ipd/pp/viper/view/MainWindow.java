@@ -86,8 +86,8 @@ public class MainWindow extends JFrame {
     private final CommandCancel commandCancel;
     private final CommandShowAbout commandShowAbout;
     private final CommandShowStandard commandShowStandard;
-    private final CommandZoom commandZoomIn;
-    private final CommandZoom commandZoomOut;
+    private final CommandZoom commandZoomTextIn;
+    private final CommandZoom commandZoomTextOut;
 
     private ToolBar toolbar;
     private MenuBar menubar;
@@ -139,10 +139,8 @@ public class MainWindow extends JFrame {
                 this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
         this.commandParse = new CommandParse(this.consolePanel, this.editorPanel, this.visualisationPanel,
                 this.manager, this::switchClickableState);
-        this.commandZoomIn = new CommandZoom(this.visualisationPanel, this.consolePanel,
-                this.editorPanel, this::getToolbarComboBoxValue, ZoomType.ZOOM_IN);
-        this.commandZoomOut = new CommandZoom(this.visualisationPanel, this.consolePanel,
-                this.editorPanel, this::getToolbarComboBoxValue, ZoomType.ZOOM_OUT);
+        this.commandZoomTextIn = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_IN);
+        this.commandZoomTextOut = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_OUT);
         this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
         this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
         this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel);
@@ -284,10 +282,6 @@ public class MainWindow extends JFrame {
         } else {
            this.changeWindowTitle(this.windowTitle);
         }
-    }
-    
-    private String getToolbarComboBoxValue() {
-        return this.toolbar.getComboBoxValue();
     }
 
     /**
@@ -466,8 +460,8 @@ public class MainWindow extends JFrame {
      * 
      * @return CommandZoom (zoom-in-version)
      */
-    public CommandZoom getCommandZoomIn() {
-        return this.commandZoomIn;
+    public CommandZoom getCommandZoomTextIn() {
+        return this.commandZoomTextIn;
     }
 
     /**
@@ -475,7 +469,7 @@ public class MainWindow extends JFrame {
      * 
      * @return CommandZoom (zoom-out-version)
      */
-    public CommandZoom getCommandZoomOut() {
-        return this.commandZoomOut;
+    public CommandZoom getCommandZoomTextOut() {
+        return this.commandZoomTextOut;
     }
 }
