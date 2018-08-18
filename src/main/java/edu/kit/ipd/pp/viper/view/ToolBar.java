@@ -126,7 +126,6 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
                                            this.main.getCommandZoomOut());
         
         this.comboBoxZoomTarget = new JComboBox<String>();
-        this.updateComboBoxItems();
         this.labelZoom = new JLabel("Zoom:");
         
         this.add(this.buttonNew);
