@@ -4,6 +4,7 @@ import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -103,6 +104,15 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         this.showsPlaceholder = true;
         
         LanguageManager.getInstance().addObserver(this);
+    }
+    
+    /**
+     * Sets custom cursor for all VisualisationPanel subpanels
+     * @param cursor cursor to set
+     */
+    public void setGlobalCursor(Cursor cursor) {
+        this.setCursor(cursor);
+        this.viewer.setCustomCursor(cursor);
     }
 
     /**

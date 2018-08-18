@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
@@ -223,6 +224,18 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
         return new CustomUserAgent(this);
     }
     
+    @Override
+    public void setCursor(Cursor cursor) {
+        // do nothing
+    }
+
+    /**
+     * Reimplementation of {@link JSVGCanvas#setCursor(Cursor)} to avoid SVG related custom cursors
+     * @param cursor cursor to set
+     */
+    public void setCustomCursor(Cursor cursor) {
+        super.setCursor(cursor);
+    }
     private class CustomUserAgent extends BridgeUserAgent {
         private VisualisationViewer viewer;
 

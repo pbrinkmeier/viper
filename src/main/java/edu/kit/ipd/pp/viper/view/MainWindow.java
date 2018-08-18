@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -195,6 +196,19 @@ public class MainWindow extends JFrame {
         this.toolbar.switchClickableState(state);
         this.consolePanel.switchClickableState(state);
         this.visualisationPanel.switchClickableState(state);
+    }
+    
+    /**
+     * Sets a specific cursor on all submodules
+     * @param cursor Cursor type to set
+     */
+    public void setGlobalCursor(Cursor cursor) {
+        this.setCursor(cursor);
+        this.menubar.setCursor(cursor);
+        this.toolbar.setCursor(cursor);
+        this.consolePanel.setGlobalCursor(cursor);
+        this.visualisationPanel.setGlobalCursor(cursor);
+        this.editorPanel.setGlobalCursor(cursor);
     }
 
     /**

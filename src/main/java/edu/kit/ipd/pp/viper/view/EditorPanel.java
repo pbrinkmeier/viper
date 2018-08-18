@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -140,6 +141,15 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     public boolean hasChanged() {
         return this.changed;
+    }
+
+    /**
+     * Sets custom cursor for all EditorPanel subpanels
+     * @param cursor cursor to set
+     */
+    public void setGlobalCursor(Cursor cursor) {
+        this.setCursor(cursor);
+        this.textArea.setCursor(cursor);
     }
 
     /**
