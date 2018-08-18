@@ -423,7 +423,7 @@ public enum LanguageKey {
     /**
      * Help window title and menu item
      */
-    HELP("help"),
+    WELCOME("welcome"),
     
     /**
      * Introduction tab in the help window
@@ -443,7 +443,27 @@ public enum LanguageKey {
     /**
      * Visualisation tab in the help window
      */
-    TAB_VISUALISATION("tab_visualisation");
+    TAB_VISUALISATION("tab_visualisation"),
+   
+    /**
+     * Introduction text in the welcome popup
+     */
+    WELCOME_INTRODUCTION("welcome_introduction"),
+
+    /**
+     * Editor text in the welcome popup
+     */
+    WELCOME_EDITOR("welcome_editor"),
+
+    /**
+     * Console text in the welcome popup
+     */
+    WELCOME_CONSOLE("welcome_console"),
+
+    /**
+     * Visualisation text in the welcome popup
+     */
+    WELCOME_VISUALISATION("welcome_visualisation");
 
     private String value;
 

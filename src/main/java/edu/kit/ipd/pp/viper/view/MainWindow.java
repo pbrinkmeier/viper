@@ -22,7 +22,7 @@ import edu.kit.ipd.pp.viper.controller.CommandParse;
 import edu.kit.ipd.pp.viper.controller.CommandPreviousStep;
 import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.CommandShowAbout;
-import edu.kit.ipd.pp.viper.controller.CommandShowHelp;
+import edu.kit.ipd.pp.viper.controller.CommandShowWelcome;
 import edu.kit.ipd.pp.viper.controller.CommandShowStandard;
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
@@ -85,7 +85,7 @@ public class MainWindow extends JFrame {
     private final CommandCancel commandCancel;
     private final CommandShowAbout commandShowAbout;
     private final CommandShowStandard commandShowStandard;
-    private final CommandShowHelp commandShowHelp;
+    private final CommandShowWelcome commandShowHelp;
     
     private ToolBar toolbar;
     private MenuBar menubar;
@@ -144,7 +144,7 @@ public class MainWindow extends JFrame {
         this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);
         this.commandShowAbout = new CommandShowAbout();
         this.commandShowStandard = new CommandShowStandard(this.manager);
-        this.commandShowHelp = new CommandShowHelp();
+        this.commandShowHelp = new CommandShowWelcome();
         
         // add menu bar and tool bar to window
         this.menubar = new MenuBar(this);
@@ -453,7 +453,7 @@ public class MainWindow extends JFrame {
      * 
      * @return CommandShowHelp
      */
-    public CommandShowHelp getCommandShowHelp() {
+    public CommandShowWelcome getCommandShowHelp() {
         return this.commandShowHelp;
     }
 }
