@@ -85,7 +85,9 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      * Adds the current input field content to the history
      */
     private void addHistory() {
-        if (!this.textField.getText().equals("")) {
+        String hint = LanguageManager.getInstance().getString(LanguageKey.INPUT_HINT);
+        if (!this.textField.getText().equals("")
+         && !this.textField.getText().equals(hint)) {
             this.history.add(this.textField.getText());
             this.historyPos = 0;
         }
