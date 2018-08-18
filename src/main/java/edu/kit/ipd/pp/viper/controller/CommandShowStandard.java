@@ -6,7 +6,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 
 import edu.kit.ipd.pp.viper.view.GUIComponentID;
@@ -20,6 +22,7 @@ public class CommandShowStandard extends Command {
 
     private JFrame frame;
     private JTextArea textArea;
+    private JScrollPane scrollPane;
     
     private InterpreterManager interpreterManager;
     
@@ -51,9 +54,14 @@ public class CommandShowStandard extends Command {
             
             this.textArea = new JTextArea(this.interpreterManager.getStandardLibraryCode());
             this.textArea.setEditable(false);
-            this.textArea.setLineWrap(true);
+            this.textArea.setLineWrap(false);
             this.textArea.setFont(this.font);
             this.frame.add(this.textArea);
+            
+            this.scrollPane = new JScrollPane(this.textArea,
+                    ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            this.frame.add(this.scrollPane);
 
             this.isOpened = true;
             this.frame.addWindowListener(new WindowAdapter() {
