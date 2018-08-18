@@ -2,12 +2,14 @@ package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import edu.kit.ipd.pp.viper.controller.CommandParseQuery;
+import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
 
 /**
@@ -68,6 +70,10 @@ public class ConsolePanel extends JPanel implements HasClickable {
         this.add(this.scrollPane, BorderLayout.CENTER);
         this.add(this.inputField, BorderLayout.PAGE_END);
         this.inputLocked = true;
+    }
+    
+    public void setPreferencesManager(PreferencesManager preferencesManager) {
+        this.outputArea.setPreferencesManager(preferencesManager);
     }
 
     /**

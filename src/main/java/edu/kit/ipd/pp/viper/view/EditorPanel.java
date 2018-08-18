@@ -20,6 +20,7 @@ import javax.swing.text.Document;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
+import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
 
 /**
@@ -31,7 +32,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     private static final long serialVersionUID = 689492118433496287L;
 
-    private static final int FONT_DEFAULT_SIZE = 14;
+    public static final int FONT_DEFAULT_SIZE = 14;
     private static final int FONT_MIN_SIZE = 10;
     private static final int FONT_MAX_SIZE = 40;
 
@@ -66,6 +67,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * List of files referenced in the past
      */
     private ArrayList<File> referenceList;
+    
+    /**
+     * The preferences manager coordinating the text size after a restart
+     */
+    private PreferencesManager preferencesManager;
 
     /**
      * Creates a new panel containing a text area with scroll support.
@@ -74,14 +80,15 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     public EditorPanel(MainWindow gui) {
         this.main = gui;
-
+        this.preferencesManager = gui.getPreferencesManager();
+        
         this.changed = false;
 
         this.setLayout(new BorderLayout());
-        this.fontSize = FONT_DEFAULT_SIZE;
-
+        this.fontSize = this.preferencesManager.getEditorTextSize();
+        
         this.textArea = new RSyntaxTextArea();
-        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, EditorPanel.FONT_DEFAULT_SIZE));
+        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
         this.textArea.setTabSize(2);
         this.textArea.setTabsEmulated(true);
         this.textArea.addKeyListener(this);
@@ -255,6 +262,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
             return;
 
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, ++this.fontSize));
+        this.preferencesManager.setEditorTextSize(this.fontSize);
     }
 
     private void decreaseFont() {
@@ -262,11 +270,13 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
             return;
 
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, --this.fontSize));
+        this.preferencesManager.setEditorTextSize(this.fontSize);
     }
 
     private void resetFont() {
         this.fontSize = FONT_DEFAULT_SIZE;
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
+        this.preferencesManager.setEditorTextSize(this.fontSize);
     }
 
     /**
