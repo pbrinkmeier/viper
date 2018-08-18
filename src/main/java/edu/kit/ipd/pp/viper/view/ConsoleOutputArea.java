@@ -122,6 +122,11 @@ public class ConsoleOutputArea extends JTextPane {
         this.updateContent();
     }
     
+    public void resetFont() {
+        this.fontSize = FONT_DEFAULT_SIZE;
+        this.updateContent();
+    }
+    
     private class HistoryEntry {
         private final String line;
         private final LogType type;

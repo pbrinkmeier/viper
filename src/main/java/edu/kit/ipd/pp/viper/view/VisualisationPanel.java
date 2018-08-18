@@ -116,6 +116,10 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         if (!this.showsPlaceholder)
             this.viewer.zoom(direction);
     }
+    
+    public void resetZoom() {
+        this.viewer.resetZoom();
+    }
 
     /**
      * Sets the displayed Graph. A previously shown graph will be cleared.
