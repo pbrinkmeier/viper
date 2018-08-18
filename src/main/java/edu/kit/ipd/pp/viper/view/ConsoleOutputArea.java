@@ -10,6 +10,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
+import edu.kit.ipd.pp.viper.controller.PreferencesManager;
+
 /**
  * Represents a console-like text panel
  */
@@ -19,12 +21,17 @@ public class ConsoleOutputArea extends JTextPane {
      */
     private static final long serialVersionUID = -2469735720829687714L;
 
-    private static final int FONT_DEFAULT_SIZE = 14;
+    public static final int FONT_DEFAULT_SIZE = 14;
     private static final int FONT_MIN_SIZE = 10;
     private static final int FONT_MAX_SIZE = 40;
 
     private int fontSize;
     private ArrayList<HistoryEntry> history;
+    
+    /**
+     * The preferences manager coordinating the text size after a restart
+     */
+    private PreferencesManager preferencesManager;
     
     /**
      * Initialises the output area
@@ -36,6 +43,19 @@ public class ConsoleOutputArea extends JTextPane {
         this.history = new ArrayList<HistoryEntry>();
         this.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
         this.setEditable(false);
+    }
+    
+    /**
+     * Sets the preferences manager for the console output area.
+     * This can't be done in the constructor since there is a cyclic dependency
+     * between the console and the preferences manager. This should be called
+     * directly after the init of the preferences manager.
+     * 
+     * @param preferencesManager The preferences manager to be set
+     */
+    public void setPreferencesManager(PreferencesManager preferencesManager) {
+        this.preferencesManager = preferencesManager;
+        this.fontSize = this.preferencesManager.getConsoleTextSize();
     }
 
     /**
@@ -84,8 +104,6 @@ public class ConsoleOutputArea extends JTextPane {
                 break;
             }
             
-            System.out.println(this.fontSize);
-
             StyleContext context = StyleContext.getDefaultStyleContext();
             AttributeSet set = context.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
             set = context.addAttribute(set, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
@@ -109,6 +127,7 @@ public class ConsoleOutputArea extends JTextPane {
 
         this.fontSize++;
         this.updateContent();
+        this.preferencesManager.setConsoleTextSize(this.fontSize);
     }
 
     /**
@@ -120,11 +139,13 @@ public class ConsoleOutputArea extends JTextPane {
 
         this.fontSize--;
         this.updateContent();
+        this.preferencesManager.setConsoleTextSize(this.fontSize);
     }
     
     public void resetFont() {
         this.fontSize = FONT_DEFAULT_SIZE;
         this.updateContent();
+        this.preferencesManager.setConsoleTextSize(this.fontSize);
     }
     
     private class HistoryEntry {

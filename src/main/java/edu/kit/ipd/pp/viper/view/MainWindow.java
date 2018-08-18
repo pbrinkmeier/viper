@@ -127,6 +127,7 @@ public class MainWindow extends JFrame {
         this.visualisationPanel = new VisualisationPanel(this);
         this.consolePanel = new ConsolePanel(this);
         this.prefManager = new PreferencesManager(this.consolePanel);
+        this.consolePanel.setPreferencesManager(this.prefManager);
         this.editorPanel = new EditorPanel(this);
 
         // Create command instances

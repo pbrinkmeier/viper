@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
+import edu.kit.ipd.pp.viper.view.ConsoleOutputArea;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
+import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 
 /**
@@ -28,6 +30,8 @@ public class PreferencesManager {
      */
     private static final String KEY_LANGUAGE = "language";
     private static final String KEY_STDLIB = "stdlib";
+    private static final String KEY_TEXTSIZE_EDITOR = "textsize_editor";
+    private static final String KEY_TEXTSIZE_CONSOLE = "textsize_console";
 
     /**
      * Default values in case the properties file does not exist
@@ -61,7 +65,7 @@ public class PreferencesManager {
                     LogType.DEBUG);
         }
     }
-
+    
     private void writeProperty(String key, String value) {
         FileWriter writer;
         try {
@@ -177,5 +181,31 @@ public class PreferencesManager {
         }
 
         return list;
+    }
+    
+    public void setConsoleTextSize(int size) {
+        this.writeProperty(PreferencesManager.KEY_TEXTSIZE_CONSOLE, Integer.toString(size));
+    }
+    
+    public int getConsoleTextSize() {
+        String val = this.properties.getProperty(PreferencesManager.KEY_TEXTSIZE_CONSOLE);
+        
+        if (val == null)
+            return ConsoleOutputArea.FONT_DEFAULT_SIZE;
+        else
+            return Integer.parseInt(val);
+    }
+    
+    public void setEditorTextSize(int size) {
+        this.writeProperty(PreferencesManager.KEY_TEXTSIZE_EDITOR, Integer.toString(size));        
+    }
+    
+    public int getEditorTextSize() {
+        String val = this.properties.getProperty(PreferencesManager.KEY_TEXTSIZE_EDITOR);
+        
+        if (val == null)
+            return EditorPanel.FONT_DEFAULT_SIZE;
+        else
+            return Integer.parseInt(val);
     }
 }
