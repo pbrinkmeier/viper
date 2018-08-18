@@ -246,6 +246,10 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
             this.decreaseFont();
     }
 
+    public void resetZoom() {
+        this.resetFont();
+    }
+    
     private void increaseFont() {
         if (this.fontSize > FONT_MAX_SIZE)
             return;

@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 
 import edu.kit.ipd.pp.viper.controller.CommandExportImage;
 import edu.kit.ipd.pp.viper.controller.CommandOpen;
+import edu.kit.ipd.pp.viper.controller.CommandResetZoom;
 import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.CommandSetLang;
 import edu.kit.ipd.pp.viper.controller.CommandToggleLib;
@@ -47,6 +48,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private MenuItem itemAbout;
     private MenuItem itemShowStandard;
     private MenuItem itemWelcome;
+    private MenuItem itemResetZoom;
     private CheckBoxMenuItem itemToggleSTD;
 
     private Menu recentlyUsedMenu;
@@ -225,6 +227,13 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addSettingsMenu() {
         Menu menu = new Menu(LanguageKey.MENU_SETTINGS);
 
+        this.itemResetZoom = new MenuItem(LanguageKey.MENU_RESET_ZOOM,
+                new CommandResetZoom(this.main.getVisualisationPanel(),
+                                     this.main.getConsolePanel(),
+                                     this.main.getEditorPanel()),
+                KeyboardShortcut.RESET_ZOOM);
+        menu.add(this.itemResetZoom);
+        
         this.itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB,
                 new CommandToggleLib(this.main.getConsolePanel(), this.main.getVisualisationPanel(),
                         this.main.getInterpreterManager(), this.main.getPreferencesManager(),

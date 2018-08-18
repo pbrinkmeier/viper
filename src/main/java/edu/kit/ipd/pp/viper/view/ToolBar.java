@@ -6,6 +6,7 @@ import java.util.Observer;
 import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
@@ -50,6 +51,7 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
     private ToolBarButton buttonSolution;
     private ToolBarButton buttonCancel;
     
+    private JLabel labelZoom;
     private JComboBox<String> comboBoxZoomTarget;
     private ToolBarButton buttonZoomIn;
     private ToolBarButton buttonZoomOut;
@@ -125,6 +127,7 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
         
         this.comboBoxZoomTarget = new JComboBox<String>();
         this.updateComboBoxItems();
+        this.labelZoom = new JLabel("Zoom:");
         
         this.add(this.buttonNew);
         this.add(this.buttonOpen);
@@ -140,6 +143,11 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
 
         this.add(Box.createHorizontalGlue());
 
+        // Arbitrary space between the zoom button and the label
+        final int PADDING = 10;
+        
+        this.add(this.labelZoom);
+        this.add(Box.createHorizontalStrut(PADDING));
         this.add(this.buttonZoomIn);
         this.add(this.comboBoxZoomTarget);
         this.add(this.buttonZoomOut);

@@ -147,6 +147,10 @@ public class ConsolePanel extends JPanel implements HasClickable {
         else
             this.outputArea.decreaseFont();
     }
+    
+    public void resetZoom() {
+        this.outputArea.resetFont();
+    }
 
     /**
      * Prints a new line (including a line break) to the console. The
