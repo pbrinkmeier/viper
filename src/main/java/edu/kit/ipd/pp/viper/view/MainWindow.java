@@ -206,6 +206,8 @@ public class MainWindow extends JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                 | UnsupportedLookAndFeelException e) {
+            if (MainWindow.inDebugMode())
+                e.printStackTrace();
         }
     }
 

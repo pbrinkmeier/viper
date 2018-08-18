@@ -183,10 +183,20 @@ public class PreferencesManager {
         return list;
     }
     
+    /**
+     * Writes the console text size to the properties file
+     * 
+     * @param size the size property to be written to the file
+     */
     public void setConsoleTextSize(int size) {
         this.writeProperty(PreferencesManager.KEY_TEXTSIZE_CONSOLE, Integer.toString(size));
     }
     
+    /**
+     * Returns the console text size in the properties file
+     * 
+     * @return the console size property in the properties file
+     */
     public int getConsoleTextSize() {
         String val = this.properties.getProperty(PreferencesManager.KEY_TEXTSIZE_CONSOLE);
         
@@ -196,10 +206,20 @@ public class PreferencesManager {
             return Integer.parseInt(val);
     }
     
+    /**
+     * Writes the editor text size to the properties file
+     * 
+     * @param size the size property to be written to the file
+     */
     public void setEditorTextSize(int size) {
         this.writeProperty(PreferencesManager.KEY_TEXTSIZE_EDITOR, Integer.toString(size));        
     }
     
+    /**
+     * Returns the editor text size in the properties file
+     * 
+     * @return the editor size property in the properties file
+     */
     public int getEditorTextSize() {
         String val = this.properties.getProperty(PreferencesManager.KEY_TEXTSIZE_EDITOR);
         

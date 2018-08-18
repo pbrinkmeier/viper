@@ -117,6 +117,9 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
             this.viewer.zoom(direction);
     }
     
+    /**
+     * Resets the zoom in the visualisation viewer
+     */
     public void resetZoom() {
         this.viewer.resetZoom();
     }
@@ -159,14 +162,17 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
 
     @Override
     public void componentHidden(ComponentEvent arg0) {
+        return;
     }
 
     @Override
     public void componentMoved(ComponentEvent arg0) {
+        return;
     }
 
     @Override
     public void componentShown(ComponentEvent e) {
+        return;
     }
 
     @Override

@@ -17,11 +17,15 @@ import edu.kit.ipd.pp.viper.controller.PreferencesManager;
  */
 public class ConsoleOutputArea extends JTextPane {
     /**
+     * The default font size used for the output area
+     */
+    public static final int FONT_DEFAULT_SIZE = 14;
+    
+    /**
      * Serial UID
      */
     private static final long serialVersionUID = -2469735720829687714L;
 
-    public static final int FONT_DEFAULT_SIZE = 14;
     private static final int FONT_MIN_SIZE = 10;
     private static final int FONT_MAX_SIZE = 40;
 
@@ -47,9 +51,6 @@ public class ConsoleOutputArea extends JTextPane {
     
     /**
      * Sets the preferences manager for the console output area.
-     * This can't be done in the constructor since there is a cyclic dependency
-     * between the console and the preferences manager. This should be called
-     * directly after the init of the preferences manager.
      * 
      * @param preferencesManager The preferences manager to be set
      */
@@ -142,6 +143,9 @@ public class ConsoleOutputArea extends JTextPane {
         this.preferencesManager.setConsoleTextSize(this.fontSize);
     }
     
+    /**
+     * Resets the font size
+     */
     public void resetFont() {
         this.fontSize = FONT_DEFAULT_SIZE;
         this.updateContent();

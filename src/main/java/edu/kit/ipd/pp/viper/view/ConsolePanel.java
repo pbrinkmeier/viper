@@ -72,6 +72,14 @@ public class ConsolePanel extends JPanel implements HasClickable {
         this.inputLocked = true;
     }
     
+    /**
+     * Sets the preferences manager for the console output area.
+     * This can't be done in the constructor since there is a cyclic dependency
+     * between the console and the preferences manager. This should be called
+     * directly after the init of the preferences manager.
+     * 
+     * @param preferencesManager The preferences manager to be set
+     */
     public void setPreferencesManager(PreferencesManager preferencesManager) {
         this.outputArea.setPreferencesManager(preferencesManager);
     }
@@ -154,6 +162,9 @@ public class ConsolePanel extends JPanel implements HasClickable {
             this.outputArea.decreaseFont();
     }
     
+    /**
+     * Resets the zoom in the output area
+     */
     public void resetZoom() {
         this.outputArea.resetFont();
     }
