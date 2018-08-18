@@ -142,6 +142,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         case PARSED_PROGRAM:
             this.textField.setEditable(true);
             this.textField.setEnabled(true);
+            //$FALL-THROUGH$
         case PARSED_QUERY:
         case FIRST_STEP:
         case LAST_STEP:
@@ -195,6 +196,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      */
     @Override
     public void keyTyped(KeyEvent e) {
+        return;
     }
 
     /**
@@ -204,6 +206,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      */
     @Override
     public void keyReleased(KeyEvent e) {
+        return;
     }
     
     private class HintedTextField extends JTextField implements FocusListener, Observer {

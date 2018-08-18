@@ -144,10 +144,10 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
         this.add(Box.createHorizontalGlue());
 
         // Arbitrary space between the zoom button and the label
-        final int PADDING = 10;
+        final int padding = 10;
         
         this.add(this.labelZoom);
-        this.add(Box.createHorizontalStrut(PADDING));
+        this.add(Box.createHorizontalStrut(padding));
         this.add(this.buttonZoomIn);
         this.add(this.comboBoxZoomTarget);
         this.add(this.buttonZoomOut);

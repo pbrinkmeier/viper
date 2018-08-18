@@ -28,16 +28,20 @@ import edu.kit.ipd.pp.viper.controller.ZoomType;
  */
 public class EditorPanel extends JPanel implements DocumentListener, KeyListener, MouseWheelListener {
     /**
+     * The default font size used for the editor
+     */
+    public static final int FONT_DEFAULT_SIZE = 14;
+    
+    /**
      * Serial UID
      */
     private static final long serialVersionUID = 689492118433496287L;
 
-    public static final int FONT_DEFAULT_SIZE = 14;
     private static final int FONT_MIN_SIZE = 10;
     private static final int FONT_MAX_SIZE = 40;
 
     private int fontSize;
-
+    
     /**
      * The actual text area
      */
@@ -223,6 +227,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void changedUpdate(DocumentEvent event) {
+        return;
     }
 
     /**
@@ -253,6 +258,9 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
             this.decreaseFont();
     }
 
+    /**
+     * Resets the zoom in the editor
+     */
     public void resetZoom() {
         this.resetFont();
     }
@@ -318,6 +326,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void keyTyped(KeyEvent e) {
+        return;
     }
 
     /**
@@ -327,6 +336,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void keyReleased(KeyEvent e) {
+        return;
     }
 
     /**
