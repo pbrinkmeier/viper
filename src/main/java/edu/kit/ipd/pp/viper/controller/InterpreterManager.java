@@ -375,6 +375,9 @@ public class InterpreterManager {
      * @return the standard library code
      */
     public String getStandardLibraryCode() {
+        if (this.standardLibrary == null)
+            this.loadStandardLibrary();
+
         return this.standardLibrary;
     }
 }
