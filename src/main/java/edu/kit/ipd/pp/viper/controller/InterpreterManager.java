@@ -34,19 +34,7 @@ import guru.nidi.graphviz.model.Graph;
  * interpretation and parse new programs.
  */
 public class InterpreterManager {
-    private static final String STANDARD_LIB
-        = "% append list with another list and return the new list\n"
-        + "append([], L, L).\n"
-        + "append([H|T], L, [H|R]) :-\n"
-        + "  append(T, L, R).\n"
-        + "\n"
-        + "% length of empty list is zero\n"
-        + "length([], 0).\n"
-        + "% length of non-empty list is 1 + rest of list\n"
-        + "length([First | Rest], N) :-\n"
-        + "  length(Rest, M),\n"
-        + "  N is M + 1.\n"
-        + "\n";
+    private static final String STANDARD_LIBRARY_PATH = "/stdlib.pl";
 
     private Optional<KnowledgeBase> knowledgeBase;
     private Optional<Goal> query;
@@ -56,6 +44,7 @@ public class InterpreterManager {
     private int current;
     private Optional<List<Variable>> variables;
     private boolean useStandardLibrary = true;
+    private String standardLibrary;
     private boolean running = false;
     private StepResult result;
     private Consumer<ClickableState> toggleStateFunc;
@@ -90,6 +79,27 @@ public class InterpreterManager {
     }
 
     /**
+     * Loads the standard library from a file into a String.
+     *
+     * @return whether the standard library could be loaded successfully
+     */
+    private boolean loadStandardLibrary() {
+        try {
+            this.standardLibrary = new String(Files.readAllBytes(Paths.get(
+                this.getClass().getResource(InterpreterManager.STANDARD_LIBRARY_PATH).toURI()
+            )));
+
+            System.out.println(this.getClass().getResource(InterpreterManager.STANDARD_LIBRARY_PATH));
+
+            return true;
+        } catch (URISyntaxException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
      * Parses a knowledgebase and remembers it.
      *
      * @param kbSource source code to parse
@@ -98,8 +108,17 @@ public class InterpreterManager {
     public void parseKnowledgeBase(String kbSource) throws ParseException {
         String source = "";
 
-        if (this.useStandardLibrary)
-            source += STANDARD_LIB;
+        // Failing to load the stdlib should probably result in an error on the console
+        if (this.useStandardLibrary) {
+            if (this.standardLibrary == null) {
+                if (!this.loadStandardLibrary()) {
+                    this.standardLibrary = "";
+                }
+            }
+            
+            source += this.standardLibrary + "\n";
+        }
+
         source += kbSource;
 
         this.knowledgeBase = Optional.of(new PrologParser(source).parse());
