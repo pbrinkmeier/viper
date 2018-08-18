@@ -36,6 +36,7 @@ jacocoTestReport {
 
 checkstyle {
     configFile = rootProject.file('checkstyle.xml')
+    checkstyleTest.enabled = false
 }
 
 jar {
