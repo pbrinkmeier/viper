@@ -468,6 +468,11 @@ public enum LanguageKey {
     /**
      * Introduction tab in the welcome popup
      */
+    HELP("help"),
+    
+    /**
+     * Introduction tab in the welcome window
+     */
     TAB_INTRODUCTION("tab_introduction"),
 
     /**

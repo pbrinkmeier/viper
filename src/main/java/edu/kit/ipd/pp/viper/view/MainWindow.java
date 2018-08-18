@@ -91,7 +91,7 @@ public class MainWindow extends JFrame {
     
     private final CommandZoom commandZoomTextIn;
     private final CommandZoom commandZoomTextOut;
-
+    
     private ToolBar toolbar;
     private MenuBar menubar;
 
@@ -470,7 +470,8 @@ public class MainWindow extends JFrame {
         return this.commandShowWelcome;
     }
      
-    /** Returns the zoom in command
+    /**
+     * Returns the zoom in command
      * 
      * @return CommandZoom (zoom-in-version)
      */
