@@ -238,6 +238,9 @@ public class ToolBar extends JToolBar implements HasClickable, Observer {
     
     @Override
     public void update(Observable o, Object arg) {
+        int previousValue = this.comboBoxZoomTarget.getSelectedIndex();
         this.updateComboBoxItems();
+        this.comboBoxZoomTarget
+            .setSelectedItem(previousValue == -1 ? 0 : this.comboBoxZoomTarget.getItemAt(previousValue));
     }
 }
