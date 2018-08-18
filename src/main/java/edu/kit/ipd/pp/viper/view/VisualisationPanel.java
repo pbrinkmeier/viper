@@ -13,6 +13,7 @@ import java.util.Observer;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
+import edu.kit.ipd.pp.viper.controller.CommandZoom;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
@@ -31,6 +32,15 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     private static final long serialVersionUID = 6723362475925553655L;
 
     /**
+     * Icons for zoom buttons
+     */
+    private static final String ICON_ZOOM_IN = "/icons_png/icon_zoom_in.png";
+    private static final String ICON_ZOOM_OUT = "/icons_png/icon_zoom_out.png";
+    
+    private ToolBarButton zoomIn;
+    private ToolBarButton zoomOut;
+    
+    /**
      * Main window
      */
     private final MainWindow main;
@@ -39,7 +49,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * Viewer to use
      */
     private final VisualisationViewer viewer;
-
+    
     private boolean hasGraph;
     private boolean showsPlaceholder;
     private Graph placeholderGraph;
@@ -66,10 +76,24 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
 
         this.viewer = new VisualisationViewer(this.main);
         this.componentResized(null);
+        
+        this.zoomIn = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_IN,
+                VisualisationPanel.ICON_ZOOM_IN,
+                LanguageKey.ZOOM_IN, new CommandZoom(this, null, null, ZoomType.ZOOM_IN));
+
+        this.zoomOut = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_OUT,
+                        VisualisationPanel.ICON_ZOOM_OUT,
+                        LanguageKey.ZOOM_OUT, new CommandZoom(this, null, null, ZoomType.ZOOM_OUT));
+        
+        this.zoomIn.setBounds(10, 10, 30, 30);
+        this.zoomOut.setBounds(10, 40, 30, 30);
+
 
         // viewer is on level 1, both buttons on level 2 and therefore appear above the
         // viewer
         contentPane.add(this.viewer, new Integer(1));
+        contentPane.add(this.zoomIn, new Integer(2));
+        contentPane.add(this.zoomOut, new Integer(2));
 
         this.add(contentPane, BorderLayout.CENTER);
         this.hasGraph = false;
