@@ -3,10 +3,14 @@ package edu.kit.ipd.pp.viper.controller;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+
+import org.apache.commons.io.IOUtils;
 
 import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.FunctorGoal;
@@ -85,15 +89,12 @@ public class InterpreterManager {
      */
     private boolean loadStandardLibrary() {
         try {
-            this.standardLibrary = new String(Files.readAllBytes(Paths.get(
-                this.getClass().getResource(InterpreterManager.STANDARD_LIBRARY_PATH).toURI()
-            )));
+            InputStream input = this.getClass().getResourceAsStream(InterpreterManager.STANDARD_LIBRARY_PATH);
+            byte[] data = IOUtils.toByteArray(input);
 
-            System.out.println(this.getClass().getResource(InterpreterManager.STANDARD_LIBRARY_PATH));
+            this.standardLibrary = new String(data);
 
             return true;
-        } catch (URISyntaxException e) {
-            return false;
         } catch (IOException e) {
             return false;
         }
@@ -108,7 +109,6 @@ public class InterpreterManager {
     public void parseKnowledgeBase(String kbSource) throws ParseException {
         String source = "";
 
-        // Failing to load the stdlib should probably result in an error on the console
         if (this.useStandardLibrary) {
             if (this.standardLibrary == null) {
                 if (!this.loadStandardLibrary()) {
@@ -375,6 +375,6 @@ public class InterpreterManager {
      * @return the standard library code
      */
     public String getStandardLibraryCode() {
-        return InterpreterManager.STANDARD_LIB;
+        return this.standardLibrary;
     }
 }
