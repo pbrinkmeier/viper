@@ -150,6 +150,8 @@ public class MainWindow extends JFrame {
         this.commandShowAbout = new CommandShowAbout();
         this.commandShowStandard = new CommandShowStandard(this.manager);
 
+        this.editorPanel.setZoomInCommand(this.commandZoomTextIn);
+        this.editorPanel.setZoomOutCommand(this.commandZoomTextOut);
         
         // add menu bar and tool bar to window
         this.menubar = new MenuBar(this);

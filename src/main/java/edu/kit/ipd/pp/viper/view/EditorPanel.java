@@ -20,6 +20,7 @@ import javax.swing.text.Document;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
+import edu.kit.ipd.pp.viper.controller.CommandZoom;
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
 
@@ -76,6 +77,9 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * The preferences manager coordinating the text size after a restart
      */
     private PreferencesManager preferencesManager;
+    
+    private CommandZoom zoomInCommand;
+    private CommandZoom zoomOutCommand;
 
     /**
      * Creates a new panel containing a text area with scroll support.
@@ -104,7 +108,31 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
 
         this.referenceList = gui.getPreferencesManager().getFileReferences();
     }
+    
+    /**
+     * Setter for the zoom in command used by the editor.
+     * This can't be done in the constructor due to a cyclic
+     * dependency. This should therefore be called after the init
+     * of the command with the editor panel.
+     * 
+     * @param command The zoom in command to be used
+     */
+    public void setZoomInCommand(CommandZoom command) {
+        this.zoomInCommand = command;
+    }
 
+    /**
+     * Setter for the zoom out command used by the editor.
+     * This can't be done in the constructor due to a cyclic
+     * dependency. This should therefore be called after the init
+     * of the command with the editor panel.
+     * 
+     * @param command The zoom out command to be used
+     */
+    public void setZoomOutCommand(CommandZoom command) {
+        this.zoomOutCommand = command;
+    }
+    
     /**
      * Returns whether the text content has changed since the last parsing
      * 
@@ -302,16 +330,12 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         switch (keyCode) {
         case KeyEvent.VK_PLUS: // plus key
         case KeyEvent.VK_ADD: // numpad plus key
-            this.increaseFont();
+            this.zoomInCommand.execute();
             event.consume();
             break;
         case KeyEvent.VK_MINUS: // minus key
         case KeyEvent.VK_SUBTRACT: // numpad minus key
-            this.decreaseFont();
-            event.consume();
-            break;
-        case KeyEvent.VK_0: // 0 key
-            this.resetFont();
+            this.zoomOutCommand.execute();
             event.consume();
             break;
         default:
@@ -348,9 +372,9 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     public void mouseWheelMoved(MouseWheelEvent event) {
         if (event.isControlDown()) {
             if (event.getPreciseWheelRotation() > 0.0)
-                this.decreaseFont();
+                this.zoomOutCommand.execute();
             else
-                this.increaseFont();   
+                this.zoomInCommand.execute();
         }
         
         this.scrollPane.dispatchEvent(event);
