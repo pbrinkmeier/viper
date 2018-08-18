@@ -418,7 +418,32 @@ public enum LanguageKey {
     /**
      * Translation of standard library
      */
-    STANDARD_LIBRARY("standard_library");
+    STANDARD_LIBRARY("standard_library"),
+    
+    /**
+     * Help window title and menu item
+     */
+    HELP("help"),
+    
+    /**
+     * Introduction tab in the help window
+     */
+    TAB_INTRODUCTION("tab_introduction"),
+
+    /**
+     * Editor tab in the help window
+     */
+    TAB_EDITOR("tab_editor"),
+
+    /**
+     * Console tab in the help window
+     */
+    TAB_CONSOLE("tab_console"),
+    
+    /**
+     * Visualisation tab in the help window
+     */
+    TAB_VISUALISATION("tab_visualisation");
 
     private String value;
 

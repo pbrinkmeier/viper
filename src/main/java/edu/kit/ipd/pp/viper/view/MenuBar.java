@@ -46,6 +46,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private MenuItem itemExportSVG;
     private MenuItem itemAbout;
     private MenuItem itemShowStandard;
+    private MenuItem itemHelp;
     private CheckBoxMenuItem itemToggleSTD;
 
     private Menu recentlyUsedMenu;
@@ -276,6 +277,9 @@ public class MenuBar extends JMenuBar implements HasClickable {
      */
     private void addHelpMenu() {
         Menu helpMenu = new Menu(LanguageKey.MENU_HELP);
+
+        this.itemHelp = new MenuItem(LanguageKey.HELP, this.main.getCommandShowHelp(), null);
+        helpMenu.add(this.itemHelp);
         
         this.itemAbout = new MenuItem(LanguageKey.MENU_ABOUT, this.main.getCommandShowAbout(), null);
         helpMenu.add(this.itemAbout);
