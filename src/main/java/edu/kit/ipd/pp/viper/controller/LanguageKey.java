@@ -461,74 +461,29 @@ public enum LanguageKey {
     STANDARD_LIBRARY("standard_library"),
     
     /**
-     * Help window title and menu item
+     * Manual window title and menu item
      */
-    WELCOME("welcome"),
-    
-    /**
-     * Introduction tab in the welcome popup
-     */
-    HELP("help"),
-    
-    /**
-     * Introduction tab in the welcome window
-     */
-    TAB_INTRODUCTION("tab_introduction"),
+    MANUAL("manual"),
 
     /**
-     * Editor tab in the welcome popup
+     * Manual tab of the manual window
      */
-    TAB_EDITOR("tab_editor"),
+    TAB_MANUAL("tab_manual"),
 
     /**
-     * Console tab in the welcome popup
+     * Controls tab of the manual window
      */
-    TAB_CONSOLE("tab_console"),
+    TAB_CONTROLS("tab_controls"),
     
     /**
-     * Visualisation tab in the welcome popup
+     * Manual text of the manual window
      */
-    TAB_VISUALISATION("tab_visualisation"),
+    MANUAL_MANUAL("manual_manual"),
     
     /**
-     * Interpreter tab in the welcome popup
+     * Controls text of the manual window
      */
-    TAB_INTERPRETER("tab_interpreter"),
-   
-    /**
-     * Extras tab in the welcome popup
-     */
-    TAB_EXTRAS("tab_extras"),
-    
-    /**
-     * Introduction text in the welcome popup
-     */
-    WELCOME_INTRODUCTION("welcome_introduction"),
-
-    /**
-     * Editor text in the welcome popup
-     */
-    WELCOME_EDITOR("welcome_editor"),
-
-    /**
-     * Console text in the welcome popup
-     */
-    WELCOME_CONSOLE("welcome_console"),
-    
-    /**
-     * Visualisation text in the welcome popup
-     */
-    WELCOME_VISUALISATION("welcome_visualisation"),
-    
-    /**
-     * Interpreter text in the welcome popup
-     */
-    WELCOME_INTERPRETER("welcome_interpreter"),
-    
-    /**
-     * Extras text in the welcome popup
-     */
-    WELCOME_EXTRAS("welcome_extras");
+    MANUAL_CONTROLS("manual_controls");
 
     private String value;
 
