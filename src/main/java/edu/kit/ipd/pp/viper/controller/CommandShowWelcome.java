@@ -22,11 +22,15 @@ public class CommandShowWelcome extends Command implements Observer {
     private JComponent tabContentEditor;
     private JComponent tabContentConsole;
     private JComponent tabContentVisualisation;
+    private JComponent tabContentInterpreter;
+    private JComponent tabContentExtras;
 
     private JLabel introductionText;
     private JLabel editorText;
     private JLabel consoleText;
     private JLabel visualisationText;
+    private JLabel interpreterText;
+    private JLabel extrasText;
     
     private boolean isOpened;
     
@@ -75,49 +79,59 @@ public class CommandShowWelcome extends Command implements Observer {
         this.tabContentEditor = makeEditorPane();
         this.tabContentConsole = makeConsolePane();
         this.tabContentVisualisation = makeVisualisationPane();
+        this.tabContentInterpreter = makeInterpreterPane();
+        this.tabContentExtras = makeExtrasPane();
         
         LanguageManager langman = LanguageManager.getInstance();
         this.tabbedPane.addTab(langman.getString(LanguageKey.TAB_INTRODUCTION), this.tabContentIntroduction);
         this.tabbedPane.addTab(langman.getString(LanguageKey.TAB_EDITOR), this.tabContentEditor);
         this.tabbedPane.addTab(langman.getString(LanguageKey.TAB_CONSOLE), this.tabContentConsole);
         this.tabbedPane.addTab(langman.getString(LanguageKey.TAB_VISUALISATION), this.tabContentVisualisation);
+        this.tabbedPane.addTab(langman.getString(LanguageKey.TAB_INTERPRETER), this.tabContentInterpreter);
+        this.tabbedPane.addTab(langman.getString(LanguageKey.TAB_EXTRAS), this.tabContentExtras);
         this.frame.add(this.tabbedPane);
     }
     
     private JComponent makeIntroductionPane() {
         JPanel panel = new JPanel();
-        
         this.introductionText = new JLabel();
         panel.add(this.introductionText);
-        
         return panel;
     }
     
     private JComponent makeEditorPane() {
         JPanel panel = new JPanel();
-        
         this.editorText = new JLabel();
         panel.add(this.editorText);
-        
         return panel;
     }
     
     private JComponent makeConsolePane() {
         JPanel panel = new JPanel();
-
         this.consoleText = new JLabel();
         panel.add(this.consoleText);
-        
         return panel;
     }
     
     private JComponent makeVisualisationPane() {
         JPanel panel = new JPanel();
-        
         this.visualisationText = new JLabel();
         panel.add(this.visualisationText);
-        
         return panel;
+    }
+
+    private JComponent makeInterpreterPane() {
+    	JPanel panel = new JPanel();
+    	this.interpreterText = new JLabel();
+    	panel.add(this.interpreterText);
+    	return panel;
+    }
+    
+    private JComponent makeExtrasPane() {
+    	JPanel panel = new JPanel();
+    	this.extrasText = new JLabel();
+    	panel.add(this.extrasText);
+    	return panel;
     }
     
     private void setText() {
@@ -127,11 +141,15 @@ public class CommandShowWelcome extends Command implements Observer {
         this.tabbedPane.setTitleAt(1, langman.getString(LanguageKey.TAB_EDITOR));
         this.tabbedPane.setTitleAt(2, langman.getString(LanguageKey.TAB_CONSOLE));
         this.tabbedPane.setTitleAt(3, langman.getString(LanguageKey.TAB_VISUALISATION));
+        this.tabbedPane.setTitleAt(4, langman.getString(LanguageKey.TAB_INTERPRETER));
+        this.tabbedPane.setTitleAt(5, langman.getString(LanguageKey.TAB_EXTRAS));
         
         this.introductionText.setText(langman.getString(LanguageKey.WELCOME_INTRODUCTION));
         this.editorText.setText(langman.getString(LanguageKey.WELCOME_EDITOR));
         this.consoleText.setText(langman.getString(LanguageKey.WELCOME_CONSOLE));
         this.visualisationText.setText(langman.getString(LanguageKey.WELCOME_VISUALISATION));
+        this.interpreterText.setText(langman.getString(LanguageKey.WELCOME_INTERPRETER));
+        this.extrasText.setText(langman.getString(LanguageKey.WELCOME_EXTRAS));
     }
 
     @Override

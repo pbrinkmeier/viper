@@ -426,25 +426,35 @@ public enum LanguageKey {
     WELCOME("welcome"),
     
     /**
-     * Introduction tab in the help window
+     * Introduction tab in the welcome popup
      */
     TAB_INTRODUCTION("tab_introduction"),
 
     /**
-     * Editor tab in the help window
+     * Editor tab in the welcome popup
      */
     TAB_EDITOR("tab_editor"),
 
     /**
-     * Console tab in the help window
+     * Console tab in the welcome popup
      */
     TAB_CONSOLE("tab_console"),
     
     /**
-     * Visualisation tab in the help window
+     * Visualisation tab in the welcome popup
      */
     TAB_VISUALISATION("tab_visualisation"),
+    
+    /**
+     * Interpreter tab in the welcome popup
+     */
+    TAB_INTERPRETER("tab_interpreter"),
    
+    /**
+     * Extras tab in the welcome popup
+     */
+    TAB_EXTRAS("tab_extras"),
+    
     /**
      * Introduction text in the welcome popup
      */
@@ -459,11 +469,21 @@ public enum LanguageKey {
      * Console text in the welcome popup
      */
     WELCOME_CONSOLE("welcome_console"),
-
+    
     /**
      * Visualisation text in the welcome popup
      */
-    WELCOME_VISUALISATION("welcome_visualisation");
+    WELCOME_VISUALISATION("welcome_visualisation"),
+    
+    /**
+     * Interpreter text in the welcome popup
+     */
+    WELCOME_INTERPRETER("welcome_interpreter"),
+    
+    /**
+     * Extras text in the welcome popup
+     */
+    WELCOME_EXTRAS("welcome_extras");
 
     private String value;
 
