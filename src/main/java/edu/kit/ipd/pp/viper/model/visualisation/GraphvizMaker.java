@@ -71,19 +71,10 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(FunctorActivationRecord far) {
-        Node node = node(this.createUniqueNodeName()).with(html(far.getFunctor().toHtml()));
+        Node node = this.createGoalNode(far).with(html(far.getFunctor().toHtml()));
 
         if (!far.isVisited()) {
-            return this.addBacktrackingEdge(far, node);
-        }
-
-        /*
-         * In case of backtracking we reach the "next" node before we reach the
-         * "current" node so we have to save the information that backtracking has to be
-         * done for later
-         */
-        if (this.next.isPresent() && this.next.get() == far) {
-            this.backtrackingNode = Optional.of(node);
+            return node;
         }
 
         // Create box with the unification status and message
@@ -137,15 +128,11 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(UnificationActivationRecord uar) {
-        Node node = node(this.createUniqueNodeName())
-                .with(html(String.format("%s = %s", uar.getLhs().toHtml(), uar.getRhs().toHtml())));
+        Node node = this.createGoalNode(uar)
+        .with(html(String.format("%s = %s", uar.getLhs().toHtml(), uar.getRhs().toHtml())));
 
         if (!uar.isVisited()) {
-            return this.addBacktrackingEdge(uar, node);
-        }
-
-        if (this.next.isPresent() && this.next.get() == uar) {
-            this.backtrackingNode = Optional.of(node);
+            return node;
         }
 
         Node resultBox = node(this.createUniqueNodeName())
@@ -163,14 +150,10 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(CutActivationRecord cutAr) {
-        Node node = node(this.createUniqueNodeName()).with(html("!"));
+        Node node = this.createGoalNode(cutAr).with(html("!"));
 
         if (!cutAr.isVisited()) {
-            return this.addBacktrackingEdge(cutAr, node);
-        }
-
-        if (this.next.isPresent() && this.next.get() == cutAr) {
-            this.backtrackingNode = Optional.of(node);
+            return node;
         }
 
         String parentHtml = cutAr.getParent().isPresent() ? cutAr.getParent().get().getFunctor().toHtml()
@@ -188,15 +171,11 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(ArithmeticActivationRecord aar) {
-        Node node = node(this.createUniqueNodeName())
+        Node node = this.createGoalNode(aar)
                 .with(html(String.format("%s is %s", aar.getLhs().toHtml(), aar.getRhs().toHtml())));
 
         if (!aar.isVisited()) {
-            return this.addBacktrackingEdge(aar, node);
-        }
-
-        if (this.next.isPresent() && this.next.get() == aar) {
-            this.backtrackingNode = Optional.of(node);
+            return node;
         }
 
         Node resultBox = node(this.createUniqueNodeName()).with(attr("shape", "record"));
@@ -219,16 +198,11 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(ComparisonActivationRecord car) {
-        Node node = node(this.createUniqueNodeName()).with(html(String.format("%s %s %s", car.getLhs().toHtml(),
+        Node node = this.createGoalNode(car).with(html(String.format("%s %s %s", car.getLhs().toHtml(),
                 car.getGoal().getHtmlSymbol(), car.getRhs().toHtml())));
 
-        // TODO: these things have been moved into their own methods over at code_cut
         if (!car.isVisited()) {
-            return this.addBacktrackingEdge(car, node);
-        }
-
-        if (this.next.isPresent() && this.next.get() == car) {
-            this.backtrackingNode = Optional.of(node);
+            return node;
         }
 
         Node resultBox = node(this.createUniqueNodeName()).with(attr("shape", "record"));
@@ -253,22 +227,33 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         return this.current.isPresent() && this.current.get() == ar;
     }
 
-    /**
-     * Adds the backtracking edge (arrow) to the give node, if applicable.
-     * If the given node is the current node and the backtracking node has been set,
-     * this method returns the given node augmented with an edge towards the backtracking node.
-     * Otherwise, just the node is returned.
-     *
-     * @param ar given activation record
-     * @param node node that has been created for the given activation record
-     * @return the node augmented with a backtracking edge, if applicable
-     */
-    private Node addBacktrackingEdge(ActivationRecord ar, Node node) {
-        if (this.isCurrent(ar) && this.backtrackingNode.isPresent()) {
-            Node withEdge = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(ColorScheme.VIS_RED)
-                    .with(attr("constraint", "false")));
+    private boolean isNext(ActivationRecord ar) {
+        return this.next.isPresent() && this.next.get() == ar;
+    }
 
-            return withEdge;
+    /**
+     * Creates a node for a given activation record.
+     * This method takes care of given the node an unique name and adding the arrow for backtracking.
+     *
+     * @param ar activation record to create a node for
+     * @return node that represents the activation records goal
+     */
+    private Node createGoalNode(ActivationRecord ar) {
+        Node node = node(this.createUniqueNodeName());
+
+        /*
+         * If the current ar has not been visited and the next ar has been visited already,
+         * i.e. it's been saved as the backtracking node, add the backtracking edge.
+         */
+        if (this.isCurrent(ar) && !ar.isVisited() && this.backtrackingNode.isPresent()) {
+            node = node.link(to(this.backtrackingNode.get())
+            .with(Style.DOTTED)
+            .with(ColorScheme.VIS_RED)
+            .with(attr("constraint", "false")));
+        }
+
+        if (this.isNext(ar)) {
+            this.backtrackingNode = Optional.of(node);
         }
 
         return node;
