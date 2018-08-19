@@ -34,7 +34,7 @@ append([X | R], L, [X | T]) :-
   append(R, L, T).
 
 % delete/3:
-%   Delete an element from a list.
+%   Delete the first occurence of an element from a list.
 %
 % Example:
 %   ? delete([1, 2, 3], 2, X).
