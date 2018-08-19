@@ -253,8 +253,18 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         return this.current.isPresent() && this.current.get() == ar;
     }
 
+    /**
+     * Adds the backtracking edge (arrow) to the give node, if applicable.
+     * If the given node is the current node and the backtracking node has been set,
+     * this method returns the given node augmented with an edge towards the backtracking node.
+     * Otherwise, just the node is returned.
+     *
+     * @param ar given activation record
+     * @param node node that has been created for the given activation record
+     * @return the node augmented with a backtracking edge, if applicable
+     */
     private Node addBacktrackingEdge(ActivationRecord ar, Node node) {
-        if (this.current.isPresent() && this.current.get() == ar && this.backtrackingNode.isPresent()) {
+        if (this.isCurrent(ar) && this.backtrackingNode.isPresent()) {
             Node withEdge = node.link(to(this.backtrackingNode.get()).with(Style.DOTTED).with(ColorScheme.VIS_RED)
                     .with(attr("constraint", "false")));
 
