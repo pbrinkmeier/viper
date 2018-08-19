@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
@@ -82,6 +83,15 @@ public class ConsolePanel extends JPanel implements HasClickable {
      */
     public void setPreferencesManager(PreferencesManager preferencesManager) {
         this.outputArea.setPreferencesManager(preferencesManager);
+    }
+
+    /**
+     * Sets custom cursor for all ConsolePanel subpanels
+     * @param cursor cursor to set
+     */
+    public void setGlobalCursor(Cursor cursor) {
+        this.setCursor(cursor);
+        this.inputField.setGlobalCursor(cursor);
     }
 
     /**

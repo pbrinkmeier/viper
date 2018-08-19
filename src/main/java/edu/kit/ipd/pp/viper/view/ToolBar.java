@@ -1,7 +1,10 @@
 package edu.kit.ipd.pp.viper.view;
 
+import java.awt.Cursor;
+
 import javax.swing.Box;
 import javax.swing.JLabel;
+
 import javax.swing.JToolBar;
 
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
@@ -192,9 +195,11 @@ public class ToolBar extends JToolBar implements HasClickable {
             break;
         case NEXT_SOLUTION_RUNNING:
             this.buttonCancel.setEnabled(true);
+            this.main.setGlobalCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             break;
         case NEXT_SOLUTION_ABORTED:
             this.buttonCancel.setEnabled(false);
+            this.main.setGlobalCursor(Cursor.getDefaultCursor());
             break;
         default:
             break;

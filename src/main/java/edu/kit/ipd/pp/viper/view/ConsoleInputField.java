@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,9 +64,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
                 ConsoleInputField.this.clear();
             }
         });
-        
-        
-        
+
         this.textField.addKeyListener(this);
         this.textField.setFont(new Font("monospaced", Font.PLAIN, 14));
 
@@ -79,6 +78,15 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         this.add(this.buttonSend, BorderLayout.LINE_END);
 
         this.lock();
+    }
+
+    /**
+     * Sets custom cursor for all ConsoleInputField subpanels
+     * @param cursor cursor to set
+     */
+    public void setGlobalCursor(Cursor cursor) {
+        this.setCursor(cursor);
+        this.textField.setCursor(cursor);
     }
 
     /**
