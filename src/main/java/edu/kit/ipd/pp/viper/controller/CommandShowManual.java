@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import edu.kit.ipd.pp.viper.view.GUIComponentID;
@@ -83,7 +84,7 @@ public class CommandShowManual extends Command implements Observer {
     }
     
     private void setupFrame() {
-        final Dimension dim = new Dimension(650, 500);            
+        final Dimension dim = new Dimension(800, 600);            
         this.frame = new JFrame();
         this.frame.setName(GUIComponentID.FRAME_MANUAL.toString());
         this.frame.setSize(dim);
@@ -125,11 +126,11 @@ public class CommandShowManual extends Command implements Observer {
 
     private JComponent makeControlsPane() {
         JPanel panel = new JPanel();
-        this.controlsText = new JLabel();
-        this.previousStepLabel = new JLabel();
-        this.nextStepLabel = new JLabel();
-        this.nextSolutionLabel = new JLabel();
-        this.cancelLabel = new JLabel();
+        this.controlsText = new JLabel("", SwingConstants.CENTER);
+        this.previousStepLabel = new JLabel("", SwingConstants.CENTER);
+        this.nextStepLabel = new JLabel("", SwingConstants.CENTER);
+        this.nextSolutionLabel = new JLabel("", SwingConstants.CENTER);
+        this.cancelLabel = new JLabel("", SwingConstants.CENTER);
         
         GroupLayout layout = new GroupLayout(panel);
         layout.setAutoCreateContainerGaps(true);
