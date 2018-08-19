@@ -280,9 +280,10 @@ public class InterpreterManager {
             while (this.running) {
                 this.nextStep(console);
 
-                if ((this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS)
+                if (((this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS)
                         || this.result == StepResult.SOLUTION_FOUND
                         && this.current == this.visualisations.size() - 1)
+                        || this.results.get(this.current) == StepResult.SOLUTION_FOUND)
                     this.setThreadRunning(false);
             }
 
