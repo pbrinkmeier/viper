@@ -88,23 +88,14 @@ public class Rule {
 
         Functor otherHead = ((Rule) other).getHead();
 
-        if (!this.head.equals(otherHead))
+        if (!this.head.equals(otherHead)) {
             return false;
+        }
 
         List<Goal> otherGoals = ((Rule) other).getSubgoals();
 
-        if (this.subgoals.isEmpty() && otherGoals.isEmpty())
-            return true;
-
-        if (this.subgoals.size() != otherGoals.size())
+        if (!this.subgoals.equals(otherGoals)) {
             return false;
-
-        Iterator<Goal> thisIter = this.subgoals.iterator();
-        Iterator<Goal> otherIter = otherGoals.iterator();
-
-        while (thisIter.hasNext()) {
-            if (!thisIter.next().equals(otherIter.next()))
-                return false;
         }
 
         return true;

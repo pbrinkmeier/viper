@@ -172,7 +172,7 @@ public class Functor extends Term {
 
         Functor otherFunctor = (Functor) other;
 
-        if (!otherFunctor.getName().equals(this.getName()) || otherFunctor.getArity() != this.getArity()) {
+        if (!otherFunctor.getName().equals(this.getName())) {
             return false;
         }
 
