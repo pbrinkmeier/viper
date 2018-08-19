@@ -96,11 +96,7 @@ public enum GUIComponentID {
         this.name = name;
     }
     
-    /**
-     * Getter-Method for the String ID of the GUI component
-     * 
-     * @return the ID of the component as a String
-     */
+    @Override
     public String toString() {
         return this.name;
     }

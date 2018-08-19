@@ -50,6 +50,11 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     private boolean navigationEnabled = true;
 
     /**
+     * Reference to the current graph
+     */
+    private Graph currentGraph;
+    
+    /**
      * Creates a new interactive viewer
      * 
      * @param gui Reference to main window
@@ -74,7 +79,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
                 int mods = ie.getModifiers();
                 return ie.getID() == MouseEvent.MOUSE_PRESSED
                                   && (mods & InputEvent.BUTTON1_MASK) != 0
-                                  && navigationEnabled;
+                                  && VisualisationViewer.this.navigationEnabled;
             }
         };
 
@@ -114,6 +119,13 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
 
         (new JSVGCanvas.ZoomAction(scale)).actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
     }
+    
+    /**
+     * Resets the zoom in the visualisation area
+     */
+    public void resetZoom() {
+        this.setFromGraph(this.currentGraph);
+    }
 
     /**
      * Clears the displayed SVG
@@ -136,6 +148,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      */
     public void setFromGraph(Graph graph) {
         this.clear();
+        this.currentGraph = graph;
 
         String tmp = VisualisationViewer.getTempDir();
         if (tmp.equals("")) {

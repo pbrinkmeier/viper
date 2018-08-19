@@ -1,5 +1,7 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import edu.kit.ipd.pp.viper.view.ConsolePanel;
+import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
@@ -7,21 +9,36 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  */
 public class CommandZoom extends Command {
     private VisualisationPanel visualisation;
+    private ConsolePanel console;
+    private EditorPanel editor;
     private ZoomType direction;
 
     /**
      * Initializes a new zoom command.
      * 
-     * @param visualisation Panel of the visualisation
+     * @param visualisation Panel of the visualisation area
+     * @param console Panel of the console area
+     * @param editor Panel of the editor area
      * @param direction Type of zoom (either in or out)
+     * 
      */
-    public CommandZoom(VisualisationPanel visualisation, ZoomType direction) {
+    public CommandZoom(VisualisationPanel visualisation, ConsolePanel console,
+            EditorPanel editor, ZoomType direction) {
         this.visualisation = visualisation;
+        this.console = console;
+        this.editor = editor;
         this.direction = direction;
     }
 
     @Override
     public void execute() {
-        this.visualisation.zoom(this.direction);
+        if (this.console != null)
+            this.console.zoomOutputArea(this.direction);
+
+        if (this.editor != null)
+            this.editor.zoom(this.direction);
+        
+        if (this.visualisation != null)
+            this.visualisation.zoom(this.direction);
     }
 }

@@ -20,21 +20,29 @@ import javax.swing.text.Document;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
+import edu.kit.ipd.pp.viper.controller.CommandZoom;
+import edu.kit.ipd.pp.viper.controller.PreferencesManager;
+import edu.kit.ipd.pp.viper.controller.ZoomType;
+
 /**
  * Represents a panel containing an editor
  */
 public class EditorPanel extends JPanel implements DocumentListener, KeyListener, MouseWheelListener {
     /**
+     * The default font size used for the editor
+     */
+    public static final int FONT_DEFAULT_SIZE = 14;
+    
+    /**
      * Serial UID
      */
     private static final long serialVersionUID = 689492118433496287L;
 
-    private static final int FONT_DEFAULT_SIZE = 14;
     private static final int FONT_MIN_SIZE = 10;
     private static final int FONT_MAX_SIZE = 40;
 
     private int fontSize;
-
+    
     /**
      * The actual text area
      */
@@ -64,6 +72,14 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * List of files referenced in the past
      */
     private ArrayList<File> referenceList;
+    
+    /**
+     * The preferences manager coordinating the text size after a restart
+     */
+    private PreferencesManager preferencesManager;
+    
+    private CommandZoom zoomInCommand;
+    private CommandZoom zoomOutCommand;
 
     /**
      * Creates a new panel containing a text area with scroll support.
@@ -72,14 +88,15 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     public EditorPanel(MainWindow gui) {
         this.main = gui;
-
+        this.preferencesManager = gui.getPreferencesManager();
+        
         this.changed = false;
 
         this.setLayout(new BorderLayout());
-        this.fontSize = FONT_DEFAULT_SIZE;
-
+        this.fontSize = this.preferencesManager.getEditorTextSize();
+        
         this.textArea = new RSyntaxTextArea();
-        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, EditorPanel.FONT_DEFAULT_SIZE));
+        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
         this.textArea.setTabSize(2);
         this.textArea.setTabsEmulated(true);
         this.textArea.addKeyListener(this);
@@ -91,7 +108,31 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
 
         this.referenceList = gui.getPreferencesManager().getFileReferences();
     }
+    
+    /**
+     * Setter for the zoom in command used by the editor.
+     * This can't be done in the constructor due to a cyclic
+     * dependency. This should therefore be called after the init
+     * of the command with the editor panel.
+     * 
+     * @param command The zoom in command to be used
+     */
+    public void setZoomInCommand(CommandZoom command) {
+        this.zoomInCommand = command;
+    }
 
+    /**
+     * Setter for the zoom out command used by the editor.
+     * This can't be done in the constructor due to a cyclic
+     * dependency. This should therefore be called after the init
+     * of the command with the editor panel.
+     * 
+     * @param command The zoom out command to be used
+     */
+    public void setZoomOutCommand(CommandZoom command) {
+        this.zoomOutCommand = command;
+    }
+    
     /**
      * Returns whether the text content has changed since the last parsing
      * 
@@ -214,6 +255,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void changedUpdate(DocumentEvent event) {
+        return;
     }
 
     /**
@@ -231,12 +273,32 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     public void removeUpdate(DocumentEvent event) {
         this.setHasChanged(true);
     }
+    
+    /**
+     * Zooms inside the editor panel
+     * 
+     * @param type The direction to zoom in
+     */
+    public void zoom(ZoomType type) {
+        if (type == ZoomType.ZOOM_IN)
+            this.increaseFont();
+        else
+            this.decreaseFont();
+    }
 
+    /**
+     * Resets the zoom in the editor
+     */
+    public void resetZoom() {
+        this.resetFont();
+    }
+    
     private void increaseFont() {
         if (this.fontSize > FONT_MAX_SIZE)
             return;
 
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, ++this.fontSize));
+        this.preferencesManager.setEditorTextSize(this.fontSize);
     }
 
     private void decreaseFont() {
@@ -244,11 +306,13 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
             return;
 
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, --this.fontSize));
+        this.preferencesManager.setEditorTextSize(this.fontSize);
     }
 
     private void resetFont() {
         this.fontSize = FONT_DEFAULT_SIZE;
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
+        this.preferencesManager.setEditorTextSize(this.fontSize);
     }
 
     /**
@@ -266,16 +330,12 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         switch (keyCode) {
         case KeyEvent.VK_PLUS: // plus key
         case KeyEvent.VK_ADD: // numpad plus key
-            this.increaseFont();
+            this.zoomInCommand.execute();
             event.consume();
             break;
         case KeyEvent.VK_MINUS: // minus key
         case KeyEvent.VK_SUBTRACT: // numpad minus key
-            this.decreaseFont();
-            event.consume();
-            break;
-        case KeyEvent.VK_0: // 0 key
-            this.resetFont();
+            this.zoomOutCommand.execute();
             event.consume();
             break;
         default:
@@ -290,6 +350,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void keyTyped(KeyEvent e) {
+        return;
     }
 
     /**
@@ -299,6 +360,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      */
     @Override
     public void keyReleased(KeyEvent e) {
+        return;
     }
 
     /**
@@ -310,9 +372,9 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     public void mouseWheelMoved(MouseWheelEvent event) {
         if (event.isControlDown()) {
             if (event.getPreciseWheelRotation() > 0.0)
-                this.decreaseFont();
+                this.zoomOutCommand.execute();
             else
-                this.increaseFont();   
+                this.zoomInCommand.execute();
         }
         
         this.scrollPane.dispatchEvent(event);

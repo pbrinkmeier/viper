@@ -1,5 +1,7 @@
 package edu.kit.ipd.pp.viper.view;
 
+import javax.swing.Box;
+import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
@@ -30,7 +32,9 @@ public class ToolBar extends JToolBar implements HasClickable {
     private static final String ICON_NEXTSTEP = "/icons_png/icon_nextstep.png";
     private static final String ICON_NEXTSOLUTION = "/icons_png/icon_nextsolution.png";
     private static final String ICON_PREVIOUSSTEP = "/icons_png/icon_previousstep.png";
-
+    private static final String ICON_ZOOM_IN = "/icons_png/icon_zoom_in.png";
+    private static final String ICON_ZOOM_OUT = "/icons_png/icon_zoom_out.png";
+    
     private ToolBarButton buttonNew;
     private ToolBarButton buttonOpen;
     private ToolBarButton buttonSave;
@@ -40,6 +44,10 @@ public class ToolBar extends JToolBar implements HasClickable {
     private ToolBarButton buttonStep;
     private ToolBarButton buttonSolution;
     private ToolBarButton buttonCancel;
+    
+    private JLabel labelZoom;
+    private ToolBarButton buttonZoomIn;
+    private ToolBarButton buttonZoomOut;
 
     /**
      * Reference to main class
@@ -58,7 +66,6 @@ public class ToolBar extends JToolBar implements HasClickable {
 
         this.setFloatable(false);
         this.setRollover(true);
-
         this.addButtons();
     }
 
@@ -102,6 +109,15 @@ public class ToolBar extends JToolBar implements HasClickable {
                                            ToolBar.ICON_CANCEL, LanguageKey.TOOLTIP_CANCEL,
                                            this.main.getCommandCancel());
 
+        this.buttonZoomIn = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_IN,
+                                           ToolBar.ICON_ZOOM_IN, LanguageKey.TOOLTIP_ZOOM_IN,
+                                           this.main.getCommandZoomTextIn());
+
+        this.buttonZoomOut = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_OUT,
+                                           ToolBar.ICON_ZOOM_OUT, LanguageKey.TOOLTIP_ZOOM_OUT,
+                                           this.main.getCommandZoomTextOut());
+        
+        this.labelZoom = new JLabel("Text-Zoom:");
         this.add(this.buttonNew);
         this.add(this.buttonOpen);
         this.add(this.buttonSave);
@@ -113,6 +129,16 @@ public class ToolBar extends JToolBar implements HasClickable {
         this.add(this.buttonStep);
         this.add(this.buttonSolution);
         this.add(this.buttonCancel);
+
+        this.add(Box.createHorizontalGlue());
+
+        // Arbitrary space between the zoom button and the label
+        final int padding = 10;
+        
+        this.add(this.labelZoom);
+        this.add(Box.createHorizontalStrut(padding));
+        this.add(this.buttonZoomIn);
+        this.add(this.buttonZoomOut);
     }
 
     @Override

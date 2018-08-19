@@ -36,7 +36,10 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      */
     private static final String ICON_ZOOM_IN = "/icons_png/icon_zoom_in.png";
     private static final String ICON_ZOOM_OUT = "/icons_png/icon_zoom_out.png";
-
+    
+    private ToolBarButton zoomIn;
+    private ToolBarButton zoomOut;
+    
     /**
      * Main window
      */
@@ -46,10 +49,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * Viewer to use
      */
     private final VisualisationViewer viewer;
-
-    private ToolBarButton zoomIn;
-    private ToolBarButton zoomOut;
-
+    
     private boolean hasGraph;
     private boolean showsPlaceholder;
     private Graph placeholderGraph;
@@ -76,17 +76,18 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
 
         this.viewer = new VisualisationViewer(this.main);
         this.componentResized(null);
-
+        
         this.zoomIn = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_IN,
-                                        VisualisationPanel.ICON_ZOOM_IN,
-                                        LanguageKey.ZOOM_IN, new CommandZoom(this, ZoomType.ZOOM_IN));
+                VisualisationPanel.ICON_ZOOM_IN,
+                LanguageKey.ZOOM_IN, new CommandZoom(this, null, null, ZoomType.ZOOM_IN));
 
         this.zoomOut = new ToolBarButton(GUIComponentID.BUTTON_ZOOM_OUT,
-                                        VisualisationPanel.ICON_ZOOM_OUT,
-                                        LanguageKey.ZOOM_OUT, new CommandZoom(this, ZoomType.ZOOM_OUT));
-
+                        VisualisationPanel.ICON_ZOOM_OUT,
+                        LanguageKey.ZOOM_OUT, new CommandZoom(this, null, null, ZoomType.ZOOM_OUT));
+        
         this.zoomIn.setBounds(10, 10, 30, 30);
         this.zoomOut.setBounds(10, 40, 30, 30);
+
 
         // viewer is on level 1, both buttons on level 2 and therefore appear above the
         // viewer
@@ -136,7 +137,15 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * @param direction Direction to zoom (in or out)
      */
     public void zoom(ZoomType direction) {
-        this.viewer.zoom(direction);
+        if (!this.showsPlaceholder)
+            this.viewer.zoom(direction);
+    }
+    
+    /**
+     * Resets the zoom in the visualisation viewer
+     */
+    public void resetZoom() {
+        this.viewer.resetZoom();
     }
 
     /**
@@ -147,10 +156,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     public void setFromGraph(Graph graph) {
         if (graph == null)
             return;
-        
-        if (graph == this.placeholderGraph)
-            this.showsPlaceholder = true;
-        
+
+        this.showsPlaceholder = graph == this.placeholderGraph;
         this.viewer.setFromGraph(graph);
         this.hasGraph = true;
     }
@@ -179,14 +186,17 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
 
     @Override
     public void componentHidden(ComponentEvent arg0) {
+        return;
     }
 
     @Override
     public void componentMoved(ComponentEvent arg0) {
+        return;
     }
 
     @Override
     public void componentShown(ComponentEvent e) {
+        return;
     }
 
     @Override
@@ -194,9 +204,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         switch (state) {
         case NOT_PARSED_YET:
         case PARSED_PROGRAM:
-            this.zoomIn.setEnabled(false);
-            this.zoomOut.setEnabled(false);
-            
             if (this.placeholderGraph == null)
                 this.buildPlaceholderGraph();
             
@@ -207,8 +214,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         case FIRST_STEP:
         case LAST_STEP:
         case NO_MORE_SOLUTIONS:
-            this.zoomIn.setEnabled(true);
-            this.zoomOut.setEnabled(true);
             this.viewer.enableNavigation();
             break;
         default:

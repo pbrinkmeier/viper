@@ -23,11 +23,13 @@ import edu.kit.ipd.pp.viper.controller.CommandPreviousStep;
 import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.CommandShowAbout;
 import edu.kit.ipd.pp.viper.controller.CommandShowStandard;
+import edu.kit.ipd.pp.viper.controller.CommandZoom;
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 import edu.kit.ipd.pp.viper.controller.SaveType;
+import edu.kit.ipd.pp.viper.controller.ZoomType;
 
 /**
  * Represents the main window containing all the panel elements.
@@ -84,6 +86,8 @@ public class MainWindow extends JFrame {
     private final CommandCancel commandCancel;
     private final CommandShowAbout commandShowAbout;
     private final CommandShowStandard commandShowStandard;
+    private final CommandZoom commandZoomTextIn;
+    private final CommandZoom commandZoomTextOut;
 
     private ToolBar toolbar;
     private MenuBar menubar;
@@ -123,6 +127,7 @@ public class MainWindow extends JFrame {
         this.visualisationPanel = new VisualisationPanel(this);
         this.consolePanel = new ConsolePanel(this);
         this.prefManager = new PreferencesManager(this.consolePanel);
+        this.consolePanel.setPreferencesManager(this.prefManager);
         this.editorPanel = new EditorPanel(this);
 
         // Create command instances
@@ -132,8 +137,10 @@ public class MainWindow extends JFrame {
                 this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
         this.commandNew = new CommandNew(this.consolePanel, this.editorPanel, this.visualisationPanel,
                 this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
-        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel, this.visualisationPanel, this.manager,
-                this::switchClickableState);
+        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel, this.visualisationPanel,
+                this.manager, this::switchClickableState);
+        this.commandZoomTextIn = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_IN);
+        this.commandZoomTextOut = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_OUT);
         this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
         this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
         this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel);
@@ -142,6 +149,9 @@ public class MainWindow extends JFrame {
         this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);
         this.commandShowAbout = new CommandShowAbout();
         this.commandShowStandard = new CommandShowStandard(this.manager);
+
+        this.editorPanel.setZoomInCommand(this.commandZoomTextIn);
+        this.editorPanel.setZoomOutCommand(this.commandZoomTextOut);
         
         // add menu bar and tool bar to window
         this.menubar = new MenuBar(this);
@@ -196,6 +206,8 @@ public class MainWindow extends JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                 | UnsupportedLookAndFeelException e) {
+            if (MainWindow.inDebugMode())
+                e.printStackTrace();
         }
     }
 
@@ -443,5 +455,23 @@ public class MainWindow extends JFrame {
      */
     public CommandShowStandard getCommandShowStandard() {
         return this.commandShowStandard;
+    }
+    
+    /**
+     * Returns the zoom in command
+     * 
+     * @return CommandZoom (zoom-in-version)
+     */
+    public CommandZoom getCommandZoomTextIn() {
+        return this.commandZoomTextIn;
+    }
+
+    /**
+     * Returns the zoom out command
+     * 
+     * @return CommandZoom (zoom-out-version)
+     */
+    public CommandZoom getCommandZoomTextOut() {
+        return this.commandZoomTextOut;
     }
 }
