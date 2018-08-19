@@ -85,7 +85,7 @@ public class MainWindow extends JFrame {
     private final CommandCancel commandCancel;
     private final CommandShowAbout commandShowAbout;
     private final CommandShowStandard commandShowStandard;
-    private final CommandShowWelcome commandShowHelp;
+    private final CommandShowWelcome commandShowWelcome;
     
     private ToolBar toolbar;
     private MenuBar menubar;
@@ -144,7 +144,7 @@ public class MainWindow extends JFrame {
         this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);
         this.commandShowAbout = new CommandShowAbout();
         this.commandShowStandard = new CommandShowStandard(this.manager);
-        this.commandShowHelp = new CommandShowWelcome();
+        this.commandShowWelcome = new CommandShowWelcome();
         
         // add menu bar and tool bar to window
         this.menubar = new MenuBar(this);
@@ -449,11 +449,11 @@ public class MainWindow extends JFrame {
     }
     
     /**
-     * Returns the show help command
+     * Returns the show welcome command
      * 
-     * @return CommandShowHelp
+     * @return CommandShowWelcome
      */
-    public CommandShowWelcome getCommandShowHelp() {
-        return this.commandShowHelp;
+    public CommandShowWelcome getCommandShowWelcome() {
+        return this.commandShowWelcome;
     }
 }
