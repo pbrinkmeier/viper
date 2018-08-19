@@ -5,7 +5,7 @@
     <!-- See http://checkstyle.sourceforge.net/config_sizes.html#FileLength !-->
     <!-- Checks for long files. !-->
     <module name="com.puppycrawl.tools.checkstyle.checks.sizes.FileLength">
-        <property name="max" value="500"/>
+        <property name="max" value="600"/>
         <property name="fileExtensions" value=""/>
     </module>
     

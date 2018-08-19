@@ -15,6 +15,9 @@ import javax.swing.WindowConstants;
 
 import edu.kit.ipd.pp.viper.view.GUIComponentID;
 
+/**
+ * Command for showing a popup with welcome information.
+ */
 public class CommandShowWelcome extends Command implements Observer {
     private JFrame frame;
     private JTabbedPane tabbedPane;
@@ -34,6 +37,9 @@ public class CommandShowWelcome extends Command implements Observer {
     
     private boolean isOpened;
     
+    /**
+     * Initializes a new show welcome command.
+     */
     public CommandShowWelcome() {
         this.isOpened = false;
         LanguageManager.getInstance().addObserver(this);
@@ -75,12 +81,12 @@ public class CommandShowWelcome extends Command implements Observer {
     private void setupTabbedPane() {
         this.tabbedPane = new JTabbedPane();
 
-        this.tabContentIntroduction = makeIntroductionPane();
-        this.tabContentEditor = makeEditorPane();
-        this.tabContentConsole = makeConsolePane();
-        this.tabContentVisualisation = makeVisualisationPane();
-        this.tabContentInterpreter = makeInterpreterPane();
-        this.tabContentExtras = makeExtrasPane();
+        this.tabContentIntroduction = this.makeIntroductionPane();
+        this.tabContentEditor = this.makeEditorPane();
+        this.tabContentConsole = this.makeConsolePane();
+        this.tabContentVisualisation = this.makeVisualisationPane();
+        this.tabContentInterpreter = this.makeInterpreterPane();
+        this.tabContentExtras = this.makeExtrasPane();
         
         LanguageManager langman = LanguageManager.getInstance();
         this.tabbedPane.addTab(langman.getString(LanguageKey.TAB_INTRODUCTION), this.tabContentIntroduction);
@@ -98,21 +104,21 @@ public class CommandShowWelcome extends Command implements Observer {
         panel.add(this.introductionText);
         return panel;
     }
-    
+
     private JComponent makeEditorPane() {
         JPanel panel = new JPanel();
         this.editorText = new JLabel();
         panel.add(this.editorText);
         return panel;
     }
-    
+
     private JComponent makeConsolePane() {
         JPanel panel = new JPanel();
         this.consoleText = new JLabel();
         panel.add(this.consoleText);
         return panel;
     }
-    
+
     private JComponent makeVisualisationPane() {
         JPanel panel = new JPanel();
         this.visualisationText = new JLabel();
@@ -121,17 +127,17 @@ public class CommandShowWelcome extends Command implements Observer {
     }
 
     private JComponent makeInterpreterPane() {
-    	JPanel panel = new JPanel();
-    	this.interpreterText = new JLabel();
-    	panel.add(this.interpreterText);
-    	return panel;
+        JPanel panel = new JPanel();
+        this.interpreterText = new JLabel();
+        panel.add(this.interpreterText);
+        return panel;
     }
-    
+
     private JComponent makeExtrasPane() {
-    	JPanel panel = new JPanel();
-    	this.extrasText = new JLabel();
-    	panel.add(this.extrasText);
-    	return panel;
+        JPanel panel = new JPanel();
+        this.extrasText = new JLabel();
+        panel.add(this.extrasText);
+        return panel;
     }
     
     private void setText() {
@@ -155,6 +161,6 @@ public class CommandShowWelcome extends Command implements Observer {
     @Override
     public void update(Observable arg0, Object arg1) {
         if (this.isOpened)
-            setText();
+            this.setText();
     }
 }
