@@ -20,8 +20,8 @@ import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
 import static guru.nidi.graphviz.model.Factory.to;
 import static guru.nidi.graphviz.attribute.Attributes.attr;
-import static guru.nidi.graphviz.attribute.Label.html;
 
+import guru.nidi.graphviz.attribute.Label;
 import guru.nidi.graphviz.attribute.Rank;
 import guru.nidi.graphviz.attribute.Style;
 import guru.nidi.graphviz.attribute.Font;
@@ -71,7 +71,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(FunctorActivationRecord far) {
-        Node node = this.createGoalNode(far).with(html(far.getFunctor().toHtml()));
+        Node node = this.createGoalNode(far, far.getFunctor().toHtml());
 
         if (!far.isVisited()) {
             return node;
@@ -92,8 +92,9 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         }
 
         // create the result box node
-        Node resultBox = node(this.createUniqueNodeName()).with(html("{" + ruleRepr + "|" + result.toHtml() + "}"))
-                .with(attr("shape", "record"));
+        Node resultBox = node(this.createUniqueNodeName())
+        .with(Label.html("{" + ruleRepr + "|" + result.toHtml() + "}"))
+        .with(attr("shape", "record"));
 
         if (this.isCurrent(far)) {
             resultBox = resultBox.with(result.isSuccess() ? ColorScheme.VIS_GREEN : ColorScheme.VIS_RED);
@@ -128,15 +129,14 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(UnificationActivationRecord uar) {
-        Node node = this.createGoalNode(uar)
-        .with(html(String.format("%s = %s", uar.getLhs().toHtml(), uar.getRhs().toHtml())));
+        Node node = this.createGoalNode(uar, String.format("%s = %s", uar.getLhs().toHtml(), uar.getRhs().toHtml()));
 
         if (!uar.isVisited()) {
             return node;
         }
 
         Node resultBox = node(this.createUniqueNodeName())
-                .with(html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
+                .with(Label.html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
                         LanguageManager.getInstance().getString(LanguageKey.UNIFICATION), uar.getLhs().toHtml(),
                         uar.getRhs().toHtml(), uar.getResult().toHtml())))
                 .with(attr("shape", "record"));
@@ -150,7 +150,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(CutActivationRecord cutAr) {
-        Node node = this.createGoalNode(cutAr).with(html("!"));
+        Node node = this.createGoalNode(cutAr, "!");
 
         if (!cutAr.isVisited()) {
             return node;
@@ -158,7 +158,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         String parentHtml = cutAr.getParent().isPresent() ? cutAr.getParent().get().getFunctor().toHtml()
                 : "[no parent]";
-        Node cutNoteBox = node(this.createUniqueNodeName()).with(html(
+        Node cutNoteBox = node(this.createUniqueNodeName()).with(Label.html(
                 String.format(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_CUT_NOTE), parentHtml)))
                 .with(attr("shape", "record"));
 
@@ -171,8 +171,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(ArithmeticActivationRecord aar) {
-        Node node = this.createGoalNode(aar)
-                .with(html(String.format("%s is %s", aar.getLhs().toHtml(), aar.getRhs().toHtml())));
+        Node node = this.createGoalNode(aar, String.format("%s is %s", aar.getLhs().toHtml(), aar.getRhs().toHtml()));
 
         if (!aar.isVisited()) {
             return node;
@@ -181,9 +180,9 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         Node resultBox = node(this.createUniqueNodeName()).with(attr("shape", "record"));
 
         if (aar.getResult().isError()) {
-            resultBox = resultBox.with(html(aar.getResult().toHtml()));
+            resultBox = resultBox.with(Label.html(aar.getResult().toHtml()));
         } else {
-            resultBox = resultBox.with(html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
+            resultBox = resultBox.with(Label.html(String.format("{<font point-size=\"10\">%s</font>|%s = %s|%s}",
                     LanguageManager.getInstance().getString(LanguageKey.UNIFICATION), aar.getLhs().toHtml(),
                     // evaluated rhs is guaranteed to be set because the result was not an error
                     aar.getEvaluatedRhs().toHtml(), aar.getResult().toHtml())));
@@ -198,8 +197,8 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
     @Override
     public Node visit(ComparisonActivationRecord car) {
-        Node node = this.createGoalNode(car).with(html(String.format("%s %s %s", car.getLhs().toHtml(),
-                car.getGoal().getHtmlSymbol(), car.getRhs().toHtml())));
+        Node node = this.createGoalNode(car, String.format("%s %s %s", car.getLhs().toHtml(),
+        car.getGoal().getHtmlSymbol(), car.getRhs().toHtml()));
 
         if (!car.isVisited()) {
             return node;
@@ -209,10 +208,10 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         if (!car.getErrorMessage().isPresent()) {
             resultBox = resultBox
-            .with(html(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_COMPARISON_SUCCEEDED)));
+            .with(Label.html(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_COMPARISON_SUCCEEDED)));
         } else {
             resultBox = resultBox
-            .with(html(car.getErrorMessage().get()));
+            .with(Label.html(car.getErrorMessage().get()));
         }
 
         if (this.isCurrent(car)) {
@@ -238,8 +237,18 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
      * @param ar activation record to create a node for
      * @return node that represents the activation records goal
      */
-    private Node createGoalNode(ActivationRecord ar) {
+    private Node createGoalNode(ActivationRecord ar, String htmlLabel) {
         Node node = node(this.createUniqueNodeName());
+
+        // Mark fulfilled nodes as fulfilled
+        if (ar.isFulfilled()) {
+            node = node
+            .with(Style.FILLED)
+            .with(ColorScheme.VIS_FULFILLED.fill())
+            .with(Label.html(htmlLabel + " &#x2713;"));
+        } else {
+            node = node.with(Label.html(htmlLabel));
+        }
 
         /*
          * If the current ar has not been visited and the next ar has been visited already,
@@ -252,6 +261,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
             .with(attr("constraint", "false")));
         }
 
+        // This should be the very last block of code before returning
         if (this.isNext(ar)) {
             this.backtrackingNode = Optional.of(node);
         }
