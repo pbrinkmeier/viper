@@ -20,10 +20,7 @@ jar:
     when: always
     expire_in: 2 weeks
 
-# Weitere Jobs einfach hier hinzufügen z.B. Checkstyle mit gradle
-# (siehe https://docs.gradle.org/current/userguide/checkstyle_plugin.html):
-#
-#checkstyle:
-#  stage: test
-#  script:
-#    - ./gradlew -w check
+checkstyle:
+  stage: test
+  script:
+    - ./gradlew -w checkstyleMain
