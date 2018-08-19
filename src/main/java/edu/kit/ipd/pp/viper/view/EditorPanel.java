@@ -62,6 +62,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * Indicates whether the document has changed since the last parsing
      */
     private boolean changed;
+    
+    /**
+     * Indicates whether change is caused by formatting or not
+     */
+    private boolean isFormattingProcess;
 
     /**
      * Holds a reference to the file that the editor content was loaded from
@@ -91,6 +96,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.preferencesManager = gui.getPreferencesManager();
         
         this.changed = false;
+        this.isFormattingProcess = false;
 
         this.setLayout(new BorderLayout());
         this.fontSize = this.preferencesManager.getEditorTextSize();
@@ -171,12 +177,20 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      *        content
      */
     public void setHasChanged(boolean changed) {
-        if (this.changed && !this.main.getConsolePanel().hasLockedInput()) {
+        if (!this.isFormattingProcess && this.changed && !this.main.getConsolePanel().hasLockedInput()) {
             this.main.getConsolePanel().lockInput();
             this.main.switchClickableState(ClickableState.NOT_PARSED_YET);
         }
         this.main.setAppendAsterixToTitle(changed);
         this.changed = changed;
+    }
+    
+    /**
+     * Sets isFormatting Process to prevent blocking inputs when formatter changes code.
+     * @param isFormatting Boolean value describing whether the change is caused by the formatter.
+     */
+    public void setIsFormattingProcess(boolean isFormatting) {
+        this.isFormattingProcess = isFormatting;
     }
 
     /**

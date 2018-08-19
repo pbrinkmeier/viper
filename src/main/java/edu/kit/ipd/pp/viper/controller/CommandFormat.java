@@ -47,8 +47,10 @@ public class CommandFormat extends Command {
 
         final String newSource = kb.toString();
         if (!source.equals(newSource)) {
+            // prevent locking the input fields for changed text but still inform the editor the text changed.
+            this.editor.setIsFormattingProcess(true);
             this.editor.setSourceText(newSource);
-            this.editor.setHasChanged(true);
+            this.editor.setIsFormattingProcess(false);
             this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.EDITOR_FORMATTED), LogType.INFO);
         } else {
             if (!source.equals(""))
