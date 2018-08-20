@@ -103,6 +103,16 @@ public class ConsolePanel extends JPanel implements HasClickable {
     }
 
     /**
+     * Sets the text of the input field. This is only used for testing purposes
+     * (e.g. to test sending queries).
+     * 
+     * @param text The text to be set
+     */
+    public void setInputFieldText(String text) {
+        this.inputField.setText(text);
+    }
+    
+    /**
      * Returns the content of the input field
      * 
      * @return String Input field contents

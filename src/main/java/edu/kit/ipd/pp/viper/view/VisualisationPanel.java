@@ -51,7 +51,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      */
     private final VisualisationViewer viewer;
     
-    private boolean hasGraph;
     private boolean showsPlaceholder;
     private Graph placeholderGraph;
     
@@ -97,7 +96,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         contentPane.add(this.zoomOut, new Integer(2));
 
         this.add(contentPane, BorderLayout.CENTER);
-        this.hasGraph = false;
 
         this.buildPlaceholderGraph();
         this.setFromGraph(this.placeholderGraph);
@@ -121,7 +119,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * @return boolean value whether a graph is set right now
      */
     public boolean hasGraph() {
-        return this.hasGraph;
+        return !this.showsPlaceholder;
     }
     
     /**
@@ -138,7 +136,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      */
     public void clearVisualization() {
         this.viewer.clear();
-        this.hasGraph = false;
+        this.setFromGraph(this.placeholderGraph);
+        this.showsPlaceholder = true;
     }
 
     /**
@@ -167,9 +166,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         if (graph == null)
             return;
 
-        this.showsPlaceholder = graph == this.placeholderGraph;
         this.viewer.setFromGraph(graph);
-        this.hasGraph = true;
+        this.showsPlaceholder = graph == this.placeholderGraph;
     }
     
     private void buildPlaceholderGraph() {
