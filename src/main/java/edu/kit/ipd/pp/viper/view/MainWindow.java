@@ -111,6 +111,11 @@ public class MainWindow extends JFrame {
     private String windowTitle;
 
     /**
+     * The global clickable state
+     */
+    private ClickableState clickableState;
+    
+    /**
      * The constructor sets up the {@link JFrame} and initialises all three panels
      * 
      * @param debug Sets debug mode to enabled/disabled
@@ -199,6 +204,16 @@ public class MainWindow extends JFrame {
         this.toolbar.switchClickableState(state);
         this.consolePanel.switchClickableState(state);
         this.visualisationPanel.switchClickableState(state);
+        this.clickableState = state;
+    }
+    
+    /**
+     * Returns the current global clickable state.
+     * 
+     * @return the global clickable state
+     */
+    public ClickableState getClickableState() {
+        return this.clickableState;
     }
     
     /**

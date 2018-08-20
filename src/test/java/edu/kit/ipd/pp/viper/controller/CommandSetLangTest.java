@@ -43,7 +43,7 @@ public class CommandSetLangTest {
         assertTrue(gui.getPreferencesManager().getLanguage().equals(Locale.ENGLISH));
         assertTrue(gui.getConsolePanel().getOutputAreaText().trim().isEmpty());
         
-        setupVisualisation(gui);
+        this.setupVisualisation(gui);
         command.execute();
         assertTrue(LanguageManager.getCurrentLocale().equals(Locale.ENGLISH));
         assertTrue(gui.getPreferencesManager().getLanguage().equals(Locale.ENGLISH));

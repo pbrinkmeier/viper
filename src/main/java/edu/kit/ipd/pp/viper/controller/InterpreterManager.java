@@ -375,6 +375,16 @@ public class InterpreterManager {
     }
     
     /**
+     * Returns whether the interpreter manager is currently
+     * searching for solutions.
+     * 
+     * @return whether the interpreter manager is searching for solutions
+     */
+    public boolean isSearchingForSolutions() {
+        return this.running;
+    }
+    
+    /**
      * Getter-Method for the code used in the standard library
      * 
      * @return the standard library code
