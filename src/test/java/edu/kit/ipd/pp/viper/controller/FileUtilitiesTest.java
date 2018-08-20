@@ -1,5 +1,6 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -7,6 +8,15 @@ import java.io.File;
 import org.junit.Test;
 
 public class FileUtilitiesTest {
+    /**
+     * Tests the default constructor. This is just to reach 100% coverage,
+     * since the class won't ever be constructed.
+     */
+    @Test
+    public void testDefaultConstructor() {
+        assertNotNull(new FileUtilities());
+    }
+    
     /**
      * Tests proper extension adding.
      */

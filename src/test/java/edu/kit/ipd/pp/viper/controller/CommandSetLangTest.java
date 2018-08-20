@@ -50,4 +50,18 @@ public class CommandSetLangTest {
         assertTrue(gui.getConsolePanel().getOutputAreaText().trim().isEmpty());
         assertTrue(gui.getVisualisationPanel().hasGraph());
     }
+    
+    /**
+     * Tests whether setting an unsupported language gets rejected properly.
+     */
+    @Test
+    public void testUnsupportedLocale() {
+        LanguageManager langman = LanguageManager.getInstance();
+        langman.setLocale(Locale.ENGLISH);
+        
+        // Note: If this ever gets translated to traditional chinese, we'll be mildly annoyed by this test
+        // failing, but the odds are stacked in our favor for now.
+        langman.setLocale(Locale.TRADITIONAL_CHINESE);
+        assertTrue(LanguageManager.getCurrentLocale().equals(Locale.ENGLISH));
+    }
 }
