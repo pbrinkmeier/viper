@@ -1,5 +1,7 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.math.BigInteger;
+
 /**
  * Represents a greater-than-equal goal (A &gt;= B) in an AST.
  */
@@ -20,7 +22,7 @@ public class GreaterThanEqualGoal extends ComparisonGoal {
     }
 
     @Override
-    public boolean compareNumbers(int lhs, int rhs) {
-        return lhs >= rhs;
+    public boolean compareNumbers(BigInteger lhs, BigInteger rhs) {
+        return lhs.compareTo(rhs) >= 0;
     }
 }

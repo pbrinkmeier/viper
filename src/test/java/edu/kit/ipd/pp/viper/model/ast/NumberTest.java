@@ -3,6 +3,8 @@ package edu.kit.ipd.pp.viper.model.ast;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import java.math.BigInteger;
+
 public class NumberTest {
     private Number num;
 
@@ -11,7 +13,7 @@ public class NumberTest {
      */
     @Before
     public void init() {
-        this.num = new Number(42);
+        this.num = new Number(BigInteger.valueOf(42));
     }
 
     /**
@@ -19,7 +21,7 @@ public class NumberTest {
      */
     @Test
     public void getNumberTest() {
-        assertEquals(42, this.num.getNumber());
+        assertEquals(BigInteger.valueOf(42), this.num.getNumber());
     }
 
     /**
@@ -54,13 +56,14 @@ public class NumberTest {
     @Test
     public void equalsTest() {
         // two number terms should be equal if the numbers they represent are equal
-        assertEquals(new Number(42), new Number(42));
-        assertEquals(new Number(0), new Number(0));
-        assertEquals(new Number(Integer.MAX_VALUE), new Number(Integer.MAX_VALUE));
+        assertEquals(BigInteger.valueOf(42), BigInteger.valueOf(42));
+        assertEquals(BigInteger.valueOf(0), BigInteger.valueOf(0));
+        BigInteger max = BigInteger.valueOf(Integer.MAX_VALUE);
+        assertEquals(max.add(max), max.add(max));
 
         // two number should not be equal if the numbers they represent are not equal
-        assertNotEquals(new Number(42), new Number(24));
-        assertNotEquals(new Number(69), new Number(96));
-        assertNotEquals(new Number(12), new Number(0));
+        assertNotEquals(BigInteger.valueOf(42), BigInteger.valueOf(24));
+        assertNotEquals(BigInteger.valueOf(69), BigInteger.valueOf(96));
+        assertNotEquals(BigInteger.valueOf(12), BigInteger.valueOf(0));
     }
 }

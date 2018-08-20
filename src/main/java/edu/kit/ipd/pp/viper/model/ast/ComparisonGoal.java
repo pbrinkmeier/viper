@@ -5,6 +5,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.VariableExtractor;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -94,7 +95,7 @@ public abstract class ComparisonGoal extends Goal {
      * @param rhs right hand side of the comparison
      * @return whether the comparison is true
      */
-    public abstract boolean compareNumbers(int lhs, int rhs);
+    public abstract boolean compareNumbers(BigInteger lhs, BigInteger rhs);
 
     /**
      * Two comparison goals are equal if they are of the same class and their lhs

@@ -1,5 +1,6 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,8 +49,8 @@ public abstract class BinaryOperation extends Functor {
      */
     @Override
     public Number evaluate() throws TermEvaluationException {
-        int lhs = this.getLhs().evaluate().getNumber();
-        int rhs = this.getRhs().evaluate().getNumber();
+        BigInteger lhs = this.getLhs().evaluate().getNumber();
+        BigInteger rhs = this.getRhs().evaluate().getNumber();
 
         return new Number(this.calculate(lhs, rhs));
     }
@@ -61,7 +62,7 @@ public abstract class BinaryOperation extends Functor {
      * @param b right hand side of the operation
      * @return result of the operation
      */
-    protected abstract int calculate(int a, int b);
+    protected abstract BigInteger calculate(BigInteger a, BigInteger b);
 
     /**
      * Getter-method for a string representation of this operation.

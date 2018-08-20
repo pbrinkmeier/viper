@@ -25,6 +25,7 @@ import edu.kit.ipd.pp.viper.model.ast.UnificationGoal;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 import edu.kit.ipd.pp.viper.model.parser.TokenType;
 
+import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -368,7 +369,7 @@ public class PrologParser {
      * @throws ParseException if a parser error occurs
      */
     private Number parseNumber() throws ParseException {
-        int n = Integer.parseInt(this.token.getText());
+        BigInteger n = new BigInteger(this.token.getText());
         this.nextToken();
         return new Number(n);
     }
