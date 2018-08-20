@@ -172,7 +172,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
         }
 
         try {
-            this.setURI(tmpFile.toURI().toString());            
+            this.loadSVGDocument(tmpFile.toURI().toString());
         } catch (NullPointerException e) {
             ConsolePanel panel = this.main.getConsolePanel();
             if (panel != null)
