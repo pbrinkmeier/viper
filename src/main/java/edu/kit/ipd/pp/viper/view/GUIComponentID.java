@@ -17,6 +17,11 @@ public enum GUIComponentID {
     FRAME_SHOW_STD("frame_show_std"),
     
     /**
+     * Identifier of the manual window
+     */
+    FRAME_MANUAL("frame_manual"),
+    
+    /**
      * Identifier of the "new" button
      */
     BUTTON_NEW("button_new"),

@@ -23,6 +23,7 @@ import edu.kit.ipd.pp.viper.controller.CommandParse;
 import edu.kit.ipd.pp.viper.controller.CommandPreviousStep;
 import edu.kit.ipd.pp.viper.controller.CommandSave;
 import edu.kit.ipd.pp.viper.controller.CommandShowAbout;
+import edu.kit.ipd.pp.viper.controller.CommandShowManual;
 import edu.kit.ipd.pp.viper.controller.CommandShowStandard;
 import edu.kit.ipd.pp.viper.controller.CommandZoom;
 import edu.kit.ipd.pp.viper.controller.InterpreterManager;
@@ -89,6 +90,7 @@ public class MainWindow extends JFrame {
     private final CommandShowStandard commandShowStandard;
     private final CommandZoom commandZoomTextIn;
     private final CommandZoom commandZoomTextOut;
+    private final CommandShowManual commandShowManual;
 
     private ToolBar toolbar;
     private MenuBar menubar;
@@ -150,6 +152,7 @@ public class MainWindow extends JFrame {
         this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);
         this.commandShowAbout = new CommandShowAbout();
         this.commandShowStandard = new CommandShowStandard(this.manager);
+        this.commandShowManual = new CommandShowManual();
 
         this.editorPanel.setZoomInCommand(this.commandZoomTextIn);
         this.editorPanel.setZoomOutCommand(this.commandZoomTextOut);
@@ -472,6 +475,18 @@ public class MainWindow extends JFrame {
     }
     
     /**
+<<<<<<< HEAD
+=======
+     * Returns the show manual command
+     * 
+     * @return CommandShowManual
+     */
+    public CommandShowManual getCommandShowManual() {
+        return this.commandShowManual;
+    }
+     
+    /**
+>>>>>>> qa_welcome
      * Returns the zoom in command
      * 
      * @return CommandZoom (zoom-in-version)

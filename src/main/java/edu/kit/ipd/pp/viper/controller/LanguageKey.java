@@ -458,7 +458,32 @@ public enum LanguageKey {
     /**
      * Translation of standard library
      */
-    STANDARD_LIBRARY("standard_library");
+    STANDARD_LIBRARY("standard_library"),
+    
+    /**
+     * Manual window title and menu item
+     */
+    MANUAL("manual"),
+
+    /**
+     * Manual tab of the manual window
+     */
+    TAB_MANUAL("tab_manual"),
+
+    /**
+     * Controls tab of the manual window
+     */
+    TAB_CONTROLS("tab_controls"),
+    
+    /**
+     * Manual text of the manual window
+     */
+    MANUAL_MANUAL("manual_manual"),
+    
+    /**
+     * Controls text of the manual window
+     */
+    MANUAL_CONTROLS("manual_controls");
 
     private String value;
 
