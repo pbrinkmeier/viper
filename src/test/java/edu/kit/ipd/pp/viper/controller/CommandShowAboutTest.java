@@ -1,9 +1,11 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Frame;
+import java.util.Locale;
 
 import org.assertj.swing.core.BasicRobot;
 import org.assertj.swing.core.ComponentLookupScope;
@@ -22,6 +24,9 @@ public class CommandShowAboutTest {
      */
     @Test
     public void testUI() {
+        LanguageManager langman = LanguageManager.getInstance();
+        langman.setLocale(Locale.GERMAN);
+        
         CommandShowAbout command = new CommandShowAbout();
         command.execute();
         
@@ -29,7 +34,6 @@ public class CommandShowAboutTest {
         robot.settings().componentLookupScope(ComponentLookupScope.ALL);
         FrameFixture frameFixture = WindowFinder.findFrame(GUIComponentID.FRAME_ABOUT.toString()).using(robot);
         Frame frame = frameFixture.target();
-        LanguageManager langman = LanguageManager.getInstance();
         
         assertNotNull(frameFixture);
         assertNotNull(frame);
@@ -40,6 +44,7 @@ public class CommandShowAboutTest {
         assertTrue(frame.getTitle().equals(langman.getString(LanguageKey.MENU_ABOUT)));
         
         command.execute();
+        langman.setLocale(Locale.ENGLISH);
         frameFixture = WindowFinder.findFrame(GUIComponentID.FRAME_ABOUT.toString()).using(robot);
         frame = frameFixture.target();
         assertNotNull(frameFixture);
@@ -49,6 +54,18 @@ public class CommandShowAboutTest {
         assertTrue(frame.isVisible());
         assertTrue(frame.getSize().equals(CommandShowAbout.DIMENSION));
         assertTrue(frame.getTitle().equals(langman.getString(LanguageKey.MENU_ABOUT)));
+        
+        command.windowClosing(null);
+        assertFalse(command.isOpened());
+        langman.setLocale(Locale.GERMAN);
+        
+        // These don't do anything
+        command.windowActivated(null);
+        command.windowClosed(null);
+        command.windowDeactivated(null);
+        command.windowDeiconified(null);
+        command.windowIconified(null);
+        command.windowOpened(null);
         
         frameFixture.cleanUp();
     }

@@ -2,8 +2,8 @@ package edu.kit.ipd.pp.viper.controller;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -16,7 +16,7 @@ import edu.kit.ipd.pp.viper.view.GUIComponentID;
 /**
  * Command for showing a popup with the standard library code used.
  */
-public class CommandShowStandard extends Command {
+public class CommandShowStandard extends Command implements WindowListener {
     /**
      * The dimensions of the popup
      */
@@ -68,15 +68,54 @@ public class CommandShowStandard extends Command {
             this.frame.add(this.scrollPane);
 
             this.isOpened = true;
-            this.frame.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent windowEvent) {
-                    CommandShowStandard.this.isOpened = false;
-                }
-            });
+            this.frame.addWindowListener(this);
         }
         
         this.frame.requestFocus();
         this.frame.toFront();
+    }
+
+    /**
+     * Returns whether the popup is opened
+     * 
+     * @return boolean value describing whether the popup is opened
+     */
+    public boolean isOpened() {
+        return this.isOpened;
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        this.isOpened = false;
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        return;
     }
 }

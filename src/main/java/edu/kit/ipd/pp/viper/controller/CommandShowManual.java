@@ -2,8 +2,8 @@ package edu.kit.ipd.pp.viper.controller;
 
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,7 +23,7 @@ import edu.kit.ipd.pp.viper.view.ToolBar;
 /**
  * Command for showing a popup with manual information.
  */
-public class CommandShowManual extends Command implements Observer {
+public class CommandShowManual extends Command implements Observer, WindowListener {
     /**
      * The size of the icons used for explanation purposes
      */
@@ -125,12 +125,7 @@ public class CommandShowManual extends Command implements Observer {
         this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.frame.setVisible(true);
         
-        this.frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent windowEvent) {
-                CommandShowManual.this.isOpened = false;
-            }
-        });
+        this.frame.addWindowListener(this);
     }
     
     private void setupTabbedPane() {
@@ -277,10 +272,55 @@ public class CommandShowManual extends Command implements Observer {
         this.parseLabel.setText(langman.getString(LanguageKey.TOOLTIP_PARSE));
         this.formatLabel.setText(langman.getString(LanguageKey.TOOLTIP_FORMAT));
     }
+    
+    /**
+     * Returns whether the popup is opened
+     * 
+     * @return boolean value describing whether the popup is opened
+     */
+    public boolean isOpened() {
+        return this.isOpened;
+    }
 
     @Override
-    public void update(Observable arg0, Object arg1) {
-        if (this.isOpened)
+    public void update(Observable o, Object arg) {
+        if (this.isOpened) {
             this.setText();
+        }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        this.isOpened = false;
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        return;
     }
 }
