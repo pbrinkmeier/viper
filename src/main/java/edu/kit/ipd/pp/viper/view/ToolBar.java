@@ -23,17 +23,17 @@ public class ToolBar extends JToolBar implements HasClickable {
      * <code>edu.kit.ipd.pp.viper.view</code> package, not inside
      * <code>src/main/resources/</code>.
      */
-    private static final String ICON_NEW = "/icons_png/icon_newfile.png";
-    private static final String ICON_OPEN = "/icons_png/icon_openfile.png";
-    private static final String ICON_SAVE = "/icons_png/icon_savefile.png";
-    private static final String ICON_PARSE = "/icons_png/icon_parsefile.png";
-    private static final String ICON_FORMAT = "/icons_png/icon_formatfile.png";
-    private static final String ICON_CANCEL = "/icons_png/icon_cancel.png";
-    private static final String ICON_NEXTSTEP = "/icons_png/icon_nextstep.png";
-    private static final String ICON_NEXTSOLUTION = "/icons_png/icon_nextsolution.png";
-    private static final String ICON_PREVIOUSSTEP = "/icons_png/icon_previousstep.png";
-    private static final String ICON_ZOOM_IN = "/icons_png/icon_zoom_in.png";
-    private static final String ICON_ZOOM_OUT = "/icons_png/icon_zoom_out.png";
+    public static final String ICON_NEW = "/icons_png/icon_newfile.png";
+    public static final String ICON_OPEN = "/icons_png/icon_openfile.png";
+    public static final String ICON_SAVE = "/icons_png/icon_savefile.png";
+    public static final String ICON_PARSE = "/icons_png/icon_parsefile.png";
+    public static final String ICON_FORMAT = "/icons_png/icon_formatfile.png";
+    public static final String ICON_CANCEL = "/icons_png/icon_cancel.png";
+    public static final String ICON_NEXTSTEP = "/icons_png/icon_nextstep.png";
+    public static final String ICON_NEXTSOLUTION = "/icons_png/icon_nextsolution.png";
+    public static final String ICON_PREVIOUSSTEP = "/icons_png/icon_previousstep.png";
+    public static final String ICON_ZOOM_IN = "/icons_png/icon_zoom_in.png";
+    public static final String ICON_ZOOM_OUT = "/icons_png/icon_zoom_out.png";
     
     private ToolBarButton buttonNew;
     private ToolBarButton buttonOpen;

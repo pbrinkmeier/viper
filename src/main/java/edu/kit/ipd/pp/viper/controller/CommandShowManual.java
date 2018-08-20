@@ -18,27 +18,36 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import edu.kit.ipd.pp.viper.view.GUIComponentID;
+import edu.kit.ipd.pp.viper.view.ToolBar;
 
 /**
  * Command for showing a popup with manual information.
  */
 public class CommandShowManual extends Command implements Observer {
-    private static final String ICON_CANCEL = "/icons_png/icon_cancel.png";
-    private static final String ICON_NEXTSTEP = "/icons_png/icon_nextstep.png";
-    private static final String ICON_NEXTSOLUTION = "/icons_png/icon_nextsolution.png";
-    private static final String ICON_PREVIOUSSTEP = "/icons_png/icon_previousstep.png";
-    private static final int ICON_SIZE = 25;
-
     private final JLabel cancelIcon;
     private final JLabel nextStepIcon;
     private final JLabel nextSolutionIcon;
     private final JLabel previousStepIcon;
+    
+    private final JLabel newIcon;
+    private final JLabel openIcon;
+    private final JLabel saveIcon;
+    private final JLabel parseIcon;
+    private final JLabel formatIcon;
+    
+    private static final int ICON_SIZE = 25;
     
     private JLabel cancelLabel;
     private JLabel nextStepLabel;
     private JLabel nextSolutionLabel;
     private JLabel previousStepLabel;
     
+    private JLabel newLabel;
+    private JLabel openLabel;
+    private JLabel saveLabel;
+    private JLabel parseLabel;
+    private JLabel formatLabel;
+
     private JFrame frame;
     private JTabbedPane tabbedPane;
     private JComponent tabContentManual;
@@ -56,10 +65,16 @@ public class CommandShowManual extends Command implements Observer {
         this.isOpened = false;
         LanguageManager.getInstance().addObserver(this);
         
-        this.cancelIcon = this.loadIcon(ICON_CANCEL);
-        this.nextStepIcon = this.loadIcon(ICON_NEXTSTEP);
-        this.nextSolutionIcon = this.loadIcon(ICON_NEXTSOLUTION);
-        this.previousStepIcon = this.loadIcon(ICON_PREVIOUSSTEP);
+        this.cancelIcon = this.loadIcon(ToolBar.ICON_CANCEL);
+        this.nextStepIcon = this.loadIcon(ToolBar.ICON_NEXTSTEP);
+        this.nextSolutionIcon = this.loadIcon(ToolBar.ICON_NEXTSOLUTION);
+        this.previousStepIcon = this.loadIcon(ToolBar.ICON_PREVIOUSSTEP);
+
+        this.newIcon = this.loadIcon(ToolBar.ICON_NEW);
+        this.openIcon = this.loadIcon(ToolBar.ICON_OPEN);
+        this.saveIcon = this.loadIcon(ToolBar.ICON_SAVE);
+        this.parseIcon = this.loadIcon(ToolBar.ICON_PARSE);
+        this.formatIcon = this.loadIcon(ToolBar.ICON_FORMAT);
     }
     
     @Override
@@ -119,8 +134,61 @@ public class CommandShowManual extends Command implements Observer {
     
     private JComponent makeManualPane() {
         JPanel panel = new JPanel();
-        this.manualText = new JLabel();
-        panel.add(this.manualText);
+        this.manualText = new JLabel("", SwingConstants.CENTER);
+
+        this.newLabel = new JLabel("", SwingConstants.CENTER);
+        this.openLabel = new JLabel("", SwingConstants.CENTER);
+        this.saveLabel = new JLabel("", SwingConstants.CENTER);
+        this.parseLabel = new JLabel("", SwingConstants.CENTER);
+        this.formatLabel = new JLabel("", SwingConstants.CENTER);
+        
+        GroupLayout layout = new GroupLayout(panel);
+        layout.setAutoCreateContainerGaps(true);
+        layout.setAutoCreateGaps(true);
+        
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                  .addComponent(this.manualText)
+                  .addGroup(layout.createSequentialGroup()
+                  .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                      .addComponent(this.newIcon)
+                      .addComponent(this.newLabel))
+                  .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                      .addComponent(this.openIcon)
+                      .addComponent(this.openLabel))
+                  .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                      .addComponent(this.saveIcon)
+                      .addComponent(this.saveLabel))
+                  .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                      .addComponent(this.parseIcon)
+                      .addComponent(this.parseLabel))
+                  .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                      .addComponent(this.formatIcon)
+                      .addComponent(this.formatLabel))
+                ));
+            
+            layout.setVerticalGroup(
+                layout.createSequentialGroup()
+                    .addComponent(this.manualText)
+                    .addGroup(layout.createParallelGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(this.newIcon)
+                        .addComponent(this.newLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(this.openIcon)
+                        .addComponent(this.openLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(this.saveIcon)
+                        .addComponent(this.saveLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(this.parseIcon)
+                        .addComponent(this.parseLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(this.formatIcon)
+                        .addComponent(this.formatLabel))
+                    ));
+        
+        panel.setLayout(layout);
         return panel;
     }
 
@@ -189,6 +257,12 @@ public class CommandShowManual extends Command implements Observer {
         this.nextStepLabel.setText(langman.getString(LanguageKey.TOOLTIP_NEXTSTEP));
         this.nextSolutionLabel.setText(langman.getString(LanguageKey.TOOLTIP_NEXTSOLUTION));
         this.cancelLabel.setText(langman.getString(LanguageKey.TOOLTIP_CANCEL));
+
+        this.newLabel.setText(langman.getString(LanguageKey.TOOLTIP_NEW));
+        this.openLabel.setText(langman.getString(LanguageKey.TOOLTIP_OPEN));
+        this.saveLabel.setText(langman.getString(LanguageKey.TOOLTIP_SAVE));
+        this.parseLabel.setText(langman.getString(LanguageKey.TOOLTIP_PARSE));
+        this.formatLabel.setText(langman.getString(LanguageKey.TOOLTIP_FORMAT));
     }
 
     @Override
