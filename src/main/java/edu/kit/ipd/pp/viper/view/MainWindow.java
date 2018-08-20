@@ -475,8 +475,6 @@ public class MainWindow extends JFrame {
     }
     
     /**
-<<<<<<< HEAD
-=======
      * Returns the show manual command
      * 
      * @return CommandShowManual
@@ -486,7 +484,6 @@ public class MainWindow extends JFrame {
     }
      
     /**
->>>>>>> qa_welcome
      * Returns the zoom in command
      * 
      * @return CommandZoom (zoom-in-version)
