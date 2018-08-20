@@ -96,7 +96,7 @@ public class UnificationResultTest {
      */
     @Test
     public void toHtmlTest() {
-        assertEquals("X =&gt; abe, Y =&gt; bart", this.successResult.toHtml());
+        assertEquals("X &#x21d2; abe, Y &#x21d2; bart", this.successResult.toHtml());
         assertEquals("abe is not unifiable with homer", this.failResult.toHtml());
     }
 }
