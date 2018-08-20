@@ -20,6 +20,7 @@ dependencies {
     compile 'com.fifesoft:rsyntaxtextarea:2.6.1'
     compile 'org.apache.xmlgraphics:batik-swing:1.10'
     compile 'guru.nidi:graphviz-java:0.5.2'
+    compile 'org.slf4j:slf4j-nop:1.7.25'
 }
 
 test { finalizedBy jacocoTestReport }
