@@ -209,7 +209,7 @@ nfib(X, Y) :-
 %   WARNING: CPU intensive!
 %
 % Example:
-%   ? nfib(10, X).
+%   ? fib(10, X).
 %   X = 55.
 fib(0, Y) :-
   !,
@@ -224,12 +224,33 @@ fib(X, Y) :-
   fib(X2, Y2),
   Y is (Y1 + Y2).
 
+% fac/2:
+%   Calculate factorial (n!) of number.
+%
+% Example:
+%   ? fac(5, X).
+%   X = 120.
+fac(0, 1).
+fac(N, X) :-
+  M is (N - 1),
+  fac(M, Y),
+  X is (Y * N),
+  !.
+
 % nat/1:
 %   Infinitely re-satisfiable predicate.
 nat(0).
 nat(X) :-
   nat(Y),
   X is (Y + 1).
+
+% neq/2:
+%   Check if X and Y are different terms. Both terms need to be instantiated.
+neq(X, Y) :-
+  X = Y,
+  !,
+  fail.
+neq(X, Y).
 
 % sqrt/2:
 %   Calculate square root.
