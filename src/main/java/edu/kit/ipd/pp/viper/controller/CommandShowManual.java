@@ -24,6 +24,8 @@ import edu.kit.ipd.pp.viper.view.ToolBar;
  * Command for showing a popup with manual information.
  */
 public class CommandShowManual extends Command implements Observer {
+    private static final int ICON_SIZE = 25;
+
     private final JLabel cancelIcon;
     private final JLabel nextStepIcon;
     private final JLabel nextSolutionIcon;
@@ -33,9 +35,7 @@ public class CommandShowManual extends Command implements Observer {
     private final JLabel openIcon;
     private final JLabel saveIcon;
     private final JLabel parseIcon;
-    private final JLabel formatIcon;
-    
-    private static final int ICON_SIZE = 25;
+    private final JLabel formatIcon;    
     
     private JLabel cancelLabel;
     private JLabel nextStepLabel;
