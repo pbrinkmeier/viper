@@ -106,20 +106,6 @@ qsort([X | R], Y) :-
   qsort(R2, Y2),
   append(Y1, [X | Y2], Y).
 
-% qsortclp/2:
-%   Sort a list using the quick sort algorithm in the contraint logic
-%   programming paradigm.
-%
-% Example:
-%   ? qsortclp([4, 1, 3, 2], X).
-%   X = [1, 2, 3, 4].
-qsortclp([], []).
-qsortclp([X | R], Y) :-
-  split(X, R, R1, R2),
-  qsortclp(R1, Y1),
-  qsortclp(R2, Y2),
-  append(Y1, [X | Y2], Y).
-
 % permute/2:
 %   Generate permutations of a list.
 %
