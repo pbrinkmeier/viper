@@ -1,5 +1,6 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -19,8 +20,12 @@ import edu.kit.ipd.pp.viper.view.GUIComponentID;
  * Command for showing an about window for further information about the project.
  */
 public class CommandShowAbout extends Command implements Observer {
-    private static final String ICON_PATH = "/icons_png/viper-icon.png";
+    /**
+     * The dimensions of the popup
+     */
+    public static final Dimension DIMENSION = new Dimension(650, 236);
     
+    private static final String ICON_PATH = "/icons_png/viper-icon.png";
     private boolean isOpened;
 
     private JFrame frame;
@@ -83,6 +88,10 @@ public class CommandShowAbout extends Command implements Observer {
         if (!this.isOpened) {
             this.frame = new JFrame();
             this.frame.setName(GUIComponentID.FRAME_ABOUT.toString());
+            //this.frame.setSize(CommandShowAbout.DIMENSION);
+            //this.frame.setMinimumSize(CommandShowAbout.DIMENSION);
+            //this.frame.setMaximumSize(CommandShowAbout.DIMENSION);
+            //this.frame.setPreferredSize(CommandShowAbout.DIMENSION);
             this.frame.setLocationRelativeTo(null);
             this.frame.setResizable(false);
             this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

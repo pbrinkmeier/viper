@@ -24,7 +24,15 @@ import edu.kit.ipd.pp.viper.view.ToolBar;
  * Command for showing a popup with manual information.
  */
 public class CommandShowManual extends Command implements Observer {
-    private static final int ICON_SIZE = 25;
+    /**
+     * The size of the icons used for explanation purposes
+     */
+    public static final int ICON_SIZE = 25;
+
+    /**
+     * The dimensions of the popup
+     */
+    public static final Dimension DIMENSION = new Dimension(800, 600);
 
     private final JLabel cancelIcon;
     private final JLabel nextStepIcon;
@@ -90,7 +98,13 @@ public class CommandShowManual extends Command implements Observer {
         this.frame.toFront();
     }
     
-    private JLabel loadIcon(String path) {
+    /**
+     * Helper method for loading an icon from disk. Public for testing purposes.
+     * 
+     * @param path The path of the icon to be loaded
+     * @return The JLabel containing the icon
+     */
+    public JLabel loadIcon(String path) {
         ImageIcon icon = new ImageIcon(this.getClass().getResource(path));
         icon.setImage(icon.getImage().getScaledInstance(CommandShowManual.ICON_SIZE,
                                                         CommandShowManual.ICON_SIZE,
@@ -99,13 +113,12 @@ public class CommandShowManual extends Command implements Observer {
     }
     
     private void setupFrame() {
-        final Dimension dim = new Dimension(800, 600);            
         this.frame = new JFrame();
         this.frame.setName(GUIComponentID.FRAME_MANUAL.toString());
-        this.frame.setSize(dim);
-        this.frame.setMinimumSize(dim);
-        this.frame.setMaximumSize(dim);
-        this.frame.setPreferredSize(dim);
+        this.frame.setSize(CommandShowManual.DIMENSION);
+        this.frame.setMinimumSize(CommandShowManual.DIMENSION);
+        this.frame.setMaximumSize(CommandShowManual.DIMENSION);
+        this.frame.setPreferredSize(CommandShowManual.DIMENSION);
         this.frame.setTitle(LanguageManager.getInstance().getString(LanguageKey.MANUAL));
         this.frame.setLocationRelativeTo(null);
         this.frame.setResizable(false);

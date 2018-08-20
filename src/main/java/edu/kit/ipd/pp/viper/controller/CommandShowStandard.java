@@ -17,6 +17,11 @@ import edu.kit.ipd.pp.viper.view.GUIComponentID;
  * Command for showing a popup with the standard library code used.
  */
 public class CommandShowStandard extends Command {
+    /**
+     * The dimensions of the popup
+     */
+    public static final Dimension DIMENSION = new Dimension(400, 300);
+    
     private boolean isOpened;
     private Font font;
 
@@ -40,12 +45,10 @@ public class CommandShowStandard extends Command {
     @Override
     public void execute() {
         if (!this.isOpened) {
-            final Dimension dim = new Dimension(400, 300);
-            
             this.frame = new JFrame();
             this.frame.setName(GUIComponentID.FRAME_SHOW_STD.toString());
-            this.frame.setSize(dim);
-            this.frame.setMinimumSize(dim);
+            this.frame.setSize(CommandShowStandard.DIMENSION);
+            this.frame.setMinimumSize(CommandShowStandard.DIMENSION);
             this.frame.setTitle(LanguageManager.getInstance().getString(LanguageKey.STANDARD_LIBRARY));
             this.frame.setLocationRelativeTo(null);
             this.frame.setResizable(true);
@@ -53,6 +56,7 @@ public class CommandShowStandard extends Command {
             this.frame.setVisible(true);
             
             this.textArea = new JTextArea(this.interpreterManager.getStandardLibraryCode());
+            this.textArea.setName(GUIComponentID.FRAME_SHOW_STD_TEXTAREA.toString());
             this.textArea.setEditable(false);
             this.textArea.setLineWrap(false);
             this.textArea.setFont(this.font);
