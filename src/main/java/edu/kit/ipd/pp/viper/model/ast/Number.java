@@ -1,17 +1,29 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.math.BigInteger;
+
 /**
  * Represents a number in an AST.
  */
 public final class Number extends Term {
-    private final int number;
+    private final BigInteger number;
 
     /**
-     * Creates a new (immutable) number term.
+     * Creates a new immutable number term from an integer.
+     * This constructor is kept for convenience while testing only.
      *
-     * @param number Number this term represents
+     * @param number number this term represents (as an integer)
      */
     public Number(int number) {
+        this(BigInteger.valueOf(number));
+    }
+
+    /**
+     * Creates a new immutable number term from a BigInteger.
+     *
+     * @param number number this term represents (as an instance of {@link java.math.BigInteger})
+     */
+    public Number(BigInteger number) {
         this.number = number;
     }
 
@@ -20,7 +32,7 @@ public final class Number extends Term {
      *
      * @return number this term represents
      */
-    public int getNumber() {
+    public BigInteger getNumber() {
         return this.number;
     }
 
@@ -47,7 +59,7 @@ public final class Number extends Term {
      */
     @Override
     public String toString() {
-        return String.format("%d", this.getNumber());
+        return this.number.toString();
     }
 
     /**
@@ -75,6 +87,6 @@ public final class Number extends Term {
             return false;
         }
 
-        return ((Number) other).getNumber() == this.getNumber();
+        return ((Number) other).getNumber().equals(this.getNumber());
     }
 }

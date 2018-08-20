@@ -1,5 +1,6 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class SubtractionOperation extends BinaryOperation {
@@ -21,8 +22,8 @@ public class SubtractionOperation extends BinaryOperation {
      * @return the result of the expression a - b
      */
     @Override
-    protected int calculate(int a, int b) {
-        return a - b;
+    protected BigInteger calculate(BigInteger a, BigInteger b) {
+        return a.subtract(b);
     }
 
     /**

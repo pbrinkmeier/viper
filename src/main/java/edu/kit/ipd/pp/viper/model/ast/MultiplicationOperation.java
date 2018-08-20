@@ -1,5 +1,6 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -24,8 +25,8 @@ public class MultiplicationOperation extends BinaryOperation {
      * @return a times b
      */
     @Override
-    protected int calculate(int a, int b) {
-        return a * b;
+    protected BigInteger calculate(BigInteger a, BigInteger b) {
+        return a.multiply(b);
     }
 
     /**
