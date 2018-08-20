@@ -187,7 +187,7 @@ public abstract class ActivationRecord {
      *
      * @return whether this AR is fulfilled
      */
-    protected abstract boolean isFulfilled();
+    public abstract boolean isFulfilled();
 
     /**
      * To be overwritten by subclasses (to allow them to have concrete return

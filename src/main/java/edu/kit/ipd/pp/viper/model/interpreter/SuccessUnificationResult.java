@@ -38,7 +38,7 @@ class SuccessUnificationResult extends UnificationResult {
         String repr = "";
 
         for (int index = 0; index < this.substitutions.size(); index++) {
-            repr += String.format("%s =&gt; %s", this.substitutions.get(index).getReplace().toHtml(),
+            repr += String.format("%s &#x21d2; %s", this.substitutions.get(index).getReplace().toHtml(),
                     this.substitutions.get(index).getBy().toHtml());
 
             if (index != this.substitutions.size() - 1) {

@@ -98,7 +98,7 @@ public class FunctorActivationRecord extends ActivationRecord {
      * (getUnificationResult().isSuccess()) - All of its children are fulfilled.
      */
     @Override
-    protected boolean isFulfilled() {
+    public boolean isFulfilled() {
         if (!this.isVisited()) {
             return false;
         }

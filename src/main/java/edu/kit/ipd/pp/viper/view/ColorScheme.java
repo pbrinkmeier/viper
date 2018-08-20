@@ -59,4 +59,10 @@ public class ColorScheme {
      */
     public static final guru.nidi.graphviz.attribute.Color PLACEHOLDER_VIS_COLOR
             = guru.nidi.graphviz.attribute.Color.GREY;
+
+    /**
+     * Fill color for fulfilled nodes
+     */
+    public static final guru.nidi.graphviz.attribute.Color VIS_FULFILLED
+            = guru.nidi.graphviz.attribute.Color.PALEGREEN1;
 }
