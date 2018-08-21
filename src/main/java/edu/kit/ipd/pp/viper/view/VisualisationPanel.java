@@ -48,7 +48,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * the visualisation is currently zoomed in (positive), out (negative)
      * or not zoomed at all (zero).
      */
-    private int zoomLevel = DEFAULT_ZOOM_LEVEL;
+    private int zoomLevel = VisualisationPanel.DEFAULT_ZOOM_LEVEL;
     
     private ToolBarButton zoomIn;
     private ToolBarButton zoomOut;
