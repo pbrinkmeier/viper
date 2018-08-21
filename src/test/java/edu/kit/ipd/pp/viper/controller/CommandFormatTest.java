@@ -2,36 +2,72 @@ package edu.kit.ipd.pp.viper.controller;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import edu.kit.ipd.pp.viper.view.ConsolePanel;
-import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.MainWindow;
 
 public class CommandFormatTest {
-    private MainWindow gui;
-    private ConsolePanel console;
-    private EditorPanel editor;
-
-    /**
-     * Constructs the GUI.
-     */
-    @Before
-    public void buildGUI() {
-        this.gui = new MainWindow(true);
-        this.gui.setVisible(false);
-        this.editor = this.gui.getEditorPanel();
-        this.console = this.gui.getConsolePanel();
-    }
-
     /**
      * Tests whether the simpsons.pl example gets formatted properly.
      */
     @Test
     public void testSimpsons() {
-        this.editor.setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
-        new CommandFormat(this.console, this.editor).execute();
-        assertTrue(this.editor.getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
+        MainWindow gui = new MainWindow(false);
+        gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
+        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        assertTrue(gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
+    }
+    
+    /**
+     * Tests whether formatting simpsons.pl twice yields the same result as formatting it once.
+     */
+    @Test
+    public void testSimpsonsTwice() {
+        MainWindow gui = new MainWindow(false);
+        gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
+        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        assertTrue(gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
+        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        assertTrue(gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
+    }
+    
+    /**
+     * Tests whether an invalid program gets rejected properly.
+     */
+    @Test
+    public void testInvalid() {
+        MainWindow gui = new MainWindow(false);
+        
+        final String invalidProgram = "(\n\n\n)(";
+        
+        gui.getEditorPanel().setSourceText(invalidProgram);
+        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        assertTrue(gui.getEditorPanel().getSourceText().trim().equals(invalidProgram));
+    }
+
+    /**
+     * Tests whether an invalid program gets rejected properly.
+     * Debug mode version.
+     */
+    @Test
+    public void testInvalidDebug() {
+        MainWindow gui = new MainWindow(true);
+        
+        final String invalidProgram = "(\n\n\n)(";
+        
+        gui.getEditorPanel().setSourceText(invalidProgram);
+        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        assertTrue(gui.getEditorPanel().getSourceText().trim().equals(invalidProgram));
+    }
+    
+    /**
+     * Tests formatting an empty program.
+     */
+    @Test
+    public void testEmpty() {
+        MainWindow gui = new MainWindow(false);
+        gui.getEditorPanel().setSourceText("");
+        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        assertTrue(gui.getEditorPanel().getSourceText().trim().equals(""));
     }
 }
