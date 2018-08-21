@@ -43,7 +43,7 @@ public class CommandParse extends Command {
     public void execute() {
         this.interpreterManager.reset();
 
-        this.console.clearInputField();
+        this.console.clearAll();
         this.visualisation.clearVisualization();
         this.console.lockInput();
         this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
