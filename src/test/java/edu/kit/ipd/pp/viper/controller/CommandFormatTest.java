@@ -14,7 +14,7 @@ public class CommandFormatTest {
     public void testSimpsons() {
         MainWindow gui = new MainWindow(false);
         gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
-        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        gui.getCommandFormat().execute();
         assertTrue(gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
     }
     
@@ -25,9 +25,9 @@ public class CommandFormatTest {
     public void testSimpsonsTwice() {
         MainWindow gui = new MainWindow(false);
         gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
-        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        gui.getCommandFormat().execute();
         assertTrue(gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
-        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        gui.getCommandFormat().execute();
         assertTrue(gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
     }
     
@@ -37,11 +37,10 @@ public class CommandFormatTest {
     @Test
     public void testInvalid() {
         MainWindow gui = new MainWindow(false);
-        
         final String invalidProgram = "(\n\n\n)(";
         
         gui.getEditorPanel().setSourceText(invalidProgram);
-        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        gui.getCommandFormat().execute();
         assertTrue(gui.getEditorPanel().getSourceText().trim().equals(invalidProgram));
     }
 
@@ -52,11 +51,10 @@ public class CommandFormatTest {
     @Test
     public void testInvalidDebug() {
         MainWindow gui = new MainWindow(true);
-        
         final String invalidProgram = "(\n\n\n)(";
         
         gui.getEditorPanel().setSourceText(invalidProgram);
-        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        gui.getCommandFormat().execute();
         assertTrue(gui.getEditorPanel().getSourceText().trim().equals(invalidProgram));
     }
     
@@ -67,7 +65,7 @@ public class CommandFormatTest {
     public void testEmpty() {
         MainWindow gui = new MainWindow(false);
         gui.getEditorPanel().setSourceText("");
-        new CommandFormat(gui.getConsolePanel(), gui.getEditorPanel()).execute();
+        gui.getCommandFormat().execute();
         assertTrue(gui.getEditorPanel().getSourceText().trim().equals(""));
     }
 }

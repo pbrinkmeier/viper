@@ -29,6 +29,7 @@ public class CommandShowStandardTest {
     @Test
     public void testUI() {
         MainWindow gui = new MainWindow(false);
+        gui.setVisible(false);
         LanguageManager langman = LanguageManager.getInstance();
         langman.setLocale(Locale.GERMAN);
         

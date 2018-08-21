@@ -14,8 +14,7 @@ public class CommandParseQueryTest {
      */
     @Test
     public void testValidQuery() {
-        MainWindow gui = new MainWindow(true);
-        gui.setVisible(false);
+        MainWindow gui = new MainWindow(false);
 
         gui.getCommandParse().execute();
         gui.getConsolePanel().setInputFieldText("validQuery(X).");
@@ -35,8 +34,7 @@ public class CommandParseQueryTest {
      */
     @Test
     public void testInvalidQuery() {
-        MainWindow gui = new MainWindow(true);
-        gui.setVisible(false);
+        MainWindow gui = new MainWindow(false);
         
         gui.getCommandParse().execute();
         gui.getConsolePanel().setInputFieldText("invalidQuery(");

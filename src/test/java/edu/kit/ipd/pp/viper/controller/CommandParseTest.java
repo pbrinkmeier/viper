@@ -3,47 +3,25 @@ package edu.kit.ipd.pp.viper.controller;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import edu.kit.ipd.pp.viper.view.ConsolePanel;
-import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.MainWindow;
-import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 public class CommandParseTest {
-    private MainWindow gui;
-    private ConsolePanel console;
-    private EditorPanel editor;
-    private VisualisationPanel visualisation;
-    private InterpreterManager interpreterManager;
-
-    /**
-     * Constructs the GUI.
-     */
-    @Before
-    public void buildGUI() {
-        this.gui = new MainWindow(true);
-        this.gui.setVisible(false);
-        this.editor = this.gui.getEditorPanel();
-        this.console = this.gui.getConsolePanel();
-        this.visualisation = this.gui.getVisualisationPanel();
-        this.interpreterManager = this.gui.getInterpreterManager();
-    }
-
     /**
      * Tests whether an empty program gets parsed correctly.
      */
     @Test
     public void testEmpty() {
-        this.console.clearAll();
-        this.visualisation.clearVisualization();
-        this.editor.setSourceText("");
-        new CommandParse(this.console, this.editor, this.visualisation, this.interpreterManager,
-                this.gui::switchClickableState).execute();
+        MainWindow gui = new MainWindow(false);
+        
+        gui.getConsolePanel().clearAll();
+        gui.getVisualisationPanel().clearVisualization();
+        gui.getEditorPanel().setSourceText("");
+        gui.getCommandParse().execute();
 
-        assertTrue(this.editor.getSourceText().equals(""));
-        assertFalse(this.console.hasLockedInput());
+        assertTrue(gui.getEditorPanel().getSourceText().equals(""));
+        assertFalse(gui.getConsolePanel().hasLockedInput());
     }
 
     /**
@@ -52,14 +30,15 @@ public class CommandParseTest {
      */
     @Test
     public void testIncorrectSyntax() {
-        this.console.clearAll();
-        this.visualisation.clearVisualization();
-        this.editor.setSourceText("(");
-        new CommandParse(this.console, this.editor, this.visualisation, this.interpreterManager,
-                this.gui::switchClickableState).execute();
+        MainWindow gui = new MainWindow(false);
+        
+        gui.getConsolePanel().clearAll();
+        gui.getVisualisationPanel().clearVisualization();
+        gui.getEditorPanel().setSourceText("(");
+        gui.getCommandParse().execute();
 
-        assertTrue(this.editor.getSourceText().trim().equals("("));
-        assertTrue(this.console.hasLockedInput());
+        assertTrue(gui.getEditorPanel().getSourceText().trim().equals("("));
+        assertTrue(gui.getConsolePanel().hasLockedInput());
     }
 
     /**
@@ -67,13 +46,14 @@ public class CommandParseTest {
      */
     @Test
     public void testSimpsons() {
-        this.console.clearAll();
-        this.visualisation.clearVisualization();
-        this.editor.setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
-        new CommandParse(this.console, this.editor, this.visualisation, this.interpreterManager,
-                this.gui::switchClickableState).execute();
-
-        assertTrue(this.editor.getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
-        assertFalse(this.console.hasLockedInput());
+        MainWindow gui = new MainWindow(false);
+        
+        gui.getConsolePanel().clearAll();
+        gui.getVisualisationPanel().clearVisualization();
+        gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
+        gui.getCommandParse().execute();
+        
+        assertTrue(gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
+        assertFalse(gui.getConsolePanel().hasLockedInput());
     }
 }
