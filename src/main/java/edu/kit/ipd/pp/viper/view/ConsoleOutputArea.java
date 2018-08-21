@@ -61,6 +61,16 @@ public class ConsoleOutputArea extends JTextPane {
         this.preferencesManager = preferencesManager;
         this.fontSize = this.preferencesManager.getTextSize();
     }
+    
+    /**
+     * Returns the current font size.
+     * Only used for testing purposes.
+     * 
+     * @return the current font size
+     */
+    public int getFontSize() {
+        return this.fontSize;
+    }
 
     /**
      * Clears the entire console

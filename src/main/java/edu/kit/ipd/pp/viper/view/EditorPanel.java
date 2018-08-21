@@ -136,6 +136,16 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     }
     
     /**
+     * Returns the current font size.
+     * Only used for testing purposes.
+     * 
+     * @return the current font size
+     */
+    public int getFontSize() {
+        return this.fontSize;
+    }
+    
+    /**
      * Returns whether the text content has changed since the last parsing
      * 
      * @return boolean true if has changed, false otherwise

@@ -28,6 +28,11 @@ import guru.nidi.graphviz.model.Node;
  */
 public class VisualisationPanel extends JPanel implements ComponentListener, HasClickable, Observer {
     /**
+     * The default zoom level of the visualisation panel
+     */
+    public static final int DEFAULT_ZOOM_LEVEL = 0;
+    
+    /**
      * Serial UID
      */
     private static final long serialVersionUID = 6723362475925553655L;
@@ -37,6 +42,13 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      */
     private static final String ICON_ZOOM_IN = "/icons_png/icon_zoom_in.png";
     private static final String ICON_ZOOM_OUT = "/icons_png/icon_zoom_out.png";
+    
+    /**
+     * The zoom level of the visualisation. This is an indicator of whether
+     * the visualisation is currently zoomed in (positive), out (negative)
+     * or not zoomed at all (zero).
+     */
+    private int zoomLevel = DEFAULT_ZOOM_LEVEL;
     
     private ToolBarButton zoomIn;
     private ToolBarButton zoomOut;
@@ -105,6 +117,15 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     }
     
     /**
+     * Returns the current zoom level.
+     * 
+     * @return the current zoom level
+     */
+    public int getZoomLevel() {
+        return this.zoomLevel;
+    }
+    
+    /**
      * Sets custom cursor for all VisualisationPanel subpanels
      * @param cursor cursor to set
      */
@@ -146,8 +167,13 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * @param direction Direction to zoom (in or out)
      */
     public void zoom(ZoomType direction) {
-        if (!this.showsPlaceholder)
+        if (!this.showsPlaceholder) {
             this.viewer.zoom(direction);
+            if (direction == ZoomType.ZOOM_IN)
+                this.zoomLevel++;
+            else if (direction == ZoomType.ZOOM_OUT)
+                this.zoomLevel--;
+        }
     }
     
     /**
@@ -155,6 +181,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      */
     public void resetZoom() {
         this.viewer.resetZoom();
+        this.zoomLevel = DEFAULT_ZOOM_LEVEL;
     }
 
     /**
@@ -168,6 +195,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
 
         this.viewer.setFromGraph(graph);
         this.showsPlaceholder = graph == this.placeholderGraph;
+        this.resetZoom();
     }
     
     private void buildPlaceholderGraph() {

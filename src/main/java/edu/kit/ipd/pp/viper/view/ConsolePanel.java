@@ -84,6 +84,16 @@ public class ConsolePanel extends JPanel implements HasClickable {
     public void setPreferencesManager(PreferencesManager preferencesManager) {
         this.outputArea.setPreferencesManager(preferencesManager);
     }
+    
+    /**
+     * Returns the current font size of the output area.
+     * Only used for testing purposes.
+     * 
+     * @return the current font size of the output area
+     */
+    public int getOutputAreaFontSize() {
+        return this.outputArea.getFontSize();
+    }
 
     /**
      * Sets custom cursor for all ConsolePanel subpanels

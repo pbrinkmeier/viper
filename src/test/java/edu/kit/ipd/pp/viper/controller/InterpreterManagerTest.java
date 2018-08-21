@@ -59,8 +59,8 @@ public class InterpreterManagerTest {
         new CommandParseQuery(gui.getConsolePanel(), gui.getVisualisationPanel(), gui.getInterpreterManager(),
                 gui::switchClickableState).execute();
 
-        final int STEPS_NEEDED = 2;
-        for (int i = 0; i < STEPS_NEEDED; i++)
+        final int stepsNeeded = 2;
+        for (int i = 0; i < stepsNeeded; i++)
             gui.getCommandNextStep().execute();
                 
         List<Substitution> solution = gui.getInterpreterManager().getSolution();
@@ -82,8 +82,8 @@ public class InterpreterManagerTest {
         new CommandParseQuery(gui.getConsolePanel(), gui.getVisualisationPanel(), gui.getInterpreterManager(),
                 gui::switchClickableState).execute();
 
-        final int STEPS_NEEDED = 6;
-        for (int i = 0; i < STEPS_NEEDED; i++)
+        final int stepsNeeded = 6;
+        for (int i = 0; i < stepsNeeded; i++)
             gui.getCommandNextStep().execute();
         
         List<Substitution> solution = gui.getInterpreterManager().getSolution();

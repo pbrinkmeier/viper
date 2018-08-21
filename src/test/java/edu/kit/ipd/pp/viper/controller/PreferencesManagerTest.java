@@ -20,11 +20,11 @@ public class PreferencesManagerTest {
         MainWindow gui = new MainWindow(false);
         PreferencesManager prefman = gui.getPreferencesManager();
         
-        final int SIZE = 42;
-        prefman.setConsoleTextSize(SIZE);
-        assertTrue(prefman.getConsoleTextSize() == SIZE);
-        prefman.setEditorTextSize(SIZE);
-        assertTrue(prefman.getEditorTextSize() == SIZE);
+        final int size = 42;
+        prefman.setConsoleTextSize(size);
+        assertTrue(prefman.getConsoleTextSize() == size);
+        prefman.setEditorTextSize(size);
+        assertTrue(prefman.getEditorTextSize() == size);
         
         prefman.clearAllProperties();
         assertTrue(prefman.getEditorTextSize() == EditorPanel.FONT_DEFAULT_SIZE);
