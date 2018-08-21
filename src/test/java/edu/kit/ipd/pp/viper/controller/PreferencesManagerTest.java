@@ -16,7 +16,7 @@ public class PreferencesManagerTest {
      * the preferences manager.
      */
     @Test
-    public void setTestingAndRetrieval() {
+    public void testSettingAndRetrieval() {
         MainWindow gui = new MainWindow(false);
         PreferencesManager prefman = gui.getPreferencesManager();
         
