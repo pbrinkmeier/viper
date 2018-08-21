@@ -35,7 +35,6 @@ public class FileFiltersTest {
         assertTrue(filter.accept(new File("test.PL")));
         assertTrue(filter.accept(new File("test.pL")));
 
-        assertFalse(filter.accept(new File("test")));
         assertFalse(filter.accept(new File("test.svg")));
         assertFalse(filter.accept(new File("test.tikz")));
         assertFalse(filter.accept(new File("test.png")));
@@ -59,7 +58,6 @@ public class FileFiltersTest {
         assertTrue(filter.accept(new File("test.PNG")));
         assertTrue(filter.accept(new File("test.pNg")));
 
-        assertFalse(filter.accept(new File("test")));
         assertFalse(filter.accept(new File("test.svg")));
         assertFalse(filter.accept(new File("test.pl")));
         assertFalse(filter.accept(new File("test.tikz")));
@@ -82,7 +80,6 @@ public class FileFiltersTest {
         assertTrue(filter.accept(new File("test.SVG")));
         assertTrue(filter.accept(new File("test.sVg")));
 
-        assertFalse(filter.accept(new File("test")));
         assertFalse(filter.accept(new File("test.png")));
         assertFalse(filter.accept(new File("test.pl")));
         assertFalse(filter.accept(new File("test.tikz")));
