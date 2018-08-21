@@ -283,8 +283,10 @@ public class InterpreterManager {
                 if (((this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS)
                         || this.result == StepResult.SOLUTION_FOUND
                         && this.current == this.visualisations.size() - 1)
-                        || this.results.get(this.current) == StepResult.SOLUTION_FOUND)
+                        || this.results.get(this.current) == StepResult.SOLUTION_FOUND) {
                     this.setThreadRunning(false);
+                    this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
+                }
             }
 
             visualisation.setFromGraph(this.getCurrentVisualisation());
