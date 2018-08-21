@@ -439,6 +439,11 @@ public enum LanguageKey {
      * The Goal not supported error for parser
      */
     GOAL_NOT_SUPPORTED("goal_not_supported"),
+    
+    /**
+     * The no knowledge base present error for the interpreter manager
+     */
+    NO_KNOWLEDGEBASE_PRESENT("no_knowledgebase_present"),
 
     /**
      * The Term translation

@@ -41,19 +41,23 @@ import guru.nidi.graphviz.model.Graph;
 public class InterpreterManager {
     private static final String STANDARD_LIBRARY_PATH = "/stdlib.pl";
 
-    private Optional<KnowledgeBase> knowledgeBase;
     private Optional<Goal> query;
     private Optional<Interpreter> interpreter;
-    private List<Graph> visualisations;
-    private List<StepResult> results;
-    private int current;
     private Optional<List<Variable>> variables;
-    private boolean useStandardLibrary = true;
-    private String standardLibrary;
-    private boolean running = false;
-    private StepResult result;
-    private Consumer<ClickableState> toggleStateFunc;
+    private Optional<KnowledgeBase> knowledgeBase;
     private Optional<Thread> nextSolutionThread = Optional.empty();
+
+    private Consumer<ClickableState> toggleStateFunc;
+    
+    private List<StepResult> results;
+    private List<Graph> visualisations;
+    
+    private int current;
+    private StepResult result;
+    private String standardLibrary;
+    
+    private boolean running = false;
+    private boolean useStandardLibrary = true;
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -92,9 +96,7 @@ public class InterpreterManager {
         try {
             InputStream input = this.getClass().getResourceAsStream(InterpreterManager.STANDARD_LIBRARY_PATH);
             byte[] data = IOUtils.toByteArray(input);
-
             this.standardLibrary = new String(data);
-
             return true;
         } catch (IOException e) {
             return false;
@@ -111,17 +113,14 @@ public class InterpreterManager {
         String source = "";
 
         if (this.useStandardLibrary) {
-            if (this.standardLibrary == null) {
-                if (!this.loadStandardLibrary()) {
-                    this.standardLibrary = "";
-                }
+            if (this.standardLibrary == null && !this.loadStandardLibrary()) {
+                this.standardLibrary = "";
             }
             
             source += this.standardLibrary + "\n";
         }
 
         source += kbSource;
-
         this.knowledgeBase = Optional.of(new PrologParser(source).parse());
     }
 
@@ -134,7 +133,7 @@ public class InterpreterManager {
      */
     public void parseQuery(String querySource) throws ParseException {
         if (!this.knowledgeBase.isPresent()) {
-            return;
+            throw new ParseException(LanguageManager.getInstance().getString(LanguageKey.NO_KNOWLEDGEBASE_PRESENT));
         }
 
         KnowledgeBase knowledgeBase = this.knowledgeBase.get();
@@ -207,11 +206,8 @@ public class InterpreterManager {
         }
 
         this.result = this.interpreter.get().step();
-
         this.results.add(this.result);
-
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
-
         this.current++;
 
         if (this.result == StepResult.SOLUTION_FOUND) {
@@ -392,7 +388,6 @@ public class InterpreterManager {
     public String getStandardLibraryCode() {
         if (this.standardLibrary == null)
             this.loadStandardLibrary();
-
         return this.standardLibrary;
     }
 }
