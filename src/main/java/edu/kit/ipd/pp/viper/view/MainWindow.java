@@ -15,6 +15,7 @@ import javax.swing.WindowConstants;
 import edu.kit.ipd.pp.viper.controller.CommandCancel;
 import edu.kit.ipd.pp.viper.controller.CommandExit;
 import edu.kit.ipd.pp.viper.controller.CommandFormat;
+import edu.kit.ipd.pp.viper.controller.CommandFinishQuery;
 import edu.kit.ipd.pp.viper.controller.CommandNew;
 import edu.kit.ipd.pp.viper.controller.CommandNextSolution;
 import edu.kit.ipd.pp.viper.controller.CommandNextStep;
@@ -85,6 +86,7 @@ public class MainWindow extends JFrame {
     private final CommandPreviousStep commandPreviousStep;
     private final CommandNextStep commandNextStep;
     private final CommandNextSolution commandNextSolution;
+    private final CommandFinishQuery commandFinishQuery;
     private final CommandCancel commandCancel;
     private final CommandShowAbout commandShowAbout;
     private final CommandShowStandard commandShowStandard;
@@ -148,6 +150,7 @@ public class MainWindow extends JFrame {
         this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
         this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel);
         this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
+        this.commandFinishQuery = new CommandFinishQuery(this.consolePanel, this.visualisationPanel, this.manager);
         this.commandCancel = new CommandCancel(this.manager);
         this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);
         this.commandShowAbout = new CommandShowAbout();
@@ -445,6 +448,15 @@ public class MainWindow extends JFrame {
      */
     public CommandNextSolution getCommandContinue() {
         return this.commandNextSolution;
+    }
+
+    /**
+     * Returns the initialized continue command
+     *
+     * @return CommandContinue
+     */
+    public CommandFinishQuery getCommandFinishQuery() {
+        return this.commandFinishQuery;
     }
 
     /**
