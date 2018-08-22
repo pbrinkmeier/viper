@@ -335,7 +335,7 @@ public class InterpreterManager {
 
                 if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
                     this.setThreadRunning(false);
-                    this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
+                    this.toggleStateFunc.accept(ClickableState.LAST_STEP);
                 }
             }
 
