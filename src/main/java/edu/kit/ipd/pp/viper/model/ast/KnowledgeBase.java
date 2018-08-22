@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -65,17 +66,52 @@ public class KnowledgeBase {
     }
 
     /**
+     * Finds all rules in another knowledgebase that "conflict" with any of this knowledgebases rules.
+     * Two rules are "conflicting" if their heads have the same name and arity.
+     *
+     * @param otherKb knowledgebase to search for conflicts in
+     * @return immutable list of rules from this knowledgebase that have a conflicting rule in otherKb
+     */
+    public List<Rule> getConflictingRules(KnowledgeBase otherKb) {
+        List<Rule> conflicting = new ArrayList<>();
+
+        for (Rule rule : this.rules) {
+            List<Rule> matching = otherKb.getMatchingRules(rule.getHead());
+
+            // TODO: this is hacky af, but DRY I guess
+            if (!matching.isEmpty() && new KnowledgeBase(conflicting).getMatchingRules(rule.getHead()).isEmpty()) {
+                conflicting.add(rule);
+            }
+        }
+
+        return Collections.unmodifiableList(conflicting);
+    }
+
+    /**
+     * Creates a new knowledgebase that combines two knowledgebases.
+     * The newly created knowledgebase will contain <em>all</em> rules from the initial knowledgebases,
+     * even those that have "conflicting" heads (i.e. same name and arity).
+     * The rules from this knowledgebase will come first in the ordering of the combined rules.
+     *
+     * @param otherKb knowledgebase to combine with this knowledgebase
+     * @return new knowledgebase including all rules of this knowledgebase and all rules of the other
+     */
+    public KnowledgeBase combine(KnowledgeBase otherKb) {
+        List<Rule> newRules = new ArrayList<>();
+        newRules.addAll(this.rules);
+        newRules.addAll(otherKb.rules);
+        
+        return new KnowledgeBase(newRules);
+    }
+
+    /**
      * Creates a new knowledgebase that contains an additional rule.
      * 
      * @param rule rule to include in the new knowledgebase
      * @return new knowledgebase including all rules of this and the additional rule
      */
     public KnowledgeBase withRule(Rule rule) {
-        List<Rule> newRules = new ArrayList<>();
-        newRules.addAll(this.rules);
-        newRules.add(rule);
-
-        return new KnowledgeBase(newRules);
+        return this.combine(new KnowledgeBase(Arrays.asList(rule)));
     }
 
     /**

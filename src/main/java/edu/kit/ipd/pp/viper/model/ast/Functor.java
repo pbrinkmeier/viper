@@ -134,13 +134,20 @@ public class Functor extends Term {
 
         if (this.getArity() > 0) {
             repr += "(";
-
             repr += this.parameters.stream().map(parameter -> parameter.toString()).collect(joining(", "));
-
             repr += ")";
         }
 
         return repr;
+    }
+
+    /**
+     * Getter-method for the short notation for functors (e.g. functor/3).
+     *
+     * @return short string representation of the functor
+     */
+    public String getShortNotation() {
+        return String.format("%s/%d", this.name, this.getArity());
     }
 
     /**

@@ -49,10 +49,11 @@ public class InterpreterManager {
     private int current;
     private Optional<List<Variable>> variables;
     private boolean useStandardLibrary = true;
-    private String standardLibrary;
+    private final Optional<KnowledgeBase> standardLibrary;
     private boolean running = false;
-    private Consumer<ClickableState> toggleStateFunc;
+    private final Consumer<ClickableState> toggleStateFunc;
     private Optional<Thread> continueThread = Optional.empty();
+    private Optional<Thread> nextSolutionThread = Optional.empty();
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -62,6 +63,7 @@ public class InterpreterManager {
      */
     public InterpreterManager(Consumer<ClickableState> toggleStateFunc) {
         this.toggleStateFunc = toggleStateFunc;
+        this.standardLibrary = this.loadStandardLibrary();
         this.reset();
     }
 
@@ -82,45 +84,45 @@ public class InterpreterManager {
     }
 
     /**
-     * Loads the standard library from a file into a String.
+     * Loads the standard library.
+     * The standard library gets loaded from a file and is directly parsed into a KnowledgeBase.
+     * This method is meant to be called exactly once - at the start of the program.
      *
-     * @return whether the standard library could be loaded successfully
+     * @return an optional KnowledgeBase object representing the standard library
      */
-    private boolean loadStandardLibrary() {
+    private Optional<KnowledgeBase> loadStandardLibrary() {
         try {
             InputStream input = this.getClass().getResourceAsStream(InterpreterManager.STANDARD_LIBRARY_PATH);
-            byte[] data = IOUtils.toByteArray(input);
+            String stdlibSource = new String(IOUtils.toByteArray(input));
 
-            this.standardLibrary = new String(data);
-
-            return true;
+            return Optional.of(new PrologParser(stdlibSource).parse());
         } catch (IOException e) {
-            return false;
+            return Optional.empty();
+        } catch (ParseException e) {
+            return Optional.empty();
         }
     }
 
     /**
      * Parses a knowledgebase and remembers it.
+     * Also combines the parsed knowledgebase with the stdlib, if desired.
+     * This method also checks for conflicting rules in the given program and the standard library.
      *
      * @param kbSource source code to parse
      * @throws ParseException if the source code is malformed
+     * @return list of conflicting rules in the given program and the standard library
      */
-    public void parseKnowledgeBase(String kbSource) throws ParseException {
-        String source = "";
+    public List<Rule> parseKnowledgeBase(String kbSource) throws ParseException {
+        KnowledgeBase kb = new PrologParser(kbSource).parse();
+        List<Rule> conflictingRules = new ArrayList<>();
 
-        if (this.useStandardLibrary) {
-            if (this.standardLibrary == null) {
-                if (!this.loadStandardLibrary()) {
-                    this.standardLibrary = "";
-                }
-            }
-            
-            source += this.standardLibrary + "\n";
+        if (this.useStandardLibrary && this.standardLibrary.isPresent()) {
+            conflictingRules = kb.getConflictingRules(this.standardLibrary.get());
+            kb = kb.combine(this.standardLibrary.get());
         }
 
-        source += kbSource;
-
-        this.knowledgeBase = Optional.of(new PrologParser(source).parse());
+        this.knowledgeBase = Optional.of(kb);
+        return conflictingRules;
     }
 
     /**
@@ -428,9 +430,11 @@ public class InterpreterManager {
      * @return the standard library code
      */
     public String getStandardLibraryCode() {
-        if (this.standardLibrary == null)
-            this.loadStandardLibrary();
+        if (!this.standardLibrary.isPresent()) {
+            // TODO: better error handling, i.e. return Optional or throw exception
+            return "";
+        }
 
-        return this.standardLibrary;
+        return this.standardLibrary.get().toString();
     }
 }
