@@ -5,10 +5,17 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JTextPane;
+import javax.swing.SizeRequirements;
 import javax.swing.text.AttributeSet;
+import javax.swing.text.Element;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
+import javax.swing.text.View;
+import javax.swing.text.ViewFactory;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.InlineView;
+import javax.swing.text.html.ParagraphView;
 
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 
@@ -47,6 +54,7 @@ public class ConsoleOutputArea extends JTextPane {
         this.history = new ArrayList<HistoryEntry>();
         this.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
         this.setEditable(false);
+        this.setEditorKit(new CustomEditorKit());
     }
     
     /**
@@ -169,4 +177,68 @@ public class ConsoleOutputArea extends JTextPane {
             return this.type;
         }
     }
+    
+    /**
+     * This is a custom toolkit that enables letter wrap in a JTextPane.
+     * Since we can't use a JTextArea due to our use of colors, we have to
+     * implement wrapping by letter ourselves. Due to the architecture
+     * of Swings HTMLEditorToolkit, this view factory has to use instanceof
+     * to achieve the desired results in a color-compatible Swing component
+     * (e.g. the JTextPane or an JEditorPane). The reason for this is the fact
+     * that the super-class create()-method only returns an object of the
+     * View class, but we have to consider the actual subclass it's an instance of.
+     */
+    private class CustomEditorKit extends HTMLEditorKit {
+        /**
+         * Serial version UID
+         */
+        private static final long serialVersionUID = 5952888855820746238L;
+
+        @Override 
+        public ViewFactory getViewFactory() {
+            return new HTMLFactory() {
+                public View create(Element e) { 
+                   View v = super.create(e);
+                   if (v instanceof InlineView) {
+                       return new InlineView(e) {
+                           public int getBreakWeight(int axis, float pos, float len) { 
+                               return GoodBreakWeight; 
+                           }
+                           
+                           public View breakView(int axis, int p0, float pos, float len) { 
+                               if (axis == View.X_AXIS) { 
+                                   checkPainter(); 
+                                   int p1 = getGlyphPainter().getBoundedPosition(this, p0, pos, len); 
+                                   if (p0 == getStartOffset() && p1 == getEndOffset()) { 
+                                       return this;
+                                   } 
+                                   return createFragment(p0, p1); 
+                               }
+                               return this;
+                             }
+                         };
+                   }
+                   else if (v instanceof ParagraphView) {
+                       return new ParagraphView(e) {
+                           protected SizeRequirements calculateMinorAxisRequirements(int axis, SizeRequirements r) {
+                               SizeRequirements rnew = r;
+                               
+                               if (rnew == null) {
+                                   rnew = new SizeRequirements();
+                               }
+                               float pref = layoutPool.getPreferredSpan(axis);
+                               float min = layoutPool.getMinimumSpan(axis);
+                               rnew.minimum = (int) min;
+                               rnew.preferred = Math.max(rnew.minimum, (int) pref);
+                               rnew.maximum = Integer.MAX_VALUE;
+                               rnew.alignment = 0.5f;
+                               return rnew;
+                             }
+                         };
+                     }
+                   return v; 
+                 }
+             };
+         } 
+    };
 }
