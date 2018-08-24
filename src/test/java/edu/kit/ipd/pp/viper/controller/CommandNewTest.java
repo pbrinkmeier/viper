@@ -12,7 +12,7 @@ public class CommandNewTest {
      * there are no changes left to be saved to disk.
      */
     @Test
-    public void getsCleared() {
+    public void getsClearedTest() {
         MainWindow gui = new MainWindow(false);
         
         gui.getEditorPanel().setSourceText("test");

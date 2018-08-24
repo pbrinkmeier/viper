@@ -13,7 +13,7 @@ public class FileUtilitiesTest {
      * since the class won't ever be constructed.
      */
     @Test
-    public void testDefaultConstructor() {
+    public void defaultConstructorTest() {
         assertNotNull(new FileUtilities());
     }
     
@@ -21,7 +21,7 @@ public class FileUtilitiesTest {
      * Tests proper extension adding.
      */
     @Test
-    public void testExtensionAdding() {
+    public void extensionAddingTest() {
         File test1 = FileUtilities.checkForMissingExtension(new File("test"), ".test");
         assertTrue(test1.getName().trim().equals("test.test"));
         test1.delete();

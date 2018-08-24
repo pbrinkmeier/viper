@@ -13,7 +13,7 @@ public class CommandSetLangTest {
      * Tests whether setting all supported locales works.
      */
     @Test
-    public void testAllLocales() {
+    public void allLocalesTest() {
         LanguageManager langman = LanguageManager.getInstance();
         for (final Locale l : langman.getSupportedLocales()) {
             langman.setLocale(l);
@@ -32,7 +32,7 @@ public class CommandSetLangTest {
      * Tests setting the language to English.
      */
     @Test
-    public void testEnglish() {
+    public void englishTest() {
         MainWindow gui = new MainWindow(false);
         
         CommandSetLang command = new CommandSetLang(gui.getConsolePanel(), gui.getVisualisationPanel(), Locale.ENGLISH,
@@ -55,7 +55,7 @@ public class CommandSetLangTest {
      * Tests whether setting an unsupported language gets rejected properly.
      */
     @Test
-    public void testUnsupportedLocale() {
+    public void unsupportedLocaleTest() {
         LanguageManager langman = LanguageManager.getInstance();
         langman.setLocale(Locale.ENGLISH);
         

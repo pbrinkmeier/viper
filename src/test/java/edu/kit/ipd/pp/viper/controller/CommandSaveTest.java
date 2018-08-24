@@ -17,7 +17,7 @@ public class CommandSaveTest {
      * Tests saving an unchanged file that has already been written to disk.
      */
     @Test
-    public void testEmptySavedFile() {
+    public void emptySavedFileTest() {
         MainWindow gui = new MainWindow(false);
         
         File test = new File("testEmpty.pl");
@@ -44,7 +44,7 @@ public class CommandSaveTest {
      * Tests saving an unchanged file that has already been written to disk.
      */
     @Test
-    public void testSimpsonsSavedFile() {
+    public void simpsonsSavedFileTest() {
         MainWindow gui = new MainWindow(false);
         
         File test = new File("testSimpsons.pl");
@@ -71,7 +71,7 @@ public class CommandSaveTest {
      * Tests for correct error output.
      */
     @Test
-    public void testErrorOutput() {
+    public void errorOutputTest() {
         MainWindow gui = new MainWindow(false);
         
         final String testPath = "/test/testfile.pl";
@@ -86,7 +86,7 @@ public class CommandSaveTest {
      * Tests the writing routine.
      */
     @Test
-    public void testWrite() {
+    public void writeTest() {
         MainWindow gui = new MainWindow(false);
         
         File testFile = new File("testfile.pl");

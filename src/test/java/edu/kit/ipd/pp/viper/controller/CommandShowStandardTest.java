@@ -27,7 +27,7 @@ public class CommandShowStandardTest {
      * text area equals the standard library code.
      */
     @Test
-    public void testUI() {
+    public void UITest() {
         MainWindow gui = new MainWindow(false);
         gui.setVisible(false);
         LanguageManager langman = LanguageManager.getInstance();

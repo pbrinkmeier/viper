@@ -16,7 +16,7 @@ public class PreferencesManagerTest {
      * the preferences manager.
      */
     @Test
-    public void testSettingAndRetrieval() {
+    public void settingAndRetrievalTest() {
         MainWindow gui = new MainWindow(false);
         PreferencesManager prefman = gui.getPreferencesManager();
         
@@ -35,7 +35,7 @@ public class PreferencesManagerTest {
      * Tests setting the properties reference to null.
      */
     @Test
-    public void testNullifiedProperties() {
+    public void nullifiedPropertiesTest() {
         MainWindow gui = new MainWindow(false);
         PreferencesManager prefman = gui.getPreferencesManager();
         

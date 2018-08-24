@@ -25,7 +25,7 @@ public class CommandShowManualTest {
      * Tests the loading of all icons.
      */
     @Test
-    public void testLoadIcon() {
+    public void loadIconTest() {
         CommandShowManual command = new CommandShowManual();
         
         assertNotNull(command.loadIcon(ToolBar.ICON_NEW));
@@ -77,7 +77,7 @@ public class CommandShowManualTest {
      * after trying to open it a second time.
      */
     @Test
-    public void testUI() {
+    public void UITest() {
         LanguageManager langman = LanguageManager.getInstance();
         langman.setLocale(Locale.GERMAN);
         

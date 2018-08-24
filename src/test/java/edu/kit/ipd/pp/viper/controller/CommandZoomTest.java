@@ -16,7 +16,7 @@ public class CommandZoomTest {
      * all possible zoom targets.
      */
     @Test
-    public void testZoomingAll() {
+    public void zoomingAllTest() {
         MainWindow gui = new MainWindow(false);
         
         this.buildGraph(gui);
@@ -52,7 +52,7 @@ public class CommandZoomTest {
      * ignores it, but still zooms everything else.
      */
     @Test
-    public void testNullConsole() {
+    public void nullConsoleTest() {
         MainWindow gui = new MainWindow(false);
 
         this.buildGraph(gui);
@@ -80,7 +80,7 @@ public class CommandZoomTest {
      * ignores it, but still zooms everything else.
      */
     @Test
-    public void testNullEditor() {
+    public void nullEditorTest() {
         MainWindow gui = new MainWindow(false);
 
         this.buildGraph(gui);
@@ -108,7 +108,7 @@ public class CommandZoomTest {
      * ignores it, but still zooms everything else.
      */
     @Test
-    public void testNullVisualisation() {
+    public void nullVisualisationTest() {
         MainWindow gui = new MainWindow(false);
 
         this.resetAllManually(gui);
@@ -135,7 +135,7 @@ public class CommandZoomTest {
      * works properly.
      */
     @Test
-    public void testCommandResetZoom() {
+    public void commandResetZoomTest() {
         MainWindow gui = new MainWindow(false);
 
         this.buildGraph(gui);

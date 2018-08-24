@@ -29,7 +29,7 @@ public class CommandExportImageTest {
      * Tests the PNG export functionality of the command.
      */
     @Test
-    public void pngTestWithExtension() {
+    public void pngWithExtensionTest() {
         MainWindow gui = this.buildGUI();
         
         CommandExportImage command = new CommandExportImage(gui.getConsolePanel(),
@@ -49,7 +49,7 @@ public class CommandExportImageTest {
      * Tests the SVG export functionality of the command.
      */
     @Test
-    public void svgTestWithExtension() {
+    public void svgWithExtensionTest() {
         MainWindow gui = this.buildGUI();
         
         CommandExportImage command = new CommandExportImage(gui.getConsolePanel(),

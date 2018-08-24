@@ -20,7 +20,7 @@ public class InterpreterManagerTest {
      * new interpreter.
      */
     @Test
-    public void testReset() {
+    public void resetTest() {
         MainWindow gui = new MainWindow(false);
         
         gui.getEditorPanel().setSourceText("test(X) :- test(X).");
@@ -40,7 +40,7 @@ public class InterpreterManagerTest {
      * @throws ParseException 
      */
     @Test(expected = ParseException.class) 
-    public void testQueryWithoutKnowledgeBase() throws ParseException {
+    public void queryWithoutKnowledgeBaseTest() throws ParseException {
         MainWindow gui = new MainWindow(false);
         gui.getInterpreterManager().parseQuery("test(X).");        
     }
@@ -51,7 +51,7 @@ public class InterpreterManagerTest {
      * using a fixed amount of steps.
      */
     @Test
-    public void testSingleGoal() {
+    public void singleGoalTest() {
         MainWindow gui = new MainWindow(false);
         gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
         gui.getCommandParse().execute();
@@ -74,7 +74,7 @@ public class InterpreterManagerTest {
      * using a fixed amount of steps.
      */
     @Test
-    public void testMultipleGoals() {
+    public void multipleGoalsTest() {
         MainWindow gui = new MainWindow(false);
         gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
         gui.getCommandParse().execute();

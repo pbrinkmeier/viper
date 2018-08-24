@@ -18,7 +18,7 @@ public class CommandStepTest {
      * Proper stepping is tested further in model tests.
      */
     @Test
-    public void testSingleStepping() {
+    public void singleSteppingTest() {
         MainWindow gui = new MainWindow(false);
         
         gui.getEditorPanel().setSourceText("test(X) :- test(X).");

@@ -16,7 +16,7 @@ public class FileFiltersTest {
      * since the class won't ever be constructed.
      */
     @Test
-    public void testDefaultConstructor() {
+    public void defaultConstructorTest() {
         assertNotNull(new FileFilters());
     }
     
@@ -24,7 +24,7 @@ public class FileFiltersTest {
      * Tests the Prolog filter for proper filtering.
      */
     @Test
-    public void testPrologFilter() {
+    public void prologFilterTest() {
         FileFilter filter = FileFilters.PL_FILTER;
         assertTrue(filter.getDescription().equals(LanguageManager.getInstance().getString(LanguageKey.PROLOG_FILES)));
 
@@ -47,7 +47,7 @@ public class FileFiltersTest {
      * Tests the PNG filter for proper filtering.
      */
     @Test
-    public void testPNGFilter() {
+    public void PNGFilterTest() {
         FileFilter filter = FileFilters.PNG_FILTER;
         assertTrue(filter.getDescription().equals(LanguageManager.getInstance().getString(LanguageKey.PNG_FILES)));
        
@@ -69,7 +69,7 @@ public class FileFiltersTest {
      * Tests the SVG filter for proper filtering.
      */
     @Test
-    public void testSVGFilter() {
+    public void SVGFilterTest() {
         FileFilter filter = FileFilters.SVG_FILTER;
         assertTrue(filter.getDescription().equals(LanguageManager.getInstance().getString(LanguageKey.SVG_FILES)));
 

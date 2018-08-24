@@ -12,7 +12,7 @@ public class CommandCancelTest {
      * cancels a running search for a solution.
      */
     @Test
-    public void testCancel() {
+    public void cancelTest() {
         MainWindow gui = new MainWindow(false);
         
         gui.getEditorPanel().setSourceText("test(X) :- test(X).");

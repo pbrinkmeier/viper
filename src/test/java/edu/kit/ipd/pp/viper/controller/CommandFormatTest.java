@@ -11,7 +11,7 @@ public class CommandFormatTest {
      * Tests whether the simpsons.pl example gets formatted properly.
      */
     @Test
-    public void testSimpsons() {
+    public void simpsonsTest() {
         MainWindow gui = new MainWindow(false);
         gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
         gui.getCommandFormat().execute();
@@ -22,7 +22,7 @@ public class CommandFormatTest {
      * Tests whether formatting simpsons.pl twice yields the same result as formatting it once.
      */
     @Test
-    public void testSimpsonsTwice() {
+    public void simpsonsTwiceTest() {
         MainWindow gui = new MainWindow(false);
         gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
         gui.getCommandFormat().execute();
@@ -35,7 +35,7 @@ public class CommandFormatTest {
      * Tests whether an invalid program gets rejected properly.
      */
     @Test
-    public void testInvalid() {
+    public void invalidTest() {
         MainWindow gui = new MainWindow(false);
         final String invalidProgram = "(\n\n\n)(";
         
@@ -49,7 +49,7 @@ public class CommandFormatTest {
      * Debug mode version.
      */
     @Test
-    public void testInvalidDebug() {
+    public void invalidDebugTest() {
         MainWindow gui = new MainWindow(true);
         final String invalidProgram = "(\n\n\n)(";
         
@@ -62,7 +62,7 @@ public class CommandFormatTest {
      * Tests formatting an empty program.
      */
     @Test
-    public void testEmpty() {
+    public void emptyTest() {
         MainWindow gui = new MainWindow(false);
         gui.getEditorPanel().setSourceText("");
         gui.getCommandFormat().execute();

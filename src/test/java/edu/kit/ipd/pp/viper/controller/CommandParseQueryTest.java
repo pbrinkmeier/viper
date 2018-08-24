@@ -13,7 +13,7 @@ public class CommandParseQueryTest {
      * Tests issuing a query with valid syntax.
      */
     @Test
-    public void testValidQuery() {
+    public void validQueryTest() {
         MainWindow gui = new MainWindow(false);
 
         gui.getCommandParse().execute();
@@ -33,7 +33,7 @@ public class CommandParseQueryTest {
      * Tests issuing a query with invalid syntax.
      */
     @Test
-    public void testInvalidQuery() {
+    public void invalidQueryTest() {
         MainWindow gui = new MainWindow(false);
         
         gui.getCommandParse().execute();

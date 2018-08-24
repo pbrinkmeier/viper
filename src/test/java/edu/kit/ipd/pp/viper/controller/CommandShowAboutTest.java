@@ -23,7 +23,7 @@ public class CommandShowAboutTest {
      * after trying to open it a second time.
      */
     @Test
-    public void testUI() {
+    public void UITest() {
         LanguageManager langman = LanguageManager.getInstance();
         langman.setLocale(Locale.GERMAN);
         

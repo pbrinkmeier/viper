@@ -12,7 +12,7 @@ public class CommandParseTest {
      * Tests whether an empty program gets parsed correctly.
      */
     @Test
-    public void testEmpty() {
+    public void emptyTest() {
         MainWindow gui = new MainWindow(false);
         
         gui.getConsolePanel().clearAll();
@@ -29,7 +29,7 @@ public class CommandParseTest {
      * by the parser.
      */
     @Test
-    public void testIncorrectSyntax() {
+    public void incorrectSyntaxTest() {
         MainWindow gui = new MainWindow(false);
         
         gui.getConsolePanel().clearAll();
@@ -45,7 +45,7 @@ public class CommandParseTest {
      * Tests whether the simpsons.pl example program gets parsed.
      */
     @Test
-    public void testSimpsons() {
+    public void simpsonsTest() {
         MainWindow gui = new MainWindow(false);
         
         gui.getConsolePanel().clearAll();
