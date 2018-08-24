@@ -15,12 +15,7 @@ import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 /**
  * Represents a console-like text panel
  */
-public class ConsoleOutputArea extends JTextPane {
-    /**
-     * The default font size used for the output area
-     */
-    public static final int FONT_DEFAULT_SIZE = 14;
-    
+public class ConsoleOutputArea extends JTextPane {    
     /**
      * Serial UID
      */
@@ -43,7 +38,7 @@ public class ConsoleOutputArea extends JTextPane {
     public ConsoleOutputArea() {
         super();
 
-        this.fontSize = FONT_DEFAULT_SIZE;
+        this.fontSize = PreferencesManager.DEFAULT_TEXT_SIZE;
         this.history = new ArrayList<HistoryEntry>();
         this.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
         this.setEditable(false);
@@ -56,7 +51,7 @@ public class ConsoleOutputArea extends JTextPane {
      */
     public void setPreferencesManager(PreferencesManager preferencesManager) {
         this.preferencesManager = preferencesManager;
-        this.fontSize = this.preferencesManager.getConsoleTextSize();
+        this.fontSize = this.preferencesManager.getTextSize();
     }
 
     /**
@@ -128,7 +123,7 @@ public class ConsoleOutputArea extends JTextPane {
 
         this.fontSize++;
         this.updateContent();
-        this.preferencesManager.setConsoleTextSize(this.fontSize);
+        this.preferencesManager.setTextSize(this.fontSize);
     }
 
     /**
@@ -140,16 +135,16 @@ public class ConsoleOutputArea extends JTextPane {
 
         this.fontSize--;
         this.updateContent();
-        this.preferencesManager.setConsoleTextSize(this.fontSize);
+        this.preferencesManager.setTextSize(this.fontSize);
     }
     
     /**
      * Resets the font size
      */
     public void resetFont() {
-        this.fontSize = FONT_DEFAULT_SIZE;
+        this.fontSize = PreferencesManager.DEFAULT_TEXT_SIZE;
         this.updateContent();
-        this.preferencesManager.setConsoleTextSize(this.fontSize);
+        this.preferencesManager.setTextSize(this.fontSize);
     }
     
     private class HistoryEntry {
