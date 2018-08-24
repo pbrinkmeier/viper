@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.Icon;
 
@@ -86,7 +87,9 @@ public class CommandShowManualTest {
         
         Robot robot = BasicRobot.robotWithCurrentAwtHierarchy();
         robot.settings().componentLookupScope(ComponentLookupScope.ALL);
-        FrameFixture frameFixture = WindowFinder.findFrame(GUIComponentID.FRAME_MANUAL.toString()).using(robot);
+        FrameFixture frameFixture = WindowFinder.findFrame(GUIComponentID.FRAME_MANUAL.toString())
+                .withTimeout(SharedTestConstants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                .using(robot);
         Frame frame = frameFixture.target();
         
         assertNotNull(frameFixture);
@@ -99,7 +102,9 @@ public class CommandShowManualTest {
         
         command.execute();
         langman.setLocale(Locale.ENGLISH);
-        frameFixture = WindowFinder.findFrame(GUIComponentID.FRAME_MANUAL.toString()).using(robot);
+        frameFixture = WindowFinder.findFrame(GUIComponentID.FRAME_MANUAL.toString())
+                .withTimeout(SharedTestConstants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                .using(robot);
         frame = frameFixture.target();
         assertNotNull(frameFixture);
         assertNotNull(frame);

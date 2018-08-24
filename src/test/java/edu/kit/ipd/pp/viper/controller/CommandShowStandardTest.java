@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Frame;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.text.JTextComponent;
 
@@ -38,7 +39,9 @@ public class CommandShowStandardTest {
         
         Robot robot = BasicRobot.robotWithCurrentAwtHierarchy();
         robot.settings().componentLookupScope(ComponentLookupScope.ALL);
-        FrameFixture frameFixture = WindowFinder.findFrame(GUIComponentID.FRAME_SHOW_STD.toString()).using(robot);
+        FrameFixture frameFixture = WindowFinder.findFrame(GUIComponentID.FRAME_SHOW_STD.toString())
+                .withTimeout(SharedTestConstants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                .using(robot);
         Frame frame = frameFixture.target();
         
         assertNotNull(frameFixture);
@@ -50,7 +53,9 @@ public class CommandShowStandardTest {
         assertTrue(frame.getTitle().equals(langman.getString(LanguageKey.STANDARD_LIBRARY)));
         
         command.execute();
-        frameFixture = WindowFinder.findFrame(GUIComponentID.FRAME_SHOW_STD.toString()).using(robot);
+        frameFixture = WindowFinder.findFrame(GUIComponentID.FRAME_SHOW_STD.toString())
+                .withTimeout(SharedTestConstants.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
+                .using(robot);
         frame = frameFixture.target();
         assertNotNull(frameFixture);
         assertNotNull(frame);

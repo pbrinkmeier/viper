@@ -14,4 +14,6 @@ public class SharedTestConstants {
 
     /** An exemplary query */
     public static final String TEST_QUERY = "father(homer, bart).";
+    
+    public static final int DEFAULT_TIMEOUT = 5000;
 }
