@@ -164,14 +164,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             return;
         }
 
-        try {
-            this.loadSVGDocument(tmpFile.toURI().toString());
-        } catch (NullPointerException e) {
-            ConsolePanel panel = this.main.getConsolePanel();
-            if (panel != null)
-                panel.printLine("Failed to set visualisation. This should only happen during testing"
-                        + "as a result of bad threading in Batik", LogType.DEBUG);
-        }
+        this.loadSVGDocument(tmpFile.toURI().toString());
     }
 
     /**
