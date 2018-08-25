@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -72,25 +74,25 @@ public class MainWindow extends JFrame {
     /**
      * Instances of all three panels
      */
-    private final EditorPanel editorPanel;
-    private final ConsolePanel consolePanel;
-    private final VisualisationPanel visualisationPanel;
+    private EditorPanel editorPanel;
+    private ConsolePanel consolePanel;
+    private VisualisationPanel visualisationPanel;
 
-    private final CommandNew commandNew;
-    private final CommandOpen commandOpen;
-    private final CommandSave commandSave;
-    private final CommandExit commandExit;
-    private final CommandParse commandParse;
-    private final CommandFormat commandFormat;
-    private final CommandPreviousStep commandPreviousStep;
-    private final CommandNextStep commandNextStep;
-    private final CommandNextSolution commandNextSolution;
-    private final CommandCancel commandCancel;
-    private final CommandShowAbout commandShowAbout;
-    private final CommandShowStandard commandShowStandard;
-    private final CommandZoom commandZoomTextIn;
-    private final CommandZoom commandZoomTextOut;
-    private final CommandShowManual commandShowManual;
+    private CommandNew commandNew;
+    private CommandOpen commandOpen;
+    private CommandSave commandSave;
+    private CommandExit commandExit;
+    private CommandParse commandParse;
+    private CommandFormat commandFormat;
+    private CommandPreviousStep commandPreviousStep;
+    private CommandNextStep commandNextStep;
+    private CommandNextSolution commandNextSolution;
+    private CommandCancel commandCancel;
+    private CommandShowAbout commandShowAbout;
+    private CommandShowStandard commandShowStandard;
+    private CommandZoom commandZoomTextIn;
+    private CommandZoom commandZoomTextOut;
+    private CommandShowManual commandShowManual;
 
     private ToolBar toolbar;
     private MenuBar menubar;
@@ -98,7 +100,7 @@ public class MainWindow extends JFrame {
     /**
      * Preferences manager instance
      */
-    private final PreferencesManager prefManager;
+    private PreferencesManager prefManager;
 
     /**
      * Global instance of InterpreterManager
@@ -116,81 +118,116 @@ public class MainWindow extends JFrame {
     private ClickableState clickableState;
     
     /**
-     * The constructor sets up the {@link JFrame} and initialises all three panels
+     * The constructor sets up the {@link JFrame} and initialises all three panels.
+     * 
+     * To prevent threading issues with Swing, the entire constructor is wrapped in an invokeAndWait() method. This is
+     * arguably a bit ugly, however running JUnit tests revealed that Swing does run the window initialization in a
+     * separate thread, causing weird race conditions and producing NullPointer- and ConcurrentModificationExceptions.
+     * 
+     * When starting the program as a user, you'll probably never run into these Swing threading issues. However the
+     * unit tests do create a MainWindow instance and immediately call getters an setters, relying on the MainWindow
+     * initialization to be complete. The only way to garuantee that is to run everything inside a blocking
+     * invokeAndWait() method.
      * 
      * @param debug Sets debug mode to enabled/disabled
+     * @throws InterruptedException 
+     * @throws InvocationTargetException 
      */
     public MainWindow(boolean debug) {
-        MainWindow.debug = debug;
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    MainWindow.debug = debug;
 
-        this.setName(GUIComponentID.FRAME_MAIN.toString());
-        this.setTitle(MainWindow.WINDOW_TITLE);
-        this.setResizable(true);
-        this.setIconImage(new ImageIcon(this.getClass().getResource(MainWindow.WINDOW_ICON)).getImage());
+                    MainWindow.this.setName(GUIComponentID.FRAME_MAIN.toString());
+                    MainWindow.this.setTitle(MainWindow.WINDOW_TITLE);
+                    MainWindow.this.setResizable(true);
+                    MainWindow.this.setIconImage(new ImageIcon(this.getClass().getResource(MainWindow.WINDOW_ICON))
+                            .getImage());
 
-        // use system built-in look and feel instead of default swing look
-        MainWindow.setDesign();
+                    // use system built-in look and feel instead of default swing look
+                    MainWindow.setDesign();
 
-        this.manager = new InterpreterManager(this::switchClickableState);
-        this.visualisationPanel = new VisualisationPanel(this);
-        this.consolePanel = new ConsolePanel(this);
-        this.prefManager = new PreferencesManager(this.consolePanel);
-        this.consolePanel.setPreferencesManager(this.prefManager);
-        this.editorPanel = new EditorPanel(this);
+                    MainWindow.this.manager = new InterpreterManager(MainWindow.this::switchClickableState);
+                    MainWindow.this.visualisationPanel = new VisualisationPanel(MainWindow.this);
+                    MainWindow.this.consolePanel = new ConsolePanel(MainWindow.this);
+                    MainWindow.this.prefManager = new PreferencesManager(MainWindow.this.consolePanel);
+                    MainWindow.this.consolePanel.setPreferencesManager(MainWindow.this.prefManager);
+                    MainWindow.this.editorPanel = new EditorPanel(MainWindow.this);
 
-        // Create command instances
-        this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle,
-                this.manager);
-        this.commandOpen = new CommandOpen(this.consolePanel, this.editorPanel, this.visualisationPanel,
-                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
-        this.commandNew = new CommandNew(this.consolePanel, this.editorPanel, this.visualisationPanel,
-                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
-        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel, this.visualisationPanel,
-                this.manager, this::switchClickableState);
-        this.commandZoomTextIn = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_IN);
-        this.commandZoomTextOut = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_OUT);
-        this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
-        this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
-        this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel);
-        this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
-        this.commandCancel = new CommandCancel(this.manager);
-        this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);
-        this.commandShowAbout = new CommandShowAbout();
-        this.commandShowStandard = new CommandShowStandard(this.manager);
-        this.commandShowManual = new CommandShowManual();
+                    // Create command instances
+                    MainWindow.this.commandSave = new CommandSave(MainWindow.this.consolePanel,
+                            MainWindow.this.editorPanel, SaveType.SAVE, MainWindow.this::setWindowTitle,
+                            MainWindow.this.manager);
+                    MainWindow.this.commandOpen = new CommandOpen(MainWindow.this.consolePanel,
+                            MainWindow.this.editorPanel, MainWindow.this.visualisationPanel,
+                            MainWindow.this::setWindowTitle, MainWindow.this::switchClickableState,
+                            MainWindow.this.commandSave, MainWindow.this.manager);
+                    MainWindow.this.commandNew = new CommandNew(MainWindow.this.consolePanel,
+                            MainWindow.this.editorPanel, MainWindow.this.visualisationPanel,
+                            MainWindow.this::setWindowTitle, MainWindow.this::switchClickableState,
+                            MainWindow.this.commandSave, MainWindow.this.manager);
+                    MainWindow.this.commandParse = new CommandParse(MainWindow.this.consolePanel,
+                            MainWindow.this.editorPanel, MainWindow.this.visualisationPanel, MainWindow.this.manager,
+                            MainWindow.this::switchClickableState);
+                    MainWindow.this.commandZoomTextIn = new CommandZoom(null, MainWindow.this.consolePanel,
+                            MainWindow.this.editorPanel, ZoomType.ZOOM_IN);
+                    MainWindow.this.commandZoomTextOut = new CommandZoom(null, MainWindow.this.consolePanel,
+                            MainWindow.this.editorPanel, ZoomType.ZOOM_OUT);
+                    MainWindow.this.commandFormat = new CommandFormat(MainWindow.this.consolePanel,
+                            MainWindow.this.editorPanel);
+                    MainWindow.this.commandPreviousStep = new CommandPreviousStep(MainWindow.this.visualisationPanel,
+                            MainWindow.this.manager);
+                    MainWindow.this.commandNextStep = new CommandNextStep(MainWindow.this.visualisationPanel,
+                            MainWindow.this.manager, MainWindow.this.consolePanel);
+                    MainWindow.this.commandNextSolution = new CommandNextSolution(MainWindow.this.consolePanel,
+                            MainWindow.this.visualisationPanel, MainWindow.this.manager);
+                    MainWindow.this.commandCancel = new CommandCancel(MainWindow.this.manager);
+                    MainWindow.this.commandExit = new CommandExit(MainWindow.this.editorPanel,
+                            MainWindow.this.commandSave, MainWindow.this.manager);
+                    MainWindow.this.commandShowAbout = new CommandShowAbout();
+                    MainWindow.this.commandShowStandard = new CommandShowStandard(MainWindow.this.manager);
+                    MainWindow.this.commandShowManual = new CommandShowManual();
 
-        this.editorPanel.setZoomInCommand(this.commandZoomTextIn);
-        this.editorPanel.setZoomOutCommand(this.commandZoomTextOut);
-        
-        // add menu bar and tool bar to window
-        this.menubar = new MenuBar(this);
-        this.toolbar = new ToolBar(this);
+                    MainWindow.this.editorPanel.setZoomInCommand(MainWindow.this.commandZoomTextIn);
+                    MainWindow.this.editorPanel.setZoomOutCommand(MainWindow.this.commandZoomTextOut);
+                    
+                    // add menu bar and tool bar to window
+                    MainWindow.this.menubar = new MenuBar(MainWindow.this);
+                    MainWindow.this.toolbar = new ToolBar(MainWindow.this);
 
-        this.setJMenuBar(this.menubar);
-        this.getContentPane().add(this.toolbar, BorderLayout.NORTH);
+                    MainWindow.this.setJMenuBar(MainWindow.this.menubar);
+                    MainWindow.this.getContentPane().add(MainWindow.this.toolbar, BorderLayout.NORTH);
 
-        // set up layout using two split panes
-        this.initLayout();
+                    // set up layout using two split panes
+                    MainWindow.this.initLayout();
 
-        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        // use CommandExit on JFrame close, because the editor may still contain
-        // unsaved content
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                MainWindow.this.commandExit.execute();
-            }
-        });
-        this.setLocationRelativeTo(null);
-        this.pack();
-        this.setVisible(true);
-        this.switchClickableState(ClickableState.NOT_PARSED_YET);
+                    MainWindow.this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                    // use CommandExit on JFrame close, because the editor may still contain
+                    // unsaved content
+                    MainWindow.this.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosing(WindowEvent e) {
+                            MainWindow.this.commandExit.execute();
+                        }
+                    });
+                    MainWindow.this.setLocationRelativeTo(null);
+                    MainWindow.this.pack();
+                    MainWindow.this.setVisible(true);
+                    MainWindow.this.switchClickableState(ClickableState.NOT_PARSED_YET);
 
-        // load language from config and set it
-        LanguageManager.getInstance().setLocale(this.prefManager.getLanguage());
-        this.consolePanel.printLine(
-                String.format(LanguageManager.getInstance().getString(LanguageKey.VIPER_READY), MainWindow.VERSION),
-                LogType.INFO);
+                    // load language from config and set it
+                    LanguageManager.getInstance().setLocale(MainWindow.this.prefManager.getLanguage());
+                    MainWindow.this.consolePanel.printLine(
+                            String.format(LanguageManager.getInstance().getString(LanguageKey.VIPER_READY),
+                                    MainWindow.VERSION),
+                            LogType.INFO);
+                }
+            });
+        } catch (InvocationTargetException | InterruptedException e) {
+            // this really isn't supposed to happen
+        }
     }
 
     /**
@@ -269,7 +306,7 @@ public class MainWindow extends JFrame {
     /**
      * Main method, creates a new instance of this class
      * 
-     * @param args Command line arguments (ignored)
+     * @param args Command line arguments. Pass '--debug' for debug mode.
      */
     public static void main(String[] args) {
         boolean debug = false;
@@ -277,7 +314,7 @@ public class MainWindow extends JFrame {
             if (a.equals("--debug"))
                 debug = true;
         }
-
+        
         new MainWindow(debug);
     }
 
