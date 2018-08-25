@@ -30,11 +30,6 @@ import edu.kit.ipd.pp.viper.controller.ZoomType;
  */
 public class EditorPanel extends JPanel implements DocumentListener, KeyListener, MouseWheelListener {
     /**
-     * The default font size used for the editor
-     */
-    public static final int FONT_DEFAULT_SIZE = 14;
-    
-    /**
      * Serial UID
      */
     private static final long serialVersionUID = 689492118433496287L;
@@ -100,7 +95,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         this.isFormattingProcess = false;
 
         this.setLayout(new BorderLayout());
-        this.fontSize = this.preferencesManager.getEditorTextSize();
+        this.fontSize = this.preferencesManager.getTextSize();
         
         this.textArea = new RSyntaxTextArea();
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
@@ -322,7 +317,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
             return;
 
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, ++this.fontSize));
-        this.preferencesManager.setEditorTextSize(this.fontSize);
+        this.preferencesManager.setTextSize(this.fontSize);
     }
 
     private void decreaseFont() {
@@ -330,13 +325,13 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
             return;
 
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, --this.fontSize));
-        this.preferencesManager.setEditorTextSize(this.fontSize);
+        this.preferencesManager.setTextSize(this.fontSize);
     }
 
     private void resetFont() {
-        this.fontSize = FONT_DEFAULT_SIZE;
+        this.fontSize = PreferencesManager.DEFAULT_TEXT_SIZE;
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
-        this.preferencesManager.setEditorTextSize(this.fontSize);
+        this.preferencesManager.setTextSize(this.fontSize);
     }
 
     /**
