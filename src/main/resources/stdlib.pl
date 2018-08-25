@@ -106,20 +106,6 @@ qsort([X | R], Y) :-
   qsort(R2, Y2),
   append(Y1, [X | Y2], Y).
 
-% qsortclp/2:
-%   Sort a list using the quick sort algorithm in the contraint logic
-%   programming paradigm.
-%
-% Example:
-%   ? qsortclp([4, 1, 3, 2], X).
-%   X = [1, 2, 3, 4].
-qsortclp([], []).
-qsortclp([X | R], Y) :-
-  split(X, R, R1, R2),
-  qsortclp(R1, Y1),
-  qsortclp(R2, Y2),
-  append(Y1, [X | Y2], Y).
-
 % permute/2:
 %   Generate permutations of a list.
 %
@@ -209,7 +195,7 @@ nfib(X, Y) :-
 %   WARNING: CPU intensive!
 %
 % Example:
-%   ? nfib(10, X).
+%   ? fib(10, X).
 %   X = 55.
 fib(0, Y) :-
   !,
@@ -224,12 +210,33 @@ fib(X, Y) :-
   fib(X2, Y2),
   Y is (Y1 + Y2).
 
+% fac/2:
+%   Calculate factorial (n!) of number.
+%
+% Example:
+%   ? fac(5, X).
+%   X = 120.
+fac(0, 1).
+fac(N, X) :-
+  M is (N - 1),
+  fac(M, Y),
+  X is (Y * N),
+  !.
+
 % nat/1:
 %   Infinitely re-satisfiable predicate.
 nat(0).
 nat(X) :-
   nat(Y),
   X is (Y + 1).
+
+% neq/2:
+%   Check if X and Y are different terms. Both terms need to be instantiated.
+neq(X, Y) :-
+  X = Y,
+  !,
+  fail.
+neq(X, Y).
 
 % sqrt/2:
 %   Calculate square root.
@@ -243,3 +250,24 @@ sqrt(X, Y) :-
   Y3 is ((Y + 1) * (Y + 1)),
   Y2 =< X,
   X < Y3.
+
+% ackermann/3:
+%   Ackermann function.
+%   WARNING: CPU intensive!
+%
+% Example:
+%   ? ackermann(1, 2, X).
+%   X = 4.
+ackermann(0, N, X) :-
+  X is (N + 1).
+ackermann(M, 0, X) :-
+  M > 0,
+  M1 is (M - 1),
+  ackermann(M1, 1, X).
+ackermann(M, N, X) :-
+  M > 0,
+  N > 0,
+  M1 is (M - 1),
+  N1 is (N - 1),
+  ackermann(M, N1, X1),
+  ackermann(M1, X1, X).
