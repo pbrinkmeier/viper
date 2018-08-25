@@ -32,8 +32,8 @@ public class PreferencesManager {
      * Keys used in properties file
      */
     private static final String KEY_LANGUAGE = "language";
-    private static final String KEY_STDLIB = "stdlib";
-    private static final String KEY_TEXTSIZE = "textsize_editor";
+    private static final String KEY_STDLIB   = "stdlib";
+    private static final String KEY_TEXTSIZE = "textsize";
 
     /**
      * Default values in case the properties file does not exist
