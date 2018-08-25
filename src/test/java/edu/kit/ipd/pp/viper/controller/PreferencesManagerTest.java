@@ -6,9 +6,6 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import edu.kit.ipd.pp.viper.view.ConsoleOutputArea;
-import edu.kit.ipd.pp.viper.view.EditorPanel;
-
 public class PreferencesManagerTest extends ControllerTest {
     /**
      * Tests setting and retrieving different values from
@@ -19,14 +16,11 @@ public class PreferencesManagerTest extends ControllerTest {
         PreferencesManager prefman = this.gui.getPreferencesManager();
         
         final int size = 42;
-        prefman.setConsoleTextSize(size);
-        assertTrue(prefman.getConsoleTextSize() == size);
-        prefman.setEditorTextSize(size);
-        assertTrue(prefman.getEditorTextSize() == size);
+        prefman.setTextSize(size);
+        assertTrue(prefman.getTextSize() == size);
         
         prefman.clearAllProperties();
-        assertTrue(prefman.getEditorTextSize() == EditorPanel.FONT_DEFAULT_SIZE);
-        assertTrue(prefman.getConsoleTextSize() == ConsoleOutputArea.FONT_DEFAULT_SIZE);
+        assertTrue(prefman.getTextSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
     }
     
     /**

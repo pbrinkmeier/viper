@@ -10,6 +10,9 @@ import org.junit.Test;
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 
 public class CommandExportImageTest extends ControllerTest {
+    /**
+     * Sets up a running Prolog program in the interpreter.
+     */
     @Before
     public void setupProgram() {
         final String program = SharedTestConstants.SIMPSONS_FORMATTED;
@@ -20,7 +23,7 @@ public class CommandExportImageTest extends ControllerTest {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        this.gui.getInterpreterManager().nextSolution(this.gui.getConsolePanel(), this.gui.getVisualisationPanel());        
+        this.gui.getInterpreterManager().nextSolution(this.gui.getConsolePanel(), this.gui.getVisualisationPanel());
     }
 
     /**

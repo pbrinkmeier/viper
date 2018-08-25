@@ -47,7 +47,7 @@ public class FileFiltersTest {
      * Tests the PNG filter for proper filtering.
      */
     @Test
-    public void PNGFilterTest() {
+    public void pngFilterTest() {
         FileFilter filter = FileFilters.PNG_FILTER;
         assertTrue(filter.getDescription().equals(LanguageManager.getInstance().getString(LanguageKey.PNG_FILES)));
        
@@ -69,7 +69,7 @@ public class FileFiltersTest {
      * Tests the SVG filter for proper filtering.
      */
     @Test
-    public void SVGFilterTest() {
+    public void svgFilterTest() {
         FileFilter filter = FileFilters.SVG_FILTER;
         assertTrue(filter.getDescription().equals(LanguageManager.getInstance().getString(LanguageKey.SVG_FILES)));
 

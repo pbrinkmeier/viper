@@ -78,7 +78,7 @@ public class CommandShowManualTest {
      * after trying to open it a second time.
      */
     @Test
-    public void UITest() {
+    public void uiTest() {
         LanguageManager langman = LanguageManager.getInstance();
         langman.setLocale(Locale.GERMAN);
         

@@ -234,6 +234,8 @@ public class MainWindow extends JFrame {
     /**
      * Sets the debug mode for the main window.
      * This is only used for testing purposes.
+     * 
+     * @param mode The debug mode to be set
      */
     public void setDebugMode(boolean mode) {
         MainWindow.debug = mode;
@@ -286,13 +288,13 @@ public class MainWindow extends JFrame {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    boolean debug = false;
+                    boolean debugMode = false;
                     for (String a : args) {
                         if (a.equals("--debug"))
-                            debug = true;
+                            debugMode = true;
                     }
 
-                    new MainWindow(debug);
+                    new MainWindow(debugMode);
                 }
             });
         } catch (InvocationTargetException | InterruptedException e) {

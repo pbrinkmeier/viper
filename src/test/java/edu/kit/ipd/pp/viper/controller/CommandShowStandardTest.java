@@ -27,7 +27,7 @@ public class CommandShowStandardTest extends ControllerTest {
      * text area equals the standard library code.
      */
     @Test
-    public void UITest() {
+    public void uiTest() {
         LanguageManager langman = LanguageManager.getInstance();
         langman.setLocale(Locale.GERMAN);
         
