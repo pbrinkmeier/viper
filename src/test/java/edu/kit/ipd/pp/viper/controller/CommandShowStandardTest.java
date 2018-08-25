@@ -18,9 +18,8 @@ import org.assertj.swing.fixture.FrameFixture;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.view.GUIComponentID;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 
-public class CommandShowStandardTest {
+public class CommandShowStandardTest extends ControllerTest {
     /**
      * Tests the UI construction. This includes successful opening, finding by the ComponentID,
      * asserting that the frame is showing/visible, has the correct size and title and still shows
@@ -29,12 +28,10 @@ public class CommandShowStandardTest {
      */
     @Test
     public void UITest() {
-        MainWindow gui = new MainWindow(false);
-        gui.setVisible(false);
         LanguageManager langman = LanguageManager.getInstance();
         langman.setLocale(Locale.GERMAN);
         
-        CommandShowStandard command = new CommandShowStandard(gui.getInterpreterManager());
+        CommandShowStandard command = new CommandShowStandard(this.gui.getInterpreterManager());
         command.execute();
         
         Robot robot = BasicRobot.robotWithCurrentAwtHierarchy();
@@ -68,7 +65,7 @@ public class CommandShowStandardTest {
         assertTrue(frame.getTitle().equals(langman.getString(LanguageKey.STANDARD_LIBRARY)));
         
         JTextComponent textArea = frameFixture.textBox(GUIComponentID.FRAME_SHOW_STD_TEXTAREA.toString()).target();
-        assertTrue(textArea.getText().equals(gui.getInterpreterManager().getStandardLibraryCode()));
+        assertTrue(textArea.getText().equals(this.gui.getInterpreterManager().getStandardLibraryCode()));
         
         command.windowClosing(null);
         assertFalse(command.isOpened());

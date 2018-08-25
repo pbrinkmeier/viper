@@ -12,26 +12,23 @@ import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 import edu.kit.ipd.pp.viper.model.interpreter.Substitution;
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 
-public class InterpreterManagerTest {
+public class InterpreterManagerTest extends ControllerTest {
     /**
      * Tests resetting the instance to make it ready for a
      * new interpreter.
      */
     @Test
     public void resetTest() {
-        MainWindow gui = new MainWindow(false);
-        
-        gui.getEditorPanel().setSourceText("test(X) :- test(X).");
-        gui.getCommandParse().execute();
-        gui.getConsolePanel().setInputFieldText("test(X).");
-        new CommandParseQuery(gui.getConsolePanel(), gui.getVisualisationPanel(),
-                gui.getInterpreterManager(), gui::switchClickableState).execute();
-        gui.getCommandContinue().execute();
-        gui.getInterpreterManager().reset();
+        this.gui.getEditorPanel().setSourceText("test(X) :- test(X).");
+        this.gui.getCommandParse().execute();
+        this.gui.getConsolePanel().setInputFieldText("test(X).");
+        new CommandParseQuery(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(), this.gui::switchClickableState).execute();
+        this.gui.getCommandContinue().execute();
+        this.gui.getInterpreterManager().reset();
                 
-        assertFalse(gui.getInterpreterManager().isSearchingForSolutions());
+        assertFalse(this.gui.getInterpreterManager().isSearchingForSolutions());
     }
     
     /**
@@ -41,8 +38,7 @@ public class InterpreterManagerTest {
      */
     @Test(expected = ParseException.class) 
     public void queryWithoutKnowledgeBaseTest() throws ParseException {
-        MainWindow gui = new MainWindow(false);
-        gui.getInterpreterManager().parseQuery("test(X).");        
+        this.gui.getInterpreterManager().parseQuery("test(X).");        
     }
     
     /**
@@ -52,18 +48,18 @@ public class InterpreterManagerTest {
      */
     @Test
     public void singleGoalTest() {
-        MainWindow gui = new MainWindow(false);
-        gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
-        gui.getCommandParse().execute();
-        gui.getConsolePanel().setInputFieldText("father(X, bart).");
-        new CommandParseQuery(gui.getConsolePanel(), gui.getVisualisationPanel(), gui.getInterpreterManager(),
-                gui::switchClickableState).execute();
+        this.gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
+        this.gui.getCommandParse().execute();
+        this.gui.getConsolePanel().setInputFieldText("father(X, bart).");
+        new CommandParseQuery(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(),
+                this.gui::switchClickableState).execute();
 
         final int stepsNeeded = 2;
         for (int i = 0; i < stepsNeeded; i++)
-            gui.getCommandNextStep().execute();
+            this.gui.getCommandNextStep().execute();
                 
-        List<Substitution> solution = gui.getInterpreterManager().getSolution();
+        List<Substitution> solution = this.gui.getInterpreterManager().getSolution();
         assertFalse(solution.isEmpty());
         assertTrue(solution.get(0).equals(new Substitution(new Variable("X"), new Functor("homer", Arrays.asList()))));
     }
@@ -75,18 +71,17 @@ public class InterpreterManagerTest {
      */
     @Test
     public void multipleGoalsTest() {
-        MainWindow gui = new MainWindow(false);
-        gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
-        gui.getCommandParse().execute();
-        gui.getConsolePanel().setInputFieldText("father(X, bart), father(Y, lisa).");
-        new CommandParseQuery(gui.getConsolePanel(), gui.getVisualisationPanel(), gui.getInterpreterManager(),
-                gui::switchClickableState).execute();
+        this.gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
+        this.gui.getCommandParse().execute();
+        this.gui.getConsolePanel().setInputFieldText("father(X, bart), father(Y, lisa).");
+        new CommandParseQuery(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(), this.gui::switchClickableState).execute();
 
         final int stepsNeeded = 6;
         for (int i = 0; i < stepsNeeded; i++)
-            gui.getCommandNextStep().execute();
+            this.gui.getCommandNextStep().execute();
         
-        List<Substitution> solution = gui.getInterpreterManager().getSolution();
+        List<Substitution> solution = this.gui.getInterpreterManager().getSolution();
         assertFalse(solution.isEmpty());
         assertTrue(solution.get(0).equals(new Substitution(new Variable("X"), new Functor("homer", Arrays.asList()))));
         assertTrue(solution.get(1).equals(new Substitution(new Variable("Y"), new Functor("homer", Arrays.asList()))));

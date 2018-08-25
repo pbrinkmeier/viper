@@ -6,9 +6,7 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import edu.kit.ipd.pp.viper.view.MainWindow;
-
-public class CommandSetLangTest {
+public class CommandSetLangTest extends ControllerTest {
     /**
      * Tests whether setting all supported locales works.
      */
@@ -20,35 +18,30 @@ public class CommandSetLangTest {
             assertTrue(l.equals(LanguageManager.getCurrentLocale()));
         }
     }
-
-    private void setupVisualisation(MainWindow gui) {
-        gui.getCommandParse().execute();
-        gui.getConsolePanel().setInputFieldText("test(X).");
-        new CommandParseQuery(gui.getConsolePanel(), gui.getVisualisationPanel(), gui.getInterpreterManager(),
-                gui::switchClickableState).execute();
-    }
     
     /**
      * Tests setting the language to English.
      */
     @Test
     public void englishTest() {
-        MainWindow gui = new MainWindow(false);
-        
-        CommandSetLang command = new CommandSetLang(gui.getConsolePanel(), gui.getVisualisationPanel(), Locale.ENGLISH,
-                gui.getInterpreterManager(), gui.getPreferencesManager());
+        CommandSetLang command = new CommandSetLang(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                Locale.ENGLISH, this.gui.getInterpreterManager(), this.gui.getPreferencesManager());
 
         command.execute();
         assertTrue(LanguageManager.getCurrentLocale().equals(Locale.ENGLISH));
-        assertTrue(gui.getPreferencesManager().getLanguage().equals(Locale.ENGLISH));
-        assertTrue(gui.getConsolePanel().getOutputAreaText().trim().isEmpty());
+        assertTrue(this.gui.getPreferencesManager().getLanguage().equals(Locale.ENGLISH));
+        assertTrue(this.gui.getConsolePanel().getOutputAreaText().trim().isEmpty());
         
-        this.setupVisualisation(gui);
+        this.gui.getCommandParse().execute();
+        this.gui.getConsolePanel().setInputFieldText("test(X).");
+        new CommandParseQuery(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(), this.gui::switchClickableState).execute();
+        
         command.execute();
         assertTrue(LanguageManager.getCurrentLocale().equals(Locale.ENGLISH));
-        assertTrue(gui.getPreferencesManager().getLanguage().equals(Locale.ENGLISH));
-        assertTrue(gui.getConsolePanel().getOutputAreaText().trim().isEmpty());
-        assertTrue(gui.getVisualisationPanel().hasGraph());
+        assertTrue(this.gui.getPreferencesManager().getLanguage().equals(Locale.ENGLISH));
+        assertTrue(this.gui.getConsolePanel().getOutputAreaText().trim().isEmpty());
+        assertTrue(this.gui.getVisualisationPanel().hasGraph());
     }
     
     /**

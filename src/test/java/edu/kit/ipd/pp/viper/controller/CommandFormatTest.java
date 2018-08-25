@@ -4,18 +4,15 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import edu.kit.ipd.pp.viper.view.MainWindow;
-
-public class CommandFormatTest {
+public class CommandFormatTest extends ControllerTest {
     /**
      * Tests whether the simpsons.pl example gets formatted properly.
      */
     @Test
     public void simpsonsTest() {
-        MainWindow gui = new MainWindow(false);
-        gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
-        gui.getCommandFormat().execute();
-        assertTrue(gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
+        this.gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
+        this.gui.getCommandFormat().execute();
+        assertTrue(this.gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
     }
     
     /**
@@ -23,12 +20,11 @@ public class CommandFormatTest {
      */
     @Test
     public void simpsonsTwiceTest() {
-        MainWindow gui = new MainWindow(false);
-        gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
-        gui.getCommandFormat().execute();
-        assertTrue(gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
-        gui.getCommandFormat().execute();
-        assertTrue(gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
+        this.gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_UNFORMATTED);
+        this.gui.getCommandFormat().execute();
+        assertTrue(this.gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
+        this.gui.getCommandFormat().execute();
+        assertTrue(this.gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
     }
     
     /**
@@ -36,26 +32,26 @@ public class CommandFormatTest {
      */
     @Test
     public void invalidTest() {
-        MainWindow gui = new MainWindow(false);
         final String invalidProgram = "(\n\n\n)(";
         
-        gui.getEditorPanel().setSourceText(invalidProgram);
-        gui.getCommandFormat().execute();
-        assertTrue(gui.getEditorPanel().getSourceText().trim().equals(invalidProgram));
+        this.gui.getEditorPanel().setSourceText(invalidProgram);
+        this.gui.getCommandFormat().execute();
+        assertTrue(this.gui.getEditorPanel().getSourceText().trim().equals(invalidProgram));
     }
-
+    
     /**
      * Tests whether an invalid program gets rejected properly.
      * Debug mode version.
      */
     @Test
     public void invalidDebugTest() {
-        MainWindow gui = new MainWindow(true);
+        this.gui.setDebugMode(true);
         final String invalidProgram = "(\n\n\n)(";
         
-        gui.getEditorPanel().setSourceText(invalidProgram);
-        gui.getCommandFormat().execute();
-        assertTrue(gui.getEditorPanel().getSourceText().trim().equals(invalidProgram));
+        this.gui.getEditorPanel().setSourceText(invalidProgram);
+        this.gui.getCommandFormat().execute();
+        assertTrue(this.gui.getEditorPanel().getSourceText().trim().equals(invalidProgram));
+        this.gui.setDebugMode(false);
     }
     
     /**
@@ -63,9 +59,8 @@ public class CommandFormatTest {
      */
     @Test
     public void emptyTest() {
-        MainWindow gui = new MainWindow(false);
-        gui.getEditorPanel().setSourceText("");
-        gui.getCommandFormat().execute();
-        assertTrue(gui.getEditorPanel().getSourceText().trim().equals(""));
+        this.gui.getEditorPanel().setSourceText("");
+        this.gui.getCommandFormat().execute();
+        assertTrue(this.gui.getEditorPanel().getSourceText().trim().equals(""));
     }
 }

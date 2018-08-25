@@ -4,25 +4,23 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 
-public class CommandExportImageTest {
-    private MainWindow buildGUI() {
-        MainWindow gui = new MainWindow(false);
-
+public class CommandExportImageTest extends ControllerTest {
+    @Before
+    public void setupProgram() {
         final String program = SharedTestConstants.SIMPSONS_FORMATTED;
         final String query = SharedTestConstants.TEST_QUERY;
         try {
-            gui.getInterpreterManager().parseKnowledgeBase(program);
-            gui.getInterpreterManager().parseQuery(query);
+            this.gui.getInterpreterManager().parseKnowledgeBase(program);
+            this.gui.getInterpreterManager().parseQuery(query);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        gui.getInterpreterManager().nextSolution(gui.getConsolePanel(), gui.getVisualisationPanel());
-        return gui;
+        this.gui.getInterpreterManager().nextSolution(this.gui.getConsolePanel(), this.gui.getVisualisationPanel());        
     }
 
     /**
@@ -30,11 +28,9 @@ public class CommandExportImageTest {
      */
     @Test
     public void pngWithExtensionTest() {
-        MainWindow gui = this.buildGUI();
-        
-        CommandExportImage command = new CommandExportImage(gui.getConsolePanel(),
-                ImageFormat.PNG, gui.getInterpreterManager());
-        gui.getConsolePanel().clearAll();
+        CommandExportImage command = new CommandExportImage(this.gui.getConsolePanel(),
+                ImageFormat.PNG, this.gui.getInterpreterManager());
+        this.gui.getConsolePanel().clearAll();
 
         File test = new File("test.png");
         command.exportPNG(test);
@@ -50,11 +46,9 @@ public class CommandExportImageTest {
      */
     @Test
     public void svgWithExtensionTest() {
-        MainWindow gui = this.buildGUI();
-        
-        CommandExportImage command = new CommandExportImage(gui.getConsolePanel(),
-                ImageFormat.SVG, gui.getInterpreterManager());
-        gui.getConsolePanel().clearAll();
+        CommandExportImage command = new CommandExportImage(this.gui.getConsolePanel(),
+                ImageFormat.SVG, this.gui.getInterpreterManager());
+        this.gui.getConsolePanel().clearAll();
 
         File test = new File("test.svg");
         command.exportSVG(test);

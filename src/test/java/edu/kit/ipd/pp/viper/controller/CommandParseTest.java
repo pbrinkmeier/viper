@@ -5,23 +5,19 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import edu.kit.ipd.pp.viper.view.MainWindow;
-
-public class CommandParseTest {
+public class CommandParseTest extends ControllerTest {
     /**
      * Tests whether an empty program gets parsed correctly.
      */
     @Test
     public void emptyTest() {
-        MainWindow gui = new MainWindow(false);
-        
-        gui.getConsolePanel().clearAll();
-        gui.getVisualisationPanel().clearVisualization();
-        gui.getEditorPanel().setSourceText("");
-        gui.getCommandParse().execute();
+        this.gui.getConsolePanel().clearAll();
+        this.gui.getVisualisationPanel().clearVisualization();
+        this.gui.getEditorPanel().setSourceText("");
+        this.gui.getCommandParse().execute();
 
-        assertTrue(gui.getEditorPanel().getSourceText().equals(""));
-        assertFalse(gui.getConsolePanel().hasLockedInput());
+        assertTrue(this.gui.getEditorPanel().getSourceText().equals(""));
+        assertFalse(this.gui.getConsolePanel().hasLockedInput());
     }
 
     /**
@@ -30,15 +26,13 @@ public class CommandParseTest {
      */
     @Test
     public void incorrectSyntaxTest() {
-        MainWindow gui = new MainWindow(false);
-        
-        gui.getConsolePanel().clearAll();
-        gui.getVisualisationPanel().clearVisualization();
-        gui.getEditorPanel().setSourceText("(");
-        gui.getCommandParse().execute();
+        this.gui.getConsolePanel().clearAll();
+        this.gui.getVisualisationPanel().clearVisualization();
+        this.gui.getEditorPanel().setSourceText("(");
+        this.gui.getCommandParse().execute();
 
-        assertTrue(gui.getEditorPanel().getSourceText().trim().equals("("));
-        assertTrue(gui.getConsolePanel().hasLockedInput());
+        assertTrue(this.gui.getEditorPanel().getSourceText().trim().equals("("));
+        assertTrue(this.gui.getConsolePanel().hasLockedInput());
     }
 
     /**
@@ -46,14 +40,12 @@ public class CommandParseTest {
      */
     @Test
     public void simpsonsTest() {
-        MainWindow gui = new MainWindow(false);
+        this.gui.getConsolePanel().clearAll();
+        this.gui.getVisualisationPanel().clearVisualization();
+        this.gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
+        this.gui.getCommandParse().execute();
         
-        gui.getConsolePanel().clearAll();
-        gui.getVisualisationPanel().clearVisualization();
-        gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
-        gui.getCommandParse().execute();
-        
-        assertTrue(gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
-        assertFalse(gui.getConsolePanel().hasLockedInput());
+        assertTrue(this.gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
+        assertFalse(this.gui.getConsolePanel().hasLockedInput());
     }
 }

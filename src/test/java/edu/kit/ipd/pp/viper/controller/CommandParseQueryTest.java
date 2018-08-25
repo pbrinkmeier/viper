@@ -6,27 +6,24 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.view.ClickableState;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 
-public class CommandParseQueryTest {
+public class CommandParseQueryTest extends ControllerTest {
     /**
      * Tests issuing a query with valid syntax.
      */
     @Test
     public void validQueryTest() {
-        MainWindow gui = new MainWindow(false);
-
-        gui.getCommandParse().execute();
-        gui.getConsolePanel().setInputFieldText("validQuery(X).");
+        this.gui.getCommandParse().execute();
+        this.gui.getConsolePanel().setInputFieldText("validQuery(X).");
         
-        gui.getVisualisationPanel().clearVisualization();
-        assertTrue(gui.getVisualisationPanel().showsPlaceholder());
+        this.gui.getVisualisationPanel().clearVisualization();
+        assertTrue(this.gui.getVisualisationPanel().showsPlaceholder());
         
-        new CommandParseQuery(gui.getConsolePanel(), gui.getVisualisationPanel(),
-                gui.getInterpreterManager(), gui::switchClickableState).execute();
+        new CommandParseQuery(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(), this.gui::switchClickableState).execute();
         
-        assertTrue(gui.getVisualisationPanel().hasGraph());
-        assertTrue(gui.getClickableState().equals(ClickableState.FIRST_STEP));
+        assertTrue(this.gui.getVisualisationPanel().hasGraph());
+        assertTrue(this.gui.getClickableState().equals(ClickableState.FIRST_STEP));
     }
 
     /**
@@ -34,18 +31,16 @@ public class CommandParseQueryTest {
      */
     @Test
     public void invalidQueryTest() {
-        MainWindow gui = new MainWindow(false);
+        this.gui.getCommandParse().execute();
+        this.gui.getConsolePanel().setInputFieldText("invalidQuery(");
         
-        gui.getCommandParse().execute();
-        gui.getConsolePanel().setInputFieldText("invalidQuery(");
+        this.gui.getVisualisationPanel().clearVisualization();
+        assertTrue(this.gui.getVisualisationPanel().showsPlaceholder());
         
-        gui.getVisualisationPanel().clearVisualization();
-        assertTrue(gui.getVisualisationPanel().showsPlaceholder());
+        new CommandParseQuery(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(), this.gui::switchClickableState).execute();
         
-        new CommandParseQuery(gui.getConsolePanel(), gui.getVisualisationPanel(),
-                gui.getInterpreterManager(), gui::switchClickableState).execute();
-        
-        assertTrue(gui.getVisualisationPanel().showsPlaceholder());
-        assertFalse(gui.getClickableState().equals(ClickableState.FIRST_STEP));
+        assertTrue(this.gui.getVisualisationPanel().showsPlaceholder());
+        assertFalse(this.gui.getClickableState().equals(ClickableState.FIRST_STEP));
     }
 }

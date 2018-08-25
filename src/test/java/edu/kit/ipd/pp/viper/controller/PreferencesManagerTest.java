@@ -8,17 +8,15 @@ import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.view.ConsoleOutputArea;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 
-public class PreferencesManagerTest {
+public class PreferencesManagerTest extends ControllerTest {
     /**
      * Tests setting and retrieving different values from
      * the preferences manager.
      */
     @Test
     public void settingAndRetrievalTest() {
-        MainWindow gui = new MainWindow(false);
-        PreferencesManager prefman = gui.getPreferencesManager();
+        PreferencesManager prefman = this.gui.getPreferencesManager();
         
         final int size = 42;
         prefman.setConsoleTextSize(size);
@@ -36,8 +34,7 @@ public class PreferencesManagerTest {
      */
     @Test
     public void nullifiedPropertiesTest() {
-        MainWindow gui = new MainWindow(false);
-        PreferencesManager prefman = gui.getPreferencesManager();
+        PreferencesManager prefman = this.gui.getPreferencesManager();
         
         prefman.setPropertiesToNull();
         assertTrue(prefman.isStandardLibEnabled());

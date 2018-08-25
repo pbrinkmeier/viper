@@ -4,23 +4,21 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import edu.kit.ipd.pp.viper.view.MainWindow;
-
-public class CommandToggleLibTest {
+public class CommandToggleLibTest extends ControllerTest {
     /**
      * Tests twice whether toggling the standard library works properly.
      */
     @Test
     public void switchOnAndOffTest() {
-        MainWindow gui = new MainWindow(false);
-        
-        boolean firstState = gui.getInterpreterManager().isStandardEnabled();
-        new CommandToggleLib(gui.getConsolePanel(), gui.getVisualisationPanel(),
-                gui.getInterpreterManager(), gui.getPreferencesManager(), gui::switchClickableState).execute();
-        assertTrue(gui.getInterpreterManager().isStandardEnabled() == !firstState);
+        boolean firstState = this.gui.getInterpreterManager().isStandardEnabled();
+        new CommandToggleLib(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(), this.gui.getPreferencesManager(),
+                this.gui::switchClickableState).execute();
+        assertTrue(this.gui.getInterpreterManager().isStandardEnabled() == !firstState);
 
-        new CommandToggleLib(gui.getConsolePanel(), gui.getVisualisationPanel(),
-                gui.getInterpreterManager(), gui.getPreferencesManager(), gui::switchClickableState).execute();
-        assertTrue(gui.getInterpreterManager().isStandardEnabled() == firstState);
+        new CommandToggleLib(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(), this.gui.getPreferencesManager(),
+                this.gui::switchClickableState).execute();
+        assertTrue(this.gui.getInterpreterManager().isStandardEnabled() == firstState);
     }
 }

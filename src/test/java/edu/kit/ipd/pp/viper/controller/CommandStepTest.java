@@ -1,14 +1,13 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.view.ClickableState;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 
-public class CommandStepTest {
+public class CommandStepTest extends ControllerTest {
     /**
      * Tests doing a step back on the previous step, then doing a
      * single step forward and then a step back again.
@@ -19,29 +18,27 @@ public class CommandStepTest {
      */
     @Test
     public void singleSteppingTest() {
-        MainWindow gui = new MainWindow(false);
+        this.gui.getEditorPanel().setSourceText("test(X) :- test(X).");
+        this.gui.getCommandParse().execute();
+        this.gui.getConsolePanel().setInputFieldText("test(X).");
+        new CommandParseQuery(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(), this.gui::switchClickableState).execute();
         
-        gui.getEditorPanel().setSourceText("test(X) :- test(X).");
-        gui.getCommandParse().execute();
-        gui.getConsolePanel().setInputFieldText("test(X).");
-        new CommandParseQuery(gui.getConsolePanel(), gui.getVisualisationPanel(),
-                gui.getInterpreterManager(), gui::switchClickableState).execute();
-        
-        assertFalse(gui.getInterpreterManager().isSearchingForSolutions());
-        assertTrue(gui.getVisualisationPanel().hasGraph());
-        assertTrue(gui.getClickableState().equals(ClickableState.FIRST_STEP));
-        gui.getCommandPreviousStep().execute();
-        assertFalse(gui.getInterpreterManager().isSearchingForSolutions());
-        assertTrue(gui.getVisualisationPanel().hasGraph());
-        assertTrue(gui.getClickableState().equals(ClickableState.FIRST_STEP));
-        gui.getCommandNextStep().execute();
-        assertFalse(gui.getInterpreterManager().isSearchingForSolutions());
-        assertTrue(gui.getVisualisationPanel().hasGraph());
-        assertFalse(gui.getClickableState().equals(ClickableState.FIRST_STEP));
-        assertTrue(gui.getClickableState().equals(ClickableState.PARSED_QUERY));
-        gui.getCommandPreviousStep().execute();
-        assertFalse(gui.getInterpreterManager().isSearchingForSolutions());
-        assertTrue(gui.getVisualisationPanel().hasGraph());
-        assertTrue(gui.getClickableState().equals(ClickableState.FIRST_STEP));
+        assertFalse(this.gui.getInterpreterManager().isSearchingForSolutions());
+        assertTrue(this.gui.getVisualisationPanel().hasGraph());
+        assertTrue(this.gui.getClickableState().equals(ClickableState.FIRST_STEP));
+        this.gui.getCommandPreviousStep().execute();
+        assertFalse(this.gui.getInterpreterManager().isSearchingForSolutions());
+        assertTrue(this.gui.getVisualisationPanel().hasGraph());
+        assertTrue(this.gui.getClickableState().equals(ClickableState.FIRST_STEP));
+        this.gui.getCommandNextStep().execute();
+        assertFalse(this.gui.getInterpreterManager().isSearchingForSolutions());
+        assertTrue(this.gui.getVisualisationPanel().hasGraph());
+        assertFalse(this.gui.getClickableState().equals(ClickableState.FIRST_STEP));
+        assertTrue(this.gui.getClickableState().equals(ClickableState.PARSED_QUERY));
+        this.gui.getCommandPreviousStep().execute();
+        assertFalse(this.gui.getInterpreterManager().isSearchingForSolutions());
+        assertTrue(this.gui.getVisualisationPanel().hasGraph());
+        assertTrue(this.gui.getClickableState().equals(ClickableState.FIRST_STEP));
     }
 }

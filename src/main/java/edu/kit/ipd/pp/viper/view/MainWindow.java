@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -230,6 +232,14 @@ public class MainWindow extends JFrame {
     }
 
     /**
+     * Sets the debug mode for the main window.
+     * This is only used for testing purposes.
+     */
+    public void setDebugMode(boolean mode) {
+        MainWindow.debug = mode;
+    }
+    
+    /**
      * Sets the "look and feel" of the application by using the system default
      * theme.
      */
@@ -272,13 +282,22 @@ public class MainWindow extends JFrame {
      * @param args Command line arguments (ignored)
      */
     public static void main(String[] args) {
-        boolean debug = false;
-        for (String a : args) {
-            if (a.equals("--debug"))
-                debug = true;
-        }
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    boolean debug = false;
+                    for (String a : args) {
+                        if (a.equals("--debug"))
+                            debug = true;
+                    }
 
-        new MainWindow(debug);
+                    new MainWindow(debug);
+                }
+            });
+        } catch (InvocationTargetException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

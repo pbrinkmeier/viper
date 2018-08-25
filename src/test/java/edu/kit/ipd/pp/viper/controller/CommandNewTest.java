@@ -4,21 +4,17 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import edu.kit.ipd.pp.viper.view.MainWindow;
-
-public class CommandNewTest {
+public class CommandNewTest extends ControllerTest {
     /**
      * Tests whether the new command actually clears the editor. This test assumes
      * there are no changes left to be saved to disk.
      */
     @Test
     public void getsClearedTest() {
-        MainWindow gui = new MainWindow(false);
+        this.gui.getEditorPanel().setSourceText("test");
+        this.gui.getEditorPanel().setHasChanged(false);
+        this.gui.getCommandNew().execute();
         
-        gui.getEditorPanel().setSourceText("test");
-        gui.getEditorPanel().setHasChanged(false);
-        gui.getCommandNew().execute();
-        
-        assertTrue(gui.getEditorPanel().getSourceText().equals(""));
+        assertTrue(this.gui.getEditorPanel().getSourceText().equals(""));
     }
 }

@@ -209,7 +209,6 @@ public class ConsolePanel extends JPanel implements HasClickable {
      */
     public void printLine(String line, LogType type) {
         this.outputArea.printLine(line, type);
-
         JScrollBar bar = this.scrollPane.getVerticalScrollBar();
         bar.setValue(bar.getMaximum());
     }
