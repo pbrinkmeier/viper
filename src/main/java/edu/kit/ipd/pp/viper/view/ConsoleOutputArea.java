@@ -35,6 +35,7 @@ public class ConsoleOutputArea extends JTextPane {
     private Semaphore mutex = new Semaphore(1);
     
     private int fontSize;
+    private boolean isEmpty;
     private ArrayList<HistoryEntry> history;
     
     /**
@@ -53,6 +54,7 @@ public class ConsoleOutputArea extends JTextPane {
         this.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
         this.setEditable(false);
         this.setEditorKit(new CustomEditorKit());
+        this.isEmpty = true;
     }
     
     /**
@@ -81,8 +83,9 @@ public class ConsoleOutputArea extends JTextPane {
     public void clear() {
         this.acquireMutex();
         
-        this.setText(null);
+        this.setText("");
         this.history.clear();
+        this.isEmpty = true;
         
         this.releaseMutex();
     }
@@ -100,12 +103,13 @@ public class ConsoleOutputArea extends JTextPane {
         
         this.history.add(new HistoryEntry(line, type));
         this.updateContent();
+        this.isEmpty = false;
         
         this.releaseMutex();
     }
     
     private void updateContent() {
-        this.setText(null);
+        this.setText("");
         this.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
         this.setEditable(true);
         
@@ -217,6 +221,14 @@ public class ConsoleOutputArea extends JTextPane {
         public LogType getType() {
             return this.type;
         }
+    }
+    
+    /**
+     * Returns whether the output area is empty.
+     * @return whether the output area is empty
+     */
+    public boolean isEmpty() {
+        return this.isEmpty;
     }
     
     /**

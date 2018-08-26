@@ -43,8 +43,10 @@ public class CommandShowAboutTest {
         
         assertTrue(frame.isShowing());
         assertTrue(frame.isVisible());
-        assertTrue(frame.getSize().equals(CommandShowAbout.DIMENSION));
         assertTrue(frame.getTitle().equals(langman.getString(LanguageKey.MENU_ABOUT)));
+        // This test causes AssertionErrors when run on a machine with a tiling window manager. The WM ignores the
+        // dimensions set by Swing, therefore we cannot rely on this test to succeed on every machine.
+        // assertTrue(frame.getSize().equals(CommandShowAbout.DIMENSION));
         
         command.execute();
         langman.setLocale(Locale.ENGLISH);
@@ -57,7 +59,6 @@ public class CommandShowAboutTest {
         
         assertTrue(frame.isShowing());
         assertTrue(frame.isVisible());
-        assertTrue(frame.getSize().equals(CommandShowAbout.DIMENSION));
         assertTrue(frame.getTitle().equals(langman.getString(LanguageKey.MENU_ABOUT)));
         
         command.windowClosing(null);

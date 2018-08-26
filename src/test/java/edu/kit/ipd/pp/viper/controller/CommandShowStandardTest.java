@@ -48,7 +48,7 @@ public class CommandShowStandardTest extends ControllerTest {
         assertTrue(frame.isVisible());
         // This test causes AssertionErrors when run on a machine with a tiling window manager. The WM ignores the
         // dimensions set by Swing, therefore we cannot rely on this test to succeed on every machine.
-        //assertTrue(frame.getSize().equals(CommandShowStandard.DIMENSION));
+        // assertTrue(frame.getSize().equals(CommandShowStandard.DIMENSION));
         assertTrue(frame.getTitle().equals(langman.getString(LanguageKey.STANDARD_LIBRARY)));
         
         command.execute();
@@ -61,7 +61,6 @@ public class CommandShowStandardTest extends ControllerTest {
         
         assertTrue(frame.isShowing());
         assertTrue(frame.isVisible());
-        //assertTrue(frame.getSize().equals(CommandShowStandard.DIMENSION));
         assertTrue(frame.getTitle().equals(langman.getString(LanguageKey.STANDARD_LIBRARY)));
         
         JTextComponent textArea = frameFixture.textBox(GUIComponentID.FRAME_SHOW_STD_TEXTAREA.toString()).target();
