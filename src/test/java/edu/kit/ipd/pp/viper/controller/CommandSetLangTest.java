@@ -30,7 +30,6 @@ public class CommandSetLangTest extends ControllerTest {
         command.execute();
         assertTrue(LanguageManager.getCurrentLocale().equals(Locale.ENGLISH));
         assertTrue(this.gui.getPreferencesManager().getLanguage().equals(Locale.ENGLISH));
-        assertTrue(this.gui.getConsolePanel().getOutputAreaText().trim().isEmpty());
         
         this.gui.getCommandParse().execute();
         this.gui.getConsolePanel().setInputFieldText("test(X).");

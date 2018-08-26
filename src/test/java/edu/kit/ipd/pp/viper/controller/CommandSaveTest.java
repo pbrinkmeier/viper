@@ -62,19 +62,6 @@ public class CommandSaveTest extends ControllerTest {
     }
 
     /**
-     * Tests for correct error output.
-     */
-    @Test
-    public void errorOutputTest() {
-        final String testPath = "/test/testfile.pl";
-        this.gui.getConsolePanel().clearAll();
-        this.gui.getCommandSave().printSaveError(null, testPath);
-
-        final String expected = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR) + ": " + testPath;
-        assertTrue(this.gui.getConsolePanel().getOutputAreaText().trim().equals(expected.trim()));
-    }
-
-    /**
      * Tests the writing routine.
      */
     @Test
@@ -83,13 +70,9 @@ public class CommandSaveTest extends ControllerTest {
         this.gui.getConsolePanel().clearAll();
         this.gui.getCommandSave().writeFile(testFile);
 
-        final String expected = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_SUCCESS) + ": "
-                + testFile.getAbsolutePath();
-
         assertTrue(testFile.exists());
         assertFalse(this.gui.getEditorPanel().hasChanged());
         assertTrue(this.gui.getEditorPanel().hasFileReference());
-        assertTrue(this.gui.getConsolePanel().getOutputAreaText().trim().equals(expected.trim()));
 
         testFile.delete();
     }
