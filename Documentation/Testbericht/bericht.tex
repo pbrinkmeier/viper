@@ -4,6 +4,7 @@
 \title{VIPER Interactive Prolog Education Runtime}
 \subtitle{Testbericht}
 \author{Paul Brinkmeier, Lukas Brocke, Jannik Koch, Aaron Maier, Christian Oder}
+\date{}
 
 % section numbers in margins:
 \renewcommand\sectionlinesformat[4]{\makebox[0pt][r]{#3}#4}
@@ -42,8 +43,8 @@
 \usepackage{csquotes}
 
 \newcommand\urlpart[2]{$\underbrace{\text{\texttt{#1}}}_{\text{#2}}$}
-\newcommand{\cmark}{\ding{51}}%
-\newcommand{\xmark}{\ding{55}}%
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
 
 \lstset{basicstyle=\ttfamily,breaklines=true}
 
@@ -57,13 +58,14 @@
 \begin{document}
 \pagenumbering{roman}
 \maketitle
+
 \tableofcontents
 
 \section{Einleitung}
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-% Anschluss an Implementierungsbericht, erreichte Abdeckung etc.
+% Anschluss an Implementierungsbericht, erreichte Abdeckung etc. Ein Satz pro Phase nach Vorbild der bisherigen Dokumente. Danach kurz etwas zur aktuellen Phase
 
 % Arbeitsweise (GitLab Issues, Assignees, Gewichtungen, ...)
 
@@ -73,27 +75,30 @@
 
 \subsection{Unit-Tests}
 
-% Grobe Liste, welche Dinge wir getestet haben
+% Alle Tests auflisten, die existieren, mit nem simplen Symbol markieren, welche seit der QA neu dazugekommen sind
 
 % Wie GUI getestet (JAssertSwing)?
 
-\subsection{Integrationstests}
+\subsection{Testfälle aus Pflichtenheft}
 
-% Tests aus Pflichtenheft
+\subsection{Integrationstests}
 
 \subsection{Statische Analyse}
 
 % Checkstyle, Linter, sonstige Tools für Codequalität
 
+% Ergebnisse FindBugs, PMD (Zahlen, welche Fehlergruppe wir ignorieren, z.B. hashCode(), if..else curly braces)
+
 \section{Gefundene Fehler}
 
 \begin{enumerate}[label=\#\arabic*]
   \item \textbf{Hier steht die kurze Beschreibung des Fehlers}\\
-        Hier steht eine ausführlichere Beschreibung inklusive der \enquote{Symptome} (was sieht man?). Warum tritt der Fehler auf?\\\\
+        Hier steht eine ausführlichere Beschreibung. Warum tritt der Fehler auf?\\\\
+        \textbf{Symptome:} Was genau sieht man?\\
         \textbf{Behebung:} Was genau wurde geändert um es zu beheben?
 \end{enumerate}
 
-\section{Zusätzliche Features und Änderungen}
+\section{Zusätzliche Features}
 
 Im Zuge der Verbesserung der Gebrauchstauglichkeit (\enquote{usability}) von VIPER wurde das Programm um einige Funktionalitäten erweitert.\\
 Diese haben sich u.a. aus den Rückmeldungen von Testpersonen unseres Programms ergeben.\\\\
@@ -115,7 +120,7 @@ Im Folgenden werden die zusätzlich implementieren Funktionalitäten und Änderu
   \item \textbf{Inhalt der Standardbibliothek}\\
         Die Standardbibliothek wurde um einige, aus der Vorlesung \enquote{Programmierparadigmen} bekannte, Regeln ergänzt. Dazu gehören beispielsweise Listen-Sortierung, Quadratwurzel-Berechnung und Summenbildung.
   \item \textbf{Hinweis bei Namenskonflikten mit der Standardbibliothek}\\
-        \textit{todo}
+        Falls im geparsten Programm Regeln vorkommen, die Namenskonflikte mit Regeln aus der Standardbibliothek hervorrufen, so wird eine Warnung in der Konsole ausgegeben. Ist die Standardbibliothek nicht aktiviert, so wird der Hinweis nicht angezeigt.
   \item \textbf{Beispielprogramme}\\
         \textit{todo}
   \item \textbf{Tastenkombinationen für den Editor}\\
@@ -130,13 +135,17 @@ Im Folgenden werden die zusätzlich implementieren Funktionalitäten und Änderu
         Der Mauszeiger ändert seine Darstellung zur \enquote{Laden...}-Animation, wenn die Berechnung der nächsten Lösung etwas Zeit in Anspruch nimmt.
 
 \end{itemize}
+
+\section{Nutzertests}
+
 % Ergebnisse des Usability Testings (Reaktionen der Leute!)
 % Icons geändert/Buttons aufgeteilt, Zoomen, Shortcuts, Stdlib anzeigen
+% Zoom-Debatte mit Meinung von Max
 
 \section{Statistiken}
 
-% Testabdeckung mit JUnit
-% Wie viele andere Leute haben das Programm getestet
+% Testabdeckung mit JUnit, möglichst detailliert (Tests pro Paket, LoC an Tests pro Palet, wie viele Tests laufen vollautomatisch).
+% Commits und LoC der Phase insg.
 % Monkey Testing Ergebnisse
 
 \end{document}
