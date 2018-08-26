@@ -205,6 +205,14 @@ public class ConsoleOutputArea extends JTextPane {
         this.mutex.release();
     }
     
+    /**
+     * Returns whether the output area is empty.
+     * @return whether the output area is empty
+     */
+    public boolean isEmpty() {
+        return this.isEmpty;
+    }
+    
     private class HistoryEntry {
         private final String line;
         private final LogType type;
@@ -221,14 +229,6 @@ public class ConsoleOutputArea extends JTextPane {
         public LogType getType() {
             return this.type;
         }
-    }
-    
-    /**
-     * Returns whether the output area is empty.
-     * @return whether the output area is empty
-     */
-    public boolean isEmpty() {
-        return this.isEmpty;
     }
     
     /**
