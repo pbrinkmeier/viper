@@ -13,7 +13,7 @@ public class ControllerTest {
     /**
      * The used instance of the main window.
      */
-    protected MainWindow gui;
+    protected volatile MainWindow gui;
     
     /**
      * The instantiation method for the main window.
