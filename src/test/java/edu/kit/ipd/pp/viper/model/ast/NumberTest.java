@@ -55,6 +55,9 @@ public class NumberTest {
      */
     @Test
     public void equalsTest() {
+        assertNotEquals(this.num, null);
+        assertNotEquals(this.num, new Object());
+
         // two number terms should be equal if the numbers they represent are equal
         assertEquals(BigInteger.valueOf(42), BigInteger.valueOf(42));
         assertEquals(BigInteger.valueOf(0), BigInteger.valueOf(0));
