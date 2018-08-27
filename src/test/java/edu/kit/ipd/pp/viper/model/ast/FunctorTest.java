@@ -157,4 +157,10 @@ public class FunctorTest {
         assertEquals(new Functor("test", Arrays.asList(Functor.atom("single"))),
                 this.fun.createNew(Arrays.asList(Functor.atom("single"))));
     }
+
+    @Test
+    public void matchesTest() {
+        assertTrue(this.fun.matches(new Functor("test", Arrays.asList(new Number(1), new Number(2), new Number(3)))));
+        assertFalse(this.fun.matches(Functor.atom("test")));
+    }
 }

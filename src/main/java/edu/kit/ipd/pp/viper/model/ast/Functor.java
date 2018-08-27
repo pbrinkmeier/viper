@@ -68,6 +68,19 @@ public class Functor extends Term {
     }
 
     // --- functionality
+    
+    /**
+     * Checks whether a functor has the same head and arity as another functor.
+     * This method is used for determining similar (a.k.a. matching) functors in a variety of contexts.
+     * An example is the FunctorActivationRecord which uses this method (through KnowledgeBase) to find
+     * rules that may be unified with its functor.
+     *
+     * @param otherFunctor functor to compare to
+     * @return whether the other functor matches this functor
+     */
+    public boolean matches(Functor otherFunctor) {
+        return this.name.equals(otherFunctor.name) && this.getArity() == otherFunctor.getArity();
+    }
 
     /**
      * Creates a new functor with different parameters. This method is supposed to
