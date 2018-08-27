@@ -195,7 +195,7 @@ public abstract class ActivationRecord {
      *
      * @return the goal that corresponds to this AR
      */
-    protected abstract Goal getGoal();
+    public abstract Goal getGoal();
 
     /**
      * To be overwritten by the subclasses. This is actually the core of the whole

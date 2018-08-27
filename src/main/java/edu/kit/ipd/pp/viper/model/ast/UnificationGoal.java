@@ -56,9 +56,8 @@ public class UnificationGoal extends Goal {
         List<Variable> variables = new ArrayList<Variable>();
 
         for (Variable var : this.lhs.accept(new VariableExtractor())) {
-            if (!variables.contains(var)) {
-                variables.add(var);
-            }
+            // We don't need to check for contains here, since VariableExtractor returns unique lists
+            variables.add(var);
         }
 
         for (Variable var : this.rhs.accept(new VariableExtractor())) {
