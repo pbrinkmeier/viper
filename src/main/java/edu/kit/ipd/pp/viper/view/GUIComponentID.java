@@ -62,6 +62,11 @@ public enum GUIComponentID {
     BUTTON_NEXT_SOLUTION("button_next_solution"),
     
     /**
+     * Identifier of the "finish query" button
+     */
+    BUTTON_FINISH_QUERY("button_finish_query"),
+
+    /**
      * Identifier of the "cancel" button
      */
     BUTTON_CANCEL("button_cancel"),

@@ -148,6 +148,11 @@ public enum LanguageKey {
     TOOLTIP_NEXTSOLUTION("tooltip_nextsolution"),
 
     /**
+     * Tool bar "Finish Query" tool tip
+     */
+    TOOLTIP_FINISHQUERY("tooltip_finishquery"),
+
+    /**
      * Tool bar "Cancel" tool tip
      */
     TOOLTIP_CANCEL("tooltip_cancel"),

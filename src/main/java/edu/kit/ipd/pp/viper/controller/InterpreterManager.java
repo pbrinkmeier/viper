@@ -51,9 +51,8 @@ public class InterpreterManager {
     private boolean useStandardLibrary = true;
     private String standardLibrary;
     private boolean running = false;
-    private StepResult result;
     private Consumer<ClickableState> toggleStateFunc;
-    private Optional<Thread> nextSolutionThread = Optional.empty();
+    private Optional<Thread> continueThread = Optional.empty();
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
@@ -77,7 +76,6 @@ public class InterpreterManager {
         this.query = Optional.empty();
         this.interpreter = Optional.empty();
         this.variables = Optional.empty();
-        this.result = null;
         this.visualisations = new ArrayList<Graph>();
         this.results = new ArrayList<StepResult>();
         this.current = 0;
@@ -166,7 +164,6 @@ public class InterpreterManager {
         this.visualisations = new ArrayList<Graph>();
         this.results = new ArrayList<StepResult>();
         this.current = 0;
-        this.result = null;
 
         this.interpreter = Optional.of(new Interpreter(knowledgeBase, this.query.get()));
         this.variables = Optional.of(this.query.get().getVariables());
@@ -193,28 +190,23 @@ public class InterpreterManager {
         }
 
         if (this.current < this.visualisations.size() - 1) {
-            if (this.result == StepResult.FROM_STEPBACK
-                    && this.results.get(this.current + 1) == StepResult.NO_MORE_SOLUTIONS) {
-                this.toggleStateFunc.accept(ClickableState.LAST_STEP);
+            if (this.results.get(this.current + 1) == StepResult.NO_MORE_SOLUTIONS) {
                 this.current++;
+                this.toggleStateFunc.accept(ClickableState.LAST_STEP);
                 return;
-            } 
+            }
 
             this.current++;
-            this.result = StepResult.FROM_STEPBACK;
-
             return;
         }
 
-        this.result = this.interpreter.get().step();
-
-        this.results.add(this.result);
+        this.results.add(this.interpreter.get().step());
 
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
 
         this.current++;
 
-        if (this.result == StepResult.SOLUTION_FOUND) {
+        if (this.results.get(this.current) == StepResult.SOLUTION_FOUND) {
             String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
             List<Substitution> solution = this.getSolution();
 
@@ -225,8 +217,7 @@ public class InterpreterManager {
             console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
         }
 
-        if (this.result == StepResult.NO_MORE_SOLUTIONS
-                || this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
+        if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
             console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
                     LogType.INFO);
             this.toggleStateFunc.accept(ClickableState.LAST_STEP);
@@ -239,14 +230,13 @@ public class InterpreterManager {
     public void previousStep() {
         if (this.current > 0) {
             this.current--;
-            this.result = StepResult.FROM_STEPBACK;
         }
 
         this.toggleStateFunc.accept(this.current == 0 ? ClickableState.FIRST_STEP : ClickableState.PARSED_QUERY);
     }
 
     /**
-     * Runs the interpreter until a new solution is found. This is done in a
+     * Runs the interpreter until the next solution is found. This is done in a
      * separate thread to ensure the GUI is still responsive and the execution can
      * be canceled if it's going on for too long. Because of that the Thread has to
      * set the visualisation and the console output
@@ -257,35 +247,41 @@ public class InterpreterManager {
     public void nextSolution(ConsolePanel console, VisualisationPanel visualisation) {
         if (!this.running) {
             this.setThreadRunning(true);
-            this.assignThread(console, visualisation);
+            this.assignNextSolutionThread(console, visualisation);
         }
     }
 
     /**
-     * Actually initializes and starts the thread and also takes care of the console
-     * output and the visualization inside the thread
+     * Actually initializes and starts a thread that runs until the next solution is
+     * found and also takes care of the console output and the visualization 
+     * inside the thread
      * 
      * @param console The console panel of the gui
      * @param visualisation The visualisation panel of the gui
      */
-    private void assignThread(ConsolePanel console, VisualisationPanel visualisation) {
-        if (this.nextSolutionThread.isPresent()) {
+    private void assignNextSolutionThread(ConsolePanel console, VisualisationPanel visualisation) {
+        if (this.continueThread.isPresent()) {
+            this.setThreadRunning(false);
             return;
         }
 
-        this.nextSolutionThread = Optional.of(new Thread(() -> {
-            if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS)
+        this.continueThread = Optional.of(new Thread(() -> {
+            if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
+                this.setThreadRunning(false);
                 return;
+            }
 
             while (this.running) {
                 this.nextStep(console);
 
-                if (((this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS)
-                        || this.result == StepResult.SOLUTION_FOUND
-                        && this.current == this.visualisations.size() - 1)
-                        || this.results.get(this.current) == StepResult.SOLUTION_FOUND) {
+                if (this.results.get(this.current) == StepResult.SOLUTION_FOUND) {
                     this.setThreadRunning(false);
                     this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
+                }
+
+                if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
+                    this.setThreadRunning(false);
+                    this.toggleStateFunc.accept(ClickableState.LAST_STEP);
                 }
             }
 
@@ -294,7 +290,59 @@ public class InterpreterManager {
             return;
         }));
 
-        this.nextSolutionThread.get().start();
+        this.continueThread.get().start();
+    }
+
+    /**
+     * Runs the interpreter until there are no more solutions. This is done in a
+     * separate Thread to ensure that the GUI is still responsive and the Thread can
+     * be stopped if it takes to long or if the query is a recursive loop.
+     *
+     * @param console Panel of the console area
+     * @param visualisation Panel of the visualisation area
+     */
+    public void finishQuery(ConsolePanel console, VisualisationPanel visualisation) {
+        if (!this.running) {
+           this.setThreadRunning(true);
+           this.assignFinishQueryThread(console, visualisation); 
+        }
+    }
+    /**
+     * Actually initializes and starts a thread that runs until there are no more 
+     * solutions and also takes care of the console output and the visualization
+     * inside the thread
+     * 
+     * @param console The console panel of the gui
+     * @param visualisation The visualisation panel of the gui
+     */
+
+    public void assignFinishQueryThread(ConsolePanel console, VisualisationPanel visualisation) {
+        if (this.continueThread.isPresent()) {
+            this.setThreadRunning(false);
+            return;
+        }
+
+        this.continueThread = Optional.of(new Thread(() -> {
+            if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
+                this.setThreadRunning(false);
+                return;
+            }
+
+            while (this.running) {
+                this.nextStep(console);
+
+                if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
+                    this.setThreadRunning(false);
+                    this.toggleStateFunc.accept(ClickableState.LAST_STEP);
+                }
+            }
+
+            visualisation.setFromGraph(this.getCurrentVisualisation());
+
+            return;
+        }));
+
+        this.continueThread.get().start();
     }
 
     /**
@@ -306,17 +354,17 @@ public class InterpreterManager {
     public void cancel() {
         this.setThreadRunning(false);
 
-        if (!this.nextSolutionThread.isPresent())
+        if (!this.continueThread.isPresent())
             return;
 
         try {
-            this.nextSolutionThread.get().join();
+            this.continueThread.get().join();
         } catch (InterruptedException e) {
             if (MainWindow.inDebugMode())
                 e.printStackTrace();
         }
 
-        this.nextSolutionThread = Optional.empty();
+        this.continueThread = Optional.empty();
     }
 
     /**

@@ -67,6 +67,11 @@ public class ToolBar extends JToolBar implements HasClickable {
     public static final String ICON_PREVIOUSSTEP = "/icons_png/icon_previousstep.png";
 
     /**
+     * Icon path of the finish query button 
+     */
+    public static final String ICON_FINISHQUERY = "/icons_png/icon_finishquery.png";
+
+    /**
      * Icon path of the zoom in button
      */
     public static final String ICON_ZOOM_IN = "/icons_png/icon_zoom_in.png";
@@ -89,6 +94,7 @@ public class ToolBar extends JToolBar implements HasClickable {
     private ToolBarButton buttonBack;
     private ToolBarButton buttonStep;
     private ToolBarButton buttonSolution;
+    private ToolBarButton buttonFinish;
     private ToolBarButton buttonCancel;
     
     private JLabel labelZoom;
@@ -150,6 +156,10 @@ public class ToolBar extends JToolBar implements HasClickable {
         this.buttonSolution = new ToolBarButton(GUIComponentID.BUTTON_NEXT_SOLUTION,
                                            ToolBar.ICON_NEXTSOLUTION, LanguageKey.TOOLTIP_NEXTSOLUTION,
                                            this.main.getCommandContinue());
+
+        this.buttonFinish = new ToolBarButton(GUIComponentID.BUTTON_FINISH_QUERY,
+                                           ToolBar.ICON_FINISHQUERY, LanguageKey.TOOLTIP_FINISHQUERY,
+                                           this.main.getCommandFinishQuery());
         
         this.buttonCancel = new ToolBarButton(GUIComponentID.BUTTON_CANCEL,
                                            ToolBar.ICON_CANCEL, LanguageKey.TOOLTIP_CANCEL,
@@ -174,6 +184,7 @@ public class ToolBar extends JToolBar implements HasClickable {
         this.add(this.buttonBack);
         this.add(this.buttonStep);
         this.add(this.buttonSolution);
+        this.add(this.buttonFinish);
         this.add(this.buttonCancel);
 
         this.add(Box.createHorizontalGlue());
@@ -201,6 +212,7 @@ public class ToolBar extends JToolBar implements HasClickable {
             this.buttonBack.setEnabled(false);
             this.buttonStep.setEnabled(false);
             this.buttonSolution.setEnabled(false);
+            this.buttonFinish.setEnabled(false);
             this.buttonCancel.setEnabled(false);
             break;
         case PARSED_QUERY:
@@ -212,6 +224,7 @@ public class ToolBar extends JToolBar implements HasClickable {
             this.buttonBack.setEnabled(true);
             this.buttonStep.setEnabled(true);
             this.buttonSolution.setEnabled(true);
+            this.buttonFinish.setEnabled(true);
             this.buttonCancel.setEnabled(false);
             break;
         case FIRST_STEP:
@@ -223,6 +236,7 @@ public class ToolBar extends JToolBar implements HasClickable {
             this.buttonBack.setEnabled(false);
             this.buttonStep.setEnabled(true);
             this.buttonSolution.setEnabled(true);
+            this.buttonFinish.setEnabled(true);
             this.buttonCancel.setEnabled(false);
             break;
         case LAST_STEP:
@@ -234,6 +248,7 @@ public class ToolBar extends JToolBar implements HasClickable {
             this.buttonBack.setEnabled(true);
             this.buttonStep.setEnabled(false);
             this.buttonSolution.setEnabled(false);
+            this.buttonFinish.setEnabled(false);
             this.buttonCancel.setEnabled(false);
             break;
         case NEXT_SOLUTION_RUNNING:
