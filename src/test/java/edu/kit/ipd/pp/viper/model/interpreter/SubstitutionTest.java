@@ -38,6 +38,9 @@ public class SubstitutionTest {
      */
     @Test
     public void equalsTest() {
+        assertNotEquals(this.substitution, null);
+        assertNotEquals(this.substitution, new Object());
+
         assertNotEquals(new Substitution(new Variable("Y"), Functor.atom("homer")), this.substitution);
         assertNotEquals(new Substitution(new Variable("X"), Functor.atom("bart")), this.substitution);
         assertEquals(new Substitution(new Variable("X"), Functor.atom("homer")), this.substitution);
