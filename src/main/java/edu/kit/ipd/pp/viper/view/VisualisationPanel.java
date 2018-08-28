@@ -168,10 +168,12 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     public void zoom(ZoomType direction) {
         if (!this.showsPlaceholder) {
             this.viewer.zoom(direction);
-            if (direction == ZoomType.ZOOM_IN)
+
+            if (direction == ZoomType.ZOOM_IN) {
                 this.zoomLevel++;
-            else if (direction == ZoomType.ZOOM_OUT)
+            } else if (direction == ZoomType.ZOOM_OUT) {
                 this.zoomLevel--;
+            }
         }
     }
     
@@ -189,8 +191,9 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * @param graph The graph to show
      */
     public void setFromGraph(Graph graph) {
-        if (graph == null)
+        if (graph == null) {
             return;
+        }
 
         this.viewer.setFromGraph(graph);
         this.showsPlaceholder = graph == this.placeholderGraph;
@@ -239,8 +242,9 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
         switch (state) {
         case NOT_PARSED_YET:
         case PARSED_PROGRAM:
-            if (this.placeholderGraph == null)
+            if (this.placeholderGraph == null) {
                 this.buildPlaceholderGraph();
+            }
             
             this.setFromGraph(this.placeholderGraph);
             this.viewer.disableNavigation();

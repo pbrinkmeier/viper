@@ -242,8 +242,9 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         @Override
         public void focusGained(FocusEvent e) {
             this.setForeground(ColorScheme.CONSOLE_BLACK);
-            if (this.getText().equals(this.hintText))
+            if (this.getText().equals(this.hintText)) {
                 this.setText("");
+            }
         }
 
         @Override

@@ -68,8 +68,9 @@ public final class LanguageManager extends Observable {
      * @return Instance of this class
      */
     public static LanguageManager getInstance() {
-        if (LanguageManager.instance == null)
+        if (LanguageManager.instance == null) {
             LanguageManager.instance = new LanguageManager();
+        }
 
         return LanguageManager.instance;
     }
@@ -81,8 +82,9 @@ public final class LanguageManager extends Observable {
      * @param locale New locale to be used
      */
     public void setLocale(Locale locale) {
-        if (!Arrays.asList(this.supportedLocales).contains(locale))
+        if (!Arrays.asList(this.supportedLocales).contains(locale)) {
             return;
+        }
 
         LanguageManager.currentLocale = locale;
         this.bundle = ResourceBundle.getBundle("translations", locale);

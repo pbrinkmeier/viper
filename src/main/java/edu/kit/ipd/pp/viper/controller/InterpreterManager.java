@@ -29,7 +29,6 @@ import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 import guru.nidi.graphviz.model.Graph;
 
@@ -183,8 +182,9 @@ public class InterpreterManager {
      * @param console The console panel of the main window
      */
     public void nextStep(ConsolePanel console) {
-        if (!this.interpreter.isPresent())
+        if (!this.interpreter.isPresent()) {
             return;
+        }
         
         if (!this.running) {
             this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
@@ -353,15 +353,13 @@ public class InterpreterManager {
     public void cancel() {
         this.setThreadRunning(false);
 
-        if (!this.continueThread.isPresent())
+        if (!this.continueThread.isPresent()) {
             return;
+        }
 
         try {
             this.continueThread.get().join();
-        } catch (InterruptedException e) {
-            if (MainWindow.inDebugMode())
-                e.printStackTrace();
-        }
+        } catch (InterruptedException e) { }
 
         this.continueThread = Optional.empty();
     }

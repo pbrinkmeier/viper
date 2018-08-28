@@ -186,10 +186,11 @@ public class ConsolePanel extends JPanel implements HasClickable {
      * @param type The direction to zoom in
      */
     public void zoomOutputArea(ZoomType type) {
-        if (type == ZoomType.ZOOM_IN)
+        if (type == ZoomType.ZOOM_IN) {
             this.outputArea.increaseFont();
-        else
+        } else {
             this.outputArea.decreaseFont();
+        }
     }
     
     /**

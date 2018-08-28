@@ -119,8 +119,9 @@ public class ConsoleOutputArea extends JTextPane {
                 color = ColorScheme.CONSOLE_RED;
                 break;
             case DEBUG:
-                if (!MainWindow.inDebugMode())
+                if (!MainWindow.inDebugMode()) {
                     continue;
+                }
                 color = ColorScheme.CONSOLE_GRAY;
                 break;
             case INFO:
@@ -147,8 +148,9 @@ public class ConsoleOutputArea extends JTextPane {
      * Increases the font size
      */
     public void increaseFont() {
-        if (this.fontSize > FONT_MAX_SIZE)
+        if (this.fontSize > FONT_MAX_SIZE) {
             return;
+        }
 
         this.acquireMutex();
         
@@ -163,8 +165,9 @@ public class ConsoleOutputArea extends JTextPane {
      * Decreases the font size
      */
     public void decreaseFont() {
-        if (this.fontSize < FONT_MIN_SIZE)
+        if (this.fontSize < FONT_MIN_SIZE) {
             return;
+        }
         
         this.acquireMutex();
 
@@ -191,10 +194,7 @@ public class ConsoleOutputArea extends JTextPane {
     private void acquireMutex() {
         try {
             this.mutex.acquire();
-        } catch (InterruptedException e) {
-            if (MainWindow.inDebugMode())
-                e.printStackTrace();        
-        }
+        } catch (InterruptedException e) { }
     }
     
     private void releaseMutex() {
