@@ -271,24 +271,28 @@ public class InterpreterManager {
      */
     private void assignNextSolutionThread(ConsolePanel console, VisualisationPanel visualisation) {
         if (this.continueThread.isPresent()) {
+            this.setThreadRunning(false);
             return;
         }
 
         this.continueThread = Optional.of(new Thread(() -> {
-            if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS)
+            if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
+                this.setThreadRunning(false);
                 return;
+            }
 
             while (this.running) {
                 this.nextStep(console);
 
-                if (((this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS)
-                        || this.result == StepResult.SOLUTION_FOUND
-                        && this.current == this.visualisations.size() - 1)
-                        || this.results.get(this.current) == StepResult.SOLUTION_FOUND) {
+                if (this.results.get(this.current) == StepResult.SOLUTION_FOUND) {
                     this.setThreadRunning(false);
                     this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
                 }
-            }
+
+                if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS)i {
+                    this.setThreadRunning(false);
+                    this.toggleStateFunc.accept(ClickableState.LAST_STEP);
+                }
 
             visualisation.setFromGraph(this.getCurrentVisualisation());
 
@@ -323,12 +327,15 @@ public class InterpreterManager {
 
     public void assignFinishQueryThread(ConsolePanel console, VisualisationPanel visualisation) {
         if (this.continueThread.isPresent()) {
+            this.setThreadRunning(false);
             return;
         }
 
         this.continueThread = Optional.of(new Thread(() -> {
-            if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS)
+            if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
+                this.setThreadRunning(false);
                 return;
+            }
 
             while (this.running) {
                 this.nextStep(console);
