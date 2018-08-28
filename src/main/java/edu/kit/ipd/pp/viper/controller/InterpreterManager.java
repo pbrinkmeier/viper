@@ -51,7 +51,6 @@ public class InterpreterManager {
     private boolean useStandardLibrary = true;
     private String standardLibrary;
     private boolean running = false;
-    private StepResult result;
     private Consumer<ClickableState> toggleStateFunc;
     private Optional<Thread> continueThread = Optional.empty();
 
@@ -77,7 +76,6 @@ public class InterpreterManager {
         this.query = Optional.empty();
         this.interpreter = Optional.empty();
         this.variables = Optional.empty();
-        this.result = null;
         this.visualisations = new ArrayList<Graph>();
         this.results = new ArrayList<StepResult>();
         this.current = 0;
@@ -166,7 +164,6 @@ public class InterpreterManager {
         this.visualisations = new ArrayList<Graph>();
         this.results = new ArrayList<StepResult>();
         this.current = 0;
-        this.result = null;
 
         this.interpreter = Optional.of(new Interpreter(knowledgeBase, this.query.get()));
         this.variables = Optional.of(this.query.get().getVariables());
@@ -193,28 +190,23 @@ public class InterpreterManager {
         }
 
         if (this.current < this.visualisations.size() - 1) {
-            if (this.result == StepResult.FROM_STEPBACK
-                    && this.results.get(this.current + 1) == StepResult.NO_MORE_SOLUTIONS) {
-                this.toggleStateFunc.accept(ClickableState.LAST_STEP);
+            if (this.results.get(this.current + 1) == StepResult.NO_MORE_SOLUTIONS) {
                 this.current++;
+                this.toggleStateFunc.accept(ClickableState.LAST_STEP);
                 return;
-            } 
+            }
 
             this.current++;
-            this.result = StepResult.FROM_STEPBACK;
-
             return;
         }
 
-        this.result = this.interpreter.get().step();
-
-        this.results.add(this.result);
+        this.results.add(this.interpreter.get().step());
 
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
 
         this.current++;
 
-        if (this.result == StepResult.SOLUTION_FOUND) {
+        if (this.results.get(this.current) == StepResult.SOLUTION_FOUND) {
             String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
             List<Substitution> solution = this.getSolution();
 
@@ -225,8 +217,7 @@ public class InterpreterManager {
             console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
         }
 
-        if (this.result == StepResult.NO_MORE_SOLUTIONS
-                || this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
+        if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
             console.printLine(LanguageManager.getInstance().getString(LanguageKey.NO_MORE_SOLUTIONS),
                     LogType.INFO);
             this.toggleStateFunc.accept(ClickableState.LAST_STEP);
@@ -239,7 +230,6 @@ public class InterpreterManager {
     public void previousStep() {
         if (this.current > 0) {
             this.current--;
-            this.result = StepResult.FROM_STEPBACK;
         }
 
         this.toggleStateFunc.accept(this.current == 0 ? ClickableState.FIRST_STEP : ClickableState.PARSED_QUERY);
@@ -289,10 +279,11 @@ public class InterpreterManager {
                     this.toggleStateFunc.accept(ClickableState.PARSED_QUERY);
                 }
 
-                if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS)i {
+                if (this.results.get(this.current) == StepResult.NO_MORE_SOLUTIONS) {
                     this.setThreadRunning(false);
                     this.toggleStateFunc.accept(ClickableState.LAST_STEP);
                 }
+            }
 
             visualisation.setFromGraph(this.getCurrentVisualisation());
 
