@@ -51,6 +51,17 @@ public class InterpreterTest {
     }
 
     @Test
+    public void facultyTest() throws IOException, ParseException {
+        this.runQuery(
+            "src/test/resources/maths.pl",
+            "fac(10, X).",
+            Arrays.asList(
+                Arrays.asList(new Substitution(new Variable("X"), new Number(3628800)))
+            )
+        );
+    }
+
+    @Test
     public void simpsonsTest() throws IOException, ParseException {
         this.runQuery(
             "src/test/resources/simpsons_advanced.pl",
