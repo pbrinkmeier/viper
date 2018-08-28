@@ -56,13 +56,8 @@ public class ArithmeticGoal extends Goal {
     @Override
     public List<Variable> getVariables() {
         // TODO: this should be done using some sort of set class
-        List<Variable> variables = new ArrayList<Variable>();
-
-        for (Variable var : this.lhs.accept(new VariableExtractor())) {
-            if (!variables.contains(var)) {
-                variables.add(var);
-            }
-        }
+        List<Variable> variables = new ArrayList<>();
+        variables.addAll(this.lhs.accept(new VariableExtractor()));
 
         for (Variable var : this.rhs.accept(new VariableExtractor())) {
             if (!variables.contains(var)) {

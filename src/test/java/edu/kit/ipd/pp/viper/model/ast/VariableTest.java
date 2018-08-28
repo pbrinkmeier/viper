@@ -28,11 +28,10 @@ public class VariableTest {
     /**
      * Tests the converrsion from a Variable to HTML code.
      */
-    @Ignore
     @Test
     public void toHtmlTest() {
         assertEquals("X", this.withoutIndex.toHtml());
-        assertEquals("X<sub>42</sub>", this.withIndex.toHtml());
+        assertEquals("X&#8324;&#8322;", this.withIndex.toHtml());
     }
 
     /**
@@ -68,6 +67,9 @@ public class VariableTest {
      */
     @Test
     public void equalsTest() {
+        assertNotEquals(this.withIndex, null);
+        assertNotEquals(this.withIndex, new Object());
+
         assertEquals(new Variable("X"), this.withoutIndex);
         assertEquals(new Variable("X", 42), this.withIndex);
 

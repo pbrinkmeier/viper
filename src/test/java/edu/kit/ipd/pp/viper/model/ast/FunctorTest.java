@@ -9,6 +9,9 @@ import static org.junit.Assert.*;
 public class FunctorTest {
     private Functor fun;
     private Functor noParam;
+    private Functor validList;
+    private Functor invalidList;
+    private Functor invalidCons;
 
     /**
      * Initializes the Functors used in the tests.
@@ -16,8 +19,20 @@ public class FunctorTest {
     @Before
     public void init() {
         this.fun = new Functor("test", Arrays.asList(Functor.atom("a"), Functor.atom("b"), Functor.atom("c")));
-
         this.noParam = Functor.atom("noparam");
+
+        this.validList =
+            new Functor("[|]", Arrays.asList(new Number(1),
+            new Functor("[|]", Arrays.asList(new Number(2),
+            new Functor("[|]", Arrays.asList(new Number(3),
+            Functor.atom("[]")))))));
+
+        this.invalidList =
+            new Functor("[|]", Arrays.asList(new Number(1),
+            new Functor("[|]", Arrays.asList(new Number(2),
+            new Number(3)))));
+
+        this.invalidCons = Functor.atom("[|]");
     }
 
     /**
@@ -37,19 +52,23 @@ public class FunctorTest {
     public void toStringTest() {
         assertEquals("noparam", this.noParam.toString());
         assertEquals("test(a, b, c)", this.fun.toString());
+
+        assertEquals("[1 | [2 | 3]]", this.invalidList.toString());
+        assertEquals("[1, 2, 3]", this.validList.toString());
+        assertEquals("[|]", this.invalidCons.toString());
     }
 
     /**
      * Tests the conversion of a Functor to HTML code.
      */
-    @Ignore
     @Test
     public void toHtmlTest() {
         assertEquals("test(a, b, c)", this.fun.toHtml());
         assertEquals("noparam", this.noParam.toHtml());
 
-        // make sure that toHtml also uses toHtml() of the functors parameters
-        assertEquals("index(X<sub>42</sub>)", new Functor("index", Arrays.asList(new Variable("X", 42))).toHtml());
+        assertEquals("[1 &#124; [2 &#124; 3]]", this.invalidList.toHtml());
+        assertEquals("[1, 2, 3]", this.validList.toHtml());
+        assertEquals("[|]", this.invalidCons.toHtml());
     }
 
     /**
@@ -85,6 +104,9 @@ public class FunctorTest {
      */
     @Test
     public void equalsTest() {
+        assertNotEquals(this.fun, null);
+        assertNotEquals(this.fun, new Object());
+
         Functor testFunctor = new Functor("test",
                 Arrays.asList(Functor.atom("a"), Functor.atom("b"), Functor.atom("c")));
 
@@ -134,5 +156,11 @@ public class FunctorTest {
     public void createNewTest() {
         assertEquals(new Functor("test", Arrays.asList(Functor.atom("single"))),
                 this.fun.createNew(Arrays.asList(Functor.atom("single"))));
+    }
+
+    @Test
+    public void matchesTest() {
+        assertTrue(this.fun.matches(new Functor("test", Arrays.asList(new Number(1), new Number(2), new Number(3)))));
+        assertFalse(this.fun.matches(Functor.atom("test")));
     }
 }

@@ -41,7 +41,7 @@ public class FunctorUnifier extends Unifier {
     public UnificationResult visit(Functor functor) {
         Functor me = this.getTerm();
 
-        if (!me.getName().equals(functor.getName()) || me.getArity() != functor.getArity()) {
+        if (!me.matches(functor)) {
             return UnificationResult.fail(me, functor);
         }
 

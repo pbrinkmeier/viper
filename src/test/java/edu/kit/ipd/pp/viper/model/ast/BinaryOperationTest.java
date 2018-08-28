@@ -39,14 +39,13 @@ public class BinaryOperationTest {
     /**
      * Tests the conversion from a binary operation to HTML code.
      */
-    @Ignore
     @Test
     public void toHtmlTest() {
         assertEquals("(40 + 2)", this.plus.toHtml());
         assertEquals("(100 - 58)", this.minus.toHtml());
         assertEquals("(6 * 7)", this.times.toHtml());
 
-        assertEquals("(A<sub>1</sub> + 1)", new AdditionOperation(new Variable("A", 1), new Number(1)).toHtml());
+        assertEquals("(A&#8321; + 1)", new AdditionOperation(new Variable("A", 1), new Number(1)).toHtml());
     }
 
     /**
@@ -54,6 +53,12 @@ public class BinaryOperationTest {
      */
     @Test
     public void equalsTest() {
+        assertNotEquals(this.plus, null);
+        assertNotEquals(this.plus, new Object());
+        // two binops shouldn't be equal if their operands differ
+        assertNotEquals(new AdditionOperation(new Number(41), new Number(2)), this.plus);
+        assertNotEquals(new AdditionOperation(new Number(40), new Number(3)), this.plus);
+
         assertEquals(new AdditionOperation(new Number(40), new Number(2)), this.plus);
         assertNotEquals(new Functor("+", Arrays.asList(new Number(40), new Number(2))), this.plus);
         assertEquals(new SubtractionOperation(new Number(100), new Number(58)), this.minus);

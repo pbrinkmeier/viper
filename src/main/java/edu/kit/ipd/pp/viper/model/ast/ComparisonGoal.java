@@ -72,12 +72,7 @@ public abstract class ComparisonGoal extends Goal {
     @Override
     public List<Variable> getVariables() {
         List<Variable> variables = new ArrayList<>();
-
-        for (Variable var : this.lhs.accept(new VariableExtractor())) {
-            if (!variables.contains(var)) {
-                variables.add(var);
-            }
-        }
+        variables.addAll(this.lhs.accept(new VariableExtractor()));
 
         for (Variable var : this.rhs.accept(new VariableExtractor())) {
             if (!variables.contains(var)) {

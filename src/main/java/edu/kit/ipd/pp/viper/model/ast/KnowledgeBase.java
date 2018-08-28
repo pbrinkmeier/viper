@@ -3,6 +3,7 @@ package edu.kit.ipd.pp.viper.model.ast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents an AST, also called a "Prolog program" or "knowledge base" in our
@@ -24,27 +25,22 @@ public class KnowledgeBase {
 
     @Override
     public String toString() {
-        String source = "";
-        String lastHead = "";
-        int lastArity = -1;
-        for (Rule r : this.rules) {
-            String currentHead = r.getHead().getName();
-            int currentArity = r.getHead().getArity();
-            if (source.isEmpty()) {
-                lastHead = currentHead;
-                lastArity = currentArity;
-            } else {
-                // Add empty line if previous Name was different
-                if (!lastHead.equals(currentHead) || lastArity != currentArity) {
-                    lastHead = currentHead;
-                    lastArity = currentArity;
-                    source += "\n";
-                }
+        Optional<Functor> previousHead = Optional.empty();
+        String repr = "";
+
+        for (Rule rule : this.rules) {
+            Functor currentHead = rule.getHead();
+
+            // insert empty line if between blocks of non-matching functors
+            if (previousHead.isPresent() && !previousHead.get().matches(currentHead)) {
+                repr += "\n";
             }
-            source += r.toString() + "\n";
+
+            repr += rule.toString() + "\n";
+            previousHead = Optional.of(currentHead);
         }
 
-        return source;
+        return repr;
     }
 
     /**
@@ -60,7 +56,7 @@ public class KnowledgeBase {
         for (Rule rule : this.rules) {
             Functor otherHead = rule.getHead();
 
-            if (otherHead.getName().equals(head.getName()) && otherHead.getArity() == head.getArity()) {
+            if (otherHead.matches(head)) {
                 matchingRules.add(rule);
             }
         }

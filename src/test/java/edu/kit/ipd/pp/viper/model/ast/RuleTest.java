@@ -45,4 +45,17 @@ public class RuleTest {
     public void toStringTest() {
         assertEquals("grandfather(X, Y) :-\n  father(X, Z),\n  father(Z, Y).", this.testRule.toString());
     }
+
+    @Test
+    public void equalsTest() {
+        assertNotEquals(this.testRule, null);
+        assertNotEquals(this.testRule, new Object());
+
+        // Two rules should not be equal if their heads differ
+        assertNotEquals(this.testRule, new Rule(Functor.atom("fail"), Arrays.asList()));
+
+        // Two rules should not be equal if their heads are the same but their subgoals differ
+        Rule sameHead = new Rule(this.testRule.getHead(), Arrays.asList());
+        assertNotEquals(this.testRule, sameHead);
+    }
 }

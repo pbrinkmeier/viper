@@ -29,15 +29,9 @@ public class FunctorGoalTest {
         assertNotEquals(Functor.atom("test"), this.testGoal.getFunctor());
     }
 
-    /**
-     * Tests the creation of an adequate Activation Record.
-     */
     @Test
-    public void createActivationRecordTest() {
-        // FunctorActivationRecord far =
-        // this.testGoal.createActivationRecord(Optional.empty());
-
-        // without any substitutions, these should be equal
-        // assertEquals(this.testGoal.getFunctor(), far.getFunctor());
+    public void equalsTest() {
+        assertNotEquals(this.testGoal, null);
+        assertNotEquals(this.testGoal, new Object());
     }
 }
