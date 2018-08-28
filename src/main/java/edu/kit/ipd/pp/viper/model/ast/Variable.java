@@ -1,5 +1,6 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public final class Variable extends Term {
@@ -96,6 +97,11 @@ public final class Variable extends Term {
         }
 
         return repr;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.index);
     }
 
     /**

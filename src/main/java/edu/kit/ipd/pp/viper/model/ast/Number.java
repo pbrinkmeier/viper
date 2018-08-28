@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
 import java.math.BigInteger;
+import java.util.Objects;
 
 /**
  * Represents a number in an AST.
@@ -68,6 +69,11 @@ public final class Number extends Term {
     @Override
     public String toHtml() {
         return this.toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.number);
     }
 
     /**

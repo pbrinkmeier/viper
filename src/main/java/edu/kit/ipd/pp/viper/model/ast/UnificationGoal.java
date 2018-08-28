@@ -7,6 +7,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.UnificationActivationRecord;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -74,6 +75,11 @@ public class UnificationGoal extends Goal {
     @Override
     public String toString() {
         return String.format("%s = %s", this.lhs, this.rhs);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.lhs, this.rhs);
     }
 
     @Override

@@ -3,6 +3,8 @@ package edu.kit.ipd.pp.viper.model.ast;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -171,6 +173,11 @@ public class Functor extends Term {
         }
 
         return repr;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name, this.parameters);
     }
 
     /**
