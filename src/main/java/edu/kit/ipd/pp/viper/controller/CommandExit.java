@@ -8,9 +8,12 @@ import edu.kit.ipd.pp.viper.view.EditorPanel;
  * Command for exiting the program.
  */
 public class CommandExit extends Command {
-    private EditorPanel editor;
+    private static final int OPTION_SAVE_YES    = 0;
+    private static final int OPTION_SAVE_CANCEL = 2;
+    
+    private final EditorPanel editor;
     private final CommandSave commandSave;
-    private InterpreterManager interpreterManager;
+    private final InterpreterManager manager;
 
     /**
      * Initializes a new exit command.
@@ -20,27 +23,28 @@ public class CommandExit extends Command {
      * @param manager The InterpreterManager instance
      */
     public CommandExit(EditorPanel editor, CommandSave save, InterpreterManager manager) {
+        super();
+
         this.editor = editor;
         this.commandSave = save;
-        this.interpreterManager = manager;
+        this.manager = manager;
     }
 
     @Override
     public void execute() {
-        this.interpreterManager.cancel();
+        this.manager.cancel();
 
         if (this.editor.hasChanged()) {
             LanguageManager langman = LanguageManager.getInstance();
             Object options[] = {langman.getString(LanguageKey.DIALOG_YES), langman.getString(LanguageKey.DIALOG_NO),
                     langman.getString(LanguageKey.DIALOG_CANCEL)};
-            final int rv = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
+            final int option = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
                     langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
-            if (rv == 0) {
+            if (option == OPTION_SAVE_YES) {
                 this.commandSave.execute();
-            }
-            if (rv == 2) {
+            } else if (option == OPTION_SAVE_CANCEL) {
                 return;
             }
         }

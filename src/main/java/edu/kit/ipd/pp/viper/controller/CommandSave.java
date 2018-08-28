@@ -10,17 +10,16 @@ import javax.swing.JFileChooser;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 
 /**
  * Command for saving the editor content to disk as a Prolog file.
  */
 public class CommandSave extends Command {
-    private ConsolePanel console;
-    private EditorPanel editor;
-    private SaveType saveType;
-    private Consumer<String> setTitle;
-    private InterpreterManager interpreterManager;
+    private final ConsolePanel console;
+    private final EditorPanel editor;
+    private final SaveType saveType;
+    private final Consumer<String> setTitle;
+    private final InterpreterManager manager;
 
     /**
      * Initializes a new save command.
@@ -33,19 +32,21 @@ public class CommandSave extends Command {
      */
     public CommandSave(ConsolePanel console, EditorPanel editor, SaveType saveType, Consumer<String> setTitle,
             InterpreterManager manager) {
+        super();
+
         this.console = console;
         this.editor = editor;
         this.saveType = saveType;
         this.setTitle = setTitle;
-        this.interpreterManager = manager;
+        this.manager = manager;
     }
 
     @Override
     public void execute() {
-        if (this.saveType == SaveType.SAVE && this.editor.hasFileReference())
+        if (this.saveType == SaveType.SAVE && this.editor.hasFileReference()) {
             this.save();
-        else {
-            this.interpreterManager.cancel();
+        } else {
+            this.manager.cancel();
             this.saveAs();
         }
     }
@@ -54,16 +55,11 @@ public class CommandSave extends Command {
      * Save error printing routine. This should only be called internally, but it's
      * public for testing purposes.
      * 
-     * @param e IOException caused by failing to write to disk
      * @param filePath the path of the file that caused the exception
      */
-    public void printSaveError(IOException e, String filePath) {
+    public void printSaveError(String filePath) {
         String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
         this.console.printLine(err + ": " + filePath, LogType.ERROR);
-
-        if (MainWindow.inDebugMode()) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -78,7 +74,7 @@ public class CommandSave extends Command {
             out.flush();
             out.close();
         } catch (IOException e) {
-            this.printSaveError(e, file.getAbsolutePath());
+            this.printSaveError(file.getAbsolutePath());
         }
         this.editor.setHasChanged(false);
         this.editor.setFileReference(file);
@@ -96,9 +92,8 @@ public class CommandSave extends Command {
     private void saveAs() {
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(FileFilters.PL_FILTER);
-        int rv = chooser.showSaveDialog(null);
 
-        if (rv == JFileChooser.APPROVE_OPTION) {
+        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             File file = FileUtilities.checkForMissingExtension(chooser.getSelectedFile(), ".pl");
             this.writeFile(file);
         }

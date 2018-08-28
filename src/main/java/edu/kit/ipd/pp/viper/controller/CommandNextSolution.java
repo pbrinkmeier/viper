@@ -9,28 +9,30 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * the visualisation adapts to the respective interpreter state.
  */
 public class CommandNextSolution extends Command {
-    private ConsolePanel console;
-    private VisualisationPanel visualisation;
-    private InterpreterManager interpreterManager;
+    private final ConsolePanel console;
+    private final VisualisationPanel visualisation;
+    private final InterpreterManager manager;
 
     /**
      * Initializes a new continue command.
      * 
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
-     * @param interpreterManager Interpreter manager with a reference to the current
+     * @param manager Interpreter manager with a reference to the current
      *        interpreter
      */
     public CommandNextSolution(ConsolePanel console, VisualisationPanel visualisation,
-            InterpreterManager interpreterManager) {
+            InterpreterManager manager) {
+        super();
+
         this.console = console;
         this.visualisation = visualisation;
-        this.interpreterManager = interpreterManager;
+        this.manager = manager;
     }
 
     @Override
     public void execute() {
-        this.interpreterManager.cancel();
-        this.interpreterManager.nextSolution(this.console, this.visualisation);
+        this.manager.cancel();
+        this.manager.nextSolution(this.console, this.visualisation);
     }
 }

@@ -16,11 +16,11 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command for parsing the entered Prolog code.
  */
 public class CommandParse extends Command {
-    private ConsolePanel console;
-    private EditorPanel editor;
-    private VisualisationPanel visualisation;
-    private Consumer<ClickableState> toggleStateFunc;
-    private InterpreterManager interpreterManager;
+    private final ConsolePanel console;
+    private final EditorPanel editor;
+    private final VisualisationPanel visualisation;
+    private final Consumer<ClickableState> toggleStateFunc;
+    private final InterpreterManager manager;
 
     /**
      * Initializes a new parse command.
@@ -28,22 +28,24 @@ public class CommandParse extends Command {
      * @param console Panel of the console area
      * @param editor Panel of the editor area
      * @param visualisation Panel of the visualisation area
-     * @param interpreterManager interpreter manager
+     * @param manager interpreter manager
      * @param toggleStateFunc Consumer function that switches the state of clickable
      *        elements in the GUI
      */
     public CommandParse(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
-            InterpreterManager interpreterManager, Consumer<ClickableState> toggleStateFunc) {
+            InterpreterManager manager, Consumer<ClickableState> toggleStateFunc) {
+        super();
+
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
         this.toggleStateFunc = toggleStateFunc;
-        this.interpreterManager = interpreterManager;
+        this.manager = manager;
     }
 
     @Override
     public void execute() {
-        this.interpreterManager.reset();
+        this.manager.reset();
 
         this.console.clearAll();
         this.visualisation.clearVisualization();
@@ -52,7 +54,7 @@ public class CommandParse extends Command {
 
         LanguageManager langman = LanguageManager.getInstance();
         try {
-            List<Rule> conflictingRules = this.interpreterManager.parseKnowledgeBase(this.editor.getSourceText());
+            List<Rule> conflictingRules = this.manager.parseKnowledgeBase(this.editor.getSourceText());
             this.console.printLine(langman.getString(LanguageKey.PARSER_SUCCESS), LogType.SUCCESS);
     
             if (!conflictingRules.isEmpty()) {

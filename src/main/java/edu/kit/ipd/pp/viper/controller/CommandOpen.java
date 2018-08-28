@@ -13,7 +13,6 @@ import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
@@ -22,14 +21,17 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * file.
  */
 public class CommandOpen extends Command {
+    private static final int OPTION_SAVE_YES    = 0;
+    private static final int OPTION_SAVE_CANCEL = 2;
+
     private final String path;
-    private ConsolePanel console;
-    private EditorPanel editor;
-    private VisualisationPanel visualisation;
-    private Consumer<ClickableState> toggleStateFunc;
-    private Consumer<String> setTitle;
-    private CommandSave commandSave;
-    private InterpreterManager interpreterManager;
+    private final ConsolePanel console;
+    private final EditorPanel editor;
+    private final VisualisationPanel visualisation;
+    private final Consumer<ClickableState> toggleStateFunc;
+    private final Consumer<String> setTitle;
+    private final CommandSave commandSave;
+    private final InterpreterManager manager;
 
     /**
      * Initializes a new open command. A command constructed this way selects the
@@ -69,6 +71,8 @@ public class CommandOpen extends Command {
     public CommandOpen(String path, ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
             InterpreterManager manager) {
+        super();
+
         this.path = path;
         this.console = console;
         this.editor = editor;
@@ -76,7 +80,7 @@ public class CommandOpen extends Command {
         this.toggleStateFunc = toggleStateFunc;
         this.setTitle = setTitle;
         this.commandSave = commandSave;
-        this.interpreterManager = manager;
+        this.manager = manager;
     }
 
     /**
@@ -91,7 +95,7 @@ public class CommandOpen extends Command {
         try {
             source = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
         } catch (IOException e) {
-            this.printOpenError(e, file.getAbsolutePath());
+            this.printOpenError(file.getAbsolutePath());
         }
 
         return source;
@@ -101,16 +105,11 @@ public class CommandOpen extends Command {
      * Reading error output routine. This should only be called internally, but it's
      * public for testing purposes.
      * 
-     * @param e the exception that was raised by the reading failure
      * @param filePath the path of the file that couldn't be read
      */
-    public void printOpenError(IOException e, String filePath) {
+    public void printOpenError(String filePath) {
         String err = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_ERROR);
         this.console.printLine(err + ": " + filePath, LogType.ERROR);
-
-        if (MainWindow.inDebugMode()) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -141,10 +140,9 @@ public class CommandOpen extends Command {
                 langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 
-        if (rv2 == 0) {
+        if (rv2 == OPTION_SAVE_YES) {
             this.commandSave.execute();
-        }
-        if (rv2 == 2) {
+        } else if (rv2 == OPTION_SAVE_CANCEL) {
             return;
         }
     }
@@ -152,27 +150,32 @@ public class CommandOpen extends Command {
     private void openByDialog() {
         JFileChooser chooser = new JFileChooser();
         chooser.setFileFilter(FileFilters.PL_FILTER);
-        int rv = chooser.showOpenDialog(null);
 
-        if (rv == JFileChooser.APPROVE_OPTION) {
-            if (this.editor.hasChanged())
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            if (this.editor.hasChanged()) {
                 this.handleUnsavedChanges();
+            }
+
             this.updateUI(chooser.getSelectedFile());
         }
     }
 
     private void openDirectly() {
-        if (this.editor.hasChanged())
+        if (this.editor.hasChanged()) {
             this.handleUnsavedChanges();
+        }
+
         this.updateUI(new File(this.path));
     }
 
     @Override
     public void execute() {
-        this.interpreterManager.cancel();
-        if (this.path.isEmpty())
+        this.manager.cancel();
+
+        if (this.path.isEmpty()) {
             this.openByDialog();
-        else
+        } else {
             this.openDirectly();
+        }
     }
 }

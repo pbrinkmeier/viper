@@ -7,7 +7,6 @@ import javax.swing.JFileChooser;
 
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 
@@ -16,27 +15,29 @@ import guru.nidi.graphviz.engine.Graphviz;
  * SVG).
  */
 public class CommandExportImage extends Command {
-    private ConsolePanel console;
-    private ImageFormat format;
-    private InterpreterManager interpreterManager;
+    private final ConsolePanel console;
+    private final ImageFormat format;
+    private final InterpreterManager manager;
 
     /**
      * Initializes a new image export command.
      * 
      * @param console Panel of the console area
      * @param format Format of the image to be saved
-     * @param interpreterManager Interpreter manager with a reference to the current
+     * @param manager Interpreter manager with a reference to the current
      *        interpreter
      */
-    public CommandExportImage(ConsolePanel console, ImageFormat format, InterpreterManager interpreterManager) {
+    public CommandExportImage(ConsolePanel console, ImageFormat format, InterpreterManager manager) {
+        super();
+
         this.console = console;
         this.format = format;
-        this.interpreterManager = interpreterManager;
+        this.manager = manager;
     }
 
     @Override
     public void execute() {
-        this.interpreterManager.cancel();
+        this.manager.cancel();
 
         JFileChooser chooser = new JFileChooser();
 
@@ -46,8 +47,7 @@ public class CommandExportImage extends Command {
             chooser.setFileFilter(FileFilters.SVG_FILTER);
         }
 
-        int rv = chooser.showSaveDialog(null);
-        if (rv == JFileChooser.APPROVE_OPTION) {
+        if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             switch (this.format) {
             case SVG:
                 this.exportSVG(chooser.getSelectedFile());
@@ -58,6 +58,7 @@ public class CommandExportImage extends Command {
             default:
                 String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_UNSUPPORTED_FORMAT);
                 this.console.printLine(msg, LogType.ERROR);
+                break;
             }
         }
     }
@@ -66,12 +67,12 @@ public class CommandExportImage extends Command {
      * SVG export routine. This should only be used internally, but is public for
      * testing purposes.
      * 
-     * @param f file to export the SVG graph to
+     * @param name file to export the SVG graph to
      */
-    public void exportSVG(File f) {
-        Graphviz viz = Graphviz.fromGraph(this.interpreterManager.getCurrentVisualisation());
+    public void exportSVG(File name) {
+        Graphviz viz = Graphviz.fromGraph(this.manager.getCurrentVisualisation());
 
-        File file = FileUtilities.checkForMissingExtension(f, ".svg");
+        File file = FileUtilities.checkForMissingExtension(name, ".svg");
         try {
             viz.render(Format.SVG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
@@ -79,10 +80,6 @@ public class CommandExportImage extends Command {
         } catch (IOException e) {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
             this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.ERROR);
-
-            if (MainWindow.inDebugMode()) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -90,12 +87,12 @@ public class CommandExportImage extends Command {
      * PNG export routine. This should only be used internally, but is public for
      * testing purposes.
      * 
-     * @param f file to export the PNG graph to
+     * @param name file to export the PNG graph to
      */
-    public void exportPNG(File f) {
-        Graphviz viz = Graphviz.fromGraph(this.interpreterManager.getCurrentVisualisation());
+    public void exportPNG(File name) {
+        Graphviz viz = Graphviz.fromGraph(this.manager.getCurrentVisualisation());
 
-        File file = FileUtilities.checkForMissingExtension(f, ".png");
+        File file = FileUtilities.checkForMissingExtension(name, ".png");
         try {
             viz.render(Format.PNG).toFile(file);
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
@@ -103,10 +100,6 @@ public class CommandExportImage extends Command {
         } catch (IOException e) {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
             this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.ERROR);
-
-            if (MainWindow.inDebugMode()) {
-                e.printStackTrace();
-            }
         }
     }
 }

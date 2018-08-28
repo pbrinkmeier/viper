@@ -33,56 +33,47 @@ public class CommandShowAbout extends Command implements Observer, WindowListene
     private JLabel labelAuthors;
     private JLabel labelLibraries;
     private JLabel labelIcon;
-    
+
     /**
      * Initializes a new show about command.
      */
     public CommandShowAbout() {
+        super();
+
         this.isOpened = false;
-        
+
         ImageIcon icon = new ImageIcon(this.getClass().getResource(CommandShowAbout.ICON_PATH));
         icon.setImage(icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
         this.labelIcon = new JLabel(icon);
-        
+
         LanguageManager.getInstance().addObserver(this);
     }
-    
+
     private void setText() {
         LanguageManager langman = LanguageManager.getInstance();
 
         this.frame.setTitle(langman.getString(LanguageKey.MENU_ABOUT));
-        
-        this.labelTitle.setText(""
-                + "<html>"
-                + "<center>"
-                + "<b>" + langman.getString(LanguageKey.ABOUT_NAME) + "</b><br/>"
-                + langman.getString(LanguageKey.ABOUT_DESCRIPTION)
-                + "</center><br/>"
-                + "</html>");
-        
-        this.labelAuthors.setText(""
-                + "<html>"
-                + "<b>" + langman.getString(LanguageKey.ABOUT_AUTHORS) + "</b>"
+
+        this.labelTitle.setText("<html><center><b>" + langman.getString(LanguageKey.ABOUT_NAME) + "</b><br/>"
+                + langman.getString(LanguageKey.ABOUT_DESCRIPTION) + "</center><br/></html>");
+
+        this.labelAuthors.setText("<html><b>" + langman.getString(LanguageKey.ABOUT_AUTHORS) + "</b>"
                 + "<ul>"
                 + "  <li>Lukas Brocke</li>"
                 + "  <li>Paul Brinkmeier</li>"
                 + "  <li>Jannik Koch</li>"
                 + "  <li>Aaron Maier</li>"
                 + "  <li>Christian Oder</li>"
-                + "</ul>"
-                + "</html>");
-        
-        this.labelLibraries.setText(""
-                + "<html>"
-                + "<b>" + langman.getString(LanguageKey.ABOUT_LIBRARIES) + "</b>"
+                + "</ul></html>");
+
+        this.labelLibraries.setText("<html><b>" + langman.getString(LanguageKey.ABOUT_LIBRARIES) + "</b>"
                 + "<ul>"
-                + "  <li><b>Apache Batik:</b><br/>https://xmlgraphics.apache.org/batik/</li>"
-                + "  <li><b>Graphviz-Java:</b><br/>https://github.com/nidi3/graphviz-java</li>"
-                + "  <li><b>Fifesoft RSyntaxTextArea:</b><br/>https://github.com/bobbylight/RSyntaxTextArea</li>"
-                + "</ul>"
-                + "</html>");
+                + "  <li><b>Apache Batik</b><br/>https://xmlgraphics.apache.org/batik/</li>"
+                + "  <li><b>Graphviz-Java</b><br/>https://github.com/nidi3/graphviz-java</li>"
+                + "  <li><b>Fifesoft RSyntaxTextArea</b><br/>https://github.com/bobbylight/RSyntaxTextArea</li>"
+                + "</ul></html>");
     }
-    
+
     @Override
     public void execute() {
         if (!this.isOpened) {
@@ -104,17 +95,17 @@ public class CommandShowAbout extends Command implements Observer, WindowListene
             this.labelAuthors = new JLabel();
             this.labelAuthors.setVisible(true);
             this.labelAuthors.setHorizontalAlignment(SwingConstants.LEFT);
-            
+
             this.labelLibraries = new JLabel();
             this.labelLibraries.setVisible(true);
             this.labelLibraries.setHorizontalAlignment(SwingConstants.LEFT);            
 
             this.setText();
-            
+
             GroupLayout layout = new GroupLayout(this.frame.getContentPane());
             layout.setAutoCreateContainerGaps(true);
             layout.setAutoCreateGaps(true);
-            
+
             layout.setHorizontalGroup(
                 layout.createParallelGroup()
                   .addComponent(this.labelTitle)
@@ -123,7 +114,7 @@ public class CommandShowAbout extends Command implements Observer, WindowListene
                       .addComponent(this.labelAuthors)
                       .addComponent(this.labelLibraries))
             );
-            
+
             layout.setVerticalGroup(
                 layout.createSequentialGroup()
                     .addComponent(this.labelTitle)
@@ -132,13 +123,13 @@ public class CommandShowAbout extends Command implements Observer, WindowListene
                             .addComponent(this.labelAuthors)
                             .addComponent(this.labelLibraries))
             );
-            
+
             this.frame.getContentPane().setLayout(layout);
             this.frame.pack();
             this.frame.addWindowListener(this);
             this.isOpened = true;
         }
-        
+
         this.frame.requestFocus();
         this.frame.toFront();
     }
@@ -153,7 +144,7 @@ public class CommandShowAbout extends Command implements Observer, WindowListene
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(Observable obs, Object obj) {
         if (this.isOpened) {
             this.setText();
         }

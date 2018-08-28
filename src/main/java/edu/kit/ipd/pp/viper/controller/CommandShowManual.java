@@ -38,18 +38,18 @@ public class CommandShowManual extends Command implements Observer, WindowListen
     private final JLabel nextStepIcon;
     private final JLabel nextSolutionIcon;
     private final JLabel previousStepIcon;
-    
+
     private final JLabel newIcon;
     private final JLabel openIcon;
     private final JLabel saveIcon;
     private final JLabel parseIcon;
     private final JLabel formatIcon;    
-    
+
     private JLabel cancelLabel;
     private JLabel nextStepLabel;
     private JLabel nextSolutionLabel;
     private JLabel previousStepLabel;
-    
+
     private JLabel newLabel;
     private JLabel openLabel;
     private JLabel saveLabel;
@@ -60,19 +60,21 @@ public class CommandShowManual extends Command implements Observer, WindowListen
     private JTabbedPane tabbedPane;
     private JComponent tabContentManual;
     private JComponent tabContentControls;
-    
+
     private JLabel manualText;
     private JLabel controlsText;
-    
+
     private boolean isOpened;
-    
+
     /**
      * Initializes a new show manual command.
      */
     public CommandShowManual() {
+        super();
+
         this.isOpened = false;
         LanguageManager.getInstance().addObserver(this);
-        
+
         this.cancelIcon = this.loadIcon(ToolBar.ICON_CANCEL);
         this.nextStepIcon = this.loadIcon(ToolBar.ICON_NEXTSTEP);
         this.nextSolutionIcon = this.loadIcon(ToolBar.ICON_NEXTSOLUTION);
@@ -84,7 +86,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
         this.parseIcon = this.loadIcon(ToolBar.ICON_PARSE);
         this.formatIcon = this.loadIcon(ToolBar.ICON_FORMAT);
     }
-    
+
     @Override
     public void execute() {
         if (!this.isOpened) {
@@ -93,7 +95,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
             this.setText();
             this.isOpened = true;
         }
-        
+
         this.frame.requestFocus();
         this.frame.toFront();
     }
@@ -111,7 +113,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
                                                         Image.SCALE_SMOOTH));
         return new JLabel(icon);
     }
-    
+
     private void setupFrame() {
         this.frame = new JFrame();
         this.frame.setName(GUIComponentID.FRAME_MANUAL.toString());
@@ -127,19 +129,19 @@ public class CommandShowManual extends Command implements Observer, WindowListen
         
         this.frame.addWindowListener(this);
     }
-    
+
     private void setupTabbedPane() {
         this.tabbedPane = new JTabbedPane();
 
         this.tabContentManual = this.makeManualPane();
         this.tabContentControls = this.makeControlsPane();
-        
-        LanguageManager langman = LanguageManager.getInstance();
-        this.tabbedPane.addTab(langman.getString(LanguageKey.TAB_MANUAL), this.tabContentManual);
-        this.tabbedPane.addTab(langman.getString(LanguageKey.TAB_CONTROLS), this.tabContentControls);
+
+        LanguageManager manager = LanguageManager.getInstance();
+        this.tabbedPane.addTab(manager.getString(LanguageKey.TAB_MANUAL), this.tabContentManual);
+        this.tabbedPane.addTab(manager.getString(LanguageKey.TAB_CONTROLS), this.tabContentControls);
         this.frame.add(this.tabbedPane);
     }
-    
+
     private JComponent makeManualPane() {
         JPanel panel = new JPanel();
         this.manualText = new JLabel("", SwingConstants.CENTER);
@@ -149,11 +151,11 @@ public class CommandShowManual extends Command implements Observer, WindowListen
         this.saveLabel = new JLabel("", SwingConstants.CENTER);
         this.parseLabel = new JLabel("", SwingConstants.CENTER);
         this.formatLabel = new JLabel("", SwingConstants.CENTER);
-        
+
         GroupLayout layout = new GroupLayout(panel);
         layout.setAutoCreateContainerGaps(true);
         layout.setAutoCreateGaps(true);
-        
+
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                   .addComponent(this.manualText)
@@ -174,7 +176,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
                       .addComponent(this.formatIcon)
                       .addComponent(this.formatLabel))
                 ));
-            
+
             layout.setVerticalGroup(
                 layout.createSequentialGroup()
                     .addComponent(this.manualText)
@@ -195,7 +197,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
                         .addComponent(this.formatIcon)
                         .addComponent(this.formatLabel))
                     ));
-        
+
         panel.setLayout(layout);
         return panel;
     }
@@ -207,11 +209,11 @@ public class CommandShowManual extends Command implements Observer, WindowListen
         this.nextStepLabel = new JLabel("", SwingConstants.CENTER);
         this.nextSolutionLabel = new JLabel("", SwingConstants.CENTER);
         this.cancelLabel = new JLabel("", SwingConstants.CENTER);
-        
+
         GroupLayout layout = new GroupLayout(panel);
         layout.setAutoCreateContainerGaps(true);
         layout.setAutoCreateGaps(true);
-        
+
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                   .addComponent(this.controlsText)
@@ -229,7 +231,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
                       .addComponent(this.cancelIcon)
                       .addComponent(this.cancelLabel))
                 ));
-            
+
             layout.setVerticalGroup(
                 layout.createSequentialGroup()
                     .addComponent(this.controlsText)
@@ -247,7 +249,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
                         .addComponent(this.cancelIcon)
                         .addComponent(this.cancelLabel))
                     ));
-        
+
         panel.setLayout(layout);
         return panel;
     }
@@ -257,10 +259,10 @@ public class CommandShowManual extends Command implements Observer, WindowListen
         this.frame.setTitle(langman.getString(LanguageKey.MANUAL));
         this.tabbedPane.setTitleAt(0, langman.getString(LanguageKey.TAB_MANUAL));
         this.tabbedPane.setTitleAt(1, langman.getString(LanguageKey.TAB_CONTROLS));
-        
+
         this.manualText.setText(langman.getString(LanguageKey.MANUAL_MANUAL));
         this.controlsText.setText(langman.getString(LanguageKey.MANUAL_CONTROLS));
-        
+
         this.previousStepLabel.setText(langman.getString(LanguageKey.TOOLTIP_PREVIOUSSTEP));
         this.nextStepLabel.setText(langman.getString(LanguageKey.TOOLTIP_NEXTSTEP));
         this.nextSolutionLabel.setText(langman.getString(LanguageKey.TOOLTIP_NEXTSOLUTION));

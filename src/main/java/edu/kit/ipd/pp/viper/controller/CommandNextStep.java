@@ -10,27 +10,27 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 public class CommandNextStep extends Command {
     private final ConsolePanel console;
     private final VisualisationPanel visualisation;
-    private InterpreterManager interpreterManager;
+    private final InterpreterManager manager;
 
     /**
      * Initializes a new step command.
      * 
      * @param console ConsolePanel for output
      * @param visualisation Panel of the visualisation area
-     * @param interpreterManager Interpreter manager with a reference to the current
+     * @param manager Interpreter manager with a reference to the current
      *        interpreter
      */
-    public CommandNextStep(VisualisationPanel visualisation, InterpreterManager interpreterManager,
+    public CommandNextStep(VisualisationPanel visualisation, InterpreterManager manager,
             ConsolePanel console) {
         this.console = console;
         this.visualisation = visualisation;
-        this.interpreterManager = interpreterManager;
+        this.manager = manager;
     }
 
     @Override
     public void execute() {
-        this.interpreterManager.cancel();
-        this.interpreterManager.nextStep(this.console);
-        this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
+        this.manager.cancel();
+        this.manager.nextStep(this.console);
+        this.visualisation.setFromGraph(this.manager.getCurrentVisualisation());
     }
 }

@@ -10,39 +10,41 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command to toggle the usage of the standard library.
  */
 public class CommandToggleLib extends Command {
-    private ConsolePanel console;
-    private VisualisationPanel visualisation;
-    private InterpreterManager interpreterManager;
-    private PreferencesManager preferencesManager;
-    private Consumer<ClickableState> toggleStateFunc;
+    private final ConsolePanel console;
+    private final VisualisationPanel visualisation;
+    private final InterpreterManager intManager;
+    private final PreferencesManager prefManager;
+    private final Consumer<ClickableState> toggleStateFunc;
 
     /**
      * Initializes a new toggle library command.
      * 
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
-     * @param interpreterManager Interpreter manager with a reference to the current
+     * @param intManager Interpreter manager with a reference to the current
      *        interpreter
-     * @param preferencesManager Preferences manager
+     * @param prefManager Preferences manager
      * @param toggleStateFunc Consumer function that switches the state of clickable
      *        elements in the GUI
      */
     public CommandToggleLib(ConsolePanel console, VisualisationPanel visualisation,
-            InterpreterManager interpreterManager, PreferencesManager preferencesManager,
+            InterpreterManager intManager, PreferencesManager prefManager,
             Consumer<ClickableState> toggleStateFunc) {
+        super();
+
         this.console = console;
         this.visualisation = visualisation;
-        this.interpreterManager = interpreterManager;
-        this.preferencesManager = preferencesManager;
+        this.intManager = intManager;
+        this.prefManager = prefManager;
         this.toggleStateFunc = toggleStateFunc;
     }
 
     @Override
     public void execute() {
-        this.interpreterManager.toggleStandardLibrary();
+        this.intManager.toggleStandardLibrary();
         this.console.clearAll();
         this.visualisation.clearVisualization();
         this.toggleStateFunc.accept(ClickableState.NOT_PARSED_YET);
-        this.preferencesManager.setStandardLibEnabled(this.preferencesManager.isStandardLibEnabled() ? false : true);
+        this.prefManager.setStandardLibEnabled(this.prefManager.isStandardLibEnabled() ? false : true);
     }
 }
