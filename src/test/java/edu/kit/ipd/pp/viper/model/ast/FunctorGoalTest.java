@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,5 +34,10 @@ public class FunctorGoalTest {
     public void equalsTest() {
         assertNotEquals(this.testGoal, null);
         assertNotEquals(this.testGoal, new Object());
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(Objects.hash(this.testGoal.getFunctor()), this.testGoal.hashCode());
     }
 }

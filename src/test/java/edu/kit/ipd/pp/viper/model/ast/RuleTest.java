@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -57,5 +58,10 @@ public class RuleTest {
         // Two rules should not be equal if their heads are the same but their subgoals differ
         Rule sameHead = new Rule(this.testRule.getHead(), Arrays.asList());
         assertNotEquals(this.testRule, sameHead);
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(Objects.hash(this.testRule.getHead(), this.testRule.getSubgoals()), this.testRule.hashCode());
     }
 }

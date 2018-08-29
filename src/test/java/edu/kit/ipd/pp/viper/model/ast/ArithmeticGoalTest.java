@@ -4,13 +4,14 @@ import edu.kit.ipd.pp.viper.model.interpreter.Indexifier;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.*;
 import static org.junit.Assert.*;
 
 public class ArithmeticGoalTest {
-    private Goal goal;
-    private Goal uselessGoal;
+    private ArithmeticGoal goal;
+    private ArithmeticGoal uselessGoal;
 
     @Before
     public void init() {
@@ -57,5 +58,10 @@ public class ArithmeticGoalTest {
             new Interpreter(new KnowledgeBase(Arrays.asList()), this.goal);
         
         assertEquals(this.goal, interpreter.getQuery().getGoal());
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(Objects.hash(this.goal.getLhs(), this.goal.getRhs()), this.goal.hashCode());
     }
 }

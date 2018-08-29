@@ -3,6 +3,7 @@ package edu.kit.ipd.pp.viper.model.ast;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -22,6 +23,11 @@ public class ComparisonGoalTest {
         assertNotEquals(this.goal, new EqualGoal(new Variable("Z"), new Variable("Y")));
         assertNotEquals(this.goal, new EqualGoal(new Variable("X"), new Variable("Z")));
         assertEquals(new EqualGoal(new Variable("X"), new Variable("Y")), this.goal);
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(Objects.hash("=:=", new Variable("X"), new Variable("Y")), this.goal.hashCode());
     }
 
     @Test

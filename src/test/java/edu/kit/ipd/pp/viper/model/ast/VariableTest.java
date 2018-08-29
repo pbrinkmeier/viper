@@ -1,5 +1,7 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import java.util.Objects;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -80,5 +82,10 @@ public class VariableTest {
         assertNotEquals(this.withIndex, new Variable("X", 100));
         assertNotEquals(this.withIndex, new Variable("X"));
         assertNotEquals(this.withIndex, new Variable("Y"));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(Objects.hash(this.withIndex.getName(), this.withIndex.getIndex()), this.withIndex.hashCode());
     }
 }

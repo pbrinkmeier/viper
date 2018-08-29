@@ -3,6 +3,8 @@ package edu.kit.ipd.pp.viper.model.interpreter;
 import edu.kit.ipd.pp.viper.model.ast.Functor;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 
+import java.util.Objects;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -44,5 +46,13 @@ public class SubstitutionTest {
         assertNotEquals(new Substitution(new Variable("Y"), Functor.atom("homer")), this.substitution);
         assertNotEquals(new Substitution(new Variable("X"), Functor.atom("bart")), this.substitution);
         assertEquals(new Substitution(new Variable("X"), Functor.atom("homer")), this.substitution);
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(
+            Objects.hash(this.substitution.getReplace(), this.substitution.getBy()),
+            this.substitution.hashCode()
+        );
     }
 }

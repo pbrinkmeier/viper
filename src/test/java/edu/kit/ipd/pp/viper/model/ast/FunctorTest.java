@@ -2,6 +2,7 @@ package edu.kit.ipd.pp.viper.model.ast;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -162,5 +163,10 @@ public class FunctorTest {
     public void matchesTest() {
         assertTrue(this.fun.matches(new Functor("test", Arrays.asList(new Number(1), new Number(2), new Number(3)))));
         assertFalse(this.fun.matches(Functor.atom("test")));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(Objects.hash(this.fun.getName(), this.fun.getParameters()), this.fun.hashCode());
     }
 }

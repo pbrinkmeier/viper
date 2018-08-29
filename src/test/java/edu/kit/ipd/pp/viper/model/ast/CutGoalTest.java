@@ -4,6 +4,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.Indexifier;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -21,6 +22,11 @@ public class CutGoalTest {
         assertNotEquals(this.goal, null);
         assertNotEquals(this.goal, new Object());
         assertEquals(this.goal, new CutGoal());
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(Objects.hash("!"), this.goal.hashCode());
     }
 
     @Test
