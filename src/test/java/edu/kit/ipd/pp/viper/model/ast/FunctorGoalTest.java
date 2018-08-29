@@ -31,6 +31,14 @@ public class FunctorGoalTest {
     }
 
     @Test
+    public void getVariablesTest() {
+        FunctorGoal withVars =
+            new FunctorGoal(new Functor("nice", Arrays.asList(new Variable("X"), new Variable("Y"))));
+        
+        assertEquals(Arrays.asList(new Variable("X"), new Variable("Y")), withVars.getVariables());
+    }
+
+    @Test
     public void equalsTest() {
         assertNotEquals(this.testGoal, null);
         assertNotEquals(this.testGoal, new Object());
