@@ -37,7 +37,7 @@ public class CutGoal extends Goal {
     
     @Override
     public int hashCode() {
-        return Objects.hashCode("!");
+        return Objects.hash("!");
     }
 
     /**

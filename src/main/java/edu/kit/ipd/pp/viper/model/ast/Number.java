@@ -73,7 +73,7 @@ public final class Number extends Term {
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.number);
+        return Objects.hash(this.number);
     }
 
     /**

@@ -8,6 +8,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.VariableExtractor;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -112,6 +113,11 @@ public abstract class ComparisonGoal extends Goal {
         ComparisonGoal otherGoal = (ComparisonGoal) other;
 
         return this.lhs.equals(otherGoal.getLhs()) && this.rhs.equals(otherGoal.getRhs());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.symbol, this.lhs, this.rhs);
     }
 
     @Override

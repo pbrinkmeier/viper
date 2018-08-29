@@ -73,7 +73,7 @@ public class FunctorGoal extends Goal {
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.functor);
+        return Objects.hash(this.functor);
     }
 
     /**

@@ -117,7 +117,7 @@ public class KnowledgeBase {
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.rules);
+        return Objects.hash(this.rules);
     }
 
     /**
