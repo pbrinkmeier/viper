@@ -93,23 +93,23 @@
 
 \begin{enumerate}[label=\#\arabic*]
   \item \textbf{\enquote{Nächster Schritt} Schaltfläche wird fälschlicherweise deaktiviert}\\
-        Wird während einer Interpretation die \enquote{Vorheriger Schritt} Schaltfläche verwendet und anschließend die \enquote{Nächster Schritt} Schaltfläche betätigt, so wird danach letztere Schaltfläche deaktiviert.\\\\
-        \textbf{Symptome:} Die \enquote{Nächster Schritt} Schaltfläche wird deaktiviert und kann nicht mehr betätigt werden, obwohl es noch Schritte geben kann.\\
-        \textbf{Behebung:} Im entsprechenden Controller muss der korrekte Status der Schaltflächen (\texttt{ClickableState}) gesetzt werden.
+        Wird während einer Interpretation die \enquote{Vorheriger Schritt} Schaltfläche und anschließend die \enquote{Nächster Schritt} Schaltfläche betätigt, so wird danach letztere Schaltfläche deaktiviert und kann nicht mehr betätigt werden, obwohl es noch Schritte geben kann.\\\\
+        \textbf{Grund:} Im Controller für die \enquote{Vorheriger Schritt} Schaltfläche wird der falsche Status der Schaltflächen (\texttt{ClickableState}) gesetzt. Dadurch werden die Schaltflächen nach einmaligem Betätigen der \enquote{Nächster Schritt} Schaltfläche deaktiviert.\\
+        \textbf{Behebung:} Im entsprechenden Controller muss der korrekte Status der Schaltflächen gesetzt werden.
 
   \item \textbf{\enquote{Abbrechen} Schaltfläche wird nicht aktiviert}\\
         Wird die \enquote{Nächste Lösung} Schaltfläche betätigt und die Interpretation dauert etwas länger, so wird die \enquote{Abbrechen} Schaltfläche nicht aktiviert. Die Interpretation kann also nicht abgebrochen werden.\\\\
-        \textbf{Symptome:} Die \enquote{Abbrechen} Schaltfläche bleibt deaktiviert.\\
-        \textbf{Behebung:} Der entsprechende Controller muss den korrekten Status der Schaltflächen (\texttt{ClickableState}) setzen, wenn ein Thread für die Berechnung der nächsten Lösung gestartet wird.
+        \textbf{Grund:} Der Fall, dass vor dem Betätigen der \enquote{Nächste Lösung} kein Einzelschritt gemacht wird, wurde nicht berücksichtigt. In diesem Fall wird der falsche Status der Schaltflächen (\texttt{ClickableState}) gesetzt.\\
+        \textbf{Behebung:} Der entsprechende Controller muss den korrekten \texttt{ClickableState} setzen.
 
   \item \textbf{Standardbibliothek kann nicht korrekt geladen werden}\\
         Wird VIPER als eine kompilierte \texttt{.jar} Datei gestartet, so wirft das Parsen eines Prolog-Programms bei aktivierter Standardbibliothek eine \texttt{FileSystemNotFoundException}. Das Parsen ist trotzdem möglich, es erscheint eine Fehlermeldung in der Konsole und die Regeln aus der Standardbibliothek sind nicht verfügbar.\\\\
-        \textbf{Symptome:} In der Konsole erscheint eine Fehlermeldung. Wurde die \texttt{.jar} Datei über eine Konsole gestartet, so wird dort ein Stacktrace der Java Virtual Machine (JVM) ausgegeben.\\
+        \textbf{Grund:} Während der Entwicklung wird VIPER über das verwendete Build-Management-Tool Gradle gestartet. Die Exception tritt in diesem Fall nicht auf.\\
         \textbf{Behebung:} Die in der \texttt{.jar} Datei enthaltene Standardbibliothek muss über einen Java Stream eingelesen werden, anstatt als Datei behandelt und geöffnet zu werden.
 
   \item \textbf{Im \enquote{Standardbibliothek anzeigen} Fenster ist kein Scrollen möglich}\\
         Über den Menüpunkt \enquote{Standardbibliothek anzeigen} lässt sich der Inhalt der Standardbibliothek in einem neuen Fenstern anzeigen. Bei langem Code ist in diesem Fenster kein Scrollen möglich, der Inhalt wird am unteren Fensterrand abgeschnitten.\\\\
-        \textbf{Symptome:} Im geöffneten \enquote{Standardbibliothek anzeigen} Fenster ist Code, der über den unteren Fensterrand hinausgeht, nicht mehr sichtbar.\\
+        \textbf{Grund:} Bevor die Standardbibliothek erweitert wurde, war der Quellcode nie zu lang für das Fenster. Somit ist der Fehler nie aufgefallen.\\
         \textbf{Behebung:} Das zum Anzeigen des Inhalts verwendete Textfeld muss in einem Java Swing \texttt{JScrollPane} eingebettet werden, damit Scrollen möglich ist.
 \end{enumerate}
 
