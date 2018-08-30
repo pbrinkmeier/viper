@@ -60,16 +60,19 @@ public abstract class ActivationRecord {
             return Optional.of(this.getParent().get());
         }
 
+        ActivationRecord previous = null;
+
         // not first child -> backtrack to previous child
         // find "this" in child list and return the previous childs rightmost subgoal
         for (int index = 1; index < children.size(); index++) {
             if (children.get(index) == this) {
-                return Optional.of(children.get(index - 1).getRightmost());
+                previous = children.get(index - 1);
+                break;
             }
         }
 
         // This can never be reached. Java compiler complains when it's missing tho.
-        return null;
+        return Optional.of(previous.getRightmost());
     }
 
     /**
