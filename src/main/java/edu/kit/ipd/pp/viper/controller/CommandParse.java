@@ -1,7 +1,10 @@
 package edu.kit.ipd.pp.viper.controller;
 
 import java.util.function.Consumer;
+import java.util.List;
+import static java.util.stream.Collectors.joining;
 
+import edu.kit.ipd.pp.viper.model.ast.Rule;
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
@@ -50,8 +53,18 @@ public class CommandParse extends Command {
 
         LanguageManager langman = LanguageManager.getInstance();
         try {
-            this.interpreterManager.parseKnowledgeBase(this.editor.getSourceText());
+            List<Rule> conflictingRules = this.interpreterManager.parseKnowledgeBase(this.editor.getSourceText());
             this.console.printLine(langman.getString(LanguageKey.PARSER_SUCCESS), LogType.SUCCESS);
+    
+            if (!conflictingRules.isEmpty()) {
+                String cRules = conflictingRules.stream()
+                .map(rule -> rule.getHead().getShortNotation())
+                .collect(joining(", "));
+
+                this.console.printLine(
+                    String.format(langman.getString(LanguageKey.CONFLICTING_RULES), cRules), LogType.INFO);
+            }
+
             this.console.unlockInput();
             this.toggleStateFunc.accept(ClickableState.PARSED_PROGRAM);
         } catch (ParseException e) {

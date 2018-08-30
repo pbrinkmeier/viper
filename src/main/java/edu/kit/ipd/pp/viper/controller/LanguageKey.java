@@ -359,6 +359,11 @@ public enum LanguageKey {
     PARSER_SUCCESS("parser_success"),
 
     /**
+     * Console output message for conflicting rules in given program and standard library
+     */
+    CONFLICTING_RULES("conflicting_rules"),
+
+    /**
      * Console output message for failed parsing
      */
     PARSER_ERROR("parser_error"),
