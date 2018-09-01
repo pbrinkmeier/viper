@@ -326,22 +326,26 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         if (this.fontSize > FONT_MAX_SIZE)
             return;
 
-        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, ++this.fontSize));
-        this.preferencesManager.setTextSize(this.fontSize);
+        this.fontSize++;
+        this.updateFont();
     }
 
     private void decreaseFont() {
         if (this.fontSize < FONT_MIN_SIZE)
             return;
 
-        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, --this.fontSize));
-        this.preferencesManager.setTextSize(this.fontSize);
+        this.fontSize--;
+        this.updateFont();
     }
 
     private void resetFont() {
         this.fontSize = PreferencesManager.DEFAULT_TEXT_SIZE;
+        this.updateFont();
+    }
+    
+    private void updateFont() {
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
-        this.preferencesManager.setTextSize(this.fontSize);
+        this.preferencesManager.setTextSize(this.fontSize);        
     }
 
     /**
