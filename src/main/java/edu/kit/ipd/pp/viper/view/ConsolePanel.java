@@ -139,14 +139,6 @@ public class ConsolePanel extends JPanel implements HasClickable {
     public String getOutputAreaText() {
         return this.outputArea.getText();
     }
-    
-    /**
-     * Returns whether the output area is empty.
-     * @return whether the output area is empty
-     */
-    public boolean hasEmptyOutputArea() {
-        return this.outputArea.isEmpty();
-    }
 
     /**
      * Returns whether the input field is locked
