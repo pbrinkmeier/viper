@@ -167,10 +167,10 @@ public class ConsoleOutputArea extends JTextPane {
      * Decreases the font size
      */
     public void decreaseFont() {
-        this.acquireMutex();
-        
         if (this.fontSize < FONT_MIN_SIZE)
             return;
+        
+        this.acquireMutex();
 
         this.fontSize--;
         this.updateContent();
