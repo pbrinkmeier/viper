@@ -227,24 +227,26 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addSettingsMenu() {
         Menu menu = new Menu(LanguageKey.MENU_SETTINGS);
 
+        this.itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB,
+                new CommandToggleLib(this.main.getConsolePanel(), this.main.getVisualisationPanel(),
+                        this.main.getInterpreterManager(), this.main.getPreferencesManager(),
+                        this.main::switchClickableState));
+        if (this.main.getPreferencesManager().isStandardLibEnabled()) {
+            this.itemToggleSTD.setSelected(true);
+        } else {
+            // standard lib is enabled by default, turn off here
+            this.main.getInterpreterManager().toggleStandardLibrary();
+        }
+
+        menu.add(this.itemToggleSTD);
+
         this.itemResetZoom = new MenuItem(LanguageKey.MENU_RESET_ZOOM,
                 new CommandResetZoom(this.main.getVisualisationPanel(),
                                      this.main.getConsolePanel(),
                                      this.main.getEditorPanel()),
                 KeyboardShortcut.RESET_ZOOM);
         menu.add(this.itemResetZoom);
-        
-        this.itemToggleSTD = new CheckBoxMenuItem(LanguageKey.MENU_STDLIB,
-                new CommandToggleLib(this.main.getConsolePanel(), this.main.getVisualisationPanel(),
-                        this.main.getInterpreterManager(), this.main.getPreferencesManager(),
-                        this.main::switchClickableState));
-        if (this.main.getPreferencesManager().isStandardLibEnabled())
-            this.itemToggleSTD.setSelected(true);
-        else
-            // standard lib is set to enabled by default, turn off here
-            this.main.getInterpreterManager().toggleStandardLibrary();
 
-        menu.add(this.itemToggleSTD);
         this.addLanguageSwitchMenu(menu);
 
         this.add(menu);
@@ -287,15 +289,15 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private void addHelpMenu() {
         Menu helpMenu = new Menu(LanguageKey.MENU_HELP);
 
-        this.itemManual = new MenuItem(LanguageKey.MANUAL, this.main.getCommandShowManual(), null);
-        helpMenu.add(this.itemManual);
-        
-        this.itemAbout = new MenuItem(LanguageKey.MENU_ABOUT, this.main.getCommandShowAbout(), null);
-        helpMenu.add(this.itemAbout);
-        
         this.itemShowStandard = new MenuItem(LanguageKey.MENU_SHOW_STANDARD, this.main.getCommandShowStandard(), null);
         helpMenu.add(this.itemShowStandard);
-        
+
+        this.itemManual = new MenuItem(LanguageKey.MANUAL, this.main.getCommandShowManual(), null);
+        helpMenu.add(this.itemManual);
+
+        this.itemAbout = new MenuItem(LanguageKey.MENU_ABOUT, this.main.getCommandShowAbout(), null);
+        helpMenu.add(this.itemAbout);
+
         this.add(helpMenu);
     }
 
