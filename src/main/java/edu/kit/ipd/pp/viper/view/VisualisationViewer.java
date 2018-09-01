@@ -129,19 +129,11 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     }
 
     /**
-     * Clears the displayed SVG
-     */
-    public void clear() {
-        this.setURI(null);
-    }
-
-    /**
      * Sets the displayed Graph. A previously shown graph will be cleared.
      * 
      * @param graph The graph to show
      */
     public void setFromGraph(Graph graph) {
-        this.clear();
         this.currentGraph = graph;
 
         String tmp = VisualisationViewer.getTempDir();

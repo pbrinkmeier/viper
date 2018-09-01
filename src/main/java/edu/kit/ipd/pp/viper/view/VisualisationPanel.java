@@ -156,7 +156,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * Clears the currently shown visualisation
      */
     public void clearVisualization() {
-        this.viewer.clear();
         this.setFromGraph(this.placeholderGraph);
         this.showsPlaceholder = true;
     }
