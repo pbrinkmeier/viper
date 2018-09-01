@@ -14,4 +14,9 @@ public class SharedTestConstants {
 
     /** An exemplary query */
     public static final String TEST_QUERY = "father(homer, bart).";
+    
+    /**
+     * The default timeout for AssertJSwing operations.
+     */
+    public static final int DEFAULT_TIMEOUT = 5000;
 }

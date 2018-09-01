@@ -129,26 +129,11 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     }
 
     /**
-     * Clears the displayed SVG
-     */
-    public void clear() {
-        try {
-            this.setURI(null);            
-        } catch (NullPointerException e) {
-            ConsolePanel panel = this.main.getConsolePanel();
-            if (panel != null)
-                panel.printLine("Failed to clear visualisation. This should only happen during testing as"
-                        + "a result of bad threading in Batik", LogType.DEBUG);
-        }
-    }
-
-    /**
      * Sets the displayed Graph. A previously shown graph will be cleared.
      * 
      * @param graph The graph to show
      */
     public void setFromGraph(Graph graph) {
-        this.clear();
         this.currentGraph = graph;
 
         String tmp = VisualisationViewer.getTempDir();
@@ -171,14 +156,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             return;
         }
 
-        try {
-            this.loadSVGDocument(tmpFile.toURI().toString());
-        } catch (NullPointerException e) {
-            ConsolePanel panel = this.main.getConsolePanel();
-            if (panel != null)
-                panel.printLine("Failed to set visualisation. This should only happen during testing"
-                        + "as a result of bad threading in Batik", LogType.DEBUG);
-        }
+        this.loadSVGDocument(tmpFile.toURI().toString());
     }
 
     /**

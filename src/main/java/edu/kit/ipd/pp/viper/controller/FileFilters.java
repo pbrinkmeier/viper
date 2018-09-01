@@ -27,10 +27,11 @@ public class FileFilters {
 
     private static FileFilter createFilter(LanguageKey key, String extension) {
         return new FileFilter() {
-
             @Override
             public boolean accept(File f) {
-                return FilenameUtils.getExtension(f.getName()).toLowerCase().equals(extension) || f.isDirectory();
+                boolean isDir = f.isDirectory();
+                boolean hasValidExtension = FilenameUtils.getExtension(f.getName()).toLowerCase().equals(extension);
+                return isDir || hasValidExtension;
             }
 
             @Override

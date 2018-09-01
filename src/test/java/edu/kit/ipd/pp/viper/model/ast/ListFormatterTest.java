@@ -1,10 +1,12 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.Optional;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 public class ListFormatterTest {
     private Term validList;

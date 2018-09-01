@@ -31,7 +31,6 @@ public class CommandNextSolution extends Command {
     @Override
     public void execute() {
         this.interpreterManager.cancel();
-
         this.interpreterManager.nextSolution(this.console, this.visualisation);
     }
 }

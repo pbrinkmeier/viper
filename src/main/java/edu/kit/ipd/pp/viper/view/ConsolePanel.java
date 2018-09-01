@@ -84,6 +84,16 @@ public class ConsolePanel extends JPanel implements HasClickable {
     public void setPreferencesManager(PreferencesManager preferencesManager) {
         this.outputArea.setPreferencesManager(preferencesManager);
     }
+    
+    /**
+     * Returns the current font size of the output area.
+     * Only used for testing purposes.
+     * 
+     * @return the current font size of the output area
+     */
+    public int getOutputAreaFontSize() {
+        return this.outputArea.getFontSize();
+    }
 
     /**
      * Sets custom cursor for all ConsolePanel subpanels
@@ -102,6 +112,16 @@ public class ConsolePanel extends JPanel implements HasClickable {
         this.inputField.clear();
     }
 
+    /**
+     * Sets the text of the input field. This is only used for testing purposes
+     * (e.g. to test sending queries).
+     * 
+     * @param text The text to be set
+     */
+    public void setInputFieldText(String text) {
+        this.inputField.setText(text);
+    }
+    
     /**
      * Returns the content of the input field
      * 
@@ -189,7 +209,6 @@ public class ConsolePanel extends JPanel implements HasClickable {
      */
     public void printLine(String line, LogType type) {
         this.outputArea.printLine(line, type);
-
         JScrollBar bar = this.scrollPane.getVerticalScrollBar();
         bar.setValue(bar.getMaximum());
     }

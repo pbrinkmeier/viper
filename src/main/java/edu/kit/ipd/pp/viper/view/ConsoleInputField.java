@@ -102,6 +102,15 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
     }
 
     /**
+     * Sets the text of the input field
+     * 
+     * @param text The text to be set
+     */
+    public void setText(String text) {
+        this.textField.setText(text);
+    }
+
+    /**
      * Returns the content of the input field
      * 
      * @return Input field content

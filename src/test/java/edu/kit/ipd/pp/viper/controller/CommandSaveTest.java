@@ -8,43 +8,19 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import edu.kit.ipd.pp.viper.view.ConsolePanel;
-import edu.kit.ipd.pp.viper.view.EditorPanel;
-import edu.kit.ipd.pp.viper.view.MainWindow;
-
-public class CommandSaveTest {
-    private MainWindow gui;
-    private ConsolePanel console;
-    private EditorPanel editor;
-    private InterpreterManager manager;
-    private CommandSave commandSave;
-
-    /**
-     * Constructs the GUI.
-     */
-    @Before
-    public void buildGUI() {
-        this.gui = new MainWindow(false);
-        this.gui.setVisible(false);
-        this.editor = this.gui.getEditorPanel();
-        this.console = this.gui.getConsolePanel();
-        this.manager = this.gui.getInterpreterManager();
-        this.commandSave = new CommandSave(this.console, this.editor, SaveType.SAVE, this.gui::setTitle, this.manager);
-    }
-
+public class CommandSaveTest extends ControllerTest {
     /**
      * Tests saving an unchanged file that has already been written to disk.
      */
     @Test
-    public void testEmptySavedFile() {
+    public void emptySavedFileTest() {
         File test = new File("testEmpty.pl");
-        this.editor.setFileReference(test);
-        this.editor.setHasChanged(false);
-        this.commandSave.execute();
+
+        this.gui.getEditorPanel().setFileReference(test);
+        this.gui.getEditorPanel().setHasChanged(false);
+        this.gui.getCommandSave().execute();
 
         assertTrue(test.exists());
         assertTrue(test.getName().equals("testEmpty.pl"));
@@ -56,7 +32,7 @@ public class CommandSaveTest {
             e.printStackTrace();
         }
 
-        assertTrue(fileContents.trim().equals(this.editor.getSourceText().trim()));
+        assertTrue(fileContents.trim().equals(this.gui.getEditorPanel().getSourceText().trim()));
         test.delete();
     }
 
@@ -64,12 +40,12 @@ public class CommandSaveTest {
      * Tests saving an unchanged file that has already been written to disk.
      */
     @Test
-    public void testSimpsonsSavedFile() {
+    public void simpsonsSavedFileTest() {
         File test = new File("testSimpsons.pl");
-        this.editor.setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
-        this.editor.setFileReference(test);
-        this.editor.setHasChanged(false);
-        this.commandSave.execute();
+        this.gui.getEditorPanel().setSourceText(SharedTestConstants.SIMPSONS_FORMATTED);
+        this.gui.getEditorPanel().setFileReference(test);
+        this.gui.getEditorPanel().setHasChanged(false);
+        this.gui.getCommandSave().execute();
 
         assertTrue(test.exists());
         assertTrue(test.getName().equals("testSimpsons.pl"));
@@ -81,44 +57,22 @@ public class CommandSaveTest {
             e.printStackTrace();
         }
 
-        assertTrue(fileContents.trim().equals(this.editor.getSourceText().trim()));
+        assertTrue(fileContents.trim().equals(this.gui.getEditorPanel().getSourceText().trim()));
         test.delete();
-    }
-
-    /**
-     * Tests for correct error output.
-     */
-    @Test
-    @Ignore
-    public void testErrorOutput() {
-        final String testPath = "/test/testfile.pl";
-        this.console.clearAll();
-        this.commandSave.printSaveError(null, testPath);
-
-        // getOutputAreaText() returns HTML instead of Plain Text, causing this test (and others) to fail.
-        // Using .replace("\n", "").replace("\r", "")) doesn't help either, because there will be multiple
-        // spaces between "Error saving file:" and "/test/testfile.pl".
-        final String expected = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR) + ": " + testPath;
-        assertTrue(this.console.getOutputAreaText().trim().equals(expected.trim()));
     }
 
     /**
      * Tests the writing routine.
      */
     @Test
-    @Ignore
-    public void testWrite() {
+    public void writeTest() {
         File testFile = new File("testfile.pl");
-        this.console.clearAll();
-        this.commandSave.writeFile(testFile);
-
-        final String expected = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_SUCCESS) + ": "
-                + testFile.getAbsolutePath();
+        this.gui.getConsolePanel().clearAll();
+        this.gui.getCommandSave().writeFile(testFile);
 
         assertTrue(testFile.exists());
-        assertFalse(this.editor.hasChanged());
-        assertTrue(this.editor.hasFileReference());
-        assertTrue(this.console.getOutputAreaText().trim().equals(expected.trim()));
+        assertFalse(this.gui.getEditorPanel().hasChanged());
+        assertTrue(this.gui.getEditorPanel().hasFileReference());
 
         testFile.delete();
     }

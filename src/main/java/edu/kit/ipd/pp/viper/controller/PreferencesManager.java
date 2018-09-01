@@ -68,6 +68,22 @@ public class PreferencesManager {
         }
     }
     
+    /**
+     * Deletes all properties from the properties file.
+     * This is only used for testing.
+     */
+    public void clearAllProperties() {
+        this.properties.clear();
+    }
+    
+    /**
+     * Sets the properties reference to null.
+     * This is only used for testing.
+     */
+    public void setPropertiesToNull() {
+        this.properties = null;
+    }
+    
     private void writeProperty(String key, String value) {
         FileWriter writer;
         try {
@@ -136,13 +152,17 @@ public class PreferencesManager {
     private static Locale getLocaleByLanguage(String language) {
         List<Locale> supportedLocales = LanguageManager.getInstance().getSupportedLocales();
         Iterator<Locale> iter = supportedLocales.iterator();
+        
+        Locale selected = null;
         while (iter.hasNext()) {
             Locale locale = iter.next();
-            if (locale.getLanguage().equals(language))
-                return locale;
+            if (locale.getLanguage().equals(language)) {
+                selected = locale;
+                break;
+            }
         }
 
-        return null;
+        return selected;
     }
 
     /**

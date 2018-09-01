@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -113,6 +115,11 @@ public class MainWindow extends JFrame {
     private String windowTitle;
 
     /**
+     * The global clickable state
+     */
+    private ClickableState clickableState;
+    
+    /**
      * The constructor sets up the {@link JFrame} and initialises all three panels
      * 
      * @param debug Sets debug mode to enabled/disabled
@@ -202,6 +209,16 @@ public class MainWindow extends JFrame {
         this.toolbar.switchClickableState(state);
         this.consolePanel.switchClickableState(state);
         this.visualisationPanel.switchClickableState(state);
+        this.clickableState = state;
+    }
+    
+    /**
+     * Returns the current global clickable state.
+     * 
+     * @return the global clickable state
+     */
+    public ClickableState getClickableState() {
+        return this.clickableState;
     }
     
     /**
@@ -217,6 +234,16 @@ public class MainWindow extends JFrame {
         this.editorPanel.setGlobalCursor(cursor);
     }
 
+    /**
+     * Sets the debug mode for the main window.
+     * This is only used for testing purposes.
+     * 
+     * @param mode The debug mode to be set
+     */
+    public void setDebugMode(boolean mode) {
+        MainWindow.debug = mode;
+    }
+    
     /**
      * Sets the "look and feel" of the application by using the system default
      * theme.
@@ -260,13 +287,22 @@ public class MainWindow extends JFrame {
      * @param args Command line arguments (ignored)
      */
     public static void main(String[] args) {
-        boolean debug = false;
-        for (String a : args) {
-            if (a.equals("--debug"))
-                debug = true;
-        }
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    boolean debugMode = false;
+                    for (String a : args) {
+                        if (a.equals("--debug"))
+                            debugMode = true;
+                    }
 
-        new MainWindow(debug);
+                    new MainWindow(debugMode);
+                }
+            });
+        } catch (InvocationTargetException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

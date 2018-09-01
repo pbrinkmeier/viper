@@ -17,6 +17,11 @@ public enum GUIComponentID {
     FRAME_SHOW_STD("frame_show_std"),
     
     /**
+     * Identifier of the text area inside the show standard lib window
+     */
+    FRAME_SHOW_STD_TEXTAREA("frame_show_std_textarea"),
+    
+    /**
      * Identifier of the manual window
      */
     FRAME_MANUAL("frame_manual"),

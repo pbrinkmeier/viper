@@ -10,7 +10,6 @@ import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
@@ -71,10 +70,6 @@ public class CommandParse extends Command {
             String prefix = langman.getString(LanguageKey.PARSER_ERROR);
             String parserError = e.getMessage();
             this.console.printLine(String.format("%s: %s", prefix, parserError), LogType.ERROR);
-
-            if (MainWindow.inDebugMode()) {
-                e.printStackTrace();
-            }
         }
     }
 }

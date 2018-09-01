@@ -134,7 +134,7 @@ public class InterpreterManager {
      */
     public void parseQuery(String querySource) throws ParseException {
         if (!this.knowledgeBase.isPresent()) {
-            return;
+            throw new ParseException(LanguageManager.getInstance().getString(LanguageKey.NO_KNOWLEDGEBASE_PRESENT));
         }
 
         KnowledgeBase knowledgeBase = this.knowledgeBase.get();
@@ -203,9 +203,7 @@ public class InterpreterManager {
         }
 
         this.results.add(this.interpreter.get().step());
-
         this.visualisations.add(GraphvizMaker.createGraph(this.interpreter.get()));
-
         this.current++;
 
         if (this.results.get(this.current) == StepResult.SOLUTION_FOUND) {
@@ -422,6 +420,16 @@ public class InterpreterManager {
         } else {
             this.toggleStateFunc.accept(ClickableState.NEXT_SOLUTION_ABORTED);
         }
+    }
+    
+    /**
+     * Returns whether the interpreter manager is currently
+     * searching for solutions.
+     * 
+     * @return whether the interpreter manager is searching for solutions
+     */
+    public boolean isSearchingForSolutions() {
+        return this.running;
     }
     
     /**

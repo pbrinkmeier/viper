@@ -136,6 +136,16 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     }
     
     /**
+     * Returns the current font size.
+     * Only used for testing purposes.
+     * 
+     * @return the current font size
+     */
+    public int getFontSize() {
+        return this.fontSize;
+    }
+    
+    /**
      * Returns whether the text content has changed since the last parsing
      * 
      * @return boolean true if has changed, false otherwise
@@ -316,22 +326,26 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         if (this.fontSize > FONT_MAX_SIZE)
             return;
 
-        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, ++this.fontSize));
-        this.preferencesManager.setTextSize(this.fontSize);
+        this.fontSize++;
+        this.updateFont();
     }
 
     private void decreaseFont() {
         if (this.fontSize < FONT_MIN_SIZE)
             return;
 
-        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, --this.fontSize));
-        this.preferencesManager.setTextSize(this.fontSize);
+        this.fontSize--;
+        this.updateFont();
     }
 
     private void resetFont() {
         this.fontSize = PreferencesManager.DEFAULT_TEXT_SIZE;
+        this.updateFont();
+    }
+    
+    private void updateFont() {
         this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
-        this.preferencesManager.setTextSize(this.fontSize);
+        this.preferencesManager.setTextSize(this.fontSize);        
     }
 
     /**

@@ -3,6 +3,7 @@ package edu.kit.ipd.pp.viper.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 import javax.swing.JTextPane;
 import javax.swing.SizeRequirements;
@@ -31,6 +32,8 @@ public class ConsoleOutputArea extends JTextPane {
     private static final int FONT_MIN_SIZE = 10;
     private static final int FONT_MAX_SIZE = 40;
 
+    private Semaphore mutex = new Semaphore(1);
+    
     private int fontSize;
     private ArrayList<HistoryEntry> history;
     
@@ -61,13 +64,27 @@ public class ConsoleOutputArea extends JTextPane {
         this.preferencesManager = preferencesManager;
         this.fontSize = this.preferencesManager.getTextSize();
     }
+    
+    /**
+     * Returns the current font size.
+     * Only used for testing purposes.
+     * 
+     * @return the current font size
+     */
+    public int getFontSize() {
+        return this.fontSize;
+    }
 
     /**
      * Clears the entire console
      */
     public void clear() {
-        this.setText(null);
+        this.acquireMutex();
+        
+        this.setText("");
         this.history.clear();
+        
+        this.releaseMutex();
     }
 
     /**
@@ -79,12 +96,16 @@ public class ConsoleOutputArea extends JTextPane {
      * @param type Type of message
      */
     public void printLine(String line, LogType type) {
+        this.acquireMutex();
+        
         this.history.add(new HistoryEntry(line, type));
         this.updateContent();
+        
+        this.releaseMutex();
     }
     
     private void updateContent() {
-        this.setText(null);
+        this.setText("");
         this.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
         this.setEditable(true);
         
@@ -129,9 +150,13 @@ public class ConsoleOutputArea extends JTextPane {
         if (this.fontSize > FONT_MAX_SIZE)
             return;
 
+        this.acquireMutex();
+        
         this.fontSize++;
         this.updateContent();
         this.preferencesManager.setTextSize(this.fontSize);
+
+        this.releaseMutex();
     }
 
     /**
@@ -140,19 +165,40 @@ public class ConsoleOutputArea extends JTextPane {
     public void decreaseFont() {
         if (this.fontSize < FONT_MIN_SIZE)
             return;
+        
+        this.acquireMutex();
 
         this.fontSize--;
         this.updateContent();
         this.preferencesManager.setTextSize(this.fontSize);
+
+        this.releaseMutex();
     }
     
     /**
      * Resets the font size
      */
     public void resetFont() {
+        this.acquireMutex();
+        
         this.fontSize = PreferencesManager.DEFAULT_TEXT_SIZE;
         this.updateContent();
         this.preferencesManager.setTextSize(this.fontSize);
+
+        this.releaseMutex();
+    }
+    
+    private void acquireMutex() {
+        try {
+            this.mutex.acquire();
+        } catch (InterruptedException e) {
+            if (MainWindow.inDebugMode())
+                e.printStackTrace();        
+        }
+    }
+    
+    private void releaseMutex() {
+        this.mutex.release();
     }
     
     private class HistoryEntry {

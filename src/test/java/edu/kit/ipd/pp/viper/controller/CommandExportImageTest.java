@@ -8,42 +8,32 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.model.parser.ParseException;
-import edu.kit.ipd.pp.viper.view.ConsolePanel;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 
-public class CommandExportImageTest {
-    private MainWindow gui;
-    private ConsolePanel console;
-    private InterpreterManager interpreterManager;
-
+public class CommandExportImageTest extends ControllerTest {
     /**
-     * Constructs the GUI.
+     * Sets up a running Prolog program in the interpreter.
      */
     @Before
-    public void buildGUI() {
-        this.gui = new MainWindow(true);
-        this.gui.setVisible(false);
-        this.console = this.gui.getConsolePanel();
-        this.interpreterManager = this.gui.getInterpreterManager();
-
+    public void setupProgram() {
         final String program = SharedTestConstants.SIMPSONS_FORMATTED;
         final String query = SharedTestConstants.TEST_QUERY;
         try {
-            this.interpreterManager.parseKnowledgeBase(program);
-            this.interpreterManager.parseQuery(query);
+            this.gui.getInterpreterManager().parseKnowledgeBase(program);
+            this.gui.getInterpreterManager().parseQuery(query);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        this.interpreterManager.nextSolution(this.console, this.gui.getVisualisationPanel());
+        this.gui.getInterpreterManager().nextSolution(this.gui.getConsolePanel(), this.gui.getVisualisationPanel());
     }
 
     /**
      * Tests the PNG export functionality of the command.
      */
     @Test
-    public void pngTestWithExtension() {
-        CommandExportImage command = new CommandExportImage(this.console, ImageFormat.PNG, this.interpreterManager);
-        this.console.clearAll();
+    public void pngWithExtensionTest() {
+        CommandExportImage command = new CommandExportImage(this.gui.getConsolePanel(),
+                ImageFormat.PNG, this.gui.getInterpreterManager());
+        this.gui.getConsolePanel().clearAll();
 
         File test = new File("test.png");
         command.exportPNG(test);
@@ -58,9 +48,10 @@ public class CommandExportImageTest {
      * Tests the SVG export functionality of the command.
      */
     @Test
-    public void svgTestWithExtension() {
-        CommandExportImage command = new CommandExportImage(this.console, ImageFormat.SVG, this.interpreterManager);
-        this.console.clearAll();
+    public void svgWithExtensionTest() {
+        CommandExportImage command = new CommandExportImage(this.gui.getConsolePanel(),
+                ImageFormat.SVG, this.gui.getInterpreterManager());
+        this.gui.getConsolePanel().clearAll();
 
         File test = new File("test.svg");
         command.exportSVG(test);

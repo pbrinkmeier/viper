@@ -1,8 +1,9 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,9 +19,13 @@ import edu.kit.ipd.pp.viper.view.GUIComponentID;
 /**
  * Command for showing an about window for further information about the project.
  */
-public class CommandShowAbout extends Command implements Observer {
-    private static final String ICON_PATH = "/icons_png/viper-icon.png";
+public class CommandShowAbout extends Command implements Observer, WindowListener {
+    /**
+     * The dimensions of the popup
+     */
+    public static final Dimension DIMENSION = new Dimension(650, 236);
     
+    private static final String ICON_PATH = "/icons_png/viper-icon.png";
     private boolean isOpened;
 
     private JFrame frame;
@@ -83,6 +88,10 @@ public class CommandShowAbout extends Command implements Observer {
         if (!this.isOpened) {
             this.frame = new JFrame();
             this.frame.setName(GUIComponentID.FRAME_ABOUT.toString());
+            this.frame.setSize(CommandShowAbout.DIMENSION);
+            this.frame.setMinimumSize(CommandShowAbout.DIMENSION);
+            this.frame.setMaximumSize(CommandShowAbout.DIMENSION);
+            this.frame.setPreferredSize(CommandShowAbout.DIMENSION);
             this.frame.setLocationRelativeTo(null);
             this.frame.setResizable(false);
             this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -126,19 +135,21 @@ public class CommandShowAbout extends Command implements Observer {
             
             this.frame.getContentPane().setLayout(layout);
             this.frame.pack();
-            
-            this.frame.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent windowEvent) {
-                    CommandShowAbout.this.isOpened = false;
-                }
-            });
-            
+            this.frame.addWindowListener(this);
             this.isOpened = true;
         }
         
         this.frame.requestFocus();
         this.frame.toFront();
+    }
+    
+    /**
+     * Returns whether the popup is opened
+     * 
+     * @return boolean value describing whether the popup is opened
+     */
+    public boolean isOpened() {
+        return this.isOpened;
     }
 
     @Override
@@ -146,5 +157,40 @@ public class CommandShowAbout extends Command implements Observer {
         if (this.isOpened) {
             this.setText();
         }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        this.isOpened = false;
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        return;
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        return;
     }
 }
