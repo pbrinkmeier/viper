@@ -11,8 +11,6 @@ import org.junit.Test;
 public class ListFormatterTest {
     private Term validList;
     private Term emptyList;
-    private Term notAList;
-    private Term notEvenListy;
     private Term slightlyListy;
 
     @Before

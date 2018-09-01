@@ -53,7 +53,6 @@ public class InterpreterManager {
     private boolean running = false;
     private final Consumer<ClickableState> toggleStateFunc;
     private Optional<Thread> continueThread = Optional.empty();
-    private Optional<Thread> nextSolutionThread = Optional.empty();
 
     /**
      * Initializes an interpreter manager. This method calls reset() internally.
