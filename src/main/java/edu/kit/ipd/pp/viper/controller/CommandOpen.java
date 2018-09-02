@@ -214,7 +214,9 @@ public class CommandOpen extends Command {
     public void updateUI(File file) {
         this.editor.setSourceText(this.getFileText(file));
         this.editor.setHasChanged(false);
-        this.editor.setFileReference(file);
+        if (!this.isResource) {
+            this.editor.setFileReference(file);
+        }
         this.visualisation.clearVisualization();
 
         final String out = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_SUCCESS);
