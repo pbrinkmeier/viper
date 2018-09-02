@@ -157,7 +157,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
         this.recentlyUsedMenu.removeAll();
         for (File f : this.main.getEditorPanel().getFileReferenceList()) {
             JMenuItem item = new JMenuItem(f.getAbsolutePath());
-            CommandOpen command = new CommandOpen(f.getAbsolutePath(), this.main.getConsolePanel(),
+            CommandOpen command = new CommandOpen(f.getAbsolutePath(), false, this.main.getConsolePanel(),
                     this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::setWindowTitle,
                     this.main::switchClickableState, this.main.getCommandSave(), this.main.getInterpreterManager());
 
@@ -201,7 +201,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
                     String name = entries.nextElement().getName();
 
                     if (name.startsWith(MenuBar.SAMPLES_FOLDER + "/") && name.endsWith(".pl")) {
-                        this.addSampleProgram(name.substring(name.lastIndexOf(File.separator) + 1), name);
+                        this.addSampleProgram(name.substring(name.lastIndexOf(File.separator) + 1), name, true);
                     }
                 }
 
@@ -224,7 +224,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
                     continue;
                 }
 
-                this.addSampleProgram(file.getName(), file.getAbsolutePath());
+                this.addSampleProgram(file.getName(), file.getAbsolutePath(), false);
             }
         }
     }
@@ -235,9 +235,9 @@ public class MenuBar extends JMenuBar implements HasClickable {
      * @param name Name to display (file name)
      * @param path Path to file
      */
-    private void addSampleProgram(String name, String path) {
+    private void addSampleProgram(String name, String path, boolean isResource) {
         JMenuItem item = new JMenuItem(name);
-        CommandOpen command = new CommandOpen(path, this.main.getConsolePanel(),
+        CommandOpen command = new CommandOpen(path, isResource, this.main.getConsolePanel(),
                 this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::setTitle,
                 this.main::switchClickableState, this.main.getCommandSave(),
                 this.main.getInterpreterManager());

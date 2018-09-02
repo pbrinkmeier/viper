@@ -2,9 +2,12 @@ package edu.kit.ipd.pp.viper.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
+
+import org.apache.commons.io.IOUtils;
 
 import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
@@ -19,7 +22,8 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * file.
  */
 public class CommandOpen extends Command {
-    private final String path;
+    private String path;
+    private boolean isResource;
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
@@ -72,6 +76,7 @@ public class CommandOpen extends Command {
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
             InterpreterManager manager, OptionPane optionPane, FileChooser fileChooser) {
         this.path = "";
+        this.isResource = true;
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
@@ -87,7 +92,7 @@ public class CommandOpen extends Command {
      * Initializes a new open command. A command constructed this way tries to open
      * a file from a given path.
      * 
-     * @param path The file path to read from
+     * @param path Path to file to open
      * @param console Panel of the console area
      * @param editor Panel of the editor area
      * @param visualisation Panel of the visualisation area
@@ -103,6 +108,30 @@ public class CommandOpen extends Command {
             InterpreterManager manager) {
         this(path, console, editor, visualisation, setTitle, toggleStateFunc, commandSave, manager,
                 new DefaultOptionPane());
+    }
+
+    /**
+     * Initializes a new open command. A command constructed this way tries to open
+     * a file from a given path.
+     * 
+     * @param path Path to file to open
+     * @param isResource Whether the file is a resource inside the jar or a regular file in the file system
+     * @param console Panel of the console area
+     * @param editor Panel of the editor area
+     * @param visualisation Panel of the visualisation area
+     * @param setTitle Consumer function that can change the window title
+     * @param toggleStateFunc Consumer function that switches the state of clickable
+     *        elements in the GUI
+     * @param commandSave Save command in case the currently opened program has been
+     *        changed
+     * @param manager The InterpreterManager instance
+     */
+    public CommandOpen(String path, boolean isResource, ConsolePanel console, EditorPanel editor,
+            VisualisationPanel visualisation, Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc,
+            CommandSave commandSave, InterpreterManager manager) {
+        this(path, console, editor, visualisation, setTitle, toggleStateFunc, commandSave, manager,
+                new DefaultOptionPane());
+        this.isResource = isResource;
     }
 
     /**
@@ -125,6 +154,7 @@ public class CommandOpen extends Command {
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
             InterpreterManager manager, OptionPane optionPane) {
         this.path = path;
+        this.isResource = true;
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
@@ -146,7 +176,12 @@ public class CommandOpen extends Command {
     public String getFileText(File file) {
         String source = "";
         try {
-            source = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
+            if (this.isResource) {
+                InputStream input = this.getClass().getResourceAsStream("/" + file.getPath());
+                source = new String(IOUtils.toByteArray(input));
+            } else {
+                source = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
+            }
         } catch (IOException e) {
             this.printOpenError(e, file.getAbsolutePath());
         }
