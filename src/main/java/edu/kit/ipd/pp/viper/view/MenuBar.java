@@ -3,8 +3,13 @@ package edu.kit.ipd.pp.viper.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JMenuBar;
@@ -31,6 +36,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
      */
     private static final long serialVersionUID = -8638583278667065231L;
 
+    private static final String SAMPLES_FOLDER = "samples";
+
     /**
      * Instance of main window
      */
@@ -52,6 +59,7 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private CheckBoxMenuItem itemToggleSTD;
 
     private Menu recentlyUsedMenu;
+    private Menu sampleProgramsMenu;
 
     /**
      * The constructor initialises all menus in the menu bar
@@ -80,10 +88,12 @@ public class MenuBar extends JMenuBar implements HasClickable {
         this.addSaveAsItem(menu);
         menu.addSeparator();
         this.addRecentlyOpenedMenu(menu);
+        this.addSampleProgramsMenu(menu);
         menu.addSeparator();
         this.addExitItem(menu);
 
         this.resetRecentlyOpenedMenu();
+        this.loadSamplePrograms();
         this.add(menu);
     }
 
@@ -159,6 +169,87 @@ public class MenuBar extends JMenuBar implements HasClickable {
             });
             this.recentlyUsedMenu.add(item);
         }
+    }
+
+    /**
+     * Adds the "file > sample programs" item
+     * 
+     * @param menu Menu to attach to
+     */
+    private void addSampleProgramsMenu(Menu menu) {
+        this.sampleProgramsMenu = new Menu(LanguageKey.MENU_SAMPLES);
+        menu.add(this.sampleProgramsMenu);
+    }
+
+    /**
+     * Loads all sample programs from src/main/resource/samples/ folder and adds them
+     * as menu items
+     * 
+     * Unfortunately, when packed as jar file, getting the content of a directory is not really
+     * straightforward. The entire jar file need to be indexed and searched for the actual folder
+     * we're looking for.
+     */
+    private void loadSamplePrograms() {
+        File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+
+        if (jarFile.isFile()) {
+            try {
+                JarFile jar = new JarFile(jarFile);
+                Enumeration<JarEntry> entries = jar.entries();
+
+                while (entries.hasMoreElements()) {
+                    String name = entries.nextElement().getName();
+
+                    if (name.startsWith(MenuBar.SAMPLES_FOLDER + "/") && name.endsWith(".pl")) {
+                        this.addSampleProgram(name.substring(name.lastIndexOf(File.separator) + 1), name);
+                    }
+                }
+
+                jar.close();
+            } catch (IOException e) {
+                this.main.getConsolePanel().printLine("Could not load sample programs", LogType.DEBUG);
+            }
+        } else {
+            File[] samplesFolder = null;
+
+            try {
+                samplesFolder = new File(this.main.getClass().getResource("/" + MenuBar.SAMPLES_FOLDER).toURI())
+                        .listFiles();
+            } catch (URISyntaxException e) {
+                this.main.getConsolePanel().printLine("Could not load sample programs", LogType.DEBUG);
+            }
+
+            for (File file : samplesFolder) {
+                if (file.isDirectory() || !file.getName().endsWith(".pl")) {
+                    continue;
+                }
+
+                this.addSampleProgram(file.getName(), file.getAbsolutePath());
+            }
+        }
+    }
+
+    /**
+     * Adds a sample program menu item
+     * 
+     * @param name Name to display (file name)
+     * @param path Path to file
+     */
+    private void addSampleProgram(String name, String path) {
+        JMenuItem item = new JMenuItem(name);
+        CommandOpen command = new CommandOpen(path, this.main.getConsolePanel(),
+                this.main.getEditorPanel(), this.main.getVisualisationPanel(), this.main::setTitle,
+                this.main::switchClickableState, this.main.getCommandSave(),
+                this.main.getInterpreterManager());
+
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                command.execute();
+            }
+        });
+
+        this.sampleProgramsMenu.add(item);
     }
 
     /**

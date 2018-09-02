@@ -27,14 +27,19 @@ public enum LanguageKey {
     MENU_SAVE("menu_save"),
 
     /**
-     * Menu "Save As..." option
+     * Menu "Save as..." option
      */
     MENU_SAVEAS("menu_saveas"),
 
     /**
-     * Menu "Recent" option
+     * Menu "Recently used" option
      */
     MENU_RECENT("menu_recent"),
+
+    /**
+     * Menu "Sample programs" option
+     */
+    MENU_SAMPLES("menu_samples"),
 
     /**
      * Menu "Exit" option
