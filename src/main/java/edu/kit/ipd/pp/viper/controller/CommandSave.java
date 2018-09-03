@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import javax.swing.JFileChooser;
-
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
@@ -21,6 +19,7 @@ public class CommandSave extends Command {
     private SaveType saveType;
     private Consumer<String> setTitle;
     private InterpreterManager interpreterManager;
+    private FileChooser fileChooser;
 
     /**
      * Initializes a new save command.
@@ -33,13 +32,29 @@ public class CommandSave extends Command {
      */
     public CommandSave(ConsolePanel console, EditorPanel editor, SaveType saveType, Consumer<String> setTitle,
             InterpreterManager manager) {
+        this(console, editor, saveType, setTitle, manager, new DefaultFileChooser());
+    }
+
+    /**
+     * Initializes a new save command. With this one, the file chooser dialog shown can be chosen.
+     * 
+     * @param console Panel of the console area
+     * @param editor Panel of the editor area
+     * @param saveType Save type (either save or save as new)
+     * @param setTitle Consumer function to set the window title
+     * @param manager The InterpreterManager instance
+     * @param fileChooser The file chooser to be used
+     */
+    public CommandSave(ConsolePanel console, EditorPanel editor, SaveType saveType, Consumer<String> setTitle,
+            InterpreterManager manager, FileChooser fileChooser) {
         this.console = console;
         this.editor = editor;
         this.saveType = saveType;
         this.setTitle = setTitle;
         this.interpreterManager = manager;
+        this.fileChooser = fileChooser;
     }
-
+    
     @Override
     public void execute() {
         if (this.saveType == SaveType.SAVE && this.editor.hasFileReference())
@@ -94,12 +109,10 @@ public class CommandSave extends Command {
     }
 
     private void saveAs() {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(FileFilters.PL_FILTER);
-        int rv = chooser.showSaveDialog(null);
+        File f = this.fileChooser.showSaveDialog(FileFilters.PL_FILTER);
 
-        if (rv == JFileChooser.APPROVE_OPTION) {
-            File file = FileUtilities.checkForMissingExtension(chooser.getSelectedFile(), ".pl");
+        if (f != null) {
+            File file = FileUtilities.checkForMissingExtension(f, ".pl");
             this.writeFile(file);
         }
     }

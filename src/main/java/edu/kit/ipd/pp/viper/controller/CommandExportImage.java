@@ -3,8 +3,6 @@ package edu.kit.ipd.pp.viper.controller;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JFileChooser;
-
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.MainWindow;
@@ -19,6 +17,7 @@ public class CommandExportImage extends Command {
     private ConsolePanel console;
     private ImageFormat format;
     private InterpreterManager interpreterManager;
+    private FileChooser fileChooser;
 
     /**
      * Initializes a new image export command.
@@ -29,31 +28,44 @@ public class CommandExportImage extends Command {
      *        interpreter
      */
     public CommandExportImage(ConsolePanel console, ImageFormat format, InterpreterManager interpreterManager) {
+        this(console, format, interpreterManager, new DefaultFileChooser());
+    }
+
+    /**
+     * Initializes a new image export command. With this one, the file chooser dialog shown can be chosen.
+     * 
+     * @param console Panel of the console area
+     * @param format Format of the image to be saved
+     * @param interpreterManager Interpreter manager with a reference to the current
+     *        interpreter
+     * @param fileChooser The file chooser to be used
+     */
+    public CommandExportImage(ConsolePanel console, ImageFormat format, InterpreterManager interpreterManager,
+            FileChooser fileChooser) {
         this.console = console;
         this.format = format;
         this.interpreterManager = interpreterManager;
+        this.fileChooser = fileChooser;
     }
-
+    
     @Override
     public void execute() {
         this.interpreterManager.cancel();
 
-        JFileChooser chooser = new JFileChooser();
-
+        File f = null;
         if (this.format == ImageFormat.PNG) {
-            chooser.setFileFilter(FileFilters.PNG_FILTER);
+            f = this.fileChooser.showSaveDialog(FileFilters.PNG_FILTER);
         } else if (this.format == ImageFormat.SVG) {
-            chooser.setFileFilter(FileFilters.SVG_FILTER);
+            f = this.fileChooser.showSaveDialog(FileFilters.SVG_FILTER);
         }
 
-        int rv = chooser.showSaveDialog(null);
-        if (rv == JFileChooser.APPROVE_OPTION) {
+        if (f != null) {
             switch (this.format) {
             case SVG:
-                this.exportSVG(chooser.getSelectedFile());
+                this.exportSVG(f);
                 break;
             case PNG:
-                this.exportPNG(chooser.getSelectedFile());
+                this.exportPNG(f);
                 break;
             default:
                 String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_UNSUPPORTED_FORMAT);
