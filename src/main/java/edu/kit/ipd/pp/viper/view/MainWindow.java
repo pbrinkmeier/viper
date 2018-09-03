@@ -159,7 +159,7 @@ public class MainWindow extends JFrame {
         this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
         this.commandFinishQuery = new CommandFinishQuery(this.consolePanel, this.visualisationPanel, this.manager);
         this.commandCancel = new CommandCancel(this.manager);
-        this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager);
+        this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager, this::dispose);
         this.commandShowAbout = new CommandShowAbout();
         this.commandShowStandard = new CommandShowStandard(this.manager);
         this.commandShowManual = new CommandShowManual();

@@ -9,6 +9,7 @@ public class CommandExit extends Command {
     private EditorPanel editor;
     private final CommandSave commandSave;
     private InterpreterManager interpreterManager;
+    private Runnable disposeOperation;
     private OptionPane optionPane;
 
     /**
@@ -17,9 +18,10 @@ public class CommandExit extends Command {
      * @param editor The Editor window
      * @param save the CommandSave instance
      * @param manager The InterpreterManager instance
+     * @param disposeOperation The function to dispose the main window
      */
-    public CommandExit(EditorPanel editor, CommandSave save, InterpreterManager manager) {
-        this(editor, save, manager, new DefaultOptionPane());
+    public CommandExit(EditorPanel editor, CommandSave save, InterpreterManager manager, Runnable disposeOperation) {
+        this(editor, save, manager, disposeOperation, new DefaultOptionPane());
     }
 
     /**
@@ -29,11 +31,14 @@ public class CommandExit extends Command {
      * @param save the CommandSave instance
      * @param manager The InterpreterManager instance
      * @param optionPane The option pane to be used. This allows for mocking the option pane for testing
+     * @param disposeOperation The function to dispose the main window
      */
-    public CommandExit(EditorPanel editor, CommandSave save, InterpreterManager manager, OptionPane optionPane) {
+    public CommandExit(EditorPanel editor, CommandSave save, InterpreterManager manager, Runnable disposeOperation,
+            OptionPane optionPane) {
         this.editor = editor;
         this.commandSave = save;
         this.interpreterManager = manager;
+        this.disposeOperation = disposeOperation;
         this.optionPane = optionPane;
     }
     
@@ -55,6 +60,6 @@ public class CommandExit extends Command {
             }
         }
 
-        System.exit(0);
+        this.disposeOperation.run();
     }
 }
