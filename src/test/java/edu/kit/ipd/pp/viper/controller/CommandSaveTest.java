@@ -76,4 +76,55 @@ public class CommandSaveTest extends ControllerTest {
 
         testFile.delete();
     }
+    
+    /**
+     * Tests saving a file by dialog.
+     */
+    @Test
+    public void dialogTest() {
+        File file = new File("test.pl");
+        final String sourceText = "test";
+        
+        this.gui.getEditorPanel().setSourceText(sourceText);
+        new CommandSave(this.gui.getConsolePanel(), this.gui.getEditorPanel(), SaveType.SAVE_AS,
+                this.gui::setTitle, this.gui.getInterpreterManager(),
+                new PreselectionFileChooser(file)).execute();
+        
+        String fileContents = "";
+        try {
+            fileContents = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        assertTrue(file.exists());
+        assertTrue(fileContents.equals(sourceText));
+        assertFalse(this.gui.getEditorPanel().hasChanged());
+        assertTrue(this.gui.getEditorPanel().hasFileReference());
+        
+        file.delete();
+        
+        new CommandSave(this.gui.getConsolePanel(), this.gui.getEditorPanel(), SaveType.SAVE_AS,
+                this.gui::setTitle, this.gui.getInterpreterManager(),
+                new PreselectionFileChooser(null)).execute();
+    }
+    
+    /**
+     * Tests the error output of the command.
+     */
+    @Test
+    public void errorOutputTest() {
+        final String testPath = "/test/test.pl";
+        final IOException exception = new IOException("Test");
+
+        this.gui.setDebugMode(false);
+        this.gui.getConsolePanel().clearAll();
+        this.gui.getCommandSave().printSaveError(exception, testPath);
+        assertFalse(this.gui.getConsolePanel().getOutputAreaText().isEmpty());
+
+        this.gui.setDebugMode(true);
+        this.gui.getConsolePanel().clearAll();
+        this.gui.getCommandSave().printSaveError(exception, testPath);
+        assertFalse(this.gui.getConsolePanel().getOutputAreaText().isEmpty());        
+    }
 }

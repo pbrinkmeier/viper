@@ -74,13 +74,7 @@ public class CommandExportImage extends Command {
         }
     }
 
-    /**
-     * SVG export routine. This should only be used internally, but is public for
-     * testing purposes.
-     * 
-     * @param f file to export the SVG graph to
-     */
-    public void exportSVG(File f) {
+    private void exportSVG(File f) {
         Graphviz viz = Graphviz.fromGraph(this.interpreterManager.getCurrentVisualisation());
 
         File file = FileUtilities.checkForMissingExtension(f, ".svg");
@@ -89,22 +83,11 @@ public class CommandExportImage extends Command {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
             this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
         } catch (IOException e) {
-            String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-            this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.ERROR);
-
-            if (MainWindow.inDebugMode()) {
-                e.printStackTrace();
-            }
+            this.handleIOException(e, file.getAbsolutePath());
         }
     }
 
-    /**
-     * PNG export routine. This should only be used internally, but is public for
-     * testing purposes.
-     * 
-     * @param f file to export the PNG graph to
-     */
-    public void exportPNG(File f) {
+    private void exportPNG(File f) {
         Graphviz viz = Graphviz.fromGraph(this.interpreterManager.getCurrentVisualisation());
 
         File file = FileUtilities.checkForMissingExtension(f, ".png");
@@ -113,12 +96,16 @@ public class CommandExportImage extends Command {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
             this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
         } catch (IOException e) {
-            String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-            this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.ERROR);
+            this.handleIOException(e, file.getAbsolutePath());
+        }
+    }
+    
+    private void handleIOException(IOException e, String filePath) {
+        String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
+        this.console.printLine(msg + ": " + filePath, LogType.ERROR);
 
-            if (MainWindow.inDebugMode()) {
-                e.printStackTrace();
-            }
+        if (MainWindow.inDebugMode()) {
+            e.printStackTrace();
         }
     }
 }

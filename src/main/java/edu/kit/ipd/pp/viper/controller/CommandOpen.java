@@ -190,7 +190,7 @@ public class CommandOpen extends Command {
         this.setTitle.accept(file.getAbsolutePath());
     }
 
-    private void handleUnsavedChanges() {
+    private boolean handleUnsavedChanges() {
         LanguageManager langman = LanguageManager.getInstance();
         final String message = langman.getString(LanguageKey.CONFIRMATION);
         final String title = langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE);
@@ -200,24 +200,32 @@ public class CommandOpen extends Command {
             this.commandSave.execute();
         }
         if (rv == 2) {
-            return;
+            return true;
         }
+        
+        return false;
     }
 
     private void openByDialog() {
         File f = this.fileChooser.showSaveDialog(FileFilters.PL_FILTER);
 
         if (f != null) {
+            boolean cancelled = false;
             if (this.editor.hasChanged())
-                this.handleUnsavedChanges();
-            this.updateUI(f);
+                cancelled = this.handleUnsavedChanges();
+            
+            if (!cancelled)
+                this.updateUI(f);
         }
     }
 
     private void openDirectly() {
+        boolean cancelled = false;
         if (this.editor.hasChanged())
-            this.handleUnsavedChanges();
-        this.updateUI(new File(this.path));
+            cancelled = this.handleUnsavedChanges();
+
+        if (!cancelled)
+            this.updateUI(new File(this.path));
     }
 
     @Override
