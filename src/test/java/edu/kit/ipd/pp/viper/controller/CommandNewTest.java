@@ -3,9 +3,9 @@ package edu.kit.ipd.pp.viper.controller;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
+import java.io.File;
 
-import edu.kit.ipd.pp.viper.view.EditorPanel;
+import org.junit.Test;
 
 public class CommandNewTest extends ControllerTest {
     /**
@@ -22,28 +22,54 @@ public class CommandNewTest extends ControllerTest {
     }
     
     /**
-     * Tests the handling of unsaved changes.
+     * Tests the handling of unsaved changes by saving.
      */
     @Test
-    public void handlesUnsavedChangesTest() {
-        EditorPanel editor = this.gui.getEditorPanel();
+    public void saveOnExitTest() {
+        File file = new File("test.pl");
         
-        editor.setHasChanged(true);
-        editor.setSourceText("test");
-        final String editorContent = editor.getSourceText();
+        this.gui.getEditorPanel().setHasChanged(true);
+        this.gui.getEditorPanel().setSourceText("test");
+        CommandSave save = new CommandSave(this.gui.getConsolePanel(), this.gui.getEditorPanel(),
+                SaveType.SAVE_AS, this.gui::setTitle, this.gui.getInterpreterManager(),
+                new PreselectionFileChooser(file));
+        this.buildCommandNew(save, new YesOptionPane()).execute();
+        assertTrue(this.gui.getEditorPanel().getSourceText().trim().isEmpty());
+        assertFalse(this.gui.getEditorPanel().hasChanged());
+        assertTrue(file.length() > 0);
         
-        this.buildCommandNew(new CancelOptionPane()).execute();
-        assertTrue(editor.getSourceText().equals(editorContent));
-        assertTrue(editor.hasChanged());
-        
-        this.buildCommandNew(new NoOptionPane()).execute();
-        assertTrue(editor.getSourceText().trim().isEmpty());
-        assertFalse(editor.hasChanged());        
+        file.delete();
+    }
+
+    /**
+     * Tests the handling of unsaved changes by not saving.
+     */
+    @Test
+    public void doNotSaveOnExitTest() {
+        this.gui.getEditorPanel().setHasChanged(true);
+        this.gui.getEditorPanel().setSourceText("test");
+        this.buildCommandNew(this.gui.getCommandSave(), new NoOptionPane()).execute();
+        assertTrue(this.gui.getEditorPanel().getSourceText().trim().isEmpty());
+        assertFalse(this.gui.getEditorPanel().hasChanged());
     }
     
-    private CommandNew buildCommandNew(OptionPane pane) {
+    /**
+     * Tests the handling of unsaved changes by canceling.
+     */
+    @Test
+    public void cancelSaveOnExitTest() {
+        this.gui.getEditorPanel().setHasChanged(true);
+        this.gui.getEditorPanel().setSourceText("test");
+        final String editorContent = this.gui.getEditorPanel().getSourceText();
+        
+        this.buildCommandNew(this.gui.getCommandSave(), new CancelOptionPane()).execute();
+        assertTrue(this.gui.getEditorPanel().getSourceText().equals(editorContent));
+        assertTrue(this.gui.getEditorPanel().hasChanged());
+    }
+    
+    private CommandNew buildCommandNew(CommandSave save, OptionPane pane) {
         return new CommandNew(this.gui.getConsolePanel(), this.gui.getEditorPanel(),
                 this.gui.getVisualisationPanel(), this.gui::setTitle, this.gui::switchClickableState,
-                this.gui.getCommandSave(), this.gui.getInterpreterManager(), pane);
+                save, this.gui.getInterpreterManager(), pane);
     }
 }
