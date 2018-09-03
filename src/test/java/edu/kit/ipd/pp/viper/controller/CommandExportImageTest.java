@@ -1,8 +1,10 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,8 +55,30 @@ public class CommandExportImageTest extends ControllerTest {
      * Tests exporting a null file.
      */
     @Test
-    public void testNullFile() {
+    public void nullFileTest() {
         new CommandExportImage(this.gui.getConsolePanel(), ImageFormat.SVG, this.gui.getInterpreterManager(),
                 new PreselectionFileChooser(null)).execute();        
+    }
+    
+    /**
+     * Tests the error output of the command.
+     */
+    @Test
+    public void errorOutputTest() {
+        final String testPath = "/test/test.pl";
+        final IOException exception = new IOException("Test");
+
+        CommandExportImage command = new CommandExportImage(this.gui.getConsolePanel(),
+                ImageFormat.PNG, this.gui.getInterpreterManager());
+        
+        this.gui.setDebugMode(false);
+        this.gui.getConsolePanel().clearAll();
+        command.printExportError(exception, testPath);
+        assertFalse(this.gui.getConsolePanel().getOutputAreaText().isEmpty());
+
+        this.gui.setDebugMode(true);
+        this.gui.getConsolePanel().clearAll();
+        command.printExportError(exception, testPath);
+        assertFalse(this.gui.getConsolePanel().getOutputAreaText().isEmpty());        
     }
 }

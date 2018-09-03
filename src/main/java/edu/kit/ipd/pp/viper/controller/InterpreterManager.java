@@ -293,6 +293,20 @@ public class InterpreterManager {
     }
 
     /**
+     * Waits for the thread to die. This is used for testing the continue and
+     * finish query functionalities.
+     */
+    public void waitForThread() {
+        if (this.continueThread.isPresent()) {
+            try {
+                this.continueThread.get().join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }            
+        }
+    }
+
+    /**
      * Runs the interpreter until there are no more solutions. This is done in a
      * separate Thread to ensure that the GUI is still responsive and the Thread can
      * be stopped if it takes to long or if the query is a recursive loop.

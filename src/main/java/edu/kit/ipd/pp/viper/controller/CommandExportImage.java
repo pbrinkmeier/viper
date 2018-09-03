@@ -53,10 +53,14 @@ public class CommandExportImage extends Command {
         this.interpreterManager.cancel();
 
         File f = null;
-        if (this.format == ImageFormat.PNG) {
-            f = this.fileChooser.showSaveDialog(FileFilters.PNG_FILTER);
-        } else if (this.format == ImageFormat.SVG) {
-            f = this.fileChooser.showSaveDialog(FileFilters.SVG_FILTER);
+        switch (this.format) {
+            case SVG:
+                f = this.fileChooser.showSaveDialog(FileFilters.SVG_FILTER);
+                break;
+            case PNG:
+            default:
+                f = this.fileChooser.showSaveDialog(FileFilters.PNG_FILTER);
+                break;
         }
 
         if (f != null) {
@@ -65,11 +69,9 @@ public class CommandExportImage extends Command {
                 this.exportSVG(f);
                 break;
             case PNG:
+            default:
                 this.exportPNG(f);
                 break;
-            default:
-                String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_UNSUPPORTED_FORMAT);
-                this.console.printLine(msg, LogType.ERROR);
             }
         }
     }
@@ -83,7 +85,7 @@ public class CommandExportImage extends Command {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
             this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
         } catch (IOException e) {
-            this.handleIOException(e, file.getAbsolutePath());
+            this.printExportError(e, file.getAbsolutePath());
         }
     }
 
@@ -96,11 +98,18 @@ public class CommandExportImage extends Command {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
             this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
         } catch (IOException e) {
-            this.handleIOException(e, file.getAbsolutePath());
+            this.printExportError(e, file.getAbsolutePath());
         }
     }
     
-    private void handleIOException(IOException e, String filePath) {
+    /**
+     * Export error printing routine. This should only be called internally, but it's
+     * public for testing purposes.
+     * 
+     * @param e IOException caused by failing to write to disk
+     * @param filePath the path of the file that caused the exception
+     */
+    public void printExportError(IOException e, String filePath) {
         String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
         this.console.printLine(msg + ": " + filePath, LogType.ERROR);
 

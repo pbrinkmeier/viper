@@ -29,9 +29,10 @@ public class CommandNewTest extends ControllerTest {
         File file = new File("test.pl");
         
         this.gui.getEditorPanel().setHasChanged(true);
+        this.gui.getEditorPanel().setFileReference(null);
         this.gui.getEditorPanel().setSourceText("test");
         CommandSave save = new CommandSave(this.gui.getConsolePanel(), this.gui.getEditorPanel(),
-                SaveType.SAVE_AS, this.gui::setTitle, this.gui.getInterpreterManager(),
+                SaveType.SAVE, this.gui::setTitle, this.gui.getInterpreterManager(),
                 new PreselectionFileChooser(file));
         this.buildCommandNew(save, new YesOptionPane()).execute();
         assertTrue(this.gui.getEditorPanel().getSourceText().trim().isEmpty());
