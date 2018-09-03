@@ -1,7 +1,5 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import javax.swing.JOptionPane;
-
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 
 /**
@@ -11,6 +9,7 @@ public class CommandExit extends Command {
     private EditorPanel editor;
     private final CommandSave commandSave;
     private InterpreterManager interpreterManager;
+    private OptionPane optionPane;
 
     /**
      * Initializes a new exit command.
@@ -20,23 +19,34 @@ public class CommandExit extends Command {
      * @param manager The InterpreterManager instance
      */
     public CommandExit(EditorPanel editor, CommandSave save, InterpreterManager manager) {
+        this(editor, save, manager, new DefaultOptionPane());
+    }
+
+    /**
+     * Initializes a new exit command. With this one, the option pane shown can be chosen.
+     * 
+     * @param editor The Editor window
+     * @param save the CommandSave instance
+     * @param manager The InterpreterManager instance
+     * @param optionPane The option pane to be used. This allows for mocking the option pane for testing
+     */
+    public CommandExit(EditorPanel editor, CommandSave save, InterpreterManager manager, OptionPane optionPane) {
         this.editor = editor;
         this.commandSave = save;
         this.interpreterManager = manager;
+        this.optionPane = optionPane;
     }
-
+    
     @Override
     public void execute() {
         this.interpreterManager.cancel();
 
         if (this.editor.hasChanged()) {
             LanguageManager langman = LanguageManager.getInstance();
-            Object options[] = {langman.getString(LanguageKey.DIALOG_YES), langman.getString(LanguageKey.DIALOG_NO),
-                    langman.getString(LanguageKey.DIALOG_CANCEL)};
-            final int rv = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
-                    langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
-
+            final String message = langman.getString(LanguageKey.CONFIRMATION);
+            final String title = langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE);
+            final int rv = this.optionPane.showOptionDialog(message, title);
+            
             if (rv == 0) {
                 this.commandSave.execute();
             }
