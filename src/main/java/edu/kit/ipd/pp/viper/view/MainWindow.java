@@ -482,7 +482,7 @@ public class MainWindow extends JFrame {
      *
      * @return CommandContinue
      */
-    public CommandNextSolution getCommandContinue() {
+    public CommandNextSolution getCommandNextSolution() {
         return this.commandNextSolution;
     }
 

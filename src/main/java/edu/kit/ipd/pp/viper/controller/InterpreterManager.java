@@ -258,7 +258,7 @@ public class InterpreterManager {
      * @param console The console panel of the gui
      * @param visualisation The visualisation panel of the gui
      */
-    private void assignNextSolutionThread(ConsolePanel console, VisualisationPanel visualisation) {
+    public void assignNextSolutionThread(ConsolePanel console, VisualisationPanel visualisation) {
         if (this.continueThread.isPresent()) {
             this.setThreadRunning(false);
             return;
