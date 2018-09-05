@@ -209,9 +209,9 @@ public class InterpreterManager {
             String prefix = LanguageManager.getInstance().getString(LanguageKey.SOLUTION_FOUND);
             List<Substitution> solution = this.getSolution();
 
-            String solutionString = solution.size() == 0
-                    ? ("  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES))
-                    : solution.stream().map(s -> "  " + s.toString()).collect(joining(",\n"));
+            String solutionString = solution.isEmpty()
+                    ? "  " + LanguageManager.getInstance().getString(LanguageKey.SOLUTION_YES)
+                    : solution.stream().map(sol -> "  " + sol.toString()).collect(joining(",\n"));
 
             console.printLine(String.format("%s:\n%s.", prefix, solutionString), LogType.SUCCESS);
         }

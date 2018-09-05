@@ -39,6 +39,8 @@ public final class LanguageManager extends Observable {
      * to the default if this fails.
      */
     private LanguageManager() {
+        super();
+
         Locale.setDefault(this.supportedLocales[0]);
         this.setLocale(Locale.getDefault());
     }
@@ -55,7 +57,7 @@ public final class LanguageManager extends Observable {
     public String getString(LanguageKey key) {
         try {
             return this.bundle.getString(key.getString());
-        } catch (NullPointerException | MissingResourceException | ClassCastException e) {
+        } catch (MissingResourceException | ClassCastException e) {
             // show empty string instead of an error message
             return "";
         }
