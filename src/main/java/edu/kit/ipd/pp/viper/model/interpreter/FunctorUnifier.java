@@ -18,6 +18,8 @@ public class FunctorUnifier extends Unifier {
      * @param functor functor to try unification with
      */
     public FunctorUnifier(Functor functor) {
+        super();
+
         this.functor = functor;
     }
 
