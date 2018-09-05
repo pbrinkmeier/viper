@@ -17,6 +17,8 @@ public class DefaultFileChooser implements FileChooser {
 
         if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             return chooser.getSelectedFile();
-        } else return null;
+        } else {
+            return null;
+        }
     }
 }
