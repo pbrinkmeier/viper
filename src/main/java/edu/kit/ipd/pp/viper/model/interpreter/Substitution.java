@@ -1,5 +1,7 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
+import java.util.Objects;
+
 import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 
@@ -45,6 +47,11 @@ public class Substitution {
     @Override
     public String toString() {
         return String.format("%s => %s", this.replace, this.by);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.replace, this.by);
     }
 
     /**

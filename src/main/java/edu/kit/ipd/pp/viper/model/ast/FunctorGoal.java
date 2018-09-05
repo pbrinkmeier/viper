@@ -5,6 +5,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.VariableExtractor;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -68,6 +69,11 @@ public class FunctorGoal extends Goal {
     @Override
     public String toString() {
         return this.getFunctor().toString();
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.functor);
     }
 
     /**

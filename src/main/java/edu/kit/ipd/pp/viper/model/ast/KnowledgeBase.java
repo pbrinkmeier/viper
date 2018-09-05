@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -112,6 +113,11 @@ public class KnowledgeBase {
      */
     public KnowledgeBase withRule(Rule rule) {
         return this.combine(new KnowledgeBase(Arrays.asList(rule)));
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.rules);
     }
 
     /**

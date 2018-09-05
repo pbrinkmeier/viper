@@ -4,13 +4,14 @@ import edu.kit.ipd.pp.viper.model.interpreter.Indexifier;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.*;
 import static org.junit.Assert.*;
 
 public class UnificationGoalTest {
-    private Goal goal;
-    private Goal uselessGoal;
+    private UnificationGoal goal;
+    private UnificationGoal uselessGoal;
 
     @Before
     public void init() {
@@ -57,5 +58,10 @@ public class UnificationGoalTest {
             new Interpreter(new KnowledgeBase(Arrays.asList()), this.goal);
         
         assertEquals(this.goal, interpreter.getQuery().getGoal());
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(Objects.hash(this.goal.getLhs(), this.goal.getRhs()), this.goal.hashCode());
     }
 }

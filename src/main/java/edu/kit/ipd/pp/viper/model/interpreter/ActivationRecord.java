@@ -71,7 +71,7 @@ public abstract class ActivationRecord {
             }
         }
 
-        // This can never be reached. Java compiler complains when it's missing tho.
+        // This can never be reached. Java compiler complains when it's missing though.
         return Optional.of(previous.getRightmost());
     }
 

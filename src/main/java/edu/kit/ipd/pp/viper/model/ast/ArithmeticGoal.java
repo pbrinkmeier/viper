@@ -7,6 +7,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.ArithmeticActivationRecord;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -77,6 +78,11 @@ public class ArithmeticGoal extends Goal {
     @Override
     public String toString() {
         return String.format("%s is %s", this.lhs, this.rhs);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.lhs, this.rhs);
     }
 
     @Override

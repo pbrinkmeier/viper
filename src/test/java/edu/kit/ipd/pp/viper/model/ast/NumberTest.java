@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 
 import java.math.BigInteger;
 
+import java.util.Objects;
+
 public class NumberTest {
     private Number num;
 
@@ -68,5 +70,10 @@ public class NumberTest {
         assertNotEquals(BigInteger.valueOf(42), BigInteger.valueOf(24));
         assertNotEquals(BigInteger.valueOf(69), BigInteger.valueOf(96));
         assertNotEquals(BigInteger.valueOf(12), BigInteger.valueOf(0));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(Objects.hash(this.num.getNumber()), this.num.hashCode());
     }
 }

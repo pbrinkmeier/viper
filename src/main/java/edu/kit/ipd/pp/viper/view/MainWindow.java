@@ -125,6 +125,7 @@ public class MainWindow extends JFrame {
      * @param debug Sets debug mode to enabled/disabled
      */
     public MainWindow(boolean debug) {
+        // write to static attribute, so that inDebugMode() can be static
         MainWindow.debug = debug;
 
         this.setName(GUIComponentID.FRAME_MAIN.toString());

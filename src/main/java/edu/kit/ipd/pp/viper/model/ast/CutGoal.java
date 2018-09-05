@@ -7,6 +7,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class CutGoal extends Goal {
@@ -32,6 +33,11 @@ public class CutGoal extends Goal {
     @Override
     public String toString() {
         return "!";
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash("!");
     }
 
     /**

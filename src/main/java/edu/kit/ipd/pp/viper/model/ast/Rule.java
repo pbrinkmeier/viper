@@ -2,6 +2,7 @@ package edu.kit.ipd.pp.viper.model.ast;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a rule in an AST. A rule has a functor as its head and a list of
@@ -66,6 +67,11 @@ public class Rule {
         repr += ".";
 
         return repr;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.head, this.subgoals);
     }
 
     /**
