@@ -52,7 +52,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     /**
      * Main window reference
      */
-    private MainWindow main;
+    private final MainWindow main;
 
     /**
      * Indicates whether the document has changed since the last parsing
@@ -77,7 +77,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     /**
      * The preferences manager coordinating the text size after a restart
      */
-    private PreferencesManager preferencesManager;
+    private final PreferencesManager preferencesManager;
     
     private CommandZoom zoomInCommand;
     private CommandZoom zoomOutCommand;
@@ -88,6 +88,8 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @param gui Main window reference
      */
     public EditorPanel(MainWindow gui) {
+        super();
+
         this.main = gui;
         this.preferencesManager = gui.getPreferencesManager();
         
@@ -284,9 +286,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * about changes to the actual text, therefore nothing happens here.
      */
     @Override
-    public void changedUpdate(DocumentEvent event) {
-        return;
-    }
+    public void changedUpdate(DocumentEvent event) { }
 
     /**
      * Called when a portion of text was inserted into the text area.
@@ -387,9 +387,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @param e The issued event
      */
     @Override
-    public void keyTyped(KeyEvent e) {
-        return;
-    }
+    public void keyTyped(KeyEvent e) { }
 
     /**
      * Fire when a key was released, ignored here
@@ -397,9 +395,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @param e The issued event
      */
     @Override
-    public void keyReleased(KeyEvent e) {
-        return;
-    }
+    public void keyReleased(KeyEvent e) { }
 
     /**
      * Fired when mouse was scrolled

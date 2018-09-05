@@ -3,6 +3,7 @@ package edu.kit.ipd.pp.viper.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.JTextPane;
@@ -32,10 +33,10 @@ public class ConsoleOutputArea extends JTextPane {
     private static final int FONT_MIN_SIZE = 10;
     private static final int FONT_MAX_SIZE = 40;
 
-    private Semaphore mutex = new Semaphore(1);
+    private final Semaphore mutex = new Semaphore(1);
     
     private int fontSize;
-    private ArrayList<HistoryEntry> history;
+    private final List<HistoryEntry> history;
     
     /**
      * The preferences manager coordinating the text size after a restart

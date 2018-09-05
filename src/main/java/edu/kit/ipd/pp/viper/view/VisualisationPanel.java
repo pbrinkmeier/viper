@@ -50,8 +50,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      */
     private int zoomLevel = VisualisationPanel.DEFAULT_ZOOM_LEVEL;
     
-    private ToolBarButton zoomIn;
-    private ToolBarButton zoomOut;
+    private final ToolBarButton zoomIn;
+    private final ToolBarButton zoomOut;
     
     /**
      * Main window
@@ -223,19 +223,13 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     }
 
     @Override
-    public void componentHidden(ComponentEvent arg0) {
-        return;
-    }
+    public void componentHidden(ComponentEvent arg0) { }
 
     @Override
-    public void componentMoved(ComponentEvent arg0) {
-        return;
-    }
+    public void componentMoved(ComponentEvent arg0) { }
 
     @Override
-    public void componentShown(ComponentEvent e) {
-        return;
-    }
+    public void componentShown(ComponentEvent e) { }
 
     @Override
     public void switchClickableState(ClickableState state) {
