@@ -22,8 +22,8 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * file.
  */
 public class CommandOpen extends Command {
-    private String path;
-    private boolean isResource;
+    private String path = "";
+    private boolean isResource = false;
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
@@ -76,7 +76,7 @@ public class CommandOpen extends Command {
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
             InterpreterManager manager, OptionPane optionPane, FileChooser fileChooser) {
         this.path = "";
-        this.isResource = true;
+        this.isResource = false;
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
@@ -154,7 +154,7 @@ public class CommandOpen extends Command {
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
             InterpreterManager manager, OptionPane optionPane) {
         this.path = path;
-        this.isResource = true;
+        this.isResource = false;
         this.console = console;
         this.editor = editor;
         this.visualisation = visualisation;
