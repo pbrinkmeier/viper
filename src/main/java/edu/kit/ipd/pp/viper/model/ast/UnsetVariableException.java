@@ -21,6 +21,8 @@ public class UnsetVariableException extends TermEvaluationException {
      * @param var variable that has not been set
      */
     public UnsetVariableException(Variable var) {
+        super();
+
         this.var = var;
     }
 

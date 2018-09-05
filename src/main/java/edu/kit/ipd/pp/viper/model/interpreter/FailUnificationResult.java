@@ -20,6 +20,8 @@ class FailUnificationResult extends UnificationResult {
      * @param rhs right hand side of the failed unification
      */
     public FailUnificationResult(Term lhs, Term rhs) {
+        super();
+
         this.lhs = lhs;
         this.rhs = rhs;
     }

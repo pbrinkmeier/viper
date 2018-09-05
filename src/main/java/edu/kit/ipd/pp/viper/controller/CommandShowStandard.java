@@ -29,16 +29,18 @@ public class CommandShowStandard extends Command implements WindowListener {
     private JTextArea textArea;
     private JScrollPane scrollPane;
     
-    private InterpreterManager interpreterManager;
+    private InterpreterManager manager;
     
     /**
      * Initializes a new show standard library popup command.
      * 
-     * @param interpreterManager the interpreter manager to fetch the code from
+     * @param manager the interpreter manager to fetch the code from
      */
-    public CommandShowStandard(InterpreterManager interpreterManager) {
+    public CommandShowStandard(InterpreterManager manager) {
+        super();
+
         this.isOpened = false;
-        this.interpreterManager = interpreterManager;
+        this.manager = manager;
         this.font = new Font(Font.MONOSPACED, Font.PLAIN, 12);
     }
     
@@ -55,7 +57,7 @@ public class CommandShowStandard extends Command implements WindowListener {
             this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             this.frame.setVisible(true);
             
-            this.textArea = new JTextArea(this.interpreterManager.getStandardLibraryCode());
+            this.textArea = new JTextArea(this.manager.getStandardLibraryCode());
             this.textArea.setName(GUIComponentID.FRAME_SHOW_STD_TEXTAREA.toString());
             this.textArea.setEditable(false);
             this.textArea.setLineWrap(false);

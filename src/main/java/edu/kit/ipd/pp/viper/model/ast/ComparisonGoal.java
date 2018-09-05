@@ -29,6 +29,8 @@ public abstract class ComparisonGoal extends Goal {
      * @param rhs right hand side of this comparison
      */
     public ComparisonGoal(String symbol, String htmlSymbol, Term lhs, Term rhs) {
+        super();
+
         this.symbol = symbol;
         this.htmlSymbol = htmlSymbol;
         this.lhs = lhs;

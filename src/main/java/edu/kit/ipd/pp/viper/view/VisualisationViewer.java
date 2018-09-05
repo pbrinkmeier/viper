@@ -95,8 +95,9 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
-        if (this.navigationEnabled)
+        if (this.navigationEnabled) {
             this.zoom(event.getPreciseWheelRotation() > 0.0 ? ZoomType.ZOOM_OUT : ZoomType.ZOOM_IN);
+        }
     }
 
     /**
@@ -129,6 +130,24 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Clears the displayed SVG
+     */
+    public void clear() {
+        try {
+            this.setURI(null);            
+        } catch (NullPointerException e) {
+            ConsolePanel panel = this.main.getConsolePanel();
+            if (panel != null) {
+                panel.printLine("Failed to clear visualisation. This should only happen during testing as"
+                        + "a result of bad threading in Batik", LogType.DEBUG);
+            }
+        }
+    }
+
+    /**
+>>>>>>> qa: Resolve CheckStyle issues due to new rule
      * Sets the displayed Graph. A previously shown graph will be cleared.
      * 
      * @param graph The graph to show
@@ -148,11 +167,13 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
         try {
             Graphviz.fromGraph(graph).render(Format.SVG).toFile(tmpFile);
 
-            if (console != null)           
+            if (console != null) {
                 this.main.getConsolePanel().printLine("Saved graph to " + path, LogType.DEBUG);
+            }
         } catch (IOException e) {
-            if (console != null)
+            if (console != null) {
                 this.main.getConsolePanel().printLine("Couldn't save graph to " + path, LogType.DEBUG);
+            }
             return;
         }
 
@@ -169,8 +190,9 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
 
         try {
             dir = System.getProperty("java.io.tmpdir");
-            if (dir == null)
+            if (dir == null) {
                 dir = "";
+            }
         } catch (SecurityException e) {
             return "";
         }

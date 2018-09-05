@@ -13,6 +13,8 @@ public final class Variable extends Term {
      * @param name the variables name
      */
     public Variable(String name) {
+        super();
+
         this.name = name;
         this.index = Optional.empty();
     }
@@ -24,6 +26,8 @@ public final class Variable extends Term {
      * @param index the variables index
      */
     public Variable(String name, Integer index) {
+        super();
+
         this.name = name;
         this.index = Optional.of(Integer.valueOf(index));
     }

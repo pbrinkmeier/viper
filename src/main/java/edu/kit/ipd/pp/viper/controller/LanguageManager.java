@@ -39,6 +39,8 @@ public final class LanguageManager extends Observable {
      * to the default if this fails.
      */
     private LanguageManager() {
+        super();
+
         Locale.setDefault(this.supportedLocales[0]);
         this.setLocale(Locale.getDefault());
     }
@@ -55,7 +57,7 @@ public final class LanguageManager extends Observable {
     public String getString(LanguageKey key) {
         try {
             return this.bundle.getString(key.getString());
-        } catch (NullPointerException | MissingResourceException | ClassCastException e) {
+        } catch (MissingResourceException | ClassCastException e) {
             // show empty string instead of an error message
             return "";
         }
@@ -68,8 +70,9 @@ public final class LanguageManager extends Observable {
      * @return Instance of this class
      */
     public static LanguageManager getInstance() {
-        if (LanguageManager.instance == null)
+        if (LanguageManager.instance == null) {
             LanguageManager.instance = new LanguageManager();
+        }
 
         return LanguageManager.instance;
     }
@@ -81,8 +84,9 @@ public final class LanguageManager extends Observable {
      * @param locale New locale to be used
      */
     public void setLocale(Locale locale) {
-        if (!Arrays.asList(this.supportedLocales).contains(locale))
+        if (!Arrays.asList(this.supportedLocales).contains(locale)) {
             return;
+        }
 
         LanguageManager.currentLocale = locale;
         this.bundle = ResourceBundle.getBundle("translations", locale);

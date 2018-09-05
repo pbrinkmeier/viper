@@ -12,37 +12,39 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command for parsing the entered Prolog code.
  */
 public class CommandParseQuery extends Command {
-    private ConsolePanel console;
-    private VisualisationPanel visualisation;
-    private Consumer<ClickableState> toggleStateFunc;
-    private InterpreterManager interpreterManager;
+    private final ConsolePanel console;
+    private final VisualisationPanel visualisation;
+    private final Consumer<ClickableState> toggleStateFunc;
+    private final InterpreterManager manager;
 
     /**
      * Initializes a new parse query command.
      * 
      * @param console Panel of the console area
      * @param visualisation Panel of the visualisation area
-     * @param interpreterManager Interpreter manager with a reference to the current
+     * @param manager Interpreter manager with a reference to the current
      *        interpreter
      * @param toggleStateFunc Consumer function that switches the state of clickable
      *        elements in the GUI
      */
     public CommandParseQuery(ConsolePanel console, VisualisationPanel visualisation,
-            InterpreterManager interpreterManager, Consumer<ClickableState> toggleStateFunc) {
+            InterpreterManager manager, Consumer<ClickableState> toggleStateFunc) {
+        super();
+
         this.console = console;
         this.visualisation = visualisation;
-        this.interpreterManager = interpreterManager;
+        this.manager = manager;
         this.toggleStateFunc = toggleStateFunc;
     }
 
     @Override
     public void execute() {
-        this.interpreterManager.cancel();
+        this.manager.cancel();
 
         LanguageManager langman = LanguageManager.getInstance();
         try {
-            this.interpreterManager.parseQuery(this.console.getInputFieldText());
-            this.visualisation.setFromGraph(this.interpreterManager.getCurrentVisualisation());
+            this.manager.parseQuery(this.console.getInputFieldText());
+            this.visualisation.setFromGraph(this.manager.getCurrentVisualisation());
             this.toggleStateFunc.accept(ClickableState.FIRST_STEP);
             this.console.clearInputField();
             this.console.printLine(langman.getString(LanguageKey.VISUALISATION_STARTED), LogType.INFO);

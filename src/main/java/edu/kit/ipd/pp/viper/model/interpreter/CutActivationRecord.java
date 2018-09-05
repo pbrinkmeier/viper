@@ -10,7 +10,7 @@ import java.util.Optional;
  * If it hasnt been visited, it always is fulfilled.
  */
 public class CutActivationRecord extends ActivationRecord {
-    private CutGoal goal;
+    private final CutGoal goal;
 
     /**
      * Initializes a cut activation record with an interpreter, an optional parent

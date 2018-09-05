@@ -52,7 +52,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     /**
      * Main window reference
      */
-    private MainWindow main;
+    private final MainWindow main;
 
     /**
      * Indicates whether the document has changed since the last parsing
@@ -77,7 +77,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     /**
      * The preferences manager coordinating the text size after a restart
      */
-    private PreferencesManager preferencesManager;
+    private final PreferencesManager preferencesManager;
     
     private CommandZoom zoomInCommand;
     private CommandZoom zoomOutCommand;
@@ -88,6 +88,8 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @param gui Main window reference
      */
     public EditorPanel(MainWindow gui) {
+        super();
+
         this.main = gui;
         this.preferencesManager = gui.getPreferencesManager();
         
@@ -255,10 +257,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
             ArrayList<File> copy = new ArrayList<File>(this.referenceList.size());
             int index = 0;
             for (int i = 0; i < this.referenceList.size(); i++) {
-                if (this.referenceList.get(i).equals(reference))
+                if (this.referenceList.get(i).equals(reference)) {
                     index = i;
-                else
+                } else {
                     copy.add(this.referenceList.get(i));
+                }
             }
 
             copy.add(this.referenceList.get(index));
@@ -283,9 +286,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * about changes to the actual text, therefore nothing happens here.
      */
     @Override
-    public void changedUpdate(DocumentEvent event) {
-        return;
-    }
+    public void changedUpdate(DocumentEvent event) { }
 
     /**
      * Called when a portion of text was inserted into the text area.
@@ -309,10 +310,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @param type The direction to zoom in
      */
     public void zoom(ZoomType type) {
-        if (type == ZoomType.ZOOM_IN)
+        if (type == ZoomType.ZOOM_IN) {
             this.increaseFont();
-        else
+        } else {
             this.decreaseFont();
+        }
     }
 
     /**
@@ -323,16 +325,18 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     }
     
     private void increaseFont() {
-        if (this.fontSize > FONT_MAX_SIZE)
+        if (this.fontSize > FONT_MAX_SIZE) {
             return;
+        }
 
         this.fontSize++;
         this.updateFont();
     }
 
     private void decreaseFont() {
-        if (this.fontSize < FONT_MIN_SIZE)
+        if (this.fontSize < FONT_MIN_SIZE) {
             return;
+        }
 
         this.fontSize--;
         this.updateFont();
@@ -357,8 +361,9 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
 
-        if (!event.isControlDown())
+        if (!event.isControlDown()) {
             return;
+        }
 
         switch (keyCode) {
         case KeyEvent.VK_PLUS: // plus key
@@ -382,9 +387,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @param e The issued event
      */
     @Override
-    public void keyTyped(KeyEvent e) {
-        return;
-    }
+    public void keyTyped(KeyEvent e) { }
 
     /**
      * Fire when a key was released, ignored here
@@ -392,9 +395,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @param e The issued event
      */
     @Override
-    public void keyReleased(KeyEvent e) {
-        return;
-    }
+    public void keyReleased(KeyEvent e) { }
 
     /**
      * Fired when mouse was scrolled
@@ -404,10 +405,11 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
         if (event.isControlDown()) {
-            if (event.getPreciseWheelRotation() > 0.0)
+            if (event.getPreciseWheelRotation() > 0.0) {
                 this.zoomOutCommand.execute();
-            else
+            } else {
                 this.zoomInCommand.execute();
+            }
         }
         
         this.scrollPane.dispatchEvent(event);

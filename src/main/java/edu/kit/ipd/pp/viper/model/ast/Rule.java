@@ -49,24 +49,24 @@ public class Rule {
      */
     @Override
     public String toString() {
-        String repr = this.getHead().toString();
+        StringBuilder builder = new StringBuilder(this.getHead().toString());
         List<Goal> subgoals = this.getSubgoals();
 
-        if (subgoals.size() != 0) {
-            repr += " :-\n";
+        if (!subgoals.isEmpty()) {
+            builder.append(" :-\n");
 
             for (int index = 0; index < subgoals.size(); index++) {
-                repr += "  " + subgoals.get(index);
+                builder.append("  " + subgoals.get(index));
 
                 if (index != subgoals.size() - 1) {
-                    repr += ",\n";
+                    builder.append(",\n");
                 }
             }
         }
 
-        repr += ".";
+        builder.append(".");
 
-        return repr;
+        return builder.toString();
     }
     
     @Override

@@ -96,8 +96,8 @@ public class MainWindow extends JFrame {
     private final CommandZoom commandZoomTextOut;
     private final CommandShowManual commandShowManual;
 
-    private ToolBar toolbar;
-    private MenuBar menubar;
+    private final ToolBar toolbar;
+    private final MenuBar menubar;
 
     /**
      * Preferences manager instance
@@ -107,7 +107,7 @@ public class MainWindow extends JFrame {
     /**
      * Global instance of InterpreterManager
      */
-    private InterpreterManager manager;
+    private final InterpreterManager manager;
     
     /**
      * Global Window Title
@@ -253,10 +253,8 @@ public class MainWindow extends JFrame {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | UnsupportedLookAndFeelException e) {
-            if (MainWindow.inDebugMode())
-                e.printStackTrace();
-        }
+                | UnsupportedLookAndFeelException e) { }
+
     }
 
     /**
@@ -294,8 +292,9 @@ public class MainWindow extends JFrame {
                 public void run() {
                     boolean debugMode = false;
                     for (String a : args) {
-                        if (a.equals("--debug"))
+                        if (a.equals("--debug")) {
                             debugMode = true;
+                        }
                     }
 
                     new MainWindow(debugMode);
@@ -323,10 +322,11 @@ public class MainWindow extends JFrame {
      * @param title String to display, using "" or null removes the title
      */
     private void changeWindowTitle(String title) {
-        if (title == null || title.equals(""))
+        if (title == null || title.equals("")) {
             this.setTitle(MainWindow.WINDOW_TITLE);
-        else
+        } else {
             this.setTitle(title + " - " + WINDOW_TITLE);
+        }
     }
     
     /** 
@@ -336,8 +336,9 @@ public class MainWindow extends JFrame {
      */
     public void setAppendAsterixToTitle(boolean asterix) {
         if (asterix) {
-            if (!(this.windowTitle == null || this.windowTitle.equals("")))
-                this.changeWindowTitle(this.windowTitle + "*"); 
+            if (!(this.windowTitle == null || this.windowTitle.equals(""))) {
+                this.changeWindowTitle(this.windowTitle + "*");
+            }
         } else {
            this.changeWindowTitle(this.windowTitle);
         }

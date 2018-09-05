@@ -274,8 +274,9 @@ public class MenuBar extends JMenuBar implements HasClickable {
                             this.main.getInterpreterManager(), this.main.getPreferencesManager()));
             languageGroup.add(item);
 
-            if (locale.getLanguage().equals(configLocale.getLanguage()))
+            if (locale.getLanguage().equals(configLocale.getLanguage())) {
                 item.setSelected(true);
+            }
 
             languageMenu.add(item);
         }

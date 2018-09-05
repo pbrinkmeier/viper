@@ -16,6 +16,8 @@ public class NumberUnifier extends Unifier {
      * @param number number to unify
      */
     public NumberUnifier(Number number) {
+        super();
+
         this.number = number;
     }
 

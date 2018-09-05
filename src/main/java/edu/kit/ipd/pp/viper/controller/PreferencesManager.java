@@ -181,8 +181,9 @@ public class PreferencesManager {
      * @param references the references to be set
      */
     public void setFileReferences(List<File> references) {
-        for (int i = 0; i < references.size(); i++)
+        for (int i = 0; i < references.size(); i++) {
             this.writeProperty("recentlyUsedFile" + i, references.get(i).getAbsolutePath());
+        }
     }
 
     /**
@@ -197,8 +198,9 @@ public class PreferencesManager {
             final String path = this.properties.getProperty("recentlyUsedFile" + i);
             if (path != null) {
                 File f = new File(path);
-                if (f.exists() && f.isFile() && !list.contains(f))
+                if (f.exists() && f.isFile() && !list.contains(f)) {
                     list.add(f);
+                }
             }
         }
 
@@ -222,9 +224,10 @@ public class PreferencesManager {
     public int getTextSize() {
         String val = this.properties.getProperty(PreferencesManager.KEY_TEXTSIZE);
         
-        if (val == null)
+        if (val == null) {
             return PreferencesManager.DEFAULT_TEXT_SIZE;
-        else
+        } else {
             return Integer.parseInt(val);
+        }
     }
 }

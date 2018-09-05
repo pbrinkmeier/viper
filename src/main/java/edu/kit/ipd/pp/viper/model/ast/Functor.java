@@ -36,6 +36,8 @@ public class Functor extends Term {
      * @param parameters parameters of the functor
      */
     public Functor(String name, List<Term> parameters) {
+        super();
+
         this.name = name;
         this.parameters = Collections.unmodifiableList(parameters);
     }
@@ -132,15 +134,15 @@ public class Functor extends Term {
                     .orElse(String.format("[%s | %s]", this.parameters.get(0), this.parameters.get(1)));
         }
 
-        String repr = this.name;
+        StringBuilder builder = new StringBuilder(this.name);
 
         if (this.getArity() > 0) {
-            repr += "(";
-            repr += this.parameters.stream().map(parameter -> parameter.toString()).collect(joining(", "));
-            repr += ")";
+            builder.append("(");
+            builder.append(this.parameters.stream().map(parameter -> parameter.toString()).collect(joining(", ")));
+            builder.append(")");
         }
 
-        return repr;
+        return builder.toString();
     }
 
     /**
@@ -162,17 +164,15 @@ public class Functor extends Term {
                     String.format("[%s &#124; %s]", this.parameters.get(0).toHtml(), this.parameters.get(1).toHtml()));
         }
 
-        String repr = this.getName();
+        StringBuilder builder = new StringBuilder(this.getName());
 
         if (this.getArity() > 0) {
-            repr += "(";
-
-            repr += this.getParameters().stream().map(parameter -> parameter.toHtml()).collect(joining(", "));
-
-            repr += ")";
+            builder.append("(");
+            builder.append(this.getParameters().stream().map(parameter -> parameter.toHtml()).collect(joining(", ")));
+            builder.append(")");
         }
 
-        return repr;
+        return builder.toString();
     }
     
     @Override

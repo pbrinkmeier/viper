@@ -80,15 +80,15 @@ public abstract class ActivationRecord {
      * any AR that needs to apply previous substitutions, which is basically all of
      * them.
      *
-     * @param t term to apply substitutions in
-     * @return t but with all previous substitutions applied
+     * @param term term to apply substitutions in
+     * @return term but with all previous substitutions applied
      */
-    protected Term applyPreviousSubstitutions(Term t) {
+    protected Term applyPreviousSubstitutions(Term term) {
         if (this.getPrevious().isPresent()) {
-            return this.getPrevious().get().getEnvironment().applyAllSubstitutions(t);
+            return this.getPrevious().get().getEnvironment().applyAllSubstitutions(term);
         }
 
-        return t;
+        return term;
     }
 
     /**

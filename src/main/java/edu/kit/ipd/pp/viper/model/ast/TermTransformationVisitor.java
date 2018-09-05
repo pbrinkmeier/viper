@@ -1,5 +1,8 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+/**
+ * Visitor to transform terms
+ */
 public interface TermTransformationVisitor {
     /**
      * How to transform a functor.

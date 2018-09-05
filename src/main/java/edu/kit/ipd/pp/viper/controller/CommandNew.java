@@ -12,6 +12,9 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * removes any reference to previously saved files.
  */
 public class CommandNew extends Command {
+    private static final int OPTION_SAVE_YES    = 0;
+    private static final int OPTION_SAVE_CANCEL = 2;
+
     private ConsolePanel console;
     private EditorPanel editor;
     private VisualisationPanel visualisation;
@@ -72,13 +75,13 @@ public class CommandNew extends Command {
             LanguageManager langman = LanguageManager.getInstance();
             final String message = langman.getString(LanguageKey.CONFIRMATION);
             final String title = langman.getString(LanguageKey.CONFIRMATION_NEW_TITLE);
-            final int rv = this.optionPane.showOptionDialog(message, title);
+            final int option = this.optionPane.showOptionDialog(message, title);
 
-            if (rv == 0) {
+            if (option == OPTION_SAVE_YES) {
                 this.commandSave.execute();
             }
 
-            if (rv != 2) {
+            if (option != OPTION_SAVE_CANCEL) {
                 this.clear();
             }
         } else {

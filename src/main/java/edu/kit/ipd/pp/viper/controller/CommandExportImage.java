@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 
@@ -14,10 +13,10 @@ import guru.nidi.graphviz.engine.Graphviz;
  * SVG).
  */
 public class CommandExportImage extends Command {
-    private ConsolePanel console;
-    private ImageFormat format;
-    private InterpreterManager interpreterManager;
-    private FileChooser fileChooser;
+    private final ConsolePanel console;
+    private final ImageFormat format;
+    private final InterpreterManager interpreterManager;
+    private final FileChooser fileChooser;
 
     /**
      * Initializes a new image export command.
@@ -112,9 +111,5 @@ public class CommandExportImage extends Command {
     public void printExportError(IOException e, String filePath) {
         String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
         this.console.printLine(msg + ": " + filePath, LogType.ERROR);
-
-        if (MainWindow.inDebugMode()) {
-            e.printStackTrace();
-        }
     }
 }

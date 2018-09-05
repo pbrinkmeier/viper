@@ -50,8 +50,8 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      */
     private int zoomLevel = VisualisationPanel.DEFAULT_ZOOM_LEVEL;
     
-    private ToolBarButton zoomIn;
-    private ToolBarButton zoomOut;
+    private final ToolBarButton zoomIn;
+    private final ToolBarButton zoomOut;
     
     /**
      * Main window
@@ -168,10 +168,12 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     public void zoom(ZoomType direction) {
         if (!this.showsPlaceholder) {
             this.viewer.zoom(direction);
-            if (direction == ZoomType.ZOOM_IN)
+
+            if (direction == ZoomType.ZOOM_IN) {
                 this.zoomLevel++;
-            else if (direction == ZoomType.ZOOM_OUT)
+            } else if (direction == ZoomType.ZOOM_OUT) {
                 this.zoomLevel--;
+            }
         }
     }
     
@@ -189,8 +191,9 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
      * @param graph The graph to show
      */
     public void setFromGraph(Graph graph) {
-        if (graph == null)
+        if (graph == null) {
             return;
+        }
 
         this.viewer.setFromGraph(graph);
         this.showsPlaceholder = graph == this.placeholderGraph;
@@ -220,27 +223,22 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     }
 
     @Override
-    public void componentHidden(ComponentEvent arg0) {
-        return;
-    }
+    public void componentHidden(ComponentEvent arg0) { }
 
     @Override
-    public void componentMoved(ComponentEvent arg0) {
-        return;
-    }
+    public void componentMoved(ComponentEvent arg0) { }
 
     @Override
-    public void componentShown(ComponentEvent e) {
-        return;
-    }
+    public void componentShown(ComponentEvent e) { }
 
     @Override
     public void switchClickableState(ClickableState state) {
         switch (state) {
         case NOT_PARSED_YET:
         case PARSED_PROGRAM:
-            if (this.placeholderGraph == null)
+            if (this.placeholderGraph == null) {
                 this.buildPlaceholderGraph();
+            }
             
             this.setFromGraph(this.placeholderGraph);
             this.viewer.disableNavigation();

@@ -6,7 +6,6 @@ import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 
 /**
  * Command for formatting the editor content to a standardized format.
@@ -22,6 +21,8 @@ public class CommandFormat extends Command {
      * @param editor Panel of the visualisation area
      */
     public CommandFormat(ConsolePanel console, EditorPanel editor) {
+        super();
+
         this.console = console;
         this.editor = editor;
     }
@@ -37,25 +38,26 @@ public class CommandFormat extends Command {
             this.console.printLine(
                     LanguageManager.getInstance().getString(LanguageKey.PARSER_ERROR) + "\n" + e.getMessage(),
                     LogType.ERROR);
-            if (MainWindow.inDebugMode()) {
-                e.printStackTrace();
-            }
         }
 
-        if (kb == null)
+        if (kb == null) {
             return;
+        }
 
         final String newSource = kb.toString();
         if (!source.equals(newSource)) {
-            // prevent locking the input fields for changed text but still inform the editor the text changed.
+            // prevent locking the input fields for changed text but still
+            // inform the editor the text changed.
             this.editor.setIsFormattingProcess(true);
             this.editor.setSourceText(newSource);
             this.editor.setIsFormattingProcess(false);
             this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.EDITOR_FORMATTED), LogType.INFO);
-        } else {
-            if (!source.equals(""))
-                this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.EDITOR_ALREADY_FORMATTED),
-                        LogType.INFO);
+            return;
+        }
+
+        if (!source.equals("")) {
+            this.console.printLine(LanguageManager.getInstance().getString(LanguageKey.EDITOR_ALREADY_FORMATTED),
+                    LogType.INFO);
         }
     }
 }

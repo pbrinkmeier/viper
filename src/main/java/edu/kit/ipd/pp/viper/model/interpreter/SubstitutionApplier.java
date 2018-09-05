@@ -13,7 +13,7 @@ import java.util.List;
  * Visitor that applies a single substitution in a term.
  */
 public class SubstitutionApplier implements TermVisitor<Term> {
-    private Substitution substitution;
+    private final Substitution substitution;
 
     /**
      * Initializes a substitution applier with the substitution to apply.

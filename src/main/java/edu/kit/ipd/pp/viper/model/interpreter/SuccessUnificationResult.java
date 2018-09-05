@@ -15,6 +15,8 @@ class SuccessUnificationResult extends UnificationResult {
      * @param substitutions substitutions that were a result of an unification
      */
     public SuccessUnificationResult(List<Substitution> substitutions) {
+        super();
+
         this.substitutions = substitutions;
     }
 
@@ -35,17 +37,17 @@ class SuccessUnificationResult extends UnificationResult {
 
     @Override
     public String toHtml() {
-        String repr = "";
+        StringBuilder builder = new StringBuilder();
 
         for (int index = 0; index < this.substitutions.size(); index++) {
-            repr += String.format("%s &#x21d2; %s", this.substitutions.get(index).getReplace().toHtml(),
-                    this.substitutions.get(index).getBy().toHtml());
+            builder.append(String.format("%s &#x21d2; %s", this.substitutions.get(index).getReplace().toHtml(),
+                    this.substitutions.get(index).getBy().toHtml()));
 
             if (index != this.substitutions.size() - 1) {
-                repr += ", ";
+                builder.append(", ");
             }
         }
 
-        return repr;
+        return builder.toString();
     }
 }

@@ -37,8 +37,8 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      */
     private final HintedTextField textField;
 
-    private Button buttonSend;
-    private List<String> history;
+    private final Button buttonSend;
+    private final List<String> history;
     private int historyPos;
 
     /**
@@ -212,9 +212,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      * @param e The issued event
      */
     @Override
-    public void keyTyped(KeyEvent e) {
-        return;
-    }
+    public void keyTyped(KeyEvent e) { }
 
     /**
      * Fire when a key was released, ignored here
@@ -222,9 +220,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      * @param e The issued event
      */
     @Override
-    public void keyReleased(KeyEvent e) {
-        return;
-    }
+    public void keyReleased(KeyEvent e) { }
     
     private class HintedTextField extends JTextField implements FocusListener, Observer {
         private static final long serialVersionUID = 1805984011473862039L;
@@ -233,6 +229,8 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         private final LanguageKey hint;
         
         public HintedTextField(LanguageKey hint) {
+            super();
+
             this.hint = hint;
             this.hintText = "";
             this.addFocusListener(this);
@@ -242,8 +240,9 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         @Override
         public void focusGained(FocusEvent e) {
             this.setForeground(ColorScheme.CONSOLE_BLACK);
-            if (this.getText().equals(this.hintText))
+            if (this.getText().equals(this.hintText)) {
                 this.setText("");
+            }
         }
 
         @Override

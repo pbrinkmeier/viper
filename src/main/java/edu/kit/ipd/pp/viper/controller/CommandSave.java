@@ -8,18 +8,17 @@ import java.util.function.Consumer;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 
 /**
  * Command for saving the editor content to disk as a Prolog file.
  */
 public class CommandSave extends Command {
-    private ConsolePanel console;
-    private EditorPanel editor;
-    private SaveType saveType;
-    private Consumer<String> setTitle;
-    private InterpreterManager interpreterManager;
-    private FileChooser fileChooser;
+    private final ConsolePanel console;
+    private final EditorPanel editor;
+    private final SaveType saveType;
+    private final Consumer<String> setTitle;
+    private final InterpreterManager manager;
+    private final FileChooser fileChooser;
 
     /**
      * Initializes a new save command.
@@ -51,16 +50,16 @@ public class CommandSave extends Command {
         this.editor = editor;
         this.saveType = saveType;
         this.setTitle = setTitle;
-        this.interpreterManager = manager;
+        this.manager = manager;
         this.fileChooser = fileChooser;
     }
     
     @Override
     public void execute() {
-        if (this.saveType == SaveType.SAVE && this.editor.hasFileReference())
+        if (this.saveType == SaveType.SAVE && this.editor.hasFileReference()) {
             this.save();
-        else {
-            this.interpreterManager.cancel();
+        } else {
+            this.manager.cancel();
             this.saveAs();
         }
     }
@@ -75,10 +74,6 @@ public class CommandSave extends Command {
     public void printSaveError(IOException e, String filePath) {
         String err = LanguageManager.getInstance().getString(LanguageKey.SAVE_FILE_ERROR);
         this.console.printLine(err + ": " + filePath, LogType.ERROR);
-
-        if (MainWindow.inDebugMode()) {
-            e.printStackTrace();
-        }
     }
 
     /**

@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Represents a cut goal in an AST.
+ */
 public class CutGoal extends Goal {
     @Override
     public List<Variable> getVariables() {

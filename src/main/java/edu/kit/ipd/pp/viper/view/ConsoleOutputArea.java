@@ -3,6 +3,7 @@ package edu.kit.ipd.pp.viper.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.JTextPane;
@@ -32,10 +33,10 @@ public class ConsoleOutputArea extends JTextPane {
     private static final int FONT_MIN_SIZE = 10;
     private static final int FONT_MAX_SIZE = 40;
 
-    private Semaphore mutex = new Semaphore(1);
+    private final Semaphore mutex = new Semaphore(1);
     
     private int fontSize;
-    private ArrayList<HistoryEntry> history;
+    private final List<HistoryEntry> history;
     
     /**
      * The preferences manager coordinating the text size after a restart
@@ -119,8 +120,9 @@ public class ConsoleOutputArea extends JTextPane {
                 color = ColorScheme.CONSOLE_RED;
                 break;
             case DEBUG:
-                if (!MainWindow.inDebugMode())
+                if (!MainWindow.inDebugMode()) {
                     continue;
+                }
                 color = ColorScheme.CONSOLE_GRAY;
                 break;
             case INFO:
@@ -147,8 +149,9 @@ public class ConsoleOutputArea extends JTextPane {
      * Increases the font size
      */
     public void increaseFont() {
-        if (this.fontSize > FONT_MAX_SIZE)
+        if (this.fontSize > FONT_MAX_SIZE) {
             return;
+        }
 
         this.acquireMutex();
         
@@ -163,8 +166,9 @@ public class ConsoleOutputArea extends JTextPane {
      * Decreases the font size
      */
     public void decreaseFont() {
-        if (this.fontSize < FONT_MIN_SIZE)
+        if (this.fontSize < FONT_MIN_SIZE) {
             return;
+        }
         
         this.acquireMutex();
 
@@ -191,10 +195,7 @@ public class ConsoleOutputArea extends JTextPane {
     private void acquireMutex() {
         try {
             this.mutex.acquire();
-        } catch (InterruptedException e) {
-            if (MainWindow.inDebugMode())
-                e.printStackTrace();        
-        }
+        } catch (InterruptedException e) { }
     }
     
     private void releaseMutex() {

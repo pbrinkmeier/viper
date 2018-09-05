@@ -8,9 +8,9 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * Command for resetting the zoom on all zoomable elements.
  */
 public class CommandResetZoom extends Command {
-    private VisualisationPanel visualisation;
-    private ConsolePanel console;
-    private EditorPanel editor;
+    private final VisualisationPanel visualisation;
+    private final ConsolePanel console;
+    private final EditorPanel editor;
 
     /**
      * Initializes a new reset zoom command.
@@ -20,6 +20,8 @@ public class CommandResetZoom extends Command {
      * @param editor Panel of the editor area
      */
     public CommandResetZoom(VisualisationPanel visualisation, ConsolePanel console, EditorPanel editor) {
+        super();
+
         this.visualisation = visualisation;
         this.console = console;
         this.editor = editor;

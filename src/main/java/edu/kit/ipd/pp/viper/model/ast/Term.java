@@ -1,5 +1,8 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+/**
+ * Represents a term in an AST.
+ */
 public abstract class Term {
     /**
      * Interface for TermVisitors.

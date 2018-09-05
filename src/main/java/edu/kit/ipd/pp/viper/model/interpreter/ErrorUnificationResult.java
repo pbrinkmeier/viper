@@ -16,6 +16,8 @@ public class ErrorUnificationResult extends UnificationResult {
      * @param message error message
      */
     public ErrorUnificationResult(String message) {
+        super();
+
         this.errorMessage = message;
     }
 

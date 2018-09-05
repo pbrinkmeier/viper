@@ -10,7 +10,6 @@ import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
 import edu.kit.ipd.pp.viper.view.LogType;
-import edu.kit.ipd.pp.viper.view.MainWindow;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 
 /**
@@ -19,14 +18,17 @@ import edu.kit.ipd.pp.viper.view.VisualisationPanel;
  * file.
  */
 public class CommandOpen extends Command {
+    private static final int OPTION_SAVE_YES    = 0;
+    private static final int OPTION_SAVE_CANCEL = 2;
+
     private final String path;
-    private ConsolePanel console;
-    private EditorPanel editor;
-    private VisualisationPanel visualisation;
-    private Consumer<ClickableState> toggleStateFunc;
-    private Consumer<String> setTitle;
-    private CommandSave commandSave;
-    private InterpreterManager interpreterManager;
+    private final ConsolePanel console;
+    private final EditorPanel editor;
+    private final VisualisationPanel visualisation;
+    private final Consumer<ClickableState> toggleStateFunc;
+    private final Consumer<String> setTitle;
+    private final CommandSave commandSave;
+    private final InterpreterManager manager;
     
     private OptionPane optionPane;
     private FileChooser fileChooser;
@@ -78,7 +80,7 @@ public class CommandOpen extends Command {
         this.toggleStateFunc = toggleStateFunc;
         this.setTitle = setTitle;
         this.commandSave = commandSave;
-        this.interpreterManager = manager;
+        this.manager = manager;
         this.optionPane = optionPane;
         this.fileChooser = fileChooser;
     }
@@ -131,7 +133,7 @@ public class CommandOpen extends Command {
         this.toggleStateFunc = toggleStateFunc;
         this.setTitle = setTitle;
         this.commandSave = commandSave;
-        this.interpreterManager = manager;
+        this.manager = manager;
         this.optionPane = optionPane;
         this.fileChooser = new DefaultFileChooser();
     }
@@ -164,10 +166,6 @@ public class CommandOpen extends Command {
     public void printOpenError(IOException e, String filePath) {
         String err = LanguageManager.getInstance().getString(LanguageKey.OPEN_FILE_ERROR);
         this.console.printLine(err + ": " + filePath, LogType.ERROR);
-
-        if (MainWindow.inDebugMode()) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -194,12 +192,12 @@ public class CommandOpen extends Command {
         LanguageManager langman = LanguageManager.getInstance();
         final String message = langman.getString(LanguageKey.CONFIRMATION);
         final String title = langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE);
-        final int rv = this.optionPane.showOptionDialog(message, title);
+        final int option = this.optionPane.showOptionDialog(message, title);
 
-        if (rv == 0) {
+        if (option == OPTION_SAVE_YES) {
             this.commandSave.execute();
         }
-        if (rv == 2) {
+        if (option == OPTION_SAVE_CANCEL) {
             return true;
         }
         
@@ -211,29 +209,34 @@ public class CommandOpen extends Command {
 
         if (f != null) {
             boolean cancelled = false;
-            if (this.editor.hasChanged())
+            if (this.editor.hasChanged()) {
                 cancelled = this.handleUnsavedChanges();
+            }
             
-            if (!cancelled)
+            if (!cancelled) {
                 this.updateUI(f);
+            }
         }
     }
 
     private void openDirectly() {
         boolean cancelled = false;
-        if (this.editor.hasChanged())
+        if (this.editor.hasChanged()) {
             cancelled = this.handleUnsavedChanges();
+        }
 
-        if (!cancelled)
+        if (!cancelled) {
             this.updateUI(new File(this.path));
+        }
     }
 
     @Override
     public void execute() {
-        this.interpreterManager.cancel();
-        if (this.path.isEmpty())
+        this.manager.cancel();
+        if (this.path.isEmpty()) {
             this.openByDialog();
-        else
+        } else {
             this.openDirectly();
+        }
     }
 }

@@ -28,9 +28,9 @@ public class FileFilters {
     private static FileFilter createFilter(LanguageKey key, String extension) {
         return new FileFilter() {
             @Override
-            public boolean accept(File f) {
-                boolean isDir = f.isDirectory();
-                boolean hasValidExtension = FilenameUtils.getExtension(f.getName()).toLowerCase().equals(extension);
+            public boolean accept(File file) {
+                boolean isDir = file.isDirectory();
+                boolean hasValidExtension = FilenameUtils.getExtension(file.getName()).toLowerCase().equals(extension);
                 return isDir || hasValidExtension;
             }
 

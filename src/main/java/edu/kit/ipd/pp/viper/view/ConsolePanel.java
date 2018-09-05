@@ -26,22 +26,22 @@ public class ConsolePanel extends JPanel implements HasClickable {
     /**
      * Main window reference
      */
-    private MainWindow main;
+    private final MainWindow main;
 
     /**
      * Scroll pane
      */
-    private JScrollPane scrollPane;
+    private final JScrollPane scrollPane;
 
     /**
      * Console panel
      */
-    private ConsoleOutputArea outputArea;
+    private final ConsoleOutputArea outputArea;
 
     /**
      * Input field panel
      */
-    private ConsoleInputField inputField;
+    private final ConsoleInputField inputField;
     private boolean inputLocked;
 
     /**
@@ -186,10 +186,11 @@ public class ConsolePanel extends JPanel implements HasClickable {
      * @param type The direction to zoom in
      */
     public void zoomOutputArea(ZoomType type) {
-        if (type == ZoomType.ZOOM_IN)
+        if (type == ZoomType.ZOOM_IN) {
             this.outputArea.increaseFont();
-        else
+        } else {
             this.outputArea.decreaseFont();
+        }
     }
     
     /**
