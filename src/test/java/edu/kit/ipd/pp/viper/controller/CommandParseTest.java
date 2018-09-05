@@ -48,4 +48,20 @@ public class CommandParseTest extends ControllerTest {
         assertTrue(this.gui.getEditorPanel().getSourceText().equals(SharedTestConstants.SIMPSONS_FORMATTED));
         assertFalse(this.gui.getConsolePanel().hasLockedInput());
     }
+    
+    /**
+     * Tests parsing source code that conflicts with the standard library.
+     */
+    @Test
+    public void conflictingTest() {
+        if (!this.gui.getInterpreterManager().isStandardEnabled())
+            this.gui.getInterpreterManager().toggleStandardLibrary();
+        
+        this.gui.getVisualisationPanel().clearVisualization();
+        this.gui.getEditorPanel().setSourceText(SharedTestConstants.CONFLICTING_STD_RULE);
+        this.gui.getConsolePanel().clearAll();
+        this.gui.getCommandParse().execute();
+        
+        assertFalse(this.gui.getConsolePanel().getOutputAreaText().isEmpty());
+    }
 }

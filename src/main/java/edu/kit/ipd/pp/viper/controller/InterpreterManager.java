@@ -258,7 +258,7 @@ public class InterpreterManager {
      * @param console The console panel of the gui
      * @param visualisation The visualisation panel of the gui
      */
-    private void assignNextSolutionThread(ConsolePanel console, VisualisationPanel visualisation) {
+    public void assignNextSolutionThread(ConsolePanel console, VisualisationPanel visualisation) {
         if (this.continueThread.isPresent()) {
             this.setThreadRunning(false);
             return;
@@ -290,6 +290,20 @@ public class InterpreterManager {
         }));
 
         this.continueThread.get().start();
+    }
+
+    /**
+     * Waits for the thread to die. This is used for testing the continue and
+     * finish query functionalities.
+     */
+    public void waitForThread() {
+        if (this.continueThread.isPresent()) {
+            try {
+                this.continueThread.get().join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }            
+        }
     }
 
     /**

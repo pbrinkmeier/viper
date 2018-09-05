@@ -3,8 +3,6 @@ package edu.kit.ipd.pp.viper.controller;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JFileChooser;
-
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
 import edu.kit.ipd.pp.viper.view.MainWindow;
@@ -19,6 +17,7 @@ public class CommandExportImage extends Command {
     private ConsolePanel console;
     private ImageFormat format;
     private InterpreterManager interpreterManager;
+    private FileChooser fileChooser;
 
     /**
      * Initializes a new image export command.
@@ -29,46 +28,55 @@ public class CommandExportImage extends Command {
      *        interpreter
      */
     public CommandExportImage(ConsolePanel console, ImageFormat format, InterpreterManager interpreterManager) {
+        this(console, format, interpreterManager, new DefaultFileChooser());
+    }
+
+    /**
+     * Initializes a new image export command. With this one, the file chooser dialog shown can be chosen.
+     * 
+     * @param console Panel of the console area
+     * @param format Format of the image to be saved
+     * @param interpreterManager Interpreter manager with a reference to the current
+     *        interpreter
+     * @param fileChooser The file chooser to be used
+     */
+    public CommandExportImage(ConsolePanel console, ImageFormat format, InterpreterManager interpreterManager,
+            FileChooser fileChooser) {
         this.console = console;
         this.format = format;
         this.interpreterManager = interpreterManager;
+        this.fileChooser = fileChooser;
     }
-
+    
     @Override
     public void execute() {
         this.interpreterManager.cancel();
 
-        JFileChooser chooser = new JFileChooser();
-
-        if (this.format == ImageFormat.PNG) {
-            chooser.setFileFilter(FileFilters.PNG_FILTER);
-        } else if (this.format == ImageFormat.SVG) {
-            chooser.setFileFilter(FileFilters.SVG_FILTER);
-        }
-
-        int rv = chooser.showSaveDialog(null);
-        if (rv == JFileChooser.APPROVE_OPTION) {
-            switch (this.format) {
+        File f = null;
+        switch (this.format) {
             case SVG:
-                this.exportSVG(chooser.getSelectedFile());
+                f = this.fileChooser.showSaveDialog(FileFilters.SVG_FILTER);
                 break;
             case PNG:
-                this.exportPNG(chooser.getSelectedFile());
-                break;
             default:
-                String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_UNSUPPORTED_FORMAT);
-                this.console.printLine(msg, LogType.ERROR);
+                f = this.fileChooser.showSaveDialog(FileFilters.PNG_FILTER);
+                break;
+        }
+
+        if (f != null) {
+            switch (this.format) {
+            case SVG:
+                this.exportSVG(f);
+                break;
+            case PNG:
+            default:
+                this.exportPNG(f);
+                break;
             }
         }
     }
 
-    /**
-     * SVG export routine. This should only be used internally, but is public for
-     * testing purposes.
-     * 
-     * @param f file to export the SVG graph to
-     */
-    public void exportSVG(File f) {
+    private void exportSVG(File f) {
         Graphviz viz = Graphviz.fromGraph(this.interpreterManager.getCurrentVisualisation());
 
         File file = FileUtilities.checkForMissingExtension(f, ".svg");
@@ -77,22 +85,11 @@ public class CommandExportImage extends Command {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
             this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
         } catch (IOException e) {
-            String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-            this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.ERROR);
-
-            if (MainWindow.inDebugMode()) {
-                e.printStackTrace();
-            }
+            this.printExportError(e, file.getAbsolutePath());
         }
     }
 
-    /**
-     * PNG export routine. This should only be used internally, but is public for
-     * testing purposes.
-     * 
-     * @param f file to export the PNG graph to
-     */
-    public void exportPNG(File f) {
+    private void exportPNG(File f) {
         Graphviz viz = Graphviz.fromGraph(this.interpreterManager.getCurrentVisualisation());
 
         File file = FileUtilities.checkForMissingExtension(f, ".png");
@@ -101,12 +98,23 @@ public class CommandExportImage extends Command {
             String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_SUCCESS);
             this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.INFO);
         } catch (IOException e) {
-            String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
-            this.console.printLine(msg + ": " + file.getAbsolutePath(), LogType.ERROR);
+            this.printExportError(e, file.getAbsolutePath());
+        }
+    }
+    
+    /**
+     * Export error printing routine. This should only be called internally, but it's
+     * public for testing purposes.
+     * 
+     * @param e IOException caused by failing to write to disk
+     * @param filePath the path of the file that caused the exception
+     */
+    public void printExportError(IOException e, String filePath) {
+        String msg = LanguageManager.getInstance().getString(LanguageKey.EXPORT_FILE_ERROR);
+        this.console.printLine(msg + ": " + filePath, LogType.ERROR);
 
-            if (MainWindow.inDebugMode()) {
-                e.printStackTrace();
-            }
+        if (MainWindow.inDebugMode()) {
+            e.printStackTrace();
         }
     }
 }

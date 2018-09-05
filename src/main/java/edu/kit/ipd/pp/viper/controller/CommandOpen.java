@@ -6,9 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
 
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-
 import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.EditorPanel;
@@ -30,10 +27,13 @@ public class CommandOpen extends Command {
     private Consumer<String> setTitle;
     private CommandSave commandSave;
     private InterpreterManager interpreterManager;
+    
+    private OptionPane optionPane;
+    private FileChooser fileChooser;
 
     /**
      * Initializes a new open command. A command constructed this way selects the
-     * file using a dialog.
+     * file using a Java file chooser.
      * 
      * @param console Panel of the console area
      * @param editor Panel of the editor area
@@ -48,7 +48,39 @@ public class CommandOpen extends Command {
     public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
             InterpreterManager manager) {
-        this("", console, editor, visualisation, setTitle, toggleStateFunc, commandSave, manager);
+        this(console, editor, visualisation, setTitle, toggleStateFunc, commandSave, manager,
+                new DefaultOptionPane(), new DefaultFileChooser());
+    }
+    
+    /**
+     * Initializes a new open command. A command constructed this way selects the
+     * file using a custom dialog and a custom file chooser.
+     * 
+     * @param console Panel of the console area
+     * @param editor Panel of the editor area
+     * @param visualisation Panel of the visualisation area
+     * @param setTitle Consumer function that can change the window title
+     * @param toggleStateFunc Consumer function that switches the state of clickable
+     *        elements in the GUI
+     * @param commandSave Save command in case the currently opened program has been
+     *        changed
+     * @param manager The InterpreterManager instance
+     * @param optionPane The custom option pane to be used
+     * @param fileChooser The custom file chooser to be used
+     */
+    public CommandOpen(ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
+            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
+            InterpreterManager manager, OptionPane optionPane, FileChooser fileChooser) {
+        this.path = "";
+        this.console = console;
+        this.editor = editor;
+        this.visualisation = visualisation;
+        this.toggleStateFunc = toggleStateFunc;
+        this.setTitle = setTitle;
+        this.commandSave = commandSave;
+        this.interpreterManager = manager;
+        this.optionPane = optionPane;
+        this.fileChooser = fileChooser;
     }
 
     /**
@@ -69,6 +101,29 @@ public class CommandOpen extends Command {
     public CommandOpen(String path, ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
             Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
             InterpreterManager manager) {
+        this(path, console, editor, visualisation, setTitle, toggleStateFunc, commandSave, manager,
+                new DefaultOptionPane());
+    }
+
+    /**
+     * Initializes a new open command. A command constructed this way tries to open
+     * a file from a given path. This one uses a custom dialog for handling unsaved changes.
+     * 
+     * @param path The file path to read from
+     * @param console Panel of the console area
+     * @param editor Panel of the editor area
+     * @param visualisation Panel of the visualisation area
+     * @param setTitle Consumer function that can change the window title
+     * @param toggleStateFunc Consumer function that switches the state of clickable
+     *        elements in the GUI
+     * @param commandSave Save command in case the currently opened program has been
+     *        changed
+     * @param manager The InterpreterManager instance
+     * @param optionPane The custom option pane to be used
+     */
+    public CommandOpen(String path, ConsolePanel console, EditorPanel editor, VisualisationPanel visualisation,
+            Consumer<String> setTitle, Consumer<ClickableState> toggleStateFunc, CommandSave commandSave,
+            InterpreterManager manager, OptionPane optionPane) {
         this.path = path;
         this.console = console;
         this.editor = editor;
@@ -77,8 +132,10 @@ public class CommandOpen extends Command {
         this.setTitle = setTitle;
         this.commandSave = commandSave;
         this.interpreterManager = manager;
+        this.optionPane = optionPane;
+        this.fileChooser = new DefaultFileChooser();
     }
-
+    
     /**
      * File to String reading routine. This should only be called internally, but
      * it's public for testing purposes.
@@ -133,38 +190,42 @@ public class CommandOpen extends Command {
         this.setTitle.accept(file.getAbsolutePath());
     }
 
-    private void handleUnsavedChanges() {
+    private boolean handleUnsavedChanges() {
         LanguageManager langman = LanguageManager.getInstance();
-        Object options[] = {langman.getString(LanguageKey.DIALOG_YES), langman.getString(LanguageKey.DIALOG_NO),
-                langman.getString(LanguageKey.DIALOG_CANCEL)};
-        final int rv2 = JOptionPane.showOptionDialog(null, langman.getString(LanguageKey.CONFIRMATION),
-                langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE), JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+        final String message = langman.getString(LanguageKey.CONFIRMATION);
+        final String title = langman.getString(LanguageKey.CONFIRMATION_CLOSE_TITLE);
+        final int rv = this.optionPane.showOptionDialog(message, title);
 
-        if (rv2 == 0) {
+        if (rv == 0) {
             this.commandSave.execute();
         }
-        if (rv2 == 2) {
-            return;
+        if (rv == 2) {
+            return true;
         }
+        
+        return false;
     }
 
     private void openByDialog() {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileFilter(FileFilters.PL_FILTER);
-        int rv = chooser.showOpenDialog(null);
+        File f = this.fileChooser.showSaveDialog(FileFilters.PL_FILTER);
 
-        if (rv == JFileChooser.APPROVE_OPTION) {
+        if (f != null) {
+            boolean cancelled = false;
             if (this.editor.hasChanged())
-                this.handleUnsavedChanges();
-            this.updateUI(chooser.getSelectedFile());
+                cancelled = this.handleUnsavedChanges();
+            
+            if (!cancelled)
+                this.updateUI(f);
         }
     }
 
     private void openDirectly() {
+        boolean cancelled = false;
         if (this.editor.hasChanged())
-            this.handleUnsavedChanges();
-        this.updateUI(new File(this.path));
+            cancelled = this.handleUnsavedChanges();
+
+        if (!cancelled)
+            this.updateUI(new File(this.path));
     }
 
     @Override

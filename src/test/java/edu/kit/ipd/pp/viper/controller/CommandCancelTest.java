@@ -16,7 +16,7 @@ public class CommandCancelTest extends ControllerTest {
         this.gui.getConsolePanel().setInputFieldText("test(X).");
         new CommandParseQuery(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
                 this.gui.getInterpreterManager(), this.gui::switchClickableState).execute();
-        this.gui.getCommandContinue().execute();
+        this.gui.getCommandNextSolution().execute();
         this.gui.getCommandCancel().execute();
         
         assertFalse(this.gui.getInterpreterManager().isSearchingForSolutions());

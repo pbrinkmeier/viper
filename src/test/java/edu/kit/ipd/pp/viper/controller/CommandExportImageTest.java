@@ -1,64 +1,84 @@
 package edu.kit.ipd.pp.viper.controller;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.kit.ipd.pp.viper.model.parser.ParseException;
-
 public class CommandExportImageTest extends ControllerTest {
     /**
-     * Sets up a running Prolog program in the interpreter.
+     * Creates a query for export.
      */
     @Before
-    public void setupProgram() {
-        final String program = SharedTestConstants.SIMPSONS_FORMATTED;
-        final String query = SharedTestConstants.TEST_QUERY;
-        try {
-            this.gui.getInterpreterManager().parseKnowledgeBase(program);
-            this.gui.getInterpreterManager().parseQuery(query);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        this.gui.getInterpreterManager().nextSolution(this.gui.getConsolePanel(), this.gui.getVisualisationPanel());
+    public void setupQuery() {
+        this.gui.getCommandParse().execute();
+        this.gui.getConsolePanel().setInputFieldText("test(X).");
+        new CommandParseQuery(this.gui.getConsolePanel(), this.gui.getVisualisationPanel(),
+                this.gui.getInterpreterManager(), this.gui::switchClickableState).execute();
+    }
+    
+    /**
+     * Tests exporting the visualisation as a PNG file.
+     */
+    @Test
+    public void pngByDialogTest() {
+        File file = new File("test.png");
+        new CommandExportImage(this.gui.getConsolePanel(), ImageFormat.PNG, this.gui.getInterpreterManager(),
+                new PreselectionFileChooser(file)).execute();
+        
+        assertTrue(file.exists());
+        assertTrue(file.length() > 0);
+        
+        file.delete();
     }
 
     /**
-     * Tests the PNG export functionality of the command.
+     * Tests exporting the visualisation as a SVG file.
      */
     @Test
-    public void pngWithExtensionTest() {
+    public void svgByDialogTest() {
+        File file = new File("test.svg");
+        new CommandExportImage(this.gui.getConsolePanel(), ImageFormat.SVG, this.gui.getInterpreterManager(),
+                new PreselectionFileChooser(file)).execute();
+        
+        assertTrue(file.exists());
+        assertTrue(file.length() > 0);
+        
+        file.delete();        
+    }
+    
+    /**
+     * Tests exporting a null file.
+     */
+    @Test
+    public void nullFileTest() {
+        new CommandExportImage(this.gui.getConsolePanel(), ImageFormat.SVG, this.gui.getInterpreterManager(),
+                new PreselectionFileChooser(null)).execute();        
+    }
+    
+    /**
+     * Tests the error output of the command.
+     */
+    @Test
+    public void errorOutputTest() {
+        final String testPath = "/test/test.pl";
+        final IOException exception = new IOException("Test");
+
         CommandExportImage command = new CommandExportImage(this.gui.getConsolePanel(),
                 ImageFormat.PNG, this.gui.getInterpreterManager());
+        
+        this.gui.setDebugMode(false);
         this.gui.getConsolePanel().clearAll();
+        command.printExportError(exception, testPath);
+        assertFalse(this.gui.getConsolePanel().getOutputAreaText().isEmpty());
 
-        File test = new File("test.png");
-        command.exportPNG(test);
-
-        assertTrue(test.exists());
-        assertTrue(test.getName().equals("test.png"));
-
-        test.delete();
-    }
-
-    /**
-     * Tests the SVG export functionality of the command.
-     */
-    @Test
-    public void svgWithExtensionTest() {
-        CommandExportImage command = new CommandExportImage(this.gui.getConsolePanel(),
-                ImageFormat.SVG, this.gui.getInterpreterManager());
+        this.gui.setDebugMode(true);
         this.gui.getConsolePanel().clearAll();
-
-        File test = new File("test.svg");
-        command.exportSVG(test);
-
-        assertTrue(test.exists());
-        assertTrue(test.getName().equals("test.svg"));
-
-        test.delete();
+        command.printExportError(exception, testPath);
+        assertFalse(this.gui.getConsolePanel().getOutputAreaText().isEmpty());        
     }
 }

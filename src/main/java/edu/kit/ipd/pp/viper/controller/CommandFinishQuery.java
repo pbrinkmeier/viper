@@ -31,7 +31,6 @@ public class CommandFinishQuery extends Command {
     @Override
     public void execute() {
         this.interpreterManager.cancel();
-
         this.interpreterManager.finishQuery(this.console, this.visualisation);
     }
 }

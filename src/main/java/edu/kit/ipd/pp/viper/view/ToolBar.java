@@ -155,7 +155,7 @@ public class ToolBar extends JToolBar implements HasClickable {
         
         this.buttonSolution = new ToolBarButton(GUIComponentID.BUTTON_NEXT_SOLUTION,
                                            ToolBar.ICON_NEXTSOLUTION, LanguageKey.TOOLTIP_NEXTSOLUTION,
-                                           this.main.getCommandContinue());
+                                           this.main.getCommandNextSolution());
 
         this.buttonFinish = new ToolBarButton(GUIComponentID.BUTTON_FINISH_QUERY,
                                            ToolBar.ICON_FINISHQUERY, LanguageKey.TOOLTIP_FINISHQUERY,

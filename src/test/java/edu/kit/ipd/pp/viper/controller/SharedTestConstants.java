@@ -19,4 +19,14 @@ public class SharedTestConstants {
      * The default timeout for AssertJSwing operations.
      */
     public static final int DEFAULT_TIMEOUT = 5000;
+
+    /**
+     * The content of the input test file in the resources directory.
+     */
+    public static final String INPUT_TEST_FILE_CONTENT = "02340520350130523050235";
+    
+    /**
+     * An exemplary rule from the standard library to test conflicts.
+     */
+    public static final String CONFLICTING_STD_RULE = "append([], L, L).";
 }
