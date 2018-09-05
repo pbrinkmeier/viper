@@ -6,8 +6,6 @@ import java.io.File;
  * Miscellaneous utility functions for working with files.
  */
 public final class FileUtilities {
-    private FileUtilities() { }
-
     /**
      * Optional concatenation of the file extension routine. This should only be
      * called internally, but it's public for testing purposes.
