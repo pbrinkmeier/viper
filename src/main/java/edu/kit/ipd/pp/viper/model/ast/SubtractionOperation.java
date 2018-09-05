@@ -3,6 +3,9 @@ package edu.kit.ipd.pp.viper.model.ast;
 import java.math.BigInteger;
 import java.util.List;
 
+/**
+ * Represents a subtraction operation in an AST.
+ */
 public class SubtractionOperation extends BinaryOperation {
     /**
      * Initializes a SubtractionOperation with a left and right hand side.

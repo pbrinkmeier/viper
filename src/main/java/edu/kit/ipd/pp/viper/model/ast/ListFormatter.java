@@ -2,6 +2,9 @@ package edu.kit.ipd.pp.viper.model.ast;
 
 import java.util.Optional;
 
+/**
+ * Does pretty-printing for Prolog lists
+ */
 final class ListFormatter implements TermVisitor<Optional<String>> {
     private final boolean asHtml;
     private boolean isFirst;

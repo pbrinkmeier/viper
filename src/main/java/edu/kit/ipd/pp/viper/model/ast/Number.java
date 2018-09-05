@@ -6,7 +6,7 @@ import java.math.BigInteger;
  * Represents a number in an AST.
  */
 public final class Number extends Term {
-    private final BigInteger number;
+    private final BigInteger num;
 
     /**
      * Creates a new immutable number term from an integer.
@@ -24,7 +24,9 @@ public final class Number extends Term {
      * @param number number this term represents (as an instance of {@link java.math.BigInteger})
      */
     public Number(BigInteger number) {
-        this.number = number;
+        super();
+
+        this.num = number;
     }
 
     /**
@@ -33,7 +35,7 @@ public final class Number extends Term {
      * @return number this term represents
      */
     public BigInteger getNumber() {
-        return this.number;
+        return this.num;
     }
 
     @Override
@@ -59,7 +61,7 @@ public final class Number extends Term {
      */
     @Override
     public String toString() {
-        return this.number.toString();
+        return this.num.toString();
     }
 
     /**

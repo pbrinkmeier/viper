@@ -27,21 +27,21 @@ public class KnowledgeBase {
     @Override
     public String toString() {
         Optional<Functor> previousHead = Optional.empty();
-        String repr = "";
+        StringBuilder builder = new StringBuilder();
 
         for (Rule rule : this.rules) {
             Functor currentHead = rule.getHead();
 
             // insert empty line if between blocks of non-matching functors
             if (previousHead.isPresent() && !previousHead.get().matches(currentHead)) {
-                repr += "\n";
+                builder.append("\n");
             }
 
-            repr += rule.toString() + "\n";
+            builder.append(rule.toString() + "\n");
             previousHead = Optional.of(currentHead);
         }
 
-        return repr;
+        return builder.toString();
     }
 
     /**

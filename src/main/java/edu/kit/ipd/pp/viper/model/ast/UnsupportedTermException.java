@@ -21,6 +21,8 @@ public class UnsupportedTermException extends TermEvaluationException {
      * @param term term causing the exception
      */
     public UnsupportedTermException(Term term) {
+        super();
+
         this.term = term;
     }
 

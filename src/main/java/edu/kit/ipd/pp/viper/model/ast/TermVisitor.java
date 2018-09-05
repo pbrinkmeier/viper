@@ -1,5 +1,10 @@
 package edu.kit.ipd.pp.viper.model.ast;
 
+/**
+ * Visitor for terms
+ *
+ * @param <T> Term
+ */
 public interface TermVisitor<T> {
     /**
      * Describes the visitors behavior when it visits a functor.
