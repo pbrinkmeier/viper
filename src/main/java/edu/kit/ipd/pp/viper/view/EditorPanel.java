@@ -327,7 +327,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     }
     
     private void increaseFont() {
-        if (this.fontSize > FONT_MAX_SIZE) {
+        if (this.fontSize >= FONT_MAX_SIZE) {
             return;
         }
 
@@ -336,7 +336,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     }
 
     private void decreaseFont() {
-        if (this.fontSize < FONT_MIN_SIZE) {
+        if (this.fontSize <= FONT_MIN_SIZE) {
             return;
         }
 
