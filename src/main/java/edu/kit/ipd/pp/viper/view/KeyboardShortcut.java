@@ -39,9 +39,14 @@ public enum KeyboardShortcut {
     FORMAT("control F"),
     
     /**
-     * Keyboard shortcut for resetting the zoom
+     * Keyboard shortcut for resetting the visualisation zoom
      */
-    RESET_ZOOM("control R");
+    RESET_VISUALISATION_ZOOM("control R"),
+    
+    /**
+     * Keyboard shortcut for resetting the text zoom
+     */
+    RESET_TEXT_ZOOM("control T");    
     
     private KeyStroke stroke;
     private KeyboardShortcut(String stringRep) {

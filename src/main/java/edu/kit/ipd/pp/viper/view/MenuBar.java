@@ -48,7 +48,8 @@ public class MenuBar extends JMenuBar implements HasClickable {
     private MenuItem itemAbout;
     private MenuItem itemShowStandard;
     private MenuItem itemManual;
-    private MenuItem itemResetZoom;
+    private MenuItem itemResetTextZoom;
+    private MenuItem itemResetVisZoom;
     private CheckBoxMenuItem itemToggleSTD;
 
     private Menu recentlyUsedMenu;
@@ -240,12 +241,16 @@ public class MenuBar extends JMenuBar implements HasClickable {
 
         menu.add(this.itemToggleSTD);
 
-        this.itemResetZoom = new MenuItem(LanguageKey.MENU_RESET_ZOOM,
-                new CommandResetZoom(this.main.getVisualisationPanel(),
-                                     this.main.getConsolePanel(),
-                                     this.main.getEditorPanel()),
-                KeyboardShortcut.RESET_ZOOM);
-        menu.add(this.itemResetZoom);
+        this.itemResetVisZoom = new MenuItem(LanguageKey.MENU_RESET_VISUALISATION_ZOOM,
+                new CommandResetZoom(this.main.getVisualisationPanel(), null, null),
+                KeyboardShortcut.RESET_VISUALISATION_ZOOM);
+        
+        this.itemResetTextZoom = new MenuItem(LanguageKey.MENU_RESET_TEXT_ZOOM,
+                new CommandResetZoom(null, this.main.getConsolePanel(), this.main.getEditorPanel()),
+                KeyboardShortcut.RESET_TEXT_ZOOM);
+
+        menu.add(this.itemResetTextZoom);
+        menu.add(this.itemResetVisZoom);
 
         this.addLanguageSwitchMenu(menu);
 

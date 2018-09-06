@@ -29,8 +29,16 @@ public class CommandResetZoom extends Command {
     
     @Override
     public void execute() {
-        this.visualisation.resetZoom();
-        this.console.resetZoom();
-        this.editor.resetZoom();
+        if (this.visualisation != null) {
+            this.visualisation.resetZoom();            
+        }
+
+        if (this.console != null) {
+            this.console.resetZoom();            
+        }
+
+        if (this.editor != null) {
+            this.editor.resetZoom();            
+        }
     }
 }

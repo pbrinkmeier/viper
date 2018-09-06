@@ -25,27 +25,29 @@ public class CommandZoomTest extends ControllerTest {
         
         assertTrue(this.gui.getEditorPanel().getFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() == VisualisationPanel.DEFAULT_ZOOM_LEVEL);
-        
+        assertTrue(this.epsilonEquals(this.gui.getVisualisationPanel().getZoom(),
+                VisualisationPanel.DEFAULT_ZOOM_LEVEL));
+
         new CommandZoom(this.gui.getVisualisationPanel(), this.gui.getConsolePanel(),
                 this.gui.getEditorPanel(), ZoomType.ZOOM_IN).execute();
         
         assertTrue(this.gui.getEditorPanel().getFontSize() > PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() > PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() > VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.gui.getVisualisationPanel().getZoom() > VisualisationPanel.DEFAULT_ZOOM_LEVEL);
         
         this.resetAllManually(this.gui);
         
         assertTrue(this.gui.getEditorPanel().getFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() == VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.epsilonEquals(this.gui.getVisualisationPanel().getZoom(),
+                VisualisationPanel.DEFAULT_ZOOM_LEVEL));
         
         new CommandZoom(this.gui.getVisualisationPanel(), this.gui.getConsolePanel(),
                 this.gui.getEditorPanel(), ZoomType.ZOOM_OUT).execute();
         
         assertTrue(this.gui.getEditorPanel().getFontSize() < PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() < PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() < VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.gui.getVisualisationPanel().getZoom() < VisualisationPanel.DEFAULT_ZOOM_LEVEL);
     }
     
     /**
@@ -63,19 +65,20 @@ public class CommandZoomTest extends ControllerTest {
         
         assertTrue(this.gui.getEditorPanel().getFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() == VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.epsilonEquals(this.gui.getVisualisationPanel().getZoom(),
+                VisualisationPanel.DEFAULT_ZOOM_LEVEL));
 
         new CommandZoom(this.gui.getVisualisationPanel(), null, this.gui.getEditorPanel(), ZoomType.ZOOM_IN).execute();
         assertTrue(this.gui.getEditorPanel().getFontSize() > PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() > VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.gui.getVisualisationPanel().getZoom() > VisualisationPanel.DEFAULT_ZOOM_LEVEL);
         
         this.resetAllManually(this.gui);
 
         new CommandZoom(this.gui.getVisualisationPanel(), null, this.gui.getEditorPanel(), ZoomType.ZOOM_OUT).execute();
         assertTrue(this.gui.getEditorPanel().getFontSize() < PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() < VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.gui.getVisualisationPanel().getZoom() < VisualisationPanel.DEFAULT_ZOOM_LEVEL);
     }
     
     /**
@@ -89,12 +92,13 @@ public class CommandZoomTest extends ControllerTest {
         
         assertTrue(this.gui.getEditorPanel().getFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() == VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.epsilonEquals(this.gui.getVisualisationPanel().getZoom(),
+                VisualisationPanel.DEFAULT_ZOOM_LEVEL));
 
         new CommandZoom(this.gui.getVisualisationPanel(), this.gui.getConsolePanel(), null, ZoomType.ZOOM_IN).execute();
         assertTrue(this.gui.getEditorPanel().getFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() > PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() > VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.gui.getVisualisationPanel().getZoom() > VisualisationPanel.DEFAULT_ZOOM_LEVEL);
         
         this.resetAllManually(this.gui);
 
@@ -102,7 +106,7 @@ public class CommandZoomTest extends ControllerTest {
                 ZoomType.ZOOM_OUT).execute();
         assertTrue(this.gui.getEditorPanel().getFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() < PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() < VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.gui.getVisualisationPanel().getZoom() < VisualisationPanel.DEFAULT_ZOOM_LEVEL);
     }
     
     /**
@@ -119,19 +123,22 @@ public class CommandZoomTest extends ControllerTest {
         
         assertTrue(this.gui.getEditorPanel().getFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() == VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.epsilonEquals(this.gui.getVisualisationPanel().getZoom(),
+                VisualisationPanel.DEFAULT_ZOOM_LEVEL));
 
         new CommandZoom(null, this.gui.getConsolePanel(), this.gui.getEditorPanel(), ZoomType.ZOOM_IN).execute();
         assertTrue(this.gui.getEditorPanel().getFontSize() > PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() > PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() == VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.epsilonEquals(this.gui.getVisualisationPanel().getZoom(),
+                VisualisationPanel.DEFAULT_ZOOM_LEVEL));
         
         this.resetAllManually(this.gui);
         
         new CommandZoom(null, this.gui.getConsolePanel(), this.gui.getEditorPanel(), ZoomType.ZOOM_OUT).execute();
         assertTrue(this.gui.getEditorPanel().getFontSize() < PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() < PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() == VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.epsilonEquals(this.gui.getVisualisationPanel().getZoom(),
+                VisualisationPanel.DEFAULT_ZOOM_LEVEL));
     }
     
     /**
@@ -152,14 +159,16 @@ public class CommandZoomTest extends ControllerTest {
         
         assertFalse(this.gui.getEditorPanel().getFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
         assertFalse(this.gui.getConsolePanel().getOutputAreaFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertFalse(this.gui.getVisualisationPanel().getZoomLevel() == VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertFalse(this.epsilonEquals(this.gui.getVisualisationPanel().getZoom(),
+                VisualisationPanel.DEFAULT_ZOOM_LEVEL));
         
         new CommandResetZoom(this.gui.getVisualisationPanel(), this.gui.getConsolePanel(),
                 this.gui.getEditorPanel()).execute();
         
         assertTrue(this.gui.getEditorPanel().getFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
         assertTrue(this.gui.getConsolePanel().getOutputAreaFontSize() == PreferencesManager.DEFAULT_TEXT_SIZE);
-        assertTrue(this.gui.getVisualisationPanel().getZoomLevel() == VisualisationPanel.DEFAULT_ZOOM_LEVEL);
+        assertTrue(this.epsilonEquals(this.gui.getVisualisationPanel().getZoom(),
+                VisualisationPanel.DEFAULT_ZOOM_LEVEL));
     }
     
     private void buildGraph(MainWindow gui) {
@@ -173,5 +182,10 @@ public class CommandZoomTest extends ControllerTest {
         gui.getEditorPanel().resetZoom();
         gui.getConsolePanel().resetZoom();
         gui.getVisualisationPanel().resetZoom();
+    }
+    
+    private boolean epsilonEquals(double a, double b) {
+        final double epsilon = 0.001;
+        return Math.abs(a - b) < epsilon;
     }
 }
