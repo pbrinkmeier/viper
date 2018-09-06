@@ -109,6 +109,7 @@ public class ConsolePanel extends JPanel implements HasClickable {
      */
     public void clearAll() {
         this.outputArea.clear();
+        System.out.println("cleared output:\n" + this.outputArea.getText());
         this.inputField.clear();
     }
 
@@ -212,6 +213,7 @@ public class ConsolePanel extends JPanel implements HasClickable {
         this.outputArea.printLine(line, type);
         JScrollBar bar = this.scrollPane.getVerticalScrollBar();
         bar.setValue(bar.getMaximum());
+        System.out.println("wrote line:\n" + this.outputArea.getText());
     }
 
     /**
@@ -221,5 +223,15 @@ public class ConsolePanel extends JPanel implements HasClickable {
     @Override
     public void switchClickableState(ClickableState state) {
         this.inputField.switchClickableState(state);
+    }
+
+    /**
+     * Sets the font size.
+     * Only used for testing purposes.
+     * 
+     * @param fontSize the new font size
+     */
+    public void setOutputAreaFontSize(int fontSize) {
+        this.outputArea.setFontSize(fontSize);
     }
 }
