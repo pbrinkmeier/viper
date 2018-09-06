@@ -49,11 +49,6 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     private static final double ZOOM_FACTOR = 12.0;
     
     /**
-     * The maximum scale value
-     */
-    private static final double MAX_ZOOM = 10.0;
-    
-    /**
      * The minimum scale value
      */    
     private static final double MIN_ZOOM = 0.01;
@@ -191,7 +186,6 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     private void updateScaleValue(double step) {
         VisualisationViewer.scale += step;
         VisualisationViewer.scale = Math.max(VisualisationViewer.scale, VisualisationViewer.MIN_ZOOM);
-        VisualisationViewer.scale = Math.min(VisualisationViewer.scale, VisualisationViewer.MAX_ZOOM);
     }
     
     /**
