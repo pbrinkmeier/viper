@@ -241,13 +241,15 @@ public class MenuBar extends JMenuBar implements HasClickable {
 
         menu.add(this.itemToggleSTD);
 
+        this.itemResetVisZoom = new MenuItem(LanguageKey.MENU_RESET_VISUALISATION_ZOOM,
+                new CommandResetZoom(this.main.getVisualisationPanel(), null, null),
+                KeyboardShortcut.RESET_VISUALISATION_ZOOM);
+        
         this.itemResetTextZoom = new MenuItem(LanguageKey.MENU_RESET_TEXT_ZOOM,
                 new CommandResetZoom(null, this.main.getConsolePanel(), this.main.getEditorPanel()),
-                KeyboardShortcut.RESET_ZOOM);
+                KeyboardShortcut.RESET_TEXT_ZOOM);
+
         menu.add(this.itemResetTextZoom);
-        
-        this.itemResetVisZoom = new MenuItem(LanguageKey.MENU_RESET_VISUALISATION_ZOOM,
-                new CommandResetZoom(this.main.getVisualisationPanel(), null, null), null);
         menu.add(this.itemResetVisZoom);
 
         this.addLanguageSwitchMenu(menu);
