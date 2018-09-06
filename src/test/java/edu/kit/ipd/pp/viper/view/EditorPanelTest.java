@@ -3,6 +3,7 @@ package edu.kit.ipd.pp.viper.view;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseWheelEvent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -85,7 +86,7 @@ public class EditorPanelTest {
     }
     
     /**
-     * Tests if the zoom via the "ctrl" and "+" keys works
+     * Tests if the zoom in via the "ctrl" and "+" keys works
      */
     @Test
     public void keyPressedPlusKeyTest() {
@@ -98,7 +99,7 @@ public class EditorPanelTest {
     }
     
     /**
-     * Tests if the zoom via the "ctrl" and "numpad +" keys works
+     * Tests if the zoom in via the "ctrl" and "numpad +" keys works
      */
     @Test
     public void keyPressedNumPlusKeyTest() {
@@ -111,7 +112,7 @@ public class EditorPanelTest {
     }
     
     /**
-     * Tests if the zoom via the "ctrl" and "-" keys works
+     * Tests if the zoom out via the "ctrl" and "-" keys works
      */
     @Test
     public void keyPressedMinusKeyTest() {
@@ -124,7 +125,7 @@ public class EditorPanelTest {
     }
     
     /**
-     * Tests if the zoom via the "ctrl" and "numpad -" keys works
+     * Tests if the zoom out via the "ctrl" and "numpad -" keys works
      */
     @Test
     public void keyPressedNumMinusKeyTest() {
@@ -132,6 +133,32 @@ public class EditorPanelTest {
         this.editor.resetZoom();
         this.editor.keyPressed(new KeyEvent(this.editor.getTextArea(), KeyEvent.KEY_PRESSED,
                 1, 2, KeyEvent.VK_SUBTRACT, KeyEvent.CHAR_UNDEFINED));
+        assertTrue(PreferencesManager.DEFAULT_TEXT_SIZE - 1 == this.prefMan.getTextSize()
+                && PreferencesManager.DEFAULT_TEXT_SIZE - 1 == this.editor.getFontSize());
+    }
+    
+    /**
+     * Tests if the zoom in with the mouse wheel works
+     */
+    @Test
+    public void mousewheelMovedZoomInTest() {
+        this.editor = gui.getEditorPanel();
+        this.editor.resetZoom();
+        this.editor.mouseWheelMoved(new MouseWheelEvent(this.editor.getTextArea(), 1, 1, 2, 1, 1, 1,
+                false, MouseWheelEvent.WHEEL_UNIT_SCROLL, 3, -1));
+        assertTrue(PreferencesManager.DEFAULT_TEXT_SIZE + 1 == this.prefMan.getTextSize()
+                && PreferencesManager.DEFAULT_TEXT_SIZE + 1 == this.editor.getFontSize());
+    }
+    
+    /**
+     * Tests if the zoom out with the mouse wheel works
+     */
+    @Test
+    public void mousewheelMovedZoomOutTest() {
+        this.editor = gui.getEditorPanel();
+        this.editor.resetZoom();
+        this.editor.mouseWheelMoved(new MouseWheelEvent(this.editor.getTextArea(), 1, 1, 2, 1, 1, 1,
+                false, MouseWheelEvent.WHEEL_UNIT_SCROLL, 3, 1));
         assertTrue(PreferencesManager.DEFAULT_TEXT_SIZE - 1 == this.prefMan.getTextSize()
                 && PreferencesManager.DEFAULT_TEXT_SIZE - 1 == this.editor.getFontSize());
     }
