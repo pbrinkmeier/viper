@@ -85,13 +85,54 @@ public class EditorPanelTest {
     }
     
     /**
-     * Tests if the zoom via the "ctrl" and "-" keys works
+     * Tests if the zoom via the "ctrl" and "+" keys works
      */
     @Test
     public void keyPressedPlusKeyTest() {
         this.editor = gui.getEditorPanel();
-        this.editor.keyPressed(new KeyEvent(this.editor.getTextArea(), KeyEvent.KEY_PRESSED, 5, 2, KeyEvent.VK_PLUS, KeyEvent.CHAR_UNDEFINED));
+        this.editor.resetZoom();
+        this.editor.keyPressed(new KeyEvent(this.editor.getTextArea(), KeyEvent.KEY_PRESSED,
+                1, 2, KeyEvent.VK_PLUS, KeyEvent.CHAR_UNDEFINED));
         assertTrue(PreferencesManager.DEFAULT_TEXT_SIZE + 1 == this.prefMan.getTextSize()
                 && PreferencesManager.DEFAULT_TEXT_SIZE + 1 == this.editor.getFontSize());
+    }
+    
+    /**
+     * Tests if the zoom via the "ctrl" and "numpad +" keys works
+     */
+    @Test
+    public void keyPressedNumPlusKeyTest() {
+        this.editor = gui.getEditorPanel();
+        this.editor.resetZoom();
+        this.editor.keyPressed(new KeyEvent(this.editor.getTextArea(), KeyEvent.KEY_PRESSED,
+                1, 2, KeyEvent.VK_ADD, KeyEvent.CHAR_UNDEFINED));
+        assertTrue(PreferencesManager.DEFAULT_TEXT_SIZE + 1 == this.prefMan.getTextSize()
+                && PreferencesManager.DEFAULT_TEXT_SIZE + 1 == this.editor.getFontSize());
+    }
+    
+    /**
+     * Tests if the zoom via the "ctrl" and "-" keys works
+     */
+    @Test
+    public void keyPressedMinusKeyTest() {
+        this.editor = gui.getEditorPanel();
+        this.editor.resetZoom();
+        this.editor.keyPressed(new KeyEvent(this.editor.getTextArea(), KeyEvent.KEY_PRESSED,
+                1, 2, KeyEvent.VK_MINUS, KeyEvent.CHAR_UNDEFINED));
+        assertTrue(PreferencesManager.DEFAULT_TEXT_SIZE - 1 == this.prefMan.getTextSize()
+                && PreferencesManager.DEFAULT_TEXT_SIZE - 1 == this.editor.getFontSize());
+    }
+    
+    /**
+     * Tests if the zoom via the "ctrl" and "numpad -" keys works
+     */
+    @Test
+    public void keyPressedNumMinusKeyTest() {
+        this.editor = gui.getEditorPanel();
+        this.editor.resetZoom();
+        this.editor.keyPressed(new KeyEvent(this.editor.getTextArea(), KeyEvent.KEY_PRESSED,
+                1, 2, KeyEvent.VK_SUBTRACT, KeyEvent.CHAR_UNDEFINED));
+        assertTrue(PreferencesManager.DEFAULT_TEXT_SIZE - 1 == this.prefMan.getTextSize()
+                && PreferencesManager.DEFAULT_TEXT_SIZE - 1 == this.editor.getFontSize());
     }
 }
