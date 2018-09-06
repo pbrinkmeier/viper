@@ -2,11 +2,14 @@ package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
-import java.awt.event.ActionEvent;
+import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -36,9 +39,24 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     private static final String TMP_NAME = "viper_tmp.svg";
 
     /**
-     * Factor for image scaling, 1.15 seems to be the sweet spot
+     * Factor for scaling, 10.0 seems to be the sweet spot
      */
-    private static final double ZOOM_FACTOR = 1.15;
+    private static final double ZOOM_FACTOR = 10.0;
+    
+    /**
+     * The maximum scale value
+     */
+    private static final double MAX_ZOOM = 10.0;
+    
+    /**
+     * The minimum scale value
+     */    
+    private static final double MIN_ZOOM = 0.01;
+
+    /**
+     * The scale to which the visualisation is currently zoomed
+     */
+    private static double scale = 1.0;
 
     /**
      * Reference of main window
@@ -95,31 +113,71 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      */
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
+        final double stepSize = 0.2;
+        
         if (this.navigationEnabled) {
-            this.zoom(event.getPreciseWheelRotation() > 0.0 ? ZoomType.ZOOM_OUT : ZoomType.ZOOM_IN);
+            AffineTransform at = this.getRenderingTransform();
+            
+            Point2D src = event.getPoint();
+            Point2D dest = null;
+            try {
+                dest = at.inverseTransform(src, null);
+            } catch (NoninvertibleTransformException e) {
+                if (MainWindow.inDebugMode()) {
+                    e.printStackTrace();
+                }
+            }
+            
+            double input = (stepSize * event.getPreciseWheelRotation());
+            double step = this.calculateStep(input);
+            this.updateScaleValue(-step);
+            
+            at.setToIdentity();
+            at.translate(src.getX(), src.getY());
+            at.scale(VisualisationViewer.scale, scale);
+            at.translate(-dest.getX(), -dest.getY());
+            this.setRenderingTransform(at, true);
         }
     }
-
+    
     /**
      * Performs a zoom operation
      * 
      * @param type Zoom type (in or out)
      */
     public void zoom(ZoomType type) {
-        double scale;
+        AffineTransform at = this.getRenderingTransform();
 
-        switch (type) {
-        case ZOOM_IN:
-            scale = ZOOM_FACTOR;
-            break;
-        case ZOOM_OUT:
-            scale = 1 / ZOOM_FACTOR;
-            break;
-        default:
-            return;
+        Point2D src = new Point((int) this.getSize().getWidth() / 2, (int) this.getSize().getHeight() / 2);
+        Point2D dest = null;
+        try {
+            dest = at.inverseTransform(src, null);
+        } catch (NoninvertibleTransformException e) {
+            if (MainWindow.inDebugMode()) {
+                e.printStackTrace();
+            }
         }
-
-        (new JSVGCanvas.ZoomAction(scale)).actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+        
+        double input = (type == ZoomType.ZOOM_IN ? ZOOM_FACTOR : -ZOOM_FACTOR);
+        double step = this.calculateStep(input);
+        
+        this.updateScaleValue(step);
+        at.setToIdentity();
+        at.translate(src.getX(), src.getY());
+        at.scale(VisualisationViewer.scale, VisualisationViewer.scale);
+        at.translate(-dest.getX(), -dest.getY());
+        this.setRenderingTransform(at, true);
+    }
+    
+    private double calculateStep(double input) {
+        int sign = input >= 0.0 ? 1 : -1;
+        return sign * (Math.abs(input / 10.0 - VisualisationViewer.scale) * 0.05);
+    }
+    
+    private void updateScaleValue(double step) {
+        VisualisationViewer.scale += step;
+        VisualisationViewer.scale = Math.max(VisualisationViewer.scale, MIN_ZOOM);
+        VisualisationViewer.scale = Math.min(VisualisationViewer.scale, MAX_ZOOM);
     }
     
     /**
@@ -127,6 +185,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      */
     public void resetZoom() {
         this.setFromGraph(this.currentGraph);
+        VisualisationViewer.scale = 1.0;
     }
 
     /**
