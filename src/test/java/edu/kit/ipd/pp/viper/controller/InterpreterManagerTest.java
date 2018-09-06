@@ -56,8 +56,9 @@ public class InterpreterManagerTest extends ControllerTest {
                 this.gui::switchClickableState).execute();
 
         final int stepsNeeded = 2;
-        for (int i = 0; i < stepsNeeded; i++)
-            this.gui.getCommandNextStep().execute();
+        for (int i = 0; i < stepsNeeded; i++) {
+            this.gui.getCommandNextStep().execute();            
+        }
                 
         List<Substitution> solution = this.gui.getInterpreterManager().getSolution();
         assertFalse(solution.isEmpty());
@@ -78,8 +79,9 @@ public class InterpreterManagerTest extends ControllerTest {
                 this.gui.getInterpreterManager(), this.gui::switchClickableState).execute();
 
         final int stepsNeeded = 6;
-        for (int i = 0; i < stepsNeeded; i++)
-            this.gui.getCommandNextStep().execute();
+        for (int i = 0; i < stepsNeeded; i++) {
+            this.gui.getCommandNextStep().execute();            
+        }
         
         List<Substitution> solution = this.gui.getInterpreterManager().getSolution();
         assertFalse(solution.isEmpty());

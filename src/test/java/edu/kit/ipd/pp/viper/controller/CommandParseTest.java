@@ -54,8 +54,9 @@ public class CommandParseTest extends ControllerTest {
      */
     @Test
     public void conflictingTest() {
-        if (!this.gui.getInterpreterManager().isStandardEnabled())
-            this.gui.getInterpreterManager().toggleStandardLibrary();
+        if (!this.gui.getInterpreterManager().isStandardEnabled()) {
+            this.gui.getInterpreterManager().toggleStandardLibrary();            
+        }
         
         this.gui.getVisualisationPanel().clearVisualization();
         this.gui.getEditorPanel().setSourceText(SharedTestConstants.CONFLICTING_STD_RULE);

@@ -87,9 +87,14 @@ public enum LanguageKey {
     MENU_LANGUAGE("menu_language"),
     
     /**
-     * Menu "Reset zoom" option
+     * Menu "Reset text zoom" option
      */
-    MENU_RESET_ZOOM("menu_reset_zoom"),
+    MENU_RESET_TEXT_ZOOM("menu_reset_text_zoom"),
+    
+    /**
+     * Menu "Reset visualisation zoom" option
+     */
+    MENU_RESET_VISUALISATION_ZOOM("menu_reset_visualisation_zoom"),    
     
     /**
      * Menu "Help" option

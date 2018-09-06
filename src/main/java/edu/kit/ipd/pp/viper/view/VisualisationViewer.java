@@ -29,6 +29,11 @@ import guru.nidi.graphviz.model.Graph;
  */
 public class VisualisationViewer extends JSVGCanvas implements MouseWheelListener {
     /**
+     * The default zoom of the visualisation
+     */
+    public static final double DEFAULT_ZOOM = 1.0;
+    
+    /**
      * Serial UID
      */
     private static final long serialVersionUID = 8240189444679062587L;
@@ -39,9 +44,9 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     private static final String TMP_NAME = "viper_tmp.svg";
 
     /**
-     * Factor for scaling, 10.0 seems to be the sweet spot
+     * Factor for scaling, 12.0 seems to be the sweet spot
      */
-    private static final double ZOOM_FACTOR = 10.0;
+    private static final double ZOOM_FACTOR = 12.0;
     
     /**
      * The maximum scale value
@@ -52,11 +57,11 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * The minimum scale value
      */    
     private static final double MIN_ZOOM = 0.01;
-
+    
     /**
      * The scale to which the visualisation is currently zoomed
      */
-    private static double scale = 1.0;
+    private static double scale = VisualisationViewer.DEFAULT_ZOOM;
 
     /**
      * Reference of main window
@@ -107,6 +112,15 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     }
 
     /**
+     * Returns the scale factor by which the visualisation is zoomed
+     * 
+     * @return the scale factor
+     */
+    public double getScale() {
+        return VisualisationViewer.scale;
+    }
+    
+    /**
      * Implements zooming of the displayed image using the mouse wheel
      * 
      * @param event mouse wheel event that occurred
@@ -134,7 +148,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             
             at.setToIdentity();
             at.translate(src.getX(), src.getY());
-            at.scale(VisualisationViewer.scale, scale);
+            at.scale(VisualisationViewer.scale, VisualisationViewer.scale);
             at.translate(-dest.getX(), -dest.getY());
             this.setRenderingTransform(at, true);
         }
@@ -158,7 +172,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             }
         }
         
-        double input = (type == ZoomType.ZOOM_IN ? ZOOM_FACTOR : -ZOOM_FACTOR);
+        double input = (type == ZoomType.ZOOM_IN ? VisualisationViewer.ZOOM_FACTOR : -VisualisationViewer.ZOOM_FACTOR);
         double step = this.calculateStep(input);
         
         this.updateScaleValue(step);
@@ -176,8 +190,8 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     
     private void updateScaleValue(double step) {
         VisualisationViewer.scale += step;
-        VisualisationViewer.scale = Math.max(VisualisationViewer.scale, MIN_ZOOM);
-        VisualisationViewer.scale = Math.min(VisualisationViewer.scale, MAX_ZOOM);
+        VisualisationViewer.scale = Math.max(VisualisationViewer.scale, VisualisationViewer.MIN_ZOOM);
+        VisualisationViewer.scale = Math.min(VisualisationViewer.scale, VisualisationViewer.MAX_ZOOM);
     }
     
     /**
@@ -185,7 +199,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      */
     public void resetZoom() {
         this.setFromGraph(this.currentGraph);
-        VisualisationViewer.scale = 1.0;
+        VisualisationViewer.scale = VisualisationViewer.DEFAULT_ZOOM;
     }
 
     /**
