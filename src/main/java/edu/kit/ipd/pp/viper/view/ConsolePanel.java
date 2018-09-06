@@ -109,7 +109,6 @@ public class ConsolePanel extends JPanel implements HasClickable {
      */
     public void clearAll() {
         this.outputArea.clear();
-        System.out.println("cleared output:\n" + this.outputArea.getText());
         this.inputField.clear();
     }
 
@@ -213,7 +212,6 @@ public class ConsolePanel extends JPanel implements HasClickable {
         this.outputArea.printLine(line, type);
         JScrollBar bar = this.scrollPane.getVerticalScrollBar();
         bar.setValue(bar.getMaximum());
-        System.out.println("wrote line:\n" + this.outputArea.getText());
     }
 
     /**
@@ -233,5 +231,25 @@ public class ConsolePanel extends JPanel implements HasClickable {
      */
     public void setOutputAreaFontSize(int fontSize) {
         this.outputArea.setFontSize(fontSize);
+    }
+    
+    /**
+     * Returns the input field of this console panel.
+     * Only used for testing.
+     * 
+     * @return inputField the input field
+     */
+    public ConsoleInputField getInputField() {
+        return this.inputField;
+    }
+    
+    /**
+     * Returns the output area of this console panel.
+     * Only used for testing.
+     * 
+     * @return outputArea the output area
+     */
+    public ConsoleOutputArea getOutputArea() {
+        return this.outputArea;
     }
 }

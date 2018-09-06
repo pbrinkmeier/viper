@@ -184,14 +184,14 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         int keyCode = event.getKeyCode();
 
         switch (keyCode) {
-        case 38: // arrow up key
+        case KeyEvent.VK_UP: // arrow up key
             if (this.historyPos - 1 >= -this.history.size()) {
                 this.historyPos--;
                 this.textField.setText(this.history.get(this.history.size() + this.historyPos));
             }
 
             break;
-        case 40: // arrow down key
+        case KeyEvent.VK_DOWN: // arrow down key
             if (this.historyPos + 1 < 0) {
                 this.historyPos++;
                 this.textField.setText(this.history.get(this.history.size() + this.historyPos));
@@ -224,6 +224,24 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
     @Override
     public void keyReleased(KeyEvent e) {
         return;
+    }
+    
+    /**
+     * Returns the history of entered queries.
+     * Only used for testing.
+     * 
+     * @return history the history of entered queries
+     */
+    public List<String> getHistory() {
+        return this.history;
+    }
+    
+    /**
+     * Clears the history of the input field.
+     * Only used for testing.
+     */
+    public void clearHistory() {
+        this.history.clear();
     }
     
     private class HintedTextField extends JTextField implements FocusListener, Observer {
