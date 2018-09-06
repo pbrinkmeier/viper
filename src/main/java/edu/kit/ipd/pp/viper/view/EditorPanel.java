@@ -362,7 +362,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     @Override
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
-
+        
         if (!event.isControlDown()) {
             return;
         }
@@ -419,5 +419,15 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         }
         
         this.scrollPane.dispatchEvent(event);
+    }
+    
+    /**
+     * Returns the RSyntaxTextArea.
+     * Only used for testing purposes.
+     * 
+     * @return the RSyntaxTextArea
+     */
+    public RSyntaxTextArea getTextArea() {
+        return this.textArea;
     }
 }
