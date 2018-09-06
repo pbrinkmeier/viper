@@ -2,11 +2,10 @@ package edu.kit.ipd.pp.viper.model.visualisation;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import org.junit.Test;
 
+import edu.kit.ipd.pp.viper.controller.SharedTestConstants;
 import edu.kit.ipd.pp.viper.model.ast.Goal;
 import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
@@ -19,16 +18,78 @@ import guru.nidi.graphviz.model.Graph;
 
 public class GraphvizMakerTest {
     /**
-     * Tests the creation of a graph.
+     * Tests the creation of a graph with a functor AR.
      * 
      * @throws IOException if the file couldn't be read properly
      * @throws ParseException if the code couldn't be parsed
      */
     @Test
-    public void createGraphtest() throws IOException, ParseException {
-        String source = new String(Files.readAllBytes(Paths.get("src/test/resources/simpsons_advanced.pl")));
-        KnowledgeBase kb = new PrologParser(source).parse();
-        Goal query = new PrologParser("grandfather(X, Y).").parseGoalList().get(0);
+    public void functorVisitTest() throws IOException, ParseException {
+        final String source = SharedTestConstants.SIMPSONS_FORMATTED;
+        this.testProgramAndQuery(source, "grandfather(X, Y).");
+    }
+    
+    /**
+     * Tests the creation of a graph with arithmetic ARs.
+     * 
+     * @throws IOException if the file couldn't be read properly
+     * @throws ParseException if the code couldn't be parsed
+     */
+    @Test
+    public void arithmeticVisitTest() throws IOException, ParseException {
+        final String source = "";
+        this.testProgramAndQuery(source, "X is 2 + 2.");
+        this.testProgramAndQuery(source, "X is 2 - 2.");
+        this.testProgramAndQuery(source, "X is 2 * 2.");
+        this.testProgramAndQuery(source, "X is 2 + (2 * 2).");
+        this.testProgramAndQuery(source, "X is 2 + 2 - 2 * 2.");
+        this.testProgramAndQuery(source, "X is 2 * Y.");
+    }
+
+    /**
+     * Tests the creation of a graph with unification ARs.
+     * 
+     * @throws IOException if the file couldn't be read properly
+     * @throws ParseException if the code couldn't be parsed
+     */
+    @Test
+    public void unificationVisitTest() throws IOException, ParseException {
+        final String source = SharedTestConstants.SIMPSONS_FORMATTED;
+        this.testProgramAndQuery(source, "father(homer, X) = father(Y, lisa).");
+    }
+    
+    /**
+     * Tests the creation of a graph with comparison ARs.
+     * 
+     * @throws IOException if the file couldn't be read properly
+     * @throws ParseException if the code couldn't be parsed
+     */
+    @Test
+    public void comparisonVisitTest() throws IOException, ParseException {
+        final String source = "";
+        this.testProgramAndQuery(source, "1 > 0.");
+        this.testProgramAndQuery(source, "1 >= 0.");
+        this.testProgramAndQuery(source, "1 < 0.");
+        this.testProgramAndQuery(source, "1 =< 0.");
+        this.testProgramAndQuery(source, "1 =:= 0.");
+        this.testProgramAndQuery(source, "1 =\\= 0.");
+    }
+    
+    /**
+     * Tests the creation of a graph with cut ARs.
+     * 
+     * @throws IOException if the file couldn't be read properly
+     * @throws ParseException if the code couldn't be parsed
+     */
+    @Test
+    public void cutVisitTest() throws IOException, ParseException {
+        final String source = SharedTestConstants.CUT_EXAMPLE_PROGRAM;
+        this.testProgramAndQuery(source, "magic(50, A).");
+    }
+    
+    private void testProgramAndQuery(String programCode, String queryCode) throws ParseException, IOException {
+        KnowledgeBase kb = new PrologParser(programCode).parse();
+        Goal query = new PrologParser(queryCode).parseGoalList().get(0);
         Interpreter ip = new Interpreter(kb, query);
 
         int i = 0;
