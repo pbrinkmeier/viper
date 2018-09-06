@@ -130,8 +130,6 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Clears the displayed SVG
      */
     public void clear() {
@@ -147,7 +145,6 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     }
 
     /**
->>>>>>> qa: Resolve CheckStyle issues due to new rule
      * Sets the displayed Graph. A previously shown graph will be cleared.
      * 
      * @param graph The graph to show
