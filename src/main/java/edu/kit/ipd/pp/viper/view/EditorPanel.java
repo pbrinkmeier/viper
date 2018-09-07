@@ -148,6 +148,18 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     }
     
     /**
+     * Sets the font size of the editor panel and the preferences manager.
+     * Only used for testing purposes.
+     * 
+     * @param fontSize The new font size for the editor;
+     */
+    public void setFontSize(int fontSize) {
+        this.fontSize = fontSize;
+        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
+        this.preferencesManager.setTextSize(this.fontSize);
+    }
+    
+    /**
      * Returns whether the text content has changed since the last parsing
      * 
      * @return boolean true if has changed, false otherwise
