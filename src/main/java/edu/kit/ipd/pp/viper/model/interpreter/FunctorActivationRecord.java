@@ -79,7 +79,9 @@ public class FunctorActivationRecord extends ActivationRecord {
     }
 
     /**
-     * Getter-method for this ARs children ("substeps"). TODO: insert warning
+     * Getter-method for this ARs children ("substeps").
+     * This method may return a non-empty list even though isVisited() is false.
+     * If isVisited() is false, treat this AR as if it does not have any children.
      *
      * @return this ARs substeps
      */

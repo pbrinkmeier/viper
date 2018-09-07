@@ -41,7 +41,6 @@ public abstract class Unifier implements TermVisitor<UnificationResult> {
         List<Variable> occurring = by.accept(new VariableExtractor());
 
         // avoid recursion
-        // TODO: this should have its own error message
         if (occurring.contains(replace)) {
             return UnificationResult.fail(replace, by);
         }

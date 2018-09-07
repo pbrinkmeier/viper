@@ -242,28 +242,6 @@ public class PrologParser {
         }
     }
 
-    /*
-     * private Object parseGoalRest(Object t) throws ParseException { Term lhs =
-     * parseTerm(Optional.of(t)); Term rhs; switch (token.getType()) { case IS:
-     * nextToken(); rhs = parseTerm(); // TODO: Is-Ziel mit linker Seite "lhs" und
-     * rechter Seite "rhs" return new Object(); case EQ: nextToken(); rhs =
-     * parseTerm(); // TODO: Unifikations-Ziel mit linker Seite "lhs" und rechter
-     * Seite "rhs" return new Object(); case LESS: nextToken(); rhs = parseTerm();
-     * // TODO: Kleiner-Test mit linker Seite "lhs" und rechter Seite "rhs" return
-     * new Object(); case EQ_LESS: nextToken(); rhs = parseTerm(); // TODO:
-     * Kleiner-Gleich-Test mit linker Seite "lhs" und rechter Seite "rhs" return new
-     * Object(); case GREATER: nextToken(); rhs = parseTerm(); // TODO: Größer-Test
-     * mit linker Seite "lhs" und rechter Seite "rhs" return new Object(); case
-     * GREATER_EQ: nextToken(); rhs = parseTerm(); // TODO: Größer-Gleich-Test mit
-     * linker Seite "lhs" und rechter Seite "rhs" return new Object(); case
-     * EQ_COLON_EQ: nextToken(); rhs = parseTerm(); // TODO: Gleichheits-Test mit
-     * linker Seite "lhs" und rechter Seite "rhs" return new Object(); case
-     * EQ_BS_EQ: nextToken(); rhs = parseTerm(); // TODO: Ungleichheits-Test mit
-     * linker Seite "lhs" und rechter Seite "rhs" return new Object(); default:
-     * throw new
-     * ParseException("Expected 'is' or '=' or arithmetic comparison, got '" + token
-     * + "'"); } }
-     */
     /**
      * Parses a term.
      * 

@@ -3,9 +3,11 @@ package edu.kit.ipd.pp.viper.model.ast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.TreeSet;
 
 /**
  * Represents an AST, also called a "Prolog program" or "knowledge base" in our
@@ -74,18 +76,32 @@ public class KnowledgeBase {
      * @return immutable list of rules from this knowledgebase that have a conflicting rule in otherKb
      */
     public List<Rule> getConflictingRules(KnowledgeBase otherKb) {
-        List<Rule> conflicting = new ArrayList<>();
+        /*
+         * In order to create a list of unique conflicting rules, we'd like to use a Set instance.
+         * But Rule#equals and Rule#hashCode are already defined in terms of actual equality.
+         * A TreeSet allows us to use a Comparator object for custom comparison.
+         * The Comparator below sorts by the rules' heads, name first, arity second.
+         */
+        TreeSet<Rule> conflicting = new TreeSet(new Comparator<Rule>() {
+            @Override
+            public int compare(Rule ruleA, Rule ruleB) {
+                Functor headA = ruleA.getHead();
+                Functor headB = ruleB.getHead();
+
+                if (!headA.getName().equals(headB.getName())) {
+                    return headA.getName().compareTo(headB.getName());
+                }
+
+                return headA.getArity() - headB.getArity();
+            }
+        });
 
         for (Rule rule : this.rules) {
             List<Rule> matching = otherKb.getMatchingRules(rule.getHead());
-
-            // TODO: this is hacky af, but DRY I guess
-            if (!matching.isEmpty() && new KnowledgeBase(conflicting).getMatchingRules(rule.getHead()).isEmpty()) {
-                conflicting.add(rule);
-            }
+            conflicting.addAll(matching);
         }
 
-        return Collections.unmodifiableList(conflicting);
+        return Collections.unmodifiableList(new ArrayList<>(conflicting));
     }
 
     /**
