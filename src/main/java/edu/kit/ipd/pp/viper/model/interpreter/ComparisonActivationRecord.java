@@ -1,8 +1,5 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
-import edu.kit.ipd.pp.viper.controller.LanguageKey;
-import edu.kit.ipd.pp.viper.controller.LanguageManager;
-
 import edu.kit.ipd.pp.viper.model.ast.ComparisonGoal;
 import edu.kit.ipd.pp.viper.model.ast.Number;
 import edu.kit.ipd.pp.viper.model.ast.Term;
