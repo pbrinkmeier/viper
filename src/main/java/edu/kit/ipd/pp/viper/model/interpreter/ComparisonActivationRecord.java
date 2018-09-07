@@ -94,7 +94,7 @@ public class ComparisonActivationRecord extends ActivationRecord {
             Number rhsNum = rhs.evaluate();
 
             this.errorMessage = this.getGoal().compareNumbers(lhsNum.getNumber(), rhsNum.getNumber()) ? Optional.empty()
-                    : Optional.of(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_COMPARISON_FAILED));
+                    : Optional.of("&#x2717;");
         } catch (TermEvaluationException e) {
             this.errorMessage = Optional.of(e.getMessage());
         }

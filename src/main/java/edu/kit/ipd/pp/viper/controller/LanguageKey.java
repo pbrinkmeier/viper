@@ -394,16 +394,6 @@ public enum LanguageKey {
     ARITHMETIC_UNSUPPORTED_TERM("arithmetic_unsupported_term"),
 
     /**
-     * Message for failed comparisons.
-     */
-    ARITHMETIC_COMPARISON_FAILED("arithmetic_comparison_failed"),
-
-    /**
-     * Message for successful comparisons.
-     */
-    ARITHMETIC_COMPARISON_SUCCEEDED("arithmetic_comparison_succeeded"),
-
-    /**
      * Console output when program starts
      */
     VIPER_READY("viper_started"),
