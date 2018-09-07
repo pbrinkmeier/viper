@@ -3,6 +3,7 @@ package edu.kit.ipd.pp.viper.model.ast;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 
 import org.junit.*;
@@ -42,9 +43,8 @@ public class ComparisonGoalTest {
 
     @Test
     public void getVariablesTest() {
-        assertEquals(Arrays.asList(new Variable("X"), new Variable("Y")), this.goal.getVariables());
-        assertEquals(Arrays.asList(new Variable("X")), new EqualGoal(new Variable("X"),
-                new Variable("X")).getVariables());
+        assertEquals(new HashSet<>(Arrays.asList(new Variable("X"), new Variable("Y"))), this.goal.getVariables());
+        assertEquals(new HashSet<>(Arrays.asList(new Variable("X"))), new EqualGoal(new Variable("X"), new Variable("X")).getVariables());
     }
 
     @Test

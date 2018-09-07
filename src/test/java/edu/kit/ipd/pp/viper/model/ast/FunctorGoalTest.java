@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 
 import org.junit.Before;
@@ -35,7 +36,7 @@ public class FunctorGoalTest {
         FunctorGoal withVars =
             new FunctorGoal(new Functor("nice", Arrays.asList(new Variable("X"), new Variable("Y"))));
         
-        assertEquals(Arrays.asList(new Variable("X"), new Variable("Y")), withVars.getVariables());
+        assertEquals(new HashSet<>(Arrays.asList(new Variable("X"), new Variable("Y"))), withVars.getVariables());
     }
 
     @Test

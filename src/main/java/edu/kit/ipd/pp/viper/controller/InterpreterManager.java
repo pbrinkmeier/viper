@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import org.apache.commons.io.IOUtils;
@@ -47,7 +48,7 @@ public class InterpreterManager {
     private List<Graph> visualisations;
     private List<StepResult> results;
     private int current;
-    private Optional<List<Variable>> variables;
+    private Optional<Set<Variable>> variables;
     private boolean useStandardLibrary = true;
     private final Optional<KnowledgeBase> standardLibrary;
     private boolean running = false;

@@ -1,6 +1,6 @@
 package edu.kit.ipd.pp.viper.model.interpreter;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -27,7 +30,7 @@ public class InterpreterTest {
             "src/test/resources/maths.pl",
             "max(42, 17, X).",
             Arrays.asList(
-                Arrays.asList(new Substitution(new Variable("X"), new Number(42)))
+                new HashSet<>(Arrays.asList(new Substitution(new Variable("X"), new Number(42))))
             )
         );
 
@@ -35,7 +38,7 @@ public class InterpreterTest {
             "src/test/resources/maths.pl",
             "max(17, 42, X).",
             Arrays.asList(
-                Arrays.asList(new Substitution(new Variable("X"), new Number(42)))
+                new HashSet<>(Arrays.asList(new Substitution(new Variable("X"), new Number(42))))
             )
         );
     }
@@ -46,7 +49,7 @@ public class InterpreterTest {
             "src/test/resources/maths.pl",
             "sum(25, X, 42).",
             Arrays.asList(
-                Arrays.asList(new Substitution(new Variable("X"), new Number(17)))
+                new HashSet<>(Arrays.asList(new Substitution(new Variable("X"), new Number(17))))
             )
         );
     }
@@ -57,7 +60,7 @@ public class InterpreterTest {
             "src/test/resources/maths.pl",
             "fac(10, X).",
             Arrays.asList(
-                Arrays.asList(new Substitution(new Variable("X"), new Number(3628800)))
+                new HashSet<>(Arrays.asList(new Substitution(new Variable("X"), new Number(3628800))))
             )
         );
     }
@@ -68,17 +71,15 @@ public class InterpreterTest {
             "src/test/resources/simpsons_advanced.pl",
             "grandfather(Gramps, Grandchild).",
             Arrays.asList(
-                Arrays.asList(new Substitution(new Variable("Gramps"), Functor.atom("abe")),
-                        new Substitution(new Variable("Grandchild"), Functor.atom("bart"))),
-                Arrays.asList(new Substitution(new Variable("Gramps"), Functor.atom("abe")),
-                        new Substitution(new Variable("Grandchild"), Functor.atom("lisa")))
+                new HashSet<>(Arrays.asList(new Substitution(new Variable("Gramps"), Functor.atom("abe")), new Substitution(new Variable("Grandchild"), Functor.atom("bart")))),
+                new HashSet<>(Arrays.asList(new Substitution(new Variable("Gramps"), Functor.atom("abe")), new Substitution(new Variable("Grandchild"), Functor.atom("lisa"))))
             )
         );
     }
 
     @Test
     public void cutTest() throws IOException, ParseException {
-        InterpreterTest.runQuery("src/test/resources/simpsons_advanced.pl", "!.", Arrays.asList(Arrays.asList()));
+        InterpreterTest.runQuery("src/test/resources/simpsons_advanced.pl", "!.", Arrays.asList(Collections.EMPTY_SET));
     }
 
     @Test
@@ -86,7 +87,7 @@ public class InterpreterTest {
         InterpreterTest.runQuery(
             "src/test/resources/simpsons_advanced.pl",
             "X = test.",
-            Arrays.asList(Arrays.asList(new Substitution(new Variable("X"), Functor.atom("test"))))
+            Arrays.asList(new HashSet<>(Arrays.asList(new Substitution(new Variable("X"), Functor.atom("test")))))
         );
     }
 
@@ -108,11 +109,12 @@ public class InterpreterTest {
                 assertFalse("Found more solutions than expected!", solutionIndex >= expectedSolutions.size());
 
                 Environment env = interpreter.getCurrent().get().getEnvironment();
-                List<Variable> toFind = query.getVariables();
+
+                Set<Variable> toFind = query.getVariables();
                 
-                List<Substitution> actualSolution = toFind.stream().map(variable -> {
+                Set<Substitution> actualSolution = toFind.stream().map(variable -> {
                     return new Substitution(variable, env.applyAllSubstitutions(variable));
-                }).collect(toList());
+                }).collect(toSet());
 
                 assertEquals(actualSolution, expectedSolutions.get(solutionIndex));
 

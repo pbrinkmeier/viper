@@ -4,9 +4,9 @@ import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.VariableExtractor;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents a functor goal in an AST. A functor goal is a single functor that
@@ -56,7 +56,7 @@ public class FunctorGoal extends Goal {
     }
 
     @Override
-    public List<Variable> getVariables() {
+    public Set<Variable> getVariables() {
         return this.functor.accept(new VariableExtractor());
     }
 

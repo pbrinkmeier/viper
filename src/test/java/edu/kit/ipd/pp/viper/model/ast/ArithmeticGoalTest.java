@@ -4,6 +4,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.Indexifier;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 
 import org.junit.*;
@@ -23,8 +24,8 @@ public class ArithmeticGoalTest {
 
     @Test
     public void getVariablesTest() {
-        assertEquals(Arrays.asList(new Variable("X"), new Variable("Y")), this.goal.getVariables());
-        assertEquals(Arrays.asList(new Variable("Z")), this.uselessGoal.getVariables());
+        assertEquals(new HashSet<>(Arrays.asList(new Variable("X"), new Variable("Y"))), this.goal.getVariables());
+        assertEquals(new HashSet<>(Arrays.asList(new Variable("Z"))), this.uselessGoal.getVariables());
     }
 
     @Test

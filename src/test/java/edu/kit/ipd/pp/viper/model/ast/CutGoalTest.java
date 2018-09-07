@@ -4,6 +4,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.Indexifier;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
 
 import org.junit.*;
@@ -41,7 +42,7 @@ public class CutGoalTest {
 
     @Test
     public void getVariablesTest() {
-        assertEquals(Arrays.asList(), this.goal.getVariables());
+        assertEquals(Collections.EMPTY_SET, this.goal.getVariables());
     }
 
     @Test
