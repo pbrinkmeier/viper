@@ -409,14 +409,17 @@ public enum LanguageKey {
     VIPER_READY("viper_started"),
 
     /**
-     * Line containing the error for an ParserException
-     *
      * Note that describes what happens when you backtrack into a cut
      */
     VISUALISATION_CUT_NOTE("visualisation_cut_note"),
 
     /**
-     * Line containing the error for an ParserException
+     * Note that describes what happens when you backtrack into a cut without a parent
+     */
+    VISUALISATION_CUT_ABORT("visualisation_cut_abort"),
+
+    /**
+     * Line containing the error for an ParseException
      */
     POSITION("position"),
 
