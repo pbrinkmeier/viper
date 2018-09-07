@@ -156,11 +156,19 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
             return node;
         }
 
-        String parentHtml = cutAr.getParent().isPresent() ? cutAr.getParent().get().getFunctor().toHtml()
-                : "[no parent]";
-        Node cutNoteBox = node(this.createUniqueNodeName()).with(Label.html(
-                String.format(LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_CUT_NOTE), parentHtml)))
-                .with(attr("shape", "record"));
+        String cutNote;
+        if (cutAr.getParent().isPresent()) {
+            cutNote = String.format(
+                LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_CUT_NOTE),
+                cutAr.getParent().get().getFunctor().toHtml()
+            );
+        } else {
+            cutNote = LanguageManager.getInstance().getString(LanguageKey.VISUALISATION_CUT_ABORT);
+        }
+
+        Node cutNoteBox = node(this.createUniqueNodeName())
+        .with(Label.html(cutNote))
+        .with(attr("shape", "record"));
 
         if (this.isCurrent(cutAr)) {
             cutNoteBox = cutNoteBox.with(ColorScheme.VIS_GREEN);
