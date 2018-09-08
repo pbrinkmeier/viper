@@ -1,4 +1,3 @@
-% This file contains all valid language constructs our subset of Prolog supports
 % It is not meant to be a meaningful program
 
 % empty rules, functors, variables, numbers
@@ -14,6 +13,7 @@ randomRule :-
   !,
   % unification goals
   zomg = Msg,
+  1 = Num,
   [X, Y] = [1, 2],
   % arithmetic goals
   X is 42,
@@ -25,7 +25,8 @@ randomRule :-
   X =:= 42,
   X =\= 69,
   X >= 17,
-  X > 17.
+  X > 17,
+  last.
 
 % lists are also supported terms
 listStuff([], [1, 2], [1 | 2]).

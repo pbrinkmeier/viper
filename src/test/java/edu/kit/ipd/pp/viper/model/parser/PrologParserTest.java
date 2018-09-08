@@ -51,6 +51,7 @@ public class PrologParserTest {
                 new FunctorGoal(new Functor("isValid", Arrays.asList(new Variable("Y")))),
                 new CutGoal(),
                 new UnificationGoal(Functor.atom("zomg"), new Variable("Msg")),
+                new UnificationGoal(new Number(1), new Variable("Num")),
                 new UnificationGoal(
                     new Functor("[|]", Arrays.asList(new Variable("X"),
                     new Functor("[|]", Arrays.asList(new Variable("Y"),
@@ -76,7 +77,8 @@ public class PrologParserTest {
                 new EqualGoal(new Variable("X"), new Number(42)),
                 new NotEqualGoal(new Variable("X"), new Number(69)),
                 new GreaterThanEqualGoal(new Variable("X"), new Number(17)),
-                new GreaterThanGoal(new Variable("X"), new Number(17))
+                new GreaterThanGoal(new Variable("X"), new Number(17)),
+                new FunctorGoal(Functor.atom("last"))
             )),
             new Rule(new Functor("listStuff", Arrays.asList(
                 Functor.atom("[]"),
@@ -91,8 +93,83 @@ public class PrologParserTest {
         assertEquals(testBase, parsed);
     }
 
+    /**
+     * Provokes a ParseException in parseFunctor by feeding a single invalid character to the parser.
+     *
+     * @throws ParseException because "@" is not a valid functor, which would have to be the head of the first rule.
+     */
     @Test(expected = ParseException.class)
     public void illegalCharacterTest() throws ParseException {
         new PrologParser("@").parse();
+    }
+
+    /**
+     * Provokes a ParseException in parseGoal.
+     *
+     * @throws ParseException because "*" is not a valid goal.
+     */
+    @Test(expected = ParseException.class)
+    public void parseGoalTest() throws ParseException {
+        new PrologParser("test :- *.").parse();
+    }
+
+    /**
+     * Provokes a ParseException in parseGoalRest.
+     *
+     * @throws ParseException because "!" is not a valid operator for a goal.
+     */
+    @Test(expected = ParseException.class)
+    public void parseGoalRest() throws ParseException {
+        new PrologParser("test :- X ! Y.").parse();
+    }
+
+    /**
+     * Provokes a ParseException in parseList.
+     *
+     * @throws ParseException because "!" is not a valid list member.
+     */
+    @Test(expected = ParseException.class)
+    public void parseListTest() throws ParseException {
+        new PrologParser("test :- X = [!].").parse();
+    }
+
+    /**
+     * Provokes a ParseException in parseListRest.
+     *
+     * @throws ParseException because "!" is not a valid list rest after a list member.
+     */
+    @Test(expected = ParseException.class)
+    public void parseListRestTest() throws ParseException {
+        new PrologParser("test :- [1 !].").parse();
+    }
+
+    /**
+     * Provokes a ParseException in expect.
+     *
+     * @throws ParseException because parseRule expects ":-" after a rules head that isn't followed by ".".
+     */
+    @Test(expected = ParseException.class)
+    public void expectTest() throws ParseException {
+        new PrologParser("test test.").parse();
+    }
+
+    /**
+     * Provokes a ParseException in parseFunctor.
+     *
+     * @throws ParseException because a functor must start with an identifier.
+     */
+    @Test(expected = ParseException.class)
+    public void parseFunctorTest() throws ParseException {
+        new PrologParser("A.").parse();
+    }
+
+    /**
+     * Provokes a ParseException in parseFactor.
+     *
+     * @throws ParseException because a factor can't be "!".
+     */
+    @Test(expected = ParseException.class)
+    public void parseFactorTest() throws ParseException {
+        new PrologParser("test :- 5 * !.").parse();
     }
 }
