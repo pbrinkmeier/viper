@@ -270,7 +270,9 @@ public class PrologParser {
 
             if (op == TokenType.PLUS) {
                 t = new AdditionOperation(t, rhs);
-            } else if (op == TokenType.MINUS) {
+            // the else if below is not needed because it's clear from the looping condition
+            // } else if (op == TokenType.MINUS) {
+            } else {
                 t = new SubtractionOperation(t, rhs);
             }
         }
