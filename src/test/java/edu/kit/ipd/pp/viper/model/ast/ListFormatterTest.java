@@ -19,9 +19,9 @@ public class ListFormatterTest {
     @Before
     public void init() {
         this.validList
-            = this.cons(new Number(1),
-            this.cons(Functor.atom("two"),
-            this.cons(new Variable("Three", 4),
+            = ListFormatterTest.cons(new Number(1),
+            ListFormatterTest.cons(Functor.atom("two"),
+            ListFormatterTest.cons(new Variable("Three", 4),
             Functor.atom("[]"))));
         this.emptyList
             = Functor.atom("[]");

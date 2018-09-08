@@ -30,7 +30,8 @@ public class InterpreterTest {
      */
     @Test
     public void noMoreSolutionsTest() {
-        Interpreter i = InterpreterTest.runQuery("src/test/resources/maths.pl", "!.", Arrays.asList(Collections.emptySet()));
+        Interpreter i = InterpreterTest.runQuery("src/test/resources/maths.pl", "!.",
+                Arrays.asList(Collections.emptySet()));
         assertEquals(i.step(), StepResult.NO_MORE_SOLUTIONS);
     }
 
@@ -108,7 +109,8 @@ public class InterpreterTest {
      */
     @Test
     public void cutTest() {
-        InterpreterTest.runQuery("src/test/resources/simpsons_advanced.pl", "!.", Arrays.asList(Collections.emptySet()));
+        InterpreterTest.runQuery("src/test/resources/simpsons_advanced.pl", "!.",
+                Arrays.asList(Collections.emptySet()));
     }
 
     /**
@@ -129,7 +131,7 @@ public class InterpreterTest {
      */
     @Test
     public void advancedCutTest() {
-        this.runQuery(
+        InterpreterTest.runQuery(
             "src/test/resources/maths.pl",
             "magic(50, A).",
             Arrays.asList(
