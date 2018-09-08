@@ -65,7 +65,7 @@
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-In der Testphase wird VIPER durch weitere Unittests, durch Systemtests sowie die im Pflichtenheft vorgestellten Testfall-Szenarien getestet. Außerdem wird das Programm in Hinblick auf Nutzbarkeit und Codequalität geprüft und überarbeitet.
+In der Testphase wird VIPER durch weitere Unittests sowie die im Pflichtenheft vorgestellten Testfall-Szenarien getestet. Außerdem wird das Programm in Hinblick auf Nutzbarkeit und Codequalität geprüft und überarbeitet.
 
 Die Unittests werden mit dem Framework JUnit \footnote{\url{https://junit.org/}} geschrieben. Die durch diese Tests erreichte Abdeckung wird mit JaCoCo \footnote{\url{https://www.eclemma.org/jacoco/}} überprüft. Das Ziel ist eine Abdeckung nahe 100\% für das Controller Paket sowie alle Model Pakete. Mittels JAssertSwing \footnote{\url{https://joel-costigliola.github.io/assertj/assertj-swing.html}} wird auch das View Paket von VIPER so weit wie möglich automatisch getestet.
 
@@ -85,13 +85,17 @@ Für die Verwaltung von gefundenen Fehlern und zu implementierenden Features wer
 
 \subsection{Testfälle aus Pflichtenheft}
 
-\subsection{Integrationstests}
-
-\subsection{Statische Analyse}
+\subsection{Statische Analyse und Linting}
 
 % Checkstyle, Linter, sonstige Tools für Codequalität
 
 % Ergebnisse FindBugs, PMD (Zahlen, welche Fehlergruppe wir ignorieren, z.B. hashCode(), if..else curly braces)
+
+\subsection{Nutzertests}
+
+% Ergebnisse des Usability Testings (Reaktionen der Leute!)
+% Icons geändert/Buttons aufgeteilt, Zoomen, Shortcuts, Stdlib anzeigen
+% Zoom-Debatte mit Meinung von Max
 
 \section{Gefundene Fehler}
 
@@ -151,12 +155,6 @@ Im Folgenden werden die zusätzlich implementieren Funktionalitäten und Änderu
   \item \textbf{Darstellung des Mauszeigers}\\
         Der Mauszeiger ändert seine Darstellung zur \enquote{Laden...}-Animation, wenn die Berechnung der nächsten Lösung etwas Zeit in Anspruch nimmt.
 \end{itemize}
-
-\section{Nutzertests}
-
-% Ergebnisse des Usability Testings (Reaktionen der Leute!)
-% Icons geändert/Buttons aufgeteilt, Zoomen, Shortcuts, Stdlib anzeigen
-% Zoom-Debatte mit Meinung von Max
 
 \section{Statistiken}
 
