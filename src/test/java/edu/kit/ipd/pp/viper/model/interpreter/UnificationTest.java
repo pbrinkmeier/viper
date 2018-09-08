@@ -52,7 +52,18 @@ public class UnificationTest {
         UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
 
         assertTrue(!result.isSuccess());
-        assertEquals("homer is not unifiable with marge", result.getErrorMessage());
+    }
+
+    /**
+     * Tests for proper failure trying to unify a number and a functor.
+     */
+    @Test
+    public void numberFunctorFailTest() {
+        Term num = new Number(42);
+        Term fun = Functor.atom("fortytwo");
+
+        assertFalse(num.accept(fun.accept(new UnifierCreator())).isSuccess());
+        assertFalse(fun.accept(num.accept(new UnifierCreator())).isSuccess());
     }
 
     /**
@@ -133,6 +144,5 @@ public class UnificationTest {
         UnificationResult result = rhs.accept(lhs.accept(new UnifierCreator()));
 
         assertTrue(!result.isSuccess());
-        assertEquals("X is not unifiable with f(X)", result.getErrorMessage());
     }
 }

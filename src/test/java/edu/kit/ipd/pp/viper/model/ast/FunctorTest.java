@@ -60,6 +60,15 @@ public class FunctorTest {
     }
 
     /**
+     * Tests the getShortNotation method.
+     */
+    @Test
+    public void getShortNotationTest() {
+        assertEquals("noparam/0", this.noParam.getShortNotation());
+        assertEquals("test/3", this.fun.getShortNotation());
+    }
+
+    /**
      * Tests the conversion of a Functor to HTML code.
      */
     @Test

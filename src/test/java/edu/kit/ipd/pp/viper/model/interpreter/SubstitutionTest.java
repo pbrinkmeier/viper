@@ -58,4 +58,12 @@ public class SubstitutionTest {
             this.substitution.hashCode()
         );
     }
+
+    /**
+     * Tests the toString method.
+     */
+    @Test
+    public void toStringTest() {
+        assertEquals("X => homer", this.substitution.toString());
+    }
 }
