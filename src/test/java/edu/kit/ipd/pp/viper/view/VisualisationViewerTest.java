@@ -5,8 +5,6 @@ import static guru.nidi.graphviz.model.Factory.node;
 
 import java.awt.event.ActionEvent;
 
-import org.apache.batik.swing.JSVGCanvas;
-import org.junit.Before;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.controller.ZoomType;
@@ -15,10 +13,7 @@ import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.model.Graph;
 import guru.nidi.graphviz.model.Node;
 
-public class VisualisationViewerTest {
-    private MainWindow gui;
-    private VisualisationViewer viewer;
-    
+public class VisualisationViewerTest extends ViewTest {
     private Node rootNode = node("grandfather(X, Y)").with(
             Shape.RECTANGLE,
             ColorScheme.VIS_WHITE,
@@ -29,16 +24,6 @@ public class VisualisationViewerTest {
             .with(rootNode)
             .nodeAttr()
             .with(Font.name("Times New Roman"));
-
-    /**
-     * Constructs the GUI.
-     */
-    @Before
-    public void buildGUI() {
-        this.gui = new MainWindow(true);
-        this.gui.setVisible(false);
-        this.viewer = this.gui.getVisualisationPanel().getVisualisationViewer();
-    }
     
     /**
      * Tests if the zoom level of the visualisation viewer is reset accordingly.

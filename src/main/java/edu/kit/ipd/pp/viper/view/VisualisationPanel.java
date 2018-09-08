@@ -120,16 +120,6 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     }
     
     /**
-     * Sets the current zoom level.
-     * Only used for testing.
-     * 
-     * @param zoomLevel The new zoom level
-     */
-    public void setZoomLevel(int zoomLevel) {
-        this.zoomLevel = zoomLevel;
-    }
-    
-    /**
      * Sets custom cursor for all VisualisationPanel subpanels
      * @param cursor cursor to set
      */

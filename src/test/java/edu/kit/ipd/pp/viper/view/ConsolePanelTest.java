@@ -2,25 +2,12 @@ package edu.kit.ipd.pp.viper.view;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
 
-public class ConsolePanelTest {
-    private MainWindow gui;
-    private ConsolePanel console;
-
-    /**
-     * Constructs the GUI.
-     */
-    @Before
-    public void buildGUI() {
-        this.gui = new MainWindow(true);
-        this.gui.setVisible(false);
-        this.console = this.gui.getConsolePanel();
-    }
+public class ConsolePanelTest extends ViewTest{
     
     /**
      * Sets and checks the text from the input field.
@@ -28,8 +15,8 @@ public class ConsolePanelTest {
     @Test
     public void getInputFieldTextTest() {
         double controlNumber = Math.random() * 100;
-        this.console.setInputFieldText("test " + controlNumber);
-        assertEquals("test " + controlNumber, this.console.getInputFieldText());
+        this.gui.getConsolePanel().setInputFieldText("test " + controlNumber);
+        assertEquals("test " + controlNumber, this.gui.getConsolePanel().getInputFieldText());
     }
     
     /**
@@ -37,9 +24,9 @@ public class ConsolePanelTest {
      */
     @Test
     public void clearInputFieldTest() {
-        this.console.setInputFieldText("test");
-        this.console.clearInputField();
-        assertEquals("", this.console.getInputFieldText());
+        this.gui.getConsolePanel().setInputFieldText("test");
+        this.gui.getConsolePanel().clearInputField();
+        assertEquals("", this.gui.getConsolePanel().getInputFieldText());
     }
     
     /**
@@ -55,14 +42,14 @@ public class ConsolePanelTest {
                 "  <body>\n" + 
                 "    <p style=\"margin-top: 0\">\n" + 
                 "      <font color=\"#000000\" face=\"monospaced\" size=\"" + 
-                (this.console.getOutputAreaFontSize() - 10) + "\">test " + controlNumber + "\n" + 
+                (this.gui.getConsolePanel().getOutputAreaFontSize() - 10) + "\">test " + controlNumber + "\n" + 
                 "</font>    </p>\n" + 
                 "  </body>\n" + 
                 "</html>";
         
-        this.console.clearOutputArea();
-        this.console.printLine("test " + controlNumber, LogType.INFO);
-        assertEquals(testOutputArea, this.console.getOutputAreaText().trim());
+        this.gui.getConsolePanel().clearOutputArea();
+        this.gui.getConsolePanel().printLine("test " + controlNumber, LogType.INFO);
+        assertEquals(testOutputArea, this.gui.getConsolePanel().getOutputAreaText().trim());
     }
     
     /**
@@ -81,8 +68,8 @@ public class ConsolePanelTest {
                 "  </body>\n" + 
                 "</html>";
         
-        this.console.clearOutputArea();
-        assertEquals(emptyOutputArea, this.console.getOutputAreaText().trim());
+        this.gui.getConsolePanel().clearOutputArea();
+        assertEquals(emptyOutputArea, this.gui.getConsolePanel().getOutputAreaText().trim());
     }
     
     /**
@@ -90,10 +77,10 @@ public class ConsolePanelTest {
      */
     @Test
     public void resetZoomTest() {
-        this.console.zoomOutputArea(ZoomType.ZOOM_IN);
-        this.console.resetZoom();
+        this.gui.getConsolePanel().zoomOutputArea(ZoomType.ZOOM_IN);
+        this.gui.getConsolePanel().resetZoom();
         assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE,
-                this.console.getOutputAreaFontSize());
+                this.gui.getConsolePanel().getOutputAreaFontSize());
     }
     
     /**
@@ -101,10 +88,10 @@ public class ConsolePanelTest {
      */
     @Test
     public void zoomInOutputAreaTest() {
-        this.console.resetZoom();
-        this.console.zoomOutputArea(ZoomType.ZOOM_IN);
+        this.gui.getConsolePanel().resetZoom();
+        this.gui.getConsolePanel().zoomOutputArea(ZoomType.ZOOM_IN);
         assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE + 1,
-                this.console.getOutputAreaFontSize());
+                this.gui.getConsolePanel().getOutputAreaFontSize());
     }
     
     /**
@@ -112,9 +99,9 @@ public class ConsolePanelTest {
      */
     @Test
     public void zoomInMaxOutputAreaTest() {
-        this.console.setOutputAreaFontSize(40);
-        this.console.zoomOutputArea(ZoomType.ZOOM_IN);
-        assertEquals(40, this.console.getOutputAreaFontSize());
+        this.gui.getConsolePanel().setOutputAreaFontSize(40);
+        this.gui.getConsolePanel().zoomOutputArea(ZoomType.ZOOM_IN);
+        assertEquals(40, this.gui.getConsolePanel().getOutputAreaFontSize());
     }
     
     /**
@@ -122,10 +109,10 @@ public class ConsolePanelTest {
      */
     @Test
     public void zoomOutOutputAreaTest() {
-        this.console.resetZoom();
-        this.console.zoomOutputArea(ZoomType.ZOOM_OUT);
+        this.gui.getConsolePanel().resetZoom();
+        this.gui.getConsolePanel().zoomOutputArea(ZoomType.ZOOM_OUT);
         assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE - 1,
-                this.console.getOutputAreaFontSize());
+                this.gui.getConsolePanel().getOutputAreaFontSize());
     }
     
     /**
@@ -133,8 +120,8 @@ public class ConsolePanelTest {
      */
     @Test
     public void zoomOutMaxOutputAreaTest() {
-        this.console.setOutputAreaFontSize(10);
-        this.console.zoomOutputArea(ZoomType.ZOOM_OUT);
-        assertEquals(10, this.console.getOutputAreaFontSize());
+        this.gui.getConsolePanel().setOutputAreaFontSize(10);
+        this.gui.getConsolePanel().zoomOutputArea(ZoomType.ZOOM_OUT);
+        assertEquals(10, this.gui.getConsolePanel().getOutputAreaFontSize());
     }
 }

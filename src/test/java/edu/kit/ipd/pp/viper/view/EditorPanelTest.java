@@ -5,34 +5,21 @@ import static org.junit.Assert.assertEquals;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
 
-public class EditorPanelTest {
-    private MainWindow gui;
-    private EditorPanel editor;
-
-    /**
-     * Constructs the GUI.
-     */
-    @Before
-    public void buildGUI() {
-        this.gui = new MainWindow(true);
-        this.gui.setVisible(false);
-        this.editor = this.gui.getEditorPanel();
-    }
+public class EditorPanelTest extends ViewTest {
 
     /**
      * Tests if the Zoom (the font size) is reset correctly
      */
     @Test
     public void resetZoomTest() {
-        this.editor.setFontSize(20);
-        this.editor.resetZoom();
-        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE, editor.getFontSize());
+        this.gui.getEditorPanel().setFontSize(20);
+        this.gui.getEditorPanel().resetZoom();
+        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE, this.gui.getEditorPanel().getFontSize());
     }
 
     /**
@@ -40,9 +27,9 @@ public class EditorPanelTest {
      */
     @Test
     public void increaseFontTest() {
-        this.editor.resetZoom();
-        this.editor.zoom(ZoomType.ZOOM_IN);
-        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE + 1, this.editor.getFontSize());
+        this.gui.getEditorPanel().resetZoom();
+        this.gui.getEditorPanel().zoom(ZoomType.ZOOM_IN);
+        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE + 1, this.gui.getEditorPanel().getFontSize());
     }
 
     /**
@@ -50,9 +37,9 @@ public class EditorPanelTest {
      */
     @Test
     public void increaseMaxFontTest() {
-        this.editor.setFontSize(40);
-        this.editor.zoom(ZoomType.ZOOM_IN);
-        assertEquals(40, this.editor.getFontSize());
+        this.gui.getEditorPanel().setFontSize(40);
+        this.gui.getEditorPanel().zoom(ZoomType.ZOOM_IN);
+        assertEquals(40, this.gui.getEditorPanel().getFontSize());
     }
 
     /**
@@ -60,9 +47,9 @@ public class EditorPanelTest {
      */
     @Test
     public void decreaseFontTest() {
-        this.editor.resetZoom();
-        this.editor.zoom(ZoomType.ZOOM_OUT);
-        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE - 1, this.editor.getFontSize());
+        this.gui.getEditorPanel().resetZoom();
+        this.gui.getEditorPanel().zoom(ZoomType.ZOOM_OUT);
+        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE - 1, this.gui.getEditorPanel().getFontSize());
     }
 
     /**
@@ -70,9 +57,9 @@ public class EditorPanelTest {
      */
     @Test
     public void decreaseMinFontTest() {
-       this.editor.setFontSize(10);
-       this.editor.zoom(ZoomType.ZOOM_OUT);
-       assertEquals(10, this.editor.getFontSize());
+       this.gui.getEditorPanel().setFontSize(10);
+       this.gui.getEditorPanel().zoom(ZoomType.ZOOM_OUT);
+       assertEquals(10, this.gui.getEditorPanel().getFontSize());
     }
     
     /**
@@ -80,10 +67,10 @@ public class EditorPanelTest {
      */
     @Test
     public void keyPressedPlusKeyTest() {
-        this.editor.resetZoom();
-        this.editor.keyPressed(new KeyEvent(this.editor.getTextArea(), KeyEvent.KEY_PRESSED,
+        this.gui.getEditorPanel().resetZoom();
+        this.gui.getEditorPanel().keyPressed(new KeyEvent(this.gui.getEditorPanel().getTextArea(), KeyEvent.KEY_PRESSED,
                 1, 2, KeyEvent.VK_PLUS, KeyEvent.CHAR_UNDEFINED));
-        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE + 1, this.editor.getFontSize());
+        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE + 1, this.gui.getEditorPanel().getFontSize());
     }
     
     /**
@@ -91,10 +78,10 @@ public class EditorPanelTest {
      */
     @Test
     public void keyPressedNumPlusKeyTest() {
-        this.editor.resetZoom();
-        this.editor.keyPressed(new KeyEvent(this.editor.getTextArea(), KeyEvent.KEY_PRESSED,
+        this.gui.getEditorPanel().resetZoom();
+        this.gui.getEditorPanel().keyPressed(new KeyEvent(this.gui.getEditorPanel().getTextArea(), KeyEvent.KEY_PRESSED,
                 1, 2, KeyEvent.VK_ADD, KeyEvent.CHAR_UNDEFINED));
-        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE + 1, this.editor.getFontSize());
+        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE + 1, this.gui.getEditorPanel().getFontSize());
     }
     
     /**
@@ -102,10 +89,10 @@ public class EditorPanelTest {
      */
     @Test
     public void keyPressedMinusKeyTest() {
-        this.editor.resetZoom();
-        this.editor.keyPressed(new KeyEvent(this.editor.getTextArea(), KeyEvent.KEY_PRESSED,
+        this.gui.getEditorPanel().resetZoom();
+        this.gui.getEditorPanel().keyPressed(new KeyEvent(this.gui.getEditorPanel().getTextArea(), KeyEvent.KEY_PRESSED,
                 1, 2, KeyEvent.VK_MINUS, KeyEvent.CHAR_UNDEFINED));
-        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE - 1, this.editor.getFontSize());
+        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE - 1, this.gui.getEditorPanel().getFontSize());
     }
     
     /**
@@ -113,10 +100,10 @@ public class EditorPanelTest {
      */
     @Test
     public void keyPressedNumMinusKeyTest() {
-        this.editor.resetZoom();
-        this.editor.keyPressed(new KeyEvent(this.editor.getTextArea(), KeyEvent.KEY_PRESSED,
+        this.gui.getEditorPanel().resetZoom();
+        this.gui.getEditorPanel().keyPressed(new KeyEvent(this.gui.getEditorPanel().getTextArea(), KeyEvent.KEY_PRESSED,
                 1, 2, KeyEvent.VK_SUBTRACT, KeyEvent.CHAR_UNDEFINED));
-        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE - 1, this.editor.getFontSize());
+        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE - 1, this.gui.getEditorPanel().getFontSize());
     }
     
     /**
@@ -124,10 +111,10 @@ public class EditorPanelTest {
      */
     @Test
     public void mousewheelMovedZoomInTest() {
-        this.editor.resetZoom();
-        this.editor.mouseWheelMoved(new MouseWheelEvent(this.editor.getTextArea(), 1, 1, 2, 1, 1, 1,
+        this.gui.getEditorPanel().resetZoom();
+        this.gui.getEditorPanel().mouseWheelMoved(new MouseWheelEvent(this.gui.getEditorPanel().getTextArea(), 1, 1, 2, 1, 1, 1,
                 false, MouseWheelEvent.WHEEL_UNIT_SCROLL, 3, -1));
-        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE + 1, this.editor.getFontSize());
+        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE + 1, this.gui.getEditorPanel().getFontSize());
     }
     
     /**
@@ -135,9 +122,9 @@ public class EditorPanelTest {
      */
     @Test
     public void mousewheelMovedZoomOutTest() {
-        this.editor.resetZoom();
-        this.editor.mouseWheelMoved(new MouseWheelEvent(this.editor.getTextArea(), 1, 1, 2, 1, 1, 1,
+        this.gui.getEditorPanel().resetZoom();
+        this.gui.getEditorPanel().mouseWheelMoved(new MouseWheelEvent(this.gui.getEditorPanel().getTextArea(), 1, 1, 2, 1, 1, 1,
                 false, MouseWheelEvent.WHEEL_UNIT_SCROLL, 3, 1));
-        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE - 1, this.editor.getFontSize());
+        assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE - 1, this.gui.getEditorPanel().getFontSize());
     }
 }

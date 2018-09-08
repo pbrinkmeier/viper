@@ -2,35 +2,22 @@ package edu.kit.ipd.pp.viper.view;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 
-public class ConsoleOutputAreaTest {
-    private MainWindow gui;
-    private ConsoleOutputArea outputArea;
-
-    /**
-     * Constructs the GUI.
-     */
-    @Before
-    public void buildGUI() {
-        this.gui = new MainWindow(true);
-        this.gui.setVisible(false);
-        this.outputArea = this.gui.getConsolePanel().getOutputArea();
-    }
+public class ConsoleOutputAreaTest extends ViewTest {
     
     /**
      * Resets the font size to the default.
      */
     @Test
     public void resetFontTest() {
-        this.outputArea.setFontSize(20);
-        this.outputArea.resetFont();
+        this.gui.getConsolePanel().getOutputArea().setFontSize(20);
+        this.gui.getConsolePanel().getOutputArea().resetFont();
         
         assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE,
-                this.outputArea.getFontSize());
+                this.gui.getConsolePanel().getOutputArea().getFontSize());
     }
     
     /**
@@ -38,11 +25,11 @@ public class ConsoleOutputAreaTest {
      */
     @Test
     public void increaseFontTest() {
-        this.outputArea.resetFont();
-        this.outputArea.increaseFont();
+        this.gui.getConsolePanel().getOutputArea().resetFont();
+        this.gui.getConsolePanel().getOutputArea().increaseFont();
         
         assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE + 1,
-                this.outputArea.getFontSize());
+                this.gui.getConsolePanel().getOutputArea().getFontSize());
     }
     
     /**
@@ -50,10 +37,10 @@ public class ConsoleOutputAreaTest {
      */
     @Test
     public void decreaseFontTest() {
-        this.outputArea.resetFont();
-        this.outputArea.decreaseFont();
+        this.gui.getConsolePanel().getOutputArea().resetFont();
+        this.gui.getConsolePanel().getOutputArea().decreaseFont();
         
         assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE - 1,
-                this.outputArea.getFontSize());
+                this.gui.getConsolePanel().getOutputArea().getFontSize());
     }
 }
