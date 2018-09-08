@@ -84,6 +84,16 @@ public class PreferencesManager {
         this.properties = null;
     }
     
+    /**
+     * Returns whether the properties are set to null.
+     * This is only used for testing.
+     * 
+     * @return whether the properties are null
+     */
+    public boolean hasNullProperties() {
+        return this.properties == null;
+    }
+    
     private void writeProperty(String key, String value) {
         FileWriter writer;
         try {

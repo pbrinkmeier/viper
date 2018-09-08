@@ -125,7 +125,17 @@ public class MainWindow extends JFrame {
      * @param debug Sets debug mode to enabled/disabled
      */
     public MainWindow(boolean debug) {
-        // write to static attribute, so that inDebugMode() can be static
+        this(debug, true);
+    }
+
+    /**
+     * The constructor sets up the {@link JFrame} and initialises all three panels
+     * 
+     * @param debug Sets debug mode to enabled/disabled
+     * @param showWindow Toggles whether the window is visible; should be disabled for testing
+     */
+    public MainWindow(boolean debug, boolean showWindow) {
+     // write to static attribute, so that inDebugMode() can be static
         MainWindow.debug = debug;
 
         this.setName(GUIComponentID.FRAME_MAIN.toString());
@@ -189,7 +199,7 @@ public class MainWindow extends JFrame {
         });
         this.setLocationRelativeTo(null);
         this.pack();
-        this.setVisible(true);
+        this.setVisible(showWindow);
         this.switchClickableState(ClickableState.NOT_PARSED_YET);
 
         // load language from config and set it

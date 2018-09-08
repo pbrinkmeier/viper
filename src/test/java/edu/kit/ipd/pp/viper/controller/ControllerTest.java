@@ -26,7 +26,7 @@ public class ControllerTest {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    ControllerTest.this.gui = new MainWindow(false);
+                    ControllerTest.this.gui = new MainWindow(false, false);
                 }
             });
         } catch (InvocationTargetException | InterruptedException e) {
@@ -40,6 +40,10 @@ public class ControllerTest {
      */
     @After
     public void destroyGUI() {
+        if (!this.gui.getPreferencesManager().hasNullProperties()) {
+            this.gui.getPreferencesManager().setTextSize(PreferencesManager.DEFAULT_TEXT_SIZE);
+        }
+        
         this.gui.dispose();
     }
 }
