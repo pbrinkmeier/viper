@@ -93,34 +93,11 @@ public class VisualisationViewerTest extends ViewTest {
     /**
      * Tests if zooming in via the mousewheel works
      */
-    @Ignore
     @Test
     public void mouseWheelMovedZoomInTest() {
         this.gui.getVisualisationPanel().getVisualisationViewer().setFromGraph(this.testGraph);
         this.gui.getVisualisationPanel().getVisualisationViewer().resetZoom();
-        
-        for (int i = 0; i < 5; i++) {
-            this.gui.getVisualisationPanel().getVisualisationViewer()
-                .mouseWheelMoved(new MouseWheelEvent(this.gui.getVisualisationPanel().getVisualisationViewer(),
-                    1, 1, 0, 100, 100, 1, false, MouseWheelEvent.WHEEL_UNIT_SCROLL, 3, 1));
-        }
-        
-        /* The VisualisationViewer doesn't zoom with fixed values but instead scales the image with
-         * a value that's very close to 0.01, so there will be slight differences between zooming in
-         * fives times and adding 0.05 to the default value
-         */
-        assertEquals(VisualisationViewer.DEFAULT_ZOOM + 0.05,
-                this.gui.getVisualisationPanel().getVisualisationViewer().getScale(), 0.01);
-    }
-    
-    /**
-     * Tests if zooming out via the mousewheel works
-     */
-    @Ignore
-    @Test
-    public void mouseWheelMovedZoomOutTest() {
-        this.gui.getVisualisationPanel().getVisualisationViewer().setFromGraph(this.testGraph);
-        this.gui.getVisualisationPanel().getVisualisationViewer().resetZoom();
+        this.gui.getVisualisationPanel().getVisualisationViewer().enableNavigation();
         
         for (int i = 0; i < 5; i++) {
             this.gui.getVisualisationPanel().getVisualisationViewer()
@@ -129,10 +106,41 @@ public class VisualisationViewerTest extends ViewTest {
         }
         
         /* The VisualisationViewer doesn't zoom with fixed values but instead scales the image with
-         * a value that's very close to -0.1, so there will be slight differences between zooming out
-         * fives times and subtracting 0.5 from the default value
+         * a value that's very close to 0.06, so there will be slight differences between the scale value after
+         * zooming in fives times and adding 0.3 to the default value
          */
-        assertEquals(VisualisationViewer.DEFAULT_ZOOM - 0.5,
-                this.gui.getVisualisationPanel().getVisualisationViewer().getScale(), 0.01);
+        assertEquals(VisualisationViewer.DEFAULT_ZOOM + 0.3,
+                this.gui.getVisualisationPanel().getVisualisationViewer().getScale(), 0.02);
+    }
+    
+    /**
+     * Tests if zooming out via the mousewheel works
+     */
+    @Test
+    public void mouseWheelMovedZoomOutTest() {
+        this.gui.getVisualisationPanel().getVisualisationViewer().setFromGraph(this.testGraph);
+        this.gui.getVisualisationPanel().getVisualisationViewer().resetZoom();
+        this.gui.getVisualisationPanel().getVisualisationViewer().enableNavigation();
+        
+        for (int i = 0; i < 5; i++) {
+            this.gui.getVisualisationPanel().getVisualisationViewer()
+                .mouseWheelMoved(new MouseWheelEvent(this.gui.getVisualisationPanel().getVisualisationViewer(),
+                    1, 1, 0, 100, 100, 1, false, MouseWheelEvent.WHEEL_UNIT_SCROLL, 3, 1));
+        }
+        
+        /* The VisualisationViewer doesn't zoom with fixed values but instead scales the image with
+         * a value that's very close to -0.045, so there will be slight differences between the scale value
+         * after zooming out fives times and subtracting 0.225 from the default value
+         */
+        assertEquals(VisualisationViewer.DEFAULT_ZOOM - 0.225,
+                this.gui.getVisualisationPanel().getVisualisationViewer().getScale(), 0.02);
+    }
+    
+    /**
+     * Calls the setCursor method once. Since this method does nothing this test is only for coverage.
+     */
+    @Test
+    public void setCursorTest() {
+        this.gui.getVisualisationPanel().getVisualisationViewer().setCursor(null);
     }
 }

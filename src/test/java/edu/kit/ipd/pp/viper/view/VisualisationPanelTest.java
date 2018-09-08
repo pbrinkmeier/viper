@@ -4,7 +4,6 @@ import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.controller.ZoomType;
@@ -13,6 +12,12 @@ import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.model.Graph;
 import guru.nidi.graphviz.model.Node;
 
+/**
+ * All the zoom tests in this class only check if there are no exceptions when
+ * calling the respective methods of the visualisation panel, because the panel
+ * only calls the respective methods in the viewer and thus you'd test those
+ * functionalities twice.
+ */
 public class VisualisationPanelTest extends ViewTest {
     private Node rootNode = node("grandfather(X, Y)").with(
             Shape.RECTANGLE,
@@ -26,16 +31,11 @@ public class VisualisationPanelTest extends ViewTest {
             .with(Font.name("Times New Roman"));
     
     /**
-     * Checks if the zoom can be reset accordingly.
+     * Resets the zoom to test if any exceptions are thrown.
      */
-    @Ignore
     @Test
     public void resetZoomTest() {
-        //this.gui.getVisualisationPanel().setZoomLevel(10);
         this.gui.getVisualisationPanel().resetZoom();
-        
-        /*assertEquals(VisualisationPanel.DEFAULT_ZOOM_LEVEL,
-                this.gui.getVisualisationPanel().getZoomLevel());*/
     }
     
     /**
@@ -47,24 +47,17 @@ public class VisualisationPanelTest extends ViewTest {
         this.gui.getVisualisationPanel().setFromGraph(this.testGraph);
         
         this.gui.getVisualisationPanel().zoom(ZoomType.ZOOM_IN);
-        
-        /*assertEquals(VisualisationPanel.DEFAULT_ZOOM_LEVEL + 1,
-                this.gui.getVisualisationPanel().getZoomLevel());*/
     }
     
     /**
      * Tests the zoom out functionality.
      */
-    @Ignore
     @Test
     public void zoomOutTest() {
         this.gui.getVisualisationPanel().resetZoom();
         this.gui.getVisualisationPanel().setFromGraph(this.testGraph);
         
         this.gui.getVisualisationPanel().zoom(ZoomType.ZOOM_OUT);
-        
-        /*assertEquals(VisualisationPanel.DEFAULT_ZOOM_LEVEL - 1,
-                this.gui.getVisualisationPanel().getZoomLevel());*/
     }
     
     /**
