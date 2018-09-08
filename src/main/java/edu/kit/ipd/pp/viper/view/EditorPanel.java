@@ -183,11 +183,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @return Text area content
      */
     public String getSourceText() {
-        try {
-            return this.textArea.getText();
-        } catch (NullPointerException e) {
-            return "";
-        }
+        return this.textArea.getText();
     }
 
     /**
@@ -211,6 +207,16 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
             this.main.switchClickableState(ClickableState.NOT_PARSED_YET);
         }
         this.main.setAppendAsterixToTitle(changed);
+        this.changed = changed;
+    }
+    
+    /**
+     * Sets the changed variable.
+     * Only used for testing.
+     * 
+     * @param changed The new value for changed.
+     */
+    public void setChanged(boolean changed) {
         this.changed = changed;
     }
     
@@ -282,6 +288,14 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         }
 
         this.main.getPreferencesManager().setFileReferences(Collections.unmodifiableList(this.referenceList));
+    }
+    
+    /**
+     * Clears the list of file references.
+     * Only used for testing.
+     */
+    public void clearFileReferences() {
+        this.referenceList.clear();
     }
 
     /**

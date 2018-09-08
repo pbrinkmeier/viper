@@ -6,7 +6,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.awt.event.MouseWheelEvent;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.controller.ZoomType;
@@ -137,10 +136,41 @@ public class VisualisationViewerTest extends ViewTest {
     }
     
     /**
+     * Tests if the viewer doesn't zoom when the navigation is disabled
+     */
+    @Test
+    public void mouseWheelMovedNoNavigationTest() {
+        this.gui.getVisualisationPanel().getVisualisationViewer().setFromGraph(this.testGraph);
+        this.gui.getVisualisationPanel().getVisualisationViewer().resetZoom();
+        this.gui.getVisualisationPanel().getVisualisationViewer().disableNavigation();
+        
+        for (int i = 0; i < 5; i++) {
+            this.gui.getVisualisationPanel().getVisualisationViewer()
+                .mouseWheelMoved(new MouseWheelEvent(this.gui.getVisualisationPanel().getVisualisationViewer(),
+                    1, 1, 0, 100, 100, 1, false, MouseWheelEvent.WHEEL_UNIT_SCROLL, 3, 1));
+        }
+        
+        /* The VisualisationViewer doesn't zoom with fixed values but instead scales the image with
+         * a value that's very close to -0.045, so there will be slight differences between the scale value
+         * after zooming out fives times and subtracting 0.225 from the default value
+         */
+        assertEquals(VisualisationViewer.DEFAULT_ZOOM,
+                this.gui.getVisualisationPanel().getVisualisationViewer().getScale(), 0.0);
+    }
+    
+    /**
      * Calls the setCursor method once. Since this method does nothing this test is only for coverage.
      */
     @Test
     public void setCursorTest() {
         this.gui.getVisualisationPanel().getVisualisationViewer().setCursor(null);
+    }
+    
+    /**
+     * Clears the visualisation. Only checks if any exceptions are thrown.
+     */
+    @Test
+    public void clearTest() {
+        this.gui.getVisualisationPanel().getVisualisationViewer().clear();
     }
 }
