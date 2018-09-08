@@ -24,7 +24,7 @@ import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 /**
  * Represents a console-like text panel
  */
-public class ConsoleOutputArea extends JTextPane {    
+public class ConsoleOutputArea extends JTextPane {
     /**
      * Serial UID
      */
@@ -34,15 +34,15 @@ public class ConsoleOutputArea extends JTextPane {
     private static final int FONT_MAX_SIZE = 40;
 
     private final Semaphore mutex = new Semaphore(1);
-    
+
     private int fontSize;
     private final List<HistoryEntry> history;
-    
+
     /**
      * The preferences manager coordinating the text size after a restart
      */
     private PreferencesManager preferencesManager;
-    
+
     /**
      * Initialises the output area
      */
@@ -55,7 +55,7 @@ public class ConsoleOutputArea extends JTextPane {
         this.setEditable(false);
         this.setEditorKit(new CustomEditorKit());
     }
-    
+
     /**
      * Sets the preferences manager for the console output area.
      * 
@@ -65,10 +65,9 @@ public class ConsoleOutputArea extends JTextPane {
         this.preferencesManager = preferencesManager;
         this.fontSize = this.preferencesManager.getTextSize();
     }
-    
+
     /**
-     * Returns the current font size.
-     * Only used for testing purposes.
+     * Returns the current font size. Only used for testing purposes.
      * 
      * @return the current font size
      */
@@ -81,10 +80,10 @@ public class ConsoleOutputArea extends JTextPane {
      */
     public void clear() {
         this.acquireMutex();
-        
+
         this.setText("");
         this.history.clear();
-        
+
         this.releaseMutex();
     }
 
@@ -98,18 +97,18 @@ public class ConsoleOutputArea extends JTextPane {
      */
     public void printLine(String line, LogType type) {
         this.acquireMutex();
-        
+
         this.history.add(new HistoryEntry(line, type));
         this.updateContent();
-        
+
         this.releaseMutex();
     }
-    
+
     private void updateContent() {
         this.setText("");
         this.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
         this.setEditable(true);
-        
+
         for (final HistoryEntry entry : this.history) {
             Color color = ColorScheme.CONSOLE_BLACK;
             switch (entry.getType()) {
@@ -130,7 +129,7 @@ public class ConsoleOutputArea extends JTextPane {
                 color = ColorScheme.CONSOLE_BLACK;
                 break;
             }
-            
+
             StyleContext context = StyleContext.getDefaultStyleContext();
             AttributeSet set = context.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, color);
             set = context.addAttribute(set, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
@@ -141,10 +140,10 @@ public class ConsoleOutputArea extends JTextPane {
             this.setCharacterAttributes(set, false);
             this.replaceSelection(entry.getLine() + "\n");
         }
-        
+
         this.setEditable(false);
     }
-    
+
     /**
      * Increases the font size
      */
@@ -154,7 +153,7 @@ public class ConsoleOutputArea extends JTextPane {
         }
 
         this.acquireMutex();
-        
+
         this.fontSize++;
         this.updateContent();
         this.preferencesManager.setTextSize(this.fontSize);
@@ -169,7 +168,7 @@ public class ConsoleOutputArea extends JTextPane {
         if (this.fontSize < FONT_MIN_SIZE) {
             return;
         }
-        
+
         this.acquireMutex();
 
         this.fontSize--;
@@ -178,57 +177,61 @@ public class ConsoleOutputArea extends JTextPane {
 
         this.releaseMutex();
     }
-    
+
     /**
      * Resets the font size
      */
     public void resetFont() {
         this.acquireMutex();
-        
+
         this.fontSize = PreferencesManager.DEFAULT_TEXT_SIZE;
         this.updateContent();
         this.preferencesManager.setTextSize(this.fontSize);
 
         this.releaseMutex();
     }
-    
+
     private void acquireMutex() {
         try {
             this.mutex.acquire();
-        } catch (InterruptedException e) { }
+        } catch (InterruptedException e) {
+            if (MainWindow.inDebugMode()) {
+                e.printStackTrace();
+            }
+        }
     }
-    
+
     private void releaseMutex() {
         this.mutex.release();
     }
-    
+
     private class HistoryEntry {
         private final String line;
         private final LogType type;
-        
+
         public HistoryEntry(String line, LogType type) {
             this.line = line;
             this.type = type;
         }
-        
+
         public String getLine() {
             return this.line;
         }
-        
+
         public LogType getType() {
             return this.type;
         }
     }
-    
+
     /**
-     * This is a custom toolkit that enables letter wrap in a JTextPane.
-     * Since we can't use a JTextArea due to our use of colors, we have to
-     * implement wrapping by letter ourselves. Due to the architecture
-     * of Swings HTMLEditorToolkit, this view factory has to use instanceof
-     * to achieve the desired results in a color-compatible Swing component
-     * (e.g. the JTextPane or an JEditorPane). The reason for this is the fact
-     * that the super-class create()-method only returns an object of the
-     * View class, but we have to consider the actual subclass it's an instance of.
+     * This is a custom toolkit that enables letter wrap in a JTextPane. Since we
+     * can't use a JTextArea due to our use of colors, we have to implement wrapping
+     * by letter ourselves. Due to the architecture of Swings HTMLEditorToolkit,
+     * this view factory has to use instanceof to achieve the desired results in a
+     * color-compatible Swing component (e.g. the JTextPane or an JEditorPane). The
+     * reason for this is the fact that the super-class create()-method only returns
+     * an object of the View class, but we have to consider the actual subclass it's
+     * an instance of.
      */
     private class CustomEditorKit extends HTMLEditorKit {
         /**
@@ -236,51 +239,54 @@ public class ConsoleOutputArea extends JTextPane {
          */
         private static final long serialVersionUID = 5952888855820746238L;
 
-        @Override 
+        @Override
         public ViewFactory getViewFactory() {
             return new HTMLFactory() {
-                public View create(Element e) { 
-                   View v = super.create(e);
-                   if (v instanceof InlineView) {
-                       return new InlineView(e) {
-                           public int getBreakWeight(int axis, float pos, float len) { 
-                               return GoodBreakWeight; 
-                           }
-                           
-                           public View breakView(int axis, int p0, float pos, float len) { 
-                               if (axis == View.X_AXIS) { 
-                                   checkPainter(); 
-                                   int p1 = getGlyphPainter().getBoundedPosition(this, p0, pos, len); 
-                                   if (p0 == getStartOffset() && p1 == getEndOffset()) { 
-                                       return this;
-                                   } 
-                                   return createFragment(p0, p1); 
-                               }
-                               return this;
-                             }
-                         };
-                   }
-                   else if (v instanceof ParagraphView) {
-                       return new ParagraphView(e) {
-                           protected SizeRequirements calculateMinorAxisRequirements(int axis, SizeRequirements r) {
-                               SizeRequirements rnew = r;
-                               
-                               if (rnew == null) {
-                                   rnew = new SizeRequirements();
-                               }
-                               float pref = layoutPool.getPreferredSpan(axis);
-                               float min = layoutPool.getMinimumSpan(axis);
-                               rnew.minimum = (int) min;
-                               rnew.preferred = Math.max(rnew.minimum, (int) pref);
-                               rnew.maximum = Integer.MAX_VALUE;
-                               rnew.alignment = 0.5f;
-                               return rnew;
-                             }
-                         };
-                     }
-                   return v; 
-                 }
-             };
-         } 
+                @Override
+                public View create(Element e) {
+                    View v = super.create(e);
+                    if (v instanceof InlineView) {
+                        return new InlineView(e) {
+                            @Override
+                            public int getBreakWeight(int axis, float pos, float len) {
+                                return GoodBreakWeight;
+                            }
+
+                            @Override
+                            public View breakView(int axis, int p0, float pos, float len) {
+                                if (axis == View.X_AXIS) {
+                                    checkPainter();
+                                    int p1 = getGlyphPainter().getBoundedPosition(this, p0, pos, len);
+                                    if (p0 == getStartOffset() && p1 == getEndOffset()) {
+                                        return this;
+                                    }
+                                    return createFragment(p0, p1);
+                                }
+                                return this;
+                            }
+                        };
+                    } else if (v instanceof ParagraphView) {
+                        return new ParagraphView(e) {
+                            @Override
+                            protected SizeRequirements calculateMinorAxisRequirements(int axis, SizeRequirements r) {
+                                SizeRequirements rnew = r;
+
+                                if (rnew == null) {
+                                    rnew = new SizeRequirements();
+                                }
+                                float pref = this.layoutPool.getPreferredSpan(axis);
+                                float min = this.layoutPool.getMinimumSpan(axis);
+                                rnew.minimum = (int) min;
+                                rnew.preferred = Math.max(rnew.minimum, (int) pref);
+                                rnew.maximum = Integer.MAX_VALUE;
+                                rnew.alignment = 0.5f;
+                                return rnew;
+                            }
+                        };
+                    }
+                    return v;
+                }
+            };
+        }
     };
 }

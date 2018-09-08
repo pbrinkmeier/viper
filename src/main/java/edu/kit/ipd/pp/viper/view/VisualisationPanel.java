@@ -209,13 +209,19 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
     }
 
     @Override
-    public void componentHidden(ComponentEvent arg0) { }
+    public void componentHidden(ComponentEvent arg0) {
+        return;
+    }
 
     @Override
-    public void componentMoved(ComponentEvent arg0) { }
+    public void componentMoved(ComponentEvent arg0) {
+        return;
+    }
 
     @Override
-    public void componentShown(ComponentEvent e) { }
+    public void componentShown(ComponentEvent e) {
+        return;
+    }
 
     @Override
     public void switchClickableState(ClickableState state) {

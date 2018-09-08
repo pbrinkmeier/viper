@@ -46,7 +46,7 @@ public class ListFormatterTest {
     }
 
     // helper method for list creation
-    private Term cons(Term car, Term cdr) {
+    private static Term cons(Term car, Term cdr) {
         return new Functor("[|]", Arrays.asList(car, cdr));
     }
 }

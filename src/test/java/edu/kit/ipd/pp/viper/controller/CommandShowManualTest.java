@@ -54,20 +54,20 @@ public class CommandShowManualTest {
         assertNotNull(command.loadIcon(ToolBar.ICON_ZOOM_OUT).getIcon());
         
         Dimension dim = new Dimension(CommandShowManual.ICON_SIZE, CommandShowManual.ICON_SIZE);
-        assertTrue(this.getIconDimensions(command, ToolBar.ICON_NEW).equals(dim));
-        assertTrue(this.getIconDimensions(command, ToolBar.ICON_OPEN).equals(dim));
-        assertTrue(this.getIconDimensions(command, ToolBar.ICON_SAVE).equals(dim));
-        assertTrue(this.getIconDimensions(command, ToolBar.ICON_FORMAT).equals(dim));
-        assertTrue(this.getIconDimensions(command, ToolBar.ICON_PARSE).equals(dim));
-        assertTrue(this.getIconDimensions(command, ToolBar.ICON_NEXTSTEP).equals(dim));
-        assertTrue(this.getIconDimensions(command, ToolBar.ICON_PREVIOUSSTEP).equals(dim));
-        assertTrue(this.getIconDimensions(command, ToolBar.ICON_NEXTSOLUTION).equals(dim));
-        assertTrue(this.getIconDimensions(command, ToolBar.ICON_CANCEL).equals(dim));
-        assertTrue(this.getIconDimensions(command, ToolBar.ICON_ZOOM_IN).equals(dim));
-        assertTrue(this.getIconDimensions(command, ToolBar.ICON_ZOOM_OUT).equals(dim));
+        assertTrue(CommandShowManualTest.getIconDimensions(command, ToolBar.ICON_NEW).equals(dim));
+        assertTrue(CommandShowManualTest.getIconDimensions(command, ToolBar.ICON_OPEN).equals(dim));
+        assertTrue(CommandShowManualTest.getIconDimensions(command, ToolBar.ICON_SAVE).equals(dim));
+        assertTrue(CommandShowManualTest.getIconDimensions(command, ToolBar.ICON_FORMAT).equals(dim));
+        assertTrue(CommandShowManualTest.getIconDimensions(command, ToolBar.ICON_PARSE).equals(dim));
+        assertTrue(CommandShowManualTest.getIconDimensions(command, ToolBar.ICON_NEXTSTEP).equals(dim));
+        assertTrue(CommandShowManualTest.getIconDimensions(command, ToolBar.ICON_PREVIOUSSTEP).equals(dim));
+        assertTrue(CommandShowManualTest.getIconDimensions(command, ToolBar.ICON_NEXTSOLUTION).equals(dim));
+        assertTrue(CommandShowManualTest.getIconDimensions(command, ToolBar.ICON_CANCEL).equals(dim));
+        assertTrue(CommandShowManualTest.getIconDimensions(command, ToolBar.ICON_ZOOM_IN).equals(dim));
+        assertTrue(CommandShowManualTest.getIconDimensions(command, ToolBar.ICON_ZOOM_OUT).equals(dim));
     }
     
-    private Dimension getIconDimensions(CommandShowManual command, String path) {
+    private static Dimension getIconDimensions(CommandShowManual command, String path) {
         Icon icon = command.loadIcon(path).getIcon();
         return new Dimension(icon.getIconWidth(), icon.getIconHeight());
     }

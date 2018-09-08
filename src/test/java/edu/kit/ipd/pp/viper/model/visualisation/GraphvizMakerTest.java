@@ -1,16 +1,6 @@
 package edu.kit.ipd.pp.viper.model.visualisation;
 
-import edu.kit.ipd.pp.viper.controller.SharedTestConstants;
-import edu.kit.ipd.pp.viper.model.ast.Goal;
-import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
-import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
-import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
-import edu.kit.ipd.pp.viper.model.parser.ParseException;
-import edu.kit.ipd.pp.viper.model.parser.PrologParser;
-
-import guru.nidi.graphviz.engine.Format;
-import guru.nidi.graphviz.engine.Graphviz;
-import guru.nidi.graphviz.model.Graph;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +9,16 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.junit.Test;
-import static org.junit.Assert.fail;
+
+import edu.kit.ipd.pp.viper.model.ast.Goal;
+import edu.kit.ipd.pp.viper.model.ast.KnowledgeBase;
+import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
+import edu.kit.ipd.pp.viper.model.interpreter.StepResult;
+import edu.kit.ipd.pp.viper.model.parser.ParseException;
+import edu.kit.ipd.pp.viper.model.parser.PrologParser;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.model.Graph;
 
 public class GraphvizMakerTest {
     /**
@@ -27,8 +26,8 @@ public class GraphvizMakerTest {
      */
     @Test
     public void functorVisualisationTest() {
-        this.visualizeQuery("functor", "grandfather(abe, bart).");
-        this.visualizeQuery("functor_nohead", "succeed.");
+        GraphvizMakerTest.visualizeQuery("functor", "grandfather(abe, bart).");
+        GraphvizMakerTest.visualizeQuery("functor_nohead", "succeed.");
     }
 
     /**
@@ -36,8 +35,8 @@ public class GraphvizMakerTest {
      */
     @Test
     public void unificationVisualisationTest() {
-        this.visualizeQuery("unification", "doubleEq(42, 42).");
-        this.visualizeQuery("unification_fail", "doubleEq(42, 69).");
+        GraphvizMakerTest.visualizeQuery("unification", "doubleEq(42, 42).");
+        GraphvizMakerTest.visualizeQuery("unification_fail", "doubleEq(42, 69).");
     }
 
     /**
@@ -45,8 +44,8 @@ public class GraphvizMakerTest {
      */
     @Test
     public void cutVisualisationTest() {
-        this.visualizeQuery("cut", "cutMyLife.");
-        this.visualizeQuery("cut_query", "!.");
+        GraphvizMakerTest.visualizeQuery("cut", "cutMyLife.");
+        GraphvizMakerTest.visualizeQuery("cut_query", "!.");
     }
 
     /**
@@ -54,8 +53,8 @@ public class GraphvizMakerTest {
      */
     @Test
     public void arithmeticVisualisationTest() {
-        this.visualizeQuery("arithmetic", "triple(23, X).");
-        this.visualizeQuery("arithmetic_error", "triple(nice, X).");
+        GraphvizMakerTest.visualizeQuery("arithmetic", "triple(23, X).");
+        GraphvizMakerTest.visualizeQuery("arithmetic_error", "triple(nice, X).");
     }
 
     /**
@@ -63,11 +62,11 @@ public class GraphvizMakerTest {
      */
     @Test
     public void comparisonVisualisationTest() {
-        this.visualizeQuery("comparison", "ordered(17, 50, 42).");
-        this.visualizeQuery("comparison_error", "ordered(17, 42, x).");
+        GraphvizMakerTest.visualizeQuery("comparison", "ordered(17, 50, 42).");
+        GraphvizMakerTest.visualizeQuery("comparison_error", "ordered(17, 42, x).");
     }
     
-    private void visualizeQuery(String prefix, String queryCode) {
+    private static void visualizeQuery(String prefix, String queryCode) {
         try {
             String programCode = new String(Files.readAllBytes(Paths.get("src/test/resources/visualisation.pl")));
             KnowledgeBase kb = new PrologParser(programCode).parse();

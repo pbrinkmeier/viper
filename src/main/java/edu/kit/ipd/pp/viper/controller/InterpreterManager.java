@@ -29,6 +29,7 @@ import edu.kit.ipd.pp.viper.model.visualisation.GraphvizMaker;
 import edu.kit.ipd.pp.viper.view.ClickableState;
 import edu.kit.ipd.pp.viper.view.ConsolePanel;
 import edu.kit.ipd.pp.viper.view.LogType;
+import edu.kit.ipd.pp.viper.view.MainWindow;
 import edu.kit.ipd.pp.viper.view.VisualisationPanel;
 import guru.nidi.graphviz.model.Graph;
 
@@ -373,7 +374,11 @@ public class InterpreterManager {
 
         try {
             this.continueThread.get().join();
-        } catch (InterruptedException e) { }
+        } catch (InterruptedException e) {
+            if (MainWindow.inDebugMode()) {
+                e.printStackTrace();
+            }
+        }
 
         this.continueThread = Optional.empty();
     }

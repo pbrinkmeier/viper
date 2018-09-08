@@ -138,8 +138,8 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             }
             
             double input = (stepSize * event.getPreciseWheelRotation());
-            double step = this.calculateStep(input);
-            this.updateScaleValue(-step);
+            double step = VisualisationViewer.calculateStep(input);
+            VisualisationViewer.updateScaleValue(-step);
             
             at.setToIdentity();
             at.translate(src.getX(), src.getY());
@@ -168,9 +168,9 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
         }
         
         double input = (type == ZoomType.ZOOM_IN ? VisualisationViewer.ZOOM_FACTOR : -VisualisationViewer.ZOOM_FACTOR);
-        double step = this.calculateStep(input);
+        double step = VisualisationViewer.calculateStep(input);
         
-        this.updateScaleValue(step);
+        VisualisationViewer.updateScaleValue(step);
         at.setToIdentity();
         at.translate(src.getX(), src.getY());
         at.scale(VisualisationViewer.scale, VisualisationViewer.scale);
@@ -178,12 +178,12 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
         this.setRenderingTransform(at, true);
     }
     
-    private double calculateStep(double input) {
+    private static double calculateStep(double input) {
         int sign = input >= 0.0 ? 1 : -1;
         return sign * (Math.abs(input / 10.0 - VisualisationViewer.scale) * 0.05);
     }
     
-    private void updateScaleValue(double step) {
+    private static void updateScaleValue(double step) {
         VisualisationViewer.scale += step;
         VisualisationViewer.scale = Math.max(VisualisationViewer.scale, VisualisationViewer.MIN_ZOOM);
     }

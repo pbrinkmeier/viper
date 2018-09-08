@@ -43,7 +43,8 @@ public class ComparisonGoalTest {
     @Test
     public void getVariablesTest() {
         assertEquals(Arrays.asList(new Variable("X"), new Variable("Y")), this.goal.getVariables());
-        assertEquals(Arrays.asList(new Variable("X")), new EqualGoal(new Variable("X"), new Variable("X")).getVariables());
+        assertEquals(Arrays.asList(new Variable("X")), new EqualGoal(new Variable("X"),
+                new Variable("X")).getVariables());
     }
 
     @Test

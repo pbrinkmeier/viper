@@ -212,7 +212,9 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      * @param e The issued event
      */
     @Override
-    public void keyTyped(KeyEvent e) { }
+    public void keyTyped(KeyEvent e) {
+        return;
+    }
 
     /**
      * Fire when a key was released, ignored here
@@ -220,7 +222,9 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      * @param e The issued event
      */
     @Override
-    public void keyReleased(KeyEvent e) { }
+    public void keyReleased(KeyEvent e) {
+        return;
+    }
     
     private class HintedTextField extends JTextField implements FocusListener, Observer {
         private static final long serialVersionUID = 1805984011473862039L;

@@ -23,7 +23,7 @@ import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 public class InterpreterTest {
     @Test
     public void maxTest() throws IOException, ParseException {
-        this.runQuery(
+        InterpreterTest.runQuery(
             "src/test/resources/maths.pl",
             "max(42, 17, X).",
             Arrays.asList(
@@ -31,7 +31,7 @@ public class InterpreterTest {
             )
         );
 
-        this.runQuery(
+        InterpreterTest.runQuery(
             "src/test/resources/maths.pl",
             "max(17, 42, X).",
             Arrays.asList(
@@ -42,7 +42,7 @@ public class InterpreterTest {
 
     @Test
     public void sumTest() throws IOException, ParseException {
-        this.runQuery(
+        InterpreterTest.runQuery(
             "src/test/resources/maths.pl",
             "sum(25, X, 42).",
             Arrays.asList(
@@ -53,7 +53,7 @@ public class InterpreterTest {
 
     @Test
     public void facultyTest() throws IOException, ParseException {
-        this.runQuery(
+        InterpreterTest.runQuery(
             "src/test/resources/maths.pl",
             "fac(10, X).",
             Arrays.asList(
@@ -64,24 +64,26 @@ public class InterpreterTest {
 
     @Test
     public void simpsonsTest() throws IOException, ParseException {
-        this.runQuery(
+        InterpreterTest.runQuery(
             "src/test/resources/simpsons_advanced.pl",
             "grandfather(Gramps, Grandchild).",
             Arrays.asList(
-                Arrays.asList(new Substitution(new Variable("Gramps"), Functor.atom("abe")), new Substitution(new Variable("Grandchild"), Functor.atom("bart"))),
-                Arrays.asList(new Substitution(new Variable("Gramps"), Functor.atom("abe")), new Substitution(new Variable("Grandchild"), Functor.atom("lisa")))
+                Arrays.asList(new Substitution(new Variable("Gramps"), Functor.atom("abe")),
+                        new Substitution(new Variable("Grandchild"), Functor.atom("bart"))),
+                Arrays.asList(new Substitution(new Variable("Gramps"), Functor.atom("abe")),
+                        new Substitution(new Variable("Grandchild"), Functor.atom("lisa")))
             )
         );
     }
 
     @Test
     public void cutTest() throws IOException, ParseException {
-        this.runQuery("src/test/resources/simpsons_advanced.pl", "!.", Arrays.asList(Arrays.asList()));
+        InterpreterTest.runQuery("src/test/resources/simpsons_advanced.pl", "!.", Arrays.asList(Arrays.asList()));
     }
 
     @Test
     public void unificationTest() throws IOException, ParseException {
-        this.runQuery(
+        InterpreterTest.runQuery(
             "src/test/resources/simpsons_advanced.pl",
             "X = test.",
             Arrays.asList(Arrays.asList(new Substitution(new Variable("X"), Functor.atom("test"))))
@@ -89,7 +91,8 @@ public class InterpreterTest {
     }
 
     // helper method
-    private void runQuery(String path, String querySource, List<List<Substitution>> expectedSolutions) throws IOException, ParseException {
+    private static void runQuery(String path, String querySource, List<List<Substitution>> expectedSolutions)
+            throws IOException, ParseException {
         String source = new String(Files.readAllBytes(Paths.get(path)));
         KnowledgeBase kb = new PrologParser(source).parse();
         Goal query = new PrologParser(querySource).parseGoalList().get(0);

@@ -286,7 +286,9 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * about changes to the actual text, therefore nothing happens here.
      */
     @Override
-    public void changedUpdate(DocumentEvent event) { }
+    public void changedUpdate(DocumentEvent event) {
+        return;
+    }
 
     /**
      * Called when a portion of text was inserted into the text area.
@@ -387,7 +389,9 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @param e The issued event
      */
     @Override
-    public void keyTyped(KeyEvent e) { }
+    public void keyTyped(KeyEvent e) {
+        return;
+    }
 
     /**
      * Fire when a key was released, ignored here
@@ -395,7 +399,9 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @param e The issued event
      */
     @Override
-    public void keyReleased(KeyEvent e) { }
+    public void keyReleased(KeyEvent e) {
+        return;
+    }
 
     /**
      * Fired when mouse was scrolled
