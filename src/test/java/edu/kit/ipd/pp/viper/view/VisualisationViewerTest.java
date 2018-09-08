@@ -21,7 +21,7 @@ public class VisualisationViewerTest extends ViewTest {
     
     private Graph testGraph = graph("testGraph")
             .directed()
-            .with(rootNode)
+            .with(this.rootNode)
             .nodeAttr()
             .with(Font.name("Times New Roman"));
     

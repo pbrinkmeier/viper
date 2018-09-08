@@ -112,7 +112,8 @@ public class EditorPanelTest extends ViewTest {
     @Test
     public void mousewheelMovedZoomInTest() {
         this.gui.getEditorPanel().resetZoom();
-        this.gui.getEditorPanel().mouseWheelMoved(new MouseWheelEvent(this.gui.getEditorPanel().getTextArea(), 1, 1, 2, 1, 1, 1,
+        this.gui.getEditorPanel()
+            .mouseWheelMoved(new MouseWheelEvent(this.gui.getEditorPanel().getTextArea(), 1, 1, 2, 1, 1, 1,
                 false, MouseWheelEvent.WHEEL_UNIT_SCROLL, 3, -1));
         assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE + 1, this.gui.getEditorPanel().getFontSize());
     }
@@ -123,7 +124,8 @@ public class EditorPanelTest extends ViewTest {
     @Test
     public void mousewheelMovedZoomOutTest() {
         this.gui.getEditorPanel().resetZoom();
-        this.gui.getEditorPanel().mouseWheelMoved(new MouseWheelEvent(this.gui.getEditorPanel().getTextArea(), 1, 1, 2, 1, 1, 1,
+        this.gui.getEditorPanel()
+            .mouseWheelMoved(new MouseWheelEvent(this.gui.getEditorPanel().getTextArea(), 1, 1, 2, 1, 1, 1,
                 false, MouseWheelEvent.WHEEL_UNIT_SCROLL, 3, 1));
         assertEquals(PreferencesManager.DEFAULT_TEXT_SIZE - 1, this.gui.getEditorPanel().getFontSize());
     }

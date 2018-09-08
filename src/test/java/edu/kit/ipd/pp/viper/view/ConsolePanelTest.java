@@ -7,7 +7,7 @@ import org.junit.Test;
 import edu.kit.ipd.pp.viper.controller.PreferencesManager;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
 
-public class ConsolePanelTest extends ViewTest{
+public class ConsolePanelTest extends ViewTest {
     
     /**
      * Sets and checks the text from the input field.
@@ -35,17 +35,17 @@ public class ConsolePanelTest extends ViewTest{
     @Test
     public void getOutputAreaTextTest() {
         double controlNumber = Math.random() * 100;
-        String testOutputArea = "<html>\n" + 
-                "  <head>\n" + 
-                "\n" + 
-                "  </head>\n" + 
-                "  <body>\n" + 
-                "    <p style=\"margin-top: 0\">\n" + 
-                "      <font color=\"#000000\" face=\"monospaced\" size=\"" + 
-                (this.gui.getConsolePanel().getOutputAreaFontSize() - 10) + "\">test " + controlNumber + "\n" + 
-                "</font>    </p>\n" + 
-                "  </body>\n" + 
-                "</html>";
+        String testOutputArea = "<html>\n"
+                + "  <head>\n"
+                + "\n"
+                + "  </head>\n"
+                + "  <body>\n"
+                + "    <p style=\"margin-top: 0\">\n"
+                + "      <font color=\"#000000\" face=\"monospaced\" size=\""
+                + (this.gui.getConsolePanel().getOutputAreaFontSize() - 10) + "\">test " + controlNumber + "\n"
+                + "</font>    </p>\n"
+                + "  </body>\n"
+                + "</html>";
         
         this.gui.getConsolePanel().clearOutputArea();
         this.gui.getConsolePanel().printLine("test " + controlNumber, LogType.INFO);
@@ -57,16 +57,16 @@ public class ConsolePanelTest extends ViewTest{
      */
     @Test
     public void clearOutputAreaTest() {
-        String emptyOutputArea = "<html>\n" + 
-                "  <head>\n" + 
-                "\n" + 
-                "  </head>\n" + 
-                "  <body>\n" + 
-                "    <p style=\"margin-top: 0\">\n" + 
-                "      \n" + 
-                "    </p>\n" + 
-                "  </body>\n" + 
-                "</html>";
+        String emptyOutputArea = "<html>\n"
+                + "  <head>\n"
+                + "\n"
+                + "  </head>\n"
+                + "  <body>\n"
+                + "    <p style=\"margin-top: 0\">\n"
+                + "      \n"
+                + "    </p>\n"
+                + "  </body>\n"
+                + "</html>";
         
         this.gui.getConsolePanel().clearOutputArea();
         assertEquals(emptyOutputArea, this.gui.getConsolePanel().getOutputAreaText().trim());

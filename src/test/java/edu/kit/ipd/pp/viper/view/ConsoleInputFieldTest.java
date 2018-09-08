@@ -30,8 +30,9 @@ public class ConsoleInputFieldTest extends ViewTest {
         this.gui.getConsolePanel().getInputField().setText("grandfather(X, Y).");
         this.gui.getConsolePanel().getInputField().clear();
         
-        this.gui.getConsolePanel().getInputField().keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED,
-                1, 2, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
+        this.gui.getConsolePanel().getInputField()
+            .keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED, 
+                    1, 2, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
         assertEquals("grandfather(X, Y).", this.gui.getConsolePanel().getInputField().getText());
     }
     
@@ -47,8 +48,9 @@ public class ConsoleInputFieldTest extends ViewTest {
         this.gui.getConsolePanel().getInputField().setText("mother(X, Y).");
         this.gui.getConsolePanel().getInputField().clear();
         
-        for(int i = 0; i < 3; i++) {
-            this.gui.getConsolePanel().getInputField().keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED,
+        for (int i = 0; i < 3; i++) {
+            this.gui.getConsolePanel().getInputField()
+                .keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED,
                     1, 2, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
         }
         
@@ -65,9 +67,11 @@ public class ConsoleInputFieldTest extends ViewTest {
         this.gui.getConsolePanel().getInputField().setText("grandfather(X, Y).");
         this.gui.getConsolePanel().getInputField().clear();
         
-        this.gui.getConsolePanel().getInputField().keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED,
+        this.gui.getConsolePanel().getInputField()
+            .keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED,
                 1, 2, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
-        this.gui.getConsolePanel().getInputField().keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED,
+        this.gui.getConsolePanel().getInputField()
+            .keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED,
                 1, 2, KeyEvent.VK_DOWN, KeyEvent.CHAR_UNDEFINED));
         assertEquals("", this.gui.getConsolePanel().getInputField().getText());
     }
@@ -84,12 +88,14 @@ public class ConsoleInputFieldTest extends ViewTest {
         this.gui.getConsolePanel().getInputField().setText("mother(X, Y).");
         this.gui.getConsolePanel().getInputField().clear();
         
-        for(int i = 0; i < 3; i++) {
-            this.gui.getConsolePanel().getInputField().keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED,
+        for (int i = 0; i < 3; i++) {
+            this.gui.getConsolePanel().getInputField()
+                .keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED,
                     1, 2, KeyEvent.VK_UP, KeyEvent.CHAR_UNDEFINED));
         }
-        for(int i = 0; i < 4; i++) {
-            this.gui.getConsolePanel().getInputField().keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED,
+        for (int i = 0; i < 4; i++) {
+            this.gui.getConsolePanel().getInputField()
+                .keyPressed(new KeyEvent(this.gui.getConsolePanel().getInputField(), KeyEvent.KEY_PRESSED,
                     1, 2, KeyEvent.VK_DOWN, KeyEvent.CHAR_UNDEFINED));
         }
         
