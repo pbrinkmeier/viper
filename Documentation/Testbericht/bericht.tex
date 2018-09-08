@@ -65,11 +65,15 @@
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-% Anschluss an Implementierungsbericht, erreichte Abdeckung etc. Ein Satz pro Phase nach Vorbild der bisherigen Dokumente. Danach kurz etwas zur aktuellen Phase
+In der Testphase wird VIPER durch weitere Unittests, durch Systemtests sowie die im Pflichtenheft vorgestellten Testfall-Szenarien getestet. Außerdem wird das Programm in Hinblick auf Nutzbarkeit und Codequalität geprüft und überarbeitet.
 
-% Arbeitsweise (GitLab Issues, Assignees, Gewichtungen, ...)
+Die Unittests werden mit dem Framework JUnit \footnote{\url{https://junit.org/}} geschrieben. Die durch diese Tests erreichte Abdeckung wird mit JaCoCo \footnote{\url{https://www.eclemma.org/jacoco/}} überprüft. Das Ziel ist eine Abdeckung nahe 100\% für das Controller Paket sowie alle Model Pakete. Mittels JAssertSwing \footnote{\url{https://joel-costigliola.github.io/assertj/assertj-swing.html}} wird auch das View Paket von VIPER so weit wie möglich automatisch getestet.
 
-% Verwendete Werkzeuge und Verfahren (statische Tools, JUnit, JAssertSwing, andere Leute vor unser Programm gesetzt)
+Für einheitlich formattieren Code wird Checkstyle \footnote{\url{https://checkstyle.org/}} verwendet. Die Konfiguration stammt von der Vorlesung Programmieren und wird um einige striktere Regeln erweitert. Die Werkzeuge FindBugs \footnote{\url{http://findbugs.sourceforge.net/}} und PMD \footnote{\url{https://pmd.github.io/}} werden eingesetzt, um den Quelltext zur Übersetzungszeit auf Fehler und schlechten Programmierstil zu überprüfen.
+
+Um VIPER auf Nutzbarkeit zu prüfen, wird das Programm von außenstehenden Personen mit und ohne Vorkenntnisse in Prolog verwendet. Dabei entstehende Meinungen und beobachtete Reaktionen gehen in die Überarbeitung des Programms mit ein.
+
+Für die Verwaltung von gefundenen Fehlern und zu implementierenden Features werden die Issues des GitLab Repositories verwendet. Diese erlauben u.a. Vorlagen, Gewichtungen sowie das Zuweisen von zuständigen Personen. Außerdem werden die genannten Werkzeuge in das Gradle Buildsystem integriert, sodass die im GitLab konfigurierte Continuous Integration das Projekt testen und bauen kann.
 
 \section{Tests}
 
