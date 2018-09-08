@@ -116,6 +116,16 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
     }
     
     /**
+     * Sets the scale factor by which the visualisation is zoomed
+     * Only used for testing.
+     * 
+     * @param scale The new scale factor
+     */
+    public void setScale(double scale) {
+        VisualisationViewer.scale = scale;
+    }
+    
+    /**
      * Implements zooming of the displayed image using the mouse wheel
      * 
      * @param event mouse wheel event that occurred
@@ -138,6 +148,7 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             }
             
             double input = (stepSize * event.getPreciseWheelRotation());
+            System.out.println(event.getPreciseWheelRotation());
             double step = VisualisationViewer.calculateStep(input);
             VisualisationViewer.updateScaleValue(-step);
             
@@ -217,8 +228,6 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * @param graph The graph to show
      */
     public void setFromGraph(Graph graph) {
-        this.currentGraph = graph;
-
         String tmp = VisualisationViewer.getTempDir();
         if (tmp.equals("")) {
             this.main.getConsolePanel().printLine("Could not access tmp directory", LogType.DEBUG);
@@ -242,6 +251,18 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
         }
 
         this.loadSVGDocument(tmpFile.toURI().toString());
+        
+        this.currentGraph = graph;
+    }
+    
+    /**
+     * Returns the current Graph of the visualisation.
+     * Only used for testing.
+     * 
+     * @return The current graph
+     */
+    public Graph getGraph() {
+        return this.currentGraph;
     }
 
     /**
