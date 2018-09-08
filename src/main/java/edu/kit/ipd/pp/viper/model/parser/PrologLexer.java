@@ -226,9 +226,12 @@ public class PrologLexer {
      * @return code block
      */
     String getCodeBeforeCurrentPos() {
-        String codeBefore = this.program.substring(Math.max(0, this.pos - 50), this.pos - 1);
+        String codeBefore = this.program.substring(Math.max(0, this.pos - 50), Math.max(0, this.pos - 1));
         String[] lines = codeBefore.split("\n");
-        return lines[lines.length - 1].trim();
+        
+        final String rv = lines[lines.length - 1].trim();
+        final String emptyString = LanguageManager.getInstance().getString(LanguageKey.FIRST_CHARACTER);
+        return rv.isEmpty() ? emptyString : rv;
     }
 
     private String getTokenPositionString() {
