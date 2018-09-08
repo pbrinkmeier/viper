@@ -3,10 +3,10 @@ package edu.kit.ipd.pp.viper.model.ast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -73,35 +73,17 @@ public class KnowledgeBase {
      * Two rules are "conflicting" if their heads have the same name and arity.
      *
      * @param otherKb knowledgebase to search for conflicts in
-     * @return immutable list of rules from this knowledgebase that have a conflicting rule in otherKb
+     * @return immutable set of rules from this knowledgebase that have a conflicting rule in otherKb
      */
-    public List<Rule> getConflictingRules(KnowledgeBase otherKb) {
-        /*
-         * In order to create a list of unique conflicting rules, we'd like to use a Set instance.
-         * But Rule#equals and Rule#hashCode are already defined in terms of actual equality.
-         * A TreeSet allows us to use a Comparator object for custom comparison.
-         * The Comparator below sorts by the rules' heads, name first, arity second.
-         */
-        TreeSet<Rule> conflicting = new TreeSet<>(new Comparator<Rule>() {
-            @Override
-            public int compare(Rule ruleA, Rule ruleB) {
-                Functor headA = ruleA.getHead();
-                Functor headB = ruleB.getHead();
-
-                if (!headA.getName().equals(headB.getName())) {
-                    return headA.getName().compareTo(headB.getName());
-                }
-
-                return headA.getArity() - headB.getArity();
-            }
-        });
+    public Set<Rule> getConflictingRules(KnowledgeBase otherKb) {
+        TreeSet<Rule> conflicting = new TreeSet<>(new MatchingHeadComparator());
 
         for (Rule rule : this.rules) {
             List<Rule> matching = otherKb.getMatchingRules(rule.getHead());
             conflicting.addAll(matching);
         }
 
-        return Collections.unmodifiableList(new ArrayList<>(conflicting));
+        return Collections.unmodifiableSet(conflicting);
     }
 
     /**
