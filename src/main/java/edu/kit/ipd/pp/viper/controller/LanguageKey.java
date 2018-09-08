@@ -449,6 +449,12 @@ public enum LanguageKey {
     GOAL_NOT_SUPPORTED("goal_not_supported"),
     
     /**
+     * The output position if the parser fails due to the
+     * first character
+     */
+    FIRST_CHARACTER("first_character"),
+    
+    /**
      * The no knowledge base present error for the interpreter manager
      */
     NO_KNOWLEDGEBASE_PRESENT("no_knowledgebase_present"),

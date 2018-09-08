@@ -25,6 +25,10 @@ dependencies {
 
 test { finalizedBy jacocoTestReport }
 
+jacoco {
+    toolVersion = "0.8.2"
+}
+
 jacocoTestReport {
     group = "Reporting"
     reports {
