@@ -1,6 +1,5 @@
 package edu.kit.ipd.pp.viper.controller;
 
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -28,11 +27,6 @@ public class CommandShowManual extends Command implements Observer, WindowListen
      * The size of the icons used for explanation purposes
      */
     public static final int ICON_SIZE = 25;
-
-    /**
-     * The dimensions of the popup
-     */
-    public static final Dimension DIMENSION = new Dimension(800, 600);
 
     private final JLabel cancelIcon;
     private final JLabel nextStepIcon;
@@ -93,6 +87,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
             this.setupFrame();
             this.setupTabbedPane();
             this.setText();
+            this.frame.pack();
             this.isOpened = true;
         }
 
@@ -117,10 +112,6 @@ public class CommandShowManual extends Command implements Observer, WindowListen
     private void setupFrame() {
         this.frame = new JFrame();
         this.frame.setName(GUIComponentID.FRAME_MANUAL.toString());
-        this.frame.setSize(CommandShowManual.DIMENSION);
-        this.frame.setMinimumSize(CommandShowManual.DIMENSION);
-        this.frame.setMaximumSize(CommandShowManual.DIMENSION);
-        this.frame.setPreferredSize(CommandShowManual.DIMENSION);
         this.frame.setTitle(LanguageManager.getInstance().getString(LanguageKey.MANUAL));
         this.frame.setLocationRelativeTo(null);
         this.frame.setResizable(false);
