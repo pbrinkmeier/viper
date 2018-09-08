@@ -7,6 +7,9 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class UnsetVariableExceptionTest {
+    /**
+     * Tests whether the correct message is returned.
+     */
     @Test
     public void getMessageTest() {
         Variable unsetVar = new Variable("X");

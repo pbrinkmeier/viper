@@ -3,6 +3,7 @@ package edu.kit.ipd.pp.viper.model.interpreter;
 import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,8 +25,11 @@ import edu.kit.ipd.pp.viper.model.parser.ParseException;
 import edu.kit.ipd.pp.viper.model.parser.PrologParser;
 
 public class InterpreterTest {
+    /**
+     * Tests the execution of the max/3 predicate from maths.pl.
+     */
     @Test
-    public void maxTest() throws IOException, ParseException {
+    public void maxTest() throws {
         InterpreterTest.runQuery(
             "src/test/resources/maths.pl",
             "max(42, 17, X).",
@@ -43,8 +47,11 @@ public class InterpreterTest {
         );
     }
 
+    /**
+     * Tests the execution of the sum/3 predicate from maths.pl.
+     */
     @Test
-    public void sumTest() throws IOException, ParseException {
+    public void sumTest() throws {
         InterpreterTest.runQuery(
             "src/test/resources/maths.pl",
             "sum(25, X, 42).",
@@ -54,8 +61,11 @@ public class InterpreterTest {
         );
     }
 
+    /**
+     * Tests the calculation of 10! from maths.pl.
+     */
     @Test
-    public void facultyTest() throws IOException, ParseException {
+    public void facultyTest() throws {
         InterpreterTest.runQuery(
             "src/test/resources/maths.pl",
             "fac(10, X).",
@@ -65,25 +75,38 @@ public class InterpreterTest {
         );
     }
 
+    /**
+     * Tests the execution of the canonical "grandfather(Gramps, Grandchild)" query on simpsons.pl.
+     */
     @Test
-    public void simpsonsTest() throws IOException, ParseException {
+    public void simpsonsTest() throws {
         InterpreterTest.runQuery(
             "src/test/resources/simpsons_advanced.pl",
             "grandfather(Gramps, Grandchild).",
             Arrays.asList(
-                new HashSet<>(Arrays.asList(new Substitution(new Variable("Gramps"), Functor.atom("abe")), new Substitution(new Variable("Grandchild"), Functor.atom("bart")))),
-                new HashSet<>(Arrays.asList(new Substitution(new Variable("Gramps"), Functor.atom("abe")), new Substitution(new Variable("Grandchild"), Functor.atom("lisa"))))
+                new HashSet<>(Arrays.asList(
+                    new Substitution(new Variable("Gramps"), Functor.atom("abe")),
+                    new Substitution(new Variable("Grandchild"), Functor.atom("bart")))),
+                new HashSet<>(Arrays.asList(
+                    new Substitution(new Variable("Gramps"), Functor.atom("abe")),
+                    new Substitution(new Variable("Grandchild"), Functor.atom("lisa"))))
             )
         );
     }
 
+    /**
+     * Tests the execution of a single cut.
+     */
     @Test
-    public void cutTest() throws IOException, ParseException {
+    public void cutTest() throws {
         InterpreterTest.runQuery("src/test/resources/simpsons_advanced.pl", "!.", Arrays.asList(Collections.EMPTY_SET));
     }
 
+    /**
+     * Tests the execution of a single unification goal.
+     */
     @Test
-    public void unificationTest() throws IOException, ParseException {
+    public void unificationTest() throws {
         InterpreterTest.runQuery(
             "src/test/resources/simpsons_advanced.pl",
             "X = test.",
@@ -91,9 +114,15 @@ public class InterpreterTest {
         );
     }
 
-    // helper method
-    private static void runQuery(String path, String querySource, List<List<Substitution>> expectedSolutions)
-            throws IOException, ParseException {
+    /**
+     * Runs a query until completion and asserts that it produces the correct results.
+     *
+     * @param path path of the Prolog knowledge base
+     * @param querySource the query as a string
+     * @param expectedSolutions list of expected substitution sets
+     */
+    private static void runQuery(String path, String querySource, List<List<Substitution>> expectedSolutions) {
+        try {
         String source = new String(Files.readAllBytes(Paths.get(path)));
         KnowledgeBase kb = new PrologParser(source).parse();
         Goal query = new PrologParser(querySource).parseGoalList().get(0);
@@ -123,5 +152,11 @@ public class InterpreterTest {
         }
         
         assertFalse("Did not find enough solutions!", solutionIndex < expectedSolutions.size());
+        } catch (IOException ioErr) {
+            fail(String.format("IOException while running \"%s\" on %s: %s", querySource, path, ioErr.getMessage()));
+        } catch (ParseException parseErr) {
+            fail(String.format("ParseException while running \"%s\" on %s: %s",
+                querySource, path, parseErr.getMessage()));
+        }
     }
 }

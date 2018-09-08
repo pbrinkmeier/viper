@@ -15,7 +15,7 @@ import java.util.Set;
 public class CutGoal extends Goal {
     @Override
     public Set<Variable> getVariables() {
-        return Collections.EMPTY_SET;
+        return Collections.emptySet();
     }
 
     @Override

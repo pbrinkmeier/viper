@@ -10,11 +10,17 @@ import static org.junit.Assert.*;
 public class LessThanEqualGoalTest {
     private ComparisonGoal goal;
 
+    /**
+     * Initializes the goal "X =&lt; Y" before each test.
+     */
     @Before
     public void init() {
         this.goal = new LessThanEqualGoal(new Variable("X"), new Variable("Y"));
     }
 
+    /**
+     * Tests the transform method using an Indexifier.
+     */
     @Test
     public void transformTest() {
         assertEquals(
@@ -23,6 +29,9 @@ public class LessThanEqualGoalTest {
         );
     }
 
+    /**
+     * Tests the compareNumbers method.
+     */
     @Test
     public void compareNumbersTest() {
         assertTrue(this.goal.compareNumbers(new BigInteger("13"), new BigInteger("42")));

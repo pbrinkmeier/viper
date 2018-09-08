@@ -54,6 +54,6 @@ public class VariableExtractor implements TermVisitor<Set<Variable>> {
      */
     @Override
     public Set<Variable> visit(Number number) {
-        return Collections.EMPTY_SET;
+        return Collections.emptySet();
     }
 }

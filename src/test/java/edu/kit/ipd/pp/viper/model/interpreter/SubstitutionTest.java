@@ -48,6 +48,9 @@ public class SubstitutionTest {
         assertEquals(new Substitution(new Variable("X"), Functor.atom("homer")), this.substitution);
     }
 
+    /**
+     * Tests the hashing of substitutions.
+     */
     @Test
     public void hashCodeTest() {
         assertEquals(

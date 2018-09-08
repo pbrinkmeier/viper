@@ -13,19 +13,25 @@ public class ListFormatterTest {
     private Term emptyList;
     private Term slightlyListy;
 
+    /**
+     * Initializes the terms [1, two, Three_4], [] and cons(42, nil) before each test.
+     */
     @Before
     public void init() {
-        this.validList =
-            cons(new Number(1),
-            cons(Functor.atom("two"),
-            cons(new Variable("Three", 4),
+        this.validList
+            = this.cons(new Number(1),
+            this.cons(Functor.atom("two"),
+            this.cons(new Variable("Three", 4),
             Functor.atom("[]"))));
-        this.emptyList =
-            Functor.atom("[]");
-        this.slightlyListy =
-            new Functor("cons", Arrays.asList(new Number(42), Functor.atom("nil")));
+        this.emptyList
+            = Functor.atom("[]");
+        this.slightlyListy
+            = new Functor("cons", Arrays.asList(new Number(42), Functor.atom("nil")));
     }
 
+    /**
+     * Tests the static asString method for printing on the console.
+     */
     @Test
     public void asStringTest() {
         // A valid list should be printed as such
@@ -40,6 +46,9 @@ public class ListFormatterTest {
         assertEquals(Optional.empty(), ListFormatter.asString(new Functor("[]", Arrays.asList(Functor.atom("fake")))));
     }
 
+    /**
+     * Tests the static asHtml method for display in the visualisation.
+     */
     @Test
     public void asHtmlTest() {
         assertEquals(Optional.of("[1, two, Three&#8324;]"), ListFormatter.asHtml(this.validList));

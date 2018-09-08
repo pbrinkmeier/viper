@@ -22,14 +22,14 @@ public class FunctorTest {
         this.fun = new Functor("test", Arrays.asList(Functor.atom("a"), Functor.atom("b"), Functor.atom("c")));
         this.noParam = Functor.atom("noparam");
 
-        this.validList =
-            new Functor("[|]", Arrays.asList(new Number(1),
+        this.validList
+            = new Functor("[|]", Arrays.asList(new Number(1),
             new Functor("[|]", Arrays.asList(new Number(2),
             new Functor("[|]", Arrays.asList(new Number(3),
             Functor.atom("[]")))))));
 
-        this.invalidList =
-            new Functor("[|]", Arrays.asList(new Number(1),
+        this.invalidList
+            = new Functor("[|]", Arrays.asList(new Number(1),
             new Functor("[|]", Arrays.asList(new Number(2),
             new Number(3)))));
 
@@ -159,12 +159,18 @@ public class FunctorTest {
                 this.fun.createNew(Arrays.asList(Functor.atom("single"))));
     }
 
+    /**
+     * Makes sure that two functors can match without being equal.
+     */
     @Test
     public void matchesTest() {
         assertTrue(this.fun.matches(new Functor("test", Arrays.asList(new Number(1), new Number(2), new Number(3)))));
         assertFalse(this.fun.matches(Functor.atom("test")));
     }
 
+    /**
+     * Makes sure that the hashCode method is implemented using Objects.hash.
+     */
     @Test
     public void hashCodeTest() {
         assertEquals(Objects.hash(this.fun.getName(), this.fun.getParameters()), this.fun.hashCode());

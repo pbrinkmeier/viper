@@ -82,7 +82,7 @@ public class KnowledgeBase {
          * A TreeSet allows us to use a Comparator object for custom comparison.
          * The Comparator below sorts by the rules' heads, name first, arity second.
          */
-        TreeSet<Rule> conflicting = new TreeSet(new Comparator<Rule>() {
+        TreeSet<Rule> conflicting = new TreeSet<>(new Comparator<Rule>() {
             @Override
             public int compare(Rule ruleA, Rule ruleB) {
                 Functor headA = ruleA.getHead();
