@@ -48,11 +48,22 @@ public class SubstitutionTest {
         assertEquals(new Substitution(new Variable("X"), Functor.atom("homer")), this.substitution);
     }
 
+    /**
+     * Tests the hashing of substitutions.
+     */
     @Test
     public void hashCodeTest() {
         assertEquals(
             Objects.hash(this.substitution.getReplace(), this.substitution.getBy()),
             this.substitution.hashCode()
         );
+    }
+
+    /**
+     * Tests the toString method.
+     */
+    @Test
+    public void toStringTest() {
+        assertEquals("X => homer", this.substitution.toString());
     }
 }

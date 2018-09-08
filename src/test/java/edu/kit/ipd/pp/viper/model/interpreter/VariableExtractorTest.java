@@ -6,7 +6,8 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class VariableExtractorTest {
         Term term = new Functor("blub", Arrays.asList(new Number(42), new Variable("X"),
                 new Functor("sub", Arrays.asList(new Variable("X"), new Variable("Y")))));
 
-        List<Variable> variables = term.accept(new VariableExtractor());
-        assertEquals(Arrays.asList(new Variable("X"), new Variable("Y")), variables);
+        Set<Variable> variables = term.accept(new VariableExtractor());
+        assertEquals(new HashSet<>(Arrays.asList(new Variable("X"), new Variable("Y"))), variables);
     }
 }

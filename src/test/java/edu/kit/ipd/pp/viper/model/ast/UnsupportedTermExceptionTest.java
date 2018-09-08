@@ -7,6 +7,9 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class UnsupportedTermExceptionTest {
+    /**
+     * Checks whether the correct message is returned.
+     */
     @Test
     public void getMessageTest() {
         Term unsupported = Functor.atom("lame");

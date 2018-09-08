@@ -6,34 +6,28 @@ import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.TermVisitor;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Extracts all variables from a term.
  * For example, this is used to determine what variables to solve for in a query.
  */
-public class VariableExtractor implements TermVisitor<List<Variable>> {
+public class VariableExtractor implements TermVisitor<Set<Variable>> {
     /**
      * Extracts variables from a functor. Loops through parameters and extracts
      * their variables.
      *
      * @param functor functor to extract from
-     * @return a list of variables that have been extracted
+     * @return a set of variables that have been extracted
      */
     @Override
-    public List<Variable> visit(Functor functor) {
-        List<Variable> variables = new ArrayList<>();
+    public Set<Variable> visit(Functor functor) {
+        Set<Variable> variables = new HashSet<>();
 
         for (Term parameter : functor.getParameters()) {
-            // this should actually use a Set, not a list.
-            // But we dont have a hashCode on Term/Variable yet :(
-            for (Variable variable : parameter.accept(this)) {
-                if (!variables.contains(variable)) {
-                    variables.add(variable);
-                }
-            }
+            variables.addAll(parameter.accept(this));
         }
 
         return variables;
@@ -44,11 +38,11 @@ public class VariableExtractor implements TermVisitor<List<Variable>> {
      * that variable.
      *
      * @param variable variable to extract from
-     * @return a list with the visited variable as the single entry
+     * @return a set with the visited variable as the single entry
      */
     @Override
-    public List<Variable> visit(Variable variable) {
-        return Arrays.asList(variable);
+    public Set<Variable> visit(Variable variable) {
+        return Collections.singleton(variable);
     }
 
     /**
@@ -59,7 +53,7 @@ public class VariableExtractor implements TermVisitor<List<Variable>> {
      * @return an empty list
      */
     @Override
-    public List<Variable> visit(Number number) {
-        return Arrays.asList();
+    public Set<Variable> visit(Number number) {
+        return Collections.emptySet();
     }
 }

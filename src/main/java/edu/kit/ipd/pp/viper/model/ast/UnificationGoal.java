@@ -5,10 +5,11 @@ import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.UnificationActivationRecord;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * An unification goal. This represent a Prolog goal of the form A = B.
@@ -52,18 +53,12 @@ public class UnificationGoal extends Goal {
     }
 
     @Override
-    public List<Variable> getVariables() {
-        // TODO: this should be done using some sort of set class
-        List<Variable> variables = new ArrayList<>();
+    public Set<Variable> getVariables() {
+        Set<Variable> variables = new HashSet<>();
         variables.addAll(this.lhs.accept(new VariableExtractor()));
+        variables.addAll(this.rhs.accept(new VariableExtractor()));
 
-        for (Variable var : this.rhs.accept(new VariableExtractor())) {
-            if (!variables.contains(var)) {
-                variables.add(var);
-            }
-        }
-
-        return variables;
+        return Collections.unmodifiableSet(variables);
     }
 
     @Override

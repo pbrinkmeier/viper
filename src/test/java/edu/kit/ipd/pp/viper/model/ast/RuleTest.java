@@ -47,6 +47,9 @@ public class RuleTest {
         assertEquals("grandfather(X, Y) :-\n  father(X, Z),\n  father(Z, Y).", this.testRule.toString());
     }
 
+    /**
+     * Tests the equals method.
+     */
     @Test
     public void equalsTest() {
         assertNotEquals(this.testRule, null);
@@ -60,6 +63,9 @@ public class RuleTest {
         assertNotEquals(this.testRule, sameHead);
     }
 
+    /**
+     * Tests whether the hashCode is correctly generated using the helper method in Objects.
+     */
     @Test
     public void hashCodeTest() {
         assertEquals(Objects.hash(this.testRule.getHead(), this.testRule.getSubgoals()), this.testRule.hashCode());

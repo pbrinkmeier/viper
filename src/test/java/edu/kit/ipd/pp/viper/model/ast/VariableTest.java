@@ -84,6 +84,9 @@ public class VariableTest {
         assertNotEquals(this.withIndex, new Variable("Y"));
     }
 
+    /**
+     * Tests the correct hashing of variables.
+     */
     @Test
     public void hashCodeTest() {
         assertEquals(Objects.hash(this.withIndex.getName(), this.withIndex.getIndex()), this.withIndex.hashCode());

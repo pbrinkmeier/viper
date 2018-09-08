@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 
 import org.junit.Before;
@@ -30,20 +31,29 @@ public class FunctorGoalTest {
         assertNotEquals(Functor.atom("test"), this.testGoal.getFunctor());
     }
 
+    /**
+     * Makes sure that the getVariables method returns a set of variables from all parameters.
+     */
     @Test
     public void getVariablesTest() {
-        FunctorGoal withVars =
-            new FunctorGoal(new Functor("nice", Arrays.asList(new Variable("X"), new Variable("Y"))));
+        FunctorGoal withVars
+            = new FunctorGoal(new Functor("nice", Arrays.asList(new Variable("X"), new Variable("Y"))));
         
-        assertEquals(Arrays.asList(new Variable("X"), new Variable("Y")), withVars.getVariables());
+        assertEquals(new HashSet<>(Arrays.asList(new Variable("X"), new Variable("Y"))), withVars.getVariables());
     }
 
+    /**
+     * Tests the equals method.
+     */
     @Test
     public void equalsTest() {
         assertNotEquals(this.testGoal, null);
         assertNotEquals(this.testGoal, new Object());
     }
 
+    /**
+     * Tests the hashCode method, makes sure it is implemented using Objects.hash.
+     */
     @Test
     public void hashCodeTest() {
         assertEquals(Objects.hash(this.testGoal.getFunctor()), this.testGoal.hashCode());

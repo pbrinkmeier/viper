@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 public class UnificationResultTest {
     private UnificationResult successResult;
     private UnificationResult failResult;
+    private UnificationResult errorResult;
 
     /**
      * Initializes the UnificationResults used for the tests.
@@ -23,6 +24,7 @@ public class UnificationResultTest {
 
         this.successResult = UnificationResult.success(substitutions);
         this.failResult = UnificationResult.fail(Functor.atom("abe"), Functor.atom("homer"));
+        this.errorResult = UnificationResult.error("error while testing");
     }
 
     /**
@@ -43,6 +45,18 @@ public class UnificationResultTest {
                 new Substitution(new Variable("Y"), Functor.atom("bart")));
 
         assertEquals(substitutions, this.successResult.getSubstitutions());
+    }
+
+    /**
+     * Tests whether getting the substitutions of an error unification properly
+     * throws an exception.
+     * 
+     * @throws UnsupportedOperationException if the errored unification can't return
+     *         any substitutions
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void getSubstitutionsErrorTest() throws UnsupportedOperationException {
+        this.errorResult.getSubstitutions();
     }
 
     /**

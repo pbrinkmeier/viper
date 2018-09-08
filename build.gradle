@@ -37,7 +37,15 @@ jacocoTestReport {
 
 checkstyle {
     configFile = rootProject.file('checkstyle.xml')
-    checkstyleTest.enabled = false
+    checkstyleTest.enabled = true
+}
+
+compileJava {
+    options.compilerArgs << "-Xlint:unchecked"
+}
+
+compileTestJava {
+    options.compilerArgs << "-Xlint:unchecked"
 }
 
 jar {

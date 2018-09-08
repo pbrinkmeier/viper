@@ -216,7 +216,7 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
 
         if (!car.getErrorMessage().isPresent()) {
             resultBox = resultBox
-            .with(Label.html(LanguageManager.getInstance().getString(LanguageKey.ARITHMETIC_COMPARISON_SUCCEEDED)));
+            .with(Label.html("&#x2713;"));
         } else {
             resultBox = resultBox
             .with(Label.html(car.getErrorMessage().get()));

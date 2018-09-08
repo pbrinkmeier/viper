@@ -15,3 +15,10 @@ fac(N, X) :-
   fac(M, Y),
   X is N * Y,
   !.
+
+magic(X, Z) :-
+  magicNumber(Y),
+  max(X, Y, Z).
+
+magicNumber(42).
+magicNumber(100).

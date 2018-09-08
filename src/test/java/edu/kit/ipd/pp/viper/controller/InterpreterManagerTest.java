@@ -61,8 +61,7 @@ public class InterpreterManagerTest extends ControllerTest {
         }
                 
         List<Substitution> solution = this.gui.getInterpreterManager().getSolution();
-        assertFalse(solution.isEmpty());
-        assertTrue(solution.get(0).equals(new Substitution(new Variable("X"), new Functor("homer", Arrays.asList()))));
+        assertTrue(solution.contains(new Substitution(new Variable("X"), new Functor("homer", Arrays.asList()))));
     }
     
     /**
@@ -84,9 +83,8 @@ public class InterpreterManagerTest extends ControllerTest {
         }
         
         List<Substitution> solution = this.gui.getInterpreterManager().getSolution();
-        assertFalse(solution.isEmpty());
-        assertTrue(solution.get(0).equals(new Substitution(new Variable("X"), new Functor("homer", Arrays.asList()))));
-        assertTrue(solution.get(1).equals(new Substitution(new Variable("Y"), new Functor("homer", Arrays.asList()))));
+        assertTrue(solution.contains(new Substitution(new Variable("X"), new Functor("homer", Arrays.asList()))));
+        assertTrue(solution.contains(new Substitution(new Variable("Y"), new Functor("homer", Arrays.asList()))));
     }
     
     /**

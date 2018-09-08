@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Represents an AST, also called a "Prolog program" or "knowledge base" in our
@@ -71,21 +73,17 @@ public class KnowledgeBase {
      * Two rules are "conflicting" if their heads have the same name and arity.
      *
      * @param otherKb knowledgebase to search for conflicts in
-     * @return immutable list of rules from this knowledgebase that have a conflicting rule in otherKb
+     * @return immutable set of rules from this knowledgebase that have a conflicting rule in otherKb
      */
-    public List<Rule> getConflictingRules(KnowledgeBase otherKb) {
-        List<Rule> conflicting = new ArrayList<>();
+    public Set<Rule> getConflictingRules(KnowledgeBase otherKb) {
+        TreeSet<Rule> conflicting = new TreeSet<>(new MatchingHeadComparator());
 
         for (Rule rule : this.rules) {
             List<Rule> matching = otherKb.getMatchingRules(rule.getHead());
-
-            // TODO: this is hacky af, but DRY I guess
-            if (!matching.isEmpty() && new KnowledgeBase(conflicting).getMatchingRules(rule.getHead()).isEmpty()) {
-                conflicting.add(rule);
-            }
+            conflicting.addAll(matching);
         }
 
-        return Collections.unmodifiableList(conflicting);
+        return Collections.unmodifiableSet(conflicting);
     }
 
     /**

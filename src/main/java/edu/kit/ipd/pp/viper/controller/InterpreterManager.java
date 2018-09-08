@@ -6,8 +6,10 @@ import static java.util.stream.Collectors.toList;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import org.apache.commons.io.IOUtils;
@@ -47,7 +49,7 @@ public class InterpreterManager {
     private List<Graph> visualisations;
     private List<StepResult> results;
     private int current;
-    private Optional<List<Variable>> variables;
+    private Optional<Set<Variable>> variables;
     private boolean useStandardLibrary = true;
     private final Optional<KnowledgeBase> standardLibrary;
     private boolean running = false;
@@ -109,11 +111,11 @@ public class InterpreterManager {
      *
      * @param kbSource source code to parse
      * @throws ParseException if the source code is malformed
-     * @return list of conflicting rules in the given program and the standard library
+     * @return set of conflicting rules in the given program and the standard library
      */
-    public List<Rule> parseKnowledgeBase(String kbSource) throws ParseException {
+    public Set<Rule> parseKnowledgeBase(String kbSource) throws ParseException {
         KnowledgeBase kb = new PrologParser(kbSource).parse();
-        List<Rule> conflictingRules = new ArrayList<>();
+        Set<Rule> conflictingRules = Collections.emptySet();
 
         if (this.useStandardLibrary && this.standardLibrary.isPresent()) {
             conflictingRules = kb.getConflictingRules(this.standardLibrary.get());

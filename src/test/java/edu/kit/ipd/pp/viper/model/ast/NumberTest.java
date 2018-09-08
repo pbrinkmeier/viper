@@ -72,6 +72,9 @@ public class NumberTest {
         assertNotEquals(BigInteger.valueOf(12), BigInteger.valueOf(0));
     }
 
+    /**
+     * Tests the correct hashing of number terms.
+     */
     @Test
     public void hashCodeTest() {
         assertEquals(Objects.hash(this.num.getNumber()), this.num.hashCode());

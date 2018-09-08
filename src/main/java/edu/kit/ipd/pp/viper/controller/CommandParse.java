@@ -1,7 +1,7 @@
 package edu.kit.ipd.pp.viper.controller;
 
 import java.util.function.Consumer;
-import java.util.List;
+import java.util.Set;
 import static java.util.stream.Collectors.joining;
 
 import edu.kit.ipd.pp.viper.model.ast.Rule;
@@ -54,7 +54,7 @@ public class CommandParse extends Command {
 
         LanguageManager langman = LanguageManager.getInstance();
         try {
-            List<Rule> conflictingRules = this.manager.parseKnowledgeBase(this.editor.getSourceText());
+            Set<Rule> conflictingRules = this.manager.parseKnowledgeBase(this.editor.getSourceText());
             this.console.printLine(langman.getString(LanguageKey.PARSER_SUCCESS), LogType.SUCCESS);
     
             if (!conflictingRules.isEmpty()) {

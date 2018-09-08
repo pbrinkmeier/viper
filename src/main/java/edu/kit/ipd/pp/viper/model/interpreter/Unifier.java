@@ -7,7 +7,7 @@ import edu.kit.ipd.pp.viper.model.ast.Variable;
 import edu.kit.ipd.pp.viper.model.ast.TermVisitor;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
 
 /**
  * A unifier tries to unify a term with another term.
@@ -38,10 +38,9 @@ public abstract class Unifier implements TermVisitor<UnificationResult> {
             return UnificationResult.success(Arrays.asList());
         }
 
-        List<Variable> occurring = by.accept(new VariableExtractor());
+        Set<Variable> occurring = by.accept(new VariableExtractor());
 
         // avoid recursion
-        // TODO: this should have its own error message
         if (occurring.contains(replace)) {
             return UnificationResult.fail(replace, by);
         }

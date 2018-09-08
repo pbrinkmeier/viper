@@ -4,19 +4,18 @@ import edu.kit.ipd.pp.viper.model.interpreter.CutActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents a cut goal in an AST.
  */
 public class CutGoal extends Goal {
     @Override
-    public List<Variable> getVariables() {
-        return Collections.unmodifiableList(new ArrayList<>());
+    public Set<Variable> getVariables() {
+        return Collections.emptySet();
     }
 
     @Override

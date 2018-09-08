@@ -4,6 +4,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.Indexifier;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 
 import org.junit.*;
@@ -13,23 +14,32 @@ public class UnificationGoalTest {
     private UnificationGoal goal;
     private UnificationGoal uselessGoal;
 
+    /**
+     * Initializes the goals "X = Y" and "tuple(X, X) = tuple(X, X)" before each test.
+     */
     @Before
     public void init() {
-        this.goal =
-            new UnificationGoal(new Variable("X"), new Variable("Y"));
-        this.uselessGoal =
-            new UnificationGoal(
+        this.goal
+            = new UnificationGoal(new Variable("X"), new Variable("Y"));
+        this.uselessGoal
+            = new UnificationGoal(
                 new Functor("tuple", Arrays.asList(new Variable("X"), new Variable("X"))),
                 new Functor("tuple", Arrays.asList(new Variable("X"), new Variable("X")))
             );
     }
 
+    /**
+     * Tests the getVariables method, especially that for uselessGoal it only returns the set {X}.
+     */
     @Test
     public void getVariablesTest() {
-        assertEquals(Arrays.asList(new Variable("X"), new Variable("Y")), this.goal.getVariables());
-        assertEquals(Arrays.asList(new Variable("X")), this.uselessGoal.getVariables());
+        assertEquals(new HashSet<>(Arrays.asList(new Variable("X"), new Variable("Y"))), this.goal.getVariables());
+        assertEquals(new HashSet<>(Arrays.asList(new Variable("X"))), this.uselessGoal.getVariables());
     }
 
+    /**
+     * Tests the equals method.
+     */
     @Test
     public void equalsTest() {
         assertNotEquals(this.goal, null);
@@ -39,6 +49,9 @@ public class UnificationGoalTest {
         assertEquals(new UnificationGoal(new Variable("X"), new Variable("Y")), this.goal);
     }
 
+    /**
+     * Tests the transform method using an Indexifier.
+     */
     @Test
     public void transformTest() {
         assertEquals(
@@ -47,19 +60,28 @@ public class UnificationGoalTest {
         );
     }
 
+    /**
+     * Tests the toString method.
+     */
     @Test
     public void toStringTest() {
         assertEquals("X = Y", this.goal.toString());
     }
 
+    /**
+     * Tests the creation of activation records.
+     */
     @Test
     public void createActivationRecordTest() {
-        Interpreter interpreter =
-            new Interpreter(new KnowledgeBase(Arrays.asList()), this.goal);
+        Interpreter interpreter
+            = new Interpreter(new KnowledgeBase(Arrays.asList()), this.goal);
         
         assertEquals(this.goal, interpreter.getQuery().getGoal());
     }
 
+    /**
+     * Makes sure that the hashCode method is implemented using Objects.hash.
+     */
     @Test
     public void hashCodeTest() {
         assertEquals(Objects.hash(this.goal.getLhs(), this.goal.getRhs()), this.goal.hashCode());

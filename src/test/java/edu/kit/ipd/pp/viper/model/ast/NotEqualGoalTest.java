@@ -10,11 +10,17 @@ import static org.junit.Assert.*;
 public class NotEqualGoalTest {
     private ComparisonGoal goal;
 
+    /**
+     * Initializes the goal "X =\= Y" before each test.
+     */
     @Before
     public void init() {
         this.goal = new NotEqualGoal(new Variable("X"), new Variable("Y"));
     }
 
+    /**
+     * Tests the transform method using an Indexifier.
+     */
     @Test
     public void transformTest() {
         assertEquals(
@@ -23,6 +29,9 @@ public class NotEqualGoalTest {
         );
     }
 
+    /**
+     * Tests the compareNumbers method.
+     */
     @Test
     public void compareNumbersTest() {
         assertTrue(this.goal.compareNumbers(new BigInteger("42"), new BigInteger("13")));
