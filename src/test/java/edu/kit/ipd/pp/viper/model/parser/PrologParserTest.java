@@ -1,13 +1,11 @@
 package edu.kit.ipd.pp.viper.model.parser;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 
