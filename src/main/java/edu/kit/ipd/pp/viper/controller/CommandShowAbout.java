@@ -65,6 +65,7 @@ public class CommandShowAbout extends Command implements Observer, WindowListene
                 + "  <li><b>Apache Batik</b><br/>https://xmlgraphics.apache.org/batik/</li>"
                 + "  <li><b>Graphviz-Java</b><br/>https://github.com/nidi3/graphviz-java</li>"
                 + "  <li><b>Fifesoft RSyntaxTextArea</b><br/>https://github.com/bobbylight/RSyntaxTextArea</li>"
+                + "  <li><b>Liberation Serif 2.00.1</b><br/>https://pagure.io/liberation-fonts</li>"
                 + "</ul></html>");
     }
 
