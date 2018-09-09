@@ -31,6 +31,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
     private final JLabel cancelIcon;
     private final JLabel nextStepIcon;
     private final JLabel nextSolutionIcon;
+    private final JLabel finishQueryIcon;
     private final JLabel previousStepIcon;
 
     private final JLabel newIcon;
@@ -42,6 +43,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
     private JLabel cancelLabel;
     private JLabel nextStepLabel;
     private JLabel nextSolutionLabel;
+    private JLabel finishQueryLabel;
     private JLabel previousStepLabel;
 
     private JLabel newLabel;
@@ -72,6 +74,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
         this.cancelIcon = this.loadIcon(ToolBar.ICON_CANCEL);
         this.nextStepIcon = this.loadIcon(ToolBar.ICON_NEXTSTEP);
         this.nextSolutionIcon = this.loadIcon(ToolBar.ICON_NEXTSOLUTION);
+        this.finishQueryIcon = this.loadIcon(ToolBar.ICON_FINISHQUERY);
         this.previousStepIcon = this.loadIcon(ToolBar.ICON_PREVIOUSSTEP);
 
         this.newIcon = this.loadIcon(ToolBar.ICON_NEW);
@@ -199,6 +202,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
         this.previousStepLabel = new JLabel("", SwingConstants.CENTER);
         this.nextStepLabel = new JLabel("", SwingConstants.CENTER);
         this.nextSolutionLabel = new JLabel("", SwingConstants.CENTER);
+        this.finishQueryLabel = new JLabel("", SwingConstants.CENTER);
         this.cancelLabel = new JLabel("", SwingConstants.CENTER);
 
         GroupLayout layout = new GroupLayout(panel);
@@ -219,6 +223,9 @@ public class CommandShowManual extends Command implements Observer, WindowListen
                       .addComponent(this.nextSolutionIcon)
                       .addComponent(this.nextSolutionLabel))
                   .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                      .addComponent(this.finishQueryIcon)
+                      .addComponent(this.finishQueryLabel))
+                  .addGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                       .addComponent(this.cancelIcon)
                       .addComponent(this.cancelLabel))
                 ));
@@ -236,6 +243,9 @@ public class CommandShowManual extends Command implements Observer, WindowListen
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(this.nextSolutionIcon)
                         .addComponent(this.nextSolutionLabel))
+                    .addGroup(layout.createSequentialGroup()
+                            .addComponent(this.finishQueryIcon)
+                            .addComponent(this.finishQueryLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(this.cancelIcon)
                         .addComponent(this.cancelLabel))
@@ -257,6 +267,7 @@ public class CommandShowManual extends Command implements Observer, WindowListen
         this.previousStepLabel.setText(langman.getString(LanguageKey.TOOLTIP_PREVIOUSSTEP));
         this.nextStepLabel.setText(langman.getString(LanguageKey.TOOLTIP_NEXTSTEP));
         this.nextSolutionLabel.setText(langman.getString(LanguageKey.TOOLTIP_NEXTSOLUTION));
+        this.finishQueryLabel.setText(langman.getString(LanguageKey.TOOLTIP_FINISHQUERY));
         this.cancelLabel.setText(langman.getString(LanguageKey.TOOLTIP_CANCEL));
 
         this.newLabel.setText(langman.getString(LanguageKey.TOOLTIP_NEW));
