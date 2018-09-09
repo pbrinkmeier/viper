@@ -18,6 +18,7 @@ import edu.kit.ipd.pp.viper.controller.CommandZoom;
 import edu.kit.ipd.pp.viper.controller.LanguageKey;
 import edu.kit.ipd.pp.viper.controller.LanguageManager;
 import edu.kit.ipd.pp.viper.controller.ZoomType;
+import edu.kit.ipd.pp.viper.view.MainWindow;
 import guru.nidi.graphviz.attribute.Font;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.model.Graph;
@@ -195,7 +196,7 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
                 .directed()
                 .with(rootNode)
                 .nodeAttr()
-                .with(Font.name("Times New Roman"));
+                .with(Font.name(MainWindow.VISUALISATION_FONT_NAME));
     }
 
     /**

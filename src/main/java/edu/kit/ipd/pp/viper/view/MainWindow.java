@@ -2,8 +2,12 @@ package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.ImageIcon;
@@ -49,6 +53,13 @@ public class MainWindow extends JFrame {
     public static final String VERSION = "1.0";
 
     /**
+     * Font name for visualisation.
+     * We are using Liberation Serif because it's FOSS and has the same metrics as Times New Roman,
+     * which graphviz-java uses for determining box width in all cases due to a bug.
+     */
+    public static final String VISUALISATION_FONT_NAME = "Liberation Serif";
+
+    /**
      * Serial UID
      */
     private static final long serialVersionUID = -5807530819617746945L;
@@ -73,28 +84,34 @@ public class MainWindow extends JFrame {
     private static final String WINDOW_ICON = "/icons_png/viper-icon.png";
 
     /**
+     * Font file name for custom visualisation font.
+     * Can be found in src/main/resources.
+     */
+    private static final String VISUALISATION_FONT_PATH = "/LiberationSerif-Regular.ttf";
+
+    /**
      * Instances of all three panels
      */
-    private final EditorPanel editorPanel;
-    private final ConsolePanel consolePanel;
-    private final VisualisationPanel visualisationPanel;
+    private EditorPanel editorPanel;
+    private ConsolePanel consolePanel;
+    private VisualisationPanel visualisationPanel;
 
-    private final CommandNew commandNew;
-    private final CommandOpen commandOpen;
-    private final CommandSave commandSave;
-    private final CommandExit commandExit;
-    private final CommandParse commandParse;
-    private final CommandFormat commandFormat;
-    private final CommandPreviousStep commandPreviousStep;
-    private final CommandNextStep commandNextStep;
-    private final CommandNextSolution commandNextSolution;
-    private final CommandFinishQuery commandFinishQuery;
-    private final CommandCancel commandCancel;
-    private final CommandShowAbout commandShowAbout;
-    private final CommandShowStandard commandShowStandard;
-    private final CommandZoom commandZoomTextIn;
-    private final CommandZoom commandZoomTextOut;
-    private final CommandShowManual commandShowManual;
+    private CommandNew commandNew;
+    private CommandOpen commandOpen;
+    private CommandSave commandSave;
+    private CommandExit commandExit;
+    private CommandParse commandParse;
+    private CommandFormat commandFormat;
+    private CommandPreviousStep commandPreviousStep;
+    private CommandNextStep commandNextStep;
+    private CommandNextSolution commandNextSolution;
+    private CommandFinishQuery commandFinishQuery;
+    private CommandCancel commandCancel;
+    private CommandShowAbout commandShowAbout;
+    private CommandShowStandard commandShowStandard;
+    private CommandZoom commandZoomTextIn;
+    private CommandZoom commandZoomTextOut;
+    private CommandShowManual commandShowManual;
 
     private final ToolBar toolbar;
     private final MenuBar menubar;
@@ -135,8 +152,21 @@ public class MainWindow extends JFrame {
      * @param showWindow Toggles whether the window is visible; should be disabled for testing
      */
     public MainWindow(boolean debug, boolean showWindow) {
-     // write to static attribute, so that inDebugMode() can be static
+        // write to static attribute, so that inDebugMode() can be static
         MainWindow.debug = debug;
+
+        // Load custom font for visualisation
+        try {
+            Font customFont = Font.createFont(
+                Font.TRUETYPE_FONT,
+                MainWindow.class.getResourceAsStream(MainWindow.VISUALISATION_FONT_PATH)
+            );
+            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(customFont);
+        } catch (IOException | FontFormatException e) {
+            // This branch would only be reached if someone would delete the font file front the JAR.
+            // Even then, the visualisation would just fall back to some system font.
+            e.printStackTrace();
+        }
 
         this.setName(GUIComponentID.FRAME_MAIN.toString());
         this.setTitle(MainWindow.WINDOW_TITLE);
@@ -153,27 +183,7 @@ public class MainWindow extends JFrame {
         this.consolePanel.setPreferencesManager(this.prefManager);
         this.editorPanel = new EditorPanel(this);
 
-        // Create command instances
-        this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle,
-                this.manager);
-        this.commandOpen = new CommandOpen(this.consolePanel, this.editorPanel, this.visualisationPanel,
-                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
-        this.commandNew = new CommandNew(this.consolePanel, this.editorPanel, this.visualisationPanel,
-                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
-        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel, this.visualisationPanel,
-                this.manager, this::switchClickableState);
-        this.commandZoomTextIn = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_IN);
-        this.commandZoomTextOut = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_OUT);
-        this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
-        this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
-        this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel);
-        this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
-        this.commandFinishQuery = new CommandFinishQuery(this.consolePanel, this.visualisationPanel, this.manager);
-        this.commandCancel = new CommandCancel(this.manager);
-        this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager, this::dispose);
-        this.commandShowAbout = new CommandShowAbout();
-        this.commandShowStandard = new CommandShowStandard(this.manager);
-        this.commandShowManual = new CommandShowManual();
+        this.createCommands();
 
         this.editorPanel.setZoomInCommand(this.commandZoomTextIn);
         this.editorPanel.setZoomOutCommand(this.commandZoomTextOut);
@@ -207,6 +217,29 @@ public class MainWindow extends JFrame {
         this.consolePanel.printLine(
                 String.format(LanguageManager.getInstance().getString(LanguageKey.VIPER_READY), MainWindow.VERSION),
                 LogType.INFO);
+    }
+
+    private void createCommands() {
+        this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle,
+                this.manager);
+        this.commandOpen = new CommandOpen(this.consolePanel, this.editorPanel, this.visualisationPanel,
+                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
+        this.commandNew = new CommandNew(this.consolePanel, this.editorPanel, this.visualisationPanel,
+                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
+        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel, this.visualisationPanel,
+                this.manager, this::switchClickableState);
+        this.commandZoomTextIn = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_IN);
+        this.commandZoomTextOut = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_OUT);
+        this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
+        this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
+        this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel);
+        this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
+        this.commandFinishQuery = new CommandFinishQuery(this.consolePanel, this.visualisationPanel, this.manager);
+        this.commandCancel = new CommandCancel(this.manager);
+        this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager, this::dispose);
+        this.commandShowAbout = new CommandShowAbout();
+        this.commandShowStandard = new CommandShowStandard(this.manager);
+        this.commandShowManual = new CommandShowManual();
     }
 
     /**
