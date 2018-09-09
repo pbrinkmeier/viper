@@ -23,4 +23,9 @@ public class PreselectionFileChooser implements FileChooser {
     public File showSaveDialog(FileFilter filter) {
         return this.preselected;
     }
+
+    @Override
+    public File showOpenDialog(FileFilter filter) {
+        return this.preselected;
+    }
 }
