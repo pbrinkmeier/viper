@@ -95,13 +95,13 @@ Für die Verwaltung von gefundenen Fehlern und zu implementierenden Features wer
 
 \subsubsection{Checkstyle}
 
-Für einen einheitlichen Codestil im gesamten Projekt wird der Quellcode inklusive aller Tests von Checkstyle untersucht. Die Konfiguration stammt von der Vorlesung Programmieren und umfasst u.a. Regeln für maximale Klassengröße, Parameterzahl für Methoden, Leerzeichen vor und hinter geschwungenen Klammern, Einrückung mit Leerzeichen und einige mehr.
+Für einen einheitlichen Codestil im gesamten Projekt wird der Quellcode inklusive aller Tests von Checkstyle untersucht. Die Konfiguration stammt von der Vorlesung Programmieren \footnote{\url{https://sdqweb.ipd.kit.edu/wiki/Vorlesung_Programmieren_WS16/17}} und umfasst u.a. Regeln für maximale Klassengröße, Parameterzahl für Methoden, Leerzeichen vor und hinter geschwungenen Klammern, Einrückung mit Leerzeichen und einige mehr.
 
 Die folgenden, eigenen Regeln erweitern die Konfiguration speziell für VIPER:
 \begin{itemize}
-  \item Geschweifte Klammern bei \texttt{if ... else} Blöcken und Schleifen sind immer notwendig, auch wenn der Körper nur eine Zeile umfasst
-  \item Maximale Parameteranzahl auf 10 erhöht, da einige Konstruktoren in Controller-Klassen viele Referenzen auf GUI Elemente oder andere Commands brauchen
-  \item Schlüsselwort \texttt{this} muss immer verwendet werden, wenn auf Klassen-Attribute und -Methoden zugegriffen wird
+  \item Geschweifte Klammern bei \texttt{if ... else} Blöcken und Schleifen sind immer notwendig, auch wenn der Körper nur eine Zeile umfasst.
+  \item Das Schlüsselwort \texttt{this} muss immer verwendet werden, wenn auf Klassen-Attribute und -Methoden zugegriffen wird.
+  \item Die maximale Parameteranzahl für Methoden beträgt 10, da einige Konstruktoren in Controller-Klassen viele Referenzen auf GUI Elemente oder andere Commands brauchen.
 \end{itemize}
 
 \subsection{Nutzertests}
