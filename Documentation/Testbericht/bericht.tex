@@ -183,6 +183,61 @@ In den Studien lag der Fokus auf den folgenden Fragestellungen:
         Über den Menüpunkt \enquote{Standardbibliothek anzeigen} lässt sich der Inhalt der Standardbibliothek in einem neuen Fenstern anzeigen. Bei langem Quelltext ist in diesem Fenster kein Scrollen möglich, der Inhalt wird am unteren Fensterrand abgeschnitten.\\\\
         \textbf{Grund:} Bevor die Standardbibliothek erweitert wurde, war der Quelltext nie zu lang für das Fenster. Somit ist der Fehler nie aufgefallen.\\
         \textbf{Behebung:} Das zum Anzeigen des Inhalts verwendete Textfeld muss in einem Java Swing \texttt{JScrollPane} eingebettet werden, damit Scrollen möglich ist.
+
+  \item \textbf{Hinweis \enquote{Neue Abfrage eingeben...} wird in Historie gespeichert}\\
+        Beschreibung\\\\
+        \textbf{Grund:} Grund\\
+        \textbf{Behebung:} Behebung
+
+  \item \textbf{Integer Overflow bei Abfragen mit großen Ergebnis}\\
+        Beschreibung\\\\
+        \textbf{Grund:} Grund\\
+        \textbf{Behebung:} Behebung
+
+  \item \textbf{Nach dem Formatieren eines Programmes muss neu geparst werden}\\
+        Beschreibung\\\\
+        \textbf{Grund:} Grund\\
+        \textbf{Behebung:} Behebung
+
+  \item \textbf{Text im Eingabefeld ist hellgrau}\\
+        Beschreibung\\\\
+        \textbf{Grund:} Grund\\
+        \textbf{Behebung:} Behebung
+
+  \item \textbf{Batik wirft \texttt{NullPointerException}s}\\
+        Beschreibung\\\\
+        \textbf{Grund:} Grund\\
+        \textbf{Behebung:} Behebung
+
+  \item \textbf{\enquote{Vorheriger Schritt} Schaltfläche wird nicht aktiviert}\\
+        Beschreibung\\\\
+        \textbf{Grund:} Grund\\
+        \textbf{Behebung:} Behebung
+
+  \item \textbf{Textgröße wird doppelt in Konfigurationsdatei gespeichert}\\
+        Beschreibung\\\\
+        \textbf{Grund:} Grund\\
+        \textbf{Behebung:} Behebung
+
+  \item \textbf{In der Konsole werden lange Wörter nicht umgebrochen}\\
+        Beschreibung\\\\
+        \textbf{Grund:} Grund\\
+        \textbf{Behebung:} Behebung
+
+  \item \textbf{Swing wirft \texttt{NullPointerException}s}\\
+        Beschreibung\\\\
+        \textbf{Grund:} Grund\\
+        \textbf{Behebung:} Behebung
+
+  \item \textbf{Minimale und maximale Zoomstufe werden überschritten}\\
+        Beschreibung\\\\
+        \textbf{Grund:} Grund\\
+        \textbf{Behebung:} Behebung
+
+  \item \textbf{Texte in der Visualisierung ragen über Umrandung hinaus}\\
+        Beschreibung\\\\
+        \textbf{Grund:} Grund\\
+        \textbf{Behebung:} Behebung
 \end{enumerate}
 
 \section{Zusätzliche Features}
@@ -195,9 +250,17 @@ Im Folgenden werden die zusätzlich implementieren Funktionalitäten und Änderu
   \item \textbf{Nächste Lösung}\\
         Die Funktion der \enquote{Nächste Lösung} Schaltfläche wurde dahingehend verändert, dass nun die nächste auftretende Lösung, ausgehend vom aktuell angezeigten Schritt, ausgegeben wird. Bisher wurde bis zur nächsten, noch nicht berechneten Lösung gesprungen.
   \item \textbf{Letzte Lösung}\\
-        Um für eine eingegebene Abfrage alle möglichen Lösungen anzeigen zu lassen, wurde die \enquote{Letzte Lösung} Schaltfläche in der Werkzeugleiste eingeführt. Diese berechnet direkt alle Schritte der Abfrage und zeigt alle möglichen Lösungen in der Konsole an.
+        Um für eine eingegebene Abfrage alle möglichen Lösungen anzeigen zu lassen, wurde die \enquote{Letzte Lösung} Schaltfläche in der Werkzeugleiste eingeführt. Diese berechnet direkt alle Schritte der Abfrage und zeigt alle gefundenen Lösungen in der Konsole an.
+  \item \textbf{Neue Icons für alle \enquote{Schritt}-Schaltflächen}\\
+        % TODO
   \item \textbf{Indikator für erfolgreiche Unifikation}\\
         Ist die Unifikation eines (Teil-)Ziels erfolgreich, so wird der dazugehörige Knoten in der Visualisierung nun grün eingefärbt und um ein Häkchen (\ding{51}) ergänzt.
+  \item \textbf{\texttt{BigInteger} für Berechnung von Lösungen}\\
+        Alle Model Klassen verwenden jetzt Java's \texttt{BigInteger} statt dem primitiven Datentyp \texttt{int}. Somit sind bei Berechnungen beliebig große Zahlen ohne Auftreten von einem Integer Overflow möglich.
+  \item \textbf{Maximale Auführungstiefe für Abfragen}\\
+        % TODO
+  \item \textbf{Schönere Visualisierung des Cut}\\
+        % TODO
   \item \textbf{Menüpunkt \enquote{Hilfe}}\\
         Die Menüleiste wurde um den Eintrag \enquote{Hilfe} erweitert, der Optionen zum Anzeigen einer Anleitung für das Programm, des Inhalts der Standardbibliothek sowie eines \enquote{Über}-Dialogs enthält.
   \item \textbf{Anleitung}\\
@@ -207,9 +270,11 @@ Im Folgenden werden die zusätzlich implementieren Funktionalitäten und Änderu
   \item \textbf{Hinweis bei Namenskonflikten mit der Standardbibliothek}\\
         Falls im geparsten Programm Regeln vorkommen, die Namenskonflikte mit Regeln aus der Standardbibliothek hervorrufen, so wird eine Warnung in der Konsole ausgegeben. Ist die Standardbibliothek nicht aktiviert, so wird der Hinweis nicht angezeigt.
   \item \textbf{Beispielprogramme}\\
-        Mehrere Beispiel-Programme, darunter ein Bekanntes mit den Regeln \texttt{father/2}, \texttt{mother/2} und \texttt{grandparent/2}, werden nun mit VIPER mitgeliefert und können über den \enquote{Datei}-Menüpunkt in den Editor geladen werden.
+        Mehrere Beispiel-Programme, darunter das aus dem Pflichtenheft bekannte \texttt{simpsons.pl} Programm, werden nun mit VIPER mitgeliefert und können über den \enquote{Datei}-Menüpunkt in den Editor geladen werden.
   \item \textbf{Tastenkombinationen für den Editor}\\
         Um die Nutzbarkeit des Editors zu verbessern, wurde er um gebräuchliche Tastaturkürzel wie Strg+O zum Öffnen und Strg+S zum Speichern einer Datei erweitert.
+  \item \textbf{Ungespeicherte Änderungen}\\
+        Auf im Editor durchgeführte Änderungen, welche noch nicht auf dem Dateisystem gespeichert wurden, wird mit einem Sternchen (*) im Fenstertitel hingewiesen.
   \item \textbf{Mitgelieferte Schriftart für Visualisierung}\\
         Um ein einheitliches Aussehen der Visualisierung auf allen Betriebssystemen garantieren zu können, wird die freie Schriftart \enquote{Liberation Serif} von Red Hat im Programm mitgeliefert. Diese wird für alle Texte und Zeichen in der Visualisierung verwendet.
   \item \textbf{Zoom an der Position des Mauszeigers}\\
