@@ -185,14 +185,14 @@ In den Studien lag der Fokus auf den folgenden Fragestellungen:
         \textbf{Behebung:} Das zum Anzeigen des Inhalts verwendete Textfeld muss in einem Java Swing \texttt{JScrollPane} eingebettet werden, damit Scrollen möglich ist.
 
   \item \textbf{Hinweis \enquote{Neue Abfrage eingeben...} wird in Historie gespeichert}\\
-        Beschreibung\\\\
-        \textbf{Grund:} Grund\\
-        \textbf{Behebung:} Behebung
+        Der Platzhalter-Text \enquote{Neue Abfrage eingeben...} wird beim Absenden einer Abfrage mit in der Historie gespeichert. Somit wird dieser Text sichtbar, wenn mit den Pfeiltasten durch die Historie gewechselt wird.\\\\
+        \textbf{Grund:} Da es in Swing keine eingebauten Platzhalter für Textfelder gibt, wurde diese Funktionalität selbst implementiert. Der Platzhalter-Text wird dabei als normaler Text eingefügt und in der Farbe verändert. Dies wurde bei Implementierung der Historie-Funktionalität nicht beachtet und der Platzhalter als eingegebene Abfrage behandelt.\\
+        \textbf{Behebung:} Beim Hinzufügen eines Eintrags zur Historie wird geprüft, ob es sich um den Platzhalter-Text handelt. Falls ja wird abgebrochen und der Eintrag nicht hinzugefügt.
 
-  \item \textbf{Integer Overflow bei Abfragen mit großen Ergebnis}\\
-        Beschreibung\\\\
-        \textbf{Grund:} Grund\\
-        \textbf{Behebung:} Behebung
+  \item \textbf{Integer Overflow bei Abfragen mit großem Ergebnis}\\
+        Bei Abfragen wie \texttt{fac(42, X).} (Fakultät von 42) kommt es zu einem Integer Overflow der JVM.\\\\
+        \textbf{Grund:} Im Model wird der primitive Datentyp \texttt{int} verwendet, welcher nur Ganzzahlen mit einer Größe zwischen $-2^{31}$ und $2^{31}-1$ darstellen kann. Bei Werten außerhalb dieses Bereiches kommt es zu einem Overflow.\\
+        \textbf{Behebung:} Im Model wird statt \texttt{int} die Klasse \texttt{BigInteger} verwendet, welche theoretisch unendlich große Ganzzahlen erlaubt.
 
   \item \textbf{Nach dem Formatieren eines Programmes muss neu geparst werden}\\
         Beschreibung\\\\
