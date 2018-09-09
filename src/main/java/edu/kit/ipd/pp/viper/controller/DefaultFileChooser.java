@@ -21,4 +21,16 @@ public class DefaultFileChooser implements FileChooser {
             return null;
         }
     }
+
+    @Override
+    public File showOpenDialog(FileFilter filter) {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(filter);
+
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            return chooser.getSelectedFile();
+        } else {
+            return null;
+        }
+    }
 }

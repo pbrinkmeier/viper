@@ -205,7 +205,7 @@ public class CommandOpen extends Command {
     }
 
     private void openByDialog() {
-        File f = this.fileChooser.showSaveDialog(FileFilters.PL_FILTER);
+        File f = this.fileChooser.showOpenDialog(FileFilters.PL_FILTER);
 
         if (f != null) {
             boolean cancelled = false;

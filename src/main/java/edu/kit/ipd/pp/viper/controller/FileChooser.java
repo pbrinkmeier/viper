@@ -11,11 +11,20 @@ import javax.swing.filechooser.FileFilter;
  */
 public interface FileChooser {
     /**
-     * Depending on the implementation, shows a real dialog or returns
+     * Depending on the implementation, shows a real Save dialog or returns
      * a predefined file.
      * 
      * @param filter The file filter to be applied if there is an actual file chooser
      * @return the selected file or null if there is none
      */
     File showSaveDialog(FileFilter filter);
+
+    /**
+     * Depending on the implementation, shows a real File Open dialog or returns
+     * a predefined file.
+     * 
+     * @param filter The file filter to be applied if there is an actual file chooser
+     * @return the selected file or null if there is none
+     */
+    File showOpenDialog(FileFilter filter);
 }
