@@ -103,6 +103,8 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
         };
 
         this.getInteractors().add(panInteractor);
+        System.out.println(this.getInteractors().indexOf(panInteractor));
+        System.out.println(this.getInteractors().size());
         this.addMouseWheelListener(this);
     }
 
@@ -211,15 +213,15 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
      * Clears the displayed SVG
      */
     public void clear() {
-        try {
+        //try {
             this.setURI(null);            
-        } catch (NullPointerException e) {
+        /*} catch (NullPointerException e) {
             ConsolePanel panel = this.main.getConsolePanel();
             if (panel != null) {
                 panel.printLine("Failed to clear visualisation. This should only happen during testing as"
                         + "a result of bad threading in Batik", LogType.DEBUG);
             }
-        }
+        }*/
     }
 
     /**

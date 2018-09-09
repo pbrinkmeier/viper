@@ -4,8 +4,10 @@ import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
 import static org.junit.Assert.assertEquals;
 
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+import org.apache.batik.swing.gvt.AbstractPanInteractor;
 import org.junit.Test;
 
 import edu.kit.ipd.pp.viper.controller.ZoomType;
@@ -172,5 +174,18 @@ public class VisualisationViewerTest extends ViewTest {
     @Test
     public void clearTest() {
         this.gui.getVisualisationPanel().getVisualisationViewer().clear();
+    }
+    
+    /**
+     * Only calls this function to check that no exceptions occur,
+     * since assertions if the current view has been moved are not possible.
+     */
+    public void panInteractorTest() {
+        this.gui.getVisualisationPanel().getVisualisationViewer().enableNavigation();
+        
+        ((AbstractPanInteractor) this.gui.getVisualisationPanel().getVisualisationViewer().getInteractors().get(
+                this.gui.getVisualisationPanel().getVisualisationViewer().getInteractors().size() - 1))
+                    .startInteraction(new MouseEvent(this.gui.getVisualisationPanel().getVisualisationViewer(),
+                            1, 1, 1, 1, 1, 1, false, MouseEvent.BUTTON1));
     }
 }

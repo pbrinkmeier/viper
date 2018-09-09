@@ -245,57 +245,6 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         this.history.clear();
     }
     
-    private class HintedTextField extends JTextField implements FocusListener, Observer {
-        private static final long serialVersionUID = 1805984011473862039L;
-
-        private String hintText;
-        private final LanguageKey hint;
-        
-        public HintedTextField(LanguageKey hint) {
-            super();
-
-            this.hint = hint;
-            this.hintText = "";
-            this.addFocusListener(this);
-            LanguageManager.getInstance().addObserver(this);
-        }
-
-        @Override
-        public void focusGained(FocusEvent e) {
-            this.setForeground(ColorScheme.CONSOLE_BLACK);
-            if (this.getText().equals(this.hintText)) {
-                this.setText("");
-            }
-        }
-
-        @Override
-        public void focusLost(FocusEvent e) {
-            if (this.getText().isEmpty() && this.isEditable()) {
-                this.hintText = LanguageManager.getInstance().getString(this.hint);
-                this.setForeground(ColorScheme.PLACEHOLDER_TEXT_COLOR);
-                this.setText(this.hintText);
-            }
-        }
-
-        @Override
-        public void update(Observable o, Object arg) {
-            if (this.getText().equals(this.hintText) && this.isEditable()) {
-                this.setForeground(ColorScheme.PLACEHOLDER_TEXT_COLOR);
-                this.hintText = LanguageManager.getInstance().getString(this.hint);
-                this.setText(this.hintText);
-            }
-        }
-        
-        @Override
-        public void setEditable(boolean editable) {
-            super.setEditable(editable);
-            
-            if (!editable) {
-                this.setText("");
-            }
-        }
-    }
-    
     /**
      * Returns if the buttonSend is enabled or not.
      * Only used for testing.
@@ -350,7 +299,7 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      * Gets the foreground color of this textField.
      * Only used for testing.
      * 
-     * @param color The current foreground color
+     * @return Color The current foreground color
      */
     public Color getTextFieldForeground() {
         return this.textField.getForeground();
@@ -370,5 +319,56 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
      */
     public void loseFocus() {
         this.textField.focusLost(null);
+    }
+    
+    private class HintedTextField extends JTextField implements FocusListener, Observer {
+        private static final long serialVersionUID = 1805984011473862039L;
+
+        private String hintText;
+        private final LanguageKey hint;
+        
+        public HintedTextField(LanguageKey hint) {
+            super();
+
+            this.hint = hint;
+            this.hintText = "";
+            this.addFocusListener(this);
+            LanguageManager.getInstance().addObserver(this);
+        }
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            this.setForeground(ColorScheme.CONSOLE_BLACK);
+            if (this.getText().equals(this.hintText)) {
+                this.setText("");
+            }
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            if (this.getText().isEmpty() && this.isEditable()) {
+                this.hintText = LanguageManager.getInstance().getString(this.hint);
+                this.setForeground(ColorScheme.PLACEHOLDER_TEXT_COLOR);
+                this.setText(this.hintText);
+            }
+        }
+
+        @Override
+        public void update(Observable o, Object arg) {
+            if (this.getText().equals(this.hintText) && this.isEditable()) {
+                this.setForeground(ColorScheme.PLACEHOLDER_TEXT_COLOR);
+                this.hintText = LanguageManager.getInstance().getString(this.hint);
+                this.setText(this.hintText);
+            }
+        }
+        
+        @Override
+        public void setEditable(boolean editable) {
+            super.setEditable(editable);
+            
+            if (!editable) {
+                this.setText("");
+            }
+        }
     }
 }
