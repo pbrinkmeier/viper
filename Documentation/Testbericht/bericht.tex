@@ -93,11 +93,11 @@ Die statische Analyse des ByteCode mit FindBugs brachte die folgenden Ergebnisse
 
 \begin{itemize}
   \item \textbf{Fehlende \texttt{hashCode} Methoden}\\
-        In den Klassen des Models wurde für notwendige Vergleiche die \texttt{java.lang.Object\#equals(Object)} Methode überschrieben, die \texttt{java.lang.Object\#hashCode()} Methode allerdings nicht. Diese wurde in allen betroffenen Klassen ergänzt.
+        In den Klassen des Models wurde für notwendige Vergleiche die Methode \texttt{java.lang.Object\#equals(Object)} überschrieben, die Methode \texttt{java.lang.Object\#hashCode()} allerdings nicht. Diese wurde in allen betroffenen Klassen ergänzt.
   \item \textbf{Schreiben in Klassenattribut}\\
         Die Hauptklasse (\texttt{MainWindow}) schreibt bei Initialisierung einen Wahrheitswert in das statische Klassenattribut \texttt{debug}, abhängig davon ob VIPER im Debug-Modus gestartet wurde oder nicht. Da die Abfrage dieses Wahrheitswertes allerdings statisch, d.h. ohne Instanz der Hauptklasse, möglich sein soll, wird diese Warnung ignoriert.
   \item \textbf{Rückgabewert \texttt{null} statt \texttt{Optional}}\\
-        In der \texttt{ActivationRecord\#getPrevious()} Methode wurde in der letzten Zeile \texttt{null} statt einem \texttt{Optional<ActivationRecord>} zurückgegeben. Diese Zeile konnte nie erreicht werden, wurde aber vom Compiler gefordert. Die Methode wurde als Reaktion auf die Warnung von FindBugs umstrukturiert und neu implementiert.
+        In der Methode \texttt{ActivationRecord\#getPrevious()} wurde in der letzten Zeile \texttt{null} statt einem \texttt{Optional<ActivationRecord>} zurückgegeben. Diese Zeile konnte nie erreicht werden, wurde aber vom Compiler gefordert. Die Methode wurde als Reaktion auf die Warnung von FindBugs umstrukturiert und neu implementiert.
 \end{itemize}
 
 \subsubsection{PMD}
