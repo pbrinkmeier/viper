@@ -14,10 +14,10 @@
    viewBox="0 0 256 256"
    version="1.1"
    id="SVGRoot"
-   sodipodi:docname="icon_finishquery.svg"
-   inkscape:export-filename="/home/asmodean/Desktop/viper/src/main/resources/icons_png/icon_finishquery.png"
-   inkscape:export-xdpi="94.875008"
-   inkscape:export-ydpi="94.875008"
+   sodipodi:docname="icon_continue.svg"
+   inkscape:export-filename="/home/novare/Schreibtisch/viper/build/resources/main/icon_continue.png"
+   inkscape:export-xdpi="96.000008"
+   inkscape:export-ydpi="96.000008"
    inkscape:version="0.92.2 2405546, 2018-03-11">
   <sodipodi:namedview
      id="base"
@@ -27,19 +27,17 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8284271"
-     inkscape:cx="117.94532"
-     inkscape:cy="124.48381"
+     inkscape:cx="120.42019"
+     inkscape:cy="110.34167"
      inkscape:document-units="px"
      inkscape:current-layer="g929"
      showgrid="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1009"
+     inkscape:window-height="1029"
      inkscape:window-x="0"
-     inkscape:window-y="29"
+     inkscape:window-y="25"
      inkscape:window-maximized="1"
-     inkscape:grid-bbox="true"
-     inkscape:snap-grids="true"
-     inkscape:snap-to-guides="true">
+     inkscape:grid-bbox="true">
     <inkscape:grid
        type="xygrid"
        id="grid891" />
@@ -67,18 +65,24 @@
        transform="translate(-15.624557,13.337761)"
        style="stroke-width:8;stroke-miterlimit:4;stroke-dasharray:none">
       <g
-         id="g3811"
-         transform="matrix(1.0857847,0,0,0.9936982,-81.77532,17.615448)">
+         id="g3360"
+         transform="matrix(1.1710829,0,0,1.1710829,-40.364006,-23.440305)"
+         style="fill:#000000;fill-opacity:1">
+        <path
+           inkscape:connector-curvature="0"
+           id="path1453"
+           d="M 51.083502,63.148609 V 175.13229 L 150.62456,117.66224 51.083502,60.192189 Z"
+           style="fill:#000000;stroke:#000000;stroke-width:4.97705269;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1" />
         <path
            inkscape:connector-curvature="0"
            id="path1453-7"
-           d="M 144.05372,33.82226 V 164.96443 L 260.62456,97.662239 144.05372,30.360047 Z"
-           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:5.82854128;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+           d="M 154.62456,63.678561 V 175.66224 l 99.54106,-57.47005 -99.54106,-57.470049 z"
+           style="fill:#000000;stroke:#000000;stroke-width:4.97705269;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1" />
         <path
            inkscape:connector-curvature="0"
            id="path3355"
-           d="M 268.18851,26.776648 V 167.3066"
-           style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:11.71082878;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+           d="M 260.62456,57.662239 V 177.66224"
+           style="fill:#000000;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1" />
       </g>
     </g>
   </g>
