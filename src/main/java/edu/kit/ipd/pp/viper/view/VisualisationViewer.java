@@ -103,8 +103,6 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
         };
 
         this.getInteractors().add(panInteractor);
-        System.out.println(this.getInteractors().indexOf(panInteractor));
-        System.out.println(this.getInteractors().size());
         this.addMouseWheelListener(this);
     }
 
@@ -150,7 +148,6 @@ public class VisualisationViewer extends JSVGCanvas implements MouseWheelListene
             }
             
             double input = (stepSize * event.getPreciseWheelRotation());
-            System.out.println(event.getPreciseWheelRotation());
             double step = VisualisationViewer.calculateStep(input);
             VisualisationViewer.updateScaleValue(-step);
             
