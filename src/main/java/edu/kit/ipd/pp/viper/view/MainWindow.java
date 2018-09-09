@@ -92,9 +92,9 @@ public class MainWindow extends JFrame {
     /**
      * Instances of all three panels
      */
-    private EditorPanel editorPanel;
-    private ConsolePanel consolePanel;
-    private VisualisationPanel visualisationPanel;
+    private final EditorPanel editorPanel;
+    private final ConsolePanel consolePanel;
+    private final VisualisationPanel visualisationPanel;
 
     private CommandNew commandNew;
     private CommandOpen commandOpen;
