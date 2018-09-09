@@ -590,4 +590,14 @@ public class MainWindow extends JFrame {
     public CommandZoom getCommandZoomTextOut() {
         return this.commandZoomTextOut;
     }
+    
+    /**
+     * Returns the window title
+     * Only used for testing.
+     * 
+     * @return String The current window title
+     */
+    public String getWindowTitle() {
+        return this.windowTitle;
+    }
 }
