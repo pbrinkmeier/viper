@@ -15,6 +15,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.UnificationActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.UnificationResult;
 import edu.kit.ipd.pp.viper.view.ColorScheme;
+import edu.kit.ipd.pp.viper.view.MainWindow;
 
 import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
@@ -288,7 +289,8 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
     public static Graph createGraph(Interpreter interpreter) {
         GraphvizMaker maker = new GraphvizMaker(interpreter.getCurrent(), interpreter.getNext());
         Node rootNode = interpreter.getQuery().accept(maker);
-        Graph g = graph("visualisation").directed().with(rootNode).nodeAttr().with(Font.name("Times New Roman"));
+        Graph g = graph("visualisation").directed().with(rootNode)
+        .nodeAttr().with(Font.name(MainWindow.VISUALISATION_FONT_NAME));
 
         for (Graph rankEnforcer : maker.rankEnforcers) {
             g = g.with(rankEnforcer);

@@ -2,8 +2,12 @@ package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.ImageIcon;
@@ -49,6 +53,13 @@ public class MainWindow extends JFrame {
     public static final String VERSION = "1.0";
 
     /**
+     * Font name for visualisation.
+     * We are using Liberation Serif because it's FOSS and has the same metrics as Times New Roman,
+     * which graphviz-java uses for determining box width in all cases due to a bug.
+     */
+    public static final String VISUALISATION_FONT_NAME = "Liberation Serif";
+
+    /**
      * Serial UID
      */
     private static final long serialVersionUID = -5807530819617746945L;
@@ -71,6 +82,12 @@ public class MainWindow extends JFrame {
      * in the package folder, not in src/main/resources
      */
     private static final String WINDOW_ICON = "/icons_png/viper-icon.png";
+
+    /**
+     * Font file name for custom visualisation font.
+     * Can be found in src/main/resources.
+     */
+    private static final String VISUALISATION_FONT_PATH = "/liberation_font/LiberationSerif-Regular.ttf";
 
     /**
      * Instances of all three panels
@@ -135,16 +152,16 @@ public class MainWindow extends JFrame {
      * @param showWindow Toggles whether the window is visible; should be disabled for testing
      */
     public MainWindow(boolean debug, boolean showWindow) {
-     // write to static attribute, so that inDebugMode() can be static
+        // write to static attribute, so that inDebugMode() can be static
         MainWindow.debug = debug;
+
+        // use system built-in look and feel instead of default swing look
+        MainWindow.setDesign();
 
         this.setName(GUIComponentID.FRAME_MAIN.toString());
         this.setTitle(MainWindow.WINDOW_TITLE);
         this.setResizable(true);
         this.setIconImage(new ImageIcon(this.getClass().getResource(MainWindow.WINDOW_ICON)).getImage());
-
-        // use system built-in look and feel instead of default swing look
-        MainWindow.setDesign();
 
         this.manager = new InterpreterManager(this::switchClickableState);
         this.visualisationPanel = new VisualisationPanel(this);
@@ -153,7 +170,6 @@ public class MainWindow extends JFrame {
         this.consolePanel.setPreferencesManager(this.prefManager);
         this.editorPanel = new EditorPanel(this);
 
-        // Create command instances
         this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle,
                 this.manager);
         this.commandOpen = new CommandOpen(this.consolePanel, this.editorPanel, this.visualisationPanel,
@@ -258,17 +274,27 @@ public class MainWindow extends JFrame {
     /**
      * Sets the "look and feel" of the application by using the system default
      * theme.
+     * Also sets the custom font to use for the Visualisation
      */
     private static void setDesign() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            // Load custom font for visualisation
+            Font customFont = Font.createFont(
+                Font.TRUETYPE_FONT,
+                MainWindow.class.getResourceAsStream(MainWindow.VISUALISATION_FONT_PATH)
+            );
+            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(customFont);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                 | UnsupportedLookAndFeelException e) {
             if (MainWindow.inDebugMode()) {
                 e.printStackTrace();
             }
+        } catch (IOException | FontFormatException e) {
+            // This branch would only be reached if someone would delete the font file front the JAR.
+            // Even then, the visualisation would just fall back to some system font.
+            e.printStackTrace();
         }
-
     }
 
     /**
