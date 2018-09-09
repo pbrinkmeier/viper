@@ -96,22 +96,22 @@ public class MainWindow extends JFrame {
     private final ConsolePanel consolePanel;
     private final VisualisationPanel visualisationPanel;
 
-    private CommandNew commandNew;
-    private CommandOpen commandOpen;
-    private CommandSave commandSave;
-    private CommandExit commandExit;
-    private CommandParse commandParse;
-    private CommandFormat commandFormat;
-    private CommandPreviousStep commandPreviousStep;
-    private CommandNextStep commandNextStep;
-    private CommandNextSolution commandNextSolution;
-    private CommandFinishQuery commandFinishQuery;
-    private CommandCancel commandCancel;
-    private CommandShowAbout commandShowAbout;
-    private CommandShowStandard commandShowStandard;
-    private CommandZoom commandZoomTextIn;
-    private CommandZoom commandZoomTextOut;
-    private CommandShowManual commandShowManual;
+    private final CommandNew commandNew;
+    private final CommandOpen commandOpen;
+    private final CommandSave commandSave;
+    private final CommandExit commandExit;
+    private final CommandParse commandParse;
+    private final CommandFormat commandFormat;
+    private final CommandPreviousStep commandPreviousStep;
+    private final CommandNextStep commandNextStep;
+    private final CommandNextSolution commandNextSolution;
+    private final CommandFinishQuery commandFinishQuery;
+    private final CommandCancel commandCancel;
+    private final CommandShowAbout commandShowAbout;
+    private final CommandShowStandard commandShowStandard;
+    private final CommandZoom commandZoomTextIn;
+    private final CommandZoom commandZoomTextOut;
+    private final CommandShowManual commandShowManual;
 
     private final ToolBar toolbar;
     private final MenuBar menubar;
@@ -155,26 +155,13 @@ public class MainWindow extends JFrame {
         // write to static attribute, so that inDebugMode() can be static
         MainWindow.debug = debug;
 
-        // Load custom font for visualisation
-        try {
-            Font customFont = Font.createFont(
-                Font.TRUETYPE_FONT,
-                MainWindow.class.getResourceAsStream(MainWindow.VISUALISATION_FONT_PATH)
-            );
-            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(customFont);
-        } catch (IOException | FontFormatException e) {
-            // This branch would only be reached if someone would delete the font file front the JAR.
-            // Even then, the visualisation would just fall back to some system font.
-            e.printStackTrace();
-        }
+        // use system built-in look and feel instead of default swing look
+        MainWindow.setDesign();
 
         this.setName(GUIComponentID.FRAME_MAIN.toString());
         this.setTitle(MainWindow.WINDOW_TITLE);
         this.setResizable(true);
         this.setIconImage(new ImageIcon(this.getClass().getResource(MainWindow.WINDOW_ICON)).getImage());
-
-        // use system built-in look and feel instead of default swing look
-        MainWindow.setDesign();
 
         this.manager = new InterpreterManager(this::switchClickableState);
         this.visualisationPanel = new VisualisationPanel(this);
@@ -183,7 +170,26 @@ public class MainWindow extends JFrame {
         this.consolePanel.setPreferencesManager(this.prefManager);
         this.editorPanel = new EditorPanel(this);
 
-        this.createCommands();
+        this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle,
+                this.manager);
+        this.commandOpen = new CommandOpen(this.consolePanel, this.editorPanel, this.visualisationPanel,
+                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
+        this.commandNew = new CommandNew(this.consolePanel, this.editorPanel, this.visualisationPanel,
+                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
+        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel, this.visualisationPanel,
+                this.manager, this::switchClickableState);
+        this.commandZoomTextIn = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_IN);
+        this.commandZoomTextOut = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_OUT);
+        this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
+        this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
+        this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel);
+        this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
+        this.commandFinishQuery = new CommandFinishQuery(this.consolePanel, this.visualisationPanel, this.manager);
+        this.commandCancel = new CommandCancel(this.manager);
+        this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager, this::dispose);
+        this.commandShowAbout = new CommandShowAbout();
+        this.commandShowStandard = new CommandShowStandard(this.manager);
+        this.commandShowManual = new CommandShowManual();
 
         this.editorPanel.setZoomInCommand(this.commandZoomTextIn);
         this.editorPanel.setZoomOutCommand(this.commandZoomTextOut);
@@ -217,29 +223,6 @@ public class MainWindow extends JFrame {
         this.consolePanel.printLine(
                 String.format(LanguageManager.getInstance().getString(LanguageKey.VIPER_READY), MainWindow.VERSION),
                 LogType.INFO);
-    }
-
-    private void createCommands() {
-        this.commandSave = new CommandSave(this.consolePanel, this.editorPanel, SaveType.SAVE, this::setWindowTitle,
-                this.manager);
-        this.commandOpen = new CommandOpen(this.consolePanel, this.editorPanel, this.visualisationPanel,
-                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
-        this.commandNew = new CommandNew(this.consolePanel, this.editorPanel, this.visualisationPanel,
-                this::setWindowTitle, this::switchClickableState, this.commandSave, this.manager);
-        this.commandParse = new CommandParse(this.consolePanel, this.editorPanel, this.visualisationPanel,
-                this.manager, this::switchClickableState);
-        this.commandZoomTextIn = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_IN);
-        this.commandZoomTextOut = new CommandZoom(null, this.consolePanel, this.editorPanel, ZoomType.ZOOM_OUT);
-        this.commandFormat = new CommandFormat(this.consolePanel, this.editorPanel);
-        this.commandPreviousStep = new CommandPreviousStep(this.visualisationPanel, this.manager);
-        this.commandNextStep = new CommandNextStep(this.visualisationPanel, this.manager, this.consolePanel);
-        this.commandNextSolution = new CommandNextSolution(this.consolePanel, this.visualisationPanel, this.manager);
-        this.commandFinishQuery = new CommandFinishQuery(this.consolePanel, this.visualisationPanel, this.manager);
-        this.commandCancel = new CommandCancel(this.manager);
-        this.commandExit = new CommandExit(this.editorPanel, this.commandSave, this.manager, this::dispose);
-        this.commandShowAbout = new CommandShowAbout();
-        this.commandShowStandard = new CommandShowStandard(this.manager);
-        this.commandShowManual = new CommandShowManual();
     }
 
     /**
@@ -291,17 +274,27 @@ public class MainWindow extends JFrame {
     /**
      * Sets the "look and feel" of the application by using the system default
      * theme.
+     * Also sets the custom font to use for the Visualisation
      */
     private static void setDesign() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            // Load custom font for visualisation
+            Font customFont = Font.createFont(
+                Font.TRUETYPE_FONT,
+                MainWindow.class.getResourceAsStream(MainWindow.VISUALISATION_FONT_PATH)
+            );
+            GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(customFont);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                 | UnsupportedLookAndFeelException e) {
             if (MainWindow.inDebugMode()) {
                 e.printStackTrace();
             }
+        } catch (IOException | FontFormatException e) {
+            // This branch would only be reached if someone would delete the font file front the JAR.
+            // Even then, the visualisation would just fall back to some system font.
+            e.printStackTrace();
         }
-
     }
 
     /**
