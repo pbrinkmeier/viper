@@ -69,7 +69,7 @@ In der Testphase wird VIPER durch weitere Unittests sowie die im Pflichtenheft v
 
 Die Unittests werden mit dem Framework JUnit \footnote{\url{https://junit.org/}} geschrieben. Die durch diese Tests erreichte Abdeckung wird mit JaCoCo \footnote{\url{https://www.eclemma.org/jacoco/}} überprüft. Das Ziel ist eine Abdeckung nahe 100\% für das Controller Paket sowie alle Model Pakete. Mittels JAssertSwing \footnote{\url{https://joel-costigliola.github.io/assertj/assertj-swing.html}} wird auch das View Paket von VIPER so weit wie möglich automatisch getestet.
 
-Für einheitlich formattieren Code wird Checkstyle \footnote{\url{https://checkstyle.org/}} verwendet. Die Konfiguration stammt von der Vorlesung Programmieren und wird um einige striktere Regeln erweitert. Die Werkzeuge FindBugs \footnote{\url{http://findbugs.sourceforge.net/}} und PMD \footnote{\url{https://pmd.github.io/}} werden eingesetzt, um den Quelltext zur Übersetzungszeit auf Fehler und schlechten Programmierstil zu überprüfen.
+Für einheitlich formattieren Quelltext wird Checkstyle \footnote{\url{https://checkstyle.org/}} verwendet. Die Konfiguration stammt von der Vorlesung Programmieren und wird um einige striktere Regeln erweitert. Die Werkzeuge FindBugs \footnote{\url{http://findbugs.sourceforge.net/}} und PMD \footnote{\url{https://pmd.github.io/}} werden eingesetzt, um den Quelltext zur Übersetzungszeit auf Fehler und schlechten Programmierstil zu überprüfen.
 
 Um VIPER auf Nutzbarkeit zu prüfen, wird das Programm von außenstehenden Personen mit und ohne Vorkenntnisse in Prolog verwendet. Dabei entstehende Meinungen und beobachtete Reaktionen gehen in die Überarbeitung des Programms mit ein.
 
@@ -87,26 +87,46 @@ Für die Verwaltung von gefundenen Fehlern und zu implementierenden Features wer
 
 \subsection{Statische Analyse und Linting}
 
-% Ergebnisse FindBugs, PMD (Zahlen, welche Fehlergruppe wir ignorieren, z.B. hashCode(), if..else curly braces)
-
 \subsubsection{FindBugs}
 
-Die statische Analyse des ByteCodes mit FindBugs brachte die folgenden Ergebnisse hervor:
+Die statische Analyse des ByteCode mit FindBugs brachte die folgenden Ergebnisse hervor:
 
 \begin{itemize}
   \item \textbf{Fehlende \texttt{hashCode} Methoden}\\
         In den Klassen des Models wurde für notwendige Vergleiche die \texttt{java.lang.Object\#equals(Object)} Methode überschrieben, die \texttt{java.lang.Object\#hashCode()} Methode allerdings nicht. Diese wurde in allen betroffenen Klassen ergänzt.
   \item \textbf{Schreiben in Klassenattribut}\\
         Die Hauptklasse (\texttt{MainWindow}) schreibt bei Initialisierung einen Wahrheitswert in das statische Klassenattribut \texttt{debug}, abhängig davon ob VIPER im Debug-Modus gestartet wurde oder nicht. Da die Abfrage dieses Wahrheitswertes allerdings statisch, d.h. ohne Instanz der Hauptklasse, möglich sein soll, wird diese Warnung ignoriert.
+  \item \textbf{Rückgabewert \texttt{null} statt \texttt{Optional}}\\
+        In der \texttt{ActivationRecord\#getPrevious()} Methode wurde in der letzten Zeile \texttt{null} statt einem \texttt{Optional<ActivationRecord>} zurückgegeben. Diese Zeile konnte nie erreicht werden, wurde aber vom Compiler gefordert. Die Methode wurde als Reaktion auf die Warnung von FindBugs umstrukturiert und neu implementiert.
 \end{itemize}
 
 \subsubsection{PMD}
 
+Das Werkzeug PMD wurde sowohl zur Überprüfung von Semantik, als auch möglicher Fehler im Programm genutzt. Ebenfalls wurde der Quelltext auf unnötige und unerreichbare Zeilen sowie suboptimalen Code überprüft.
+
+Das Ergebnis der Analyse sorgte für die folgenden Änderungen:
+
+\begin{itemize}
+  \item \textbf{Variablennamen überarbeitet}\\
+        Sehr lange und sehr kurze Variablennamen wurden zugunsten der Verständlichkeit des Quelltextes umbenannt.
+  \item \textbf{Aufruf von \texttt{super()}}\\
+        Konstruktoren von Unterklassen, so beispielsweise alle Commands, wurden für guten Stil um einen Aufruf von \texttt{super()} ergänzt.
+  \item \textbf{Finale Klassenattribute}\\
+        Bereits in Konstruktoren initialisierte Klassenattribute wurden um das Schlüsselwort \texttt{final} ergänzt, um eine erneute, unerwünschte Zuweisung unmöglich zu machen.
+  \item \textbf{Fest-codierte Konstanten in statische Klassenattribute ausgelagert}\\
+        Im Quelltext verwendete Konstanten, wie beispielsweise von Swing zurückgegebene Zahlen bei betätigten Schaltflächen eines Dialogfensters, wurden in finale, statische Klassenattribute ausgelagert.
+  \item \textbf{\texttt{return} als letztes Statement}\\
+        Sofern möglich wurden alle Methoden so umgeschrieben, dass die letzte Zeile des Methodenkörpers ein \texttt{return} Statement darstellt. Dies verbessert die Lesbarkeit des Quelltextes durch weniger frühzeitige Methodenabbrüche.
+  \item \textbf{Vermeiden von String-Konkatenation}\\
+        Aufgrund der Unveränderbarkeit (\enquote{immutability}) von Strings in Java wurde im Quelltext verwendete String-Konkatenation für bessere Performance durch die \texttt{StringBuilder} Klasse ersetzt.
+\end{itemize}
+
 \subsubsection{Checkstyle}
 
-Für einen einheitlichen Codestil im gesamten Projekt wird der Quellcode inklusive aller Tests von Checkstyle untersucht. Die Konfiguration stammt von der Vorlesung Programmieren \footnote{\url{https://sdqweb.ipd.kit.edu/wiki/Vorlesung_Programmieren_WS16/17}} und umfasst u.a. Regeln für maximale Klassengröße, Parameterzahl für Methoden, Leerzeichen vor und hinter geschwungenen Klammern, Einrückung mit Leerzeichen und einige mehr.
+Für einen einheitlichen Codestil im gesamten Projekt wird der Quelltext inklusive aller Tests von Checkstyle untersucht. Die Konfiguration stammt von der Vorlesung Programmieren \footnote{\url{https://sdqweb.ipd.kit.edu/wiki/Vorlesung_Programmieren_WS16/17}} und umfasst u.a. Regeln für maximale Klassengröße, Parameterzahl für Methoden, Leerzeichen vor und hinter geschwungenen Klammern, Einrückung mit Leerzeichen und einige mehr.
 
 Die folgenden, eigenen Regeln erweitern die Konfiguration speziell für VIPER:
+
 \begin{itemize}
   \item Geschweifte Klammern bei \texttt{if ... else} Blöcken und Schleifen sind immer notwendig, auch wenn der Körper nur eine Zeile umfasst.
   \item Das Schlüsselwort \texttt{this} muss immer verwendet werden, wenn auf Klassen-Attribute und -Methoden zugegriffen wird.
@@ -138,8 +158,8 @@ Die folgenden, eigenen Regeln erweitern die Konfiguration speziell für VIPER:
         \textbf{Behebung:} Die in der \texttt{.jar} Datei enthaltene Standardbibliothek muss über einen Java Stream eingelesen werden, anstatt als Datei behandelt und geöffnet zu werden.
 
   \item \textbf{Im \enquote{Standardbibliothek anzeigen} Fenster ist kein Scrollen möglich}\\
-        Über den Menüpunkt \enquote{Standardbibliothek anzeigen} lässt sich der Inhalt der Standardbibliothek in einem neuen Fenstern anzeigen. Bei langem Code ist in diesem Fenster kein Scrollen möglich, der Inhalt wird am unteren Fensterrand abgeschnitten.\\\\
-        \textbf{Grund:} Bevor die Standardbibliothek erweitert wurde, war der Quellcode nie zu lang für das Fenster. Somit ist der Fehler nie aufgefallen.\\
+        Über den Menüpunkt \enquote{Standardbibliothek anzeigen} lässt sich der Inhalt der Standardbibliothek in einem neuen Fenstern anzeigen. Bei langem Quelltext ist in diesem Fenster kein Scrollen möglich, der Inhalt wird am unteren Fensterrand abgeschnitten.\\\\
+        \textbf{Grund:} Bevor die Standardbibliothek erweitert wurde, war der Quelltext nie zu lang für das Fenster. Somit ist der Fehler nie aufgefallen.\\
         \textbf{Behebung:} Das zum Anzeigen des Inhalts verwendete Textfeld muss in einem Java Swing \texttt{JScrollPane} eingebettet werden, damit Scrollen möglich ist.
 \end{enumerate}
 
@@ -175,7 +195,7 @@ Im Folgenden werden die zusätzlich implementieren Funktionalitäten und Änderu
   \item \textbf{Änderung der Schriftgröße in Editor und Konsole}\\
         Um die Schriftgröße des Editors und der Konsole anpassen zu können, wurden zwei Schaltflächen \enquote{+} und \enquote{-} ähnlich denen in der Visualisierung hinzugefügt. Die Schaltflächen befinden sich in der Werkzeugleiste und verändern gleichzeitig die Schriftgröße des Editors sowie der Konsole. Diese Einstellung wird außerdem gespeichert und bleibt nach einem Programm-Neustart erhalten.
   \item \textbf{Platzhalter-Hinweise}\\
-        Wurde noch keine Visualisierung gestartet, so wird im Visualisierungs-Bereich der Hinweis \enquote{Bitte Quellcode parsen und eine Abfrage eingeben, um die Visualisierung zu starten} angezeigt. Außerdem ist im Eingabefeld der Hinweis \enquote{Neue Abfrage eingeben...} sichtbar, sollte es nicht fokussiert sein.
+        Wurde noch keine Visualisierung gestartet, so wird im Visualisierungs-Bereich der Hinweis \enquote{Bitte Quelltext parsen und eine Abfrage eingeben, um die Visualisierung zu starten} angezeigt. Außerdem ist im Eingabefeld der Hinweis \enquote{Neue Abfrage eingeben...} sichtbar, sollte es nicht fokussiert sein.
   \item \textbf{Darstellung des Mauszeigers}\\
         Der Mauszeiger ändert seine Darstellung zur \enquote{Laden...}-Animation, wenn die Berechnung der nächsten Lösung etwas Zeit in Anspruch nimmt.
 \end{itemize}
