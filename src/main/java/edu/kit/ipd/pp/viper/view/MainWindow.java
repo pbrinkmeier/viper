@@ -87,7 +87,7 @@ public class MainWindow extends JFrame {
      * Font file name for custom visualisation font.
      * Can be found in src/main/resources.
      */
-    private static final String VISUALISATION_FONT_PATH = "/LiberationSerif-Regular.ttf";
+    private static final String VISUALISATION_FONT_PATH = "/liberation_font/LiberationSerif-Regular.ttf";
 
     /**
      * Instances of all three panels
