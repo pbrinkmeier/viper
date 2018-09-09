@@ -3,6 +3,7 @@ package edu.kit.ipd.pp.viper.view;
 import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -36,6 +37,17 @@ public class VisualisationPanelTest extends ViewTest {
     @Test
     public void resetZoomTest() {
         this.gui.getVisualisationPanel().resetZoom();
+    }
+    
+    /**
+     * Tests the zoom function if the placeholder graph is still shown.
+     */
+    @Test
+    public void zoomPlaceholderTest() {
+        this.gui.getVisualisationPanel().clearVisualization();
+        this.gui.getVisualisationPanel().resetZoom();
+        
+        this.gui.getVisualisationPanel().zoom(ZoomType.ZOOM_IN);
     }
     
     /**
@@ -82,5 +94,58 @@ public class VisualisationPanelTest extends ViewTest {
         
         assertEquals(true, this.gui.getVisualisationPanel().hasGraph());
         assertEquals(false, this.gui.getVisualisationPanel().showsPlaceholder());
+    }
+    
+    /**
+     * Tests if the graph isn't updated if the graph in the function call is null.
+     */
+    @Test
+    public void setFromGraphNullTest() {
+        this.gui.getVisualisationPanel().clearVisualization();
+        this.gui.getVisualisationPanel().setFromGraph(this.testGraph);
+        
+        this.gui.getVisualisationPanel().setFromGraph(null);
+        
+        assertEquals(this.testGraph,
+                this.gui.getVisualisationPanel().getVisualisationViewer().getGraph());
+    }
+    
+    /**
+     * Tests the switchClickableState functino with the parsed program state and a placeholder graph that's null.
+     */
+    @Test
+    public void switchClickableStateNoPlaceholderTest() {
+        this.gui.getVisualisationPanel().clearVisualization();
+        this.gui.getVisualisationPanel().clearPlaceholder();
+        
+        assertEquals(null, this.gui.getVisualisationPanel().getPlaceholder());
+        
+        this.gui.getVisualisationPanel().switchClickableState(ClickableState.PARSED_PROGRAM);
+        
+        assertTrue(this.gui.getVisualisationPanel().getPlaceholder() != null);
+    }
+    
+    /**
+     * Calls the componentHidden() function. Since this function doesn't do anything this is only for coverage.
+     */
+    @Test
+    public void componentHiddenTest() {
+        this.gui.getVisualisationPanel().componentHidden(null);
+    }
+    
+    /**
+     * Calls the componentMoved() function. Since this function doesn't do anything this is only for coverage.
+     */
+    @Test
+    public void componentMovedTest() {
+        this.gui.getVisualisationPanel().componentMoved(null);
+    }
+    
+    /**
+     * Calls the componentShown() function. Since this function doesn't do anything this is only for coverage.
+     */
+    @Test
+    public void componentShownTest() {
+        this.gui.getVisualisationPanel().componentShown(null);
     }
 }
