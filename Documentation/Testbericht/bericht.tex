@@ -526,6 +526,34 @@ Im Folgenden werden die zusätzlich implementieren Funktionalitäten und Änderu
         Der Mauszeiger ändert seine Darstellung zur \enquote{Laden...}-Animation, wenn die Berechnung der nächsten Lösung etwas Zeit in Anspruch nimmt.
 \end{itemize}
 
+\section{Tests aus dem Pflichtenheft}
+
+Die Pflichtenheft Tests wurden manuell durchgeführt. Dabei kam es, bis auf die folgenden Ausnahmen, zu keinerlei Komplikationen.
+
+\begin{itemize}
+\item \textbf{Generell}\\
+	Abfragen wie father(homer, X). werden mit \texttt{X => bart.} anstelle von \texttt{X = bart.} beantwortet
+		
+\item \textbf{Test 7.1: Mehrere Ziele in der Abfrage}\\
+	\textbf{Aktion:} Der Nutzer gibt die Abfrage \texttt{father(homer, X). mother(marge, X).} im Eingabefeld ein.\\
+	\textbf{Reaktion:} In der Konsole wird der Fehler „Nur ein Ziel in der Abfrage erlaubt.“ ausgegeben und das Eingabefeld geleert.\\
+	\textbf{Unterschied:} Die Abfrage \texttt{father(homer, X).} wird ausgeführt.\\
+	\textbf{Begründung:} Mehrere Ziele werden jetzt unterstützt. Eine Eingabe von \texttt{father(homer, X), mother(marge, X).} wäre legitim und unterstützt.
+	
+\item \textbf{Test 11: Ausführen arithmetischer Operationen}\\
+	Der Test ist, wie in der Nachbesprechung des Pflichtenheftes besprochen, falsch.
+	Arithmetik wird jedoch unterstützt. Angepasst funktionieren die Abfragen.
+	
+\item \textbf{Test 13.3: Mehrere Ziele in der Abfrage}\\
+	\textbf{Aktion:} Der Nutzer betätigt die \enquote{Nächste Lösung}-Schaltfläche.\\
+	\textbf{Reaktion:} In der Visualisierung wird \enquote{Nicht erfüllbar!} angezeigt. Die Konsole zeigt \enquote{\texttt{nein .}} an.\\
+	\textbf{Unterschied:} Die Visualisierung zeigt den ersten Knoten, die Konsole zeigt \enquote{Keine weiteren Lösungen.}\\
+	\textbf{Begründung:} Änderungen an der Abarbeitung.
+	
+\item \textbf{Test 18: Export als LaTeX für Foliensätze}\\
+	Fällt weg, da auf den Export als \texttt{.tikz} verzichtet wurde\\
+\end{itemize}
+
 \section{Statistiken}
 
 % Testabdeckung mit JUnit, möglichst detailliert (Tests pro Paket, LoC an Tests pro Palet, wie viele Tests laufen vollautomatisch).
