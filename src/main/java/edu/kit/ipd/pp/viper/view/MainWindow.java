@@ -600,4 +600,24 @@ public class MainWindow extends JFrame {
     public String getWindowTitle() {
         return this.windowTitle;
     }
+    
+    /**
+     * Returns the toolbar
+     * Only used for testing.
+     * 
+     * @return ToolBar The toolbar
+     */
+    public ToolBar getToolBar() {
+        return this.toolbar;
+    }
+    
+    /**
+     * Returns the menubar
+     * Only used for testing.
+     * 
+     * @return MenuBar The menubar
+     */
+    public MenuBar getMainWindowMenuBar() {
+        return this.menubar;
+    }
 }

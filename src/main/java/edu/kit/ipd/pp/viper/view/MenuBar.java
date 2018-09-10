@@ -437,4 +437,24 @@ public class MenuBar extends JMenuBar implements HasClickable {
             break;
         }
     }
+    
+    /**
+     * Returns the itemNew menu item
+     * Only used for testing.
+     * 
+     * @return ToolBar The itemNew menu item
+     */
+    public MenuItem getItemNew() {
+        return this.itemNew;
+    }
+    
+    /**
+     * Returns the itemToggleSTD menu item
+     * Only used for testing.
+     * 
+     * @return ToolBar The itemToggleSTD menu item
+     */
+    public CheckBoxMenuItem getItemToggleSTD() {
+        return this.itemToggleSTD;
+    }
 }
