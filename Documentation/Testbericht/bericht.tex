@@ -1,6 +1,5 @@
 \documentclass[parskip=full,11pt,twoside]{scrartcl}
-\usepackage[utf8]{inputenc}
-
+\usepackage[utf8]{inputenc} 
 \title{VIPER Interactive Prolog Education Runtime}
 \subtitle{Testbericht}
 \author{Paul Brinkmeier, Lukas Brocke, Jannik Koch, Aaron Maier, Christian Oder}
@@ -84,7 +83,92 @@ Die im Folgenden beschriebenen Tests entsprechen allen Tests seit \textbf{Beginn
 
 \subsection{Unit-Tests}
 
+% environment für eine testklasse mit command für testmethode
+\newenvironment{testClass}[1]{
+    \newcommand{\test}[3]{
+        \item[--] \texttt{##1}:##2\\##3
+    }
+
+    \textbf{Testklasse: #1Test, getestete Unit: #1}
+
+    \begin{itemize}
+}{
+    \end{itemize}
+}
+
+\newcommand{\equalsTest}[2]{
+    \test{equalsTest()}{#1}{
+        Versucht die Gleichheit bzw. Ungleichheit verschiedener #2 festzustellen.
+        Insbesondere wird die Ungleichheit zu \texttt{null} ohne das Werfen einer \texttt{Null\-Pointer\-Exception} getestet.
+    }
+}
+
+% hash code tests have always been added in QA
+\newcommand{\hashCodeTest}{
+    \test{hashCodeTest()}{\qa}{
+        Versucht den hash code der Instanz abzurufen und stellt sicher, dass dieser unter Einsatz des Algorithmus der Methode \texttt{java.util.Objects.hash} berechnet wurde.
+    }
+}
+
 \subsubsection{Model: AST}
+
+\begin{testClass}{AdditionOperation}
+    \test{calculateTest()}{\impl}{
+        Versucht das Ergebnis einer Addition zu berechnen.
+    }
+    \test{createNewTest()}{\impl}{
+        Versucht eine neue \texttt{AdditionOperation}-Instanz zu erzeugen.
+    }
+\end{testClass}
+
+\begin{testClass}{ArithmeticGoal}
+    \test{getVariablesTest()}{\qa}{
+        Versucht eine eindeutige Menge an Variablen der linken und rechten Seite des Arithmetikziels abzurufen.
+    }
+    \equalsTest{\qa}{Arithmetikziele}
+    \test{toStringTest()}{\qa}{
+        Versucht die String-Darstellung \texttt{[linke Seite] is [rechte Seite]} abzurufen.
+    }
+    \test{transformTest()}{\qa}{
+        Versucht \texttt{Z is Z} mittels eines \texttt{Indexifier}s zu \texttt{Z\_42 is Z\_42} zu transformieren.
+    }
+    \test{createActivationRecordTest()}{\qa}{
+        Versucht über die Instanziierung eines \texttt{Interpreters} mit dem Ziel \texttt{X is 42 + Y} einen \texttt{ArithmeticActivationRecord} zu erzeugen.
+    }
+    \hashCodeTest
+\end{testClass}
+
+\begin{testClass}{BinaryOperation}
+    \test{toStringTest}{\impl}{
+        Versucht die String-Darstellung \texttt{[linke Seite] [Symbol] [rechte Seite]} abzurufen.
+    }
+    \test{toHtmlTest}{\impl}{
+        Versucht die HTML-Darstellung \texttt{[linke Seite] [Symbol] [rechte Seite]} abzurufen.
+        Außerdem muss die HTML-Darstellung der linken und rechten Seite benutzt werden.
+    }
+    \equalsTest{\qa}{binärer Operationen}
+    \test{getLhsTest()}{\impl}{
+        Versucht die linke Seite der Operation abzurufen.
+    }
+    \test{getRhsTest()}{\impl}{
+        Versucht die rechte Seite der Operation abzurufen.
+    }
+\end{testClass}
+
+\begin{testClass}{ComparisonGoal}
+    \equalsTest{\qa}{Vergleichsziele}
+    \hashCodeTest
+    \test{toStringTest}{\impl}{
+        Versucht die String-Darstellung \texttt{[linke Seite] [Symbol] [rechte Seite]} abzurufen.
+    }
+    \test{getHtmlSymbolTest()}{\qa}{
+        Versucht das HTML-Symbol des Vergleichs abzurufen.
+    }
+    \test{getVariablesTest()}{\qa}{
+        Versucht eine eindeutige Menge an Variablen der linken und rechten Seite des Vergleichsziels abzurufen.
+    }
+\end{testClass}
+
 \subsubsection{Model: Parser}
 \subsubsection{Model: Interpreter}
 \subsubsection{Model: Visualisation}
