@@ -434,49 +434,49 @@ In den Studien lag der Fokus auf den folgenden Fragestellungen:
         \textbf{Behebung:} Im Model wird statt \texttt{int} die Klasse \texttt{BigInteger} verwendet, welche theoretisch unendlich große Ganzzahlen erlaubt.
 
   \item \textbf{Nach dem Formatieren eines Programmes muss neu geparst werden}\\
-        Wird ein Programm formatiert, so wird die Eingabe gesperrt und es muss neu geparsed werden.\\\\
-        \textbf{Grund:} Formatieren setzt den Text im Eingabefeld. Bei Änderungen des Textfeldes werden Codeänderungen vermutet und deshalb die Eingabe gesperrt. Ein neues Parsen ist dann nötig. \\
-        \textbf{Behebung:} Einführen von isFormattingProcess EditorPanel. Während eines Formatierungsprozesses werden nun keine Codeänderungen mehr angenommen, und die Eingabe wird nicht mehr gesperrt.
+        Nach dem Formatieren eines Programms wird das Eingabefeld deaktiviert. Ein erneutes Parsen ist notwendig, bis eine neue Abfrage gestellt werden kann. Dies ist nicht notwendig, da sich ein eingegebenes Prolog-Programm durch das Formatieren nicht ändert.\\\\
+        \textbf{Grund:} Im zuständigen Controllers für das Formatieren wird das Eingabefeld deaktiviert.\\
+        \textbf{Behebung:} Der Methodenaufruf wurde aus dem entsprechenden Controller entfernt.
 
   \item \textbf{Text im Eingabefeld ist hellgrau}\\
-        Beschreibung\\\\
-        \textbf{Grund:} Grund\\
-        \textbf{Behebung:} Behebung
+        Nach dem Parsen eines Prolog-Programms erscheint der im Eingabefeld eingegebene Text hellgrau statt schwarz.\\\\
+        \textbf{Grund:} Die hellgraue Farbe stammt vom Platzhalter-Text, welche angezeigt wird wenn das Eingabefeld nicht fokussiert ist. Die Farbe wird fälschlicherweise nicht auf Schwarz zurückgesetzt.\\
+        \textbf{Behebung:} Die Farbe sind immer auf Schwarz zurückgesetzt, wenn das Eingabefeld fokussiert wird.
 
   \item \textbf{Batik wirft \texttt{NullPointerException}s}\\
-        Beschreibung\\\\
-        \textbf{Grund:} Grund\\
-        \textbf{Behebung:} Behebung
+        Wenn mit der Maus die Visualisierung bewegt oder gezoomt wird, während gerade eine neue Visualisierung geladen wird, so wirft Apache Batik eine \texttt{NullPointerException}.\\\\
+        \textbf{Grund:} Zum Laden einer Visualisierung wird \texttt{JSVGCanvas\#setURI(String)} verwendet. Diese löscht intern zunächst die Visualisierung (setzt das Dokument auf \texttt{null}) und läd dann ein SVG Dokument über den übergebenen Pfad. Wird währenddessen mit dem JSVGCanvas interagiert und sog. Event Listener aufgerufen, kommt es zu \texttt{NullPointerException}s.\\
+        \textbf{Behebung:} Der Methodenaufruf \texttt{JSVGCanvas\#setURI(String)} wird durch \texttt{JSVGCanvas\#loadSVGDocument} ersetzt. Diese löscht intern die Visualisierung nicht, sondern überschreibt das aktuelle Dokument erst nach erfolgreichem Laden des neuen Dokuments.
 
   \item \textbf{\enquote{Vorheriger Schritt} Schaltfläche wird nicht aktiviert}\\
-        Beschreibung\\\\
-        \textbf{Grund:} Grund\\
-        \textbf{Behebung:} Behebung
+        Nach Absenden einer Abfrage und Klick auf \enquote{Nächste Lösung} wird die \enquote{Vorheriger Schritt}-Schaltfläche nicht aktiviert.\\\\
+        \textbf{Grund:} Der richtige Status der Schaltflächen (\texttt{ClickableState}) wird nur nach Betätigung der \enquote{Nächster Schritt} Schaltfläche gesetzt, nicht aber nach Betätigung der \enquote{Nächste Lösung} Schaltfläche.\\
+        \textbf{Behebung:} Im entsprechenden Controller muss der korrekte Status der Schaltflächen gesetzt werden.
 
   \item \textbf{Textgröße wird doppelt in Konfigurationsdatei gespeichert}\\
-        Beschreibung\\\\
-        \textbf{Grund:} Grund\\
-        \textbf{Behebung:} Behebung
+        Die Schriftgröße des Textes von Editor und Konsole werden separat in der Konfigurationsdatei gespeichert. Da diese beiden Schriftgrößen gekoppelt und damit immer gleich sind, muss nur eine der beiden Größen gespeichert werden.\\\\
+        \textbf{Grund:} In einer früheren Version des Programms konnten die Schriftgrößen unabhängig voneinander geändert werden. Aus Gründen der Nutzbarkeit wurde dieses Feature entfernt und die Schriftgrößen gekoppelt. Die Speicherung in der Konfigurationsdatei wurde dabei vergessen.\\
+        \textbf{Behebung:} Die entsprechende Klasse (\texttt{PreferencesManager}) speichert die Schriftgröße unter einem vereinheitlichen Namen in der Konfigurationsdatei.
 
   \item \textbf{In der Konsole werden lange Wörter nicht umgebrochen}\\
-        Lange Wörter oder Dateinamen im Konsolenfenster werden nicht umgebrochen.\\\\
-        \textbf{Grund:} Das verwendete JTextPane bricht nur bei Leerzeichen um.\\
-        \textbf{Behebung:} Implementierung eines CustomEditorKit, welcher sich um bessere Zeilenumbrüche auch bei langen Wörtern und Pfäden kümmert.
+        Lange Wörter oder Dateinamen im Konsolenfenster werden nicht umgebrochen und sind somit nicht sichtbar.\\\\
+        \textbf{Grund:} Das verwendete \texttt{JTextPane} unterstützt Umbrüche nur bei Leerzeichen.\\
+        \textbf{Behebung:} Implementierung eines eigenen Java \texttt{EditorKit}s, welches mit HTML arbeitet und auch Zeilenumbrüche bei langen Wörtern und Pfaden unterstützt.
 
   \item \textbf{Swing wirft \texttt{NullPointerException}s}\\
-        Beschreibung\\\\
-        \textbf{Grund:} Grund\\
-        \textbf{Behebung:} Behebung
+        Während der Ausführung von Unit-Tests wirft Swing ohne erkennbares Muster \texttt{NullPointerException}s.\\\\
+        \textbf{Grund:} Für die Abarbeitung von Methodenaufrufen und Event-Listenern, welche die grafische Oberfläche betreffen, nutzt Swing einen \enquote{Event dispatching thread} (EDT). In diesem wird u.a. das Hauptfenster erstellt, welches einige Controller Klassen initialisiert. Durch den separaten Thread wurden diese möglicherweise noch nicht initialisiert, wenn die Unittests darauf zugreifen.\\
+        \textbf{Behebung:} Das Hauptfenster wird mit Hilfe der Helfermethode \texttt{SwingUtilities.invokeAndWait(Runnable)} gestartet, welche den Hauptthread blockiert bis das Hauptfenster initialisiert wurde. Somit ist garantiert, dass nach Ende der Helfemethode alle Controller in der Hauptklasse initialisiert wurden.
 
   \item \textbf{Minimale und maximale Zoomstufe werden überschritten}\\
-        Beschreibung\\\\
-        \textbf{Grund:} Grund\\
-        \textbf{Behebung:} Behebung
+        Beim Zoom in der Visualisierung werden die minimale und maximale Zoomstufe überschritten. Diese sind im \texttt{VisualisationPanel} als Parameter konfiguriert, werden aber um genau einen Schritt überschritten.\\\\
+        \textbf{Grund:} Beim Ändern der Zoomstufe wird mit dem \enquote{Kleiner} ($<$) bzw. \enquote{Größer} ($>)$ Operator überprüft, ob die minimale bzw. maximale Zoomstufe schon erreicht wurde. Anschließend wird der Zoom durchgeführt oder abgebrochen.\\
+        \textbf{Behebung:} Die Vergleichsoperator müssen in \enquote{Kleiner-Gleich} ($<=$) bzw. \enquote{Größer-Gleich} ($>=$) geändert werden.
 
   \item \textbf{Texte in der Visualisierung ragen über Umrandung hinaus}\\
-        In den SVGs der Visualisierung ragt Text um seine Umrandung heraus oder ist zu klein und nicht zentriert.\\\\
-        \textbf{Grund:} graphiz-java berechnet die Rahmengröße auf Basis der Textgröße von Times New Roman. Viele Betriebssystem (z.B. Ubuntu) haben kein Times New Roman, oder nur anders große Ersatzfonts.\\
-        \textbf{Behebung:} Implementieren und nutzen von Liberation Serif für die Visualisierung. Liberation Serif entspricht in Art und Größe dem bekannten, proprietären Times New Roman.
+        Auf einigen Systemen ragen in der Visualisierung Texte über die Umrandung hinaus und sind nicht zentriert ausgerichtet.\\\\
+        \textbf{Grund:} Die verwendete Bibliothek \texttt{graphviz-java} berechnet die Größe der Umrandung immer auf Basis der Breite der Schriftart \enquote{Times New Roman}. Auf Systemen ohne diese Schriftart wird eine andere, breitere Schriftart verwenden. Die Berechnung basiert trotzdem noch auf \enquote{Times New Roman}.\\
+        \textbf{Behebung:} Die Mitlieferung der freien Schriftart \enquote{Liberation Serif} (siehe zusätzliche Features), welche in ihrer Größe in etwa der von \enquote{Time New Roman} entspricht, behebt dieses Problem auf allen Systemen. 
 \end{enumerate}
 
 \section{Zusätzliche Features}
