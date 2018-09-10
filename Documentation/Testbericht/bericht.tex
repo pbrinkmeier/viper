@@ -387,8 +387,135 @@ Die im Folgenden beschriebenen Tests entsprechen allen Tests seit \textbf{Beginn
     \hashCodeTest
 \end{testClass}
 
-\subsubsection{Model: Parser}
 \subsubsection{Model: Interpreter}
+
+\begin{testClass}{Indexifier}
+    \test{visitFunctorTest()}{\impl}{
+        Versucht, den Funktor \texttt{father(X)} zu \texttt{father(X\_42)} zu transformieren.
+    }
+    \test{visitVariableTest()}{\impl}{
+        Versucht, die Variable \texttt{A} zu \texttt{A\_42} zu transformieren.
+    }
+    \test{visitNumberTest()}{\impl}{
+        Versucht, die Zahl 100 zu transformieren.
+        Dies sollte keinerlei Auswirkung haben.
+    }
+\end{testClass}
+
+\begin{testClass}{Interpreter}
+    \test{noMoreSolutionsTest()}{\qa}{
+        Versucht, nach dem Ausführen einer Abfrage einen weiteren Schritt auszuführen.
+        Dies sollte \texttt{StepResult.NO\_MORE\_SOLUTIONS} zurückgeben.
+    }
+    \test{maxTest()}{\qa}{
+        Führt die Abfragen \texttt{max(42, 17, X).} und \texttt{max(17, 42, X).} auf der Testdatei \texttt{maths.pl} aus und prüft das Ergebnis auf Richtigkeit.
+    }
+    \test{sumTest()}{\qa}{
+        Führt die Abfrage \texttt{sum(25, X, 42).} auf der Testdatei \texttt{maths.pl} aus und prüft das Ergebnis auf Richtigkeit.
+    }
+    \test{facultyTest()}{\qa}{
+        Führt die Abfrage \texttt{fac(10, X).} auf der Testdatei \texttt{maths.pl} aus und prüft das Ergebnis auf Richtigkeit.
+    }
+    \test{simpsonsTest()}{\qa}{
+        Führt die Abfrage \texttt{grandfather(Gramps, Grandchild).} auf der Testdatei \texttt{simpsons\_advanced.pl} aus und prüft das Ergebnis auf Richtigkeit.
+    }
+    \test{cutTest()}{\qa}{
+        Führt die Abfrage \texttt{!} aus.
+    }
+    \test{unificationTest()}{\qa}{
+        Führt die Abfrage \texttt{X = test} aus und prüft das Ergebnis auf Richtigkeit.
+    }
+    \test{advancedCutTest()}{\qa}{
+        Führt die Abfrage \texttt{magic(50, A).} auf der Testdatei \texttt{maths.pl} aus und prüft das Ergebnis auf Richtigkeit.
+    }
+\end{testClass}
+
+\begin{testClass}{Substitution}
+    \test{getReplaceTest()}{\impl}{
+        Versucht, die Variable abzurufen, die diese Substitution ersetzt.
+    }
+    \test{getByTest()}{\impl}{
+        Versucht, den Term abzurufen, durch den diese Substitution ersetzt.
+    }
+    \equalsTest{\qa}{Substitutionen}
+    \hashCodeTest
+    \toStringTest{\qa}{X => homer}
+\end{testClass}
+
+\begin{testClass}{UnificationResult}
+    \test{isSuccessTest()}{\impl}{
+        Versucht, den Erfolgszustand zweier Unifikationsergebnisse abzurufen.
+    }
+    \test{getSubstitutionsSuccessTest()}{\impl}{
+        Versucht, die Substitutionen eines erfolgreichen Unifikationsergebnisses abzurufen.
+    }
+    \test{getSubstitutionsErrorTest()}{\qa}{
+        Versucht, die Substitutionen eines Fehler-Unifikationsergebnisses abzurufen.
+        Dies sollte eine \texttt{Unsupported\-Operation\-Exception} werfen.
+    }
+    \test{getSubstitutionsImmutableTest()}{\impl}{
+        Versucht, zu einer Liste abgerufener Substitutionen eine weitere hinzuzufügen.
+        Dies sollte eine \texttt{Unsupported\-Operation\-Exception} werfen.
+    }
+    \test{getSubstitutionsFailTest()}{\impl}{
+        Versucht, die Substitutionen eines fehlgeschlagenen Unifikationsergebnisses abzurufen.
+        Dies sollte eine \texttt{Unsupported\-Operation\-Exception} werfen.
+    }
+    \test{getErrorMessageSuccessTest()}{\impl}{
+        Versucht, die Fehlermeldung eines erfolgreichen Unifikationsergebnisses abzurufen.
+        Dies sollte eine \texttt{Unsupported\-Operation\-Exception} werfen.
+    }
+    \test{getErrorMessageFailTest()}{\impl}{
+        Versucht, die Fehlermeldung eines fehlgeschlagenen Unifikationsergebnisses abzurufen.
+    }
+    \test{toHtmlTest()}{\impl}{
+        Versucht, die HTML-Darstellung zweier Unifikationsergebnisse abzurufen.
+    }
+\end{testClass}
+
+\begin{testClass}{Unification}
+    \test{simpleTest()}{\impl}{
+        Versucht, \texttt{cheezburger} und \texttt{Foond} zu unifizieren.
+    }
+    \test{functorTest()}{\impl}{
+        Versucht, \texttt{father(X, Y)} und \texttt{father(homer, abe)} zu unifizieren.
+    }
+    \test{failTest()}{\impl}{
+        Versucht, \texttt{homer} und \texttt{marge} zu unifizieren.
+        Dies sollte fehlschlagen.
+    }
+    \test{numberFunctorFailTest()}{\impl}{
+        Versucht, \texttt{42} und \texttt{fortytwo} zu unifizieren.
+        Dies sollte fehlschlagen.
+    }
+    \test{variableUsedMultipleTimesTest()}{\impl}{
+        Versucht, \texttt{max(42, 17, Maximum\_1)} und \texttt{max(X, Y, Y)} zu unifizieren.
+    }
+    \test{directionTest()}{\impl}{
+        Versucht, \texttt{X} und \texttt{Y} zu unifizieren.
+        Hier sollte die Substitution \texttt{Y => X} das Ergebnis sein.
+    }
+    \test{directionFunctorTest()}{\impl}{
+        Versucht, \texttt{father(X, Y)} und \texttt{father(X\_1, Y\_1)} zu unifizieren.
+        Hier sollten die Substitutionen \texttt{X\_1 => X} und \texttt{Y\_1 => Y} das Ergebnis sein.
+    }
+    \test{avoidSelfSubstitutionTest()}{\impl}{
+        Versucht, \texttt{X} und \texttt{X} zu unifizieren.
+        Dies sollte keine Substitutionen implizieren.
+    }
+    \test{avoidRecursiveSubstitutionTest()}{\impl}{
+        Versucht, \texttt{X} und \texttt{f(X)} zu unifizieren.
+        Dies sollte fehlschlagen.
+    }
+\end{testClass}
+
+\begin{testClass}{VariableExtractor}
+    \test{extractFromFunctorTest()}{\impl}{
+        Versucht, die Variablen \texttt{X} und \texttt{Y} aus dem Funktor \texttt{blub(42, X, sub(X, Y))} zu extrahieren.
+    }
+\end{testClass}
+
+\subsubsection{Model: Parser}
 \subsubsection{Model: Visualisation}
 \subsubsection{View}
 \textbf{Anmerkungen:}\\
