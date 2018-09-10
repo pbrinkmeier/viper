@@ -263,4 +263,14 @@ public class ToolBar extends JToolBar implements HasClickable {
             break;
         }
     }
+    
+    /**
+     * Returns the buttonNew
+     * Only used for testing.
+     * 
+     * @return ToolBarButton The buttonNew
+     */
+    public ToolBarButton getButtonNew() {
+        return this.buttonNew;
+    }
 }

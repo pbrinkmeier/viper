@@ -1,6 +1,7 @@
 package edu.kit.ipd.pp.viper.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -184,14 +185,14 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
         int keyCode = event.getKeyCode();
 
         switch (keyCode) {
-        case 38: // arrow up key
+        case KeyEvent.VK_UP: // arrow up key
             if (this.historyPos - 1 >= -this.history.size()) {
                 this.historyPos--;
                 this.textField.setText(this.history.get(this.history.size() + this.historyPos));
             }
 
             break;
-        case 40: // arrow down key
+        case KeyEvent.VK_DOWN: // arrow down key
             if (this.historyPos + 1 < 0) {
                 this.historyPos++;
                 this.textField.setText(this.history.get(this.history.size() + this.historyPos));
@@ -224,6 +225,100 @@ public class ConsoleInputField extends JPanel implements KeyListener, HasClickab
     @Override
     public void keyReleased(KeyEvent e) {
         return;
+    }
+    
+    /**
+     * Returns the history of entered queries.
+     * Only used for testing.
+     * 
+     * @return history the history of entered queries
+     */
+    public List<String> getHistory() {
+        return this.history;
+    }
+    
+    /**
+     * Clears the history of the input field.
+     * Only used for testing.
+     */
+    public void clearHistory() {
+        this.history.clear();
+    }
+    
+    /**
+     * Returns if the buttonSend is enabled or not.
+     * Only used for testing.
+     * 
+     * @return boolean The status of buttonSend
+     */
+    public boolean isButtonSendEnabled() {
+        return this.buttonSend.isEnabled();
+    }
+    
+    /**
+     * Returns if the textField is enabled or not.
+     * Only used for testing.
+     * 
+     * @return boolean The status of textField
+     */
+    public boolean isTextFieldEnabled() {
+        return this.textField.isEnabled();
+    }
+    
+    /**
+     * Returns if the textField is editable or not.
+     * Only used for testing.
+     * 
+     * @return boolean The status of textField
+     */
+    public boolean isTextFieldEditable() {
+        return this.textField.isEditable();
+    }
+    
+    /**
+     * Returns this textField-
+     * Only used for testing.
+     * 
+     * @return HintedTextField The text field of this input field
+     */
+    public HintedTextField getTextField() {
+        return this.textField;
+    }
+    
+    /**
+     * Sets the foreground color of this textField.
+     * Only used for testing.
+     * 
+     * @param color The new foreground color
+     */
+    public void setTextFieldForeground(Color color) {
+        this.textField.setForeground(color);
+    }
+    
+    /**
+     * Gets the foreground color of this textField.
+     * Only used for testing.
+     * 
+     * @return Color The current foreground color
+     */
+    public Color getTextFieldForeground() {
+        return this.textField.getForeground();
+    }
+    
+    /**
+     * Calls the focusGained function of the HintedTextField class.
+     * Only used for testing.
+     */
+    public void gainFocus() {
+        this.textField.focusGained(null);
+    }
+    
+    /**
+     * Calls the focusLost function of the HintedTextField class.
+     * Only used for testing.
+     */
+    public void loseFocus() {
+        this.textField.focusLost(null);
     }
     
     private class HintedTextField extends JTextField implements FocusListener, Observer {

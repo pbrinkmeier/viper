@@ -74,6 +74,16 @@ public class ConsoleOutputArea extends JTextPane {
     public int getFontSize() {
         return this.fontSize;
     }
+    
+    /**
+     * Sets the font size.
+     * Only used for testing purposes.
+     * 
+     * @param fontSize the new font size
+     */
+    public void setFontSize(int fontSize) {
+        this.fontSize = fontSize;
+    }
 
     /**
      * Clears the entire console
@@ -148,7 +158,7 @@ public class ConsoleOutputArea extends JTextPane {
      * Increases the font size
      */
     public void increaseFont() {
-        if (this.fontSize > FONT_MAX_SIZE) {
+        if (this.fontSize >= FONT_MAX_SIZE) {
             return;
         }
 
@@ -165,7 +175,7 @@ public class ConsoleOutputArea extends JTextPane {
      * Decreases the font size
      */
     public void decreaseFont() {
-        if (this.fontSize < FONT_MIN_SIZE) {
+        if (this.fontSize <= FONT_MIN_SIZE) {
             return;
         }
 

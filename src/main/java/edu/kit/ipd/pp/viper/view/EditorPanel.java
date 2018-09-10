@@ -148,6 +148,18 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     }
     
     /**
+     * Sets the font size of the editor panel and the preferences manager.
+     * Only used for testing purposes.
+     * 
+     * @param fontSize The new font size for the editor;
+     */
+    public void setFontSize(int fontSize) {
+        this.fontSize = fontSize;
+        this.textArea.setFont(new Font("Monospaced", Font.PLAIN, this.fontSize));
+        this.preferencesManager.setTextSize(this.fontSize);
+    }
+    
+    /**
      * Returns whether the text content has changed since the last parsing
      * 
      * @return boolean true if has changed, false otherwise
@@ -171,11 +183,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
      * @return Text area content
      */
     public String getSourceText() {
-        try {
-            return this.textArea.getText();
-        } catch (NullPointerException e) {
-            return "";
-        }
+        return this.textArea.getText();
     }
 
     /**
@@ -199,6 +207,16 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
             this.main.switchClickableState(ClickableState.NOT_PARSED_YET);
         }
         this.main.setAppendAsterixToTitle(changed);
+        this.changed = changed;
+    }
+    
+    /**
+     * Sets the changed variable.
+     * Only used for testing.
+     * 
+     * @param changed The new value for changed.
+     */
+    public void setChanged(boolean changed) {
         this.changed = changed;
     }
     
@@ -271,6 +289,14 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
 
         this.main.getPreferencesManager().setFileReferences(Collections.unmodifiableList(this.referenceList));
     }
+    
+    /**
+     * Clears the list of file references.
+     * Only used for testing.
+     */
+    public void clearFileReferences() {
+        this.referenceList.clear();
+    }
 
     /**
      * Getter-Method for the list of file references.
@@ -327,7 +353,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     }
     
     private void increaseFont() {
-        if (this.fontSize > FONT_MAX_SIZE) {
+        if (this.fontSize >= FONT_MAX_SIZE) {
             return;
         }
 
@@ -336,7 +362,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     }
 
     private void decreaseFont() {
-        if (this.fontSize < FONT_MIN_SIZE) {
+        if (this.fontSize <= FONT_MIN_SIZE) {
             return;
         }
 
@@ -362,7 +388,7 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
     @Override
     public void keyPressed(KeyEvent event) {
         int keyCode = event.getKeyCode();
-
+        
         if (!event.isControlDown()) {
             return;
         }
@@ -419,5 +445,15 @@ public class EditorPanel extends JPanel implements DocumentListener, KeyListener
         }
         
         this.scrollPane.dispatchEvent(event);
+    }
+    
+    /**
+     * Returns the RSyntaxTextArea.
+     * Only used for testing purposes.
+     * 
+     * @return the RSyntaxTextArea
+     */
+    public RSyntaxTextArea getTextArea() {
+        return this.textArea;
     }
 }

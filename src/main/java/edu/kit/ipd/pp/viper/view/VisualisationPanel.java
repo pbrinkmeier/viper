@@ -254,4 +254,32 @@ public class VisualisationPanel extends JPanel implements ComponentListener, Has
             this.setFromGraph(this.placeholderGraph);
         }
     }
+    
+    /**
+     * Returns the visualisation viewer of this panel.
+     * Only used for testing.
+     * 
+     * @return VisualisationViewer The visualisation viewer
+     */
+    public VisualisationViewer getVisualisationViewer() {
+        return this.viewer;
+    }
+    
+    /**
+     * Sets the placeholder graph to null.
+     * Only used for testing.
+     */
+    public void clearPlaceholder() {
+        this.placeholderGraph = null;
+    }
+    
+    /**
+     * Returns this placeholder graph.
+     * Only used for testing.
+     * 
+     * @return Graph The placholder graph
+     */
+    public Graph getPlaceholder() {
+        return this.placeholderGraph;
+    }
 }

@@ -590,4 +590,34 @@ public class MainWindow extends JFrame {
     public CommandZoom getCommandZoomTextOut() {
         return this.commandZoomTextOut;
     }
+    
+    /**
+     * Returns the window title
+     * Only used for testing.
+     * 
+     * @return String The current window title
+     */
+    public String getWindowTitle() {
+        return this.windowTitle;
+    }
+    
+    /**
+     * Returns the toolbar
+     * Only used for testing.
+     * 
+     * @return ToolBar The toolbar
+     */
+    public ToolBar getToolBar() {
+        return this.toolbar;
+    }
+    
+    /**
+     * Returns the menubar
+     * Only used for testing.
+     * 
+     * @return MenuBar The menubar
+     */
+    public MenuBar getMainWindowMenuBar() {
+        return this.menubar;
+    }
 }

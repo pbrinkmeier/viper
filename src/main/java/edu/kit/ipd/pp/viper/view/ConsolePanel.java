@@ -222,4 +222,34 @@ public class ConsolePanel extends JPanel implements HasClickable {
     public void switchClickableState(ClickableState state) {
         this.inputField.switchClickableState(state);
     }
+
+    /**
+     * Sets the font size.
+     * Only used for testing purposes.
+     * 
+     * @param fontSize the new font size
+     */
+    public void setOutputAreaFontSize(int fontSize) {
+        this.outputArea.setFontSize(fontSize);
+    }
+    
+    /**
+     * Returns the input field of this console panel.
+     * Only used for testing.
+     * 
+     * @return inputField the input field
+     */
+    public ConsoleInputField getInputField() {
+        return this.inputField;
+    }
+    
+    /**
+     * Returns the output area of this console panel.
+     * Only used for testing.
+     * 
+     * @return outputArea the output area
+     */
+    public ConsoleOutputArea getOutputArea() {
+        return this.outputArea;
+    }
 }
