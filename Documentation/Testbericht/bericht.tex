@@ -107,7 +107,7 @@ Die Branchüberdeckung befindet sich knapp unter 90\%, da bestimmte Exceptions i
 	\item[--] \texttt{keyPressedUpTest()}:\qa\\
 	Versucht, erfolgreich die zuletzt abgesendete Abfrage durch das Drücken der \enquote{Pfeil nach oben}"=Taste abzurufen.
 	\item[--] \texttt{keyPressedUpLastTest()}:\qa\\
-	Versucht, nachdem man bereits bei der letzten zuvor eingegebenen Abfrage angekommen ist, durch das Drücken der \enquote{Pfeil nach oben}"= noch einen weiteren Eintrag aus der List abzurufen. Hierbei sollte nichts passieren und es sollte weiterhin die letzte zuvor eingegebene Abfrage im Eingabefeld stehen.
+	Versucht, nachdem man bereits bei der letzten der zuvor eingegebenen Abfragen angekommen ist, durch das Drücken der \enquote{Pfeil nach oben}"= noch einen weiteren Eintrag aus der List abzurufen. Hierbei sollte nichts passieren und es sollte weiterhin die letzte der zuvor eingegebenen Abfragen im Eingabefeld stehen.
 	\item[--] \texttt{keyPressedDownTest()}:\qa\\
 	Versucht, erfolgreich von einer zuvor eingegebenen Abfrage durch das Drücken der \enquote{Pfeil nach unten}"=Taste wieder zum leeren Eingabefeld zu kommen.
 	\item[--] \texttt{keyPressedDownLastTest()}:\qa\\
@@ -115,11 +115,12 @@ Die Branchüberdeckung befindet sich knapp unter 90\%, da bestimmte Exceptions i
 	\item[--] \texttt{keyPressedUnknownKeyTest()}:\qa\\
 	Versucht, die Methode \texttt{keyPressed(KeyEvent e)} mit einem nicht definierten Tastendruck aufzurufen. Hierbei passiert nichts.
 	\item[--] \texttt{switchClickableStateNoMoreSolutionsTest()}:\qa\\
-	Versucht, die Methode \texttt{switchClickableState(ClickableState state)} erfolgreich mit dem \texttt{ClickableState NO\_MORE\_SOLUTIONS} aufzurufen. Hierbei sollte der Button zum Senden von Abfragen aktiviert werden.
+	Versucht, die Methode \texttt{switchClickableState(ClickableState state)}\\erfolgreich mit dem \texttt{ClickableState NO\_MORE\_SOLUTIONS} aufzurufen. Hierbei sollte der Button zum Senden von Abfragen aktiviert werden.
 	\item[--] \texttt{switchClickableStateDefaultTest()}:\qa\\
-	Versucht, die Methode \texttt{switchClickableState(ClickableState state)} erfolgreich mit einem nicht definierten \texttt{ClickableState} aufzurufen. Hierbei sollte nichts passiert nichts.
+	Versucht, die Methode \texttt{switchClickableState(ClickableState state)}\\erfolgreich mit einem nicht definierten \texttt{ClickableState} aufzurufen. Hierbei sollte nichts passiert nichts.
 	\item[--] \texttt{focusGainedTest()}:\qa\\
 	Versucht, erfolgreich den Fokus auf das leere Eingabefeld zu legen. Hierbei sollte sich die Farbe auf ein vordefiniertes Schwarz ändern und der Hinweistext angezeigt werden.
+    \newpage
 	\item[--] \texttt{focusGainedFalseTest()}:\qa\\
 	Versucht, erfolgreich den Fokus auf das Eingabefeld zu legen wenn dieses bereits Text beinhaltet. Hierbei soll sich die Farbe auf ein vordefiniertes Schwarz ändern, jedoch soll der Text erhalten bleiben.
 	\item[--] \texttt{focusLostTest()}:\qa\\
@@ -157,7 +158,7 @@ Die Branchüberdeckung befindet sich knapp unter 90\%, da bestimmte Exceptions i
 	\item[--] \texttt{zoomInOutputAreaTest()}:\qa\\
 	Versucht, die Schriftgröße des Ausgabefeld erfolgreich zu erhöhen.
 	\item[--] \texttt{zoomInOutputAreaMaxTest()}:\qa\\
-	Versucht, die Schriftgröße des Ausgabefelds zu erhöhen, obwohl die maximale Schriftgröße bereits erreicht ist. Hierbei sollte nichts passieren.
+        Versucht, die Schriftgröße des Ausgabefelds zu erhöhen, obwohl die maximale\\Schriftgröße bereits erreicht ist. Hierbei sollte nichts passieren.
 	\item[--] \texttt{zoomOutOutputAreaTest()}:\qa\\
 	Versucht, die Schriftgröße des Ausgabefeld erfolgreich zu verringern.
 	\item[--] \texttt{zoomOutOutputAreaMaxTest()}:\qa\\
@@ -236,8 +237,9 @@ Die Branchüberdeckung befindet sich knapp unter 90\%, da bestimmte Exceptions i
 	Versucht, erfolgreich die Methode \texttt{actionPerformed(ActionEvent e)} eines beliebigen ToolBarButtons aufzurufen.
 \end{itemize}
 
+\newpage
 \textbf{Testklasse: VisualisationPanelTest, getestete Unit: VisualisationPanel}\\
-\textbf{Anmerkung:} Alle Zoom"=Tests in dieser Testklasse rufen die entsprechend Funktionen im VisualisationPanel auf, aber testen den Zoom nicht, da der Visualisierungsausschnitt skaliert wird und nicht durch feste Werte vergrößert/verkleinert wird. Der Wert durch den skaliert wird, wird bei jedem Zoom mit einem vordefinierten Faktor neu errechnet und daher kann man anschließend nicht automatisiert abfragen ob erfolgreich gezoomed wurde. Die Zoom"=Funktionalität wurde stattdessen händisch getestet.
+\textbf{Anmerkung:} Alle Zoom"=Tests in dieser Testklasse rufen die entsprechenden Funktionen im VisualisationPanel auf, aber testen den Zoom nicht, da der Visualisierungsausschnitt skaliert wird und nicht durch feste Werte vergrößert/verkleinert wird. Der Wert durch den skaliert wird, wird bei jedem Zoom mit einem vordefinierten Faktor neu errechnet und daher kann man anschließend nicht automatisiert abfragen ob erfolgreich gezoomed wurde. Die Zoom"=Funktionalität wurde stattdessen händisch getestet.
 \begin{itemize}
 	\item[--] \texttt{resetZoomTest()}:\qa\\
 	Versucht, den Zoom erfolgreich auf den Standardwert zurückzusetzen.
@@ -282,7 +284,7 @@ Die Branchüberdeckung befindet sich knapp unter 90\%, da bestimmte Exceptions i
 	\item[--] \texttt{setCursorTest()}:\qa\\
 	Versucht, erfolgreich die \texttt{setCursor()}"=Methode aufzurufen. Hierbei sollte nichts passieren.
 	\item[--] \texttt{clearTest()}:\qa\\
-	Versucht, erfolgreich Visualisierung zu löschen.
+	Versucht, erfolgreich die Visualisierung zu löschen.
 	\item[--] \texttt{panInteractorTest()}:\qa\\
 	Versucht, erfolgreich die \texttt{startInteraction(MouseEvent e)}"=Methode des\\\texttt{PanInteractors} aufzurufen. Hierbei wird nur getestet, dass keine Fehler geworfen werden, da man das Verschieben der Visualisierung nicht automatisiert testen kann. Dies wurde stattdessen händisch getestet.
 \end{itemize}
