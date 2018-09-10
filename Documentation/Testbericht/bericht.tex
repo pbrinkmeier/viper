@@ -417,7 +417,7 @@ Die im Folgenden beschriebenen Tests entsprechen allen Tests seit \textbf{Beginn
         Führt die Abfrage \texttt{fac(10, X).} auf der Testdatei \texttt{maths.pl} aus und prüft das Ergebnis auf Richtigkeit.
     }
     \test{simpsonsTest()}{\qa}{
-        Führt die Abfrage \texttt{grandfather(Gramps, Grandchild).} auf der Testdatei \texttt{simpsons\_advanced.pl} aus und prüft das Ergebnis auf Richtigkeit.
+        Führt die Abfrage \texttt{grandfather(Gramps, Grandchild).} auf der Testdatei \\\texttt{simpsons\_advanced.pl} aus und prüft das Ergebnis auf Richtigkeit.
     }
     \test{cutTest()}{\qa}{
         Führt die Abfrage \texttt{!} aus.
@@ -1006,7 +1006,7 @@ Die statische Analyse des ByteCode mit FindBugs brachte die folgenden Ergebnisse
 
 \begin{itemize}
   \item \textbf{Fehlende \texttt{hashCode} Methoden}\\
-        In den Klassen des Models wurde für notwendige Vergleiche die Methode \texttt{java.lang.Object\#equals(Object)} überschrieben, die Methode \texttt{java.lang.Object\#hashCode()} allerdings nicht. Diese wurde in allen betroffenen Klassen ergänzt.
+        In den Klassen des Models wurde für notwendige Vergleiche die Methode \texttt{java.lang.Object\#equals(Object)} überschrieben, die Methode \\\texttt{java.lang.Object\#hashCode()} allerdings nicht. Diese wurde in allen betroffenen Klassen ergänzt.
   \item \textbf{Schreiben in Klassenattribut}\\
         Die Hauptklasse (\texttt{MainWindow}) schreibt bei Initialisierung einen Wahrheitswert in das statische Klassenattribut \texttt{debug}, abhängig davon ob VIPER im Debug-Modus gestartet wurde oder nicht. Da die Abfrage dieses Wahrheitswertes allerdings statisch, d.h. ohne Instanz der Hauptklasse, möglich sein soll, wird diese Warnung ignoriert.
   \item \textbf{Rückgabewert \texttt{null} statt \texttt{Optional}}\\
@@ -1173,7 +1173,7 @@ Die \enquote{Schritt}-Schaltflächen der Visualisierung könnten in der Werkzeug
   \item \textbf{Swing wirft \texttt{NullPointerException}s}\\
         Während der Ausführung von Unit-Tests wirft Swing ohne erkennbares Muster \texttt{NullPointerException}s.\\\\
         \textbf{Grund:} Für die Abarbeitung von Methodenaufrufen und Event-Listenern, welche die grafische Oberfläche betreffen, nutzt Swing einen \enquote{Event dispatching thread} (EDT). In diesem wird u.a. das Hauptfenster erstellt, welches einige Controller Klassen initialisiert. Durch den separaten Thread wurden diese möglicherweise noch nicht initialisiert, wenn die Unittests darauf zugreifen.\\
-        \textbf{Behebung:} Das Hauptfenster wird mit Hilfe der Helfermethode \texttt{SwingUtilities.invokeAndWait(Runnable)} gestartet, welche den Hauptthread blockiert bis das Hauptfenster initialisiert wurde. Somit ist garantiert, dass nach Ende der Helfemethode alle Controller in der Hauptklasse initialisiert wurden.
+        \textbf{Behebung:} Das Hauptfenster wird mit Hilfe der Helfermethode \\\texttt{SwingUtilities.invokeAndWait(Runnable)} gestartet, welche den Hauptthread blockiert bis das Hauptfenster initialisiert wurde. Somit ist garantiert, dass nach Ende der Helfemethode alle Controller in der Hauptklasse initialisiert wurden.
 
   \item \textbf{Minimale und maximale Zoomstufe werden überschritten}\\
         Beim Zoom in der Visualisierung werden die minimale und maximale Zoomstufe überschritten. Diese sind im \texttt{VisualisationPanel} als Parameter konfiguriert, werden aber um genau einen Schritt überschritten.\\\\
