@@ -403,27 +403,60 @@ Um VIPER von Außenstehenden testen und beurteilen zu lassen, wurden im Rahmen d
 
 Die Teilnehmer besaßen dabei unterschiedlich viele Vorkenntnisse in Prolog. Teilnehmern ohne Vorkenntnisse wurde die Funktionsweise anhand des \texttt{simpsons.pl} Beispielprogramms, welches mit VIPER mitgeliefert wird, kurz erläutert.
 
+In einem Zeitrahmen von ca. 10 Minuten wurden die Teilnehmer aufgefordert, verschiedene Funktionen des Programms auszuprobieren. Dazu gehört ein typischer Ablauf mit Code aus Datei laden, Formatieren, Parsen, Abfrage stellen und durch die Schritte der Abarbeitung navigieren. Ebenso sollten Teilnehmer versuchen, bestimmte Funktionalitäten im Programm zu finden. Dazu gehört u.a. die Sprache zu wechseln, die Standardbibliothek anzuzeigen sowie sie für eine Abfrage zu deaktivieren.
+
 In den Studien lag der Fokus auf den folgenden Fragestellungen:
 
-\begin{itemize}
-  \item Wie intuitiv ist der Programm-Ablauf (Code eingeben, Parsen, Abfrage stellen, Änderungen machen, wieder Parsen, ...)?
-  \item Lässt sich die Visualisierung gut bedienen? Wie funktioniert Zoomen und Bewegen? Sind die Funktionen der verschiedenen Schritte-Schaltflächen ersichtlich?
-  \item Ist die grafische Oberfläche sinnvoll angeordnet? Findet man alle Funktionalitäten ohne lange suchen zu müssen?
+\begin{enumerate}
+  \item Wie intuitiv ist der oben beschriebene typische Programm-Ablauf?
+  \item Lässt sich die Visualisierung gut bedienen? Wie funktioniert Zoomen und Bewegen?
+  \item Sind die Elemente der grafische Oberfläche sinnvoll angeordnet? Findet man alle Funktionalitäten ohne lange suchen zu müssen?
   \item Ist die Menüleiste sinnvoll strukturiert? Erschließt sich die Funktion jeder Schaltfläche in der Werkzeugleiste durch das Icon?
-  \item Genereller Eindruck vom Programm: Wie stabil läuft es, wie schnell reagiert das Programm Eingaben und Schaltflächen, wie performant sind Abfragen?
-\end{itemize}
+  \item Genereller Eindruck vom Programm: Wie stabil läuft es, wie schnell reagiert das Programm auf Eingaben und Schaltflächen, wie performant sind Abfragen?
+\end{enumerate}
 
 % Ergebnisse des Usability Testings (Reaktionen der Leute!)
 % Icons geändert/Buttons aufgeteilt, Zoomen, Shortcuts, Stdlib anzeigen
 % Zoom-Debatte mit Meinung von Max
 
-\subsubsection{Studie 1} % Max
+\subsubsection{Generelle Ergebnisse über alle Tester}
 
-\subsubsection{Studie 2} % Alex
+\begin{itemize}
+  \item[Zu 1.:] Der typische Ablauf ist intuitiv und verständlich (unabhängig davon wie viel Prolog Vorerfahrung vorhanden). Folgende Anmerkungen wurden von mehreren Personen gemacht:
+    \begin{itemize}
+      \item Sofern das eingegebene Prolog-Programm im Unfang gering ist, könnte man nach jeder Änderung automatisch parsen lassen. Da ein automatisches Parsen in Abhängigkeit vom Code-Umfang zur Verwirrung führen würde, wurde dieses Feature nicht implementiert.
+      \item Das Formatieren eines Prolog-Programms sorgt dafür, dass neu geparst werden muss. Dies ist aus Nutzersicht nicht intuitiv, da sich inhaltlich nichts am Programm geändert hat. Dieses Verhalten wurde überarbeitet, nach dem Formatieren muss nun nicht mehr neu geparst werden.
+    \end{itemize}
+  \item[Zu 2.:] Die Bedienung ist verständlich und funktioniert wie aus anderen Programmen (beispielsweise digitalen Karten) bekannt.
+    \begin{itemize}
+      \item Die \texttt{+}/\texttt{-} Schaltflächen wurden wenig genutzt, da der Zoomen mittels Mausrad und Touchpad schneller funktioniert. Für Geräte mit Touchscreen wurden die Schaltflächen trotzdem beibehalten.
+      \item Die Funktionalität, dass an der aktuellen Position des Mauszeigers gezoomt wird, wurde sehr begrüßt.
+    \end{itemize}
+  \item[Zu 3.:] Keine generellen Anmerkungen. Die Funktionalitäten sind einfach zu finden.
+  \item[Zu 4.:] Keine generellen Anmerkungen. Die Menüs sind sinnvoll aufgeteilt, die Icons sind verständlich.
+  \item[Zu 5.:] Programm reagiert schnell auf Eingaben und Schaltflächen. Der Editor lässt sich durch Tastaturkürzel einfach bedienen.
+    \begin{itemize}
+      \item Die Berechnung von Abfragen mit großen Zahlen als Ergebnis ist überraschend schnell. Trotzdem dauert die Berechnung möglicherweise eine bis mehrere Sekunden. Um dem Nutzer erkenntlich zu machen, dass noch eine Berechnung läuft, wird anstelle des Mauszeigers eine Ladeanimation angezeigt.
+    \end{itemize}
+\end{itemize}
 
-\subsubsection{Studie 3} % Sebi
+\subsubsection{Spezifische Ergebnisse von Studie 1} % Max
 
-\subsubsection{Studie 4} % Lennart
+\textbf{Vorerfahrung in Prolog:} Wenig (Programmierparadigmen noch nicht gehört, aber im Selbststudium Grundlagen beigebracht)
+
+Die Icons der \enquote{Nächste Lösung} und \enquote{Letzte Lösung} Schaltflächen in der Werkzeugleiste sollten getauscht werden, um die Funktionalität deutlicher zu machen.
+
+\subsubsection{Spezifische Ergebnisse von Studie 2} % Alex
+
+\textbf{Vorerfahrung in Prolog:} Keine
+
+Die Optionen \enquote{Export als PNG} und \enquote{Export als SVG} könnten in das \enquote{Datei} Menü verschoben werden, da dies aus Programmen wie GIMP bekannt ist. Diese Änderung wurde nicht durchgeführt, da das \enquote{Datei} Menü mit den Dateioperationen, den zuletzt geöffneten Dateien und den mitgelieferten Beispiel-Programmen schon gut befüllt ist. Außerdem könnte es zu Verwechslungen mit der \enquote{Datei speichern} Funktion kommen, welche sich auf den Editor-Inhalt bezieht.
+
+\subsubsection{Spezifische Ergebnisse von Studie 3} % Sebi
+
+\textbf{Vorerfahrung in Prolog:} Keine
+
+Die \enquote{Schritt}-Schaltflächen der Visualisierung könnten in der Werkzeugleisten an den rechten Rand verschoben werden, da sich die Visualisierung ebenfalls auf der rechten Seite befindet. Da an dieser Stelle allerdings die Text-Zoom Schaltflächen implementiert wurden, wurde dieser Vorschlag nicht durchgeführt.
 
 \section{Gefundene Fehler}
 
@@ -476,7 +509,7 @@ In den Studien lag der Fokus auf den folgenden Fragestellungen:
   \item \textbf{\enquote{Vorheriger Schritt} Schaltfläche wird nicht aktiviert}\\
         Nach Absenden einer Abfrage und Klick auf \enquote{Nächste Lösung} wird die \enquote{Vorheriger Schritt}-Schaltfläche nicht aktiviert.\\\\
         \textbf{Grund:} Der richtige Status der Schaltflächen (\texttt{ClickableState}) wird nur nach Betätigung der \enquote{Nächster Schritt} Schaltfläche gesetzt, nicht aber nach Betätigung der \enquote{Nächste Lösung} Schaltfläche.\\
-        \textbf{Behebung:} Im entsprechenden Controller muss der korrekte Status der Schaltflächen gesetzt werden.
+        \textbf{Behebung:} Im entsprechenden Controller muss der korrekte Status der chaltflächen gesetzt werden.
 
   \item \textbf{Textgröße wird doppelt in Konfigurationsdatei gespeichert}\\
         Die Schriftgröße des Textes von Editor und Konsole werden separat in der Konfigurationsdatei gespeichert. Da diese beiden Schriftgrößen gekoppelt und damit immer gleich sind, muss nur eine der beiden Größen gespeichert werden.\\\\
@@ -515,16 +548,10 @@ Im Folgenden werden die zusätzlich implementieren Funktionalitäten und Änderu
         Die Funktion der \enquote{Nächste Lösung} Schaltfläche wurde dahingehend verändert, dass nun die nächste auftretende Lösung, ausgehend vom aktuell angezeigten Schritt, ausgegeben wird. Bisher wurde bis zur nächsten, noch nicht berechneten Lösung gesprungen.
   \item \textbf{Letzte Lösung}\\
         Um für eine eingegebene Abfrage alle möglichen Lösungen anzeigen zu lassen, wurde die \enquote{Letzte Lösung} Schaltfläche in der Werkzeugleiste eingeführt. Diese berechnet direkt alle Schritte der Abfrage und zeigt alle gefundenen Lösungen in der Konsole an.
-  \item \textbf{Neue Icons für alle \enquote{Schritt}-Schaltflächen}\\
-        % TODO
   \item \textbf{Indikator für erfolgreiche Unifikation}\\
         Ist die Unifikation eines (Teil-)Ziels erfolgreich, so wird der dazugehörige Knoten in der Visualisierung nun grün eingefärbt und um ein Häkchen (\ding{51}) ergänzt.
   \item \textbf{\texttt{BigInteger} für Berechnung von Lösungen}\\
         Alle Model Klassen verwenden jetzt Java's \texttt{BigInteger} statt dem primitiven Datentyp \texttt{int}. Somit sind bei Berechnungen beliebig große Zahlen ohne Auftreten von einem Integer Overflow möglich.
-  \item \textbf{Maximale Auführungstiefe für Abfragen}\\
-        % TODO
-  \item \textbf{Schönere Visualisierung des Cut}\\
-        % TODO
   \item \textbf{Menüpunkt \enquote{Hilfe}}\\
         Die Menüleiste wurde um den Eintrag \enquote{Hilfe} erweitert, der Optionen zum Anzeigen einer Anleitung für das Programm, des Inhalts der Standardbibliothek sowie eines \enquote{Über}-Dialogs enthält.
   \item \textbf{Anleitung}\\
