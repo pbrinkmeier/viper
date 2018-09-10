@@ -89,6 +89,204 @@ Die im Folgenden beschriebenen Tests entsprechen allen Tests seit \textbf{Beginn
 \subsubsection{Model: Interpreter}
 \subsubsection{Model: Visualisation}
 \subsubsection{View}
+\textbf{Anmerkungen:}\\
+Die Branchüberdeckung befindet sich knapp unter 90\%, da bestimmte Exceptions in Methoden der View nicht erzwungen und somit die Catch"=Blöcke auch nicht getestet werden konnten. Da aber Exceptions wie z.B. die \enquote{Nichtauffindbarkeit} des Temp-Ordners eines Betriebssystem auf den unterstützten Systemen aus dem Pflichtenheft nicht auftreten können, wurde von der Nutzung eines Mocking"=Frameworks abgesehen.
+
+\textbf{Testklasse: CheckBoxMenuItemTest, getestete Unit: CheckBoxMenuItem}
+\begin{itemize}
+	\item[--] \texttt{actionPerformedTest()}:\qa\\
+	Versucht, die actionPerformed"=Methode erfolgreich aufzurufen.
+\end{itemize}
+
+\textbf{Testklasse: ConsoleInputFieldTest, getestete Unit: ConsoleInputField}
+\begin{itemize}
+	\item[--] \texttt{addHistoryTest()}:\qa\\
+	Versucht, erfolgreich eine Abfrage zur leeren Liste an eingegebenen Abfragen hinzuzufügen.
+	\item[--] \texttt{addHistoryTextIsHintTest()}:\qa\\
+	Versucht, den Hinweistext der Konsole zu der leeren Liste an eingegebenen Abfragen hinzuzufügen. Hierbei sollte nichts passieren und die Liste an eingegebenen Abfragen sollte weiterhin leer sein.
+	\item[--] \texttt{keyPressedUpTest()}:\qa\\
+	Versucht, erfolgreich die zuletzt abgesendete Abfrage durch das Drücken der \enquote{Pfeil nach oben}"=Taste abzurufen.
+	\item[--] \texttt{keyPressedUpLastTest()}:\qa\\
+	Versucht, nachdem man bereits bei der letzten zuvor eingegebenen Abfrage angekommen ist, durch das Drücken der \enquote{Pfeil nach oben}"= noch einen weiteren Eintrag aus der List abzurufen. Hierbei sollte nichts passieren und es sollte weiterhin die letzte zuvor eingegebene Abfrage im Eingabefeld stehen.
+	\item[--] \texttt{keyPressedDownTest()}:\qa\\
+	Versucht, erfolgreich von einer zuvor eingegebenen Abfrage durch das Drücken der \enquote{Pfeil nach unten}"=Taste wieder zum leeren Eingabefeld zu kommen.
+	\item[--] \texttt{keyPressedDownLastTest()}:\qa\\
+	Versucht, wenn man sich schon im leeren Eingabefeld befindet, durch das Drücken der \enquote{Pfeil nach unten}"=Taste noch einen Eintrag nach unten zu springen. Hierbei sollte nichts passieren und das Eingabefeld sollte weiterhin leer sein.
+	\item[--] \texttt{keyPressedUnknownKeyTest()}:\qa\\
+	Versucht, die Methode \texttt{keyPressed(KeyEvent e)} mit einem nicht definierten Tastendruck aufzurufen. Hierbei passiert nichts.
+	\item[--] \texttt{switchClickableStateNoMoreSolutionsTest()}:\qa\\
+	Versucht, die Methode \texttt{switchClickableState(ClickableState state)} erfolgreich mit dem \texttt{ClickableState NO\_MORE\_SOLUTIONS} aufzurufen. Hierbei sollte der Button zum Senden von Abfragen aktiviert werden.
+	\item[--] \texttt{switchClickableStateDefaultTest()}:\qa\\
+	Versucht, die Methode \texttt{switchClickableState(ClickableState state)} erfolgreich mit einem nicht definierten \texttt{ClickableState} aufzurufen. Hierbei sollte nichts passiert nichts.
+	\item[--] \texttt{focusGainedTest()}:\qa\\
+	Versucht, erfolgreich den Fokus auf das leere Eingabefeld zu legen. Hierbei sollte sich die Farbe auf ein vordefiniertes Schwarz ändern und der Hinweistext angezeigt werden.
+	\item[--] \texttt{focusGainedFalseTest()}:\qa\\
+	Versucht, erfolgreich den Fokus auf das Eingabefeld zu legen wenn dieses bereits Text beinhaltet. Hierbei soll sich die Farbe auf ein vordefiniertes Schwarz ändern, jedoch soll der Text erhalten bleiben.
+	\item[--] \texttt{focusLostTest()}:\qa\\
+	Versucht, erfolgreich den Fokus von dem leeren Eingabefeld zu nehmen. Hierbei sollte sich die Farbe auf ein vordefiniertes Grau ändern und der Hinweistext angezeigt werden.
+	\item[--] \texttt{focusLostFalseTest()}:\qa\\
+	Versucht, erfolgreich den Fokus von dem Eingabefeld zu nehmen wenn dieses bereits Text beinhaltet. Hierbei sollte nichts passieren.
+	\item[--] \texttt{keyTypedTest()}:\qa\\
+	Versucht, erfolgreich die Methode \texttt{keyTyped(KeyEvent e)} aufzurufen. Hierbei sollte nichts passieren.
+	\item[--] \texttt{keyReleasedTest()}:\qa\\
+	Versucht, erfolgreich die Methode \texttt{keyReleased(KeyEvent e)} aufzurufen. Hierbei sollte nichts passieren.
+\end{itemize}
+
+\textbf{Testklasse: ConsoleOutputAreaTest, getestete Unit: ConsoleOutputArea}
+\begin{itemize}
+	\item[--] \texttt{resetFontTest()}:\qa\\
+	Versucht, die Schriftgröße erfolgreich auf die vordefinierte Standardschriftgröße zurückzusetzen.
+	\item[--] \texttt{increaseFontTest()}:\qa\\
+	Versucht, die Schriftgröße erfolgreich zu erhöhen.
+	\item[--] \texttt{decreaseFontTest()}:\qa\\
+	Versucht, die Schriftgröße erfolgreich zu verringern.
+\end{itemize}
+
+\textbf{Testklasse: ConsolePanelTest, getestete Unit: ConsolePanel}
+\begin{itemize}
+	\item[--] \texttt{getInputFieldTextTest()}:\qa\\
+	Versucht, den Text des Eingabefelds erfolgreich zu setzen.
+	\item[--] \texttt{clearInputFieldTest()}:\qa\\
+	Versucht, erfolgreich das Eingabefeld zu leeren wenn dieses bereits Text beinhaltet.
+	\item[--] \texttt{getOutputAreaTextTest()}:\qa\\
+	Versucht, den Text des Ausgabefelds erfolgreich zu setzen.
+	\item[--] \texttt{clearOutputAreaTest()}:\qa\\
+	Versucht, erfolgreich das Ausgabefeld zu leeren.
+	\item[--] \texttt{resetZoomTest()}:\qa\\
+	Versucht, die Schriftgröße erfolgreich auf die Standardschriftgröße zu setzen.
+	\item[--] \texttt{zoomInOutputAreaTest()}:\qa\\
+	Versucht, die Schriftgröße des Ausgabefeld erfolgreich zu erhöhen.
+	\item[--] \texttt{zoomInOutputAreaMaxTest()}:\qa\\
+	Versucht, die Schriftgröße des Ausgabefelds zu erhöhen, obwohl die maximale Schriftgröße bereits erreicht ist. Hierbei sollte nichts passieren.
+	\item[--] \texttt{zoomOutOutputAreaTest()}:\qa\\
+	Versucht, die Schriftgröße des Ausgabefeld erfolgreich zu verringern.
+	\item[--] \texttt{zoomOutOutputAreaMaxTest()}:\qa\\
+	Versucht, die Schriftgröße des Ausgabefelds zu verringern, obwohl die minimale Schriftgröße bereits erreicht ist. Hierbei sollte nichts passieren.
+\end{itemize}
+
+\textbf{Testklasse: EditorPanelTest, getestete Unit: EditorPanel}
+\begin{itemize}
+	\item[--] \texttt{resetZoomTest()}:\qa\\
+	Versucht, die Schriftgröße des Editors erfolgreich auf die Standardschriftgröße zu setzen.
+	\item[--] \texttt{increaseFontTest()}:\qa\\
+	Versucht, die Schriftgröße des Editors erfolgreich zu erhöhen.
+	\item[--] \texttt{increaseMaxFontTest()}:\qa\\
+	Versucht, die Schriftgröße des Editors zu erhöhen, obwohl die maximale Schriftgröße bereits erreicht ist. Hierbei sollte nichts passieren.
+	\item[--] \texttt{decreaseFontTest()}:\qa\\
+	Versucht, die Schriftgröße des Editors erfolgreich zu verringern.
+	\item[--] \texttt{decreaseMinFontTest()}:\qa\\
+	Versucht, die Schriftgröße des Editors zu verringern, obwohl die minimale Schriftgröße bereits erreicht ist. Hierbei sollte nichts passieren.
+	\item[--] \texttt{keyPressedPlusKeyTest()}:\qa\\
+	Versucht, das Vergrößern der Schriftart erfolgreich durch die Tastenkombination \enquote{Strg und +} hervorzurufen.
+	\item[--] \texttt{keyPressedNumPlusKeyTest()}:\qa\\
+	Versucht, das Vergrößern der Schriftart erfolgreich durch die Tastenkombination \enquote{Strg und + auf dem Numpad} hervorzurufen.
+	\item[--] \texttt{keyPressedMinusKeyTest()}:\qa\\
+	Versucht, das Verkleinern der Schriftart erfolgreich durch die Tastenkombination \enquote{Strg und -} hervorzurufen.
+	\item[--] \texttt{keyPressedNumMinusKeyTest()}:\qa\\
+	Versucht, das Verkleinern der Schriftart erfolgreich durch die Tastenkombination \enquote{Strg und - auf dem Numpad} hervorzurufen.
+	\item[--] \texttt{keyPressedNoControlTest()}:\qa\\
+	Versucht, erfolgreich die Methode \texttt{keyPressed(KeyEvent e)} aufzurufen, ohne, dass die \enquote{Strg}"=Taste gedrückt ist. Hierbei sollte nichts passieren.
+	\item[--] \texttt{keyPressedUnknownKeyTest()}:\qa\\
+	Versucht, erfolgreich die Methode \texttt{keyPressed(KeyEvent e)} mit einer unbekannten Tastenkombination aufzurufen. Hierbei sollte nichts passieren.
+	\item[--] \texttt{mouseWheelMovedZoomInTest()}:\qa\\
+	Versucht, das Vergrößern der Schriftgröße erfolgreich durch das Drücken der \enquote{Strg}"=Taste und das Bewegen des Mausrads hervorzurufen.
+	\item[--] \texttt{mouseWheelMovedZoomOutTest()}:\qa\\
+	Versucht, das Verkleinern der Schriftgröße erfolgreich durch das Drücken der \enquote{Strg}"=Taste und das Bewegen des Mausrads hervorzurufen.
+	\item[--] \texttt{mouseWheelMovedNoControlTest()}:\qa\\
+	Versucht, das Vergrößern/Verkleinern der Schriftgröße lediglich durch das Bewegen des Mausrads hervorzurufen. Hierbei sollte nichts passieren.
+	\item[--] \texttt{setHasChangedTest()}:\qa\\
+	Versucht, den Status (ob der Editorinhalt geändert wurde oder nicht) erfolgreich auf das Gegenteil des jetzigen Zustands zu setzen.
+	\item[--] \texttt{setHasChangedTrueTest()}:\qa\\
+	Versucht, den Status des Editors explizit auf \enquote{true} zu setzen. Hierbei sollte das Eingabefeld gesperrt werden.
+	\item[--] \texttt{keyTypedAndReleasedTest()}:\qa\\
+	Versucht, erfolgreich die Methoden \texttt{keyPressed(KeyEvent e)} und\\\texttt{keyReleased(KeyEvent e)} aufzurufen. Hierbei sollte nichts passieren.
+	\item[--] \texttt{setFileReferenceFullTest()}:\qa\\
+	Versucht, erfolgreich eine neue Datei in das \enquote{Zuletzt verwendete Dateien}"=Menü hinzuzufügen wenn dieses bereits vier Einträge enthält. Hierbei sollte der älteste Eintrag entfernt und der neue Eintrag an oberster Stelle eingefügt werden.
+\end{itemize}
+
+\textbf{Testklasse: MainWindowTest, getestete Unit: MainWindow}
+\begin{itemize}
+	\item[--] \texttt{singleParameterConstructorTest()}:\qa\\
+	Versucht, erfolgreich den Konstruktor mit einem Parameter des MainWindow aufzurufen.
+	\item[--] \texttt{setWindowTitleTest()}:\qa\\
+	Versucht, den Titel des MainWindow erfolgreich zu ändern.
+	\item[--] \texttt{setEmptyWindowTitleTest()}:\qa\\
+	Versucht, den Titel des MainWindow erfolgreich auf den leeren String zu setzen. Hierbei sollte der Titel auf den Standardtitel zurückgesetzt werden.
+	\item[--] \texttt{setAppendAsterixToTitleTest()}:\qa\\
+	Versucht, an den Titel des MainWindow erfolgreich ein Sternchen (als Zeichen, dass es ungespeicherte Änderungen im Editor gibt) anzufügen.
+	\item[--] \texttt{mainTest()}:\qa\\
+	Versucht, erfolgreich die \texttt{main}"=Methode des MainWindow auszuführen.
+\end{itemize}
+
+\textbf{Testklasse: MenuBarTest, getestete Unit: MenuBar}
+\begin{itemize}
+	\item[--] \texttt{disableStdLibTest()}:\qa\\
+	Versucht, erfolgreich die Standardbibliothek zu deaktivieren und testet, ob dieser Zustand nach dem erneuten Öffnen des Programms erhalten bleibt.
+\end{itemize}
+
+\textbf{Testklasse: MenuItemTest, getestete Unit: MenuItem}
+\begin{itemize}
+	\item[--] \texttt{actionPerformedTest()}:\qa\\
+	Versucht, erfolgreich die Methode \texttt{actionPerformed(ActionEvent e)} eines beliebigen MenuItems aufzurufen.
+\end{itemize}
+
+\textbf{Testklasse: ToolBarButtonTest, getestete Unit: ToolBarButton}
+\begin{itemize}
+	\item[--] \texttt{actionPerformedTest()}:\qa\\
+	Versucht, erfolgreich die Methode \texttt{actionPerformed(ActionEvent e)} eines beliebigen ToolBarButtons aufzurufen.
+\end{itemize}
+
+\textbf{Testklasse: VisualisationPanelTest, getestete Unit: VisualisationPanel}\\
+\textbf{Anmerkung:} Alle Zoom"=Tests in dieser Testklasse rufen die entsprechend Funktionen im VisualisationPanel auf, aber testen den Zoom nicht, da der Visualisierungsausschnitt skaliert wird und nicht durch feste Werte vergrößert/verkleinert wird. Der Wert durch den skaliert wird, wird bei jedem Zoom mit einem vordefinierten Faktor neu errechnet und daher kann man anschließend nicht automatisiert abfragen ob erfolgreich gezoomed wurde. Die Zoom"=Funktionalität wurde stattdessen händisch getestet.
+\begin{itemize}
+	\item[--] \texttt{resetZoomTest()}:\qa\\
+	Versucht, den Zoom erfolgreich auf den Standardwert zurückzusetzen.
+	\item[--] \texttt{zoomPlaceholderTest()}:\qa\\
+	Versucht, zu zoomen während der Platzhalter angezeigt wird. Hierbei sollte nichts passieren.
+	\item[--] \texttt{zoomInTest()}:\qa\\
+	Versucht, die Visualisierung erfolgreich zu vergrößern.
+	\item[--] \texttt{zoomOutTest()}:\qa\\
+	Versucht, die Visualisierung erfolgreich zu verkleinern.
+	\item[--] \texttt{hasGraphFalseTest()}:\qa\\
+	Testet, ob der Rückgabewert der \texttt{hasGraph()}"=Methode \enquote{false} ist, wenn im Moment noch der Platzhalter angezeigt wird.
+	\item[--] \texttt{hasGraphTest()}:\qa\\
+	Testet, ob der Rückgabewert der \texttt{hasGraph()}"=Methode \enquote{true} ist, wenn eine Visualisierung angezeigt wird.
+	\item[--] \texttt{setFromGraphNullTest()}:\qa\\
+	Versucht, einen nicht vorhandenes Graphobjekt anzuzeigen. Hierbei sollte nichts passieren.
+	\item[--] \texttt{switchClickableStateNoPlaceholderTest()}:\qa\\
+	Versucht, den \texttt{ClickableState} zu wechseln, wenn der Platzhalter nicht vorhanden ist und keine Visualisierung angezeigt wird. Hierbei sollte der Platzhalter neu generiert und angezeigt werden.
+	\item[--] \texttt{componentHiddenTest()}:\qa\\
+	Versucht, erfolgreich die \texttt{componentHidden()}"=Methode aufzurufen. Hierbei sollte nichts passieren.
+	\item[--] \texttt{componentMovedTest()}:\qa\\
+	Versucht, erfolgreich die \texttt{componentMoved()}"=Methode aufzurufen. Hierbei sollte nichts passieren.
+	\item[--] \texttt{componentShownTest()}:\qa\\
+	Versucht, erfolgreich die \texttt{componentShown()}"=Methode aufzurufen. Hierbei sollte nichts passieren.
+\end{itemize}
+
+\textbf{Testklasse: VisualisationViewerTest, getestete Unit: VisualisationViewer}
+\begin{itemize}
+	\item[--] \texttt{resetZoomTest()}:\qa\\
+	Versucht, den Zoom erfolgreich auf den Standardwert zurückzusetzen.
+	\item[--] \texttt{zoomInTest()}:\qa\\
+	Versucht, die Visualisierung erfolgreich zu vergrößern.
+	\item[--] \texttt{zoomOutTest()}:\qa\\
+	Versucht, die Visualisierung erfolgreich zu verkleinern.
+	\item[--] \texttt{setFromGraphTest()}:\qa\\
+	Versucht, erfolgreich eine Visualisierung anzuzeigen.
+	\item[--] \texttt{mouseWheelMovedZoomInTest()}:\qa\\
+	Versucht, die Visualisierung erfolgreich mit dem Mausrad zu vergrößern.
+	\item[--] \texttt{mouseWheelMovedZoomOutTest()}:\qa\\
+	Versucht, die Visualisierung erfolgreich mit dem Mausrad zu verkleinern.
+	\item[--] \texttt{mouseWheelMovedNoNavigationTest()}:\qa\\
+	Versucht, die Visualisierung zu vergrößern/verkleinern, wenn die Visualisierung nicht navigiert werden darf. Hierbei sollte nichts passieren.
+	\item[--] \texttt{setCursorTest()}:\qa\\
+	Versucht, erfolgreich die \texttt{setCursor()}"=Methode aufzurufen. Hierbei sollte nichts passieren.
+	\item[--] \texttt{clearTest()}:\qa\\
+	Versucht, erfolgreich Visualisierung zu löschen.
+	\item[--] \texttt{panInteractorTest()}:\qa\\
+	Versucht, erfolgreich die \texttt{startInteraction(MouseEvent e)}"=Methode des\\\texttt{PanInteractors} aufzurufen. Hierbei wird nur getestet, dass keine Fehler geworfen werden, da man das Verschieben der Visualisierung nicht automatisiert testen kann. Dies wurde stattdessen händisch getestet.
+\end{itemize}
+
 \subsubsection{Controller}
 \textbf{Anmerkung zum Testen von grafischem User-Input:}\\
 Da einige Kommandos User"=Input in Form von Dialogen (Datei"=Auswahldialog und Options"=Dialog) erwartet, wurden in diesen neue Konstruktoren angelegt. Diese sind ausschließlich zum Erstellen einer Testversion der Unit da und bieten den zu nutzenden Dialog als Parameter an. Hierzu wurden Options"=Dialoge (Interface: OptionPane) und Datei"=Auswahldialog (Interface: FileChooser) abstrahiert.
