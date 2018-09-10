@@ -517,6 +517,22 @@ Die im Folgenden beschriebenen Tests entsprechen allen Tests seit \textbf{Beginn
 
 \subsubsection{Model: Parser}
 \subsubsection{Model: Visualisation}
+
+\newcommand{\visualisationTest}[5]{
+    \test{#1VisualisationTest()}{\qa}{
+        Versucht, die Abfragen \texttt{#3} und \texttt{#5} auf der Testdatei \texttt{visualisation.pl} auszuführen.
+        Dabei wird die Visualisierung des Schrittes $x$ jeweils in den Dateien \texttt{#2\_x.svg} und \texttt{#4\_x.svg} gespeichert.
+    }
+}
+
+\begin{testClass}{GraphvizMaker}
+    \visualisationTest{functor}{functor}{grandfather(abe, bart).}{functor\_nohead}{succeed.}
+    \visualisationTest{unification}{unification}{doubleEq(42, 42).}{unification\_fail}{doubleEq(42, 69).}
+    \visualisationTest{cut}{cut}{cutMyLife.}{cut\_query}{!.}
+    \visualisationTest{arithmetic}{arithmetic}{triple(23, X).}{arithmetic\_error}{triple(nice, X).}
+    \visualisationTest{comparison}{comparison}{ordered(17, 50, 42).}{comparison\_error}{ordered(17, 42, x).}
+\end{testClass}
+
 \subsubsection{View}
 \textbf{Anmerkungen:}\\
 Die Branchüberdeckung befindet sich knapp unter 90\%, da bestimmte Exceptions in Methoden der View nicht erzwungen und somit die Catch"=Blöcke auch nicht getestet werden konnten. Da aber Exceptions wie z.B. die \enquote{Nichtauffindbarkeit} des Temp-Ordners eines Betriebssystem auf den unterstützten Systemen aus dem Pflichtenheft nicht auftreten können, wurde von der Nutzung eines Mocking"=Frameworks abgesehen.
