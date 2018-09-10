@@ -47,7 +47,7 @@ public enum TokenType {
     /**
      * End of File
      */
-    EOF("End of File"),
+    EOF("End of Input"),
 
     /**
      * End of rule

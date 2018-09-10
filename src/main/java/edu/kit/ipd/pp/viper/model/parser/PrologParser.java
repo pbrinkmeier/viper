@@ -128,7 +128,7 @@ public class PrologParser {
      * @return the goal list
      * @throws ParseException if a parser error occurs
      */
-    public List<Goal> parseGoalList() throws ParseException {
+    private List<Goal> parseGoalList() throws ParseException {
         List<Goal> goals = new LinkedList<>();
         goals.add(this.parseGoal());
         while (this.token.getType() != TokenType.DOT) {
@@ -136,6 +136,19 @@ public class PrologParser {
             goals.add(this.parseGoal());
         }
         this.nextToken();
+        return goals;
+    }
+
+    /**
+     * Parses a query, that is: a goal list and the end-of-file.
+     *
+     * @return list of goals
+     * @throws ParseException if a parser error occurs
+     */
+    public List<Goal> parseQuery() throws ParseException {
+        List<Goal> goals = this.parseGoalList();
+        this.expect(TokenType.EOF);
+
         return goals;
     }
 
