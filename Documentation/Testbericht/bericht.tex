@@ -89,6 +89,32 @@ Die im Folgenden beschriebenen Tests entsprechen allen Tests seit \textbf{Beginn
         \item[--] \texttt{##1}:##2\\##3
     }
 
+    \newcommand{\equalsTest}[2]{
+        \test{equalsTest()}{##1}{
+            Versucht, die Gleichheit bzw. Ungleichheit verschiedener ##2 festzustellen.
+            Insbesondere wird die Ungleichheit zu \texttt{null} ohne das Werfen einer \texttt{Null\-Pointer\-Exception} getestet.
+        }
+    }
+
+    % hash code tests have always been added in QA
+    \newcommand{\hashCodeTest}{
+        \test{hashCodeTest()}{\qa}{
+            Versucht, den hash code der Instanz abzurufen und stellt sicher, dass dieser unter Einsatz des Algorithmus der Methode \texttt{java.util.Objects.hash} berechnet wurde.
+        }
+    }
+
+    \newcommand{\createActivationRecordTest}[3]{
+        \test{createActivationRecordTest()}{##1}{
+            Versucht, über die Instanziierung eines \texttt{Interpreters} mit dem Ziel \texttt{##2} einen \texttt{##3} zu erzeugen.
+        }
+    }
+
+    \newcommand{\toStringTest}[2]{
+        \test{toStringTest()}{##1}{
+            Versucht, die String-Darstellung \texttt{##2} abzurufen.
+        }
+    }
+
     \textbf{Testklasse: #1Test, getestete Unit: #1}
 
     \begin{itemize}
@@ -96,77 +122,269 @@ Die im Folgenden beschriebenen Tests entsprechen allen Tests seit \textbf{Beginn
     \end{itemize}
 }
 
-\newcommand{\equalsTest}[2]{
-    \test{equalsTest()}{#1}{
-        Versucht die Gleichheit bzw. Ungleichheit verschiedener #2 festzustellen.
-        Insbesondere wird die Ungleichheit zu \texttt{null} ohne das Werfen einer \texttt{Null\-Pointer\-Exception} getestet.
-    }
-}
-
-% hash code tests have always been added in QA
-\newcommand{\hashCodeTest}{
-    \test{hashCodeTest()}{\qa}{
-        Versucht den hash code der Instanz abzurufen und stellt sicher, dass dieser unter Einsatz des Algorithmus der Methode \texttt{java.util.Objects.hash} berechnet wurde.
-    }
-}
-
 \subsubsection{Model: AST}
 
 \begin{testClass}{AdditionOperation}
     \test{calculateTest()}{\impl}{
-        Versucht das Ergebnis einer Addition zu berechnen.
+        Versucht, das Ergebnis einer Addition zu berechnen.
     }
     \test{createNewTest()}{\impl}{
-        Versucht eine neue \texttt{AdditionOperation}-Instanz zu erzeugen.
+        Versucht, eine neue \texttt{AdditionOperation}-Instanz zu erzeugen.
     }
 \end{testClass}
 
 \begin{testClass}{ArithmeticGoal}
     \test{getVariablesTest()}{\qa}{
-        Versucht eine eindeutige Menge an Variablen der linken und rechten Seite des Arithmetikziels abzurufen.
+        Versucht, eine eindeutige Menge an Variablen der linken und rechten Seite des Arithmetikziels abzurufen.
     }
     \equalsTest{\qa}{Arithmetikziele}
     \test{toStringTest()}{\qa}{
-        Versucht die String-Darstellung \texttt{[linke Seite] is [rechte Seite]} abzurufen.
+        Versucht, die String-Darstellung \texttt{[linke Seite] is [rechte Seite]} abzurufen.
     }
+    \toStringTest{\qa}{[linke Seite] is [rechte Seite]}
     \test{transformTest()}{\qa}{
-        Versucht \texttt{Z is Z} mittels eines \texttt{Indexifier}s zu \texttt{Z\_42 is Z\_42} zu transformieren.
+        Versucht, \texttt{Z is Z} mittels eines \texttt{Indexifier}s zu \texttt{Z\_42 is Z\_42} zu transformieren.
     }
-    \test{createActivationRecordTest()}{\qa}{
-        Versucht über die Instanziierung eines \texttt{Interpreters} mit dem Ziel \texttt{X is 42 + Y} einen \texttt{ArithmeticActivationRecord} zu erzeugen.
-    }
+    \createActivationRecordTest{\qa}{X is Y + 42}{ArithmeticActivationRecord}
     \hashCodeTest
 \end{testClass}
 
 \begin{testClass}{BinaryOperation}
-    \test{toStringTest}{\impl}{
-        Versucht die String-Darstellung \texttt{[linke Seite] [Symbol] [rechte Seite]} abzurufen.
-    }
+    \toStringTest{\impl}{[linke Seite] [Symbol] [rechte Seite]}
     \test{toHtmlTest}{\impl}{
-        Versucht die HTML-Darstellung \texttt{[linke Seite] [Symbol] [rechte Seite]} abzurufen.
+        Versucht, die HTML-Darstellung \texttt{[linke Seite] [Symbol] [rechte Seite]} abzurufen.
         Außerdem muss die HTML-Darstellung der linken und rechten Seite benutzt werden.
     }
     \equalsTest{\qa}{binärer Operationen}
     \test{getLhsTest()}{\impl}{
-        Versucht die linke Seite der Operation abzurufen.
+        Versucht, die linke Seite der Operation abzurufen.
     }
     \test{getRhsTest()}{\impl}{
-        Versucht die rechte Seite der Operation abzurufen.
+        Versucht, die rechte Seite der Operation abzurufen.
     }
 \end{testClass}
 
 \begin{testClass}{ComparisonGoal}
     \equalsTest{\qa}{Vergleichsziele}
     \hashCodeTest
-    \test{toStringTest}{\impl}{
-        Versucht die String-Darstellung \texttt{[linke Seite] [Symbol] [rechte Seite]} abzurufen.
-    }
+    \toStringTest{\impl}{[linke Seite] [Symbol] [rechte Seite]}
     \test{getHtmlSymbolTest()}{\qa}{
-        Versucht das HTML-Symbol des Vergleichs abzurufen.
+        Versucht, das HTML-Symbol des Vergleichs abzurufen.
     }
     \test{getVariablesTest()}{\qa}{
-        Versucht eine eindeutige Menge an Variablen der linken und rechten Seite des Vergleichsziels abzurufen.
+        Versucht, eine eindeutige Menge an Variablen der linken und rechten Seite des Vergleichsziels abzurufen.
     }
+    \createActivationRecordTest{\qa}{X =:= Y}{ComparisonActivationRecord}
+\end{testClass}
+
+\begin{testClass}{CutGoal}
+    \equalsTest{\qa}{Cut-Ziel-Instanzen}
+    \hashCodeTest
+    \toStringTest{\qa}{!}
+    \test{transformTest()}{\qa}{
+        Versucht, ein Cut-Ziel mittels eines \texttt{Indexifier}s zu transformieren.
+        Dies sollte keinerlei Auswirkungen haben.
+    }
+    \test{getVariablesTest()}{\qa}{
+        Versucht, eine Menge der Variablen eines Cut-Ziels abzurufen.
+        Diese ist immer leer.
+    }
+    \createActivationRecordTest{\qa}{!}{Cut\-Activation\-Record}
+\end{testClass}
+
+\begin{testClass}{EqualGoal}
+    \test{transformTest()}{\qa}{
+        Versucht, ein Gleichheitsziel \texttt{X =:= Y} mittels eines \texttt{Indexifier}s zu \texttt{X\_42 =:= Y\_42} zu transformieren.
+    }
+    \test{compareNumbersTest()}{\qa}{
+        Versucht, die Zahlen 42 und 13 auf Gleichheit bzw. Ungleichheit zu prüfen.
+    }
+\end{testClass}
+
+\begin{testClass}{FunctorGoal}
+    \test{getFunctorTest()}{\impl}{
+        Versucht, den zum Funktorziel gehörigen Funktor abzurufen.
+    }
+    \test{getVariablesTest()}{\qa}{
+        Versucht, eine eindeutige Menge an Variablen aus den Parametern des Funktors abzurufen.
+    }
+    \equalsTest{\qa}{Funktorziele}
+    \hashCodeTest
+\end{testClass}
+
+\begin{testClass}{GreaterThanEqualGoal}
+    \test{transformTest()}{\qa}{
+        Versucht, ein \enquote{größer/gleich}-Ziel \texttt{X >= Y} mittels eines \texttt{Indexifier}s zu \texttt{X\_42 >= Y\_42} zu transformieren.
+    }
+    \test{compareNumbersTest()}{\qa}{
+        Versucht, einen arithmetischen \enquote{größer/gleich}-Vergleich der Zahlen 13 und 42 durchzuführen.
+    }
+\end{testClass}
+
+\begin{testClass}{GreaterThanGoal}
+    \test{transformTest()}{\qa}{
+        Versucht, ein \enquote{größer}-Ziel \texttt{X > Y} mittels eines \texttt{Indexifier}s zu \texttt{X\_42 > Y\_42} zu transformieren.
+    }
+    \test{compareNumbersTest()}{\qa}{
+        Versucht, einen arithmetischen \enquote{größer}-Vergleich der Zahlen 13 und 42 durchzuführen.
+    }
+\end{testClass}
+
+\begin{testClass}{KnowledgeBase}
+    \test{toStringTest()}{\qa}{
+        Versucht, die String-Darstellung der Wissensbasis abzurufen.
+        Diese steht in der Dokumentation der Methode \texttt{KnowledgeBaseTest\#init}.
+    }
+    \test{getMatchingRulesTest()}{\qa}{
+        Versucht, zum Funktor \texttt{yes} passende Regel \texttt{yes.} abzurufen.
+    }
+    \test{getConflictingRulesTest()}{\qa}{
+        Versucht, die konflingierenden Regeln zweier Wissensbasen abzurufen.
+    }
+    \test{withRuleTest()}{\qa}{
+        Versucht, eine neues Wissenbasis mit einer zusätzlichen Regel zu erstellen.
+    }
+    \test{equalsTest()}{\qa}{
+        Versucht, die Ungleichheit zu \texttt{null} festzustellen, ohne eine \texttt{Null\-Pointer\-Exception} zu werfen.
+    }
+    \hashCodeTest
+\end{testClass}
+
+\begin{testClass}{LessThanEqualGoal}
+    \test{transformTest()}{\qa}{
+        Versucht, ein \enquote{kleiner/gleich}-Ziel \texttt{X =< Y} mittels eines \texttt{Indexifier}s zu \texttt{X\_42 =< Y\_42} zu transformieren.
+    }
+    \test{compareNumbersTest()}{\qa}{
+        Versucht, einen arithmetischen \enquote{kleiner/gleich}-Vergleich der Zahlen 13 und 42 durchzuführen.
+    }
+\end{testClass}
+
+\begin{testClass}{LessThanGoal}
+    \test{transformTest()}{\qa}{
+        Versucht, ein \enquote{kleiner}-Ziel \texttt{X < Y} mittels eines \texttt{Indexifier}s zu \texttt{X\_42 < Y\_42} zu transformieren.
+    }
+    \test{compareNumbersTest()}{\qa}{
+        Versucht, einen arithmetischen \enquote{kleiner}-Vergleich der Zahlen 13 und 42 durchzuführen.
+    }
+\end{testClass}
+
+\begin{testClass}{ListFormatter}
+    \test{asStringTest()}{\qa}{
+        Versucht, verschiedene Terme als Liste darzustellen.
+    }
+
+    \test{asStringTest()}{\qa}{
+        Versucht, verschiedene Terme als Liste darzustellen.
+        Dabei sollen die HTML-Darstellungen der Listenelemente benutzt werden.
+    }
+\end{testClass}
+
+\begin{testClass}{MatchingHeadComparator}
+    \test{compareTest()}{\qa}{
+        Versucht, auf Regeln Vergleiche anhand der Funktorköpfe durchzuführen.
+    }
+\end{testClass}
+
+\begin{testClass}{MultiplicationOperation}
+    \test{calculateTest()}{\impl}{
+        Versucht, das Ergebnis einer Multiplikation zu berechnen.
+    }
+    \test{createNewTest()}{\impl}{
+        Versucht, eine neue Multiplikationsoperation zu erzeugen.
+    }
+\end{testClass}
+
+\begin{testClass}{NotEqualGoal}
+    \test{transformTest()}{\qa}{
+        Versucht, ein Ungleichheitsziel \texttt{X =\textbackslash= Y} mittels eines \texttt{Indexifier}s zu \texttt{X\_42 =\textbackslash= Y\_42} zu transformieren.
+    }
+    \test{compareNumbersTest()}{\qa}{
+        Versucht, die Ungleichheit der Zahlen 13 und 42 festzustellen.
+    }
+\end{testClass}
+
+\begin{testClass}{Number}
+    \test{getNumberTest()}{\qa}{
+        Versucht, die von diesem Zahlterm dargestellte Zahl abzurufen.
+    }
+    \toStringTest{\impl}{42}
+    \test{toHtmlTest()}{\impl}{
+        Versucht, die HTML-Darstellung \texttt{42} abzurufen.
+        Diese unterscheidet sich hier nicht von der String-Darstellung.
+    }
+    \test{evaluateTest()}{\qa}{
+        Versucht, die Zahl erfolgreich arithmetische auszuwerten.
+        Diese Auswertung stimmt hier mit dem Aufruf von \texttt{getNumber} überein.
+    }
+    \equalsTest{\qa}{Zahlterme}
+    \hashCodeTest
+\end{testClass}
+
+\begin{testClass}{Rule}
+    \test{getHeadTest()}{\impl}{
+        Versucht, den Kopf einer Regel abzurufen.
+    }
+    \test{getSubgoalsTest()}{\impl}{
+        Testet, dass die zurückgegebene Liste an Teilzielen immutable ist, indem ein Element hinzugefügt und die geworfene \texttt{Unsupported\-Operation\-Exception} abgefangen wird.
+    }
+    \toStringTest{\impl}{\\\\grandfather(X, Y) :-\\  father(X, Z),\\  father(Z, Y).\\\\}
+    \equalsTest{\qa}{Regeln}
+    \hashCodeTest
+\end{testClass}
+
+\begin{testClass}{SubtractionOperation}
+    \test{calculateTest()}{\impl}{
+        Versucht, das Ergebnis einer Subtraktion zu berechnen.
+    }
+    \test{createNewTest()}{\impl}{
+        Versucht, eine neue Subtraktionsoperation zu erzeugen.
+    }
+\end{testClass}
+
+\begin{testClass}{UnificationGoal}
+    \test{getVariablesTest()}{\qa}{
+        Versucht, eine eindeutige Menge an Variablen der linken und rechten Seite der Unifikation abzurufen.
+    }
+    \equalsTest{\qa}{Unifikationsziele}
+    \test{transformTest()}{\qa}{
+        Versucht, das Ziel \texttt{X = Y} mittels eines \texttt{Indexifier}s zu \texttt{X\_42 = Y\_42} zu transformieren.
+    }
+    \toStringTest{\qa}{X = Y}
+    \createActivationRecordTest{\qa}{X = Y}{UnificationActivationRecord}
+    \hashCodeTest
+\end{testClass}
+
+\begin{testClass}{UnsupportedTermException}
+    \test{getMessageTest()}{\qa}{
+        Versucht, die Meldung \enquote{Term nicht unterstützt: lame} in der aktuell gewählten Sprache abzurufen.
+    }
+\end{testClass}
+
+\begin{testClass}{UnsetVariableException}
+    \test{getMessageTest()}{\qa}{
+        Versucht, die Meldung \enquote{Unbelegte Variable: X} in der aktuell gewählten Sprache abzurufen.
+    }
+\end{testClass}
+
+\begin{testClass}{Variable}
+    \test{toStringTest()}{\impl}{
+        Versucht, die String-Darstellungen \texttt{X} und \texttt{X\_42} abzurufen.
+    }
+    \test{toHtmlTest()}{\impl}{
+        Versucht, die HTML-Darstellungen \texttt{X} und \texttt{X\_42} (mit Subskript als HTML-kodierten Sonderzeichen) abzurufen.
+    }
+    \test{getNameTest()}{\impl}{
+        Versucht, den Namen von Variablen abzurufen.
+    }
+    \test{getIndexTest()}{\impl}{
+        Versucht, den Index von Variablen abzurufen.
+    }
+    \test{evaluateTest()}{\impl}{
+        Versucht, eine Variable arithmetisch auszuwerten.
+        Dies wirft eine \texttt{Unset\-Variable\-Exception}.
+    }
+    \equalsTest{\qa}{Variablen}
+    \hashCodeTest
 \end{testClass}
 
 \subsubsection{Model: Parser}
