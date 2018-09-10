@@ -55,6 +55,9 @@
 \usepackage{sectsty}
 \sectionfont{\clearpage}
 
+\def\qa{\hfill\textbf{QA}}
+\def\impl{\hfill\textbf{IM}}
+
 \begin{document}
 \pagenumbering{roman}
 \maketitle
@@ -77,11 +80,247 @@ Für die Verwaltung von gefundenen Fehlern und zu implementierenden Features wer
 
 \section{Tests}
 
+Die im Folgenden beschriebenen Tests entsprechen allen Tests seit \textbf{Beginn der Implementierung}. Tests, welche erst in der Qualitätssicherung hinzugekommen sind werden entsprechend mit \textbf{QA} markiert, Tests aus der Implementierungsphase mit \textbf{IM}.
+
 \subsection{Unit-Tests}
 
-% Alle Tests auflisten, die existieren, mit nem simplen Symbol markieren, welche seit der QA neu dazugekommen sind
+\subsubsection{Model: AST}
+\subsubsection{Model: Parser}
+\subsubsection{Model: Interpreter}
+\subsubsection{Model: Visualisation}
+\subsubsection{View}
+\subsubsection{Controller}
+\textbf{Anmerkung zum Testen von grafischem User-Input:}\\
+Da einige Kommandos User"=Input in Form von Dialogen (Datei"=Auswahldialog und Options"=Dialog) erwartet, wurden in diesen neue Konstruktoren angelegt. Diese sind ausschließlich zum Erstellen einer Testversion der Unit da und bieten den zu nutzenden Dialog als Parameter an. Hierzu wurden Options"=Dialoge (Interface: OptionPane) und Datei"=Auswahldialog (Interface: FileChooser) abstrahiert.
 
-% Wie GUI getestet (JAssertSwing)?
+Sowohl für die OptionPane als auch für den FileChooser existieren Implementierungen, welche für den normalen Betrieb genutzt werden und einfach an die entsprechende Java-Dialogklasse delegieren (DefaultOptionPane und DefaultFileChooser). Beim Testen wird stattdessen eine Dummy"=Implementierung übergeben, welche einen vordefinierten Rückgabewert hat und diesen ohne Öffnen eines grafischen Dialogs zurückgibt. Hierzu zählen für die OptionPane die Klassen YesOptionPane, NoOptionPane und CancelOptionPane. Für den FileChooser existiert die Klasse PreselectionFileChooser, welche sich mit einer Datei initialisiert wird und diese bei Aufruf zurückgibt.
+
+Da die Nutzung von Dialogen recht gering und einheitlich ist (ausschließlich ein Typ von Options"= und Datei-Auswahldialogen), wurde dieser Weg als simpler erachtet und von der Nutzung eines Mocking"=Frameworks abgesehen.
+
+Das Testen von Popups (Handbuch, Standardbibliothek und Über) fand wiederum über die AssertJSwing"=Bibliothek statt, über welche die Fenster erhalten und geprüft werden konnten. Dies funktionierte aufgrund der nativen Java-Implementierung auch nach mehreren Versuchen und einigen Tagen nicht mit Dialogen, weswegen die zuvor beschriebene Lösung für diese genutzt wurde. Die Nutzung von AssertJSwing beschränkt sich somit ausschließlich auf Popups.
+
+\textbf{Testklasse: CommandCancelTest, getestete Unit: CommandCancel}
+\begin{itemize}
+	\item[--] \texttt{cancelTest()}:\impl\\
+	Startet die Suche nach einer Lösung und versucht, diese erfolgreich zu unterbrechen.
+\end{itemize}
+
+\textbf{Testklasse: CommandExitTest, getestete Unit: CommandExit}
+\begin{itemize}
+	\item[--] \texttt{saveOnExitTest()}:\qa\\
+	Versucht, das Programm mit ungespeicherten Änderungen erfolgreich zu beenden und speichert diese bei Aufruf.
+	\item[--] \texttt{doNotSaveChangesTest()}:\qa\\
+	Versucht, das Programm mit ungespeicherten Änderungen erfolgreich zu beenden und speichert diese bei Aufruf nicht.
+	\item[--] \texttt{cancelTest()}:\qa\\
+	Versucht, das Programm mit ungespeicherten Änderungen erfolgreich zu beenden und bricht den Vorgang bei Aufruf zum Speichern ab.
+	\item[--] \texttt{nothingUnsavedTest()}:\qa\\
+	Versucht, das Programm ohne ungespeicherte Änderungen erfolgreich zu beenden.
+\end{itemize}
+
+\textbf{Testklasse: CommandExportImageTest, getestete Unit: CommandExportImage}
+\begin{itemize}
+	\item[--] \texttt{pngByDialogTest()}:\qa\\
+	Versucht, eine Visualisierung erfolgreich als PNG per Dialog zu exportieren.
+	\item[--] \texttt{svgByDialogTest()}:\qa\\
+	Versucht, eine Visualisierung erfolgreich als SVG per Dialog zu exportieren.
+	\item[--] \texttt{nullFileTest()}:\qa\\
+	Versucht, eine Visualisierung per Dialog zu exportieren, wenn die ausgewählte Datei null ist. Dies sollte keinen Effekt haben.
+	\item[--] \texttt{errorOutputTest()}:\qa\\
+	Versucht, erfolgreich einen Fehler über die Ausgaberoutine des Kommandos auszugeben.´
+\end{itemize}
+
+\textbf{Testklasse: CommandFinishQueryTest, getestete Unit: CommandFinishQuery}
+\begin{itemize}
+	\item[--] \texttt{finishQueryTest()}:\qa\\
+	Versucht, eine Anfrage erfolgreich bis zum Ende auszuführen und eine Lösung auszulesen.
+\end{itemize}
+
+\textbf{Testklasse: CommandFormatTest, getestete Unit: CommandFormat}
+\begin{itemize}
+	\item[--] \texttt{simpsonsTest()}:\impl\\
+	Versucht, das unformatierte Simpsons-Beispiel aus dem Pflichtenheft erfolgreich in die angegebene formatierte Form zu bringen.
+	\item[--] \texttt{simpsonsTwiceTest()}:\qa\\
+	Versucht, das unformatierte Simpsons-Beispiel aus dem Pflichtenheft zweifach zu formatieren. Dies sollte dasselbe Ergebnis haben wie nach einfachem Formatieren.
+	\item[--] \texttt{invalidTest()}:\qa\\
+	Versucht, ein Programm zu formatieren, welches nicht erfolgreich geparst werden kann. Dies sollte scheitern.
+	\item[--] \texttt{invalidDebugTest()}:\qa\\
+	Versucht, ein Programm zu formatieren, welches nicht erfolgreich geparst werden kann. Dies sollte scheitern. Dies geschieht hier im Debug-Modus und sollte entsprechenden Output erzeugen.
+	\item[--] \texttt{emptyTest()}:\impl\\
+	Versucht, den leeren Editor erfolgreich zu formatieren. Dies sollte keinen Effekt haben.
+\end{itemize}
+
+\textbf{Testklasse: CommandNewTest, getestete Unit: CommandNew}
+\begin{itemize}
+	\item[--] \texttt{getsClearedTest()}:\impl\\
+	Versucht, erfolgreich eine neue Datei anzulegen, wenn keine ungespeicherten Änderungen vorhanden sind. Dies sollte den Editor leeren.
+	\item[--] \texttt{saveOnExitTest()}:\qa\\
+	Versucht, erfolgreich eine neue Datei anzulegen, wenn ungespeicherte Änderungen existieren und versucht weiter, diese zu speichern.
+	\item[--] \texttt{doNotSaveOnExitTest()}:\qa\\
+	Versucht, erfolgreich eine neue Datei anzulegen, wenn ungespeicherte Änderungen existieren und versucht weiter, das Speichern dieser abzulehnen.
+	\item[--] \texttt{cancelSaveOnExitTest()}:\qa\\
+	Versucht, erfolgreich eine neue Datei anzulegen, wenn ungespeicherte Änderungen existieren und versucht weiter, das Speichern dieser abzubrechen.
+\end{itemize}
+
+\textbf{Testklasse: CommandNextSolutionTest, getestete Unit: CommandNextSolution}
+\begin{itemize}
+	\item[--] \texttt{nextSolutionTest()}:\qa\\
+	Versucht, eine Abfrage erfolgreich bis zur nächsten Lösung zu interpretieren und prüft die gefundene Lösung.
+\end{itemize}
+
+\textbf{Testklasse: CommandOpenTest, getestete Unit: CommandOpen}
+\begin{itemize}
+	\item[--] \texttt{readingTest()}:\impl\\
+	Versucht, eine Datei über die Leseroutine des Kommandos erfolgreich einzulesen.
+	\item[--] \texttt{uiUpdateTest()}:\impl\\
+	Versucht, den Editor nach dem Öffnen der Datei über die Aktualisierungsroutine des Kommandos erfolgreich zu aktualisieren.
+	\item[--] \texttt{errorOutputTest()}:\qa\\
+	Versucht, einen Fehler über die Fehlerausgaberoutine des Kommandos erfolgreich auszugeben.
+	\item[--] \texttt{directOpenTest()}:\qa\\
+	Versucht, eine Datei über das Kommando direkt zu öffnen. Dies sollte den Editor aktualisieren und eine Ausgabe in der Konsole erzeugen.
+	\item[--] \texttt{dialogWithoutChangesTest()}:\qa\\
+	Versucht, eine Datei über den Auswahldialog erfolgreich zu öffnen, ohne das ungespeicherte Änderungen vorhanden sind.
+	\item[--] \texttt{dialogAndSaveTest()}:\qa\\
+	Versucht, eine Datei über den Auswahldialog erfolgreich zu öffnen und ungespeicherte Änderungen dabei zu speichern.
+	\item[--] \texttt{dialogAndDoNotSaveTest()}:\qa\\
+	Versucht, eine Datei über den Auswahldialog erfolgreich zu öffnen und ungespeicherte Änderungen dabei nicht zu speichern.
+	\item[--] \texttt{dialogAndCancelSaveTest()}:\qa\\
+	Versucht, eine Datei über den Auswahldialog erfolgreich zu öffnen und den Vorgang bei der Meldung ungespeicherter Änderungen abzubrechen.
+\end{itemize}
+
+\textbf{Testklasse: CommandParseQueryTest, getestete Unit: CommandParseQuery}
+\begin{itemize}
+	\item[--] \texttt{validQueryTest()}:\qa\\
+	Versucht, eine valide Abfrage erfolgreich zu parsen.
+	\item[--] \texttt{invalidQueryTest()}:\qa\\
+	Versucht, eine invalide Abfrage zu parsen. Dies sollte scheitern.
+\end{itemize}
+
+\textbf{Testklasse: CommandParseTest, getestete Unit: CommandParse}
+\begin{itemize}
+	\item[--] \texttt{emptyTest()}:\impl\\
+	Versucht, den Quelltext aus einem leeren Editor erfolgreich zu parsen.
+	\item[--] \texttt{incorrectSyntaxTest()}:\impl\\
+	Versucht, inkorrekten Quelltext aus dem Editor zu parsen. Dies sollte scheitern.
+	\item[--] \texttt{simpsonsTest()}:\impl\\
+	Versucht, das Simpsons-Beispiel aus dem Pflichtenheft erfolgreich zu parsen.
+	\item[--] \texttt{conflictingTest()}:\qa\\
+	Versucht, Quelltext aus dem Editor zu parsen, welcher Regeln enthält, die mit der aktiven Standardbibliothek konfligiert. Dies sollte eine Warnung in der Konsole erzeugen.
+\end{itemize}
+
+\textbf{Testklasse: CommandSaveTest, getestete Unit: CommandSave}
+\begin{itemize}
+	\item[--] \texttt{emptySavedFileTest()}:\impl\\
+	Versucht, leeren Quelltext aus dem Editor erfolgreich zu speichern.
+	\item[--] \texttt{simpsonsSavedFileTest()}:\impl\\
+	Versucht, das Simpsons-Beispiel aus dem Pflichtenheft erfolgreich zu speichern.
+	\item[--] \texttt{writeTest()}:\impl\\
+	Versucht, Quelltext aus dem Editor über die Schreibroutine des Kommandos erfolgreich zu speichern.
+	\item[--] \texttt{dialogTest()}:\qa\\
+	Versucht, Quelltext aus dem Editor über einen Dialog erfolgreich zu speichern.
+	\item[--] \texttt{errorOutputTest()}:\qa\\
+	Versucht, einen Fehler über die Ausgaberoutine der Konsole erfolgreich auszugeben.	
+\end{itemize}
+
+\textbf{Testklasse: CommandSetLangTest, getestete Unit: CommandSetLang}
+\begin{itemize}
+	\item[--] \texttt{allLocalesTest()}:\impl\\
+	Versucht, alle unterstützten Sprachen einmal erfolgreich zu setzen.
+	\item[--] \texttt{englishTest()}:\qa\\
+	Versucht, die Sprache bei verschiedenen Zuständen des Programms (vor dem Parsen und während der Interpretation) erfolgreich auf Englisch zu setzen.
+	\item[--] \texttt{unsupportedLocaleTest()}:\qa\\
+	Versucht, eine nicht unterstützte Sprache zu setzen. Dies sollte scheitern und die zuvor gesetzte Sprache sollte erhalten bleiben.
+\end{itemize}
+
+\textbf{Testklasse: CommandShowAboutTest, getestete Unit: CommandShowAbout}
+\begin{itemize}
+	\item[--] \texttt{uiTest()}:\qa\\
+	Versucht, das Popup erfolgreich zu erstellen und anzuzeigen.
+\end{itemize}
+
+\textbf{Testklasse: CommandShowManualTest, getestete Unit: CommandShowManual}
+\begin{itemize}
+	\item[--] \texttt{loadIconTest()}:\qa\\
+	Versucht, die im Handbuch genutzten Icons erfolgreich zu laden.
+	\item[--] \texttt{uiTest()}:\\
+	Versucht, das Popup erfolgreich zu erstellen und anzuzeigen.
+\end{itemize}
+
+\textbf{Testklasse: CommandShowStandardTest, getestete Unit: CommandShowStandard}
+\begin{itemize}
+	\item[--] \texttt{uiTest()}:\qa\\
+	Versucht, das Popup erfolgreich zu erstellen und anzuzeigen.
+\end{itemize}
+
+\textbf{Testklasse: CommandStepTest, getestete Unit: CommandStep}
+\begin{itemize}
+	\item[--] \texttt{singleSteppingTest()}:\qa\\
+	Versucht, Einzelschritte in beide Richtungen bei der Interpretation erfolgreich auszuführen.
+\end{itemize}
+
+\textbf{Testklasse: CommandToggleLibTest, getestete Unit: CommandToggleLib}
+\begin{itemize}
+	\item[--] \texttt{switchOnAndOffTest()}:\impl\\
+	Versucht, die Standardbibliothek erfolgreich an- und wieder auszustellen.
+\end{itemize}
+
+\textbf{Testklasse: CommandZoomTest, getestete Units: CommandZoom, CommandResetZoom}\\
+\textbf{Anmerkung}: 4 der hier vorhandenen Tests werden aufgrund von Bugs innerhalb der RSyntaxTextArea"=Bibliothek, welche für den Editor genutzt wird, ignoriert. Diese funktionieren nicht zuverlässig aufgrund von Threading-Problemen, die nur innerhalb der Bibliothek reparierbar sind. Hierdurch schlagen die Tests in seltenen Fällen aufgrund einer NullPointerException beim Setzen der Schriftart fehl.
+\begin{itemize}
+	\item[--] \texttt{zoomingAllTest()}:\qa\\
+	Versucht, den Editor, die Konsole und die Visualisierung erfolgreich hinein und hinaus zu zoomen. Wird ignoriert aus oben genanntem Grund.
+	\item[--] \texttt{nullConsoleTest()}:\qa\\
+	Versucht, den Editor und die Visualisierung erfolgreich hinein und hinaus zu zoomen. Wird ignoriert aus oben genanntem Grund.
+	\item[--] \texttt{nullEditorTest()}:\qa\\
+	Versucht, die Konsole und die Visualisierung erfolgreich hinein und hinaus zu zoomen.
+	\item[--] \texttt{nullVisualisationTest()}:\qa\\
+	Versucht, den Editor und die Konsole erfolgreich hinein und hinaus zu zoomen. Wird ignoriert aus oben genanntem Grund.
+	\item[--] \texttt{commandResetZoomTest()}:\qa\\
+	Versucht, den Editor, die Konsole und die Visualisierung nach einem Zoom erfolgreich zurückzusetzen. Wird ignoriert aus oben genanntem Grund.
+\end{itemize}
+
+\textbf{Testklasse: FileFiltersTest, getestete Unit: FileFilters}
+\begin{itemize}
+	\item[--] \texttt{defaultConstructorTest()}:\qa\\
+	Testet den impliziten Default-Konstruktor. Dies sollte nichts bewirken und dient nur der Coverage.
+	\item[--] \texttt{prologFilterTest()}:\impl\\
+	Versucht, verschiedene Dateien durch den Dateifilter zu filtern. Dies sollte ausschließlich bei Dateien mit der Endung \glqq .pl\grqq (case-insensitive) erfolgreich sein.
+	\item[--] \texttt{pngFilterTest()}:\impl\\
+	Versucht, verschiedene Dateien durch den Dateifilter zu filtern. Dies sollte ausschließlich bei Dateien mit der Endung \glqq .png\grqq (case-insensitive) erfolgreich sein.
+	\item[--] \texttt{svgFilterTest()}:\impl\\
+	Versucht, verschiedene Dateien durch den Dateifilter zu filtern. Dies sollte ausschließlich bei Dateien mit der Endung \glqq .svg\grqq (case-insensitive) erfolgreich sein.
+\end{itemize}
+
+\textbf{Testklasse: FileUtilitiesTest, getestete Unit: FileUtilities}
+\begin{itemize}
+	\item[--] \texttt{defaultConstructorTest()}:\qa\\
+	Testet den impliziten Default-Konstruktor. Dies sollte nichts bewirken und dient nur der Coverage.
+	\item[--] \texttt{extensionAddingTest()}:\impl\\
+	Versucht, Dateiendungen erfolgreich bei Bedarf an Dateien anzuhängen.
+\end{itemize}
+
+\textbf{Testklasse: InterpreterManagerTest, getestete Unit: InterpreterManager}
+\begin{itemize}
+	\item[--] \texttt{resetTest()}:\qa\\
+	Versucht, die Interpretation bei der laufenden Suche nach einer Lösung erfolgreich über die Reset-Routine des InterpreterManagers zu unterbrechen.
+	\item[--] \texttt{queryWithoutKnowledgeBaseTest()}:\qa\\
+	Versucht, eine Abfrage ohne vorhandene KnowledgeBase zu interpretieren. Dies sollte scheitern.
+	\item[--] \texttt{singleGoalTest()}:\qa\\
+	Versucht, eine Abfrage mit einem einzelnen Ziel bis zur ersten Lösung zu interpretieren und diese erfolgreich abzugleichen.
+	\item[--] \texttt{multipleGoalsTest()}:\qa\\
+	Versucht, eine Abfrage mit mehreren Zielen bis zur ersten Lösung zu interpretieren und diese erfolgreich abzugleichen.
+	\item[--] \texttt{threadingOperationsTest()}:\qa\\
+	Versucht, riskante Threading-Situationen im Zusammenhang mit NextSolution und FinishQuery zu provozieren. Hierzu gehört das doppelte Starten einer Lösungssuche oder das zuweisen eines neuen Threads während der vorige noch aktiv ist, was die Interpretation nicht beeinflussen sollte. Ebenso gehört hierzu das Warten auf einen Thread, der nicht existiert, was sofort beendet sein sollte.
+	\item[--] \texttt{steppingEdgeCasesTest()}:\qa\\
+	Versucht, besondere Schritt-Situationen im Zusammenhang mit Einzelschritt"=Operationen zu provozieren. Hierzu gehört das Vor- und Zurückschreiten beim ersten Schritt der Interpretation sowie beim Stehen auf einer Lösung. Weiter wird hier auch das Suchen nach einer Lösung getestet, sobald man sich einen Einzelschritt vor der letzten Lösung befindet.
+\end{itemize}
+
+\textbf{Testklasse: PreferencesManagerTest, getestete Unit: PreferencesManager}
+\begin{itemize}
+	\item[--] \texttt{settingAndRetrievalTest()}:\qa\\
+	Versucht, die Textgrößen-Eigenschaft erfolgreich zu setzen und zu erhalten, auch nachdem alle Eigenschaften gelöscht wurden (dies sollte den Standardwert zurückgeben).
+	\item[--] \texttt{nullifiedPropertiesTest()}:\qa¸\\
+	Versucht, verschiedene Eigenschaften zu erhalten, nachdem die Properties-Instanz auf null gesetzt wurde. Dies sollte entsprechende Standardwerte zurückgeben
+\end{itemize}
 
 \subsection{Testfälle aus Pflichtenheft}
 
