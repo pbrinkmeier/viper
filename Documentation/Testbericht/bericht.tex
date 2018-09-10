@@ -553,8 +553,43 @@ Im Folgenden werden die zusätzlich implementieren Funktionalitäten und Änderu
 
 \section{Statistiken}
 
-% Testabdeckung mit JUnit, möglichst detailliert (Tests pro Paket, LoC an Tests pro Palet, wie viele Tests laufen vollautomatisch).
-% Commits und LoC der Phase insg.
-% Monkey Testing Ergebnisse
+\subsection{Unit-Tests}
+Verteilung der Unit-Tests auf einzelne Packages und die drei Komponenten des MVC-Architekturstils. Die Tests berechnen auch die ignorierten Tests des Controllers mit ein, da diese prinzipiell funktionsfähig und nur durch einen Bug in einer Bibliothek eingeschränkt sind.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{images/tests_packages.png}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/tests_mvc.png}
+\end{figure}
+
+\subsection{Coverage}
+Verteilung der Coverage auf einzelne Packages und die drei Komponenten des MVC-Architekturstils. Die Coverage berechnet auch die ignorierten Tests des Controllers mit ein, da diese prinzipiell funktionsfähig und nur durch einen Bug in einer Bibliothek eingeschränkt sind.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth]{images/coverage_packages.png}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth]{images/coverage_mvc.png}
+\end{figure}
+
+\subsection{Code-Verteilung in Hauptcode und Tests}
+Verteilung des Codes auf die drei Komponenten des MVC-Architekturstils und das Model im Detail. Die Zeilenzahl berechnet auch die ignorierten Tests des Controllers mit ein, da diese prinzipiell funktionsfähig und nur durch einen Bug in einer Bibliothek eingeschränkt sind.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth]{images/loc_mvc.png}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth]{images/loc_model.png}
+\end{figure}
 
 \end{document}
