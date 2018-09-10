@@ -434,9 +434,9 @@ In den Studien lag der Fokus auf den folgenden Fragestellungen:
         \textbf{Behebung:} Im Model wird statt \texttt{int} die Klasse \texttt{BigInteger} verwendet, welche theoretisch unendlich große Ganzzahlen erlaubt.
 
   \item \textbf{Nach dem Formatieren eines Programmes muss neu geparst werden}\\
-        Beschreibung\\\\
-        \textbf{Grund:} Grund\\
-        \textbf{Behebung:} Behebung
+        Wird ein Programm formatiert, so wird die Eingabe gesperrt und es muss neu geparsed werden.\\\\
+        \textbf{Grund:} Formatieren setzt den Text im Eingabefeld. Bei Änderungen des Textfeldes werden Codeänderungen vermutet und deshalb die Eingabe gesperrt. Ein neues Parsen ist dann nötig. \\
+        \textbf{Behebung:} Einführen von isFormattingProcess EditorPanel. Während eines Formatierungsprozesses werden nun keine Codeänderungen mehr angenommen, und die Eingabe wird nicht mehr gesperrt.
 
   \item \textbf{Text im Eingabefeld ist hellgrau}\\
         Beschreibung\\\\
@@ -459,9 +459,9 @@ In den Studien lag der Fokus auf den folgenden Fragestellungen:
         \textbf{Behebung:} Behebung
 
   \item \textbf{In der Konsole werden lange Wörter nicht umgebrochen}\\
-        Beschreibung\\\\
-        \textbf{Grund:} Grund\\
-        \textbf{Behebung:} Behebung
+        Lange Wörter oder Dateinamen im Konsolenfenster werden nicht umgebrochen.\\\\
+        \textbf{Grund:} Das verwendete JTextPane bricht nur bei Leerzeichen um.\\
+        \textbf{Behebung:} Implementierung eines CustomEditorKit, welcher sich um bessere Zeilenumbrüche auch bei langen Wörtern und Pfäden kümmert.
 
   \item \textbf{Swing wirft \texttt{NullPointerException}s}\\
         Beschreibung\\\\
@@ -474,9 +474,9 @@ In den Studien lag der Fokus auf den folgenden Fragestellungen:
         \textbf{Behebung:} Behebung
 
   \item \textbf{Texte in der Visualisierung ragen über Umrandung hinaus}\\
-        Beschreibung\\\\
-        \textbf{Grund:} Grund\\
-        \textbf{Behebung:} Behebung
+        In den SVGs der Visualisierung ragt Text um seine Umrandung heraus oder ist zu klein und nicht zentriert.\\\\
+        \textbf{Grund:} graphiz-java berechnet die Rahmengröße auf Basis der Textgröße von Times New Roman. Viele Betriebssystem (z.B. Ubuntu) haben kein Times New Roman, oder nur anders große Ersatzfonts.\\
+        \textbf{Behebung:} Implementieren und nutzen von Liberation Serif für die Visualisierung. Liberation Serif entspricht in Art und Größe dem bekannten, proprietären Times New Roman.
 \end{enumerate}
 
 \section{Zusätzliche Features}
