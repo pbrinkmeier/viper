@@ -15,6 +15,16 @@ public class PrologLexerTest {
     }
 
     /**
+     * Makes sure that an invalid multi-symbol operator results in a ParseException.
+     *
+     * @throws ParseException because "===" isn't a valid prolog operator
+     */
+    @Test(expected = ParseException.class)
+    public void handleMultiSimOperatorsFailureTest() throws ParseException {
+        new PrologLexer("===").nextToken();
+    }
+
+    /**
      * Makes sure that an identifier or number at the end of a program don't result in an error.
      *
      * @throws ParseException when a parser error occurs

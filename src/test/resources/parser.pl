@@ -30,3 +30,5 @@ randomRule :-
 
 % lists are also supported terms
 listStuff([], [1, 2], [1 | 2]).
+
+% comment at end of file
