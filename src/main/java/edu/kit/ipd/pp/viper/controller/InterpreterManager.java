@@ -140,7 +140,7 @@ public class InterpreterManager {
 
         KnowledgeBase knowledgeBase = this.knowledgeBase.get();
 
-        List<Goal> goals = new PrologParser(querySource).parseGoalList();
+        List<Goal> goals = new PrologParser(querySource).parseQuery();
 
         // goals.size may never be 0 at this point
         // if that were to happen the parser would fail

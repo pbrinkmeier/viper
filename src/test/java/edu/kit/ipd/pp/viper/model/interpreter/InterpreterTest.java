@@ -157,7 +157,7 @@ public class InterpreterTest {
         try {
             String source = new String(Files.readAllBytes(Paths.get(path)));
             KnowledgeBase kb = new PrologParser(source).parse();
-            Goal query = new PrologParser(querySource).parseGoalList().get(0);
+            Goal query = new PrologParser(querySource).parseQuery().get(0);
             Interpreter interpreter = new Interpreter(kb, query);
 
             StepResult result = null;

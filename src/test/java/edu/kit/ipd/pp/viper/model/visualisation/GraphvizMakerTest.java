@@ -70,7 +70,7 @@ public class GraphvizMakerTest {
         try {
             String programCode = new String(Files.readAllBytes(Paths.get("src/test/resources/visualisation.pl")));
             KnowledgeBase kb = new PrologParser(programCode).parse();
-            Goal query = new PrologParser(queryCode).parseGoalList().get(0);
+            Goal query = new PrologParser(queryCode).parseQuery().get(0);
             Interpreter ip = new Interpreter(kb, query);
 
             int i = 0;
