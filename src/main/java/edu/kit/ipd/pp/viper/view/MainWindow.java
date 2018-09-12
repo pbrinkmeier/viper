@@ -50,7 +50,7 @@ public class MainWindow extends JFrame {
      * The version number follows the MAJOR.MINOR scheme, change this on each new
      * release!
      */
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.1";
 
     /**
      * Font name for visualisation.
