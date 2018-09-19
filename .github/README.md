@@ -14,7 +14,7 @@ This software was created as a project of the [Software Engineering Practice](ht
 
 - Parser, formatter and interpreter for a subset of the Prolog language inlcuding cut, arithmetics and lists
 - Jump back and forth between query execution steps and solutions
-- Export of visualizations as `.png` of `.svg` images
+- Export of visualizations as `.png` and `.svg` images
 - Sample programs
 - Standard library including list operations and math functions (factorial, fibonacci, ...)
 - Multiple languages
