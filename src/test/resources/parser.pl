@@ -7,6 +7,8 @@ greaterThan(42, 17).
 
 % rules with subgoals
 randomRule :-
+  % variable goals
+  X,
   % functor goals
   isValid(Y),
   % cuts

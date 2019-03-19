@@ -27,6 +27,7 @@ import edu.kit.ipd.pp.viper.model.ast.Rule;
 import edu.kit.ipd.pp.viper.model.ast.SubtractionOperation;
 import edu.kit.ipd.pp.viper.model.ast.UnificationGoal;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
+import edu.kit.ipd.pp.viper.model.ast.VariableGoal;
 
 public class PrologParserTest {
     /**
@@ -46,6 +47,7 @@ public class PrologParserTest {
             new Rule(new Functor("true", Arrays.asList(new Variable("X"))), Arrays.asList()),
             new Rule(new Functor("greaterThan", Arrays.asList(new Number(42), new Number(17))), Arrays.asList()),
             new Rule(Functor.atom("randomRule"), Arrays.asList(
+                new VariableGoal(new Variable("X")),
                 new FunctorGoal(new Functor("isValid", Arrays.asList(new Variable("Y")))),
                 new CutGoal(),
                 new UnificationGoal(Functor.atom("zomg"), new Variable("Msg")),

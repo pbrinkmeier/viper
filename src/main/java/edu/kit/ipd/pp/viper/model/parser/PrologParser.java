@@ -23,6 +23,7 @@ import edu.kit.ipd.pp.viper.model.ast.SubtractionOperation;
 import edu.kit.ipd.pp.viper.model.ast.Term;
 import edu.kit.ipd.pp.viper.model.ast.UnificationGoal;
 import edu.kit.ipd.pp.viper.model.ast.Variable;
+import edu.kit.ipd.pp.viper.model.ast.VariableGoal;
 import edu.kit.ipd.pp.viper.model.parser.TokenType;
 
 import java.math.BigInteger;
@@ -169,6 +170,13 @@ public class PrologParser {
             }
 
         case VARIABLE:
+            Variable variable = this.parseVariable();
+            if (this.token.getType() == TokenType.COMMA || this.token.getType() == TokenType.DOT) {
+                return new VariableGoal(variable);
+            } else {
+                return this.parseGoalRest(variable);
+            }
+
         case NUMBER:
         case LB:
             Term t = this.parseTerm();
@@ -337,9 +345,7 @@ public class PrologParser {
             return this.parseNumber();
 
         case VARIABLE:
-            String name = this.token.getText();
-            this.nextToken();
-            return new Variable(name);
+            return this.parseVariable();
 
         case LP:
             this.nextToken();
@@ -353,6 +359,15 @@ public class PrologParser {
                             LanguageManager.getInstance().getString(LanguageKey.TERM), this.token.getType().getString())
                             + this.getTokenPositionString());
         }
+    }
+
+    /**
+     * Parses a variable.
+     */
+    private Variable parseVariable() throws ParseException {
+        String name = this.token.getText();
+        this.nextToken();
+        return new Variable(name);
     }
 
     /**
