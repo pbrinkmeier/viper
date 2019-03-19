@@ -14,6 +14,7 @@ import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
 import edu.kit.ipd.pp.viper.model.interpreter.UnificationActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.UnificationResult;
+import edu.kit.ipd.pp.viper.model.interpreter.VariableActivationRecord;
 import edu.kit.ipd.pp.viper.view.ColorScheme;
 import edu.kit.ipd.pp.viper.view.MainWindow;
 
@@ -229,6 +230,19 @@ public final class GraphvizMaker implements ActivationRecordVisitor<Node> {
         }
 
         return node.link(resultBox);
+    }
+
+    @Override
+    public Node visit(VariableActivationRecord varAr) {
+        Node node = this.createGoalNode(varAr, String.format("%s", varAr.getGoal().getVariable().toHtml()));
+
+        if (!varAr.isVisited()) {
+            return node;
+        }
+
+        Node subBox = varAr.getAr().get().accept(this);
+
+        return node.link(subBox);
     }
 
     private boolean isCurrent(ActivationRecord ar) {

@@ -3,6 +3,7 @@ package edu.kit.ipd.pp.viper.model.ast;
 import edu.kit.ipd.pp.viper.model.interpreter.ActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.FunctorActivationRecord;
 import edu.kit.ipd.pp.viper.model.interpreter.Interpreter;
+import edu.kit.ipd.pp.viper.model.interpreter.VariableActivationRecord;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -43,8 +44,8 @@ public class VariableGoal extends Goal {
     }
 
     @Override
-    public ActivationRecord createActivationRecord(Interpreter interpreter, Optional<FunctorActivationRecord> parent) {
-        return null;
+    public VariableActivationRecord createActivationRecord(Interpreter interpreter, Optional<FunctorActivationRecord> parent) {
+        return new VariableActivationRecord(interpreter, parent, this);
     }
 
     @Override

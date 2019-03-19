@@ -44,4 +44,6 @@ public interface ActivationRecordVisitor<T> {
      * @return result of this visit
      */
     T visit(ComparisonActivationRecord car);
+
+    T visit(VariableActivationRecord varAr);
 }

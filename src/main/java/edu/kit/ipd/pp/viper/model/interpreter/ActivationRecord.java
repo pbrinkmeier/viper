@@ -56,14 +56,14 @@ public abstract class ActivationRecord {
         List<ActivationRecord> children = this.getParent().get().getChildren();
 
         // first child -> backtrack to parent
-        if (children.get(0) == this) {
+        if (children.get(0).represents(this)) {
             return Optional.of(this.getParent().get());
         }
 
         // not first child -> backtrack to previous child
         // find "this" in child list and return the previous childs rightmost subgoal
         int index = 1;
-        while (children.get(index) != this) {
+        while (!children.get(index).represents(this)) {
             index++;
         }
 
@@ -122,7 +122,8 @@ public abstract class ActivationRecord {
 
         List<ActivationRecord> children = this.getParent().get().getChildren();
         for (int index = 0; index < children.size() - 1; index++) {
-            if (children.get(index) == this) {
+            // TODO: generalize here and in getPrevious() to "getChildIndex"
+            if (children.get(index).represents(this)) {
                 return children.get(index + 1);
             }
         }
@@ -167,6 +168,10 @@ public abstract class ActivationRecord {
         this.environment = new Environment(this, Arrays.asList());
 
         this.visited = visited;
+    }
+
+    protected boolean represents(ActivationRecord other) {
+        return other == this;
     }
 
     /**
